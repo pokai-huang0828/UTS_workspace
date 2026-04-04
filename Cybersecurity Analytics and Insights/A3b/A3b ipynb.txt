@@ -1,0 +1,138 @@
+import pandas as pd
+
+# ==========================================
+# 讀取資料與欄位清理
+df = pd.read_excel('Assessment 3b dataset.xlsx')
+
+# 刪除類別過多且不適合泛化的次要特徵，避免維度詛咒
+cols_to_drop = ['education.num', 'occupation', 'relationship', 'native.country']
+df = df.drop(columns=[c for c in cols_to_drop if c in df.columns])
+
+# ==========================================
+# 泛化應用 (Generalization)
+# 這裡我將年齡、婚姻狀況、學歷、工時和工作階級進行泛化，保留性別和種族為原始狀態。
+
+# 年齡 (三大生命階段) - 青年 (<=30)、中壯年 (31-50)、中高齡 (>50) 
+def categorize_age_aggressive(a):
+    if pd.isna(a): return 'Unknown'
+    if a <= 30: return '<=30 (Youth)'
+    elif a <= 50: return '31-50 (Middle-aged)'
+    else: return '>50 (Senior)'
+df['Age_Group'] = df['age'].apply(categorize_age_aggressive)
+
+# 婚姻狀況 (三大類) - 單身 (Single)、已婚 (Married)、曾婚 (Previously-Married)
+def categorize_marital(m):
+    m = str(m).strip()
+    if m == 'Never-married': return 'Single'
+    elif m in ['Divorced', 'Separated', 'Widowed']: return 'Previously-Married'
+    else: return 'Married'
+df['Marital_Group'] = df['marital.status'].apply(categorize_marital)
+
+# 學歷 (兩大類) - 高等教育 (Higher-Ed) vs 基礎教育 (Basic-Ed)
+higher_ed = ['Bachelors', 'Masters', 'Doctorate', 'Prof-school']
+df['Edu_Group'] = df['education'].apply(lambda x: 'Higher-Ed' if str(x).strip() in higher_ed else 'Basic-Ed')
+
+# 工時 (兩大類) - 標準/兼職 (<=40) vs 超時 (>40)
+df['Hours_Group'] = df['hours.per.week'].apply(lambda x: '<=40' if x <= 40 else '>40')
+
+# 工作階級 (兩大類) - 私營企業 (Private) vs 其他非私營 (Non-Private)
+df['Workclass_Group'] = df['workclass'].apply(lambda x: 'Private' if str(x).strip() == 'Private' else 'Non-Private')
+
+# 清除已泛化的原始欄位
+df = df.drop(columns=['age', 'marital.status', 'education', 'hours.per.week', 'workclass'])
+
+# 宣告 7 個核心準識別碼 (QIs)
+qis = ['Age_Group', 'Marital_Group', 'Edu_Group', 'Hours_Group', 'Workclass_Group', 'sex', 'race']
+
+# ==========================================
+# 混合抑制 (Hybrid Suppression: 儲存格打星號 + 列級孤鳥刪除)
+MAX_STARS = 2 
+iteration = 1 
+original_len = len(df)
+
+# 定義打星號的優先順序：越敏感、越容易識別的特徵優先遮蔽
+mask_order = ['race', 'Workclass_Group', 'Hours_Group', 'Edu_Group', 'Age_Group', 'Marital_Group', 'sex']
+
+print("開始執行混合抑制 (打星號 + 孤鳥刪除)....")
+
+while True:
+    # 先統計每個 QI 組合的出現次數，利用 groupby 來找出 Count=1 的孤鳥 
+    # observed=False 是為了確保 groupby 不會自動將某些類別合併成 NaN，保持原始類別的完整性
+    # .size() 會計算每個組合的出現次數，reset_index(name='count') 會把結果轉換成 DataFrame 並命名計數欄位為 'count'
+    group_counts = df.groupby(qis, observed=False).size().reset_index(name='count')
+    singles = group_counts[group_counts['count'] == 1] # 找出 Count=1 的孤鳥
+    
+    if singles.empty:
+        print(f"第 {iteration} 輪：找不到 Count=1 的孤鳥，達成 2-匿名性！")
+        break
+        
+    indices_to_drop = [] # 用來收集需要刪除的超級孤鳥 index
+    
+    for _, single_row in singles.iterrows():
+        # 定位這筆孤鳥在原始資料表中的 index
+        # 這裡我們用 Series 的方式來建立一個布林條件，初始值為 True，然後對每個 QI 欄位進行比對，只有完全匹配的行才會保持 True
+        condition = pd.Series(True, index=df.index)
+        for col in qis:
+            condition &= (df[col] == single_row[col])
+        
+        # 找到符合條件的行索引，理論上應該只有一筆資料符合，因為我們是從 Count=1 的孤鳥中來的
+        target_indices = df[condition].index 
+        
+        for idx in target_indices:
+            # 檢查目前這筆資料已經有幾個星號
+            current_stars = sum(df.loc[idx, qis] == '*')
+            
+            if current_stars >= MAX_STARS:
+                # 達到容忍上限，標記為需要刪除的超級孤鳥
+                indices_to_drop.append(idx)
+            else:
+                # 依序檢查 mask_order，把第一個不是 '*' 的特徵遮蔽掉
+                for col in mask_order:
+                    if df.at[idx, col] != '*':
+                        df.at[idx, col] = '*'
+                        break # 打了一顆星就跳出，等待下一輪驗證
+                    
+    # 計算這輪的動作統計
+    total_singles = len(singles)
+    dropped_count = len(indices_to_drop)
+    masked_count = total_singles - dropped_count
+                    
+    # 一次性刪除所有超級孤鳥
+    if indices_to_drop:
+        df = df.drop(index=indices_to_drop)
+        
+    #  Log 顯示文字 (Dynamic Logging)
+    if masked_count > 0 and dropped_count == 0:
+        action_msg = f"執行遮蔽(打星號) {masked_count} 筆"
+    elif masked_count == 0 and dropped_count > 0:
+        action_msg = f"刪除(超級孤鳥) {dropped_count} 筆"
+    else:
+        # 如果剛好同時發生遮蔽與刪除
+        action_msg = f"執行遮蔽(打星號) {masked_count} 筆，刪除(超級孤鳥) {dropped_count} 筆"
+        
+    print(f"第 {iteration} 輪：發現 {total_singles} 筆孤鳥。{action_msg}。剩餘 {len(df)} 筆。")
+            
+    iteration += 1
+
+# ==========================================
+# 驗證結果與輸出報告
+print("-" * 40)
+print("===== 最終處理報告 =====")
+print(f"原始資料筆數: {original_len} 筆")
+print(f"匿名化後保留筆數: {len(df)} (保留率 {(len(df)/original_len)*100:.1f}%)")
+print(f"最終包含的特徵欄位: {list(df.columns)}")
+
+output_filename = 'Assessment_3b_dataset_黃柏凱_26254793.xlsx'
+df.to_excel(output_filename, index=False)
+print(f"成功匯出匿名化檔案: {output_filename}")
+開始執行混合抑制 (打星號 + 孤鳥刪除)....
+第 1 輪：發現 39 筆孤鳥。執行遮蔽(打星號) 39 筆。剩餘 100 筆。
+第 2 輪：發現 35 筆孤鳥。執行遮蔽(打星號) 35 筆。剩餘 100 筆。
+第 3 輪：發現 23 筆孤鳥。刪除(超級孤鳥) 23 筆。剩餘 77 筆。
+第 4 輪：找不到 Count=1 的孤鳥，達成 2-匿名性！
+----------------------------------------
+===== 最終處理報告 =====
+原始資料筆數: 100 筆
+匿名化後保留筆數: 77 (保留率 77.0%)
+最終包含的特徵欄位: ['race', 'sex', 'income', 'Age_Group', 'Marital_Group', 'Edu_Group', 'Hours_Group', 'Workclass_Group']
+成功匯出匿名化檔案: Assessment_3b_dataset_黃柏凱_26254793.xlsx
