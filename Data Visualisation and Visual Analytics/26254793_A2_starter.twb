@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- 26254793_A2_starter.twb v1.1 -->
+<!-- PoKai Huang | 321146 Data Visualisation and Visual Analytics - S2 2026 -->
+<!-- Tableau Desktop 2026.1.0 -->
+
+<workbook original-version='18.1' source-build='2026.1.0 (20261.26.0226.1626)' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.AnimationOnByDefault.true...AnimationOnByDefault />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <SheetIdentifierTracking />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+
+  <datasources>
+    <!-- DS1: Statistical-Combined -->
+    <datasource caption='Statistical-Combined' inline='true' name='federated.statistical' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='PoKaiHuang-26254793-A2-data' name='excel-direct.statistical'>
+            <connection class='excel-direct' cleaning='no' compat='no' dataRefreshTime='' filename='D:\KennyCode\UTS_workspace\Data Visualisation and Visual Analytics\PoKaiHuang-26254793-A2-data.xlsx' interpretationMode='0' password='' server='' validate='no' />
+          </named-connection>
+        </named-connections>
+        <relation connection='excel-direct.statistical' name='Statistical-Combined' table='[Statistical-Combined$]' type='table' />
+      </connection>
+      <aliases enabled='yes' />
+    </datasource>
+
+    <!-- DS2: Analytical-Combined -->
+    <datasource caption='Analytical-Combined' inline='true' name='federated.analytical' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='PoKaiHuang-26254793-A2-data' name='excel-direct.analytical'>
+            <connection class='excel-direct' cleaning='no' compat='no' dataRefreshTime='' filename='D:\KennyCode\UTS_workspace\Data Visualisation and Visual Analytics\PoKaiHuang-26254793-A2-data.xlsx' interpretationMode='0' password='' server='' validate='no' />
+          </named-connection>
+        </named-connections>
+        <relation connection='excel-direct.analytical' name='Analytical-Combined' table='[Analytical-Combined$]' type='table' />
+      </connection>
+      <aliases enabled='yes' />
+    </datasource>
+
+    <!-- DS3: Dollar-Combined -->
+    <datasource caption='Dollar-Combined' inline='true' name='federated.dollar' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='PoKaiHuang-26254793-A2-data' name='excel-direct.dollar'>
+            <connection class='excel-direct' cleaning='no' compat='no' dataRefreshTime='' filename='D:\KennyCode\UTS_workspace\Data Visualisation and Visual Analytics\PoKaiHuang-26254793-A2-data.xlsx' interpretationMode='0' password='' server='' validate='no' />
+          </named-connection>
+        </named-connections>
+        <relation connection='excel-direct.dollar' name='Dollar-Combined' table='[Dollar-Combined$]' type='table' />
+      </connection>
+      <aliases enabled='yes' />
+    </datasource>
+  </datasources>
+</workbook>
