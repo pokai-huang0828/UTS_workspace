@@ -114,10 +114,28 @@
     <div class="stat"><div class="k">FY25 淨利</div><div class="v">$198.6m <small>+9.4% · 會員+3.2%</small></div></div>
     <div class="stat"><div class="k">我跑出來的差</div><div class="v">−4.1% <small>但前提不成立、不能信</small></div></div>
     <div class="stat"><div class="k">政策前已在掉</div><div class="v">−1.5% vs −0.7% <small>年輕 vs 對照(每季)</small></div></div>
+    <div class="stat"><div class="k">&lt;40 歲占比</div><div class="v">48% → 45% <small>降約 3pp(2007→2026)</small></div></div>
+    <div class="stat"><div class="k">季節性回歸</div><div class="v">R²≈0.09 <small>p 全 &gt;0.05 = 無季節性</small></div></div>
   </div>
 
   <h2 id="qa"><span class="em">🗣</span> 怎麼用「人話」回答</h2>
   <p class="lead">直接照念也行。<b>黃底</b>是比喻、最好記。下面灰框是對應的學術詞——老師講那個詞時你就知道在問這個。</p>
+
+  <div class="grouplabel">🎬 開場與節奏(先看這個)</div>
+
+  <div class="qa core">
+    <div class="q"><span class="tag">開場</span> 前 30 秒怎麼起頭?<span class="arrow">▸</span></div>
+    <div class="hint">▸ 點我看怎麼答</div>
+    <div class="a"><div class="inner"><div class="say">「老師好,這份報告我把自己當成 NIB 的資料分析師。執行長擔心醫療成本上升、政府又可能砍掉私保誘因,逼她得漲保費——所以她想知道一件事:<b>漲 10% 需求會掉多少?</b>我分三步回答:先看 NIB 在市場站哪、再看文獻怎麼說漲價對需求的影響、最後提一套自己的方法去估這個因果。」<br>講完停一下,讓老師決定從哪一塊問起。</div>
+    <div class="note">📎 一口氣把「角色 → 問題 → 三部分」講完 = 讓老師知道你抓得住整條主線。別急著報數字,數字等他問。</div></div></div>
+  </div>
+
+  <div class="qa">
+    <div class="q"><span class="tag">節奏</span> 10 分鐘怎麼講才不像背稿?<span class="arrow">▸</span></div>
+    <div class="hint">▸ 點我看怎麼答</div>
+    <div class="a"><div class="inner"><div class="say">每題<b>先給一句直接答案,再補一兩句為什麼,然後停</b>——不要一次倒完。被問到數字才報(數字速查在最上面)。<span class="hl">老師最愛聽你主動講「這裡有個限制…」</span>,誠實講不確定、講限制是加分不是扣分。被追問到沒把握的(例如第三篇文獻細節),就說「這部分我看的是摘要,正式我會回原文核」。語速放慢,寧可少講、講清楚。</div>
+    <div class="note">📎 大致配速:開場 1 分 → Part 1 約 2 分 → Part 2 約 2 分 → <b>Part 3(重頭)約 4 分</b> → 收尾 1 分。老師會打斷,跟著他走就好。</div></div></div>
+  </div>
 
   <div class="grouplabel">🔴 核心必背(老師圍著 Part 3 問)</div>
 
@@ -161,6 +179,29 @@
     <div class="hint">▸ 點我看怎麼答</div>
     <div class="a"><div class="inner"><div class="say">「有兩個。一個是看收入門檻——超過 9 萬要多繳稅,門檻上下的人很像、可以比;但我的資料沒有個人收入,做不了。另一個是拿各家公司不同的漲幅當切入點,但很難保證它跟需求無關。所以我選了最做得出來的那個——年齡折扣。」</div>
     <div class="note">📎 那兩個分別叫 <b>斷點回歸(RD)</b> 和 <b>工具變數(IV)</b>。</div></div></div>
+  </div>
+
+  <div class="grouplabel">🟣 資料 · 工具 · 統計(老師明說這三個會問)</div>
+
+  <div class="qa core">
+    <div class="q"><span class="tag">資料</span> 你的資料哪來?怎麼做出來的?<span class="arrow">▸</span></div>
+    <div class="hint">▸ 點我看怎麼答</div>
+    <div class="a"><div class="inner"><div class="say">「都是 <b>APRA</b>(澳洲審慎監管局)公開的官方統計。覆蓋率、年齡結構來自它的<b>季度會員趨勢</b>資料庫——我照前面的目錄索引找到『各年齡層投保人數』那張表,把 2007 到 2026 每一季的數字抓出來,自己加總成總人數、40 歲以下人數,覆蓋率再除以人口表。市佔和利潤率是另一份 <b>年度績效統計</b>,各公司的保費、理賠、費用我自己加總算的;股價用 Yahoo Finance。」</div>
+    <div class="note">📎 全部彙總過程在 <b>A3_計算工作檔.xlsx</b>。老師要追細節,打開那個檔指給他看。</div></div></div>
+  </div>
+
+  <div class="qa core">
+    <div class="q"><span class="tag">工具</span> 你是用 Excel 還是別的軟體?<span class="arrow">▸</span></div>
+    <div class="hint">▸ 點我看怎麼答</div>
+    <div class="a"><div class="inner"><div class="say">「<b>Excel</b>。資料拉進去後,覆蓋率、占比、市佔、利潤率、成長率<b>全是用公式算的</b>——除法、SUM、平均;回歸用 Excel 內建的 <b>LINEST</b> 和資料分析功能。<span class="hl">我有一個計算工作檔,每一格點下去都看得到算式,不是貼上去的死數字。</span>」</div>
+    <div class="note">📎 就是 A3_計算工作檔.xlsx 的 8 個分頁。被要求示範就打開它。</div></div></div>
+  </div>
+
+  <div class="qa core">
+    <div class="q"><span class="tag">統計</span> 單回歸還是多元?R² 和 p 值怎麼解讀?<span class="arrow">▸</span></div>
+    <div class="hint">▸ 點我看怎麼答</div>
+    <div class="a"><div class="inner"><div class="say">「我用的是<b>多元回歸</b>(不只一個自變數)。舉個現成例子:我把會員的季成長率,對三個季別(Q2、Q3、Q4)做回歸,看有沒有季節性。<b>R² 只有 0.09</b>——代表這個模型幾乎解釋不了成長率的變動;三個季別的 <b>p 值都大於 0.05</b>(0.69、0.25、0.24),整體 F 檢定也不顯著,所以在 5% 水準下<b>沒有證據說有季節性</b>。<span class="hl">白話:會員增減不是照季節走的,是被政策、疫情這種一次性事件推的。</span>我的 DiD 也是一條含交互項的回歸,那個交互項的係數就是政策效果。」</div>
+    <div class="note">📎 R² = 模型解釋了多少變異(越接近 1 越強,0.09 = 很弱);p &lt; 0.05 才算顯著。單回歸 = 1 個自變數,多元 = 多個。</div></div></div>
   </div>
 
   <div class="grouplabel">🔵 概念 / 綜合判斷</div>
@@ -249,6 +290,10 @@
     <div class="term"><b>道德風險</b>有保險之後看病看更多(買之後的行為)。</div>
     <div class="term"><b>內部/外部效度</b>在我這群算得對 / 能不能套到別人。</div>
     <div class="term"><b>MLS</b>高收入沒買私保要多繳的稅。</div>
+    <div class="term"><b>R²(判定係數)</b>模型解釋了多少變異;0 = 沒解釋,1 = 完美。季節性回歸 R²≈0.09 = 很弱。</div>
+    <div class="term"><b>p 值</b>係數「其實是 0」的機率;p &lt; 0.05 才算顯著(拒絕「沒影響」)。</div>
+    <div class="term"><b>多元回歸</b>用兩個以上自變數解釋一個結果;DiD 的交互項就在多元回歸裡。</div>
+    <div class="term"><b>LINEST</b>Excel 內建回歸函數,一次給出係數、標準誤、R²、F。</div>
   </div>
 
   <h2 id="struct"><span class="em">🗂</span> 報告四部分(被問哪段時定位)</h2>
