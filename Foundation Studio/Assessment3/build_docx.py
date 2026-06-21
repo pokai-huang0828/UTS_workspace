@@ -8,7 +8,7 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from pathlib import Path
 
-BASE = Path(r"D:\KennyWorkLife\UTS_workspace\Foundation Studio\Assessment3")
+BASE = Path(__file__).resolve().parent
 FIG = BASE / "figures"
 FONT = "Microsoft JhengHei"
 
@@ -157,6 +157,8 @@ ref("nib Holdings. (2021). Annual report 2021. nib Holdings Limited.",
     "https://www.nib.com.au/shareholders/annual-reports")
 ref("nib Holdings. (2025). FY25 full year results [ASX announcement]. nib Holdings Limited.",
     "https://www.nib.com.au/media/company/fy25-asx-announcement")
+ref("Yahoo Finance. (2026). nib Holdings Limited (NHF.AX) and S&P/ASX 200 (^AXJO) historical prices [Data set].",
+    "https://finance.yahoo.com")
 
 out = BASE / "26254793_A3.docx"
 try:
