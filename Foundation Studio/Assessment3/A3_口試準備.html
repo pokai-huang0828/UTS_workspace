@@ -97,7 +97,7 @@
   <button class="btn" id="mode" onclick="toggleMode()">🎯 切換測驗模式</button>
   <button class="btn" onclick="window.print()">🖨 列印 / 存 PDF</button>
   <span class="grow"></span>
-  <span class="navlinks"><a href="#stats">數字</a><a href="#qa">Q&amp;A</a><a href="#gloss">術語對照</a><a href="#struct">結構</a></span>
+  <span class="navlinks"><a href="#stats">數字</a><a href="#data">資料來源</a><a href="#qa">Q&amp;A</a><a href="#gloss">術語對照</a><a href="#struct">結構</a></span>
 </div>
 
 <div class="wrap">
@@ -116,6 +116,49 @@
     <div class="stat"><div class="k">政策前已在掉</div><div class="v">−1.5% vs −0.7% <small>年輕 vs 對照(每季)</small></div></div>
     <div class="stat"><div class="k">&lt;40 歲占比</div><div class="v">48% → 45% <small>降約 3pp(2007→2026)</small></div></div>
     <div class="stat"><div class="k">季節性回歸</div><div class="v">R²≈0.09 <small>p 全 &gt;0.05 = 無季節性</small></div></div>
+  </div>
+
+  <h2 id="data"><span class="em">📂</span> 資料來源地圖(老師一定問這段)</h2>
+  <p class="lead">被問「資料哪來、從哪一份開始」時照這講。<b>比對起點 = ① 的年齡分頁</b>。全部彙總過程在 A3_計算工作檔.xlsx。</p>
+
+  <div style="display:grid;gap:10px">
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 15px">
+      <div style="font-weight:700;color:var(--navy)">① APRA 季度會員趨勢表（Membership Trends, 2026 年 3 月）<span style="font-size:11px;color:#fff;background:var(--red);border-radius:6px;padding:2px 7px;margin-left:6px">比對起點</span></div>
+      <div style="font-size:13px;color:var(--muted);margin-top:7px;line-height:1.85">
+        檔案:<code>data/APRA_Membership_Trends_Mar2026.xlsx</code>（＝你本機那份「Quarterly…March 2026 (2).xlsx」,同一份)<br>
+        分頁 <b>MembershipByAgeData</b>(各年齡層投保人數)→ 覆蓋率分子、&lt;40 占比、<b>DiD 25–29 vs 30–34</b>、季節性回歸<br>
+        分頁 <b>MembershipData</b>(各州人口)→ 覆蓋率的分母<br>
+        範圍:2007 Q2 – 2026 Q1(<b>季度</b>)
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 15px">
+      <div style="font-weight:700;color:var(--navy)">② APRA 年度績效統計（Performance Statistics, FY2024-25）</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:7px;line-height:1.85">
+        檔案:<code>data/APRA_Performance_2024-25.xlsx</code>,分頁 <b>Database</b>(各公司保費/理賠/費用/淨利)<br>
+        → 圖四市佔(以保費收入計)、圖五淨利率、管理費用率<br>
+        <span style="color:var(--navy2)">口徑備註:</span>此庫用 AASB17 毛額、絕對金額約真實 2 倍,但<b>市佔與利潤率是比率、分子分母同放大相消、不受影響</b>;絕對財務數字一律改用 nib 年報。
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 15px">
+      <div style="font-weight:700;color:var(--navy)">③ Yahoo Finance（月收盤價)</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:7px;line-height:1.85">
+        檔案:<code>data/yahoo_NHF.json</code>（nib, NHF.AX)、<code>data/yahoo_AXJO.json</code>（ASX 200, ^AXJO)→ 圖三股價指數(2011=100)<br>
+        ⚠️ <code>NHF_daily.csv</code>／<code>ASX200_daily.csv</code> 是抓取時被擋的驗證頁、<b>不是真資料</b>——口試別把 csv 當來源,真正用的是那兩個 JSON。
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 15px">
+      <div style="font-weight:700;color:var(--navy)">④ nib Holdings 年報（FY21 五年摘要、FY23/FY25 公告)</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:7px;line-height:1.85">
+        → 圖六 UOP（承保營運利潤)FY21–25、NPAT。這些是<b>直接引年報數字</b>,不是從試算表算出來的。
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;background:var(--chip);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:12px 15px;font-size:14px;line-height:1.8">
+    🗣 <b>口試一句話</b>:「主要四個來源。核心是 APRA 的<b>季度會員趨勢表</b>(2026 年 3 月版)——覆蓋率、年齡結構、還有我 DiD 比的 25–29 跟 30–34,都是從這份的『各年齡層投保人數』分頁開始抓的。市佔和利潤率是 APRA 另一份<b>年度績效統計</b>(2024-25);股價是 Yahoo Finance;NIB 的獲利數字是它的年報。全部彙總過程在我的 Excel 計算工作檔。」
   </div>
 
   <h2 id="qa"><span class="em">🗣</span> 怎麼用「人話」回答</h2>
