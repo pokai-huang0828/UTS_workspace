@@ -125,9 +125,9 @@
     <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 15px">
       <div style="font-weight:700;color:var(--navy)">① APRA 季度會員趨勢表（Membership Trends, 2026 年 3 月）<span style="font-size:11px;color:#fff;background:var(--red);border-radius:6px;padding:2px 7px;margin-left:6px">比對起點</span></div>
       <div style="font-size:13px;color:var(--muted);margin-top:7px;line-height:1.85">
-        檔案:<code>data/APRA_Membership_Trends_Mar2026.xlsx</code>（＝你本機那份「Quarterly…March 2026 (2).xlsx」,同一份)<br>
-        分頁 <b>MembershipByAgeData</b>(各年齡層投保人數)→ 覆蓋率分子、&lt;40 占比、<b>DiD 25–29 vs 30–34</b>、季節性回歸<br>
-        分頁 <b>MembershipData</b>(各州人口)→ 覆蓋率的分母<br>
+        APRA 下載檔(全名):<b>「Quarterly Private Health Insurance Membership Trends March 2026」</b> —— <b>季度頁 7 個下載裡的這 1 個</b>(＝你本機「…March 2026 (2).xlsx」)<br>
+        老師認得的分頁:<b>HT by Age</b>(各年齡層投保人數)→ &lt;40 占比、<b>DiD 25–29 vs 30–34</b>、季節性;<b>HT % coverage</b> + 人口 → 覆蓋率<br>
+        Excel 計算檔實際讀的是同資料的 flat 版:<code>MembershipByAgeData</code>、<code>MembershipData</code>(同一批數字、排版方便公式)<br>
         範圍:2007 Q2 – 2026 Q1(<b>季度</b>)
       </div>
     </div>
@@ -135,7 +135,7 @@
     <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 15px">
       <div style="font-weight:700;color:var(--navy)">② APRA 年度績效統計（Performance Statistics, FY2024-25）</div>
       <div style="font-size:13px;color:var(--muted);margin-top:7px;line-height:1.85">
-        檔案:<code>data/APRA_Performance_2024-25.xlsx</code>,分頁 <b>Database</b>(各公司保費/理賠/費用/淨利)<br>
+        APRA 下載檔(全名):<b>「Annual Private Health Insurance Performance Statistics 2024-25」</b>,分頁 <b>Database</b>(各公司保費/理賠/費用/淨利)<br>
         → 圖四市佔(以保費收入計)、圖五淨利率、管理費用率<br>
         <span style="color:var(--navy2)">口徑備註:</span>此庫用 AASB17 毛額、絕對金額約真實 2 倍,但<b>市佔與利潤率是比率、分子分母同放大相消、不受影響</b>;絕對財務數字一律改用 nib 年報。
       </div>
