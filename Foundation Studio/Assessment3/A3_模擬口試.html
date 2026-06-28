@@ -41,6 +41,11 @@
   .ph{display:none;color:var(--navy2);font-size:13px;margin-top:7px;padding-left:46px}
   body.test .ans{display:none}
   body.test .ph{display:block}
+  .links{display:flex;flex-direction:column;gap:8px}
+  .links .lgroup{font-size:13px;color:var(--muted);font-weight:700;margin-top:10px}
+  .links a{display:block;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 13px;font-size:14px;color:var(--navy2);text-decoration:none}
+  .links a:hover{border-color:var(--navy2);background:var(--chip)}
+  .links a .u{display:block;font-size:11.5px;color:var(--muted);margin-top:2px;word-break:break-all}
   footer{margin-top:38px;color:var(--muted);font-size:12.5px;text-align:center}
   @media print{.bar{display:none}body.test .ans{display:flex}.ph{display:none}.part,.turn,.bones{break-inside:avoid}}
 </style>
@@ -228,6 +233,20 @@
     <div class="ask"><span class="who">老師</span><div class="txt">好,大概問到這。</div></div>
     <div class="ans"><span class="who">我</span><div class="txt">謝謝老師。</div></div>
     <div class="ph">▸ 簡單道謝收尾。</div>
+  </div>
+
+  <h2>🔗 連結速查(老師要看就點)</h2>
+  <p class="lead">用瀏覽器打開本頁,點下面連結會另開分頁。三篇 DOI 我都確認過連得到(全文可能要 UTS 圖書館登入)。</p>
+  <div class="links">
+    <div class="lgroup">📄 文獻(三篇)</div>
+    <a href="https://doi.org/10.1016/j.jhealeco.2020.102403" target="_blank" rel="noopener">Buchmueller et al. (2021)｜MLS 天然實驗 · Journal of Health Economics<span class="u">doi.org/10.1016/j.jhealeco.2020.102403</span></a>
+    <a href="https://doi.org/10.1016/j.jhealeco.2013.11.007" target="_blank" rel="noopener">Cheng (2014)｜結構模型 · Journal of Health Economics<span class="u">doi.org/10.1016/j.jhealeco.2013.11.007</span></a>
+    <a href="https://doi.org/10.1111/1475-4932.12394" target="_blank" rel="noopener">Doiron &amp; Kettlewell (2018)｜工具變數 · Economic Record<span class="u">doi.org/10.1111/1475-4932.12394</span></a>
+    <div class="lgroup">📊 資料來源</div>
+    <a href="https://www.apra.gov.au/quarterly-private-health-insurance-statistics" target="_blank" rel="noopener">APRA 季度統計（Membership Trends）｜覆蓋率、年齡、DiD<span class="u">apra.gov.au/quarterly-private-health-insurance-statistics</span></a>
+    <a href="https://www.apra.gov.au/operations-of-private-health-insurers-annual-report" target="_blank" rel="noopener">APRA 年度績效統計（2024-25）｜市佔、淨利率<span class="u">apra.gov.au/operations-of-private-health-insurers-annual-report</span></a>
+    <a href="https://finance.yahoo.com/quote/NHF.AX" target="_blank" rel="noopener">Yahoo Finance — NHF.AX（nib 股價）｜圖三<span class="u">finance.yahoo.com/quote/NHF.AX</span></a>
+    <a href="https://www.nib.com.au/shareholders/annual-reports" target="_blank" rel="noopener">nib Holdings 年報（UOP / NPAT）｜圖五<span class="u">nib.com.au/shareholders/annual-reports</span></a>
   </div>
 
   <footer>口試演講版 · 記骨架不背字 · 點上方「測驗模式」蓋住答案練問答 · 〔停〕=刻意停頓</footer>
