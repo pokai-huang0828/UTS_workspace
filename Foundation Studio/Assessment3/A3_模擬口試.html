@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>評估三 模擬口試 · 我的語氣版</title>
+<style>
+  :root{--navy:#1f3a5f;--navy2:#2c5282;--red:#c0392b;--bg:#eef1f6;--card:#fff;--ink:#1a2230;--muted:#5a6678;--line:#e3e8ef;--chip:#eef3f9;--ansbg:#f4f8fc}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.85;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:0 18px 80px}
+  header{background:linear-gradient(135deg,#1f3a5f,#2c5282);color:#fff;padding:28px 18px 24px}
+  header .inner{max-width:820px;margin:0 auto}
+  header h1{margin:0 0 4px;font-size:23px}
+  header .sub{opacity:.85;font-size:14px}
+  header .thread{margin-top:14px;background:rgba(255,255,255,.12);border-left:4px solid #fff;border-radius:8px;padding:12px 15px;font-size:14px}
+  header .thread b{color:#ffd9d2}
+  .bar{position:sticky;top:0;z-index:20;background:rgba(238,241,246,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 15px;font-size:14px;cursor:pointer;color:var(--ink);transition:.15s}
+  .btn:hover{border-color:var(--navy2);color:var(--navy2)}
+  .btn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .tip{font-size:13px;color:var(--muted)}
+  h2{font-size:18px;margin:32px 0 4px;padding-bottom:8px;border-bottom:2px solid var(--line);display:flex;align-items:center;gap:8px}
+  .lead{color:var(--muted);font-size:13.5px;margin:0 0 16px}
+  .me0{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:0 12px 12px 0;padding:13px 16px;margin-bottom:12px;font-size:15px}
+  .me0 .seg{font-size:12.5px;color:var(--navy2);font-weight:700;margin:10px 0 2px}
+  .me0 .seg:first-child{margin-top:0}
+  .turn{margin:0 0 15px}
+  .ask{display:flex;gap:9px;align-items:flex-start;font-weight:600;font-size:15.5px;color:var(--navy)}
+  .who{flex:0 0 auto;color:#fff;font-size:11.5px;border-radius:6px;padding:2px 8px;margin-top:3px;white-space:nowrap}
+  .ask .who{background:var(--navy)}
+  .ans{display:flex;gap:9px;align-items:flex-start;margin-top:8px;background:var(--ansbg);border:1px solid var(--line);border-radius:10px;padding:11px 14px;font-size:15px}
+  .ans .who{background:var(--red)}
+  .ans .hl{background:#fff3b0;padding:0 3px;border-radius:3px}
+  .ph{display:none;color:var(--navy2);font-size:13px;margin-top:7px;padding-left:46px}
+  body.test .ans{display:none}
+  body.test .ph{display:block}
+  footer{margin-top:38px;color:var(--muted);font-size:12.5px;text-align:center}
+  @media print{.bar{display:none}body.test .ans{display:flex}.ph{display:none}.me0{break-inside:avoid}.turn{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header>
+  <div class="inner">
+    <h1>評估三 · 模擬口試(我的語氣版)</h1>
+    <div class="sub">NIB 案例 · 老師問、我答 · 全部照我平常講話的口氣</div>
+    <div class="thread">🧵 練法:先開「<b>測驗模式</b>」蓋住答案,看到問題自己<b>講一次</b>,再關掉對。答得不用一字不差,<b>意思到、講得自然</b>就好。卡住、停頓都正常。</div>
+  </div>
+</header>
+
+<div class="bar">
+  <button class="btn" id="mode" onclick="toggleMode()">🎯 切換測驗模式</button>
+  <button class="btn" onclick="window.print()">🖨 列印 / 存 PDF</button>
+  <span class="tip">紅底=我講的;深藍=老師問的</span>
+</div>
+
+<div class="wrap">
+
+  <h2>🎬 開場:我先把報告講一遍</h2>
+  <p class="lead">老師通常先讓你講,這段一口氣講完(約 1 分鐘),講到圖就指 doc 裡那張。</p>
+  <div class="me0">
+    <div class="seg">開場</div>
+    老師好,我是黃柏凱,學號 26254793。我這份報告是把自己當成 NIB 的一個資料分析師。簡單講,他們執行長擔心醫療成本一直漲、政府以後可能砍掉鼓勵投保的稅務優惠,所以可能得漲保費。她想知道一件事——<b>如果保費漲 10%,需求會掉多少</b>。我整份就是在回答這個,分三塊:先看 NIB 在市場的位置跟表現,再看別人研究漲價對需求的影響,最後我自己想一套方法去估這個因果。
+    <div class="seg">公司(圖一～圖五)</div>
+    NIB 是一家營利的私人保險公司,2007 年在澳洲上市。先講背景:澳洲是公私混合,Medicare 顧基本的,私保主要是買更短候診、選醫生、單人房,現在大概 45.8% 的人有住院險,不過這是疫情掉到谷底再爬回來的（圖一)。NIB 規模是中段班,市佔 9%、第四（圖二)。但它股價從 2011 年到現在漲了五倍多,大盤只翻一倍（圖三)——因為它很會賺:淨利率 7.7%、大廠最高,主要靠成本控制（圖四)。不過這兩年理賠長得比保費快,獲利從 FY23 見頂後有回落（圖五),這就是執行長想漲價補回來的壓力。
+    <div class="seg">文獻</div>
+    第二部分我看了三篇。Buchmueller 用一個稅的政策當天然實驗,發現被課稅的人會多投保、年輕人反應特別大;Cheng 是用模型算的;Doiron 和 Kettlewell 用工具變數,發現有保險的人比較會跑醫院。綜合起來就是:需求短期沒那麼敏感,但年輕人比較敏感。
+    <div class="seg">方案 + 結論</div>
+    第三部分是我自己的方法,用 DiD,搭 2019 年只給年輕人的折扣,比 25-29 跟 30-34。我實際跑出來是 −4.1%,但我發現前提不成立、所以不能當因果——這之後老師可以細問。結論就是:漲價短期收入大概守得住,但年輕人加速流失、風險池惡化,才是真正要擔心的。我大概先講到這。
+  </div>
+
+  <h2>🔴 核心問答(老師會圍著 Part 3 問)</h2>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 漲保費 10%,NIB 收入會變多還是變少?</div>
+    <div class="ans"><span class="who">我</span> 我自己是覺得短期反而會變多。因為大部分人不會為了漲一點就退保,有罰稅、有政府補貼綁著。但問題是<b>先跑掉的都是年輕、健康、平常用不太到保險的人</b>,留下來的反而比較會生病。所以短期收入看起來沒事,真正麻煩的是長期——客人越來越老、賠越多,只好再漲,變惡性循環。</div>
+    <div class="ph">▸ 講重點:短期反而升(需求不敏感)→ 但年輕健康先走 → 長期風險池惡化。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 那為什麼不能直接拿保費跟投保人數去比就好?</div>
+    <div class="ans"><span class="who">我</span> 因為這樣會被騙。保費跟投保其實是<b>互相影響</b>的——保險公司也是看大家賠多少、買不買才決定要不要漲;而且收入、年齡、政策這些會同時推兩邊。我打個比方,<span class="hl">就像「請越多醫生的醫院死越多人」,不是醫生害的,是重症的人才會去大醫院</span>。所以我得找一個純粹因為政策、跟客人想不想買無關的價格變動,才算得準。</div>
+    <div class="ph">▸ 關鍵字:內生性(反向因果＋遺漏變數＋選擇偏誤)。比喻記起來最好用。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 那你怎麼算?方法是什麼?</div>
+    <div class="ans"><span class="who">我</span> 我用的是 DiD,差異中之差異。剛好 2019 年政府<b>只給 18 到 29 歲的人保費打折</b>,等於只對年輕人降價。我就比兩群人:一群是有被降價的 25 到 29 歲,另一群是沒被降價、但條件差不多、年紀稍大的 30 到 34 歲。看他們在降價前後投保人數的變化差多少,那個差就是降價的效果。寫成迴歸就是加一個「年輕乘以折扣後」的交互項,那個係數就是因果效果。</div>
+    <div class="ph">▸ 處理組 25-29、對照組 30-34、β₃ 交互項 = 效果、前提是平行趨勢。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 那結果呢?可以信嗎?</div>
+    <div class="ans"><span class="who">我</span> 老實說,這個結果我自己判斷<b>不能當因果</b>。這方法有個前提叫平行趨勢,就是這兩群人如果都沒被降價,本來應該走得差不多。但我一查發現不對——<b>年輕那群在政策之前就已經掉得比較快了,差不多是另一群的兩倍速</b>。所以就算我算出降價後年輕人掉更多、是 −4.1%,也不能怪降價,因為他們本來就在加速流失。<span class="hl">其實這正是我報告想講的:我會跑 DiD,但我也知道它什麼時候不能解讀成因果。</span></div>
+    <div class="ph">▸ 這題是你最強的一張牌,講滿。平行趨勢不成立 → −4.1% 不可信。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 你資料裡的保費為什麼會變?</div>
+    <div class="ans"><span class="who">我</span> 大部分保費會漲是因為成本上去了,賠太多、營運變貴。但這種漲價跟客人想不想買糾纏在一起,沒辦法拿來算因果。我要的是<b>純粹因為政策</b>的漲跌,像 2019 那個只對年輕人降價,跟個人需求無關,才能拿來看因果。</div>
+    <div class="ph">▸ 學術詞:找「外生變動」。這題答對直接命中評分點。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 你這套方法最大的問題在哪?</div>
+    <div class="ans"><span class="who">我</span> 我覺得有三個。第一就是剛說的,平行趨勢在這裡不成立,這我有老實寫進去。第二,2020 疫情、還有 2019 同時上路的另一個保單改革都會干擾。第三,我用的是 APRA 的<b>總量</b>資料,沒有每個人的收入,所以套不到那種用收入門檻的更漂亮的方法。要改進的話可以用事件研究法,或換更像的對照組。</div>
+    <div class="ph">▸ 主動講限制 = 加分。三點:前提不成立 / 同期干擾 / 資料是總量。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 有沒有別的做法?為什麼不用?</div>
+    <div class="ans"><span class="who">我</span> 有兩個。一個是看收入門檻——超過 9 萬要多繳稅,門檻上下的人很像、可以比,但我的資料沒有個人收入,做不了。另一個是拿各家公司不同的漲幅當切入點,但很難保證它跟需求無關。所以我最後選了最做得出來的那個,就是年齡折扣。</div>
+    <div class="ph">▸ 那兩個叫斷點回歸(RD)、工具變數(IV)。</div>
+  </div>
+
+  <h2>🟣 資料 · 工具 · 統計(老師明說會問)</h2>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 你的資料哪來?怎麼做出來的?</div>
+    <div class="ans"><span class="who">我</span> 主要是 APRA,澳洲那個監管局的官方統計。覆蓋率跟年齡結構是它的<b>季度會員趨勢</b>那份,我照前面的目錄找到各年齡層投保人數的表,把 2007 到 2026 每季抓出來,自己加總成總人數、40 歲以下,覆蓋率再去除人口。市佔跟利潤率是另外一份<b>年度績效統計</b>。股價是 Yahoo Finance,NIB 的獲利數字是它的年報。我整理的過程全部都在一個 Excel 計算檔裡。</div>
+    <div class="ph">▸ 四個來源都點到:APRA 季度 + APRA 年度 + Yahoo + nib 年報。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 那股價也是 APRA 嗎?</div>
+    <div class="ans"><span class="who">我</span> 不是。股價那張是 <b>Yahoo Finance</b> 來的,NIB 的 UOP 是它的<b>年報</b>。APRA 的是覆蓋率、市佔、利潤率、年齡這些。我一共四個來源,分得很清楚。</div>
+    <div class="ph">▸ 這是最容易穿幫的點:股價≠APRA。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 你是用 Excel 還是別的軟體?</div>
+    <div class="ans"><span class="who">我</span> Excel。資料拉進去之後,覆蓋率、占比、市佔、利潤率、成長率<b>全都是用公式算的</b>,除法、SUM、平均那些;迴歸是用 Excel 內建的 LINEST 跟資料分析功能。<span class="hl">我那個計算檔每一格點下去都看得到算式,不是貼上去的死數字</span>。要的話我可以開給老師看。</div>
+    <div class="ph">▸ 講 Excel,別提別的。被要求就開 A3_計算工作檔.xlsx。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 你跑的是單迴歸還是多元?R² 跟 p 值怎麼看?</div>
+    <div class="ans"><span class="who">我</span> 我跑的是<b>多元迴歸</b>,不只一個自變數。舉個例子,我把會員的季成長率對三個季別做迴歸,看有沒有季節性。結果 <b>R² 只有 0.09</b>,意思是這個模型幾乎解釋不了成長率的變化;三個季別的 <b>p 值都大於 0.05</b>,所以不顯著,代表在 5% 水準下沒有證據說有季節性。白話講就是,會員增減不是照季節走的,是被政策、疫情這種事件推的。</div>
+    <div class="ph">▸ R²=解釋多少變異(0.09 很弱);p 小於 0.05 才顯著。DiD 也是含交互項的迴歸。</div>
+  </div>
+
+  <h2>🟡 概念 / 綜合判斷</h2>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 為什麼你一直強調年輕人?</div>
+    <div class="ans"><span class="who">我</span> 因為保費一漲,<b>先跑的都是年輕、健康、平常用不太到保險的人</b>,留下來的反而是常看病的。結果保險公司賠更多、只好再漲,然後更多健康的人又跑掉……變惡性循環。所以年輕人占比一直掉,對整個產業才是真正的長期風險。</div>
+    <div class="ph">▸ 學術詞:逆選擇 → 風險池惡化。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 「相關不等於因果」,你舉個例子?</div>
+    <div class="ans"><span class="who">我</span> <span class="hl">像冰淇淋賣越多、溺水的人越多,但不是冰淇淋害的,是因為天氣熱,大家又買冰又去游泳</span>。我報告裡覆蓋率跟保費也是,長期都在動,但不能說漲價「讓」需求變多,可能是收入、政策同時在推兩邊。</div>
+    <div class="ph">▸ 背後有個共同原因(天氣/政策)在推,不是 A 害 B。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 道德風險跟逆選擇差在哪?</div>
+    <div class="ans"><span class="who">我</span> 逆選擇是「<b>誰來買</b>」,健康的、生病的挑著買,這是<b>買之前</b>就決定的。道德風險是「<b>買了之後行為變了</b>」,有保險就比較捨得去看病、用更多。我報告裡:漲價時健康年輕人先退,那是逆選擇;有保險的人比較會跑醫院,那是道德風險。</div>
+    <div class="ph">▸ 一句話:逆選擇=事前選人,道德風險=事後行為。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 文獻說漲價影響多大?那些是因果嗎?</div>
+    <div class="ans"><span class="who">我</span> 大方向是短期沒那麼敏感,但年輕人比較敏感。一篇 Buchmueller 是用一個稅的政策當實驗,比較可信;另一篇 Cheng 是用模型算的,就比較依賴假設對不對。<b>第三篇我是看摘要的,如果老師要追細節,我會回去翻原文</b>。我不會硬背一個數字,就講大方向。</div>
+    <div class="ph">▸ 準實驗較可信 vs 模型靠假設。第三篇坦白說看摘要=誠實加分。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 你結論有多大把握?</div>
+    <div class="ans"><span class="who">我</span> 我會保留。文獻不一定能完全套到我們;我自己的方法前提又不成立;還有疫情干擾。所以我給的是<b>方向上的判斷加一套可信的做法</b>,不是一個拍板的數字。</div>
+    <div class="ph">▸ 主動講保留 = 老師很愛聽。對應內部/外部效度。</div>
+  </div>
+
+  <h2>🟢 公司 / 報告本身</h2>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 為什麼選 NIB?</div>
+    <div class="ans"><span class="who">我</span> 因為它是上市公司,財報、股價都查得到;規模又不會太大太複雜,剛好好分析。</div>
+    <div class="ph">▸ 上市資料齊全 + 規模適中好聚焦。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 第一部分你是在證明因果嗎?</div>
+    <div class="ans"><span class="who">我</span> 沒有,第一部分純粹是<b>描述跟比較</b>,把 NIB 跟同業擺一起看它站哪,沒有要證明什麼因果。</div>
+    <div class="ph">▸ 小心陷阱:Part 1 是描述,不是因果。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> NIB 表現好,是它厲害還是整個產業好?</div>
+    <div class="ans"><span class="who">我</span> 所以我同時放了產業的數字。<b>利潤率最高、股價贏大盤,那是 NIB 自己的本事;但覆蓋率停滯、人口老化,是整個行業一起面對的</b>。這樣才分得出公司特定跟產業因素。</div>
+    <div class="ph">▸ 放產業基準 = 區分公司 vs 產業。</div>
+  </div>
+
+  <div class="turn">
+    <div class="ask"><span class="who">老師</span> 好,大概問到這。</div>
+    <div class="ans"><span class="who">我</span> 謝謝老師。</div>
+    <div class="ph">▸ 收尾簡單道謝就好。</div>
+  </div>
+
+  <footer>模擬口試 · 我的語氣版 · 點上方「測驗模式」蓋住答案自己練 · 紅底=我講的、灰框=記憶點</footer>
+</div>
+
+<script>
+  function toggleMode(){
+    document.body.classList.toggle('test');
+    document.getElementById('mode').classList.toggle('on');
+  }
+</script>
+</body>
+</html>
