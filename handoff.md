@@ -8,9 +8,9 @@
 
 | 項目 | 狀態 |
 |------|------|
-| 治理框架 | `.claude/skills/fable/`(`/fable` 可載入)= VMX 移植的指揮官手冊 + Agent×Codex 兩腦驗證架構;根目錄 CLAUDE.md 已路由 |
+| 治理框架 | `.claude/skills/frugal-fable/`(`/frugal-fable` 可載入;2026-07-16 自 fable 改名)= VMX 移植的指揮官手冊 + Agent×Codex 兩腦驗證架構;根目錄 CLAUDE.md 已路由 |
 | Codex CLI | **0.144.5,model `gpt-5.6-sol`,effort xhigh**(config `~/.codex/config.toml`,備份 `.bak.2026-07-16`)。smoke test EXIT=0(2026-07-16) |
-| Codex 陷阱 | 裸名 `gpt-5.6` 在 ChatGPT 帳號下 400;5.6 系列 = `-sol`(旗艦)/`-terra`/`-luna`。駕駛配方(PowerShell tool + stdin + `-o` 落檔 + read-only)見 `.claude/skills/fable/references/codex-collab.md` |
+| Codex 陷阱 | 裸名 `gpt-5.6` 在 ChatGPT 帳號下 400;5.6 系列 = `-sol`(旗艦)/`-terra`/`-luna`。駕駛配方(PowerShell tool + stdin + `-o` 落檔 + read-only)見 `.claude/skills/frugal-fable/references/codex-collab.md` |
 | git | main = `6978470`,全部已 push(github.com/pokai-huang0828/UTS_workspace);Kenny 靠 push main 跨裝置追蹤,**成果完成就 commit+push** |
 | Kenny 偏好 | 回覆一律繁體中文(memory 已存);交付要附證據(R-完成);發文/送出類動作 Kenny 自己做,agent 只備好內容 |
 

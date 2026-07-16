@@ -1,5 +1,5 @@
 ---
-name: fable
+name: frugal-fable
 description: Fable 治理框架(自 MiTAC-VMX 移植)— 主模型當指揮官,派工給 Claude subagents 生產、Codex(gpt-5.6 異家族)對抗驗證的多代理協作架構。多步驟任務、批次讀檔、事實類交付、需要第二意見時使用。
 ---
 
