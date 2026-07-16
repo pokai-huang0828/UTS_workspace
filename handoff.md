@@ -35,3 +35,13 @@
 - 型號/工具報錯 → 照 R-漂移:實查(撈 CLI 二進位的型號表:`grep -oaE "gpt-5[a-z0-9.\-]*" codex.exe | sort -u`)、更新實查表、附日期,不瞎猜重試。
 - Canvas 內嵌練習(Atomic Discussions iframe)get_page_text 讀不到,要**截圖**;頁面有影片時截圖會 timeout,等 6–8 秒重試或開新分頁。
 - Canvas 模組頁(/modules)會顯示每項「已查看/投寄」完成狀態,是盤點參與度的最快入口。
+
+---
+
+## 2026-07-16(晚)· Zoom 答疑分析 + A1 模板核對
+
+- **交付**:`Artificial Intelligence for Enterprises/notes/2026-07-15_Zoom_QA_摘要與模板核對.md`(週三 Zoom 逐字稿重點 + A1 vs UTS HELPS 官方模板逐項比對)。
+- **核對結論**:A1 短報告規格合格(封面/真TOC/引言/編號表格/APA 7/引註 9 項全過);對照 HELPS 完整商業報告缺 Exec Summary、獨立結論、獨立建議 3 項 —— A1 已交不動,**列為 A3 長報告必備**。
+- **A2 關鍵情報**(出自老師口述):feature selection 是作業二評分點;2a/2b 資料集乾淨、直接選監督/非監督不用先聚類;自選資料集去 Kaggle、要小而可控可解釋(⚠️任務編號待 Canvas 確認);疑有 presentation 成分;不需 GPU。
+- **行政**:週五場改週三(以 Canvas 公告為準);春平老師場 = 週四同時段;老師會把 ML 基礎網站(對 A2 有幫助)+ LLM 安全兩連結貼 announcement,值得去撈。
+- 驗證方式:模板 = WebFetch 兩次獨立實抓 HELPS 頁 + 逐字讀 2 份批註範例;A1 = python-docx 實抽(docProps Words=1,601、正文約 960–1,170 依含不含表格)。
