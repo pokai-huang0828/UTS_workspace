@@ -1,6 +1,6 @@
 ---
 name: fable
-description: Fable 治理框架(自 MiTAC-VMX 移植)— 主模型當指揮官,派工給 Claude subagents 生產、Codex(gpt-5.5 異家族)對抗驗證的多代理協作架構。多步驟任務、批次讀檔、事實類交付、需要第二意見時使用。
+description: Fable 治理框架(自 MiTAC-VMX 移植)— 主模型當指揮官,派工給 Claude subagents 生產、Codex(gpt-5.6 異家族)對抗驗證的多代理協作架構。多步驟任務、批次讀檔、事實類交付、需要第二意見時使用。
 ---
 
 # Fable 指揮官手冊(UTS_workspace 版)
@@ -18,7 +18,7 @@ description: Fable 治理框架(自 MiTAC-VMX 移植)— 主模型當指揮官,�
 | Agent tool `model` | `haiku` / `sonnet` / `opus` / `fable` | 無 effort 參數;subagent 預設背景執行,完成自動通知;續問同一 agent 用 SendMessage,不重派 |
 | Agent tool `subagent_type` | `Explore`(只讀)/ `Plan` / `general-purpose`(全工具) | 未指定 = general-purpose;plugin agents(carta/nimble…)與本 repo 無關,不用 |
 | Workflow 腳本 | `agent()` 支援 model + effort(low→max) | ⚠️ 需明確授權:Kenny 說「ultracode」或明確要求「用 workflow」才可呼叫;曖昧說法 → 改同一則訊息平行發多個 Agent |
-| Codex CLI | gpt-5.5(codex-cli 0.142.3) | **本機 2026-07-16 實測 PASS**:`--sandbox read-only` 直接可用,**不需要** VMX 公司機的 bypass 旗標。配方見 [references/codex-collab.md](references/codex-collab.md) |
+| Codex CLI | **gpt-5.6-sol**(codex-cli 0.144.5,effort xhigh) | **本機 2026-07-16 實測 PASS**:`--sandbox read-only` 直接可用,**不需要** VMX 公司機的 bypass 旗標。⚠️ ChatGPT 帳號下裸名 `gpt-5.6` 無效,5.6 系列 = `-sol`(旗艦)/`-terra`/`-luna` 三變體,三者皆實測可用。配方見 [references/codex-collab.md](references/codex-collab.md) |
 | 主迴圈 | session 當下模型(不可自選) | — |
 
 ## 1. 六條鐵則

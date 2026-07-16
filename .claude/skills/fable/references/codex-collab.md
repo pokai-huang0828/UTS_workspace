@@ -1,7 +1,8 @@
 # Agent × Codex 兩腦協作架構(UTS_workspace・Kenny 個人 Win 機)
 
 > 2026-07-16 本機實測撰寫;母本 = VMX `codex-driving.md`(公司機版,見 [codex-driving-vmx-machine.md](codex-driving-vmx-machine.md))。
-> 本機環境:codex-cli **0.142.3**,model gpt-5.5,已 `codex login`,reasoning effort xhigh。
+> 本機環境:codex-cli **0.144.5**,model **gpt-5.6-sol**,已 `codex login`,reasoning effort xhigh(config:`~/.codex/config.toml`)。
+> ⚠️ 型號命名(2026-07-16 實查):ChatGPT 帳號下裸名 `gpt-5.6` 會 400;5.6 系列實際名稱 = `gpt-5.6-sol`(旗艦,官方描述「most ambitious work」)/ `gpt-5.6-terra` / `gpt-5.6-luna`,三者皆實測 EXIT=0。可用型號清單可從 CLI 二進位撈:`grep -oaE "gpt-5[a-z0-9.\-]*" <codex.exe> | sort -u`。
 
 ## 1. 為什麼要兩腦
 
@@ -21,7 +22,7 @@ Codex(OpenAI 家族)與 Claude 的**失誤模式不同**。VMX 實錘:Codex 抓�
    ┌───────────▼───────────┐   ┌───────────▼───────────┐
    │ Explore(haiku)搜索/盤點 │   │ fresh Claude agent      │
    │ general-purpose(sonnet) │   │  對抗審查(03 §審查)      │
-   │  實作/轉換/研究           │   │ Codex(gpt-5.5, read-only)│
+   │  實作/轉換/研究           │   │ Codex(gpt-5.6, read-only)│
    │ opus / fable 判斷題往上派  │   │  事實核對 2–3 claims/趟   │
    └───────────────────────┘   └───────────────────────┘
                │                           │
