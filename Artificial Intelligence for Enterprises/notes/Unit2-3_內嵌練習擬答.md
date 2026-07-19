@@ -223,3 +223,79 @@ Outliers = [70]
 > 3. **把潛在模式改成真正依賴兩個特徵**(例如 XOR 型:X1、X2 恰好一個大於 0.5 時 Y=1)再重訓,樹深度會增加、需要的樣本量也明顯變多——可以直觀看到模式複雜度、資料量與樹結構之間的關係。
 > 4. **加入少量雜訊並控制 max_depth**,配合 train/test 切分評估:單看訓練準確率會被完美分裂騙到,泛化表現才是衡量「性能提高」的依據。
 
+
+### 3.2.1 附:四個實驗的可跑代碼(2026-07-19 本機 sklearn 實跑驗證過,輸出如註解)
+
+> 對應 Q2 擬答的四點,在 Jupyter 逐格跑即可。共用的訓練資料先跑這格:
+
+```python
+from sklearn import tree
+
+base_X = [[0.1,0.4],[0.2,0.4],[0.15,0.3],[0.3,0.2],[0.4,0.4],
+          [0.6,0.1],[0.7,0.9],[0.9,0.8],[0.6,0.1],[0.7,0.2],[0.9,0.15]]
+base_Y = [0,0,0,0,0,1,1,1,1,1,1]
+```
+
+**實驗 1:補左上象限樣本(對應第 1 點)**——同一批補點,標籤定 1 或定 0,決定 X2 會不會被用到:
+
+```python
+extra = [[0.1,0.7],[0.2,0.9],[0.3,0.6],[0.4,0.8]]
+
+# 1a:標成 1(等於把規則補完成「X1>0.5 或 X2>0.5 → 1」)
+clf = tree.DecisionTreeClassifier(random_state=0).fit(base_X + extra, base_Y + [1,1,1,1])
+print(tree.export_text(clf, feature_names=['X1','X2']))
+# → 樹變兩層:先切 X2<=0.5 再切 X1<=0.5,X2 被用到了
+
+# 1b:標成 0(等於規則只看 X1)
+clf = tree.DecisionTreeClassifier(random_state=0).fit(base_X + extra, base_Y + [0,0,0,0])
+print(tree.export_text(clf, feature_names=['X1','X2']))
+# → 樹仍只有 X1<=0.5 一刀——此時這是對的,X2 真的無關
+```
+
+**實驗 2:邊界空白帶讓閾值漂移(對應第 2 點)**——把類 1 的兩個 0.6 點拿掉(最小變 0.7),看閾值怎麼跑:
+
+```python
+X2_ = [[0.1,0.4],[0.2,0.4],[0.15,0.3],[0.3,0.2],[0.4,0.4],
+       [0.7,0.9],[0.9,0.8],[0.7,0.2],[0.9,0.15]]
+Y2_ = [0,0,0,0,0,1,1,1,1]
+clf = tree.DecisionTreeClassifier(random_state=0).fit(X2_, Y2_)
+print(tree.export_text(clf, feature_names=['X1','X2']))   # → 閾值變 X1<=0.55(0.4 與 0.7 的中點)
+print(clf.predict([[0.52, 0.3]]))                          # → 0,但真實規則(邊界 0.5)應為 1
+# 閾值永遠是「兩類最接近樣本的中點」;原資料學到 0.5 純屬 0.4/0.6 中點的巧合
+# 反過來:在 0.45–0.55 補樣本 = 把空白帶壓窄,閾值就被夾在真實邊界附近
+```
+
+**實驗 3:XOR 模式看複雜度代價(對應第 3 點)**:
+
+```python
+import itertools
+pts = [(a/10 + 0.05, b/10 + 0.05) for a, b in itertools.product(range(10), range(10))]
+Xx = [[a, b] for a, b in pts]
+Yx = [1 if ((a > 0.5) != (b > 0.5)) else 0 for a, b in pts]   # 恰一個 >0.5 → 1
+clf = tree.DecisionTreeClassifier(random_state=0).fit(Xx, Yx)
+print(clf.get_depth(), clf.get_n_leaves())   # → 深度 3、葉節點 6(原題深度 1、葉 2)
+print(tree.export_text(clf, feature_names=['X1','X2']))   # → X1、X2 交替出現
+```
+
+**實驗 4:雜訊 + max_depth 看過擬合(對應第 4 點)**——塞一個誤標點,對照不限深度 vs 限一層:
+
+```python
+Xn = base_X + [[0.3, 0.3]]   # 在類 0 區域塞一個誤標成 1 的點
+Yn = base_Y + [1]
+
+clf_full = tree.DecisionTreeClassifier(random_state=0).fit(Xn, Yn)
+print(clf_full.get_depth())                                # → 4:為一個錯點刻出專屬小格子(過擬合)
+print(tree.export_text(clf_full, feature_names=['X1','X2']))
+
+clf_d1 = tree.DecisionTreeClassifier(max_depth=1, random_state=0).fit(Xn, Yn)
+print(tree.export_text(clf_d1, feature_names=['X1','X2'])) # → 回到乾淨的 X1<=0.5 一刀,忽略雜訊
+# 訓練準確率:clf_full = 100%(背答案)——所以評估要用 train/test 切分看沒見過的資料
+```
+
+### 3.2.1 擬答第 1 點用字修正(建議)
+
+原句「補上這個象限的訓練點(並依規則給標籤)」不夠精確——**原始三條規則沒有定義這個象限**。建議改為:
+
+> 補上這個象限的訓練點。由於原規則未定義此區域,需先決定標籤(例如定為 1,等於把規則補完成「X1>0.5 或 X2>0.5 → 1」);這樣 X2 才真正帶有資訊,樹才會學出同時使用 X1 與 X2 的結構。
+
+這個修正同時點出「規則本身有缺口」,是個加分的觀察。
