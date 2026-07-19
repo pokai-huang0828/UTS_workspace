@@ -41,3 +41,22 @@
 
 - **Agent(我)**:EDA/建模/圖表代碼與 notebook 組裝、兩節草稿與論證素材、文獻蒐集、Codex 驗證線、對 rubric 逐條自查。
 - **Kenny**:下載附件(需登入)、在本機跑 notebook(交的必須是自己環境跑出的輸出)、報告定稿的口吻取捨、上傳交件。
+
+## 五、附件實讀後的確認事實(2026-07-19;檔案已入 `practice/A2a/`)
+
+### 資料集 Cellphone1.csv(= "Assessment 2a Cellphone-1.csv")
+- **3333 列 × 11 欄,零缺失、零重複列,全數值型** → 前處理重點不在清洗,在「不平衡+尺度」的處理與論證。
+- 欄位:Churn(目標)+ AccountWeeks / ContractRenewal / DataPlan / DataUsage / CustServCalls / DayMins / DayCalls / MonthlyCharge / OverageFee / RoamMins。
+- **Churn 率 14.49%(483/3333)** → 全猜「不流失」就有 85.5% accuracy = 報告第 1 節「為何不能只看 accuracy」的現成論據。
+- 初步相關(|r| 對 Churn):ContractRenewal .26(負)、CustServCalls .21(正)、DayMins .21(正)>> 其餘;流失者畫像:**沒續約、客服電話多(2.23 vs 1.45)、日間通話多(207 vs 175 分)、月費較高** → 第 3 節領域故事的骨架。
+
+### 課程範本 notebook(Assessment_2a_課程範本.ipynb)
+- Colab 範本(drive.mount + `pd.read_csv('Cellphone1.csv')`);本機跑要改路徑,其餘可沿用。
+- **「六個分類器 import 行」實為 7 個分類器**:KNN / LogisticRegression / SVC / RandomForest+AdaBoost(同一行)/ XGBClassifier / DecisionTree。⚠️報告寫「六種」時要處理這個計數(建議:全跑 7 個,報告註明 import 六行含七個分類器,或以「六類技術」表述)。
+- 範本只實跑 3 個:RF(93.6%)、DT(89.1%)、LR(84.2%,**有未收斂警告**);**KNN/SVC/AdaBoost/XGB 留白 = 學生要補的部分**。
+- 範本已示範:RF/XGB/DT/LR 的 feature importance(但用 Feature 0–9 索引,報告要對映欄位名)、混淆矩陣 ravel 拆 tn/fp/fn/tp(LR 例:fn=128)→ 第 2 節的計算模式照抄即可。
+- 範本缺陷 = 我們的改進點(每項都是第 1 節論證素材):①無 random_state(結果不可重現)②split 無 stratify ③LR/SVM/KNN 無標準化(LR 因此不收斂、SVC/KNN 會吃虧)→ 加 StandardScaler(只對需要的模型)④只看 accuracy → 補 per-class precision/recall/F1 + 混淆矩陣。
+- 課程慣例:permutation_importance 已 import 未用 → 我們用它交叉驗證 impurity importance(第 3 節論證加分)。
+
+### 「最重要變量」預判(待正式跑分確認)
+範本輸出 + 相關性交叉看:樹系模型一致把 **DayMins** 排第一(RF .216 / DT .225),MonthlyCharge、CustServCalls 居前;XGB 把 DataPlan/ContractRenewal 排前。正式版用固定 random_state + permutation importance 做裁決,報告需說明「不同模型的 importance 排序不同」本身就是發現。
