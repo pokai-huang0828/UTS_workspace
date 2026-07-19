@@ -73,3 +73,17 @@
 1. Kenny 登入 Canvas → 把五題擬答貼上(自己貼或叫 agent 用 remote-control 代填皆可)。
 2. 2.2.2 的 Jupyter 截圖要 Kenny 自己跑一次。
 3. **A2a(7/26)仍是下一個硬截止**:去 Canvas 讀題目與資料集;Zoom 情報:feature selection 是評分點、資料集乾淨不用先聚類、自選資料集去 Kaggle 挑小而可控的。
+
+## 2026-07-19(午)· 7/16 週四場 Zoom(李春平)逐字稿分析落檔
+
+### 交付(已驗證)
+- **逐字稿原檔**:`Artificial Intelligence for Enterprises/notes/transcripts/2026-07-16_Zoom_週四場_李春平_逐字稿.md`(語音+聊天室逐字保存;Kenny 可整檔上傳 NotebookLM 作 source)。
+- **課程情報摘要**:`notes/2026-07-16_Zoom_週四場_李春平_摘要.md`(§一–§五 可直接貼 Google Doc)。重點:A1 評分目標 7/20–21 批完;APA 7 只看引用格式(文內=作者+年份、reference list 懸掛縮排),排版不看;Kenny 問 docx 獲答「Word 可以」;**A2a 滿分寫法 = feature importance 三層論證(模型輸出→案例解釋→外部佐證)**;feature importance≠因果;交跑完帶 output 的 .ipynb(Colab 可);churn 案例鎖定 false negative + 量化商業價值;週四場 19:30、8/6 那週可能改時間;企業落地素材(安全/治理/澳洲保守環境)可進 A3 風險章節。
+- **驗證(R-完成)**:雙線——fresh sonnet agent 全量核對(抓 5 處輕度過度推論,已逐條修正:Unit 3 標記為推斷、interval/ratio 註明課上未展開、A2 獨立性歸屬 Tao Wang、刪 sklearn 具體化、docx/PDF 留分寸)+ Codex gpt-5.6-sol read-only 抽查 3 條時間/格式類 claims 全數支持。
+- 環境註記:**這台 Mac 的 codex-cli = 0.144.6**,`codex exec --sandbox read-only` 直接可用(SKILL §0 實查表是 Win 機 0.144.5,配方通用)。
+
+### 待辦(不變+新增)
+1. **A2a(7/26)硬截止**:去 Canvas 讀題目+rubric 逐條對照「優異」欄;notebook 按摘要 §三寫。
+2. 週一(7/20)看 Canvas 公告:A1 成績可能發布、老師答應的 ML 基礎網站連結。
+3. Kenny 自報進度:Canvas 讀到 3.2.1,續讀後自己更新 Google Doc + NotebookLM(agent 只備內容,不代登)。
+4. 前一 entry 的五題內嵌練習擬答仍待貼 Canvas(SSO 要 Kenny 登入)。
