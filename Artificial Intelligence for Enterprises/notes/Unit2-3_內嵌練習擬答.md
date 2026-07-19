@@ -392,36 +392,31 @@ plt.show()
 # 對照:把示範 SVM 的 C 從 0.01 改成 1 再跑一次,看指標的變化
 ```
 
-### 貼文擬答·定稿版(**用這個直接貼**;附圖=「Decision tree」那張藍色混淆矩陣)
+### 貼文擬答·定稿版 v2(**用這個直接貼**;2026-07-19 依 Kenny 指正修訂:題目第 1 點未指明分類器且「上一节…决策树」自相矛盾,故第 1 點答本頁示範的 SVM、第 2 點答決策樹,兩種讀法都覆蓋)
 
-> 我用上一節(3.2.1)構建的決策樹分類器,在本頁提供的訓練資料與測試資料(7 個測試點)上完成兩項計算。
+> **1. 指標計算**——本頁步驟示範的分類器(SVM, kernel='linear', C=0.01)在 7 點測試集上:
 >
-> **1. 指標計算**(以類別 1 為正類):accuracy = 1.0、precision = 1.0、F1 = 1.0(recall 同為 1.0,7 個測試點全部分類正確)。
+> ```
+> accuracy = 0.2857,precision(類別1)= 0.2857,F1(類別1)= 0.4444
+> 混淆矩陣:[[0 5]
+>           [0 2]]
+> ```
 >
-> **2. 決策樹的混淆矩陣**(見附圖):
+> 它把 7 個測試點全部判成 1:recall 雖是 1.0,但 precision 很低——單看任一指標都會誤判模型好壞。
+>
+> **2. 決策樹分類器的混淆矩陣**(3.2.1 構建的 DecisionTreeClassifier,同一組測試集,見附圖):
 >
 > ```
 > [[5 0]
 >  [0 2]]
+> accuracy = precision = recall = F1 = 1.0
 > ```
 >
-> 即 TN=5、FP=0、FN=0、TP=2。使用的代碼:
->
-> ```python
-> from sklearn import tree
-> from sklearn.metrics import (ConfusionMatrixDisplay, accuracy_score,
->                              precision_score, f1_score)
->
-> dt = tree.DecisionTreeClassifier(random_state=0).fit(X_train, y_train)
-> y_pred = dt.predict(X_test)
-> print("accuracy =", accuracy_score(y_test, y_pred))
-> print("precision =", precision_score(y_test, y_pred))
-> print("F1 =", f1_score(y_test, y_pred))
-> ConfusionMatrixDisplay.from_estimator(dt, X_test, y_test, cmap=plt.cm.Blues)
-> plt.show()
-> ```
->
-> **發現**:同一組資料下,頁面示範的 SVM(C=0.01)的混淆矩陣是 [[0 5], [0 2]]——它把 7 個點全部判成 1,accuracy 只有 2/7 ≈ 0.29,recall 卻是滿分 1.0。這對比說明:單看一個指標會被誤導(recall 滿分也可能是壞模型),要靠混淆矩陣看出模型實際的判法;另外 SVM 表現差主要是 C=0.01 這個超參數設得太弱,把 C 改成 1 後 SVM 同樣能全部分類正確,所以這不是演算法本身的優劣。
+> **發現**:兩個模型用同一組資料,表現卻天差地遠。SVM 的問題出在超參數 C=0.01 懲罰太弱(改成 C=1 後同樣全對),不是演算法本身的優劣;而混淆矩陣是看出「模型實際怎麼判」的最直接工具——例如 SVM 的 [[0 5],[0 2]] 一眼就能看出它全押類別 1。
+
+附圖:「Decision tree」藍色混淆矩陣(必附);SVM 那張可選附,加強第 1 點。
+
+同儕對照備忘(不回覆,自用):Chong Wang 7/7 的貼文——第 1 部分 SVM 數字與我們完全一致(7 點);第 2 部分決策樹 [[3 0],[0 2]] 只用了前 5 個測試點(漏 (0.1,1)、(0.2,0.9)),指標碰巧仍全 1.0。已由 Codex 獨立驗算確認(2026-07-19):完整 7 點 = [[5 0],[0 2]] 是正確答案。
 
 ### 貼文擬答·完整版(備用;若想多寫或回覆同學時取材)
 
