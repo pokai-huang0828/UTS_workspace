@@ -3,6 +3,8 @@
 > 狀態:**五題擬答全部完成,尚未貼進 Canvas**(Kenny 開了 remote-control 要 agent 代填,但 Canvas SSO 登入態過期,卡在 UTS 登入頁;登入要 Kenny 本人做,agent 不代填憑證)。
 > 接手方式:Kenny 在 Chrome 登入 Canvas 後,逐題開頁面 → 把下面內容貼/填進對應文本框送出。Atomic 內嵌練習的 iframe 用 get_page_text 讀不到,要**截圖**操作(見 handoff 2026-07-16 教訓)。
 
+> 3.2.x 三頁的可跑 notebook:[`../practice/Unit3_2_實作練習.ipynb`](../practice/Unit3_2_實作練習.ipynb)(Run All 即可,§7/§9 貼文數字全部出自它)。
+
 ## 進度清單
 
 | # | 頁面 | URL(module_item_id) | 狀態 |
