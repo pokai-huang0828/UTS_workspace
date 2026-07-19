@@ -20,7 +20,7 @@
 
 | 天 | 事項 | 產出 |
 |---|---|---|
-| D1 | 下載兩附件 → `practice/A2a/`;讀課程 notebook 確認「六種模型」清單與代碼慣例;EDA(欄位型別/缺失/極端值/churn 比例/分布圖) | EDA cells + 前處理決策清單(每步附為什麼) |
+| D1 | 下載兩附件 → `Assignment2a/`;讀課程 notebook 確認「六種模型」清單與代碼慣例;EDA(欄位型別/缺失/極端值/churn 比例/分布圖) | EDA cells + 前處理決策清單(每步附為什麼) |
 | D2 | 前處理(encoding/scaling 視模型)→ stratified train/test → **六模型全跑**:accuracy/precision/recall/F1 + 混淆矩陣 | 模型比較總表 + 六張混淆矩陣 |
 | D3 | 選最佳模型(業務導向論證:churn 場景 FN 最貴 → 重 recall/F1,非 accuracy)→ FN 計數 → 收入損失估算 | 報告第 1、2 節草稿 |
 | D4 | feature importance(內建 importance + permutation importance 交叉驗證)→ 三層論證(找 2–3 篇電信 churn 文獻/產業數據佐證) | 報告第 3 節草稿 |
@@ -42,7 +42,7 @@
 - **Agent(我)**:EDA/建模/圖表代碼與 notebook 組裝、兩節草稿與論證素材、文獻蒐集、Codex 驗證線、對 rubric 逐條自查。
 - **Kenny**:下載附件(需登入)、在本機跑 notebook(交的必須是自己環境跑出的輸出)、報告定稿的口吻取捨、上傳交件。
 
-## 五、附件實讀後的確認事實(2026-07-19;檔案已入 `practice/A2a/`)
+## 五、附件實讀後的確認事實(2026-07-19;檔案已入 `Assignment2a/`)
 
 ### 資料集 Cellphone1.csv(= "Assessment 2a Cellphone-1.csv")
 - **3333 列 × 11 欄,零缺失、零重複列,全數值型** → 前處理重點不在清洗,在「不平衡+尺度」的處理與論證。

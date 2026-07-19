@@ -31,7 +31,7 @@
 
 ## 下一步(開工順序)
 
-1. Kenny 登入 Canvas 下載兩個附件 → 存 `practice/A2a/`(資料集 + 課程筆記本)。
+1. Kenny 登入 Canvas 下載兩個附件 → 存 `Assignment2a/`(資料集 + 課程筆記本)。
 2. 看課程筆記本裡「所有可用模型」是哪六種(推測:決策樹/k-NN/SVM/邏輯回歸/隨機森林/樸素貝葉斯之類,以檔案為準)。
 3. EDA + 前處理(照 Unit 2:屬性類型/缺失值/極端值都要寫「為什麼這樣處理」)→ 六模型跑分(accuracy/precision/recall/F1 + 混淆矩陣)→ 選最佳 → FN 計數 ×每客戶價值估算 → feature importance + 外部佐證 → 策略。
 4. 報告用 A1 模板改;檔名 `Huang_26254793_421104_Assessment2a`。
