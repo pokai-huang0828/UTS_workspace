@@ -87,3 +87,10 @@
 2. 週一(7/20)看 Canvas 公告:A1 成績可能發布、老師答應的 ML 基礎網站連結。
 3. Kenny 自報進度:Canvas 讀到 3.2.1,續讀後自己更新 Google Doc + NotebookLM(agent 只備內容,不代登)。
 4. 前一 entry 的五題內嵌練習擬答仍待貼 Canvas(SSO 要 Kenny 登入)。
+
+## 2026-07-19(午後)· 三個外部來源實查補課
+
+Kenny 問「其他資料來源有一起看嗎」→ 誠實回答:先前只分析逐字稿本文。隨即用本機 Chrome(Kenny 登入態)三個都實開:
+- **Google Doc「单元三 | 概述」**:Kenny 的 Unit 3 筆記,大綱到 3.2.1 決策樹,與自報進度一致。
+- **Canvas modules**:登入態有效、整頁可讀。證實 Unit 3 = 機器學習實操第一部分(3.1 思維/監督/k-NN/評估、3.2 分類實操含 SVM、3.3 理解文本),A2a 掛 Unit 3 末;**Unit 3 週兩個必修投寄 = 3.2.4 混淆矩陣 + 3.3.1 理解文本練習**。已回寫進 7/16 摘要(⚠️推斷解除)。
+- **NotebookLM**:11 來源(7/03 建),缺單元三筆記與兩份 Zoom 逐字稿;有一個「Just a moment...」疑似壞來源可刪。建議 Kenny 補傳 `notes/transcripts/` 兩份逐字稿。
