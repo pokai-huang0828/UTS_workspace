@@ -392,18 +392,36 @@ plt.show()
 # 對照:把示範 SVM 的 C 從 0.01 改成 1 再跑一次,看指標的變化
 ```
 
-### 貼文擬答·精簡版(**首選**,Kenny 2026-07-19 指示:只答題目要的,不要一大堆)
+### 貼文擬答·定稿版(**用這個直接貼**;附圖=「Decision tree」那張藍色混淆矩陣)
 
-> 我用上一節的決策樹(DecisionTreeClassifier,同樣的訓練資料)對頁面給的測試集計算:
+> 我用上一節(3.2.1)構建的決策樹分類器,在本頁提供的訓練資料與測試資料(7 個測試點)上完成兩項計算。
 >
-> 混淆矩陣:
+> **1. 指標計算**(以類別 1 為正類):accuracy = 1.0、precision = 1.0、F1 = 1.0(recall 同為 1.0,7 個測試點全部分類正確)。
+>
+> **2. 決策樹的混淆矩陣**(見附圖):
+>
+> ```
 > [[5 0]
 >  [0 2]]
-> accuracy = 1.0,precision = 1.0,F1 = 1.0(7 個測試點全部分類正確,無 FP、無 FN)
+> ```
 >
-> 發現:對照頁面示範的 SVM(C=0.01),它的混淆矩陣是 [[0 5], [0 2]]——把 7 個點全判成 1,accuracy 只有 2/7 ≈ 0.29,但 recall 卻是 1.0。這說明單看一個指標會被誤導,混淆矩陣才能看出模型實際的判法。
-
-附:notebook 的決策樹混淆矩陣圖(藍色)截圖。
+> 即 TN=5、FP=0、FN=0、TP=2。使用的代碼:
+>
+> ```python
+> from sklearn import tree
+> from sklearn.metrics import (ConfusionMatrixDisplay, accuracy_score,
+>                              precision_score, f1_score)
+>
+> dt = tree.DecisionTreeClassifier(random_state=0).fit(X_train, y_train)
+> y_pred = dt.predict(X_test)
+> print("accuracy =", accuracy_score(y_test, y_pred))
+> print("precision =", precision_score(y_test, y_pred))
+> print("F1 =", f1_score(y_test, y_pred))
+> ConfusionMatrixDisplay.from_estimator(dt, X_test, y_test, cmap=plt.cm.Blues)
+> plt.show()
+> ```
+>
+> **發現**:同一組資料下,頁面示範的 SVM(C=0.01)的混淆矩陣是 [[0 5], [0 2]]——它把 7 個點全部判成 1,accuracy 只有 2/7 ≈ 0.29,recall 卻是滿分 1.0。這對比說明:單看一個指標會被誤導(recall 滿分也可能是壞模型),要靠混淆矩陣看出模型實際的判法;另外 SVM 表現差主要是 C=0.01 這個超參數設得太弱,把 C 改成 1 後 SVM 同樣能全部分類正確,所以這不是演算法本身的優劣。
 
 ### 貼文擬答·完整版(備用;若想多寫或回覆同學時取材)
 
