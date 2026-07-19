@@ -94,3 +94,22 @@ Kenny 問「其他資料來源有一起看嗎」→ 誠實回答:先前只分析
 - **Google Doc「单元三 | 概述」**:Kenny 的 Unit 3 筆記,大綱到 3.2.1 決策樹,與自報進度一致。
 - **Canvas modules**:登入態有效、整頁可讀。證實 Unit 3 = 機器學習實操第一部分(3.1 思維/監督/k-NN/評估、3.2 分類實操含 SVM、3.3 理解文本),A2a 掛 Unit 3 末;**Unit 3 週兩個必修投寄 = 3.2.4 混淆矩陣 + 3.3.1 理解文本練習**。已回寫進 7/16 摘要(⚠️推斷解除)。
 - **NotebookLM**:11 來源(7/03 建),缺單元三筆記與兩份 Zoom 逐字稿;有一個「Just a moment...」疑似壞來源可刪。建議 Kenny 補傳 `notes/transcripts/` 兩份逐字稿。
+
+## 2026-07-19(晚)· Unit 3.2 實作三頁分析 + notebook + 3.2.4 必修投寄定稿
+
+### 本段成果(全部已 commit+push,最新 `2c6dc48`)
+- **3.2.1 決策樹**:實跑抓到頁面筆誤((0.6,0.75) 實為 1 非 0);Q2 評論框擬答 + 四個實驗(補象限 1a/1b、閾值漂移、XOR、雜訊+max_depth)入擬答檔 §7,含用字修正(原規則未定義左上象限)。
+- **3.2.2 最近鄰**:頁面三處不一致(NearestCentroid 非 k-NN、代碼 [0.6,0.1]×2 vs 表格 (0.6,1)、兩半範例各對應不同資料);無需貼文,筆記入 §8。
+- **3.2.4 混淆矩陣(必修投寄)**:定稿 v2 在 §9——第 1 點答本頁示範 SVM(0.2857/0.2857/0.4444、[[0 5],[0 2]]),第 2 點答決策樹([[5 0],[0 2]]、全 1.0),附「Decision tree」藍圖。**Kenny 尚未貼**。同儕 Chong Wang 的 [[3 0],[0 2]] = 只用前 5 測試點(Codex gpt-5.6-sol 獨立驗算確認我方 7 點版正確);Kenny 決定不回覆他。題目本身有缺陷(第 1 點未指明分類器、「上一节…决策树」矛盾)→ v2 兩種讀法都覆蓋。
+- **practice/ 資料夾**新建:`practice/Unit3_2_實作練習.ipynb`(22 格,headless 驗證零錯誤;Kenny 已在 VS Code 跑過,輸出已入 repo)。
+- **Mac 環境**:repo 根目錄 `.venv`(sklearn 1.9.0 + matplotlib 3.11.1 + ipykernel,kernel 名「Python (UTS AI)」,已加 .gitignore)。這台 Mac 無 Anaconda(在 Win 機),之後課程 Python 都用此 venv。scratchpad 另有驗證用 skv venv(session 結束即失效,不可依賴)。
+
+### 教訓
+- Canvas wiki 頁摺疊步驟(步骤一/二/三):主文件用 JS 過濾 `textContent==步骤X` 可抽;討論區(React)則走 **Canvas API** `/api/v1/courses/42198/discussion_topics/<id>` 拿 message HTML,再抽 `<pre>/<code>`。
+- 課程頁面代碼/表格/示範輸出**經常互相不一致**(3.2.1、3.2.2、3.2.4 三頁全中),擬答一律以本機實跑為準,貼文前 Kenny 自跑對數字。
+
+### 待辦(下個 session 起點)
+1. Kenny 續讀 3.2.3(SVM)→ 3.2.5(真實資料)→ 3.3.x;到 **3.3.1 理解文本練習 = 另一個必修投寄**,照本輪模式協助擬答。
+2. 待貼清單:3.2.1 評論框(§7)、3.2.4 討論區(§9 v2 + 藍圖);連同 Unit 2 的五題(§1–6)都還沒貼。
+3. **A2a 7/26 硬截止**(下週日):讀完 3.2.x 後去 Canvas 讀 A2a 題目+rubric 對照「優異」欄。
+4. Kenny 持續更新 Google Doc(單元三筆記,已到 3.2.1)+ NotebookLM(建議補傳 notes/transcripts/ 兩份 Zoom 逐字稿)。
