@@ -145,3 +145,10 @@ Kenny 問「其他資料來源有一起看嗎」→ 誠實回答:先前只分析
 - 依 frugal-fable §5 補開 Codex 線(gpt-5.6-sol, read-only, 2 趟 × 3 claims):以 `notes/raw/A2b_canvas_raw.txt`、`A3_canvas_raw.txt`(頁面逐字落檔)為基準核對兩份整理檔 → **6/6 CONFIRMED**。
 - Codex 抓到一個 Claude 自驗沒抓到的點:rubric 文件標題是 **420104**、課程實為 **421104**——已裁決(以 Kenny 註冊課號 421104 為準,A1 前例成立)並註記在 A2b 檔。
 - 駕駛配方修正:Codex read-only sandbox **只能讀 workdir(repo)內檔案**,scratchpad 會 Access denied → 給 Codex 的比對材料要放 repo 內 ASCII 路徑(這次用 notes/raw/ + 臨時 digest 複本,跑完已刪)。
+
+---
+
+## 2026-07-22(續)· Codex 駕駛配方更新:不用 sandbox(Kenny 指示)
+
+- 旗標改 **`--sandbox danger-full-access`**(smoke PASS:讀 repo 外 scratchpad 檔、中文內容逐字正確、EXIT=0),免去「材料要先複製進 repo」的工。SKILL §0 表與 codex-collab.md §3 已更新附日期。
+- 紀律不變:驗證任務 prompt 明寫 read-only 行為、跑完 git status 對賬;要 Codex 寫檔仍先問 Kenny。

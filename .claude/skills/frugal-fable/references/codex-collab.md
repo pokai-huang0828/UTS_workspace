@@ -40,10 +40,12 @@ $out = "<scratchpad>\codex-out.md"
 $prompt = @'
 ...pure ASCII English prompt (multi-line OK)...
 '@
-$prompt | codex exec --sandbox read-only -o $out
+$prompt | codex exec --sandbox danger-full-access -o $out
 Write-Output "EXIT=$LASTEXITCODE"
 Get-Content $out
 ```
+
+> **2026-07-22 更新(Kenny 指示:不用 sandbox)**:旗標改 `--sandbox danger-full-access`(smoke PASS,EXIT=0,可讀 repo 外路徑)。背景:07-22 實測發現 `--sandbox read-only` 只能讀 workdir(repo)內檔案,scratchpad 等外部路徑 Access denied,得先把材料複製進 repo 才能比對;Kenny 裁定直接放行。**紀律不變**:驗證任務在 prompt 裡明寫 "read-only; do not modify or create any file",跑完 `git status` 對賬;要 Codex 寫檔的任務仍先問 Kenny。
 
 與 VMX 公司機的差異(實測):
 
