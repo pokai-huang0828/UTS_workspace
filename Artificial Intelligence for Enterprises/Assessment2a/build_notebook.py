@@ -174,10 +174,11 @@ for name in MODELS:
                       'tn': int(tn), 'fp': int(fp), 'fn': int(fn), 'tp': int(tp)})
 test_df = pd.DataFrame(test_rows).set_index('model')
 test_df.round(4)"""))
-C.append(('code', """ax = test_df[['f1','recall','precision','accuracy']].plot.bar(figsize=(9,4.5), rot=15)
+C.append(('code', """ax = test_df[['f1','recall','precision','accuracy']].plot.bar(figsize=(9.5,4.5), rot=15)
 ax.set_title('六分類器於保留測試集之表現(Churn 類指標)')
 ax.set_ylabel('分數'); ax.axhline(1-df['Churn'].mean(), ls=':', c='grey')
-ax.text(4.3, 1-df['Churn'].mean()+0.01, '「全猜不流失」的 accuracy 基準線', fontsize=8, color='grey')
+ax.legend(loc='center left', bbox_to_anchor=(1.0, 0.5), fontsize=9)
+ax.text(0.02, 1-df['Churn'].mean()+0.015, '「全猜不流失」的 accuracy 基準線', fontsize=8, color='grey', transform=ax.get_yaxis_transform())
 plt.tight_layout(); plt.savefig('figures/fig1_model_comparison.png', dpi=130); plt.show()"""))
 C.append(('md', """### 測試集上 RF 與 XGBoost 的差異是否有意義?(成對 bootstrap)
 
@@ -258,6 +259,7 @@ pi_df = pd.DataFrame({'feature': df_feature.columns, 'importance_mean': pi.impor
                       'importance_std': pi.importances_std}).sort_values('importance_mean', ascending=False).reset_index(drop=True)
 fig, axp = plt.subplots(figsize=(7,4))
 axp.barh(pi_df.feature[::-1], pi_df.importance_mean[::-1], xerr=pi_df.importance_std[::-1])
+axp.set_xlabel('打亂該欄後 F1 的平均降幅(±標準差)')
 axp.set_title(f'Permutation importance(測試集,重複 30 次,scoring=F1)— {winner}')
 plt.tight_layout(); plt.savefig('figures/fig3_perm_importance.png', dpi=130); plt.show()
 pi_df.round(4)"""))
@@ -296,6 +298,22 @@ print(f'''
 - CustServCalls:流失者客服來電 {grp.loc['CustServCalls','流失 (Churn=1)']:.2f} 次 vs {grp.loc['CustServCalls','未流失 (Churn=0)']:.2f} 次 → 來電頻率是不滿的行為信號
 - ContractRenewal:流失者續約率僅 {grp.loc['ContractRenewal','流失 (Churn=1)']*100:.1f}% vs 未流失 {grp.loc['ContractRenewal','未流失 (Churn=0)']*100:.1f}% → 未續約 = 轉換成本低''')"""))
 
+C.append(('md', """### 補充:重要變數間的相關性與策略試點門檻(供報告第三、四節)
+
+DayMins 與 MonthlyCharge 的相關係數,以及報告第四節三個試點門檻的實際客群規模與流失率。"""))
+C.append(('code', """r_dm = df['DayMins'].corr(df['MonthlyCharge'])
+print(f"DayMins 與 MonthlyCharge 相關係數 r = {r_dm:.2f}(中度相關 → 重要度可能互相分攤)\\n")
+base = df['Churn'].mean()
+segs = {
+    '行動一:CustServCalls >= 3': df['CustServCalls'] >= 3,
+    '行動二:ContractRenewal == 0(未續約)': df['ContractRenewal'] == 0,
+    '行動三:DayMins >= 216 且 MonthlyCharge >= 中位(53.5)': (df['DayMins'] >= 216) & (df['MonthlyCharge'] >= df['MonthlyCharge'].median()),
+}
+print(f"全體:{len(df)} 人,流失率 {base*100:.1f}%")
+for name, mask in segs.items():
+    g = df[mask]
+    print(f"{name}:{len(g)} 人({len(g)/len(df)*100:.0f}%),流失率 {g['Churn'].mean()*100:.1f}%,為全體的 {g['Churn'].mean()/base:.1f} 倍")"""))
+
 C.append(('md', """## 附錄 A:決策閾值的成本敏感度(情境展示,非正式答案)
 
 > **本作業的正式答案始終為第十節:最終模型以原生 predict 得出 FN = 51。** 本附錄僅展示:若管理層願意以「多發挽留 offer」換「少漏抓流失者」,決策閾值如何隨成本假設移動(FN ≈ 12 個月月費、FP ≈ 1 個月挽留 offer,比約 12:1;成本比取決於實際 offer 設計,故此為情境而非推薦)。"""))
@@ -329,7 +347,7 @@ print(f"AdaBoost(SAMME, test): accuracy={accuracy_score(y_test,yp_a):.4f}  preci
       f"recall={recall_score(y_test,yp_a):.4f}  F1={f1_score(y_test,yp_a):.4f}  (tn={atn} fp={afp} fn={afn} tp={atp})")"""))
 
 C.append(('md', "## 十五、本筆記本產出摘要(供報告引用)"))
-C.append(('code', """print(f"最終模型:{winner}(預設配置)。選模依據:25 折重複 CV 中六模型以 churn-F1 排序,")
+C.append(('code', """print(f"最終模型:{winner}(預設配置)。選模依據:5-fold × 5 repeats(共 25 個折次)重複 CV 中六模型以 churn-F1 排序,")
 print(f"前二名(XGBoost/RandomForest)經 Nadeau–Bengio 校正檢定統計不可分,依預先訂定的平手鏈以 recall 均值裁決。")
 print(f"測試集(正式答案):accuracy={test_df.loc[winner,'accuracy']:.3f}  precision={test_df.loc[winner,'precision']:.3f}  "
       f"recall={test_df.loc[winner,'recall']:.3f}  F1={test_df.loc[winner,'f1']:.3f};RandomForest 為表現相當的次選。")

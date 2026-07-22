@@ -194,3 +194,13 @@ Kenny 問「其他資料來源有一起看嗎」→ 誠實回答:先前只分析
 - 對抗修正的重點(比 v1 強在):①普通配對 t 檢定在重複 CV 下高估顯著性 → 換 **Nadeau–Bengio 校正**(recall p 0.002→0.217,選模改為描述性平手鏈裁決,結論仍 XGBoost)②測試集 RF vs XGB 差異加 **成對 bootstrap 95% CI [−0.001, +0.064] 跨 0** 佐證「抽樣變異」③permutation importance 加穩定性(DayMins 30/30 第一;MonthlyCharge/CustServCalls 為同層級第二梯隊 23/30 互有領先)④外推改標「全資料集預估漏抓 ≈170 人」⑤三層論證第二層(流失/未流失群組差異表)入 notebook ⑥全模型 Pipeline、figures mkdir、全繁中標題+CJK 字型 fallback、附錄 A 明標「正式答案 FN=51」。
 - 產物:notebook 43 cells 全執行零錯誤;a2a_analysis.py/results.json 與 notebook 一致(Codex 驗過)。審計軌跡:scratchpad codex/a2a_nb_audit_round1–3.md。
 - **下一步:報告(1500±10%)→ 同樣先過 Codex 再給 Kenny;Kenny 自己 Restart & Run All 一次。**
+
+---
+
+## 2026-07-23(凌晨)· A2a 交件包完成:notebook + 報告雙雙通過 Codex 三輪對抗
+
+- **報告完成**:`Assessment2a/Huang_26254793_421104_Assessment 2a.docx`——封面+自動更新 TOC+頁碼欄位+管理摘要+四節(對四 rubric 條)+獨立結論+APA 7(4 篇文獻全數 web 實證存在,期刊斜體,含 Nadeau & Bengio 2003 方法引用)。字數 1,600(嚴格口徑,限 1350–1650)。
+- **報告 Codex 三輪**:R1 抓 18 缺陷(字數超標、30% 誤掛 Gallo、bootstrap 措辭、策略門檻無證據、caption 跨頁等)→ 修 → R2 驗 12/18 + 表四第三列人數錯(759→767)+ notebook 缺分群計算 → 修(分群+r=0.57 補進 notebook 專用 cell,keepNext/表頭重複/cantSplit 進 docx XML)→ **R3 七項全 PASS,FINAL VERDICT: READY**。
+- **notebook 45 cells**(新增分群計算 cell);表四三個試點門檻全部有資料支持(≥3 次來電 696 人 26.1% 1.8×;未續約 323 人 42.4% 2.9×;高用量高月費 767 人 31.3% 2.2×)。
+- 審計軌跡:scratchpad codex/a2a_report_audit_round1–3.md;文獻查證 4/4 EXISTS(agent 兩趟 web 實查)。
+- **剩餘事項(Kenny 本人)**:①Jupyter 開 notebook Restart & Run All(確認自己環境重現)②開 docx 看目錄自動更新+整體觀感 ③上傳兩檔至 Canvas(檔名已照規定)。截止 7/26(週日)23:59 雪梨。
