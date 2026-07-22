@@ -137,3 +137,11 @@ Kenny 問「其他資料來源有一起看嗎」→ 誠實回答:先前只分析
 - **A3**(8/17,**40%**):⚠️**推翻舊假設——是 10 分鐘影片 pitch + ~10 頁投影片 + 5 分鐘一對一 Zoom 問答,不是書面報告**。五段模板(案例/戰略契合/影響與倫理/效益KPI/專案計畫);rubric:論證25/影響與成功衡量30/專案計畫30/簡報形式15,兩個30分條目都明寫**視覺化**是 HD 要件。建議同 A1 公司(CBA)→ 原敘事鏈策略成立(A1挑戰→A2概念驗證→A3路線圖)。→ `notes/A3_題目與rubric.md`;示例 files/12834409、12834407 未下載。
 - 舊筆記已更正(A1 復盤、2026-07-15 檔 §五 的「A3 長報告」建議劃掉改指新檔)。
 - 待下載(需登入,Kenny 或有登入態的 session):A2b 資料集、A3 示例×2。
+
+---
+
+## 2026-07-22 · Codex 異家族複核:A2b/A3 情報檔全數過關
+
+- 依 frugal-fable §5 補開 Codex 線(gpt-5.6-sol, read-only, 2 趟 × 3 claims):以 `notes/raw/A2b_canvas_raw.txt`、`A3_canvas_raw.txt`(頁面逐字落檔)為基準核對兩份整理檔 → **6/6 CONFIRMED**。
+- Codex 抓到一個 Claude 自驗沒抓到的點:rubric 文件標題是 **420104**、課程實為 **421104**——已裁決(以 Kenny 註冊課號 421104 為準,A1 前例成立)並註記在 A2b 檔。
+- 駕駛配方修正:Codex read-only sandbox **只能讀 workdir(repo)內檔案**,scratchpad 會 Access denied → 給 Codex 的比對材料要放 repo 內 ASCII 路徑(這次用 notes/raw/ + 臨時 digest 複本,跑完已刪)。

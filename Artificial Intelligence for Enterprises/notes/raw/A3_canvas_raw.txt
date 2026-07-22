@@ -1,0 +1,179 @@
+[get_page_text 逐字擷取 2026-07-19;URL: https://canvas.uts.edu.au/courses/42198/assignments/287733?module_item_id=2783671]
+
+评估任务三：人工智能路线图
+开始任务
+截止 8月17日 由 21:59 编辑 得分 100 提交 一份上传文件
+
+单元一 | Python简介与编程基础
+
+意图：
+
+本评估任务旨在将先前的研究成果整合为一份具有说服力的商业提案。该任务建立在评估任务一中的初步探索和评估任务二中的技术建模基础之上，并将这些先前的发现置于你所关注企业的竞争优势背景中。你将有机会反思一个具体企业以及人工智能对更广泛社会的影响，并将你的研究成果发展为一份面向高级商业受众的有力叙述。
+
+注意：理想情况下，你应使用自己的公司作为本次作业的研究对象。如果因任何原因无法做到这一点，你应选择一个你感兴趣或与你所在行业相关的公司。建议使用与作业一相同的公司
+
+目标：
+
+本评估任务旨在达成以下课程学习目标：
+
+在竞争性商业环境中设计一个合适的人工智能项目
+反思人工智能在商业中的社会文化影响的风险与相关性
+将机器学习技术应用于企业数据集
+
+截止日期：8月17日星期一（第7周），晚上11:59（澳大利亚东部夏令时间，悉尼时间）
+
+权重：40%
+
+任务说明：
+
+在成功开发概念验证之后，公司技术主管对利用人工智能增强公司技术能力的前景感到兴奋。然而，大规模投资需要适当的规划和尽职调查，而人工智能只是多个竞争项目之一，争夺同一笔资金。
+
+因此，技术主管要求你为其技术审查委员会（由首席技术官CTO领导）准备一份人工智能（AI）路线图展示，来为AI实施项目争取批准。该委员会期望你提交一段10分钟的视频展示，内容应涵盖以下方面，并包括一份管理摘要（你的幻灯片应支持你论点的叙述流程）：
+
+你可以使用以下模板来准备你的展示。请注意，以下方面仅为一般性指导，可根据各公司情况进行调整。
+
+介绍：所选AI应用案例的描述，可包括以下问题：
+
+你希望解决哪些挑战？
+你打算使用AI的哪些功能？
+
+AI机会发现过程：你需要为所选案例及其与商业战略的契合性提供合理依据：
+
+为什么该提案是公司资源的最佳使用方式？（例如，AI如何改善公司当前的业务流程和人力资源？该提案如何具有最佳预期投资回报率和战略契合度？）
+它将如何有助于增强公司的竞争地位？
+
+AI对业务的影响：
+
+你预期会遇到哪些限制和挑战？如何应对？
+所提案项目的社会文化与伦理影响有哪些？
+
+预期效益与成功衡量方式
+
+成功实施后你预期会获得哪些效益与优势？
+你建议采用哪些标准与关键绩效指标（KPI）来衡量持续成功？你可以参考第5单元中讨论的IBM AI成熟度框架。
+
+项目计划
+
+关键工作包、里程碑与交付成果有哪些？
+实施的大致时间表是什么？
+需要参与的关键利益相关者（包括技术和非技术人员）有哪些？
+
+请注意，我们只会对视频进行评分，幻灯片仅用于澄清任何不清楚的内容等。你也可以上传任何支持性文件（例如详细的时间表）。请注意，这些文件不会被评估，仅作为辅助材料使用。
+
+如果你希望查看一些路线图示例，请参考以下报告。请注意，我们期望你提交的是一份展示（presentation），而不是报告，示例报告仅作为参考材料提供。你也可以使用你熟悉的其他路线图模板或结构。
+
+示例 1（pdf）
+Download 示例 1（pdf）
+
+示例 2（pdf）
+Download 示例 2（pdf）
+
+参考文献格式：APA 第七版 如有需要，你可以在幻灯片末尾添加一页参考文献幻灯片。
+
+长度要求：
+
+幻灯片：约 10 页
+视频展示：10分钟的提案陈述，以及5分钟的问答
+
+文件格式要求：请确保你上传的文件命名为：姓氏_学生编号_课程编号_Assessment 3
+
+关于5分钟问答环节
+
+在这5分钟的问答环节中，你会回答和你的展示（presentation）、商业提案（business proposal）、相关决策及其论证有关的问题。
+说明:
+你将收到在线学习教师（OLI）发送的一封电子邮件，其中列出可供选择的问答环节时间。
+通过 Canvas 平台预约你的问答时间，并准备好回答与你的展示内容相关的问题。
+在问答当天，请通过 Canvas 中的 Zoom 功能，与在线学习教师进行一对一的视频对话。
+
+评分标准说明
+420104_Assessment 3: AI roadmap (1)
+420104_Assessment 3: AI roadmap (1)
+标准 等级 得分
+
+此标准已链接至学习结果
+Description and justification
+
+25 到 >21.25 得分
+High distinction
+Outstanding argumentation for the selected use case in a succinct yet comprehensive manner.
+21.25 到 >18.75 得分
+Distinction
+Description and justification clearly aligned with business strategy. Balance of technical and business acumen and clear feasibility assessment.
+18.75 到 >16.25 得分
+Credit
+Good coverage of connection between challenges and capabilities in the context of the selected company and its strategic ambitions.
+16.25 到 >12.5 得分
+Pass
+Understandable description of use case and limited alignment with strategy.
+12.5 到 >0 得分
+Fail
+Illogical selection of use case not backed by strategic or technical arguments.
+
+25 分
+
+此标准已链接至学习结果
+Reflection on impact and success measures
+
+30 到 >25.5 得分
+High distinction
+Limitations and challenges are clustered along with categories or criteria and presented visually. Mitigation strategies are assessed for risks and likelihood to succeed. Deep understanding of consideration of ethics. Comprehensive overview of quantifiable success measures provided
+25.5 到 >22.5 得分
+Distinction
+Comprehensive reflection on challenges and limitations and case-specific mitigation strategies including ethical considerations. Overview of advantages and key success metrics.
+22.5 到 >19.5 得分
+Credit
+Detailed overview of selected limitations and challenges and high-level mitigation strategies and ethics considerations, some missing links. High-level overview of identified benefits.
+19.5 到 >15.0 得分
+Pass
+Logical overview of selected limitations and challenges and high-level mitigation strategies and ethical considerations. One or more elements missing. Some benefits were identified.
+15 到 >0 得分
+Fail
+Generic or non-applicable limitations and challenges and missing action items and ethics considerations and benefits.
+
+30 分
+
+此标准已链接至学习结果
+Project plan
+
+30 到 >25.5 得分
+High distinction
+Development of detailed project plan including professional visualisation and relevant items (work packages, milestones, deliverables resources, etc.)
+25.5 到 >22.5 得分
+Distinction
+Well-structured and logical project plan containing all key elements.
+22.5 到 >19.5 得分
+Credit
+High-level overview of project elements and timelines.
+19.5 到 >15.0 得分
+Pass
+Identification of key project elements.
+15 到 >0 得分
+Fail
+Missing or illogical project plan inconsistent with previous findings.
+
+30 分
+
+此标准已链接至学习结果
+Formal aspects (pitch presentation)
+
+15 到 >12.75 得分
+High distinction
+Outstanding presentation in terms of presentation format and content structure. Use of creative presentation tools/techniques to draw attention.
+12.75 到 >11.25 得分
+Distinction
+Appealing presentation aimed at a senior technical audience that provides compelling arguments for the selected project.
+11.25 到 >9.75 得分
+Credit
+Logical flow of argumentation in oral presentation. Professional slide design with the right balance between visual elements and text.
+9.75 到 >7.5 得分
+Pass
+Presentation covering key elements of pitch that justifies the selection of the project. Kept within time limits.
+7.5 到 >0 得分
+Fail
+Incomplete presentation that does not allow the audience to assess the identified project.
+
+15 分
+
+总得分： 100，满分 100
+
+[附註:示例連結 files/12834409、files/12834407 係由 DOM 連結抽取(JS),非本文;此檔僅存頁面文字。]
