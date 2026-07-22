@@ -1,0 +1,47 @@
+AI 如何協助澳洲聯邦銀行(CBA)為數位未來做準備
+以「競爭護城河 vs 顛覆威脅」為主軸 — 評估任務一:人工智能在商業中的應用案例
+課程:421104 Artificial Intelligence for Enterprises(企業人工智能)
+姓名:黃柏凱(PoKai Huang)
+學號:26254793
+參考格式:APA 第 7 版
+日期:2026 年 7 月
+目錄
+一、引言	3
+二、產業挑戰	3
+三、公司當前表現	4
+四、AI 賦能	4
+參考文獻	6
+一、引言
+澳洲聯邦銀行(Commonwealth Bank of Australia, CBA)為澳洲最大零售與商業銀行,2025 年產業市占 21.7%,於四大行合計 75.6% 的寡占格局中居首;服務約 1,700 萬客戶(約人口 67%),形成同業難以複製的規模與資料護城河(IBISWorld, 2025)。CBA 更於 Evident AI Index 2025 名列全球第 4、亞太第 1(Commonwealth Bank of Australia [CBA], 2025a)。本報告以「競爭護城河 vs 顛覆威脅」為主軸,論證在利差收窄與數位顛覆並存下,CBA 如何以 AI 深化護城河、回擊 Macquarie 與 fintech,使 AI 成為維繫定價權、迎向數位未來的關鍵槓桿。
+二、產業挑戰
+澳洲銀行業正處結構性轉折,主要挑戰有三。第一,獲利與利差同步受壓:2025 年產業營收年減 8.3%、2025–30 年 CAGR 僅 +0.3%,利潤率五年降 1.1pp;全球銀行淨利息差(NIM)亦估自 3.1% 收窄至 2.7%,量價拉鋸使利差紅利縮水(IBISWorld, 2025; S&P Global, 2023)。第二,數位顛覆白熱化:消費者資料權(CDR,開放銀行)降低轉換成本,Macquarie 房貸年增約 19%、市占升至 5.9%,非銀行與 fintech 放款方持續蠶食(Australian Broker News, 2025)。第三,詐騙與資安風險升溫:2023 年澳洲通報詐騙損失約 A$27 億,直接侵蝕客戶信任(Australian Competition and Consumer Commission, 2024)。三者交織,對定價權與客戶黏著度構成結構性壓力。
+三、公司當前表現
+面對上述壓力,CBA 仍顯著跑贏行業:FY25 現金淨利(Cash NPAT)達 A$10,252m(+4.2%),與產業營收衰退 8.3% 形成鮮明對照(CBA, 2025b)。其獲利品質與競爭地位領先同業——淨利息差 2.08%、ROE 13.5% 為四大行最高,房貸結餘 A$611.5bn、市占 25.4%(APRA 基礎)遙遙領先快速追趕的 Macquarie(詳見表一)。自有通路占比 66% 降低對經紀商的佣金依賴,廣大客群強化交叉銷售與資料優勢;CBA 更於 2025 年首度成為澳洲最受信任銀行品牌,鞏固信任護城河(Roy Morgan Research, 2025)。
+表一、四大行與 Macquarie 競爭指標對照(2025)
+資料來源:IBISWorld (2025);National Australia Bank (2025);ANZ Group Holdings (2025);Commonwealth Bank of Australia (2025b);Australian Broker News (2025)。Westpac FY25 ROE 未公開可比數字。
+四、AI 賦能
+面對三大挑戰,CBA 以三項可衡量標準評估 AI 成效——效率、速度與風險,分別對應獲利、競爭與風險,各設成功門檻(見表二)。第一,效率軸回應利差受壓:AI 被學界視為重塑行銷與顧客互動的核心力量(Davenport et al., 2019),Customer Engagement Engine 即時個人化搭配生成式 AI 客服,使客服等待時間顯著縮短,深化交叉銷售以攤平固定成本(CBA, 2024)。第二,速度軸回擊 Macquarie 與 fintech:AI 加速信貸審批,業務信貸年審已自 14 小時降至 2 小時,以速度築起顛覆者難以跨越的護城河(CBA, 2024)。第三,風險軸管理詐騙與資安:NameCheck 等防詐工具使客戶詐騙損失較 2022 年底高峰下降 76%,並持續加碼投入(CBA, 2025c)。就資源配置而言,筆者認為風險軸即時報酬最高、效率軸為長期護城河之本;展望未來,管理層宜將領先的 AI 地位轉化為可量化的成本收入比改善,持續鞏固結構性護城河;唯須同步強化資料治理與模型風險管理,方能將技術優勢穩健轉化為可持續的長期競爭力。
+表二、挑戰 → AI 能力 → 效益對照
+參考文獻
+ANZ Group Holdings. (2025). 2025 full year result and proposed final dividend. https://www.anz.com.au/newsroom/media/2025/november/2025-full-year-result---proposed-final-dividend/ 
+Australian Broker News. (2025). Macquarie Bank's home loan book surges 19%, defying industry trends. https://www.brokernews.com.au/ 
+Australian Competition and Consumer Commission. (2024). Scam losses decline, but more work to do as Australians lose $2.7 billion. National Anti-Scam Centre. https://www.accc.gov.au/media-release/scam-losses-decline-but-more-work-to-do-as-australians-lose-27-billion 
+Commonwealth Bank of Australia. (2024). Customer safety, convenience and recognition boosted by early implementation of Gen AI. https://www.commbank.com.au/articles/newsroom/2024/11/reimagining-banking-nov24.html 
+Commonwealth Bank of Australia. (2025a). CommBank ranks among world's best banks for AI maturity. https://www.commbank.com.au/articles/newsroom/2025/10/commbank-among-best-banks-ai-maturity1.html 
+Commonwealth Bank of Australia. (2025b). FY25 full year results. Investor Relations. https://www.commbank.com.au/about-us/investors/results.html 
+Commonwealth Bank of Australia. (2025c). CBA sees customer scam losses fall by 76%. https://www.commbank.com.au/articles/newsroom/2025/08/commbank-customer-scam-losses-fall-truyu.html 
+Davenport, T., Guha, A., Grewal, D., & Bressgott, T. (2019). How artificial intelligence will change the future of marketing. Journal of the Academy of Marketing Science, 48(1), 24-42. https://doi.org/10.1007/s11747-019-00696-0 
+IBISWorld. (2025). National and regional commercial banks in Australia (Report No. K6221A). IBISWorld Industry Report. Retrieved via UTS Library.
+National Australia Bank. (2025). 2025 full year results investor presentation. https://www.nab.com.au/ 
+Roy Morgan Research. (2025). Commonwealth Bank are Australia's most trusted finance and insurance brands. https://www.roymorgan.com/findings/10038-trusted-brand-awards-2025-finance-and-insurance-companies 
+S&P Global Market Intelligence. (2023). Competition to squeeze Australian bank profits in 2024 as COVID-era subsidy ends. https://www.spglobal.com/ 
+[TABLE 1]
+指標 | CBA | NAB | ANZ | Westpac | Macquarie
+產業市占 | 21.7% | 18.3% | 17.5% | 18.2% | —
+ROE(FY25) | 13.5% | 11.4% | 8.1% | n/a | —
+房貸結餘(2025) | A$611.5bn | A$341.7bn | A$321.5bn | A$498.5bn | A$141.7bn
+[TABLE 2]
+產業挑戰 | 對應 AI 能力(評估軸與門檻) | 量化效益
+獲利與利差受壓 | 效率軸:CEE 與生成式 AI 客服(門檻:成本收入比下行、等待縮短) | 客服等待時間一財年內 -40%;深化交叉銷售
+數位顛覆與競爭(Macquarie +19%、CDR) | 速度軸:AI 加速信貸審批(門檻:核准 <10 分鐘／年審 <2 小時) | 房貸有條件核准 <10 分鐘;業務信貸年審 14 小時 → 2 小時
+詐騙與資安風險 | 風險軸:NameCheck 等防詐 AI(門檻:損失較高峰大幅下降) | 客戶詐騙損失自 2022 年底高峰 -76%;FY25 投入約 A$9 億

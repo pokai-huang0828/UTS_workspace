@@ -152,3 +152,11 @@ Kenny 問「其他資料來源有一起看嗎」→ 誠實回答:先前只分析
 
 - 旗標改 **`--sandbox danger-full-access`**(smoke PASS:讀 repo 外 scratchpad 檔、中文內容逐字正確、EXIT=0),免去「材料要先複製進 repo」的工。SKILL §0 表與 codex-collab.md §3 已更新附日期。
 - 紀律不變:驗證任務 prompt 明寫 read-only 行為、跑完 git status 對賬;要 Codex 寫檔仍先問 Kenny。
+
+---
+
+## 2026-07-22(夜)· A1 復盤 v2:Claude×Codex 兩腦合成
+
+- Codex 兩趟(盲測分析 + 對抗審查 v1):盲測與 v1 主幹一致但更準;審查抓到 v1 三個真錯——①「缺評價標準」誤診(A1 正文有效率/速度/風險三軸,真病因=門檻非可驗證+缺成本與跨方案比較)②檔次判定錯(18.75/11.25/7.5 依嚴格不等式全是**良好頂**,+2.5 不進優異,目標修正為 +3.25/+1.5/+1 → 87.25)③「0 張圖」過度歸因(結構真病因=無獨立結論、末段過載)。
+- `notes/A1_成績復盤與優化清單.md` 已重寫為 v2:五項病因修正版 + A2a/A2b/A3 三份具體行動清單(合成 Codex 的 FN 三檔算式、決策閾值、質心反標準化、k 穩定性、KPI 樹、加權選案矩陣、答辯卡、彩排≥3 次)。
+- 新素材:`raw/A1_grade_raw.txt`(成績+rubric 逐字)、`raw/A1_body_extract.txt`(A1 全文抽取)——未來 session 分析用的 primary sources。
