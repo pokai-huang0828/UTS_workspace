@@ -60,3 +60,23 @@
 
 ### 「最重要變量」預判(待正式跑分確認)
 範本輸出 + 相關性交叉看:樹系模型一致把 **DayMins** 排第一(RF .216 / DT .225),MonthlyCharge、CustServCalls 居前;XGB 把 DataPlan/ContractRenewal 排前。正式版用固定 random_state + permutation importance 做裁決,報告需說明「不同模型的 importance 排序不同」本身就是發現。
+
+## 六、兩腦對抗研討決議(2026-07-22;Claude 立場 → Codex 攻擊 → 修正 → Codex 終審通過)
+
+> 過程:10 個決策點立場書 → Codex round1(2 AGREE / 8 CHALLENGE / 3 漏網風險)→ Claude 全數消化成 13 決議 → Codex round2(10 APPROVE / 3 OBJECT)→ 修正後定案。原始檔:scratchpad codex/a2a_positions_claude.md、a2a_debate_round1.md、a2a_resolutions_v1.md、a2a_debate_round2.md。
+
+**已定案(執行時照抄,不再重議):**
+
+1. **選模**:訓練集 5-fold stratified CV,主準則 churn-F1(平手→recall→CV 標準差→可解釋性);測試集只碰一次報最終。範本示範過誰**不是**準則。
+2. **七個分類器全跑**;報告註明「範本六行 import 共七分類器」。
+3. **FN 損失三層**:①測試集 FN 個體月費加總×留存月數=毛暴露上限 ②×有來源可挽回率=預期可挽回損失 ③外推全客群單獨成段明標「推估」;留存 6/12/24 月三檔敏感度。
+4. **閾值**:正文七模型各用**原生 predict 規則**公平比較(⚠️SVC 原生是 decision_function=0,不得稱 0.5);僅對選定模型在驗證 fold 求成本最小閾值(成本比要有依據),此時明確統一分數尺度(predict_proba);測試集確認;成本依據弱→降格敏感度情境。
+5. **不平衡**:no SMOTE;class_weight='balanced' 納入 LR/SVC/RF/**DT** 的 CV 候選配置,**XGB 用 scale_pos_weight**;churn-F1 實質改善才進主配置並在主表揭露。
+6. **字數**:不自套 1500;以四 rubric 條證據需求定(預估 1500–2000);開工前回 Canvas 確認。
+7. **Notebook**:全模型 sklearn Pipeline(scaler 只在訓練 fold 擬合);保留範本 cell 結構;random_state=42;Restart & Run All 後交。
+8. **策略**:三條掛 top 變量 + **策略間決策矩陣**(成本/效益/可行性/時程)+ 優先順序。
+9. **Importance**:測試集 permutation importance,n_repeats=30、scoring=churn-F1,報 mean±std;**必呈現穩定性並寫明裁決規則**(⚠️Codex 終審點名:此處不穩會同時危及第 3、4 節共 50 分——最大殘餘風險)。
+10. **FN 稽核**:Churn=1 正類;confusion_matrix(..., labels=[0,1]).ravel() 固定順序;抽 3 筆 FN 逐列核對。
+11. **第 3 節三層論證**:模型重要度 + FN/流失群體實際差異統計 + 外部電信文獻;全程「預測關聯」用語,禁因果語。
+12. **報告規格**:封面 + 真 Word TOC + 管理摘要 + 四節 + 獨立結論 + APA 7 參考文獻;圖表全嵌入、逐表來源與口徑註。
+13. **交付閘門**:D6(7/25)Codex 對 rubric 逐條終審 + 數字對賬通過才交。
