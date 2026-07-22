@@ -50,7 +50,7 @@ HAS_WEIGHT = {'RandomForest', 'DecisionTree', 'SVC', 'LogisticRegression', 'XGBo
 # 決議 2:AdaBoost 為範本附帶的第七分類器 → notebook 附加項,不進六模型主表與選模
 from sklearn.ensemble import AdaBoostClassifier
 def build_ada():
-    return AdaBoostClassifier(random_state=RS)
+    return AdaBoostClassifier(random_state=RS, algorithm='SAMME')
 
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=RS)          # 閾值掃描用
 # R1 修訂(2026-07-22 實跑發現 0.2/0.3 切分會翻轉贏家):選模 CV 升級為 5×5 重複分層,
@@ -60,9 +60,11 @@ scoring = {'f1': 'f1', 'recall': 'recall', 'precision': 'precision', 'accuracy':
 
 # ── 決議 1+5:訓練集 5-fold CV 選配置與選模(主準則 churn-F1)──
 cv_rows = []
+cv_raw_scores = {}
 for name in MODELS:
     for weighted in ([False, True] if name in HAS_WEIGHT else [False]):
         res = cross_validate(build(name, weighted), X_tr, y_tr, cv=cv_sel, scoring=scoring)
+        cv_raw_scores[(name, weighted)] = res
         cv_rows.append({
             'model': name, 'weighted': weighted,
             'cv_f1_mean': res['test_f1'].mean(),   'cv_f1_std': res['test_f1'].std(),
@@ -89,18 +91,23 @@ sel = sel.sort_values(['cv_f1_mean', 'cv_recall_mean', 'cv_f1_std', 'interp'],
                       ascending=[False, False, True, True]).reset_index(drop=True)
 winner = sel.loc[0, 'model']
 
-# R1 補強:前二名(XGB vs RF)以同折配對 t 檢定裁決平手鏈(25 折成對比較)
+# R1 補強 v2:前二名以 Nadeau–Bengio 校正重採樣檢定(重複 CV 折間相依,普通配對 t 會高估顯著性)
 from scipy import stats
+def corrected_ttest(a, b, k=25, rho=0.25):
+    d = np.asarray(a) - np.asarray(b)
+    var = d.var(ddof=1)
+    if var == 0:
+        return 0.0, 1.0
+    t = d.mean() / np.sqrt(var * (1 / k + rho))
+    return t, 2 * stats.t.sf(abs(t), df=k - 1)
+
 top2 = list(sel.model[:2])
 paired = {}
-fold_scores = {}
-for name in top2:
-    r = cross_validate(build(name, chosen[name]), X_tr, y_tr, cv=cv_sel, scoring=scoring)
-    fold_scores[name] = r
 for metric in ('f1', 'recall', 'precision'):
-    a, b = fold_scores[top2[0]]['test_' + metric], fold_scores[top2[1]]['test_' + metric]
-    t, p = stats.ttest_rel(a, b)
-    paired[metric] = {'diff_mean': float((a - b).mean()), 'p': float(p), 'significant': bool(p < 0.05)}
+    a = cv_raw_scores[(top2[0], chosen[top2[0]])]['test_' + metric]
+    b = cv_raw_scores[(top2[1], chosen[top2[1]])]['test_' + metric]
+    t, p = corrected_ttest(a, b)
+    paired[metric] = {'diff_mean': float((a - b).mean()), 'corrected_p': float(p), 'significant': bool(p < 0.05)}
 
 # ── 測試集只碰一次:六模型最終配置的原生 predict(決議 4:不動閾值)──
 test_rows, fitted = [], {}

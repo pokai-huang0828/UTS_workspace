@@ -185,3 +185,12 @@ Kenny 問「其他資料來源有一起看嗎」→ 誠實回答:先前只分析
 - **定案數字**:最終模型 = **XGBoost 預設配置**(25 折 CV F1 與 RF 統計平手 p=0.93,recall 顯著較高 p=0.002 → 平手鏈裁決;測試集 RF F1 略高屬抽樣變異,notebook 已誠實註記)。測試集 acc 0.925 / F1 0.715;**FN=51 人**,月費合計 A$2,993.8 → 12 月毛暴露 **A$35,926**、@30% 可挽回 A$10,778、外推 483 人 A$119,669;permutation 裁決 top4 = **DayMins > MonthlyCharge > CustServCalls > ContractRenewal**(std 遠小於 mean,穩定);成本閾值 t=0.06 情境 FN 51→34。
 - 過程遺產:`a2a_analysis.py`(驗證基準)+ `a2a_results.json` + `figures/fig1–4` + `build_notebook.py`。R1 有一處實戰修訂:選模 CV 升級為 5×5 重複(單次 5-fold 在 0.2/0.3 切分下會翻轉贏家)+ 配對 t 檢定閘門。
 - **下一步(D4–D5)**:報告 1500±10%(四節=四 rubric 條),用 A1 模板(封面+真TOC+APA 7)+ 管理摘要 + 獨立結論;第 3 節三層論證要補外部電信文獻;第 4 節策略掛 top4 變量 + 決策矩陣。**D6(7/25)Codex 終審後才交**。
+
+---
+
+## 2026-07-22(續)· A2a notebook 經 Codex 三輪對抗 → READY
+
+- Kenny 指示「內容先給 Codex 對抗優化到完美再給我」→ notebook 過三輪:R1 抓 12 缺陷(2 CRITICAL)→ 全修 → R2 驗 11/12 + 1 新缺陷 → 修 → R3 全 PASS,**FINAL VERDICT: READY**。
+- 對抗修正的重點(比 v1 強在):①普通配對 t 檢定在重複 CV 下高估顯著性 → 換 **Nadeau–Bengio 校正**(recall p 0.002→0.217,選模改為描述性平手鏈裁決,結論仍 XGBoost)②測試集 RF vs XGB 差異加 **成對 bootstrap 95% CI [−0.001, +0.064] 跨 0** 佐證「抽樣變異」③permutation importance 加穩定性(DayMins 30/30 第一;MonthlyCharge/CustServCalls 為同層級第二梯隊 23/30 互有領先)④外推改標「全資料集預估漏抓 ≈170 人」⑤三層論證第二層(流失/未流失群組差異表)入 notebook ⑥全模型 Pipeline、figures mkdir、全繁中標題+CJK 字型 fallback、附錄 A 明標「正式答案 FN=51」。
+- 產物:notebook 43 cells 全執行零錯誤;a2a_analysis.py/results.json 與 notebook 一致(Codex 驗過)。審計軌跡:scratchpad codex/a2a_nb_audit_round1–3.md。
+- **下一步:報告(1500±10%)→ 同樣先過 Codex 再給 Kenny;Kenny 自己 Restart & Run All 一次。**

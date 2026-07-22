@@ -246,14 +246,14 @@
   }
  },
  "adaboost_supplementary": {
-  "accuracy": 0.896,
-  "precision": 0.747,
-  "recall": 0.4276,
-  "f1": 0.5439,
-  "tn": 834,
-  "fp": 21,
-  "fn": 83,
-  "tp": 62
+  "accuracy": 0.884,
+  "precision": 0.679,
+  "recall": 0.3793,
+  "f1": 0.4867,
+  "tn": 829,
+  "fp": 26,
+  "fn": 90,
+  "tp": 55
  },
  "paired_ttest_top2": {
   "models": [
@@ -263,18 +263,18 @@
   "metrics": {
    "f1": {
     "diff_mean": 0.00043885964030419887,
-    "p": 0.9334178663177133,
+    "corrected_p": 0.9752456405271801,
     "significant": false
    },
    "recall": {
     "diff_mean": 0.01657594381035997,
-    "p": 0.002292094116104659,
-    "significant": true
+    "corrected_p": 0.2173184195473764,
+    "significant": false
    },
    "precision": {
     "diff_mean": -0.02634116211766967,
-    "p": 0.015131412991066117,
-    "significant": true
+    "corrected_p": 0.3408845493249001,
+    "significant": false
    }
   }
  }
