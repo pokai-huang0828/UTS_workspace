@@ -1,0 +1,281 @@
+{
+ "split": {
+  "train": 2333,
+  "test": 1000,
+  "churn_train": 338,
+  "churn_test": 145,
+  "scale_pos_weight": 5.902366863905326
+ },
+ "chosen_config": {
+  "RandomForest": false,
+  "KNN": false,
+  "DecisionTree": false,
+  "SVC": true,
+  "LogisticRegression": true,
+  "XGBoost": false
+ },
+ "winner": "XGBoost",
+ "cv_table": [
+  {
+   "model": "XGBoost",
+   "weighted": false,
+   "cv_f1_mean": 0.7322,
+   "cv_f1_std": 0.0526,
+   "cv_recall_mean": 0.6557,
+   "cv_precision_mean": 0.8343,
+   "cv_accuracy_mean": 0.9308
+  },
+  {
+   "model": "RandomForest",
+   "weighted": false,
+   "cv_f1_mean": 0.7318,
+   "cv_f1_std": 0.0534,
+   "cv_recall_mean": 0.6391,
+   "cv_precision_mean": 0.8606,
+   "cv_accuracy_mean": 0.9326
+  },
+  {
+   "model": "SVC",
+   "weighted": true,
+   "cv_f1_mean": 0.6524,
+   "cv_f1_std": 0.0342,
+   "cv_recall_mean": 0.8159,
+   "cv_precision_mean": 0.5451,
+   "cv_accuracy_mean": 0.8734
+  },
+  {
+   "model": "DecisionTree",
+   "weighted": false,
+   "cv_f1_mean": 0.6247,
+   "cv_f1_std": 0.0471,
+   "cv_recall_mean": 0.6397,
+   "cv_precision_mean": 0.6142,
+   "cv_accuracy_mean": 0.889
+  },
+  {
+   "model": "KNN",
+   "weighted": false,
+   "cv_f1_mean": 0.5549,
+   "cv_f1_std": 0.0424,
+   "cv_recall_mean": 0.4313,
+   "cv_precision_mean": 0.7899,
+   "cv_accuracy_mean": 0.9003
+  },
+  {
+   "model": "LogisticRegression",
+   "weighted": true,
+   "cv_f1_mean": 0.4831,
+   "cv_f1_std": 0.0284,
+   "cv_recall_mean": 0.7508,
+   "cv_precision_mean": 0.3566,
+   "cv_accuracy_mean": 0.7673
+  }
+ ],
+ "test_table": [
+  {
+   "model": "RandomForest",
+   "weighted": false,
+   "accuracy": 0.935,
+   "precision": 0.8636,
+   "recall": 0.6552,
+   "f1": 0.7451,
+   "tn": 840,
+   "fp": 15,
+   "fn": 50,
+   "tp": 95
+  },
+  {
+   "model": "KNN",
+   "weighted": false,
+   "accuracy": 0.892,
+   "precision": 0.7126,
+   "recall": 0.4276,
+   "f1": 0.5345,
+   "tn": 830,
+   "fp": 25,
+   "fn": 83,
+   "tp": 62
+  },
+  {
+   "model": "DecisionTree",
+   "weighted": false,
+   "accuracy": 0.878,
+   "precision": 0.5782,
+   "recall": 0.5862,
+   "f1": 0.5822,
+   "tn": 793,
+   "fp": 62,
+   "fn": 60,
+   "tp": 85
+  },
+  {
+   "model": "SVC",
+   "weighted": true,
+   "accuracy": 0.854,
+   "precision": 0.4979,
+   "recall": 0.8069,
+   "f1": 0.6158,
+   "tn": 737,
+   "fp": 118,
+   "fn": 28,
+   "tp": 117
+  },
+  {
+   "model": "LogisticRegression",
+   "weighted": true,
+   "accuracy": 0.765,
+   "precision": 0.3558,
+   "recall": 0.7655,
+   "f1": 0.4858,
+   "tn": 654,
+   "fp": 201,
+   "fn": 34,
+   "tp": 111
+  },
+  {
+   "model": "XGBoost",
+   "weighted": false,
+   "accuracy": 0.925,
+   "precision": 0.7966,
+   "recall": 0.6483,
+   "f1": 0.7148,
+   "tn": 831,
+   "fp": 24,
+   "fn": 51,
+   "tp": 94
+  }
+ ],
+ "fn_audit": {
+  "fn": 51,
+  "fn_monthly_sum": 2993.8,
+  "fn_monthly_mean": 58.70196078431373,
+  "gross_exposure": {
+   "6": 17962.800000000003,
+   "12": 35925.600000000006,
+   "24": 71851.20000000001
+  },
+  "save_rate": 0.3,
+  "expected_recoverable": {
+   "6": 5388.840000000001,
+   "12": 10777.680000000002,
+   "24": 21555.360000000004
+  },
+  "extrapolated_all_customers": {
+   "6": 59834.70620689657,
+   "12": 119669.41241379314,
+   "24": 239338.82482758627
+  }
+ },
+ "perm_importance": [
+  {
+   "feature": "DayMins",
+   "mean": 0.256,
+   "std": 0.0319
+  },
+  {
+   "feature": "MonthlyCharge",
+   "mean": 0.1688,
+   "std": 0.023
+  },
+  {
+   "feature": "CustServCalls",
+   "mean": 0.1557,
+   "std": 0.014
+  },
+  {
+   "feature": "ContractRenewal",
+   "mean": 0.0981,
+   "std": 0.0133
+  },
+  {
+   "feature": "OverageFee",
+   "mean": 0.0659,
+   "std": 0.0179
+  },
+  {
+   "feature": "RoamMins",
+   "mean": 0.0579,
+   "std": 0.0148
+  },
+  {
+   "feature": "DataUsage",
+   "mean": 0.0499,
+   "std": 0.0212
+  },
+  {
+   "feature": "DataPlan",
+   "mean": 0.0049,
+   "std": 0.0042
+  },
+  {
+   "feature": "DayCalls",
+   "mean": -0.0001,
+   "std": 0.0118
+  },
+  {
+   "feature": "AccountWeeks",
+   "mean": -0.0244,
+   "std": 0.0083
+  }
+ ],
+ "native_importance_top3": {
+  "RandomForest": {
+   "DayMins": 0.207,
+   "MonthlyCharge": 0.1537,
+   "CustServCalls": 0.1445
+  },
+  "DecisionTree": {
+   "DayMins": 0.2284,
+   "MonthlyCharge": 0.1404,
+   "CustServCalls": 0.1242
+  },
+  "XGBoost": {
+   "DataPlan": 0.7656000256538391,
+   "ContractRenewal": 0.0714000016450882,
+   "CustServCalls": 0.04919999837875366
+  }
+ },
+ "threshold": {
+  "best_t": 0.060000000000000005,
+  "assumption": "FN=12 months median fee, FP=1 month median fee",
+  "test_at_best_t": {
+   "tn": 741,
+   "fp": 114,
+   "fn": 34,
+   "tp": 111
+  }
+ },
+ "adaboost_supplementary": {
+  "accuracy": 0.896,
+  "precision": 0.747,
+  "recall": 0.4276,
+  "f1": 0.5439,
+  "tn": 834,
+  "fp": 21,
+  "fn": 83,
+  "tp": 62
+ },
+ "paired_ttest_top2": {
+  "models": [
+   "XGBoost",
+   "RandomForest"
+  ],
+  "metrics": {
+   "f1": {
+    "diff_mean": 0.00043885964030419887,
+    "p": 0.9334178663177133,
+    "significant": false
+   },
+   "recall": {
+    "diff_mean": 0.01657594381035997,
+    "p": 0.002292094116104659,
+    "significant": true
+   },
+   "precision": {
+    "diff_mean": -0.02634116211766967,
+    "p": 0.015131412991066117,
+    "significant": true
+   }
+  }
+ }
+}

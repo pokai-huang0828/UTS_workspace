@@ -176,3 +176,12 @@ Kenny 問「其他資料來源有一起看嗎」→ 誠實回答:先前只分析
 - **字數 = 1500±10%**(決議 6 待辦清除);**「六模型」明列 RF/KNN/DT/SVC/LR/XGBoost,不含 AdaBoost** → 決議 2 已修正:notebook 跑全部 7 個(題目「應用所有可用模型」),**報告主表只放六個**,AdaBoost 至多一句附帶。
 - 前三任務 = notebook + 報告簡述;**第四任務(策略)僅在報告**。指標明列 F 值/準確率/召回率(我們報四件套涵蓋)。
 - 原文存 `notes/raw/A2a_canvas_raw.txt`(含 rubric 五條全檔次);brief 與作戰計畫已同步更新。
+
+---
+
+## 2026-07-22(深夜)· A2a 開工:notebook 完成並全執行驗證
+
+- **交付物 1 完成**:`Assessment2a/Huang_26254793_421104_Assessment 2a.ipynb`(36 cells,nbclient 全執行 0 錯誤,含輸出)。骨架照課程範本、升級照 13 決議:stratify+RS=42、Pipeline 防洩漏、5×5 重複 CV 選模、配對 t 檢定、原生 predict 測試、FN 稽核、三層損失、native vs permutation importance、閾值成本情境、AdaBoost 附加。
+- **定案數字**:最終模型 = **XGBoost 預設配置**(25 折 CV F1 與 RF 統計平手 p=0.93,recall 顯著較高 p=0.002 → 平手鏈裁決;測試集 RF F1 略高屬抽樣變異,notebook 已誠實註記)。測試集 acc 0.925 / F1 0.715;**FN=51 人**,月費合計 A$2,993.8 → 12 月毛暴露 **A$35,926**、@30% 可挽回 A$10,778、外推 483 人 A$119,669;permutation 裁決 top4 = **DayMins > MonthlyCharge > CustServCalls > ContractRenewal**(std 遠小於 mean,穩定);成本閾值 t=0.06 情境 FN 51→34。
+- 過程遺產:`a2a_analysis.py`(驗證基準)+ `a2a_results.json` + `figures/fig1–4` + `build_notebook.py`。R1 有一處實戰修訂:選模 CV 升級為 5×5 重複(單次 5-fold 在 0.2/0.3 切分下會翻轉贏家)+ 配對 t 檢定閘門。
+- **下一步(D4–D5)**:報告 1500±10%(四節=四 rubric 條),用 A1 模板(封面+真TOC+APA 7)+ 管理摘要 + 獨立結論;第 3 節三層論證要補外部電信文獻;第 4 節策略掛 top4 變量 + 決策矩陣。**D6(7/25)Codex 終審後才交**。
