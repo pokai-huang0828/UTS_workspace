@@ -168,3 +168,11 @@ Kenny 問「其他資料來源有一起看嗎」→ 誠實回答:先前只分析
 - Kenny 明示不能再冒低分風險 → Claude 十決策立場書 vs Codex 兩輪對抗(round1: 8 CHALLENGE 全數消化;round2: 10 APPROVE + 3 OBJECT 修正後定案)。
 - **決議全文 = A2a_作戰計畫.md §六**(執行時照抄):CV 選模規則、FN 三層損失、原生閾值陷阱(SVC≠0.5)、class_weight 含 DT+XGB scale_pos_weight、Pipeline 防洩漏、permutation importance 穩定性(最大殘餘風險,關乎 50 分)、D6 Codex 終審閘門。
 - 開工前待辦:回 Canvas 確認 A2a 字數規定(決議 6)。
+
+---
+
+## 2026-07-22(補)· A2a 作業頁全文實抓,兩個關鍵確認
+
+- **字數 = 1500±10%**(決議 6 待辦清除);**「六模型」明列 RF/KNN/DT/SVC/LR/XGBoost,不含 AdaBoost** → 決議 2 已修正:notebook 跑全部 7 個(題目「應用所有可用模型」),**報告主表只放六個**,AdaBoost 至多一句附帶。
+- 前三任務 = notebook + 報告簡述;**第四任務(策略)僅在報告**。指標明列 F 值/準確率/召回率(我們報四件套涵蓋)。
+- 原文存 `notes/raw/A2a_canvas_raw.txt`(含 rubric 五條全檔次);brief 與作戰計畫已同步更新。

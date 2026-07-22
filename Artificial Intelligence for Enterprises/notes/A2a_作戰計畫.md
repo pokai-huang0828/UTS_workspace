@@ -68,11 +68,11 @@
 **已定案(執行時照抄,不再重議):**
 
 1. **選模**:訓練集 5-fold stratified CV,主準則 churn-F1(平手→recall→CV 標準差→可解釋性);測試集只碰一次報最終。範本示範過誰**不是**準則。
-2. **七個分類器全跑**;報告註明「範本六行 import 共七分類器」。
+2. **[2026-07-22 修正]** notebook 照題目「應用所有可用模型」跑全部 7 個;**報告主比較表只放題目明列的六模型(RF/KNN/DT/SVC/LR/XGBoost)**,AdaBoost 在 notebook 保留、報告至多一句附帶(題目原文「从六个模型中推荐最佳模型」,交七模型主表有偏題風險)。
 3. **FN 損失三層**:①測試集 FN 個體月費加總×留存月數=毛暴露上限 ②×有來源可挽回率=預期可挽回損失 ③外推全客群單獨成段明標「推估」;留存 6/12/24 月三檔敏感度。
 4. **閾值**:正文七模型各用**原生 predict 規則**公平比較(⚠️SVC 原生是 decision_function=0,不得稱 0.5);僅對選定模型在驗證 fold 求成本最小閾值(成本比要有依據),此時明確統一分數尺度(predict_proba);測試集確認;成本依據弱→降格敏感度情境。
 5. **不平衡**:no SMOTE;class_weight='balanced' 納入 LR/SVC/RF/**DT** 的 CV 候選配置,**XGB 用 scale_pos_weight**;churn-F1 實質改善才進主配置並在主表揭露。
-6. **字數**:不自套 1500;以四 rubric 條證據需求定(預估 1500–2000);開工前回 Canvas 確認。
+6. **[2026-07-22 已確認]** 字數 = **1500 字 ±10%**(不含附錄/文獻/標題頁/表圖,含引用與標題)——Canvas 作業頁原文,待辦清除。
 7. **Notebook**:全模型 sklearn Pipeline(scaler 只在訓練 fold 擬合);保留範本 cell 結構;random_state=42;Restart & Run All 後交。
 8. **策略**:三條掛 top 變量 + **策略間決策矩陣**(成本/效益/可行性/時程)+ 優先順序。
 9. **Importance**:測試集 permutation importance,n_repeats=30、scoring=churn-F1,報 mean±std;**必呈現穩定性並寫明裁決規則**(⚠️Codex 終審點名:此處不穩會同時危及第 3、4 節共 50 分——最大殘餘風險)。
