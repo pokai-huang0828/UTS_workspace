@@ -212,3 +212,22 @@ __marimo__/
 # pcapng
 *.pcapng
 .venv/
+
+# ─────────────────────────────────────────────────────────────────────
+# 課程大型資料集 — 2026-07-25 移出 git 追蹤(D1 止血)
+#
+# 背景:repo 曾達 1.76 GB(.git 959 MB / 工作區 798 MB),Kenny 靠 push main
+#       跨裝置追蹤,clone 成本過高。
+# ⚠️ 這些檔案「本機還在」,但 git 不再追蹤 —— **其他機器 pull 後會消失**,
+#    需要時自行重抓。歷史未洗,.git 體積不會因此縮小(見 TODO.md 工程債)。
+#
+# MNIST / FashionMNIST:torchvision 首次執行自動下載,無須進版控
+Cybersecurity Analytics and Insights/A3/data/
+Cybersecurity Analytics and Insights/A3a/data/
+#
+# DDoS 原始擷取 CSV(244 MB)。處理後的 normal.csv / normal2.csv 仍追蹤,
+# 所以這裡只點名這一個檔,不用 *.csv 通則。
+Cybersecurity Analytics and Insights/A2/ddos_syn_flood_lo.csv
+#
+# 兩個 .pcapng(normal / normal2)由上方第 213 行 *.pcapng 規則涵蓋。
+# ─────────────────────────────────────────────────────────────────────

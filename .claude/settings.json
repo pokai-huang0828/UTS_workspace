@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+
+      "PowerShell(git status *)",
+      "PowerShell(git log *)",
+      "PowerShell(git diff *)",
+      "PowerShell(git show *)",
+      "PowerShell(git ls-files *)",
+      "PowerShell(git check-ignore *)",
+      "PowerShell(git rev-parse *)",
+      "PowerShell(git rev-list *)",
+      "PowerShell(git remote -v)",
+      "PowerShell(git --version)",
+
+      "Bash(git status *)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git show *)",
+      "Bash(git ls-files *)",
+      "Bash(git check-ignore *)",
+      "Bash(git rev-parse *)",
+      "Bash(git rev-list *)",
+
+      "PowerShell(codex exec *)",
+      "PowerShell(codex --version)",
+
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(Get-Content *)",
+      "PowerShell(Get-Item *)",
+      "PowerShell(Test-Path *)",
+      "PowerShell(Select-String *)",
+      "PowerShell(Measure-Object *)",
+      "PowerShell(Write-Output *)",
+      "PowerShell(Get-Command *)"
+    ],
+    "ask": [
+      "PowerShell(git push *)",
+      "PowerShell(git reset *)",
+      "PowerShell(git checkout *)",
+      "PowerShell(git rebase *)",
+      "PowerShell(git filter-repo *)",
+      "Bash(git push *)",
+      "Bash(git reset *)",
+      "Bash(git filter-repo *)"
+    ]
+  }
+}
