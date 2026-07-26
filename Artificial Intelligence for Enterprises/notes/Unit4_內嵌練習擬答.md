@@ -23,7 +23,37 @@
 > 本機執行唯一改動:Colab 掛載那格改成 `%matplotlib inline` + 本機說明。原檔未動。
 > 資料 `notes/practice/nigerian_spotify_songs1.csv`(Kenny 自 Kaggle 下載,530 首 × 16 欄)。
 
-### 貼文(直接貼這段,303 words)
+### 貼文·中文版(**用這個直接貼**;2026-07-26 依 Kenny 指示改中文)
+
+> ⚠️ 初版誤設為英文。回讀 [`Unit2-3_內嵌練習擬答.md`](Unit2-3_內嵌練習擬答.md) 確認:
+> 3.2.4、3.3.1 兩則必修投寄的擬答**都是繁體中文**,技術詞中英並陳。本版沿用該體例。
+
+```text
+跑完 clustering_song 之後,我最大的收穫其實來自它「沒做對」的地方,所以我自己的設計是圍繞著「不要重蹈覆轍」。
+
+一、我在課程 notebook 裡看到的問題
+
+依 notebook 的流程篩選後剩 286 首歌,用了六個沒有標準化的特徵。popularity 的標準差是 17.73,danceability 只有 0.11,換算下來 popularity 這一個變數就佔了總距離平方和的 98.1%。所以 k=3 分出來的三群,實際上只是把人氣切成三段(1–20、21–42、43–73);三群的 danceability 質心落在 0.731 到 0.770 之間,幾乎沒有差別。曲風也沒有被分出來——全體基準是 72/21/7,偏離最大的一群也不過是 afropop 佔到 32%。silhouette 看起來還可以(k=3 為 0.5467),但 k=2 更高(0.5628),而且把資料標準化之後整體掉到 0.19–0.23。那個好看的分數,本質上只是一個變數被切成三段。
+
+二、我會怎麼把 K-means 用到自己的資料上
+
+我想用的是一家澳洲零售銀行的客戶資料(也是我 A1 寫的產業)。特徵我會取:每月交易筆數、平均帳戶餘額、App 對臨櫃的互動比例、持有產品數、距離上次購買產品的月數。這些都是「數值越大代表距離越遠」的個人量級指標,但單位彼此不一致,所以一定要標準化。另外餘額與交易筆數是右偏的,而 z-score 只能拉平離散程度、拉不平偏態,所以我會先取對數再標準化,否則少數大戶會重演 popularity 那一招。客戶 ID 與郵遞區號要排除;我也絕不會像 notebook 那樣把曲風用 LabelEncoder 編成 0/1/2 丟進歐氏距離——那等於替名目變數憑空製造了順序。在這份資料裡它只佔 0.1% 所以沒出事,但標準化之後就會咬人。
+
+三、預期的分群,以及它會改變哪一個決策
+
+如果 silhouette、肘部法(Elbow)與不同隨機種子的穩定性都指向 k=4,我預期會看到:數位優先的多產品活躍戶、依賴臨櫃的低數位客群、高餘額但只持有單一產品者,以及沉睡帳戶。k=4 是預期,不是設定值。
+
+真正會被改變的決策,是客戶經理每月的電訪配額——目前是按帳戶餘額高低排。如果「高餘額、單一產品」那一群真的出現,配額就先給這一群,群內再依「距離該群質心的遠近」排序。因為任何一群的人數都遠大於配額,分群本身並不會告訴你該先打給誰。
+
+我自己最沒把握的是「距離上次購買的月數」這個特徵:它衡量的是時近性而不是行為模式,而且很可能像 popularity 一樣主宰整個距離。大家覺得這個該留嗎?
+```
+
+**1,050 字**(不含空白;程式實測)。所有數字**逐項比對**過下方「數字全部獨立重算過」那張表:
+17 個數字全數吻合,反向檢查也未混入任何未驗證的數字。
+⚠️ 中文行文本身**未經第三方語言複核**,只有數字經過機械驗證。
+
+<details>
+<summary>備用:英文版(303 words)</summary>
 
 ```text
 The clustering_song notebook taught me more by failing than by working, so I built mine around not repeating it.
@@ -38,6 +68,8 @@ The decision it changes: the bank's monthly quota of relationship-manager calls,
 
 The feature I'm least sure about is months since last purchase: that's recency, not behaviour, and it could dominate the way popularity did. Would you keep it?
 ```
+
+</details>
 
 ### 貼之前 Kenny 自己決定的三件事
 
