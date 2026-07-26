@@ -17,9 +17,18 @@ FP 商業意義與 recall 論證依老師逐字稿補齊、五張表全部可追
 - [ ] 開 `Huang_26254793_421104_Assessment 2a.docx`,確認目錄自動更新、整體觀感
 - [ ] 上傳兩檔至 Canvas(檔名已照規定,不要改)
 
-### A2b — 非監督式(K-means)· **2026-08-02**
-- [ ] 下載資料集(Canvas `files/12834401`,需登入)
-- [ ] 尚未開工。題目與 rubric 已抓齊 → `notes/A2b_題目與rubric.md`
+### A2b — 非監督式(K-means)· **2026-08-02** · **權重 25%**(不是 20%,見下)
+**單元四知識架構已建好** → [`Artificial Intelligence for Enterprises/Assessment2b/A2b_單元四_知識架構與學習記錄.md`](Artificial%20Intelligence%20for%20Enterprises/Assessment2b/A2b_單元四_知識架構與學習記錄.md)
+(Canvas 單元四 12 項逐字落檔 + rubric 四節主表 + 資料集實查 + 偵察實跑;已過 Codex 事實軌 + fresh Claude 語意軌雙軌驗證)
+
+- [x] ~~下載資料集~~ ✅ **2026-07-26 全部到位**:`Assessment2b/BigBlue.csv`(107 列 × 4 欄)、
+      `Assessment2b/assignment_part_B_final2(1).ipynb`(**老師起手範本**)、
+      `notes/practice/{clustering_song_updated,K_means_basic-1}.ipynb`
+- [ ] **先跑 4.1.2 討論的 `clustering_song`**(必修投寄 + A2b 預演,見知識架構 §6)
+- [ ] 建交件 notebook:排除 `EmployeeID` → silhouette 掃 k=2..9 → elbow → 質心表(照老師範本骨架 + 補 `random_state`、肘部法)
+- [ ] **要裁決**:做不做標準化?老師範本**沒做**、示範 k=4;建議兩種都跑、未標準化為主線(知識架構 §4.5)
+- [ ] 寫報告四節(章節骨架與 `build_report.py` 從 A2a 移植)
+- [x] ~~權重 20%~~ → **實為 25%**(Canvas 作業頁原文,Codex 複核 CONFIRMED;`notes/A2b_題目與rubric.md` 已更正)
 - [ ] ⚠️ 註記:rubric 文件標題寫 420104,但以 Kenny 註冊課號 **421104** 為準(Codex 抓到、已裁決)
 
 ### A3 — 10 分鐘影片 pitch + ~10 張投影片 + 5 分鐘 Zoom 答辯 · **2026-08-17**(40%)
@@ -65,9 +74,15 @@ Unit 1 三項缺漏,Kenny 2026-07-10 明示「那些不用」:
 
 ---
 
-## 📅 未來要主動提醒的必修投寄
+## 📅 必修投寄
 
-到該週再提:**4.2.1 趨勢分析** → **4.2.4 快速塗鴉** → **5.1.2 Slim Jims**
+**單元四(本週,三項全未投)** —— 依 Canvas modules 頁完成標記,2026-07-26 實查:
+- [ ] **4.1.2 K 均值聚類在現實數據中的應用** —— 同時是 A2b 預演,**優先做這個**
+- [ ] **4.2.1 趨勢分析工具** —— 含「評論一位同學」要求
+- [ ] **4.2.4 快速塗鴉** —— 要先玩 6 次並記錄成功/失敗
+- [ ] (非必修但未讀)**4.2.5 圖像生成** —— 單元四唯一未查看頁
+
+到該週再提:**5.1.2 Slim Jims**
 
 ---
 

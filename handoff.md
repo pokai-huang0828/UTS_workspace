@@ -296,3 +296,86 @@ Kenny 問「其他資料來源有一起看嗎」→ 誠實回答:先前只分析
 對照 §8.4 預設 1.5M 上限 ≈ **81%**。**最大單項是查網路的 agent(各約 44 萬),是 Fable 立場書的 5 倍** —— 印證 §8 的判斷:燒錢的是沒設界線的研究型 agent,不是模型選擇。
 
 Codex 趟次:治理 4 趟 + A2a 5 趟 = **9 趟**(1 趟 timeout、1 趟撞用量上限)。
+
+
+---
+
+## 2026-07-26(午)· 單元四知識架構落地 + A2b 開工資產全數到位
+
+**觸發**:Kenny `/uts-dispatch`「進 Canvas 讀單元四建立 A2b 知識架構,產出學習記錄到新資料夾 A2b」。
+
+### 一、產出
+
+- **新資料夾** `Artificial Intelligence for Enterprises/Assessment2b/`(命名沿用 `Assessment2a`)。
+- **主交付** `Assessment2b/A2b_單元四_知識架構與學習記錄.md` —— 單元四地圖、知識架構(全部附 raw 行號)、
+  教材缺口表、資料集與老師範本實查、rubric 四節主表、交件規格、學習記錄、A2a 可移植資產、驗證狀態揭露。
+- **一手來源** `notes/raw/Unit4_canvas_raw.txt`(399 行,12 區塊,Canvas API 逐字抓取,course 42198 / module 342818)。
+
+### 二、四個關鍵發現
+
+1. **課程教學頁教的東西遠少於 rubric 要的。** silhouette / 肘部法 / 質心表 / 特徵排除
+   **只出現在作業說明(行 370 等)**,教學頁 0 命中;**標準化相關詞彙全 399 行 0 命中**(Codex 獨立重跑檢索確認)。
+   單元四所有頁面**零程式碼區塊**,實作全外包給可下載 notebook。
+2. **🔑 作業頁有個看起來像壞掉的連結,其實是老師的起手範本。** 錨文字「下载了数据集之后」→ `files/12834449`
+   → 真身 `assignment_part_B_final2(1).ipynb`(12 cells)。內含 `df.drop(['xxx'], axis=1)` 填空、
+   silhouette 掃 `range(2,10)`、**明寫「I did for the case when you decide the value of 4」**、
+   `cluster_centers_` + `np.around(...,6)`。**範本本身沒有標準化、沒有 random_state、沒有肘部法。**
+   → 教訓:**Canvas 上錨文字對不上的連結一定要點開。**
+3. **資料集實錘了 rubric 第 1 條**:`BigBlue.csv` = 107 列 × `EmployeeID, UsageRate, Recognition, Leader`。
+   要排除的就是 `EmployeeID`(std 31.03,是其他欄的 30–100 倍)。
+   資料嚴重零膨脹:`Leader` 96% 為 0、`Recognition` 80% 為 0 → 「績效最優群」必然是極少數人,論證必附群規模。
+4. **偵察實跑證實了題目行 370 的陷阱**(`random_state=42, n_init=10`):
+   原始尺度 **k=2 silhouette 最高 0.7977**,但兩群無法支撐獎金級距;標準化後最高在 k=5(0.6823)。
+   老師示範的 k=4 給出 86 / 9 / 9 / 3 的可用結構,cluster 3(三項全高、唯一實際帶隊)是績效最優候選。
+
+### 三、雙軌驗證(SKILL §5,同一則訊息並行發出)
+
+- **事實軌 Codex gpt-5.6-sol**:6 條 CLAIM **全部 CONFIRMED**(權重衝突、標準化 0 命中、silhouette/elbow 僅在作業區塊、
+  10 個行號逐條 OK、4 個 file id 對應、配分 20/20/25/25/10)。另回 8 條 SCAN。`git status` 對賬確認 read-only 未動檔。
+- **語意軌 fresh Claude sonnet**:VERDICT **NEEDS-FIX**,11 條發現。
+- **兩軌各自獨立抓到同一個過度宣稱**:初版 §9 寫「未經獨立核對的項目:無」—— 當時 §2–§5 的詮釋內容根本還沒被看過。
+  **這正是 R-獨立 要防的:主迴圈覺得自己查過了,不算查過。** 已改為逐項揭露驗證狀態的表格。
+- 其餘採納:題目頁≠rubric 本體、討論「必修投寄」來自 modules 頁而非 raw、隱私類比方向相反、
+  silhouette 非唯一操作化、雙尺度質心表是建議非要求、KPI 衝突補起手式、三受眾結論句判準、k=2 案例搬進主表。
+
+### 四、事前推理被資料修正一次
+
+原記「使用率是比例、其他是計數,不標準化會讓數值範圍大的變數獨占距離」—— 方向對,
+但主宰距離的是 **`Recognition`(std 0.864)不是 `UsageRate`(0.316)**。已在兩份文件更正。
+
+### 五、跨文件矛盾修正(`notes/A2b_題目與rubric.md`)
+
+- **權重 20% → 25%**(Canvas 作業頁行 361「权重25%」,Codex CONFIRMED)。
+- 「上傳一份文件」→ **「報告與 notebook 作為兩個檔案」**(行 390),原措辭自相矛盾(Codex SCAN 抓到)。
+- 「K-means 前必做標準化」→ 改為**需裁決的分岔**(老師範本沒做)。
+- 補上老師起手範本的 file id 與落點、`EmployeeID` 實錘。
+
+### 六、環境註記
+
+- **本機是 Mac**,`codex` = `/opt/homebrew/bin/codex` **0.144.6**(SKILL §0 記的 0.144.5 是 Kenny Win 機)。
+  Mac 上用 **bash heredoc + stdin + `-o` 落檔**,`--sandbox danger-full-access`,**EXIT=0,未 timeout,中文 prompt 無亂碼**
+  —— codex-collab.md §3 的「PowerShell / 純 ASCII」限制是 Win 機專屬,Mac 不適用。
+- **Codex 一趟吃 6 條複合 CLAIM + 3 個檔(共 744 行)EXIT=0**,再次印證舊表「每趟 2–3 claims」已過時。
+- **Canvas 抓檔配方(新)**:`/api/v1/files/<id>/public_url` 取得 inst-fs 簽章網址 → `curl` 直接落到指定路徑,
+  不必經瀏覽器下載目錄。頁面內容則用同源 `fetch` + `DOMParser().body.innerText`。
+- **`javascript_tool` 單次回傳約 1000 字元上限**,長內容要分批或走 DOM 注入 `<pre>` + `get_page_text`。
+
+### 七、成本(SKILL §8.4)
+
+| 模型 | 用途 | tokens |
+|---|---|---|
+| sonnet | Canvas 單元四抓取落檔(U4-SCRAPE-01) | 119,227 |
+| sonnet | A2a 交付包骨架盤點(A2A-SKELETON-01) | ⚠️ 未回報 |
+| sonnet | A2b 文件語意複核(A2B-SEMREVIEW-01) | 80,212 |
+| **合計(已記錄)** | | **199,439** |
+
+Codex 趟次:**1 趟**(6 claims,EXIT=0,無 timeout)。subagent 數 **3**(§8.3 上限 8)。
+對照 §8.4 預設 1.5M ≈ **13%**,遠低於 7/25 那次的 81% —— 差別在**這次沒有派無界線的研究型 agent**,
+所有派工都帶硬 scope 上限。U4-SCRAPE-01 自報超出 javascript_tool 呼叫上限 3 次(8→11),已如實回報未自行擴權。
+
+### 八、待辦變化
+
+- **關閉**:A2b 資料集下載、單元四教材消化、A2b 知識架構。
+- **新增**:單元四**三個必修投寄全未投**(4.1.2 / 4.2.1 / 4.2.4)、4.2.5 未讀;
+  A2b 標準化與否待 Kenny 裁決;`clustering_song` 與 `K_means_basic` 兩份 notebook **尚未逐 cell 讀過**。
+- 待辦本體見 `TODO.md`。
