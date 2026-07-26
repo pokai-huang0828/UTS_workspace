@@ -208,6 +208,7 @@ __marimo__/
 
 # ISO
 *.iso
+*.DS_Store
 
 # pcapng
 *.pcapng
