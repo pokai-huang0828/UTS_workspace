@@ -204,3 +204,95 @@ Kenny 問「其他資料來源有一起看嗎」→ 誠實回答:先前只分析
 - **notebook 45 cells**(新增分群計算 cell);表四三個試點門檻全部有資料支持(≥3 次來電 696 人 26.1% 1.8×;未續約 323 人 42.4% 2.9×;高用量高月費 767 人 31.3% 2.2×)。
 - 審計軌跡:scratchpad codex/a2a_report_audit_round1–3.md;文獻查證 4/4 EXISTS(agent 兩趟 web 實查)。
 - **剩餘事項(Kenny 本人)**:①Jupyter 開 notebook Restart & Run All(確認自己環境重現)②開 docx 看目錄自動更新+整體觀感 ③上傳兩檔至 Canvas(檔名已照規定)。截止 7/26(週日)23:59 雪梨。
+
+---
+
+## 2026-07-25/26 · Opus 5 派工體系改版 + A2a 複審至 Codex READY(補記 5 個未落文 commit)
+
+### 一、補記先前遺漏的 commit(handoff 上次停在 7/23 凌晨)
+
+`079d1bd` A2a 報告文字抽取檔入庫;`58ed498` 7/22 管濟偉 Zoom 摘要落檔。
+
+### 二、治理框架改版(commit `1ffc431`)
+
+**觸發**:Opus 5 於 2026-07-24 發布,主迴圈換型號,重新分派。
+**流程**:Fable 5 立場書 → Codex gpt-5.6-sol **四輪對抗**(R1 五命題 2 REJECT / 3 CHALLENGE → R2 NOT-READY → R3 修正 → R4 **READY**)。
+
+- **skill 更名** `frugal-fable` → **`uts-dispatch`**;CLAUDE.md 已同步,無殘留(實查)。
+- **SKILL.md 改寫 §0/§2/§3/§5/§6/§7,新增 §8**:
+  - §0 加四模型費率表 + 「Agent tool 只回總 token,換不成錢」限制;**實查 Agent `opus` = `claude-opus-5`**(與主迴圈同型號)
+  - §2 **Fable 5 退出常規編制**,回鍋需兩個具名觸發條件;新增 A3 影音三列
+  - §3 廢除「往上派」;盲點型錯誤改為**換家族**而非升級
+  - §5 驗證雙軌**改並行**(語意軌 fresh Claude + 事實軌 Codex 同一則訊息發出)
+  - §6 新增 **R-獨立**(自檢可給完成證據,但不滿足獨立驗證)、**R-A3 影音交付閘門**
+  - §7 新增 A3 pitch preflight 七條
+  - §8 **成本管控**:預先扣額度(已花 + 在途 + 上限 ≤ 70%)、scope ID、spawn 上限、殘餘風險揭露
+- **codex-collab.md** 新增 §5.1 對抗合約(`ALT` / `COST` / `SELFCHECK`,實測有效:同一題目舊合約只回清單,新合約回可直接貼用的條文 + 自我攻擊)、§6 Codex 能力邊界(**播不了影音**)。
+- 新增 `.claude/settings.json`(唯讀指令 allowlist,31 allow / 8 ask)、兩個 slash command。
+- **Fable 退場依據**(全為外部評測,**本 repo 無本地 A/B**,Kenny 2026-07-25 裁定不做):GDPval-AA 知識工作 Opus 5 1861 vs Fable ≈1761;Frontier-Bench 43.3% vs 33.7%;綜合指數 61 vs 60;價格 2 倍。Fable 僅 SWE-bench Pro 領先 0.8。
+
+### 三、repo 清理(同 commit)
+
+- **D1 止血**:MNIST/FashionMNIST + DDoS 資料集移出追蹤 —— 追蹤中 >5MB 檔案 **524.9 MB → 53.9 MB**(五項驗證全過:本機檔案在、git 不追蹤、小檔保留、gitignore 生效)。⚠️ **其他機器 pull 後這 27 個檔會消失**,需自行重抓。**歷史未洗,`.git` 仍 959 MB**。
+- 新增 `TODO.md`(可覆寫待辦,與 append-only 的 handoff 分工);兩份舊交接文件加封存標頭;`notes/README.md` 記命名規則(**不改名**:實查改名會斷 24 處引用,其中在 append-only 的 handoff 裡);README.md 重寫;刪 `_probe.txt` 與 Tableau 暫存檔。
+
+### 四、A2a 複審(commit `65e0502`、`a0c12d9`)
+
+**Codex 抓到、兩個 Claude agent 全漏掉的實質缺陷:**
+
+- **三個外部引用全數誤用**(fresh agent 網路實查 3/3 成立):Ahmad 2019 關鍵特徵是 social network / recency / balance 非 day minutes;Neslin 2006 講方法學與獲利非「早期高風險組合」;Gallo 2014 只支持 5–25 倍獲客成本、未支持 30% 挽留率。→ Ahmad / Gallo **移除**,新增 **Abdelhady & Mohamed (2025) Sci Rep 15:43826**(DOI 可解析,逐字寫明 total day minutes 14.2% 為第一重要特徵);Neslin 收斂到實際主張。
+  > **教訓**:上一輪查證只問「論文存在嗎」(答:三篇都在),這輪問「論文支持你的說法嗎」(答:三篇都不支持)。**這是兩個不同的驗收標準。**
+- **主迴圈自己造成的矛盾(Codex 判為阻斷項)**:為呼應老師「召回率最重要」而寫 recall-first,與實際 F1-first 選模規則衝突(表一 SVC recall 最高 0.807)。改以 **SVC 為反例**說明 precision / recall 取捨 —— 恰是李春平上課用兩個數值範例講的重點。
+
+**依兩場 Zoom 逐字稿補上的**(7/22 管濟偉、7/23 李春平,**後者為改作業老師之一**,逐字稿已落 `notes/transcripts/`):
+
+- **False Positive 商業意義**(李春平成對講解 FP / FN,原報告零提及);FP = 24 已對 `test_table` 源驗證
+- **為何本題看 recall 的獨立論證**(流失者僅 14.5%)
+- **「正向 / 負向影響」用詞**(老師原話)。**Codex 要求刪除,主迴圈依老師要求保留並加限定語,Codex re-gate 明確 `ACCEPT PUSHBACK`**
+- **表五量化商業案例**(A1 評語①「成本投入及比較分析」,兩位老師都提過,一直未補)
+
+**表五移入 notebook**(commit `a0c12d9`):逐格追溯發現表一~表四皆可對到 notebook 輸出,**唯獨表五 11 個數字為報告獨有**。李春平明說「表格裡的數據是哪兒生成的?就是 notebook 裡面生成的」。→ notebook 新增「補充二」cell,以 nbclient 全執行(47 cells、20 秒、零錯誤)。報告表五改以 notebook 實算為準(毛利 A$422 → **423**;淨效益 → +4,957 / +8,359 / +9,274)。**重跑追溯:五張表全部可追溯。**
+
+**Codex 稽核軌跡**:數字 N1–N4 全 PASS(N1d 兩格差 A$1 已修);語意 R3B **NOT-READY**(F1 阻斷)→ 七項修正 → **R4 READY**。
+
+**交件包狀態(證據)**:
+
+- notebook 47 cells,執行序號 **1 → 25 連續、零錯誤**(Kenny 7/26 改排版後重驗)
+- 報告 **1,627 字**(嚴格口徑,限 1350–1650),兩個獨立計數器交叉驗證
+- 表五算術:獨立腳本複算 + Codex N1 PASS
+- **Codex 終審 VERDICT: READY**;預估 **87 ± 3**(Codex 兩次估值 84.75 與 89,後者 rubric 結構有誤,取中位)
+
+### 五、待辦變化
+
+- **關閉**:repo D1 止血、TODO.md 建立、skill 改版、A2a 引用 / 成本表 / FP / recall 全部補完。
+- **新增**:A2a 剩三件 **Kenny 本人動作**(Restart & Run All / 開 docx / 上傳,**7/26 21:59 台北截止**);A3 格式待老師公告釐清(李春平以為 15 分鐘全線上,學生說是錄影 + 線上答辯,她說會確認)。
+- 待辦本體見 `TODO.md`。
+
+### 六、教訓與環境註記(下個 session 會踩的坑)
+
+1. **Codex 一趟塞太多會 timeout**:7 個驗證項 + 3 檔 + 評分 → 10 分鐘 timeout(exit 143)。拆成「純數字」「純語意」兩趟就過。**舊表「每趟 2–3 claims」已過時,實測上限約 5 個複合命題。**
+2. **Codex 有用量上限**,撞到會顯示恢復日期。本次 Kenny 手動 reset 解決。撞到時 SKILL §2.1 觸發條件 (b) 成立(同家族 fallback)。
+3. **PowerShell 不吃 heredoc**(`<<'EOF'`),多行 python 一律寫成 `.py` 檔再跑;內嵌 `$` 會被吃掉。
+4. **沙箱擋 `git rm -r`**(誤判為遞迴刪除),改逐檔 `git rm --cached` 可過;**`Add-Content` 的長文字若含斜線開頭的字串也會被誤擋**,改用 python 附加。
+5. **VS Code 的 Data Wrangler 外掛**會在 .ipynb 注入 `application/vnd.microsoft.datawrangler.viewer` metadata(+926 行),無害但會讓 git 顯示大量差異。
+6. **`/watch` skill 可做 A3 影音驗收**(yt-dlp + ffmpeg + 逐字稿),片長 / 投影片可讀性 / 旁白同步 / 字幕一致都能查;ffmpeg `volumedetect` 查爆音。**只有口說聽感需 Kenny 本人**。⚠️ 尚未 smoke test,等第一支試錄檔。
+7. **報告字數雙口徑**:嚴格(不含圖表註)1,627 / 寬鬆(含註)1,749。Codex R1 主張要算註,但那時註含實質假設;壓成純出處標示後該理由不成立,且管濟偉親口說字數「不會很嚴苛」。
+
+### 七、成本(SKILL §8.4)
+
+本 session subagent 總 token(按模型分列,**兩個未記錄**):
+
+| 模型 | 用途 | tokens |
+|---|---|---|
+| fable | 派工立場書 | 86,499 |
+| sonnet | 網路查證 A(官方) | 440,503 |
+| sonnet | 網路查證 B(第三方) | 427,108 |
+| sonnet | A2a 報告 rubric 稽核 | 98,320 |
+| sonnet | A2a notebook 稽核 | 86,932 |
+| sonnet | 引用真偽查證 | 78,110 |
+| sonnet / opus | repo 健檢、opus 型號探測 | ⚠️ 未記錄 |
+| **合計(已記錄)** | | **1,217,472** |
+
+對照 §8.4 預設 1.5M 上限 ≈ **81%**。**最大單項是查網路的 agent(各約 44 萬),是 Fable 立場書的 5 倍** —— 印證 §8 的判斷:燒錢的是沒設界線的研究型 agent,不是模型選擇。
+
+Codex 趟次:治理 4 趟 + A2a 5 趟 = **9 趟**(1 趟 timeout、1 趟撞用量上限)。

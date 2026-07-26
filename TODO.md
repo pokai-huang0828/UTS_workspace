@@ -2,14 +2,16 @@
 
 > **這份和 handoff.md 分工**:handoff 是 append-only 的**事實流水帳**(發生過什麼);TODO 是**可覆寫的當前狀態**(還沒做什麼)。
 > 做完就從這裡刪掉或打勾,不要留一堆已完成項目。
-> 最後更新:**2026-07-25**(建檔;來源 = handoff.md 全檔盤點)
+> 最後更新:**2026-07-26**(A2a 過 Codex 終審 READY;repo D1 已完成)
 
 ---
 
 ## 🔴 硬截止(倒數)
 
-### A2a — 監督式學習 · **2026-07-26 23:59 雪梨**(剩 1 天)
-交付物兩個都已完成並過 Codex 三輪稽核(READY),**剩下的全是 Kenny 本人要做的**:
+### A2a — 監督式學習 · **今天 2026-07-26 23:59 雪梨 = 21:59 台北** 🔴
+v3 已過 **Codex 四輪對抗終審 READY**(引用誤用全修、表五量化商業案例入 notebook、
+FP 商業意義與 recall 論證依老師逐字稿補齊、五張表全部可追溯到 ipynb、字數 1,627)。
+**剩下的全是 Kenny 本人要做的**:
 
 - [ ] 在 Jupyter 開 `Assessment2a/Huang_26254793_421104_Assessment 2a.ipynb`,**Restart & Run All** 跑一次(確認自己環境能重現)
 - [ ] 開 `Huang_26254793_421104_Assessment 2a.docx`,確認目錄自動更新、整體觀感
@@ -26,6 +28,7 @@
 - [ ] 策略已定:沿用 A1 的 CBA 案例,敘事鏈 A1挑戰 → A2概念驗證 → A3路線圖
 - [ ] 照 `.claude/skills/uts-dispatch/SKILL.md` §7.1 的 A3 preflight 逐項過
 - [ ] **先做**:錄一段一分鐘試錄檔,讓 agent 跑一次 `/watch` smoke test(確認 yt-dlp / ffmpeg 這台裝得起來,不要等交件前才發現)
+- [ ] ⚠️ **格式待老師釐清**:李春平(7/23)以為是「15 分鐘全線上 = 10 分鐘簡報 + 5 分鐘問答」,學生王崇說是「錄 10 分鐘影片提交 + 線上 5 分鐘問答」。**她說會確認後公告** → 看 Canvas 公告再定。我方 `notes/A3_題目與rubric.md` 目前記的是錄影版
 
 ---
 
@@ -70,7 +73,9 @@ Unit 1 三項缺漏,Kenny 2026-07-10 明示「那些不用」:
 
 ## 🔧 Repo 工程債
 
-- [ ] **repo 體積**:`.git` 959 MB / 工作區 798 MB。2026-07-25 已做 D1 止血(大檔移出追蹤 + .gitignore),但**歷史沒洗,`.git` 不會縮**。要真的瘦身得改寫歷史 + force push + 兩台機器重 clone —— **不可逆,待 Kenny 決定**
+- [x] ~~D1 止血:大檔移出追蹤~~ **2026-07-25 完成**(追蹤中 >5MB 檔案 524.9 → 53.9 MB)。⚠️ **Mac 下次 pull 時那 27 個檔會被刪掉**,要用先自行備份或重抓
+- [ ] **repo 體積**:`.git` 仍 959 MB(**歷史沒洗**)。要真的瘦身得改寫歷史 + force push + 兩台機器重 clone —— **不可逆,Kenny 2026-07-25 表示先不做**
+- [ ] **關掉用不到的 plugin**:MCP 工具定義佔 context 約 214k,且 Desktop Commander 載兩次、pdf-viewer 載三份。可在 `.claude/settings.json` 加 `enabledPlugins` 只留 claude-in-chrome / ccd_session / visualize,估可省 150k+
 - [ ] `BusnessAnalytics` 拼字錯(應為 `BusinessAnalytics`),改名要同步兩台機器
 - [ ] `Data Visualisation and Visual Analytics/` 有 `26254793_A2.pdf` 與 `26254793_A2_FINAL_preview.pdf` 並存,確認哪個是定稿
 - [ ] `Foundation Studio/Quarterly ... (2).xlsx` 檔名帶 `(2)`,疑重複下載
