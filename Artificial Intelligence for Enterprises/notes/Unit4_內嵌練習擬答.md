@@ -71,6 +71,40 @@ The feature I'm least sure about is months since last purchase: that's recency, 
 
 </details>
 
+### 配圖(2026-07-26 加,本機實跑產生)
+
+| 圖 | 檔案 | 用途 |
+|---|---|---|
+| **A(推薦,貼這張就夠)** | [`figures/fig_412_why_it_failed.png`](practice/figures/fig_412_why_it_failed.png) | 左:各特徵佔距離平方和比例(popularity 98.1%)· 右:課程 k=3 的散佈圖,三條垂直帶 |
+| B(選用) | [`figures/fig_412_scaling_effect.png`](practice/figures/fig_412_scaling_effect.png) | 標準化前後「是什麼在分群」的對照長條 |
+
+**圖 A 建議圖說**:
+> 左:未標準化時 popularity 佔了總距離平方和的 98.1%。右:因此 k=3 的界線全落在
+> popularity 上(1–20 / 21–42 / 43–73),danceability 從頭到尾沒被用到。
+
+**圖 B 的新數據**(質心全距,z 單位 —— 這組數字圖 A 沒有,若用圖 B 才需要):
+
+| 特徵 | 未標準化 | 標準化後 |
+|---|---|---|
+| popularity | **2.44** | 1.60(退到第三) |
+| energy | 0.52 | **2.00** |
+| loudness | 0.24 | **1.83** |
+| genre(編碼) | 0.22 | 1.47 |
+| acousticness | 0.08 | 0.90 |
+| danceability | 0.35 | 0.66 |
+
+⚠️ **初版圖 B 標題寫「群不再只看人氣」是過度宣稱**,已改。正確說法是:標準化後
+**六個特徵全部開始起作用,popularity 從獨佔退到第三**,不是不再看人氣(它仍有 1.60)。
+
+用圖 B 的話,第一段可加一句(可選):
+> 把資料標準化之後,主導分群的變成 energy(2.00)與 loudness(1.83),popularity 退到第三(1.60)
+> ——六個特徵這時才真的都在起作用。
+
+### 一個建議(你的修訂版拿掉了結尾提問)
+
+你刪掉了「大家覺得這個該留嗎?」。題目寫的是「與同學**分享**你的理解」,4.1.2 又是討論區,
+**留一個開放問題比較容易引來回覆**,也讓貼文看起來像對話而不是報告。要不要加回去你決定。
+
 ### 貼之前 Kenny 自己決定的三件事
 
 1. **要不要點名 CBA。** 現在寫 "an Australian retail bank"(不具名但屬實 —— `notes/raw/A1_body_extract.txt` 出現 CBA ×14、Commonwealth Bank ×8)。想點名就自己改。
