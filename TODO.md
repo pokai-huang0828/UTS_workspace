@@ -24,10 +24,22 @@ FP 商業意義與 recall 論證依老師逐字稿補齊、五張表全部可追
 - [x] ~~下載資料集~~ ✅ **2026-07-26 全部到位**:`Assessment2b/BigBlue.csv`(107 列 × 4 欄)、
       `Assessment2b/assignment_part_B_final2(1).ipynb`(**老師起手範本**)、
       `notes/practice/{clustering_song_updated,K_means_basic-1}.ipynb`
-- [ ] **先跑 4.1.2 討論的 `clustering_song`**(必修投寄 + A2b 預演,見知識架構 §6)
-- [ ] 建交件 notebook:排除 `EmployeeID` → silhouette 掃 k=2..9 → elbow → 質心表(照老師範本骨架 + 補 `random_state`、肘部法)
-- [ ] **要裁決**:做不做標準化?老師範本**沒做**、示範 k=4;建議兩種都跑、未標準化為主線(知識架構 §4.5)
-- [ ] 寫報告四節(章節骨架與 `build_report.py` 從 A2a 移植)
+- [x] ~~**要裁決**:做不做標準化?~~ ✅ **2026-07-28 已裁決:做**(知識架構 §4.5 已改寫)。
+      推翻「未標準化為主線」的初版建議 —— 不縮放時 `Recognition` 獨佔 79.6% 距離權重,
+      分群退化為單變數複製(ARI 0.99),且 10 位高投入顧問被錯置。經 Codex 一輪對抗。
+- [x] ~~建交件 notebook~~ ✅ 42 cells / 31 code / 執行序 1→31 連續 / 零錯誤
+- [x] ~~寫報告四節~~ ✅ 1643 字(目標 1350–1650)、5 表 4 圖 8 章節、APA 3 筆
+- [x] ~~**過 Codex 對抗驗證**~~ ✅ 三項質疑全數修正(事後合理化 → 事前宣告判準;
+      26.8 倍近零分母 → 絕對佔比;補最佳群成員穩定率)
+
+> **交件包已完成**(commit `a50d10e`),最終檢查 13 項全 PASS。
+> 檔案:`Assessment2b/Huang_26254793_421104_Assessment 2b.docx` + `.ipynb`(**兩檔分開交**)。
+
+**剩下的全是 Kenny 本人要做的**:
+- [ ] 在 Jupyter 開 ipynb 跑一次 **Restart & Run All**(確認自己環境能重現)
+- [ ] 開 docx 確認目錄自動更新、整體觀感
+- [ ] 上傳兩檔至 Canvas(檔名已照規定,**不要改**;上傳 ipynb 時可忽略格式錯誤提示)
+- [ ] **先跑 4.1.2 討論的 `clustering_song`**(必修投寄,見知識架構 §6)—— 與交件無關,但仍未投
 - [x] ~~權重 20%~~ → **實為 25%**(Canvas 作業頁原文,Codex 複核 CONFIRMED;`notes/A2b_題目與rubric.md` 已更正)
 - [ ] ⚠️ 註記:rubric 文件標題寫 420104,但以 Kenny 註冊課號 **421104** 為準(Codex 抓到、已裁決)
 
