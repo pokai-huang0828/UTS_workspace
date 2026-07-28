@@ -619,7 +619,7 @@ from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 NL = chr(10)     # 避免在原始碼中使用跳脫字元,確保各平台一致
 
 fig, ax = plt.subplots(figsize=(11.2, 3.4))
-ax.set_xlim(0, 100); ax.set_ylim(0, 30); ax.axis("off")
+ax.set_xlim(0, 103); ax.set_ylim(0, 30); ax.axis("off")   # 103:容納第六個方塊,勿改小
 
 steps = [
     ("原始資料", "107 位顧問 × 4 欄" + NL + "無缺失、無重複列", "#e8eef7"),
@@ -659,29 +659,41 @@ CARD = {
     2: ("受認可的專業骨幹", "#4c8bbf", "投入與認可俱高,尚未帶隊——負責人職位的候補來源"),
     1: ("帶隊核心群", "#3f8f5f", "三項全數領先,持有全公司全部 6 個帶隊職位"),
 }
-fig, axes = plt.subplots(1, 4, figsize=(13.0, 4.4))
+# 四張卡必須共用同一刻度才能互相比較。
+# 不用「相對全體平均的倍數」——領導角色平均僅 0.056,倍數會衝到 26.8 而撐爆軸,
+# 正是 §4.2 指出的近零分母問題。改用「佔該指標全體最大值的百分比」,
+# 三項指標一律落在 0–100%,四張卡刻度一致。
+CAP = {c: X[c].max() for c in FEATURES}          # 使用率 0.99 / 認可度 4 / 領導角色 2
+LBL = {"UsageRate": "使用率", "Recognition": "認可度", "Leader": "領導角色"}
+
+fig, axes = plt.subplots(1, 4, figsize=(13.0, 4.4), sharex=True)
 for ax, cid in zip(axes, [0, 3, 2, 1]):        # 依投入度由低至高排列
     name, color, desc = CARD[cid]
     n = int(centroid.loc[cid, "人數"])
-    ratios = [centroid.loc[cid, c] / overall[c] for c in FEATURES]
-    ax.barh(range(3), ratios, color=color, height=0.55, alpha=0.9)
-    ax.axvline(1, color="#333333", ls="--", lw=1.1)
+    pct = [100 * centroid.loc[cid, c] / CAP[c] for c in FEATURES]
+    mean_pct = [100 * overall[c] / CAP[c] for c in FEATURES]
+    ax.barh(range(3), pct, color=color, height=0.5, alpha=0.92, zorder=3)
+    # 全體平均以短垂直標記呈現(不用整條虛線,避免與長條混淆)
+    for j, mv in enumerate(mean_pct):
+        ax.plot([mv, mv], [j - 0.34, j + 0.34], color="#333333", lw=1.6, zorder=4)
     ax.set_yticks(range(3))
-    ax.set_yticklabels(["使用率", "認可度", "領導角色"], fontsize=9)
+    ax.set_yticklabels([LBL[c] for c in FEATURES], fontsize=9)
     ax.invert_yaxis()
-    ax.set_xlim(0, max(3.4, max(ratios) * 1.18))
-    for j, v in enumerate(ratios):
-        ax.text(v + 0.09, j, "%.2f" % centroid.loc[cid, FEATURES[j]],
-                va="center", fontsize=8.4, color="#333333")
+    ax.set_xlim(0, 118)                          # 留白給條末數字
+    ax.set_xticks([0, 50, 100])
+    ax.set_xticklabels(["0", "50%", "100%"], fontsize=8)
+    for j, v in enumerate(pct):
+        ax.text(v + 3, j, "%.2f" % centroid.loc[cid, FEATURES[j]],
+                va="center", fontsize=8.4, color="#333333", zorder=5)
     ax.set_title("%s%sn = %d(%.1f%%)" % (name, chr(10), n, 100 * n / len(X)),
                  fontsize=10, fontweight="bold", color=color, pad=7)
-    ax.text(0.5, -0.28, desc, transform=ax.transAxes, ha="center", va="top",
+    ax.text(0.5, -0.26, desc, transform=ax.transAxes, ha="center", va="top",
             fontsize=7.8, color="#3a3a3a", wrap=True)
-    ax.tick_params(axis="x", labelsize=8)
+    ax.grid(axis="x", color="#e6e6e6", lw=0.8, zorder=0)
     for sp in ("top", "right"):
         ax.spines[sp].set_visible(False)
-axes[0].set_xlabel("倍數(虛線 1.0 = 全體平均)", fontsize=8.5)
-plt.suptitle("圖六:四個群組的畫像——條長為相對全體平均的倍數,條末數字為原始單位質心",
+axes[0].set_xlabel("佔該指標全體最大值的百分比(黑色短線 = 全體平均)", fontsize=8.2)
+plt.suptitle("圖六:四個群組的畫像——四張卡共用同一刻度,條末數字為原始單位質心",
              fontsize=11.5, y=1.05)
 plt.tight_layout()
 plt.savefig("figures/fig6_cluster_cards.png", dpi=200, bbox_inches="tight")
@@ -692,7 +704,7 @@ code(r"""
 # ── 3.6c 圖七:獎金級距與受眾建議 ────────────────────────────
 # 人數為 k=4 實算;配置佔比與行動為依分析結論提出的建議,非模型輸出。
 fig, ax = plt.subplots(figsize=(11.6, 4.8))
-ax.set_xlim(0, 100); ax.set_ylim(0, 46); ax.axis("off")
+ax.set_xlim(0, 100); ax.set_ylim(0, 45); ax.axis("off")
 
 TIERS = [
     (1, "第四級 · 帶隊核心群", "#3f8f5f", 15,
@@ -704,17 +716,26 @@ TIERS = [
     (0, "第一級 · 低度參與群", "#8b95a1", 20,
      "基礎級距;先釐清其中是否含到職未久的新進顧問"),
 ]
+# 版面規則:文字一律放在固定位置、用深色;色條只當「人數多寡」的視覺量尺,
+# 條內不放任何文字——否則人數少的群色條很短,白字會溢出到白底而看不見。
 y = 37
 for cid, label, color, pct, action in TIERS:
     n = int(centroid.loc[cid, "人數"])
-    ax.add_patch(FancyBboxPatch((2, y - 3.3), 46 * n / 70, 6.2,
-                                boxstyle="round,pad=0.25", fc=color, ec="none", alpha=0.9))
-    ax.text(3.4, y, "%s  ·  %d 人" % (label, n), va="center",
-            fontsize=9.6, fontweight="bold", color="white")
-    ax.text(51, y + 1.4, "建議獎金池佔比 %d%%" % pct, va="center",
-            fontsize=9.4, fontweight="bold", color=color)
-    ax.text(51, y - 2.0, action, va="center", fontsize=8.2, color="#3a3a3a")
+    ax.add_patch(FancyBboxPatch((2, y - 1.6), 2.6, 3.2, boxstyle="round,pad=0.15",
+                                fc=color, ec="none"))                  # 色塊圖例
+    ax.text(6.2, y, label, va="center", fontsize=9.5,
+            fontweight="bold", color="#222222")                        # 深色,固定位置
+    bar_w = 15.0 * n / 70                                              # 純視覺量尺
+    ax.add_patch(FancyBboxPatch((33, y - 1.5), bar_w, 3.0, boxstyle="round,pad=0.12",
+                                fc=color, ec="none", alpha=0.9))
+    ax.text(33 + bar_w + 1.2, y, "%d 人" % n, va="center",
+            fontsize=9, color="#222222")                               # 深色,條外
+    ax.text(56, y + 1.5, "建議獎金池佔比 %d%%" % pct, va="center",
+            fontsize=9.2, fontweight="bold", color=color)
+    ax.text(56, y - 2.0, action, va="center", fontsize=8.0, color="#3a3a3a")
     y -= 9.2
+ax.text(33, 41.5, "人數", fontsize=8.2, color="#888888", va="center")
+ax.text(56, 41.5, "配置建議與對應行動", fontsize=8.2, color="#888888", va="center")
 ax.text(2, 2.2,
         "註:人數為 k=4 分群實算;配置佔比與行動為依分析結論提出的建議值,"
         "須由人力資源部門依獎金政策核定。配置刻意不與人數成正比——最高級距僅 4 人,"
