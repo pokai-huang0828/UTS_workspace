@@ -40,6 +40,23 @@ raw 檔的討論內文本身沒有這個字樣 —— 兩個來源要分清楚�
 
 **A2b 只吃第 2、3、4、12 項。**
 
+**Canvas 直達連結**(併自已刪除的 `A2b_學習記錄.md`,2026-07-28):
+
+1. [單元四概述](https://canvas.uts.edu.au/courses/42198/pages/dan-yuan-si-gai-shu?module_item_id=2783601)
+2. [4.1 聚類基礎(無監督學習)](https://canvas.uts.edu.au/courses/42198/pages/4-dot-1-ju-lei-clustering-ji-chu-wu-jian-du-xue-xi?module_item_id=2783603)
+3. [4.1.1 進行聚類分析](https://canvas.uts.edu.au/courses/42198/pages/4-dot-1-1-jin-xing-ju-lei-fen-xi?module_item_id=2783605)
+4. [4.1.2 K 均值聚類在現實數據中的應用 · 討論](https://canvas.uts.edu.au/courses/42198/discussion_topics/771448?module_item_id=2783607)
+5. [4.2 互動演示與系統](https://canvas.uts.edu.au/courses/42198/pages/4-dot-2-hu-dong-yan-shi-yu-xi-tong?module_item_id=2783609)
+6. [4.2.1 趨勢分析工具 · 討論](https://canvas.uts.edu.au/courses/42198/discussion_topics/771442?module_item_id=2783611)
+7. [4.2.2 語言理解實戰(LUIS)](https://canvas.uts.edu.au/courses/42198/pages/4-dot-2-2-yu-yan-li-jie-shi-zhan?module_item_id=2783613)
+8. [4.2.3 圖像分類(Teachable Machine)](https://canvas.uts.edu.au/courses/42198/pages/4-dot-2-3-tu-xiang-fen-lei-google-teachable-machine?module_item_id=2783615)
+9. [4.2.4 快速塗鴉 · 討論](https://canvas.uts.edu.au/courses/42198/discussion_topics/771450?module_item_id=2783617)
+10. [4.2.5 圖像生成](https://canvas.uts.edu.au/courses/42198/pages/4-dot-2-5-tu-xiang-sheng-cheng?module_item_id=2783619)
+11. [4.3 第四週總結與問題 · 討論](https://canvas.uts.edu.au/courses/42198/discussion_topics/771446?module_item_id=2783621)
+
+> 第 12 項「評估任務二b」的連結見 `notes/A2b_題目與rubric.md`。
+> 資料集下載:https://canvas.uts.edu.au/courses/42198/files/12834401/download
+
 ---
 
 ## 2. 知識架構:課程實際教了什麼(全部可回溯到 raw 行號)
