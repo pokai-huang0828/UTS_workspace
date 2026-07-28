@@ -17,9 +17,18 @@ FP 商業意義與 recall 論證依老師逐字稿補齊、五張表全部可追
 - [ ] 開 `Huang_26254793_421104_Assessment 2a.docx`,確認目錄自動更新、整體觀感
 - [ ] 上傳兩檔至 Canvas(檔名已照規定,不要改)
 
-### A2b — 非監督式(K-means)· **2026-08-02**
-- [ ] 下載資料集(Canvas `files/12834401`,需登入)
-- [ ] 尚未開工。題目與 rubric 已抓齊 → `notes/A2b_題目與rubric.md`
+### A2b — 非監督式(K-means)· **2026-08-02** · **權重 25%**(不是 20%,見下)
+**單元四知識架構已建好** → [`Artificial Intelligence for Enterprises/Assessment2b/A2b_單元四_知識架構與學習記錄.md`](Artificial%20Intelligence%20for%20Enterprises/Assessment2b/A2b_單元四_知識架構與學習記錄.md)
+(Canvas 單元四 12 項逐字落檔 + rubric 四節主表 + 資料集實查 + 偵察實跑;已過 Codex 事實軌 + fresh Claude 語意軌雙軌驗證)
+
+- [x] ~~下載資料集~~ ✅ **2026-07-26 全部到位**:`Assessment2b/BigBlue.csv`(107 列 × 4 欄)、
+      `Assessment2b/assignment_part_B_final2(1).ipynb`(**老師起手範本**)、
+      `notes/practice/{clustering_song_updated,K_means_basic-1}.ipynb`
+- [ ] **先跑 4.1.2 討論的 `clustering_song`**(必修投寄 + A2b 預演,見知識架構 §6)
+- [ ] 建交件 notebook:排除 `EmployeeID` → silhouette 掃 k=2..9 → elbow → 質心表(照老師範本骨架 + 補 `random_state`、肘部法)
+- [ ] **要裁決**:做不做標準化?老師範本**沒做**、示範 k=4;建議兩種都跑、未標準化為主線(知識架構 §4.5)
+- [ ] 寫報告四節(章節骨架與 `build_report.py` 從 A2a 移植)
+- [x] ~~權重 20%~~ → **實為 25%**(Canvas 作業頁原文,Codex 複核 CONFIRMED;`notes/A2b_題目與rubric.md` 已更正)
 - [ ] ⚠️ 註記:rubric 文件標題寫 420104,但以 Kenny 註冊課號 **421104** 為準(Codex 抓到、已裁決)
 
 ### A3 — 10 分鐘影片 pitch + ~10 張投影片 + 5 分鐘 Zoom 答辯 · **2026-08-17**(40%)
@@ -65,9 +74,28 @@ Unit 1 三項缺漏,Kenny 2026-07-10 明示「那些不用」:
 
 ---
 
-## 📅 未來要主動提醒的必修投寄
+## 📅 單元四待作答 —— 共 **12 個**(2026-07-26 實查,含瀏覽器挖出的頁內元件)
 
-到該週再提:**4.2.1 趨勢分析** → **4.2.4 快速塗鴉** → **5.1.2 Slim Jims**
+擬答與題目全在 [`Artificial Intelligence for Enterprises/notes/Unit4_內嵌練習擬答.md`](Artificial%20Intelligence%20for%20Enterprises/notes/Unit4_內嵌練習擬答.md)。
+
+**Canvas 討論(必修投寄,modules 頁列完成條件)**
+- [ ] **4.1.2 K 均值聚類** —— ✅ **擬答已備妥可直接貼**(前置 notebook 已跑完,27 cells 零錯誤 + 7 圖)
+- [ ] **4.2.1 趨勢分析工具** —— ✅ **主文擬答已備妥**;⚠️ 第 3 點「評論一位同學」仍要 Kenny 自己做
+- [ ] **4.2.4 快速塗鴉** —— ⚠️ 要 Kenny 本人玩 6 次並記錄成敗,agent 產不出
+- [ ] 4.3 第四週總結與問題 —— 提問/回覆同學
+
+**⚠️ 頁內作答元件(純文字抓取看不到,2026-07-26 瀏覽器實查才發現,四個框全空)**
+- [ ] **4.1 H5P 問答**「聚类也有助于异常值检测。你能想到一个例子吗?」有作答框 + 提交鈕
+- [ ] **4.2 思考與分享**(Atomic Discussions 回覆框)—— ✅ **擬答已備妥可直接貼**
+- [ ] **4.2.2 思考與分享**(Atomic Discussions 回覆框,兩問)
+- [ ] **4.2.3 快速任務**(Atomic Discussions 回覆框)⚠️ 要先真的訓練一個 Teachable Machine 模型
+
+**要動手但不用投寄**
+- [ ] 4.1.1 `K_means_basic` 活動(含 Task 1 / Task 2 兩個留白格)
+- [ ] 4.2.2 操作 Microsoft LUIS 演示 · 4.2.3 訓練 Teachable Machine · 4.2.5 試用 ModelScope
+- [ ] **4.2.5 圖像生成頁面未查看**(單元四唯一未讀頁)
+
+到該週再提:**5.1.2 Slim Jims**
 
 ---
 

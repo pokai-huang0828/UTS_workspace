@@ -20,7 +20,9 @@ description: 指揮官派工守則(UTS_workspace)— 主模型當指揮官,派�
 | Agent tool `subagent_type` | `Explore`(只讀)/ `Plan` / `general-purpose`(全工具) | 未指定 = general-purpose |
 | Agent 執行模式 | 預設背景執行;`run_in_background: false` 同步 | **2026-07-25 實測**:要收結論才能繼續的派工用同步,比背景+通知少一次往返 |
 | Workflow 腳本 | `agent()` 支援 model + effort(low→max) | ⚠️ 需明確授權:Kenny 說「ultracode」或明確要求「用 workflow」才可呼叫;曖昧說法 → 改同一則訊息平行發多個 Agent |
-| Codex CLI | **gpt-5.6-sol**(codex-cli 0.144.5,effort xhigh) | `--sandbox danger-full-access`(2026-07-22 起,Kenny 指示)。**2026-07-25 實測:一趟吃 5 個複合命題 + 讀 3 個檔案,EXIT=0 未 timeout** —— 舊表「每趟 2–3 claims」是 gpt-5.5 時代的數字,已放寬。配方見 [codex-collab.md](references/codex-collab.md) |
+| Codex CLI | **gpt-5.6-sol**(Win 機 codex-cli 0.144.5 / **Mac 0.144.6**,effort xhigh) | `--sandbox danger-full-access`(2026-07-22 起,Kenny 指示)。**2026-07-26 Mac 實測:一趟吃 6 個複合 CLAIM + 讀 3 個檔(744 行),EXIT=0 未 timeout** —— 舊表「每趟 2–3 claims」是 gpt-5.5 時代的數字,已放寬。配方見 [codex-collab.md](references/codex-collab.md) |
+| **Codex 驅動方式(依平台)** | **Mac = Bash heredoc**;Win = PowerShell | **2026-07-26 Mac 實查**:`/opt/homebrew/bin/codex`,`cat prompt.txt \| codex exec --sandbox danger-full-access -o out.md`,**中文 prompt 無亂碼**。codex-collab.md §3 的「必須 PowerShell / 純 ASCII」是**Win 機專屬限制,Mac 不適用**。跑完照樣 `git status` 對賬 |
+| **Canvas 抓取(Mac,2026-07-26 實測)** | claude-in-chrome + Canvas API | 頁面內容:同源 `fetch('/api/v1/courses/<c>/pages/<slug>')` → `DOMParser().parseFromString(j.body).body.innerText`。檔案下載:`/api/v1/files/<id>/public_url` 取 inst-fs 簽章網址 → `curl -o` 直接落到指定路徑。⚠️ `javascript_tool` **單次回傳約 1000 字元上限**,長內容分批或走 DOM 注入 `<pre>` + `get_page_text` |
 | Codex 能力邊界 | **播不了影片/音訊** | A3 影音驗收不可外包給 Codex,見 §6 R-A3 |
 | 主迴圈 | session 當下模型(不可自選) | 2026-07-25 起 = Claude Opus 5 |
 

@@ -1,0 +1,399 @@
+抓取日期: 2026-07-26
+course: 42198, module: 342818
+共 12 項
+
+=== PAGE: 单元四概述 ===
+URL: https://canvas.uts.edu.au/courses/42198/pages/dan-yuan-si-gai-shu
+单元四 | 机器学习实践与互动演示：第二部分 | 单元四概述
+
+每周导言
+在本单元中，我们将继续讨论机器学习（ML）模型，并通过探讨“无监督学习（unsupervised learning）”方法来完成该主题。本周我们将首先定义“无监督学习”，并解释其广为人知的技术之一——K均值聚类（K-means clustering）的工作原理。随后，我们将探索多种基于人工智能（AI）的互动演示，这些演示将帮助你理解AI在实际环境中的应用方式。请注意，基于机器学习的解决方案通常遵循试错过程，以实现其最大潜力。你看到的AI应用案例越多，你在构建自己的机器学习解决方案时就会越具创造力和知识储备。
+
+本周重点
+
+主题一
+
+聚类基础概念
+
+▶
+
+主题二
+
+互动演示与系统
+
+本周结束时，你将能够：
+
+定义机器学习及其在商业中的应用
+区分监督学习、无监督学习以及基于实验的学习方案
+概述机器学习技术在企业应用中的范围与局限性
+
+--- LINKS ---
+
+IMG alt="420104-obanner.jpeg" -> https://canvas.uts.edu.au/courses/42198/files/12834603/preview
+
+=== PAGE: 4.1 聚类（clustering）基础（无监督学习） ===
+URL: https://canvas.uts.edu.au/courses/42198/pages/4-dot-1-ju-lei-clustering-ji-chu-wu-jian-du-xue-xi
+单元四 | 机器学习实践与互动演示：第二部分 | 聚类基础
+
+概述
+
+人类的一项认知能力是将相似的事物进行分组，以便学习和应对环境。例如，我们可以根据音乐的类型（genre）来分类或识别音乐，而不是依据发行年份等量化指标。
+在本节中，我们将讨论聚类作为一种机器学习技术。与第3单元中讨论的技术不同，聚类不使用任何预定义或分配的标签，因此它属于“无监督”学习技术之一。
+考虑到信息生成的快速节奏，人工智能的未来在于“无监督学习”，即那些在几乎没有人类指导的情况下自行学习和改进的机器学习模型，用以解决问题。在本节中，我们将介绍聚类作为一种无监督算法的基本概念，并提供实践操作机会。
+
+应用案例
+需要注意的是，“聚类”通常用于支持其他机器学习活动，包括数据理解、预处理、分类和异常值检测。例如，聚类可以帮助我们在分类问题中识别、验证和优化标签。它也可以用于理解和总结数据集。
+一旦我们生成了数据的聚类，将相似的数据对象分组在一起，每个聚类的中心（假设我们有 n 个聚类）可以作为该聚类的代表（类似于单元二中讨论的集中趋势概念）。然后，如果上下文适合，我们的分析可能只关注这 n 个聚类中心作为代表性观察，而不是分析大量的个体记录。
+在高风险情境中，决策应由人类基于证据做出。但人类无法分析和理解庞大的数据集，因此聚类可以用于降低数据的复杂性。在其他情况下，聚类可以帮助你快速而全面地解释任何人工智能算法的输出，从而增强对自动化结果的信任。
+实际应用
+聚类有许多实际应用，常用于市场细分、社交网络分析以及搜索结果分组。像 Google 和 Meta 这样的平台也创新性地使用聚类来实现隐私保护。正如你所知，这些平台上的机器学习模型在向你推荐广告和内容时，需要使用历史数据，例如 YouTube 用户的搜索和观看记录。保护个人隐私的一种方法是将所有用户按相似行为进行聚类，并使用他们的聚类编号和聚合属性，而不是使用个人身份和私人信息。
+
+问题
+
+--- LINKS ---
+
+IFRAME -> https://canvas.uts.edu.au/courses/42198/external_tools/retrieve
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834771/preview
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834673/download
+
+=== PAGE: 4.1.1 进行聚类分析 ===
+URL: https://canvas.uts.edu.au/courses/42198/pages/4-dot-1-1-jin-xing-ju-lei-fen-xi
+单元四 | 机器学习实践与互动演示：第二部分 | 聚类基础
+
+聚类算法是如何工作的？
+聚类算法将相似的观测值分组在一起。因此，相似性度量是任何聚类算法的核心支柱。许多聚类算法会计算数据中所有数据对之间的相似性，这使得它们在处理包含大量数据集的现实应用中运行速度非常慢。
+在这里，我们使用 K均值聚类（K-means clustering），这是一种最著名且最快速的聚类算法之一。K均值聚类能够扩展到大规模数据集，因为它是通过计算每个数据点与已识别聚类中心之间的相似性，而不是点对点之间的相似性。
+
+K均值聚类的主要步骤
+请浏览下方流程图，了解如何进行 K均值聚类。
+
+步骤 1
+从一些初始聚类中心开始
+
+▶
+
+步骤 2
+将每个样本分配/聚类到最近的中心
+
+▶
+
+步骤 3
+重新计算聚类中心，即聚类中所有点的均值
+
+重复步骤 2 和 3，直到聚类中心不再移动。
+
+活动：K均值聚类
+目的
+本活动旨在帮助你实际理解 K均值聚类。
+任务
+点击下方链接下载文件 K_means_basic，并使用 Anaconda 进行 K均值聚类操作。
+K_means_basic
+操作
+
+通过 Anaconda 的“文件”菜单中的“打开笔记本”选项上传下载的 K_means_basic 文件。
+笔记本打开后，阅读提供的说明，并执行代码以按照前面幻灯片中概述的步骤进行 K均值聚类。
+
+时间安排
+本活动预计耗时 30 分钟完成。
+
+--- LINKS ---
+K_means_basic -> https://canvas.uts.edu.au/courses/42198/files/12834549
+
+IMG alt="Clustering concepts: points grouped tightly (intra-cluster minimised) and separated groups (inter-cluster maximised)." -> https://canvas.uts.edu.au/courses/42198/files/12834827/preview
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834689/preview
+
+=== PAGE: 4.2 互动演示与系统 ===
+URL: https://canvas.uts.edu.au/courses/42198/pages/4-dot-2-hu-dong-yan-shi-yu-xi-tong
+Module 4 | Machine learning hands-on and interactive demos: Part 2 | Interactive demos and systems
+
+概述
+在本节中，我们将帮助你扩展对人工智能技术的一般技术理解。为此，你将有机会探索各种互动性强的人工智能演示，了解这些系统所生成的输出类型。你将理解这些系统的弱点与局限性，这将帮助你对人工智能的能力形成更现实的认知，从而在未来职业生涯中遇到人工智能项目时，能够做出艰难而重要的决策。
+数据分析翻译师（Analytics Translator）
+“文本理解”（text understanding）和“计算机视觉”（computer vision）是人工智能中不断发展的两个领域，并在未来具有广泛的行业应用前景。我们在第三周已介绍了“文本理解”。“计算机视觉”是分类方法的一个子领域，其输入为图像。在继续探索这两个领域中的一些有趣演示之前，请阅读下方发表于《哈佛商业评论》的文章，以熟悉“数据分析翻译师 ”（analytics translator）这一术语。
+你不必是数据科学家，也能胜任这一关键的分析角色 (Henke et al., 2018)
+作者强调了一个特别重要的观点：
+
+“然而，近年来，公司扩大了视野，认识到要在人工智能和分析方面取得成功，不仅需要数据科学家，还需要由数据工程师、数据架构师、数据可视化专家以及——或许最重要的——数据分析翻译师组成的跨职能、敏捷团队。”
+
+根据作者的定义，数据分析翻译师（analytics translators）是人工智能团队与组织其他职能领域之间的中介。这些角色应具备两项重要的技能和知识，即：“领域知识”（domain knowledge）和“一般技术理解能力”（general technical fluency）。他们应确保“通过复杂分析和人工智能所生成的深度洞察能够在组织中转化为大规模的实际影响”。作者还推荐的其他技能包括项目管理能力和创业精神。
+在接下来的几页中，你将接触到一些关于“文本理解”的工具和互动演示。众所周知，文本约占网络上可用数据的 80%，应妥善管理，以帮助组织开展各类活动。我们将在后续页面中详细介绍以下内容：
+
+Google 趋势（Google Trend）
+IBM 情绪分析器（IBM Tone Analyser）
+与书对话（Talk to Books）
+语言理解实操（Language understanding in action）
+
+随后，我们将继续探索两个关于“计算机视觉”的互动演示：
+
+趣味人工智能（AI for fun）
+图像分类（Image classification）
+
+思考与分享
+在熟悉这些工具之前，请思考真实的人工智能项目，它们的优势与劣势。这将帮助你在数据分析翻译师这一角色中取得成功。请在下方文本框中分享你的想法。
+
+--- LINKS ---
+你不必是数据科学家，也能胜任这一关键的分析角色 (Henke et al., 2018) -> https://hbr.org/2018/02/you-dont-have-to-be-a-data-scientist-to-fill-this-must-have-analytics-role
+IFRAME -> https://canvas.uts.edu.au/courses/42198/external_tools/retrieve
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834673/download
+
+=== PAGE: 4.2.2 语言理解实战 ===
+URL: https://canvas.uts.edu.au/courses/42198/pages/4-dot-2-2-yu-yan-li-jie-shi-zhan
+Module 4 | Machine learning hands-on and interactive demos: Part 2 | Interactive demos and systems
+
+Microsoft Azure LUIS
+
+让我们来看另一个在语言理解背景下使用自然语言处理（NLP）的演示 —— Microsoft LUIS。它是一项基于机器学习（ML）和自然语言处理的云服务，你可以轻松地将其集成到聊天机器人或应用程序等平台中。
+为了了解其工作原理，你可以点击登陆页面上的不同文本片段，观察 LUIS 如何理解它们，如下所示。它将该文本识别为“FoodOrder”（食物订单），置信度为 99.99%。如果你向下滚动页面，还会看到它识别出了“FoodType”（食物类型）和“quantity”（数量）。
+
+思考与分享
+我相信你已经尝试过众多生成式人工智能聊天机器人之一，例如豆包、Deep Seek|深度求索，或 MinMax。这些都是突破性的生成式人工智能 + NLP 工具，旨在成为最具人类对话风格的聊天引擎（机器人）。探索你最喜欢的生成式人工智能聊天机器人，并阅读下方文章以了解它们的功能。你如何将它与 Microsoft LUIS 或智能家居设备（如 Apple Siri）进行比较？
+前往文章Links to an external site.
+
+你注意到哪些不同之处？
+你认为像 AI 聊天机器人这样的工具在未来有哪些优势和挑战？
+
+--- LINKS ---
+Microsoft LUIS -> https://learn.microsoft.com/zh-cn/azure/ai-services/language-service/reference/migrate
+豆包 -> https://www.doubao.com/security/doubao-region-ban
+Deep Seek|深度求索 -> https://www.deepseek.com/
+MinMax -> https://www.minimaxi.com/
+前往文章Links to an external site. -> https://www.abc.net.au/news/science/2023-01-25/chatgpt-midjourney-generative-ai-and-future-of-work/101882580
+IFRAME -> https://canvas.uts.edu.au/courses/42198/external_tools/retrieve
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834769/preview
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834673/download
+
+=== PAGE: 4.2.3 图像分类 [Google: Teachable Machine] ===
+URL: https://canvas.uts.edu.au/courses/42198/pages/4-dot-2-3-tu-xiang-fen-lei-google-teachable-machine
+单元四 | 机器学习实践与互动演示：第二部分 | 聚类基础
+
+Teachable Machine（可教机器）
+你可能听说过“深度学习（deep learning）”这个术语。深度学习模型主要属于分类技术，是机器学习成功应用（如计算机视觉和自然语言处理）的核心。在本节中，你将接触两个基于深度学习的演示之一（Teachable Machine 和 Quick, Draw!）。这些演示将展示机器学习在实际中的工作方式。
+在这一部分，我们将讨论人工智能最成熟的支柱之一——计算机视觉。我们将使用 Teachable Machine，这是一个基于网页的工具，使创建机器学习模型变得快速、简单且人人可及。
+让我们通过使用图像创建一个机器学习模型来区分“生气脸”和“微笑脸”，来探索它的工作原理。请浏览下方的幻灯片，学习如何完成这一过程。
+
+在中国大陆使用可教机器(Teachable Machine):
+在中国大陆可以下载可教机器： 英荔 AI 魔法家。你需要同时下载 英荔 Adapter 控制中心 和可教机器。具体操作步骤，请查看 CodeLab Adapter 分步操作指南。.
+
+如何训练‘可教机器’?
+
+首先，请前往 Teachable Machine，然后通过主菜单打开一个 “新项目”。
+通过创建清晰区分的类别（classes）来开始训练该机器。 并用这些类别对其进行教学。这里我们创建两个类别：一个用于笑脸，一个用于生气的脸。对于我们希望教给模型的每一种事物，都需要建立一个对应的类别。
+
+下一步
+
+现在我们已经有了类别，让我们为每个类别提供可供学习的样本。在这个例子中，这些样本就是你自己的图像。因此我们先从“笑脸”开始。
+
+最后步骤
+
+对另外两个类别执行相同的操作。
+现在我们已经准备好了所有类别，可以点击“训练”，并在右侧预览模型是否有效！
+既然模型已经可以运行，你可以测试它的工作方式。更有趣的是，观察它在哪些情况下无法正常工作。请记住，对于计算机而言，图像只是数字以及像素模式的组合。
+
+快速任务：操作机器学习模型
+
+尝试找到一种方式，使你训练好的模型无法正确对输入图像进行分类，并将其分享给班级中的其他同学。
+例如，请查看这张图像。
+
+--- LINKS ---
+Teachable Machine -> https://teachablemachine.withgoogle.com/
+英荔 AI 魔法家。 -> https://aimofa.cn/download/
+英荔 Adapter 控制中心 -> https://train.aimaker.space/
+CodeLab Adapter 分步操作指南。 -> http://adapter.codelab.club/extension_guide/teachable_machine/
+IFRAME -> https://canvas.uts.edu.au/courses/42198/external_tools/retrieve
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834775/preview
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834463/preview
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834793/preview
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834673/download
+IMG alt="4.2.6_quickTask-1-1.png" -> https://canvas.uts.edu.au/courses/42198/files/12834425/preview
+
+=== PAGE: 4.2.5 图像生成 ===
+URL: https://canvas.uts.edu.au/courses/42198/pages/4-dot-2-5-tu-xiang-sheng-cheng
+单元四 | 机器学习实践与互动演示：第二部分 | 聚类基础
+
+AI图像生成
+我们现在已经探索了许多传统的机器学习任务，从预测到分类。现在，让我们看看生成式人工智能（Generative AI）如何用于图像生成。
+Alibaba's ModelScope (魔搭社区) 是一个开放的、由社区驱动的人工智能平台，旨在让开发者、研究人员和创作者能够更便捷地使用前沿模型。与全球开源生态系统中的 Hugging Face 类似，ModelScope 提供了一个集中式平台，使用户能够探索、下载并试验广泛的人工智能能力，包括最先进的图像生成模型。
+示例生成器
+两种常见的应用包括一种基于提示词的图像生成应用，以及一个被称为深度学习模型演示的应用 Stable Diffusion解析 · 研习社 和 ToonCrafter-fp16 · 模型库 在该应用中，当你提供一个场景的起始图像和结束图像时，人工智能将为你生成一段视频。请尝试使用这些工具。你可以提供自己的提示词和图像，或者尝试使用其提供的一些示例。
+
+Stable diffusion
+
+ToonCrafter
+
+生成式人工智能与幻觉
+
+生成式人工智能的一个关键问题是生成不真实／不存在的数据。这里可以看到由 Stable Diffusion 生成的图像。提示词是“University of Technology Sydney”，但生成的建筑仅在某种程度上看起来似曾相识，并不符合我们所熟悉的大学真实建筑或景观。结果缺乏一致性也是生成式人工智能的另一个问题。我们需要认识到这些局限性，从而能够基于它们设计出可靠的应用。
+
+提示词工程
+提示词工程是一门正在兴起的研究领域，它可以帮助我们减少幻觉问题。要了解更多内容，这里提供一份来自 the DeepSeek Prompt Library 提示库的指南。
+
+--- LINKS ---
+Alibaba's ModelScope (魔搭社区) -> https://modelscope.cn/home
+Stable Diffusion解析 · 研习社 -> https://www.modelscope.cn/learn/410
+ToonCrafter-fp16 · 模型库 -> https://www.modelscope.cn/models/Aitrepreneur/ToonCrafter-fp16
+the DeepSeek Prompt Library 提示库 -> https://api-docs.deepseek.com/prompt-library
+
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834647/preview
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834805/preview
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834393/preview
+
+=== DISCUSSION: 4.1.2 K 均值聚类在现实数据中的应用 ===
+URL: https://canvas.uts.edu.au/courses/42198/discussion_topics/771448
+单元四 | 机器学习实践与互动演示：第二部分 | 聚类基础
+
+活动: K 均值聚类 （K-means clustering）在现实数据中的应用
+目的
+你需要将K均值聚类应用于现实世界数据，并与同学分享你的理解。
+任务
+将K均值聚类算法应用于真实案例，以了解用户的音乐品味。本活动所使用的数据来自Spotify，你可以通过点击下方链接在 Kaggle 网站上获取该数据。
+Nigerian songs Spotify data Links to an external site.
+该数据集包含 16 个特征，涵盖“舞曲性danceability”评分、“声学特性acousticness”、“响度loudness"、“语音特性speechiness”、"流行度和能量popularity and energy"等变量。现在，我们将使用名为 clustering_song 的 Python notebook 处理此数据集，你可以参考其中的操作步骤。
+点击下面的链接下载 clustering_song 文件，并使用 Jupyter 完成 K均值聚类步骤。
+Clustering song Links to an external site.
+操作指南
+
+前往 Jupyter 的 “文件File” 菜单，并使用 “打开笔记本Open Notebook” 选项上传已下载的 clustering_song 文件。
+笔记本打开后，请阅读其中提供的说明，并运行相关代码以执行 K均值聚类，操作方式与前面各部分中的活动类似。
+请在下方讨论区分享你的想法：你将如何把K均值聚类应用于一个假设数据集，从而获得与你的工作场景或任何感兴趣领域（例如烹饪食材）的见解。
+
+时间安排
+本活动预计需要 30 分钟完成。
+
+--- LINKS ---
+Nigerian songs Spotify data Links to an external site. -> https://www.kaggle.com/sootersaalu/nigerian-songs-spotify
+Clustering song Links to an external site. -> https://canvas.uts.edu.au/courses/42198/files/12834723/download
+
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834689/preview
+
+=== DISCUSSION: 4.2.1 趋势分析工具 ===
+URL: https://canvas.uts.edu.au/courses/42198/discussion_topics/771442
+单元四 | 机器学习实践与互动演示：第二部分 | 聚类基础
+
+趋势分析平台
+诸如 Google Trends （谷歌趋势）、Baidu Index（百度指数）、Weibo Index（微指数） 以及 WeChat Index（微信指数） 等趋势分析平台，为观察公众兴趣如何随时间演变提供了有力的方法。这些工具能够通过揭示人们在不同平台与地区中搜索、讨论和参与各类主题的模式，为广泛的项目提供支持。
+下面是对 Google Trends 的介绍，但其内容通常也适用于其他趋势分析工具。
+谷歌趋势 Google Trends
+
+Google Trends 涵盖从 2004 年至今的数据。你也可以只查看“过去一周”的数据，以实时了解你所感兴趣主题的动态。Google Trends 提供以下两个标签：
+
+热搜趋势（Trending searches），这将帮助你了解事物如何发生变化。
+热门搜索（Top-searches），其结果来源于特定时间范围。
+
+搜索与趋势
+
+在 Google Trends 中，你可以搜索“术语（term）”或“主题（topic）”。如果你对想要探索的领域不熟悉，可以选择“主题”，因为 Google 会通过整合多种语义、名称以及拼写变体，使搜索变得更加便捷。如果你搜索某个术语，则结果会严格限定于你输入的具体词语。Google Trends 还可以帮助你从新闻角度了解当前正在流行（Trending Now）的内容。
+
+主题分析
+另一种更全面了解你感兴趣主题的方法，是查看不同地区如何搜索该主题。例如，在新冠疫情爆发期间，通过将“新冠疫苗接种（Covid-19 Vaccination）”与德国等其他国家进行比较，你可以更深入地理解澳大利亚社会对此议题的关注程度。
+
+思考与分享
+阅读以下问题，并在下方的论坛中分享你的想法。
+
+你认为趋势分析工具将如何通过生成式人工智能（Generative AI）得到提升？
+
+假设你是一所澳大利亚大学的市场分析师，你可以如何在你的工作中使用趋势分析工具？
+
+对其他一位同学的回答进行评论，并为其提供建设性反馈。
+
+--- LINKS ---
+-> https://blog.google/products/search/generative-ai-google-search-may-2024/
+
+IMG alt="trending now searches in google trends" -> https://canvas.uts.edu.au/courses/42198/files/12834823/preview
+IMG alt="covid 19 vaccine searches in australia vs germany" -> https://canvas.uts.edu.au/courses/42198/files/12834825/preview
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834673/download
+
+=== DISCUSSION: 4.2.4 人工智能的趣味应用：快速涂鸦！ ===
+URL: https://canvas.uts.edu.au/courses/42198/discussion_topics/771450
+单元四 | 机器学习实践与互动演示：第二部分 | 聚类基础
+
+你在画什么？
+在本部分中，你将接触一个基于深度学习的模型，该模型会尝试猜测你正在绘制的内容。这个游戏由神经网络驱动并构建而成。你进行绘图，而网络则尝试猜测图像的内容。与其他人工智能模型一样，由于错误或绘图不完整或具有误导性，它也并不总是能够正确运行。然而，你玩这个游戏的次数越多，它学习得也就越多。这个演示很好地展示了人工智能如何以有趣的方式加以应用。你可以点击按钮，通过一个可用的演示来查看其工作原理。
+“快速涂鸦” 网页链接
+
+提示:
+如你在此所见，该游戏会要求你绘制一个物品。如果你不确定该物品的外观，可以在开始游戏之前先进行查找（点击“开始涂鸦吧”按钮以开始绘画）。
+
+快速涂鸦，讨论！
+
+尝试进行六次“快速涂鸦”游戏。
+记录你所绘制的物品名称，以及游戏结果（成功或失败）。如果深度学习模型能够正确猜出你的绘画结果，则视为成功。
+在完成四个物品的游戏后，与班级同学讨论你的发现。你是否有任何建议可以与全班分享？你能否反思你的游戏体验，并尝试找出如何赢得游戏，或者分析你失败的原因？
+现在再尝试进行两次游戏。这一次你是否有所提升？
+
+--- LINKS ---
+“快速涂鸦” 网页链接 -> https://quickdraw.withgoogle.com/
+
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834391/preview
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834673/download
+
+=== DISCUSSION: 4.3 第四周总结与问题 ===
+URL: https://canvas.uts.edu.au/courses/42198/discussion_topics/771446
+Module 4 | Machine learning hands-on and interactive demos: Part 2 | Module 4 summary
+
+总结
+本周我们结束了关于机器学习（ML）的技术讨论。第二至第四周的总体目标是帮助你了解当前机器学习模型的基本情况：它们的功能、优势与特性，以及它们的局限性与不足。我们探讨了机器学习模型的两个主要主题：监督学习和无监督学习。第三周我们重点讨论了监督学习的两个主要组成部分：分类/回归与预测。同时也回顾了文本挖掘方法的一些基本特征。作为一名机器学习工程师或设计者，你需要明确最终目标，并了解何时使用监督学习或无监督学习方法，以更好地理解数据集中的模式。
+在第二和第三周，我们介绍了机器学习模型的基础知识，为你将来担任“分析翻译者”（analytical translator）等角色做好准备。而在第四周，我们展示了一些使用先进机器学习模型的交互式演示。你可以将这些演示视为由机器学习驱动的产品。这有助于你理解机器学习模型在最终产品或服务中的作用。你应当通过研究机器学习在各行业中的成功应用，持续关注其发展动态。
+有问题吗？
+请利用这个时间提出你对本周主题的任何疑问。欢迎你帮助同学并回答他们的问题。任何尚未解决的问题将在下一次 Zoom 会议中讨论。
+模块 4 参考文献列表
+
+Henke, N., Levine, J., & McInerney, P. (2018). You don't have to be a data scientist to fill this must-have analytics role. Harvard Business Review. https://hbr.org/2018/02/you-dont-have-to-be-a-data-scientist-to-fill-this-must-have-analytics-role
+Sullivan, D. (2020). How Google autocomplete predictions are generated. Google; Google. https://blog.google/products/search/how-google-autocomplete-predictions-work/
+
+--- LINKS ---
+
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834777/download
+
+=== ASSIGNMENT: 评估任务二b：使用无监督学习技术分析数据 ===
+URL: https://canvas.uts.edu.au/courses/42198/assignments/287737
+Module 4 | Machine learning hands-on and interactive demos: Part 2
+
+Machine Learning Proof-of-Concept
+目的
+本评估项目旨在评估你在数据收集、特征工程、模型设计、评估与执行方面的学习成果，并要求你在适当的情境下提出基于数据分析的建议。本次评估将聚焦于无监督学习中的 K-means 聚类技术。
+你将获得一个真实世界的数据集用于本次评估。你需要使用Anaconda/Jupyter根据你自己的分析计划对数据进行分析，并提出基于情境的建议。此外，你还需根据所设计并执行的 K-means 聚类模型的输出，回答相关问题。该任务要求你理解并应用课程中涵盖的技术与技能。
+目标
+本评估任务旨在达成本课程的以下学习目标：
+
+将 K-means 聚类技术应用于企业数据集。
+
+截止日期2026年8月2日星期日（第四周）晚上11:59（澳大利亚东部夏令时间，悉尼时间）
+权重25%
+任务说明
+IBM 雇佣了一批专家顾问参与各类项目。为了更合理地分配奖金，IBM 希望根据关键绩效指标对表现相似的员工进行聚类分析。
+数据文件名为 “Big Blue”，每一条记录代表一位员工，包含以下三个变量的数值：(1)使用率（Usage Rate）：员工在高优先级项目中实际工作的时间占比；(2)认可度（Recognition）：员工被特别指派参与的项目数量；(3)领导角色（Leader）：员工担任项目负责人角色的项目数量。
+
+你将获得一个名为 “IBM” 的真实世界数据集，用于使用无监督学习技术（聚类clustering）进行分析。请点击下方链接下载数据集。注意：在某些网页浏览器中，该文件可能会在新窗口中打开。为避免此情况，请右键点击文件并选择“下载链接文件”。Assessment 2b dataset
+下载了数据集之后，你需要通过以下任务对数据进行分析：
+
+特征工程任务：你应当识别出在“聚类”分析中应考虑的主要数据特征（明确哪些特征应被纳入考虑，哪些不应被纳入）。在报告中，你需要对你的决策进行合理解释。
+通过应用 K-means 聚类算法，你应当使用轮廓系数（silhouette score）来识别最优聚类数量。请对你的结论进行合理说明。注意：有时你可能需要使用其他方法来确保正确识别最优聚类数量（例如肘部法 Elbow method），同时还要考虑我们使用聚类技术所针对问题的主要目标。原因在于，最佳的轮廓系数并不总是意味着我们能获得针对主要问题目标的最佳答案。
+在本部分中，你应当以语言方式解释“聚类”（即每个聚类的整体特征是什么？）。你可以将不同的利益相关者视为你的受众，并以适合他们的方式进行解释。
+所提供的数据是关于某企业的绩效表现。现在你需要识别出哪个聚类代表绩效最优的一组个体？你能否通过使用质心表（Centroid Table）中的数值来证明你的结论？
+
+注意：你需要提交包含报告和代码笔记本的完整材料。
+请注意，你的报告在形式方面（包括语法、语言表达、版式布局、目录、APA格式的参考文献等）也将被评估。
+参考格式：APA 第七版。
+字数要求：1500 字（±10%）——字数不包括附录、参考文献、标题页信息、表格/图表，但包括文中引用和标题。
+结构：报告必须包含与上述四项任务相关的四个部分。
+各部分应包括：
+
+主要数据特征：应考虑哪些特征用于“聚类”，哪些不应考虑，并说明你的决策理由，需有笔记本中的证据支持。
+
+使用 K-means 聚类法确定最优聚类数量，并提供笔记本中的证据支持。
+
+从语言角度解释“聚类”，结合领域知识，聚焦不同利益相关者，并提供笔记本中的证据支持。
+
+确定哪个聚类代表表现最好的个体群体，依据质心表（Centroid Table）中的数值进行论证，并提供笔记本中的证据支持。
+
+建议在报告中包含从笔记本中生成的图表、表格和结果，以支持你的回答。报告应具有自洽性（即无需查阅笔记本也能理解）。
+格式要求：你上传的文件名必须包含：姓氏_学生编号_课程编号_Assessment 2b。请将报告和笔记本作为两个文件提交——上传笔记本文件时可忽略文件格式错误提示。
+
+提示
+你的报告应当具有独立性，能够完整回答所有问题。Jupyter 笔记本更像是一个工作簿，用于运行代码并计算输出结果。请将报告视为你根据笔记本中的发现向公司高管展示的内容。你不会期望高管亲自阅读笔记本并寻找答案。
+
+--- LINKS ---
+Assessment 2b dataset -> https://canvas.uts.edu.au/courses/42198/files/12834401/download
+下载了数据集之后 -> https://canvas.uts.edu.au/courses/42198/files/12834449
+
+IMG alt="" -> https://canvas.uts.edu.au/courses/42198/files/12834585/download
