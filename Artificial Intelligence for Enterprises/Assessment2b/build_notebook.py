@@ -604,6 +604,128 @@ plt.savefig("figures/fig3_scaling_effect.png", dpi=200, bbox_inches="tight")
 plt.show()
 """)
 
+md(r"""
+### 3.6 決策溝通用圖(報告圖五至圖七)
+
+以下三張圖把分析結果轉成管理者可直接使用的形式。作業要求「建議在報告中包含
+從筆記本中生成的圖表、表格和結果」——三張圖皆由本檔實際資料產生,
+數值與 §1–§4 完全一致,非另行繪製的示意圖。
+""")
+
+code(r"""
+# ── 3.6a 圖五:分析流程圖(每個節點帶本次分析的實際數字)──────
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+
+NL = chr(10)     # 避免在原始碼中使用跳脫字元,確保各平台一致
+
+fig, ax = plt.subplots(figsize=(11.2, 3.4))
+ax.set_xlim(0, 100); ax.set_ylim(0, 30); ax.axis("off")
+
+steps = [
+    ("原始資料", "107 位顧問 × 4 欄" + NL + "無缺失、無重複列", "#e8eef7"),
+    ("特徵篩選", "排除 EmployeeID" + NL + "反證:分群退化為按編號切段", "#dce8f5"),
+    ("尺度決策", "採 z 標準化" + NL + "不縮放則認可度佔 79.6%", "#cfe2f3"),
+    ("掃描 k=2..9", "輪廓係數 + 肘部法" + NL + "+ 20 組種子穩定性", "#c2dcf0"),
+    ("四判準裁決", "統計面 2 項平手" + NL + "業務面 2 項排除 k=3、k=5", "#b5d5ee"),
+    ("k = 4 定案", "70 / 25 / 8 / 4 人" + NL + "輪廓係數 0.6677", "#a3cbe8"),
+]
+box_w, gap = 14.2, 2.9        # 注意:勿用 w,那是 §1.5 的權重表
+for i, (title, detail, color) in enumerate(steps):
+    x = 1.5 + i * (box_w + gap)
+    ax.add_patch(FancyBboxPatch((x, 8), box_w, 13, boxstyle="round,pad=0.4",
+                                fc=color, ec="#5b7fa6", lw=1.2))
+    ax.text(x + box_w / 2, 18.0, title, ha="center", va="center",
+            fontsize=10.5, fontweight="bold")
+    ax.text(x + box_w / 2, 12.4, detail, ha="center", va="center",
+            fontsize=8.0, color="#28405c")
+    if i < len(steps) - 1:
+        ax.add_patch(FancyArrowPatch((x + box_w + 0.3, 14.5),
+                                     (x + box_w + gap - 0.3, 14.5),
+                                     arrowstyle="-|>", mutation_scale=15,
+                                     color="#5b7fa6", lw=1.6))
+ax.text(50, 3.4, "全流程固定 random_state = 42、n_init = 10,結果可重現查核",
+        ha="center", fontsize=8.6, style="italic", color="#555555")
+ax.set_title("圖五:分析流程與各階段的關鍵判斷", fontsize=12, fontweight="bold", pad=6)
+plt.tight_layout()
+plt.savefig("figures/fig5_workflow.png", dpi=200, bbox_inches="tight")
+plt.show()
+""")
+
+code(r"""
+# ── 3.6b 圖六:四群畫像卡(數值全部取自 §3.1 質心表)──────────
+CARD = {
+    0: ("低度參與群", "#8b95a1", "投入度約為全體平均三分之一,未獲任何指派或帶隊機會"),
+    3: ("高投入待認可群", "#e8a33d", "投入度為平均 2.2 倍,卻幾乎未獲指派——三項落差最大的一群"),
+    2: ("受認可的專業骨幹", "#4c8bbf", "投入與認可俱高,尚未帶隊——負責人職位的候補來源"),
+    1: ("帶隊核心群", "#3f8f5f", "三項全數領先,持有全公司全部 6 個帶隊職位"),
+}
+fig, axes = plt.subplots(1, 4, figsize=(13.0, 4.4))
+for ax, cid in zip(axes, [0, 3, 2, 1]):        # 依投入度由低至高排列
+    name, color, desc = CARD[cid]
+    n = int(centroid.loc[cid, "人數"])
+    ratios = [centroid.loc[cid, c] / overall[c] for c in FEATURES]
+    ax.barh(range(3), ratios, color=color, height=0.55, alpha=0.9)
+    ax.axvline(1, color="#333333", ls="--", lw=1.1)
+    ax.set_yticks(range(3))
+    ax.set_yticklabels(["使用率", "認可度", "領導角色"], fontsize=9)
+    ax.invert_yaxis()
+    ax.set_xlim(0, max(3.4, max(ratios) * 1.18))
+    for j, v in enumerate(ratios):
+        ax.text(v + 0.09, j, "%.2f" % centroid.loc[cid, FEATURES[j]],
+                va="center", fontsize=8.4, color="#333333")
+    ax.set_title("%s%sn = %d(%.1f%%)" % (name, chr(10), n, 100 * n / len(X)),
+                 fontsize=10, fontweight="bold", color=color, pad=7)
+    ax.text(0.5, -0.28, desc, transform=ax.transAxes, ha="center", va="top",
+            fontsize=7.8, color="#3a3a3a", wrap=True)
+    ax.tick_params(axis="x", labelsize=8)
+    for sp in ("top", "right"):
+        ax.spines[sp].set_visible(False)
+axes[0].set_xlabel("倍數(虛線 1.0 = 全體平均)", fontsize=8.5)
+plt.suptitle("圖六:四個群組的畫像——條長為相對全體平均的倍數,條末數字為原始單位質心",
+             fontsize=11.5, y=1.05)
+plt.tight_layout()
+plt.savefig("figures/fig6_cluster_cards.png", dpi=200, bbox_inches="tight")
+plt.show()
+""")
+
+code(r"""
+# ── 3.6c 圖七:獎金級距與受眾建議 ────────────────────────────
+# 人數為 k=4 實算;配置佔比與行動為依分析結論提出的建議,非模型輸出。
+fig, ax = plt.subplots(figsize=(11.6, 4.8))
+ax.set_xlim(0, 100); ax.set_ylim(0, 46); ax.axis("off")
+
+TIERS = [
+    (1, "第四級 · 帶隊核心群", "#3f8f5f", 15,
+     "確立標竿。人數少,單位金額高但總額有限"),
+    (2, "第三級 · 受認可的專業骨幹", "#4c8bbf", 30,
+     "獎金池主體之一;同時納入負責人接班規劃(對部門主管)"),
+    (3, "第二級 · 高投入待認可群", "#e8a33d", 35,
+     "獎金池主體;並檢視指派流程——這群人需要的是「被看見」而不只是金額"),
+    (0, "第一級 · 低度參與群", "#8b95a1", 20,
+     "基礎級距;先釐清其中是否含到職未久的新進顧問"),
+]
+y = 37
+for cid, label, color, pct, action in TIERS:
+    n = int(centroid.loc[cid, "人數"])
+    ax.add_patch(FancyBboxPatch((2, y - 3.3), 46 * n / 70, 6.2,
+                                boxstyle="round,pad=0.25", fc=color, ec="none", alpha=0.9))
+    ax.text(3.4, y, "%s  ·  %d 人" % (label, n), va="center",
+            fontsize=9.6, fontweight="bold", color="white")
+    ax.text(51, y + 1.4, "建議獎金池佔比 %d%%" % pct, va="center",
+            fontsize=9.4, fontweight="bold", color=color)
+    ax.text(51, y - 2.0, action, va="center", fontsize=8.2, color="#3a3a3a")
+    y -= 9.2
+ax.text(2, 2.2,
+        "註:人數為 k=4 分群實算;配置佔比與行動為依分析結論提出的建議值,"
+        "須由人力資源部門依獎金政策核定。配置刻意不與人數成正比——最高級距僅 4 人,"
+        "按人頭配置將使涵蓋面過窄,亦不利於第二級 25 人的留任。",
+        fontsize=7.8, style="italic", color="#555555", wrap=True)
+ax.set_title("圖七:四級獎金級距、配置建議與對應行動", fontsize=12, fontweight="bold", pad=4)
+plt.tight_layout()
+plt.savefig("figures/fig7_bonus_tiers.png", dpi=200, bbox_inches="tight")
+plt.show()
+""")
+
 # ══════════════════════ §4 績效最優 ══════════════════════
 md(r"""
 ---
