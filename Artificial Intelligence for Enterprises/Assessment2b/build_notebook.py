@@ -290,8 +290,21 @@ md(r"""
 > **對應報告第二節 · 評分項「最佳聚類數的識別」20 分**
 >
 > 題目明確提示:*最佳的輪廓係數並不總是意味著我們能獲得針對主要問題目標的最佳答案*,
-> 並要求必要時輔以肘部法。本節同時做**四項檢定**:輪廓係數、肘部法、
-> 種子穩定性、群組規模可操作性,並在方法互相矛盾時說明裁決理由。
+> 並要求必要時輔以肘部法。
+
+### 事前宣告的選 k 判準(在看到任何結果之前先定義)
+
+為避免「先看結果再找理由」的事後合理化,以下四項判準**在執行掃描前即已訂定**,
+其中兩項業務門檻直接來自本案的目的——「依相似表現分群以合理分配獎金」:
+
+| # | 判準 | 門檻 | 為何是這個門檻 |
+|---|---|---|---|
+| 1 | 輪廓係數 | 取最高;若候選間差距 < 0.02 視為平手 | 0.02 約為本資料換一組種子即可造成的波動量級 |
+| 2 | 肘部法 | 群內平方和降幅首次跌破 30% 之前的 k | 降幅趨平即代表增加分群已無實質收益 |
+| 3 | **每群最小人數 ≥ 4** | 低於此值不列入候選 | 獎金級距須能對外說明;人數過少無法構成一個「級距」,亦有個資可識別風險 |
+| 4 | **群內單一 KPI 全距 < 全體全距的 100%** | 達 100% 者不列入候選 | 若某 KPI 在群內的跨幅等同全體,該指標在此級距內無區分力,違背「依相似表現分群」的前提 |
+
+判準 1、2 為統計面,3、4 為業務面。**四項判準同時檢驗,不因結果調整門檻。**
 """)
 
 code(r"""
@@ -416,6 +429,23 @@ for name, lab in (("k=3", lab3), ("k=4", lab4)):
     print(g.sort_values("UsageRate").to_string())
     print()
 
+# 判準 4 的量化:群內全距佔全體全距的比例(報告表三該欄的來源)
+# 愈接近 100% 代表該 KPI 在群內愈無區分力,該分群不適合作為獎金級距。
+print("判準 4 掃描:各 k 的『群內 Recognition 全距 ÷ 全體全距』")
+pop_rng = X["Recognition"].max() - X["Recognition"].min()
+j4 = []
+for k in range(2, 7):
+    lab = KMeans(n_clusters=k, random_state=RANDOM_STATE, n_init=N_INIT).fit(Xz).labels_
+    t = X.copy(); t["c"] = lab
+    sh = sorted((100 * (g.max() - g.min()) / pop_rng
+                 for _, g in t.groupby("c")["Recognition"]), reverse=True)
+    j4.append({"k": k, "最小群人數": int(np.bincount(lab).min()),
+               "各群全距比例": ", ".join("%.0f%%" % v for v in sh),
+               "最大值": "%.0f%%" % sh[0],
+               "判準4(需 < 100%)": "通過" if sh[0] < 100 else "不通過"})
+print(pd.DataFrame(j4).set_index("k").to_string())
+
+print()
 print("→ k=3 的中間群共 27 人,群內 Recognition 從 0 到 4 全部涵蓋。")
 print("  亦即:一位獲指派 4 個專案的顧問,與一位完全未獲指派的顧問,")
 print("  會落在同一個獎金級距。認可度是三項 KPI 之一,級距內全跨度")
@@ -615,6 +645,22 @@ print("質心逐項 vs 全體平均:")
 for c in FEATURES:
     print("  %-12s 質心 %.3f  全體平均 %.3f  倍數 %.1f×"
           % (c, centroid.loc[best, c], overall[c], centroid.loc[best, c] / overall[c]))
+
+print()
+print("⚠️ 倍數的使用限制:Leader 的全體平均僅 %.4f(96%% 為 0)," % overall["Leader"])
+print("   以近零數值為分母計算的『26.8 倍』雖然算式正確,但會誇大差異感,")
+print("   不宜作為報告主論據。改用不受分母影響的『絕對佔比』:")
+print()
+for c in FEATURES[1:]:                       # 計數型變數才適用加總佔比
+    tot_c = X[c].sum()
+    own = gbest[c].sum()
+    print("   全公司 %-12s 總數 %3d;群 %d 的 %d 人持有 %2d(佔 %3.0f%%)"
+          % (c, tot_c, best, len(gbest), own, 100 * own / tot_c))
+holders = (X["Leader"] > 0).sum()
+print()
+print("   全公司有帶隊紀錄(Leader > 0)的員工共 %d 人,全部落在群 %s。"
+      % (holders, sorted(df.loc[X["Leader"] > 0, "Cluster"].unique())))
+print("   → 報告主論據採此句:該群 4 人持有全公司全部 %d 個帶隊職位。" % X["Leader"].sum())
 print("\n⚠️ 規模提醒:此群僅 %d 人(全體 %.1f%%)。獎金池若僅配置給此群,"
       % (len(gbest), 100 * len(gbest) / len(df)))
 print("   涵蓋面過窄;報告需就此提出配套建議。")
