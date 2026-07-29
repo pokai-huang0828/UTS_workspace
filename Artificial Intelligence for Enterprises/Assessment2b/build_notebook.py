@@ -79,6 +79,19 @@ matplotlib.rcParams["font.sans-serif"] = [
 ]
 matplotlib.rcParams["axes.unicode_minus"] = False
 
+# 中文在等寬字型是雙倍寬,不設這個選項的話 DataFrame 欄位會全部錯位
+pd.set_option("display.unicode.east_asian_width", True)
+pd.set_option("display.width", 200)
+
+import unicodedata
+
+# 按「顯示寬度」補空白(CJK 字元佔 2 欄),供手寫對齊的 print 使用。
+# 注意:勿命名為 w —— 那是 §1.5 的權重表。
+def pad(s, n):
+    s = str(s)
+    disp = sum(2 if unicodedata.east_asian_width(ch) in "WF" else 1 for ch in s)
+    return s + " " * max(0, n - disp)
+
 RANDOM_STATE = 42        # 可重現性:老師範本未設,本檔明確固定
 N_INIT = 10              # 每個 k 重複 10 組初始質心,取最佳,降低區域最佳解風險
 
@@ -508,7 +521,7 @@ print("    門檻   通過③的 k              同時通過③與④的 k")
 for thr in (2, 3, 4, 5):
     p3 = [k for k in range(2, 10) if np.bincount(labs[k]).min() >= thr]
     both = [k for k in p3 if max_within_range(k) < 1.0]
-    print("    ≥%d    %-22s %s" % (thr, p3, both if both else "無解"))
+    print("    ≥%d    %s%s" % (thr, pad(p3, 24), both if both else "無解"))
 print("    → 門檻取 3 或 4,結論同為 k=4;取 2 則有多解,須靠肘部法再裁決;")
 print("      取 5 以上則無 k 同時滿足兩項判準。門檻在 3–4 之間結論穩定。")
 
@@ -837,7 +850,7 @@ print()
 for c in FEATURES[1:]:                       # 計數型變數才適用加總佔比
     tot_c = X[c].sum()
     own = gbest[c].sum()
-    print("   全公司 %-12s 總數 %3d;群 %d 的 %d 人持有 %2d(佔 %3.0f%%)"
+    print("   樣本 %-12s 總數 %3d;群 %d 的 %d 人持有 %2d(佔 %3.0f%%)"
           % (c, tot_c, best, len(gbest), own, 100 * own / tot_c))
 holders = (X["Leader"] > 0).sum()
 print()
@@ -953,8 +966,8 @@ print("個體輪廓值 < 0 的人數(代表可能被分到錯的群):%d" % (sv <
 print("\n各群的個體輪廓值:")
 for c in order:
     v = sv[kmeans.labels_ == c]
-    print("  群 %d %-12s n=%3d  平均 %.3f  最低 %.3f"
-          % (c, NAMES[c], len(v), v.mean(), v.min()))
+    print("  群 %d %s n=%3d  平均 %.3f  最低 %.3f"
+          % (c, pad(NAMES[c], 18), len(v), v.mean(), v.min()))
 
 fig, ax = plt.subplots(figsize=(8.6, 4.4))
 y = 0
@@ -996,7 +1009,7 @@ summary = {
     "z vs 秩轉換 ARI(限制)": round(adjusted_rand_score(kmeans.labels_, lab_r), 3),
 }
 for k_, v_ in summary.items():
-    print("  %-40s %s" % (k_, v_))
+    print("  " + pad(k_, 42) + str(v_))
 print("=" * 66)
 """)
 
