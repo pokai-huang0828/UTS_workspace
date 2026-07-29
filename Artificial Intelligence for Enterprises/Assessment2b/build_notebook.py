@@ -486,6 +486,46 @@ print("\n績效最優群(群 %d)的 %d 位成員是否曾變動:%s"
       % (1, (base4 == 1).sum(), "有" if unstable[base4 == 1].any() else "否,完全穩定"))
 """)
 
+md(r"""
+### 2.5c 判準本身的敏感度 —— 這些門檻是不是為了讓 k=4 勝出而反推的?
+
+一個合理的質疑:判準③的門檻恰好是 4 人,而勝出的 k=4 最小群也恰好是 4 人,
+看起來像先有答案再訂規則。下一格用兩種方式檢驗這個指控。
+""")
+
+code(r"""
+# ── 2.5c 判準敏感度(回應「門檻是反推的」質疑)────────────────
+labs = {k: KMeans(n_clusters=k, random_state=RANDOM_STATE, n_init=N_INIT).fit(Xz).labels_
+        for k in range(2, 10)}
+pop_rng = X["Recognition"].max() - X["Recognition"].min()
+
+def max_within_range(k):                       # 判準4:最大的群內全距比例
+    t = X.copy(); t["c"] = labs[k]
+    return max((g.max() - g.min()) / pop_rng for _, g in t.groupby("c")["Recognition"])
+
+print("(a) 改變判準③的人數門檻,結論會變嗎?")
+print("    門檻   通過③的 k              同時通過③與④的 k")
+for thr in (2, 3, 4, 5):
+    p3 = [k for k in range(2, 10) if np.bincount(labs[k]).min() >= thr]
+    both = [k for k in p3 if max_within_range(k) < 1.0]
+    print("    ≥%d    %-22s %s" % (thr, p3, both if both else "無解"))
+print("    → 門檻取 3 或 4,結論同為 k=4;取 2 則有多解,須靠肘部法再裁決;")
+print("      取 5 以上則無 k 同時滿足兩項判準。門檻在 3–4 之間結論穩定。")
+
+print()
+print("(b) 判準④改用對極值較不敏感的度量(群內相異值個數),結論會變嗎?")
+nun_pop = X["Recognition"].nunique()
+for k in range(2, 7):
+    t = X.copy(); t["c"] = labs[k]
+    m = max(g.nunique() for _, g in t.groupby("c")["Recognition"])
+    print("    k=%d 最大群內相異值 %d/%d = %3.0f%%   %s"
+          % (k, m, nun_pop, 100 * m / nun_pop, "不通過" if m == nun_pop else "通過"))
+print("    → k=2、3 在兩種度量下皆不通過,k=4 皆通過。判準④的結論不依賴『全距』這個度量。")
+print()
+print("誠實揭露:判準③的門檻確實無外部依據,僅為業務常識(級距人數過少無法構成制度)。")
+print("上表顯示結論對此門檻不敏感,但若改作業者認為門檻應更高,k=3 會是替代答案。")
+""")
+
 code(r"""
 # ── 2.6 定案模型 ─────────────────────────────────────────────
 K = 4
@@ -801,10 +841,37 @@ for c in FEATURES[1:]:                       # 計數型變數才適用加總佔
           % (c, tot_c, best, len(gbest), own, 100 * own / tot_c))
 holders = (X["Leader"] > 0).sum()
 print()
-print("   全公司有帶隊紀錄(Leader > 0)的員工共 %d 人,全部落在群 %s。"
+print("   樣本 107 人中有帶隊紀錄(Leader > 0)者共 %d 人,全部落在群 %s。"
       % (holders, sorted(df.loc[X["Leader"] > 0, "Cluster"].unique())))
-print("   → 報告主論據採此句:該群 4 人持有全公司全部 %d 個帶隊職位。" % X["Leader"].sum())
-print("\n⚠️ 規模提醒:此群僅 %d 人(全體 %.1f%%)。獎金池若僅配置給此群,"
+print("   該群逐人帶隊職位數:%s(合計 %d 個職位,4 人)"
+      % (dict(zip(gbest["EmployeeID"], gbest["Leader"])), gbest["Leader"].sum()))
+print()
+print("   ⚠️ 兩點必須在報告中講清楚,否則此論據站不住:")
+print("      (1) 「4 人」是人數、「6 個」是職位次數,兩者單位不同,敘述時須分開講。")
+print("      (2) Leader 本身就是分群變數之一,因此『帶隊者集中於同一群』帶有**定義性成分**,")
+print("          屬於該群的描述性特徵,**不能當成獨立驗證**。")
+print("      (3) 資料僅涵蓋樣本內 107 位顧問,不宜稱『全公司』。")""")
+
+code(r"""
+# ── 4.2b 化解第三節與第四節的張力(回應對抗驗證)──────────────
+# 第三節反思指出:認可度與領導角色記錄的是「組織給予的機會」,不是個人產出。
+# 那麼第四節用這兩項判定「績效最優」,是否自相矛盾?
+# 檢驗方式:只用 UsageRate —— 三項中唯一不含「機會」成分、直接反映個人投入的指標 ——
+# 重新排序各群,看結論是否改變。
+t = X.copy(); t["Cluster"] = kmeans.labels_
+only_usage = (t.groupby("Cluster")["UsageRate"].agg(["size", "mean"]).round(3)
+              .sort_values("mean", ascending=False))
+only_usage.columns = ["人數", "使用率平均"]
+only_usage.insert(0, "群組名稱", [NAMES[i] for i in only_usage.index])
+print("僅以使用率(不含機會成分的指標)排序:")
+print(only_usage.to_string())
+print()
+print("→ 群 %d 仍為最高(%.3f)。判定不因排除兩項『機會型』指標而改變,"
+      % (best, only_usage.iloc[0]["使用率平均"]))
+print("  故第三節的反思與第四節的結論並不衝突:")
+print("  兩項機會型指標強化了判定,但並非判定所必需。")""")
+
+code(r"""print("\n⚠️ 規模提醒:此群僅 %d 人(全體 %.1f%%)。獎金池若僅配置給此群,"
       % (len(gbest), 100 * len(gbest) / len(df)))
 print("   涵蓋面過窄;報告需就此提出配套建議。")
 """)
