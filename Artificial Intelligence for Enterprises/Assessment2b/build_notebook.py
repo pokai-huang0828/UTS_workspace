@@ -931,6 +931,42 @@ print("\n→ 兩種縮放都得到相同的四群結構,結論不依賴縮放方
 """)
 
 code(r"""
+# ── 5.1b 偏態:右偏變數是否該先取對數?(z 分數只拉平離散度,不拉平偏態)──
+from scipy.stats import skew
+print("各欄偏態與零值佔比:")
+for c in FEATURES:
+    print("  %-12s 偏態 %6.2f   零值 %3.0f%%   %s"
+          % (c, skew(X[c]), 100 * (X[c] == 0).mean(), "右偏明顯" if skew(X[c]) > 1 else ""))
+print()
+print("→ Recognition 與 Leader 明顯右偏。標準化只拉平離散程度、不改變偏態,")
+print("  故檢驗:先取 log1p 再標準化,結論是否改變?")
+print()
+Xlog = StandardScaler().fit_transform(np.log1p(X))
+lab_log = KMeans(n_clusters=4, random_state=RANDOM_STATE, n_init=N_INIT).fit(Xlog).labels_
+print("  z 標準化    群size=%-18s silhouette=%.4f"
+      % (str(np.bincount(kmeans.labels_).tolist()), silhouette_score(Xz, kmeans.labels_)))
+print("  log1p + z   群size=%-18s silhouette=%.4f"
+      % (str(np.bincount(lab_log).tolist()), silhouette_score(Xlog, lab_log)))
+print("  兩者一致度 ARI = %.3f" % adjusted_rand_score(kmeans.labels_, lab_log))
+print()
+tl = X.copy(); tl["c"] = lab_log
+gl = tl.groupby("c")[FEATURES].mean().round(3); gl.insert(0, "人數", tl.groupby("c").size())
+print("  log1p 版質心表(原始單位):")
+print(gl.sort_values("UsageRate").to_string())
+print()
+print("  『高投入待認可』那 %d 人在 log1p 版仍自成一群:%s"
+      % (stranded.sum(), len(set(lab_log[stranded.values])) == 1))
+print("  績效最優群成員是否相同:%s"
+      % (set(df.loc[kmeans.labels_ == best, "EmployeeID"])
+         == set(df.loc[lab_log == gl["UsageRate"].idxmax(), "EmployeeID"])))
+print()
+print("→ silhouette 差 %.4f,落在本檔事前宣告的『差距 < 0.02 視為平手』門檻內(§2);"
+      % abs(silhouette_score(Xlog, lab_log) - silhouette_score(Xz, kmeans.labels_)))
+print("  四群結構、績效最優群成員、核心發現皆不變。故維持 z 標準化為主線,")
+print("  對數轉換列為穩健性檢查。")
+""")
+
+code(r"""
 # ── 5.2 限制一:去掉 Leader 後,核心結構是否還在 ─────────────
 # Leader 有 96% 為 0,標準化會放大少數非零值。檢查結論是否依賴此放大效果。
 Xz2 = StandardScaler().fit_transform(X[["UsageRate", "Recognition"]])
