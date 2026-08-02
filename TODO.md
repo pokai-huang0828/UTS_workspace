@@ -146,7 +146,7 @@ Unit 1 三項缺漏,Kenny 2026-07-10 明示「那些不用」:
 | VS Code + Jupyter/Python/Data Wrangler 擴充、Word(含 COM)、gh CLI、winget | ✅ 沿用 |
 | **JupyterLab 4.6.2 / notebook 7.6.1 / nbconvert 7.17.1** | 🆕 本次 `pip install`(原本只有 ipykernel,**沒有 UI 也沒有 nbconvert**) |
 | **ipykernel 註冊** `python3` @ `%APPDATA%\jupyter\kernels\python3` | 🆕 本次 `python -m ipykernel install --user` |
-| **Node.js v24.18.1 + npm 11.16.0** | 🆕 `winget install OpenJS.NodeJS.LTS` |
+| **Node.js v24.18.1 + npm 12.0.2** | 🆕 `winget install OpenJS.NodeJS.LTS`(隨附 npm 11.16.0,同日再升 12.0.2) |
 | **Codex CLI 0.146.0(gpt-5.6-sol)** | 🆕 `npm install -g @openai/codex`;auth.json 沿用、實測 EXIT=0 |
 | **ffmpeg / ffprobe 8.1.2-full** | 🆕 `winget install Gyan.FFmpeg` |
 | **yt-dlp 2026.07.04** | 🆕 `pip install yt-dlp` |
@@ -176,10 +176,18 @@ pip 升級時只解點名的套件與其相依,**不回頭檢查已裝的 pycare
 - [ ] 註記:`rooster_a2.ipynb` 存有舊機 pip log(路徑 `c:\users\kenny\`),顯示舊機當時 numba 0.62.1 / plotly 6.5.0 /
       kaleido 1.2.0 / ipython 9.7.0 **都比這台新**。兩台 Python 環境本來就不同份(該 log 只是歷史快照,不代表舊機現況)
 
-**兩個換機才會踩到的坑(已寫進 SKILL §0):**
-- `codex` 裝在 `%APPDATA%\npm`,**不在預設 PATH** → 新 shell 要先 `$env:Path += ";$env:APPDATA\npm"`
+**換機才會踩到的坑(已寫進 SKILL §0;2026-08-02 經獨立稽核更正一條):**
+- ✅ **持久化 PATH 是對的** —— 12 個工具(git / python / jupyter / jupyter-lab / node / npm / codex /
+  ffmpeg / ffprobe / yt-dlp / gh / code)**在全新開的 shell 全部叫得到**,實測逐一解析過。
+- ⚠️ 真正的坑是**行程過期不是 PATH 沒設**:安裝**之前**就已啟動的行程(Claude Code session 本身、
+  已開著的終端機 / VS Code)拿的是舊環境區塊。**解法是重開那些視窗**,或在該 session 內用
+  `$env:Path = [Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')` **重讀 registry**。
+  ~~原本寫「codex 不在預設 PATH,要 append」是錯的~~,照那樣做只會一直疊重複路徑。
+- 🆕 **已修**:`%APPDATA%\Python\Python311\Scripts` 原本不在 PATH,導致 `jupyter kernelspec list`
+  報 `command not found`(該目錄裡有 `jupyter-kernelspec.exe` / `jupyter-run.exe` / `debugpy.exe`)。
+  已加進 User PATH,`jupyter kernelspec list` 現在正常列出 python3 kernel。
 - Codex 預設 `reasoning effort: none`(不是 SKILL 舊表寫的 xhigh)→ **每趟都要加 `-c model_reasoning_effort="xhigh"`**
-- ffmpeg 的 PATH 是 winget 寫進系統的,**Kenny 已開著的終端機/VS Code 要重開才吃得到**
+- ℹ️ `.ipynb` 沒有 Windows 檔案關聯,在檔案總管點兩下不會開。只要一律從 VS Code / Jupyter 開就沒事,沒去改系統設定
 
 - [ ] 選配:要不要把 `model_reasoning_effort = "xhigh"` 寫進 `~/.codex\config.toml` 免得每趟漏加?
       (影響 Kenny 所有專案的 Codex,不只這個 repo,所以沒擅自改)
