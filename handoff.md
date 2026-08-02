@@ -379,3 +379,72 @@ Codex 趟次:**1 趟**(6 claims,EXIT=0,無 timeout)。subagent 數 **3**(§8.3 �
 - **新增**:單元四**三個必修投寄全未投**(4.1.2 / 4.2.1 / 4.2.4)、4.2.5 未讀;
   A2b 標準化與否待 Kenny 裁決;`clustering_song` 與 `K_means_basic` 兩份 notebook **尚未逐 cell 讀過**。
 - 待辦本體見 `TODO.md`。
+
+
+---
+
+## 2026-08-02(Windows 新機環境建置 · A2b 截止日當天)
+
+**觸發**:Kenny 換到新的 Windows 機器繼續,`/uts-dispatch`,要求「分析後開始設定,缺什麼直接去網路上下載」。
+
+### 這台機器的真實狀態
+
+**不是全新 profile,是「使用者資料帶過來、安裝的程式沒帶過來」的半搬遷機。**
+`~/.claude`(skills/plugins/projects/sessions/credentials)、`~/.codex`(auth.json 4513 bytes、
+logs_2.sqlite 25 MB、config.toml 含 `trust_level = "trusted"` 且路徑就是 `d:\kennyworklife\uts_workspace`)
+全都在,但 node / codex / ffmpeg / yt-dlp / Jupyter UI 一個都沒裝。
+repo 是**今天 11:15 fresh clone**(全檔 mtime 一致),`main` 與 `origin/main` 同步、工作區乾淨、無未推送 commit。
+
+### 已裝(全部實測過,不是「裝完就算」)
+
+| 項目 | 版本 | 驗證證據 |
+|---|---|---|
+| JupyterLab / notebook / nbconvert | 4.6.2 / 7.6.1 / 7.17.1 | `jupyter --version` 列出;`Available subcommands` 已含 lab/notebook/nbconvert/execute |
+| ipykernel 註冊 | `python3` | `Installed kernelspec python3 in %APPDATA%\jupyter\kernels\python3` |
+| Node.js / npm | v24.18.1 / 11.16.0 | `node --version` |
+| Codex CLI | **0.146.0**,gpt-5.6-sol | `codex exec` 回 `CODEX_OK gpt-5.6-sol`,EXIT=0,8.3 秒 |
+| ffmpeg / ffprobe | 8.1.2-full_build | `ffmpeg -version` |
+| yt-dlp | 2026.07.04 | `yt-dlp --version` |
+
+**原本就有、不用動**:git+身分+origin、Python 3.11.9、A2b 全部相依套件、
+VS Code(Jupyter/Python/Data Wrangler 擴充齊)、Microsoft Word(含 COM)、gh CLI、winget。
+
+### 關鍵驗收:A2b 交件 notebook headless 實跑
+
+`nbconvert --to notebook --execute`,輸出導到 scratchpad(**沒有覆寫交件檔**):
+
+- **EXIT=0,32.4 秒,51 cells / 38 code,執行序 1→38 連續,error outputs = 0,matplotlib 字型警告 = 0**
+- 代表 Kenny 在這台按 Restart & Run All **會過**,且 CJK 字型(Microsoft JhengHei)找得到,圖不會出豆腐字。
+
+### 三個「舊紀錄與現實不符」的發現
+
+1. **`/watch` skill 根本不存在。** repo `.claude/skills` 只有 uts-dispatch;`~/.claude/skills` 是 20 個官方 skill;
+   plugins 也沒有;全域 filter `*watch*` 零命中。
+   但 **handoff 2026-07-25 第 6 點與 SKILL §2 派工對照表都把它當既有能力在寫** —— 這是不實陳述,已在 TODO 標紅。
+   底層工具(yt-dlp+ffmpeg)現在到位了,A3 影音驗收得**現寫 skill 或直接下 ffmpeg 指令**。
+2. **Codex 預設 `reasoning effort: none`,不是 SKILL §0 記的 xhigh。**
+   `~/.codex/config.toml` 只有 sandbox + trust_level,沒設 effort。
+   實測 `-c model_reasoning_effort="xhigh"` 可生效(EXIT=0)。**漏加 = 對抗驗證強度靜默降級**,已寫進 §0。
+   沒擅自改全域 config(會影響 Kenny 所有專案),留成 TODO 選配。
+3. **notebook 統計過時**:TODO 記「42 cells / 31 code / 1→31」,實際是 **51 / 38 / 1→38**。
+   差額來自 7/29–7/30 依老師指示的修訂(commit f351be2、a59bb48),舊數字寫於修訂前。已更正。
+
+### 其他實查數字(順手對賬)
+
+- `.git` **542.3 MB** / 工作區 **124.5 MB**。TODO 舊記 959 MB —— 差額不是瘦身成功,是 **fresh clone 自動 repack**,歷史大物件還在。
+- fresh clone 導致 `.gitignore` 裡 D1 移出追蹤的大檔**一個都沒有**(Cybersecurity A3/A3a data、ddos CSV、兩個 pcapng)。**只影響 Cybersecurity 科目**,AI for Enterprises 不受影響。
+- `codex` 落在 `%APPDATA%\npm`,**不在預設 PATH**,每個新 shell 要自己補;ffmpeg 的 PATH 由 winget 寫進系統,**已開著的終端機要重開**。
+
+### 成本(SKILL §8.4)
+
+**本 session subagent = 0 個,Codex 2 趟(皆為 smoke test,合計約 2.7k tokens)。**
+環境建置全程在主迴圈用命令完成 —— 依 §1 判準,這是「跑命令」不是「批次讀檔」,不觸發派工門檻,
+也避免了為了裝軟體去燒 subagent token。距 §8.4 的 1.5M 預算 **<1%**。
+
+### 交接狀態
+
+- **已完成**:環境全綠並逐項驗證;SKILL §0 依 R-漂移 更新(codex 版本 / effort / PATH 三點);TODO 新增「🖥️ 本機環境」表 + 三處過時數字更正。
+- **待辦**:A2b **今天 21:59 台北截止**,剩下三件全是 Kenny 本人要做的(Restart & Run All / 看 docx 目錄 / 上傳兩檔);`/watch` 不存在要裁決怎麼補。
+- ⚠️ **handoff 斷層**:7/29、7/30 兩場修 A2b 的 session **沒有寫 handoff entry**(commit 有、handoff 沒有),
+  那兩天的細節只存在 TODO.md 與 `notes/` 兩份 Zoom 摘要裡。
+- 後續照 `TODO.md`。

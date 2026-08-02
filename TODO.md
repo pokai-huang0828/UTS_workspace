@@ -27,7 +27,8 @@ FP 商業意義與 recall 論證依老師逐字稿補齊、五張表全部可追
 - [x] ~~**要裁決**:做不做標準化?~~ ✅ **2026-07-28 已裁決:做**(知識架構 §4.5 已改寫)。
       推翻「未標準化為主線」的初版建議 —— 不縮放時 `Recognition` 獨佔 79.6% 距離權重,
       分群退化為單變數複製(ARI 0.99),且 10 位高投入顧問被錯置。經 Codex 一輪對抗。
-- [x] ~~建交件 notebook~~ ✅ 42 cells / 31 code / 執行序 1→31 連續 / 零錯誤
+- [x] ~~建交件 notebook~~ ✅ **2026-08-02 新機 headless 實跑複驗:51 cells / 38 code / 執行序 1→38 連續 / 零錯誤 / 零字型警告 / 32.4 秒**
+      (舊記的「42 cells / 31 code / 1→31」是 7/29–7/30 依老師指示修訂**之前**的數字,已過時)
 - [x] ~~寫報告四節~~ ✅ 1643 字(目標 1350–1650)、5 表 4 圖 8 章節、APA 3 筆
 - [x] ~~**過 Codex 對抗驗證**~~ ✅ 三項質疑全數修正(事後合理化 → 事前宣告判準;
       26.8 倍近零分母 → 絕對佔比;補最佳群成員穩定率)
@@ -57,7 +58,11 @@ FP 商業意義與 recall 論證依老師逐字稿補齊、五張表全部可追
 - [ ] 尚未開工。題目與 rubric 已抓齊 → `notes/A3_題目與rubric.md`
 - [ ] 策略已定:沿用 A1 的 CBA 案例,敘事鏈 A1挑戰 → A2概念驗證 → A3路線圖
 - [ ] 照 `.claude/skills/uts-dispatch/SKILL.md` §7.1 的 A3 preflight 逐項過
-- [ ] **先做**:錄一段一分鐘試錄檔,讓 agent 跑一次 `/watch` smoke test(確認 yt-dlp / ffmpeg 這台裝得起來,不要等交件前才發現)
+- [x] ~~確認 yt-dlp / ffmpeg 這台裝得起來~~ ✅ **2026-08-02 新機已裝並實測**:ffmpeg/ffprobe 8.1.2-full、yt-dlp 2026.07.04
+- [ ] 🔴 **`/watch` skill 根本不存在** —— repo `.claude/skills`(只有 uts-dispatch)、`~/.claude/skills`(20 個官方 skill)、plugins 全找過都沒有。
+      handoff 2026-07-25 第 6 點與 SKILL §2 派工對照表把它當**既有能力**寫,是不實陳述。
+      底層工具已就緒 → A3 影音驗收要嘛現寫一個 skill,要嘛派 agent 直接下 ffmpeg/yt-dlp 指令。**決定前不要在 A3 計畫裡再引用 `/watch`**
+- [ ] **先做**:錄一段一分鐘試錄檔,跑一次影音驗收 smoke test
 - [ ] ⚠️ **格式待老師釐清**:李春平 2026-07-30 明確說「**明天(7/31)開會確認後會在課程主頁發公告**」。
       她目前收到的回覆是「都是直接視訊會議做展示 + 回答問題」,但認為作業要求有爭議。
       → **7/31 起盯 Canvas 公告**。我方 `notes/A3_題目與rubric.md` 目前記的是錄影版
@@ -128,10 +133,41 @@ Unit 1 三項缺漏,Kenny 2026-07-10 明示「那些不用」:
 
 ---
 
+## 🖥️ 本機環境(Windows 新機,2026-08-02 建置)
+
+一次裝好、已逐項實測。**換機時照這張表重跑即可**。
+
+| 項目 | 狀態 |
+|---|---|
+| git 2.x + 身分 + origin + 與 origin/main 同步 | ✅ 沿用(profile 帶過來的) |
+| Python 3.11.9 + A2b 全部相依(pandas 2.1.4 / numpy 1.26.4 / sklearn 1.4.2 / scipy 1.11.4 / matplotlib 3.7.5 / seaborn / yellowbrick / python-docx 1.2.0) | ✅ 沿用 |
+| VS Code + Jupyter/Python/Data Wrangler 擴充、Word(含 COM)、gh CLI、winget | ✅ 沿用 |
+| **JupyterLab 4.6.2 / notebook 7.6.1 / nbconvert 7.17.1** | 🆕 本次 `pip install`(原本只有 ipykernel,**沒有 UI 也沒有 nbconvert**) |
+| **ipykernel 註冊** `python3` @ `%APPDATA%\jupyter\kernels\python3` | 🆕 本次 `python -m ipykernel install --user` |
+| **Node.js v24.18.1 + npm 11.16.0** | 🆕 `winget install OpenJS.NodeJS.LTS` |
+| **Codex CLI 0.146.0(gpt-5.6-sol)** | 🆕 `npm install -g @openai/codex`;auth.json 沿用、實測 EXIT=0 |
+| **ffmpeg / ffprobe 8.1.2-full** | 🆕 `winget install Gyan.FFmpeg` |
+| **yt-dlp 2026.07.04** | 🆕 `pip install yt-dlp` |
+
+**兩個換機才會踩到的坑(已寫進 SKILL §0):**
+- `codex` 裝在 `%APPDATA%\npm`,**不在預設 PATH** → 新 shell 要先 `$env:Path += ";$env:APPDATA\npm"`
+- Codex 預設 `reasoning effort: none`(不是 SKILL 舊表寫的 xhigh)→ **每趟都要加 `-c model_reasoning_effort="xhigh"`**
+- ffmpeg 的 PATH 是 winget 寫進系統的,**Kenny 已開著的終端機/VS Code 要重開才吃得到**
+
+- [ ] 選配:要不要把 `model_reasoning_effort = "xhigh"` 寫進 `~/.codex\config.toml` 免得每趟漏加?
+      (影響 Kenny 所有專案的 Codex,不只這個 repo,所以沒擅自改)
+- [ ] ⚠️ 這台是 fresh clone,**`.gitignore` 裡 D1 移出追蹤的大檔一個都沒有**:
+      `Cybersecurity Analytics and Insights/A3/data/`、`A3a/data/`、`A2/ddos_syn_flood_lo.csv`、兩個 `.pcapng`。
+      **只影響 Cybersecurity 科目**(MNIST 類 torchvision 會自動重抓);AI for Enterprises 的 A2b/A3 不受影響
+
+---
+
 ## 🔧 Repo 工程債
 
 - [x] ~~D1 止血:大檔移出追蹤~~ **2026-07-25 完成**(追蹤中 >5MB 檔案 524.9 → 53.9 MB)。⚠️ **Mac 下次 pull 時那 27 個檔會被刪掉**,要用先自行備份或重抓
-- [ ] **repo 體積**:`.git` 仍 959 MB(**歷史沒洗**)。要真的瘦身得改寫歷史 + force push + 兩台機器重 clone —— **不可逆,Kenny 2026-07-25 表示先不做**
+- [ ] **repo 體積**:歷史沒洗。**2026-08-02 新機 fresh clone 實測:`.git` 542.3 MB / 工作區 124.5 MB**
+      (舊記 959 MB 是舊機未 gc 的數字;fresh clone 會自動 repack,所以看起來小,但**歷史裡的大物件還在**)。
+      要真的瘦身得改寫歷史 + force push + 所有機器重 clone —— **不可逆,Kenny 2026-07-25 表示先不做**
 - [ ] **關掉用不到的 plugin**:MCP 工具定義佔 context 約 214k,且 Desktop Commander 載兩次、pdf-viewer 載三份。可在 `.claude/settings.json` 加 `enabledPlugins` 只留 claude-in-chrome / ccd_session / visualize,估可省 150k+
 - [ ] `BusnessAnalytics` 拼字錯(應為 `BusinessAnalytics`),改名要同步兩台機器
 - [ ] `Data Visualisation and Visual Analytics/` 有 `26254793_A2.pdf` 與 `26254793_A2_FINAL_preview.pdf` 並存,確認哪個是定稿
