@@ -139,7 +139,9 @@ Unit 1 三項缺漏,Kenny 2026-07-10 明示「那些不用」:
 
 | 項目 | 狀態 |
 |---|---|
-| git 2.x + 身分 + origin + 與 origin/main 同步 | ✅ 沿用(profile 帶過來的) |
+| git **2.55.0.3** + 身分 + origin + 與 origin/main 同步 | ✅ 沿用,2026-08-02 由 2.51.1 升級 |
+| gh **2.97.0** / pip **26.2** / npm **12.0.2** | ✅ 2026-08-02 升級(原 2.94.0 / 25.3 / 11.16.0) |
+| winget `--all` | ✅ 2026-08-02 跑完 13/14(Zoom 7.1.5、Teams、OneDrive、VCRedist、WinRAR…);**只剩 Microsoft Edge 升不動**(winget 對執行中的 Edge 沒轍,交給 Edge 自己的更新器) |
 | Python 3.11.9 + A2b 全部相依(pandas 2.1.4 / numpy 1.26.4 / sklearn 1.4.2 / scipy 1.11.4 / matplotlib 3.7.5 / seaborn / yellowbrick / python-docx 1.2.0) | ✅ 沿用 |
 | VS Code + Jupyter/Python/Data Wrangler 擴充、Word(含 COM)、gh CLI、winget | ✅ 沿用 |
 | **JupyterLab 4.6.2 / notebook 7.6.1 / nbconvert 7.17.1** | 🆕 本次 `pip install`(原本只有 ipykernel,**沒有 UI 也沒有 nbconvert**) |
@@ -148,6 +150,31 @@ Unit 1 三項缺漏,Kenny 2026-07-10 明示「那些不用」:
 | **Codex CLI 0.146.0(gpt-5.6-sol)** | 🆕 `npm install -g @openai/codex`;auth.json 沿用、實測 EXIT=0 |
 | **ffmpeg / ffprobe 8.1.2-full** | 🆕 `winget install Gyan.FFmpeg` |
 | **yt-dlp 2026.07.04** | 🆕 `pip install yt-dlp` |
+
+### 🔒 為什麼 Python 套件停在 2024 年 —— 是 `pycaret 3.3.2` 鎖的(2026-08-02 查明)
+
+Python 3.11.9 本身**沒有落後**(官方支援到 2027/10);winget 那條「Python Launcher 3.13.5」是 `py.exe` 啟動器,不是直譯器。
+真正被鎖的是套件,元兇是 **pycaret 3.3.2**,五個上限**全部貼死**:
+
+| pycaret 3.3.2 要求 | 實際安裝 |
+|---|---|
+| `scipy<=1.11.4` | scipy **1.11.4** |
+| `numpy<1.27` | numpy **1.26.4**(1.26 最後一版) |
+| `matplotlib<3.8.0` | matplotlib **3.7.5**(3.7 最後一版) |
+| `pandas<2.2.0` | pandas **2.1.4** |
+| `sktime==0.26.0` → `scikit-learn<1.5.0` | sklearn **1.4.2**(1.4 最後一版) |
+
+**pycaret 是真的在用的** —— `BusnessAnalytics/A1`、`A2` 都有 `from pycaret.classification import *`,不能砍。
+週邊套件(ipython 9.6 / pillow 12.0 / pydantic 2.12)沒被它管到,所以漂到 2025 年 → 這就是「核心舊、週邊新」的成因。
+
+⚠️ **陷阱**:`pip install --dry-run --upgrade numpy pandas scikit-learn scipy matplotlib` 回覆
+`Would install numpy-2.4.6 pandas-3.0.5 scikit-learn-1.9.0 scipy-1.17.1`,**一句 pycaret 警告都沒有** ——
+pip 升級時只解點名的套件與其相依,**不回頭檢查已裝的 pycaret**。照著跑會「成功」,然後 Business Analytics 靜默壞掉。
+
+- [ ] **正解是隔離不是升級**:全域維持 pycaret 這組給 Business Analytics;
+      **AI for Enterprises 另開 venv + `requirements.txt`**,想多新用多新。A2b 交件後再建
+- [ ] 註記:`rooster_a2.ipynb` 存有舊機 pip log(路徑 `c:\users\kenny\`),顯示舊機當時 numba 0.62.1 / plotly 6.5.0 /
+      kaleido 1.2.0 / ipython 9.7.0 **都比這台新**。兩台 Python 環境本來就不同份(該 log 只是歷史快照,不代表舊機現況)
 
 **兩個換機才會踩到的坑(已寫進 SKILL §0):**
 - `codex` 裝在 `%APPDATA%\npm`,**不在預設 PATH** → 新 shell 要先 `$env:Path += ";$env:APPDATA\npm"`
