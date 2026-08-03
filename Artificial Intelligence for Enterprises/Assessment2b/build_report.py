@@ -254,7 +254,7 @@ def build():
     para(doc, "—— IBM 獎金級距設計建議", 14, False, WD_ALIGN_PARAGRAPH.CENTER, 30)
     for line in ["評估任務 2b", "課程:421104 企業人工智慧",
                  "姓名:Po-Kai Huang    學號:26254793",
-                 "繳交日期:2026 年 8 月 2 日"]:
+                 "繳交日期:2026 年 8 月 5 日"]:
         para(doc, line, 12, False, WD_ALIGN_PARAGRAPH.CENTER, 6)
     para(doc, "")
     para(doc, "附件:%s" % NB, 10.5, False, WD_ALIGN_PARAGRAPH.CENTER, 6)
