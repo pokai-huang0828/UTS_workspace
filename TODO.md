@@ -51,9 +51,19 @@ FP 商業意義與 recall 論證依老師逐字稿補齊、五張表全部可追
 > 目前 `.ipynb`(7 處已改)與 `.docx`(原本就乾淨)全檔命中 **0**。
 > 🔑 **交件 `.ipynb` 與 `.docx` 都是 `build_notebook.py` / `build_report.py` 的生成物**(誕生於 `eac9152`)——
 > 要改內容**必須產物與腳本兩邊一起改**,否則任何人重跑一次 build 就把舊內容全寫回去。
+> 🚫 **內文也不得出現內部流程術語** —— 2026-08-03 全檔重掃時再抓到兩處:
+> `4.2b …(回應對抗驗證)` 與 `2.5c …(回應「門檻是反推的」質疑)`,以及 markdown 裡的「檢驗這個**指控**」。
+> 「對抗驗證」是我們 Codex 對抗流程的詞,寫進作業等於自曝有審查者在來回挑錯,已全部改寫。
+> 📅 **繳交日 2026-08-02 已更正為 08-05**(cell#0 與 build 腳本同步)。
 
 **剩下的全是 Kenny 本人要做的**:
-- [ ] 在 Jupyter 開 ipynb 跑一次 **Restart & Run All**(確認自己環境能重現)
+- [x] ~~在 Jupyter 開 ipynb 跑一次 **Restart & Run All**~~ ✅ **2026-08-03 20:50 Kenny 已跑**
+      → 7 張圖全部重新生成,與 docx 內嵌的 7 個 media **sha256 bit-for-bit 相同**,
+      `RANDOM_STATE=42` 的可重現性實錘,**圖與報告零衝突**
+- [ ] ⚠️ **之後每次重跑完,都要再跑一次清理腳本**(否則雜訊會回到交件檔):
+      `python "Artificial Intelligence for Enterprises/notes/practice/a2b_clean_outputs.py"`
+      清的是 VS Code Data Wrangler payload、joblib stderr(含 `c:\Users\kenny\...` 本機路徑)、
+      `nbconvert --execute` 寫進 cell metadata 的執行時間戳。**只動 outputs/metadata,不碰 source,可重複執行**
 - [ ] 開 docx 確認目錄自動更新、整體觀感
 - [ ] 上傳兩檔至 Canvas(檔名已照規定,**不要改**;上傳 ipynb 時可忽略格式錯誤提示)
       ⚠️ **只挑 `.ipynb` + `.docx` 兩檔**。`Assessment2b/` 裡還躺著 `build_notebook.py`、`build_report.py`、
