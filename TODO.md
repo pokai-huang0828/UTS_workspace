@@ -177,6 +177,10 @@ Unit 1 三項缺漏,Kenny 2026-07-10 明示「那些不用」:
 **9 頁 must_view 已全部 DONE**(`module.state=started`),真正沒結的只有下面幾項:
 
 - [ ] 🔴 **5.1.2 案例研究:Slim Jims** —— **must_contribute 必修投寄**(discussion `771434`)
+      ✅ **擬答已備妥可直接貼** → [Unit5_5.1.2_擬答.md](Artificial%20Intelligence%20for%20Enterprises/notes/Unit5_5.1.2_擬答.md)
+      1196 字、全文零阿拉伯數字、過三輪獨立審查(三位審查者初判全 FAIL,38 條意見採納 34 條)。
+      投影片措辭與題目事實已由主迴圈逐字核對無誤。**貼前只剩:重新整理討論區確認同儕是否有新貼文、
+      Canvas 編輯器換行檢查**
       實查:目前僅 1 則貼文,作者 `259967 Jian Zhou`,**Kenny 未發文**。無 due date
       題目:「使用波特五力模型對 Slim Jims 的分析告訴你,企業應**如何以及在何處**使用 AI,以增強其競爭地位?」
       ⚠️ 兩個易漏點:①要答「如何 **+ 在何處**」用 AI,五力只是論據 ②題目要求「**與同伴比較**」→ 要回應 Jian Zhou 那則
