@@ -58,7 +58,7 @@ def panel(ax, x, y, w, h, title, body, col, tfs=11, bfs=9, fc="#FAFAFA"):
 # 01 · P2 CBA 既有能力(主動承認,不宣稱空白)
 # ============================================================
 def f01():
-    fig, ax = newfig(12.5, 6.2, "起點:CBA 已經在做的事")
+    fig, ax = newfig(12.5, 6.2)
     ROWS = [("Customer Engagement Engine", "跨通路次佳行動,每天約 3,500 萬項決策", "CBA (2022)"),
             ("已經做過「到期事件留存」", "對約 10 萬名定存到期客戶主動聯繫,續存率 85%", "CBA (2019)"),
             ("客服等待時間", "一財年內 -40%", "CBA (2024)"),
@@ -93,7 +93,7 @@ def f01():
 # 02 · P3 房貸到期 ≠ 定存到期
 # ============================================================
 def f02():
-    fig, ax = newfig(12.5, 6.2, "缺口:房貸到期不等於定存到期")
+    fig, ax = newfig(12.5, 6.2)
     box(ax, .30, .845, .30, .075, "定存到期(CEE 已做)", BLUE, fs=11)
     box(ax, .645, .845, .30, .075, "房貸固定利率到期", RED, fs=11)
     ROWS = [("決策複雜度", "續存或不續存,\n單一決策",
@@ -129,7 +129,7 @@ def f02():
 # 03 · P4 六個未知
 # ============================================================
 def f03():
-    fig, ax = newfig(12.5, 6.4, "六個未知:沒有一個能從公開資料回答")
+    fig, ax = newfig(12.5, 6.4)
     U = [("1", "CEE 目前是否已覆蓋房貸到期場景、覆蓋到什麼程度", "內部系統範圍不對外揭露", "訪談 + 系統盤點"),
          ("2", "每年落在固定利率到期窗口的房貸餘額與戶數", "內部到期分佈不對外揭露", "資料稽核"),
          ("3", "「流失」的操作型定義能否建立\n(外部再融資 / 售屋結清 / 內部再定價)", "需要內部事件紀錄", "業務與資料雙簽 + 人工複核"),
@@ -168,7 +168,7 @@ def f03():
 # 04 · P5 三條路(含 no-AI baseline)
 # ============================================================
 def f04():
-    fig, ax = newfig(12.5, 6.4, "三條路,包含不用 AI 的那條")
+    fig, ax = newfig(12.5, 6.4)
     OPT = [(.03, "選項 0 · 不做", GREY,
             "維持現狀\n\n需要 AI:否\n成本:0\n\n前提:—"),
            (.355, "選項 1 · 規則式介入", BLUE,
@@ -228,13 +228,8 @@ def f05():
     ax.set_yticklabels([f"{c}  {n}" for c, n, *_ in WP], fontsize=10.5)
     ax.set_xticks(range(9))
     ax.set_xticklabels([f"W{i}" if i else "" for i in range(9)], fontsize=9.5)
-    ax.set_xlim(0, 8.3); ax.set_ylim(-.85, len(WP) - .35)
+    ax.set_xlim(0, 8.3); ax.set_ylim(-.60, len(WP) - .35)
     ax.grid(axis="x", ls=":", color=LIGHT, zorder=0); ax.set_axisbelow(True)
-    ax.set_title("提案:8 週 discovery + 規則式對照實驗", fontsize=15.5,
-                 color=NAVY, fontweight="bold", pad=14)
-    ax.text(0, -.78, "這八週裡,不會訓練任何模型。實驗本身不需要新技術 —— "
-                     "名單用 SQL 依到期日取,介入用現有外撥流程,唯一新增的是隨機分派與結果追蹤。",
-            fontsize=10, color=NAVY, fontweight="bold")
     for s in ax.spines.values():
         s.set_color(LIGHT)
     save(fig, "fig_v3_05_plan")
@@ -244,7 +239,7 @@ def f05():
 # 06 · P7 實驗設計
 # ============================================================
 def f06():
-    fig, ax = newfig(12.5, 6.4, "實驗設計:怎麼證明介入有效")
+    fig, ax = newfig(12.5, 6.4)
     box(ax, .34, .80, .32, .095, "依到期日取出的客戶母體\n(SQL,不需要模型)", NAVY, fs=10)
     ax.add_patch(FancyArrowPatch((.50, .795), (.50, .735), arrowstyle="-|>",
                                  mutation_scale=18, lw=2, color=GREY, zorder=5))
@@ -335,8 +330,6 @@ def f07():
     ax.set_xticks(range(1, 6)); ax.set_yticks(range(1, 6))
     ax.set_xlabel("可能性 →", fontsize=12, color=NAVY)
     ax.set_ylabel("影響 →", fontsize=12, color=NAVY)
-    ax.set_title("限制與風險:緩解前 → 緩解後", fontsize=15, color=NAVY,
-                 fontweight="bold", pad=14)
     h = [plt.Line2D([], [], marker="o", ls="", ms=9, color=c, label=k) for k, c in CAT.items()]
     ax.legend(handles=h, loc="lower left", fontsize=9, ncol=2, framealpha=.95)
     ax.text(1.03, .98, "\n".join(f"{c}  {l}" for c, _, l, _, _ in R),
@@ -356,7 +349,7 @@ def f07():
 # 08 · P9 倫理(補上 LTV 加權的分配問題)
 # ============================================================
 def f08():
-    fig, ax = newfig(13, 6.8, "社會文化與倫理影響")
+    fig, ax = newfig(13, 6.8)
     TALK = [(.545, "① 脆弱客戶:兩個方向的代價不對稱", RED,
              "還款行為異常同時是流失前兆與財務困難前兆,\n模型在數學上無法區分兩者。\n\n"
              "漏掉一個要走的客戶,只是損失利差;\n把財困客戶當商機,是監管事件。\n\n"
@@ -419,7 +412,7 @@ def f08():
 # 09 · P10 決策規則樹
 # ============================================================
 def f09():
-    fig, ax = newfig(12.5, 6.4, "決策規則:什麼結果導向什麼下一步")
+    fig, ax = newfig(12.5, 6.4)
     box(ax, .34, .805, .32, .10, "W8 的實驗結果", NAVY, fs=13)
     OUT = [(.02, "增量效果顯著\n且異質性高", PURPLE, "→ 進選項 2\n建 uplift 模型\n\n屆時才提完整投資案\n與 KPI 樹",
             "模型的價值\n等於效果的異質程度"),
@@ -470,8 +463,8 @@ def f10():
     ax.set_yticks(range(len(names))); ax.set_yticklabels(names, fontsize=11)
     ax.set_xlim(0, 1.42); ax.set_xlabel("人月(規劃值)", fontsize=11, color=NAVY)
     ax.grid(axis="x", ls=":", color=LIGHT, zorder=0); ax.set_axisbelow(True)
-    ax.set_title(f"資源:合計 {sum(v for _, v, _ in ROLE):.1f} 人月",
-                 fontsize=15.5, color=NAVY, fontweight="bold", pad=14)
+    ax.text(1.40, len(names) - .05, f"合計 {sum(v for _, v, _ in ROLE):.1f} 人月",
+            ha="right", va="center", fontsize=22, color=NAVY, fontweight="bold")
     ax.text(0, -1.30,
             "Planning estimate — to be calibrated with CBA internal rates。\n"
             "成本 = 3.5 人月 × 澳洲 ICT 職類薪資中位數區間 × 1.3 間接費率(間接費率為提案人假設)。\n"
