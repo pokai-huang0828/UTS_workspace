@@ -1,0 +1,472 @@
+===== PAGE 1 =====
+ 
+  
+2021 
+Assessment 3: AI 
+Roadmap 
+420104 ARTIFICIAL INTELLIGENCE FOR ENTERPRISES 
+Burtamekh, Mohammed (14389074) 
+===== PAGE 2 =====
+420104 Artificial Intelligence for Enterprises   
+Assessment 3: AI Roadmap                                                                                           
+1 
+ 
+Table of Contents 
+Introduction............................................................................................................................................. 2 
+Business Strategy Analysis ...................................................................................................................... 2 
+Usage of AI .............................................................................................................................................. 3 
+Description of the Selected Use Case for AI ........................................................................................ 3 
+Justification Of Use Case and Alignment With Business Strategy ........................................................ 4 
+Target Business Challenges to Address Using AI ................................................................................... 5 
+Limitations And Challenges .................................................................................................................... 6 
+Expected benefits and ways to measure success .................................................................................. 7 
+Proposed Project plan ............................................................................................................................. 8 
+Conclusion .............................................................................................................................................10 
+References .............................................................................................................................................11 
+ 
+  
+===== PAGE 3 =====
+420104 Artificial Intelligence for Enterprises   
+Assessment 3: AI Roadmap                                                                                           
+2 
+ 
+Introduction 
+The use of AI to support the digital transformation of companies is becoming one of the main 
+differentiators. The adoption of AI increased significantly within the last few years, which is changing 
+the question of AI usage from why to use AI? To when and where to use AI within the business. 
+The adoption of AI within an organization is not an easy task, nor is limited to a certain aspect of the 
+business. The journey to transform the business to be data driven and utilize AI capabilities 
+effectively is long and influenced by changing circumstances within the business. However, this 
+should not be seen as a deteriorator from adopting the technology, but rather as a motivator to 
+have realistic expectations of AI within the business. 
+In this roadmap document, we will start with possible usage of AI technology within our business, 
+then focus on suggested introductory project to start the journey that can help set the path forward 
+for wider implementation. 
+Business Strategy Analysis 
+The print industry is faced with increased challenges especially within the last two years during the 
+Covid-19 pandemic. The move into digital documentation, digital billboards, electronic 
+communication, electronic books and e-readers, audio books, and environment awareness pushed 
+users to reduce the usage of print significantly throughout the years. The usage decreased sharply 
+during Covid-19 as people worked from home with reduced access to print services in offices, and 
+the limitation of exchanging print documents physically. e.g. e-signature of documents instead of 
+manual signature on printed documents. 
+To better focus the digital strategy on main pain points, we will consider Michael Porter’s five forces 
+analysis as a starting point (Porter, 1979). These forces are summarized below: 
+ 
+ 
+ 
+ 
+
+===== PAGE 4 =====
+420104 Artificial Intelligence for Enterprises   
+Assessment 3: AI Roadmap                                                                                           
+3 
+ 
+Usage of AI  
+The reduction in print does impose challenges, however it also means the importance of having a 
+blended experience between digital and physical solutions to meet customers’ demands. Covid -19 
+shifted customers behaviour towards digital and electronic soluti ons, however, did not eliminate it.  
+The use of AI in print industry would help in overcoming some of the challenges mentioned above.  
+Before we focus on a specific use case of AI, it is good to assess the different business processes or 
+areas where we can use AI. This can be summarized in the below table: 
+  
+Business Area Usage of AI 
+Finance • Automation of customers invoices 
+• Automated reporting 
+Supply chain • Scheduling of print devices delivery and install 
+• Warehouse management optimization 
+• Stock levels management 
+• Supplies automated ordering and delivery 
+Customer Support • Predictive maintenance and Smart maintenance 
+scheduling 
+• Field service mobility and automation 
+• Chat bots 
+• Customer support call centre 
+• Self Service portal 
+Sales • Customer churn prediction 
+• Sales forecasting / prediction 
+• Product recommendation 
+Marketing • Automated marketing 
+• Customers clustering / micro categorization 
+HR • Automated employee onboarding  
+• Engagement level detection (could reflect 
+mental health issues) 
+• Hiring process 
+Corporate IT services • End user support 
+• User access automation 
+• Security enhancements (User Behaviour 
+Analysis, threat detection, etc..) 
+ 
+Description of the Selected Use Case for AI 
+In this proposal, we will be focusing on the usage of AI in enhancing Customer Support Services.  
+The use of technology in customer services have been developed throughout the years. Today, 
+customer support centres operate remotely with 24x7 coverage to meet business demand. The use 
+of AI to empower customer support will enable personalized, immediate, and seamless experience 
+(Afshar, 2017).  
+===== PAGE 5 =====
+420104 Artificial Intelligence for Enterprises   
+Assessment 3: AI Roadmap                                                                                           
+4 
+ 
+With the age of connected customers, the expectations of personalized services is higher than ever 
+before. Customers are consuming online services that embed AI technologies that provide seamless 
+experience. When customers shift to interact with organizations that are behind in AI adoption, they 
+become frustrated.  
+According to Salesforce “State of Connected Customers” report, 62% of customers are open to use 
+AI to enhance their experience (Salesforce, 2019). 
+ 
+Image source: (Salesforce, 2019) 
+Justification of Use Case and Alignment with Business Strategy  
+The selection of customer service as the starting point of our AI journey is due to: 
+1. Customer experience is a main differentiator of the business: 
+As the print industry face the challenges mentioned in section 1, and the main forces are 
+competition and substitute products, the business strategy within the print industry is 
+focused on Differentiation.  
+As Cost Leadership remains part of the overall strategy to maintain profit within a declining 
+industry, the differentiation strategy would give the ability to overcome challenges of 
+competition, to compete on the small market segment.  
+
+===== PAGE 6 =====
+420104 Artificial Intelligence for Enterprises   
+Assessment 3: AI Roadmap                                                                                           
+5 
+ 
+2. Customer’s lifetime in the print industry is high (3-5 years): 
+As such, the customer experience is built over years of interaction with support services. It 
+makes sense to focus on the highest traction surface with customers. In addition, support 
+services have direct impact on customer retention and referral. 
+3. Customer support is a highly process oriented part of the business: 
+As support services processes and practices include logging interactions to a great detail, 
+and the use of technology within the support industry is well established, there is a better 
+ability to have access to useful data that could be fed to AI models. 
+4. Support teams are usually technology savvy: 
+This helps form cross functional teams to support the AI project. 
+5. Data reliability: 
+The data used for training AI models are more reliable due to the usage of digital solutions 
+and IoT to collect devices metrics and availability. Which makes it less prone to human 
+errors. 
+Target Business Challenges to Address Using AI 
+According to Salesforce research (Afshar, 2017), an excellent customer service needs to be: 
+a. Personalized: customers expect a service provider to know who they are, tailor the service 
+to their needs 
+b. Always on/realtime: the usage of chatbots to cover 24x7 
+c. Consistent: Customers expect the same level of services across the business. 
+d. Omni-channel: customers expect consistent experience across communication channels. 
+The main challenges in customer service that can be addressed by using AI would be: 
+a. Unified and personalized customer experience: 
+Access to customer data in real time through CRM, ERP and call centre ticketing system 
+integration, that are analysed using AI to drive insight about each customer would enable 
+unified interaction with the customer using any channel. i.e. chat, email, online portal, 
+phone, and social media (Afshar, 2017). 
+ 
+ 
+b. Self-service capabilities: 
+Knowledge base articles and “how to” guides are continuously being enriched by customer 
+support and product engineers. Using AI, the ability to process and present relevant data to 
+answer a customer inquiry or guide to fix an issue becomes more possible (Afshar, 2017).  
+ 
+c. Predictive support service: 
+To excel at customer service, support services need to minimize the interaction time with 
+customers and “predict” their needs. The ability to link customer recent issues or a service 
+contract renewal date, or consumables levels with a customer interaction, enables the 
+support services to predict the customer interaction needs.  
+ 
+d. Predictive maintenance: 
+It enables the service team to fix issues before they impact customers. Using IoT, a device is 
+in continuous communication with the vendor that feeds a tremendous amount of data. 
+Using AI, the data is analysed to predict device issues and prevent them before impacting 
+===== PAGE 7 =====
+420104 Artificial Intelligence for Enterprises   
+Assessment 3: AI Roadmap                                                                                           
+6 
+ 
+the customer (Afshar, High-Performing Customer Service Teams Use Predictive Analytics, 
+2017) 
+ 
+e. Customer Satisfaction: 
+One of the main challenges in customer support services is the ability to collect and process 
+customers feedback during and post interaction. AI engines can analyse the customer 
+emotions and satisfaction using Natural Language Processing and sentiment analysis. The 
+support agent can be alarmed of current or previous interactions with the customer to focus 
+on the pain points. It also prompts for follow up calls to guarantee customer satisfaction is 
+achieved (Dixon, 2021). 
+ 
+Another usage of AI and automation to achieve customer satisfaction is the use in field 
+service mobility. This includes workflow automation, service scheduling, technicians 
+tracking, and best route selection (Boulton, 2021). 
+ 
+f. Scale to meet customer’s demands 
+With online services adoption, the ability to utilize these services extends normal business 
+hours and spans countries and geographic boundaries. With the use of chat bots, support 
+services can be extended to cover 24x7 services and reduce the workforce needed to 
+support customers. It also enhances the efficiency of support agents by allowing them to 
+focus on special issues rather than repetitive tasks (Dixon, 2021) 
+ 
+Limitations And Challenges 
+There are several challenges that needs to be addressed to have a successful adoption of AI and 
+implementation of this proposed project. These challenges can be summarized as: 
+1. Data Challenges: 
+The main ingredient to a successful implementation of AI is the data we feed to the model, 
+which reflects the significant importance and impact of data used in our implementation. 
+Data related challenges could include: 
+ 
+a. Data readiness:  
+The challenge is related to the ability to collect and integrate data from different sources 
+that can be usable in our model. Data used in customer support comes from different 
+sources, this includes: 
+i. Ticketing system 
+ii. Call centre call logs 
+iii. Call centre audio files 
+iv. Chat log 
+v. Emails 
+vi. IoT data from devices (using different methods depending on the HW vendor) 
+As such, the ability to collect, clean, integrate, transform, and feed data into the AI model 
+becomes a challenge.  
+  
+===== PAGE 8 =====
+420104 Artificial Intelligence for Enterprises   
+Assessment 3: AI Roadmap                                                                                           
+7 
+ 
+b. Data bias: 
+Since not all data is automatically collected using machine data feeds, there is a risk of 
+having data that is skewed, resulting in bias in different aspects. An example would be 
+reporting bias;  
+Since some of the data is collected through call centre logs, un-logged activities 
+and incidents will result in reporting issues that does not reflect real world 
+issues. Which will impact the analysis of such data, such as devices availability, 
+customer satisfaction, and number of issues.  
+ 
+c. Data cascades: 
+For global organizations data is collected in different countries around the world. For a 
+global provider of print services, the challenges of data collected from one region could 
+impact predictions in another region. 
+ 
+2. Ethical challenges 
+Due to the black box nature of some of AI models, the ability to analyse the reason behind 
+some predictions and decisions is limited. This is a challenge in systems that will facilitate 
+decisions related to the future actions towards an employee or even a customer. 
+ 
+In our use case, the objective is to enhance customers’ experience. In order to achieve this 
+objective, the company could use the AI model to identify agents with highest number of 
+unsatisfied customers. While unsatisfaction could be a reflection of their poor conduct, it 
+could also be a reflection of other issues. One call centre practice that would impact these 
+decisions for example would be the log of incidents only when a customer have unresolved 
+issue, resulting in having data that reflects only issues.  
+ 
+3. Economic challenges 
+In the initial phase of our AI journey, achieving solid ROI can be a challenge. This imposes 
+challenges in financing our AI initiative and justify related cost. AI projects tend to have high 
+cost at the early stage, yet there are agile approaches that can be used to reduce the cost. 
+ 
+4. Organizational challenges 
+Being a global organization, local initiatives are challenged to be accepted. The alignment 
+with global strategy is a must. Whilst the strategy could be aligned, local implementation 
+would target smaller set of the business resulting in scalability issues across the global level.  
+AI talent is another aspect of challenges, especially with the limitation of technical resources 
+due to Covid restrictions. AI talent are an important part of our journey that would drive the 
+successful implementation of this project.  
+ 
+Expected benefits and ways to measure success 
+In order to have a successful implementation of AI in customer service, we need to set realistic 
+objectives and success criteria to measure the success of AI in the business. 
+These benefits would be summarized as: 
+1. Improved customer satisfaction (CSAT) 
+The main objective of utilizing AI that retains customers and drive business growth. With 
+increased CSAT, sales would have an increased ability to retain customers and reduce churn, 
+===== PAGE 9 =====
+420104 Artificial Intelligence for Enterprises   
+Assessment 3: AI Roadmap                                                                                           
+8 
+ 
+in addition to attracting additional customers through positive reviews and 
+recommendations.  
+As we saw in Salesforce study, customers expect the use of innovative technologies within 
+their service providers. Even without having product issues, the lack of innovation is a 
+concern for most customers that results in consideration of other options. 
+Main KPIs to measure customer satisfaction are 
+- CSAT: number of satisfied customers divided by the total number of responses 
+- NPS (Net Prompter Score): Measures how likely the customer would recommend our 
+services to a friend or colleague (What is Net Promoter Score (NPS)? Definition & 
+Examples, n.d.) 
+ 
+2. Reduction in Average Handling Time: 
+With the usage of AI technology, issues should be resolved with reduced time as data is 
+available to agents, with the AI engine providing recommendations to serve the issue. In 
+addition, the enhanced usage of self-service, customers can solve issues themselves 
+(uniphore, n.d.). 
+ 
+KPI is Average Handling Time reduction by 10%. 
+ 
+3. Reduction of Average speed of answer: 
+With the use of chat-bots and automation, response to customer issues through chat, web 
+portals, and even emails is faster and more relevant. The response is more than a generic 
+acknowledgment response and is more related to the issue or request described by the 
+customer. 
+ 
+KPI is Average Speed of answer enhancement by 90% 
+Proposed Project plan 
+Implementation of AI in customer support services forms a part of the overall AI adoption journey. 
+The project will be executed over multiple streams and divided to multiple implementations across 
+different systems. 
+These systems would be: 
+1. Chat bots 
+2. Customer support call centre 
+3. Self-service portal 
+4. Field service mobility and automation.  
+The field service mobility and automation is a large implementation and will be planned separately.  
+Key project milestones and deliverables (Taulli, 2020): 
+Milestone Deliverables Duration  Key Stakeholders 
+Scope - Problem 
+Identification 
+- Clear problem statement 
+(challenges to solve), 
+agreed deliverables, KPIs, 
+commitment from 
+management 
+2 weeks - Customer Support Leads 
+- Call Centre Leads 
+- Customer Success Team 
+- Sales Leads 
+===== PAGE 10 =====
+420104 Artificial Intelligence for Enterprises   
+Assessment 3: AI Roadmap                                                                                           
+9 
+ 
+- Project Sponsor / Key 
+stakeholder 
+- IT 
+Scope - Solution 
+Design (Design 
+thinking session – 
+customer centric) 
+Agreed solution design to 
+address the problem 
+statement. (there could be 
+other option in addition to AI 
+implementation) 
+2 weeks - Customer Support Leads 
+- Call Centre Leads 
+- Business SME 
+- Enterprise solution 
+architect (IT) 
+- AI Solution Architect 
+AI Solution Selection - Based on the agreed 
+solution, explore options 
+(add-on to existing 
+solutions, off the self, 
+custom built) 
+- Project cost, ROI 
+ 
+3 weeks - Enterprise solution 
+architect 
+- AI Solution Architect 
+Business SME 
+- Business Analyst 
+- Project Sponsor 
+Project Approval - Clear cost structure 
+- Project spending approval 
+2 weeks - Project Sponsor 
+- CFO 
+- CIO 
+Team Formation - Team size  
+- Recruiting vs reskilling 
+- Allocate team resources 
+2 weeks - Project Sponsor 
+- Project Manager 
+- CIO 
+- Business Analyst 
+- AI Solution Architect 
+Data Preparation - Data Collection 
+- Data Cleaning 
+- Data Transformation 
+2 months - Business SME 
+- Data Engineer 
+- AI Solution Architect 
+- Business Analyst 
+- IT 
+Model Creation / 
+Solution 
+implementation 
+- Add on module 
+implementation, or 
+- AI model selection 
+- AI model creation  
+- Feature Engineering 
+- AI Model training 
+4 months - AI Engineer (data scientist) 
+- Data Engineer 
+- AI Solution Architect 
+- Business SME 
+- Business Analyst 
+- IT 
+Testing - Model testing 
+- Accuracy, Precision and 
+Recall identification 
+- Measurement 
+4 months - Tester 
+- AI Engineer (data scientist) 
+- Data Engineer 
+- AI Solution Architect 
+- Business SME 
+- IT 
+===== PAGE 11 =====
+420104 Artificial Intelligence for Enterprises   
+Assessment 3: AI Roadmap                                                                                           
+10 
+ 
+Deployment and 
+Monitoring 
+- Production deployment 
+- Integration with existing 
+systems 
+- UI and Access 
+management 
+- Change management 
+2 months - Project Manager 
+- Change Manager 
+- Data Engineer 
+- AI Solution Architect 
+- Enterprise solution 
+architect 
+- IT 
+ 
+Conclusion 
+In conclusion, the implementation of AI in the print industry is important to maintain a competitive 
+advantage and differentiate of competition. Customers are demanding more innovative solutions 
+that elevate their experience, increase efficiency, and enhance availability.  
+The implementation of AI could span all business units. However, it is advisable to start the journey 
+with one unit and clear objectives. The project would have challenges and huge effort as it sets the 
+path for future implementations. 
+With the increased adoption of AI across competing businesses, it is highly advisable to implement 
+this project and set the path for using the power of data and AI across the business.  
+ 
+  
+===== PAGE 12 =====
+420104 Artificial Intelligence for Enterprises   
+Assessment 3: AI Roadmap                                                                                           
+11 
+ 
+References 
+(n.d.). Retrieved from uniphore: https://www.uniphore.com/blog/5-ways-to-reduce-average-
+handle-time-in-contact-centers-with-ai/ 
+Afshar, V. (2017, July 3). AI-Powered Customer Service Needs The Human Touch. Retrieved from Huff 
+Post: https://www.huffpost.com/entry/ai-powered-customer-service-needs-the-human-
+touch_b_58b88046e4b0ffd61787bd3d 
+Afshar, V. (2017, May 1). High-Performing Customer Service Teams Use Predictive Analytics. 
+Retrieved from Huff Post: https://www.huffpost.com/entry/high-performing-customer-
+service-teams-use-predictive_b_586d3149e4b068764965c5c9 
+Boulton, C. (2021, Nov 15). 3 Key Trends Driving Digital Transformation in Field Service. Retrieved 
+from Salesforce: https://www.salesforce.com/blog/field-service-digital-transformation/ 
+Dixon, R. (2021, March 12). 4 Ways to Use AI to Enhance the Customer Experience. Retrieved from 
+entrepreneur: https://www.entrepreneur.com/article/366465 
+Porter, M. E. (1979). How Competitive Forces Shape Strategy. Retrieved from Harvard Business 
+Review Home: https://hbr.org/1979/03/how-competitive-forces-shape-strategy 
+Salesforce. (2019). state of the connected customer. Salesforce Research. 
+Taulli, T. (2020). Implementing AI Systems: Transform Your Business in 6 Steps. L. P.: Apress. 
+What is Net Promoter Score (NPS)? Definition & Examples. (n.d.). Retrieved from qualtrics: 
+https://www.qualtrics.com/au/experience-management/customer/net-promoter-
+score/#:~:text=NPS%20stands%20for%20Net%20Promoter,a%20higher%20score%20is%20d
+esirable. 
+ 
+ 

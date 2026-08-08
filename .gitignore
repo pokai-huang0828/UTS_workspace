@@ -214,6 +214,9 @@ __marimo__/
 *.pcapng
 .venv/
 
+# codex
+.codex_tmp
+
 # ─────────────────────────────────────────────────────────────────────
 # 課程大型資料集 — 2026-07-25 移出 git 追蹤(D1 止血)
 #
@@ -232,3 +235,7 @@ Cybersecurity Analytics and Insights/A2/ddos_syn_flood_lo.csv
 #
 # 兩個 .pcapng(normal / normal2)由上方第 213 行 *.pcapng 規則涵蓋。
 # ─────────────────────────────────────────────────────────────────────
+
+# Google Workspace MCP 憑證 — 正確位置在 repo 外(~/.workspace-mcp/),這裡只是防呆
+client_secret*.json
+.workspace-mcp/

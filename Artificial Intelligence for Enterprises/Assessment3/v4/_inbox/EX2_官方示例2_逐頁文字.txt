@@ -1,0 +1,168 @@
+===== PAGE 1 =====
+  
+1 
+ 
+420104 Assessment 3: AI Roadmap 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Graduate Certificate in Artificial Intelligence Management 
+ 
+===== PAGE 2 =====
+  
+2 
+ 
+1 Introduction 
+The modernization of power grids has brought a wealth of data and a host of challenges surrounding 
+everything from data management to the increased need to improve customer experience. While the 
+power industry has been one of the slower adopters of AI, compared to sectors like technology and 
+automotive, players from across the value chain have rushed to adopt AI in recent years.  
+ 
+Figure 1 Source GlobalData Patent Database 
+Wind power generators just like other power companies are increasingly reliant on vast amounts of data 
+to generate, transmit, and supply energy. Smarter grids provide more data, through devices such as 
+smart meters for players throughout the value chain to use. Internet of Things (IoT) technology creates a 
+wealth of data for generation companies to use.  But ensuring that all data are of sufficient type and 
+quality is a challenge but none the less can provide meaningful insights. 
+These insights can help manage critical infrastructure of a wind farm by improving efficiencies particularly 
+in areas such as asset management. (Asset management is an organisation’s coordinated activities to 
+realise the full value of assets in delivering service delivery objectives. It is carried out over the whole 
+asset lifecycle.) 
+2 The company 
+At the time of commencement of operations in April 2017, the  Anemoi1 wind farm was the third largest in 
+Australia (by generation output).  The Anemoi Wind Farm uses 75 GE turbines with a tip height of 135m 
+and a rotor diameter of 103m. Comprising 52km of internal roads and 21.5km of transmission lines, the 
+farm generates enough electricity to power around 120,000 homes.  
+ 
+1 The company name has been changed for commercial in confidence reasons. 
+
+===== PAGE 3 =====
+  
+3 
+ 
+3 Description of use case for AI 
+3.1 What challenges are to be addressed? 
+Wind power must still compete with conventional generation sources on a cost basis.  Even though the 
+cost of wind power has decreased dramatically in the past several decades, wind projects must be able to 
+compete economically with the lowest-cost source of electricity. 
+ 
+To drive costs down and maintain wind farm performance, the company needs to focus on operational 
+and maintenance (O&M) costs, which are set to increase as wind assets age. Achieving maximum yield 
+at minimum risk and cost across the wind farm’s full operational life is a major asset management 
+challenge. 
+ 
+3.2 What features of AI is being proposed? 
+Data from a variety of sensors can be used to inform an unsupervised machine learning model. Variables 
+included generator speed, power output, temperature, oil level, vibrations, and shaft gap measurements. 
+The prediction of failures is a particular strength of unsupervised machine learning models. The model 
+adapts to the particular asset, and little historical failure data is required. 
+ 
+The need to monitor the performance of generators can be achieved by comparing it to an ideal “digital  
+twin”. This comparison allows for identification of performance deviations due to component failure or 
+stresses on the turbine blades for example. Production data can be utilised from the wind farm and can 
+then be compared to its performance to an ideal representation of the plant. The digital twin will utilise a 
+linear regression model, employing component and generator performance data. 
+4 Justification and alignment with business strategy  
+A rigorous asset management process is a key enabler for the secure and affordable infrastructure of the 
+wind farm. The predictability of cost and reliability is an underpinning factor of the company’s business 
+strategy .  O&M is critical to 
+1. System reliability and capability 
+2. Managing aging infrastructure and 
+3. Grid hardening 
+4.1 Why is the proposed project the best use of company resources? 
+The typical cost of an average size commercial wind turbine is $US 1.3 million per megawatt (MW) of 
+electricity producing capacity.  As the company’s wind turbines have a capacity of 5 MW the cost 
+associated with a catastrophic failure event is in the order of $US 6.5 million. 
+ 
+Ai can be used to detect and manage changes in the generators to allow for the prediction of failure 
+events in the turbine and provide additional insights to the engineering team to improve maintenance. 
+This will drive down O&M costs and extend the life of the turbine, allowing each turbine to keep producing 
+electricity for longer without being replaced. 
+ 
+4.2 How will this contribute to strengthening the company’s competitive 
+positioning? 
+Reducing the cost of electricity production, and hence ultimately the price of electricity to the consumer, is 
+a key competitive advantage.  With each turbine having an expected life of 20 to 25 years, operational 
+expenditure (opex) becomes a critical factor in determining the cost of electricity production and what the 
+consumer pays for that electricity.  
+ 
+The only way to lower the price of electricity is by lowering production costs. Reducing the opex of the 
+wind farm will allow the company to remain competitive with conventional power and solar power 
+generators. 
+===== PAGE 4 =====
+  
+4 
+ 
+5 Reflection on impact 
+5.1 Limitations and challenges  
+From a performance perspective, data bias, audit and ongoing verification of algorithms are issues that AI 
+systems must consider when developing algorithms. Machine learning is ultra-sensitive to poor data, with 
+the adage “garbage in, garbage out” holding true here.  
+It is critical that data is taken and made machine readable, so that it is quality in, quality out. For trusted 
+AI, frequent verification of data is a necessity to ensure algorithms remain valid over time and that as the 
+machines learn they do not deviate from the original algorithms. 
+The AI may have some limitations in areas that don’t have the historical data available to find the 
+intelligence, because it has never occurred or existed before. These challenges can be overcome by 
+using different and more selective data sources, as well as different Ai approaches. 
+A different approach could include evolutionary machine learning and AI based on a form of genetic 
+algorithms. This would enable high-value complex dynamic systems (e.g., turbines and generators) to 
+have digital twins evolved from available sensor data with an efficiency and level of detail that is difficult to 
+achieve using neural networks. 
+5.2 Socio-cultural and ethical impacts 
+As with all new technology, AI is likely to face initial mistrust from members of the company workforce. 
+Robust education and change programs will be needed to convince team members to trust the 
+technology. 
+A requirement of developing a wind farm is establishing a community and neighborhood benefits scheme. 
+Australia’s Clean Energy Council (CEC) defines community benefit sharing as “sharing the rewards of 
+renewable energy development with local communities”.  
+As the benefits of the wind farm pass to the community the question arises is to what extent should the 
+company inform the community of applying AI to the asset management of the power plant.  If the AI 
+increases the profitability of the company, then the community has an interest in how much is invested in 
+the AI and the potential benefits of that investment.  
+6 Expected benefits and ways to measure success 
+6.1 What benefits and advantages can be expected from successful 
+implementation? 
+The key benefits and value for the company are: 
+• Successfully identifying turbine failure events in advance, saving potentially millions of dollars 
+over the life of the plant by avoiding unplanned outages 
+• Allowing the company to possess a deeper understanding of asset performance and identify 
+incipient failure modes, allowing for swift remediation 
+• Driving costs down and maintaining wind farm performance 
+• Uninterrupted operation and improved productivity of the wind turbines 
+• The development of a thorough and sophisticated asset management strategy that fully embrace 
+the later stages of a wind farm’s life  
+• Continued upskilling and development of both company staff and the broader program/industry 
+through specialist training 
+===== PAGE 5 =====
+  
+5 
+ 
+6.2 Metrics and KPIs to measure ongoing success 
+The following measures for the AI implementation and evaluation are: 
+• Data: Measures for the quality and lineage of the data or the provenance of the data.  
+• Security: Data feeds around the security of the models and their usage. Allowing for an 
+understanding of tampering or improper usage of the AI environments. 
+• Cost/Value: The cost of data and the value created by the data and the algorithm. 
+• Bias: The measurement bias by monitoring direct or derived data continuously. 
+• Accountability: Establishment who is responsible for the systems use and the decisions made. 
+• Audit: Continuous collection of data, that in aggregate to form the basis for audit trails and review of 
+the system periodically.  
+• Time: These measures should be reviewed monthly in initial stages of the AI deployment and 
+quarterly after 12 months of deployment. 
+===== PAGE 6 =====
+  
+6 
+ 
+7 Project plan 
+7.1 Work packages, milestones, deliverables & stakeholders 
+ 
+ 
