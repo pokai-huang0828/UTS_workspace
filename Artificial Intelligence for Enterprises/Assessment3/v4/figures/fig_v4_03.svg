@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="711.9pt" height="369.216pt" viewBox="0 0 711.9 369.216" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="697.5pt" height="354.816pt" viewBox="0 0 697.5 354.816" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-08-09T00:09:16.133878</dc:date>
+    <dc:date>2026-08-09T07:43:33.057971</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -21,170 +21,170 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 369.216 
-L 711.9 369.216 
-L 711.9 0 
+   <path d="M 0 354.816 
+L 697.5 354.816 
+L 697.5 0 
 L 0 0 
 z
 " style="fill: #ffffff"/>
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path d="M 30.915 359.177472 
-L 680.985 359.177472 
-Q 690.75 359.177472 690.75 354.210048 
-L 690.75 234.28224 
-Q 690.75 229.314816 680.985 229.314816 
-L 30.915 229.314816 
-Q 21.15 229.314816 21.15 234.28224 
-L 21.15 354.210048 
-Q 21.15 359.177472 30.915 359.177472 
+    <path d="M 23.715 351.977472 
+L 673.785 351.977472 
+Q 683.55 351.977472 683.55 347.010048 
+L 683.55 227.08224 
+Q 683.55 222.114816 673.785 222.114816 
+L 23.715 222.114816 
+Q 13.95 222.114816 13.95 227.08224 
+L 13.95 347.010048 
+Q 13.95 351.977472 23.715 351.977472 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #f7f7f7; stroke: #d9d9d9; stroke-linejoin: miter"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #f7f7f7; stroke: #d9d9d9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
-    <path d="M 21.15 184.608 
-L 115.3125 184.608 
-L 115.3125 41.971968 
-L 21.15 41.971968 
+    <path d="M 13.95 177.408 
+L 108.1125 177.408 
+L 108.1125 34.771968 
+L 13.95 34.771968 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #ededed"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #ededed"/>
    </g>
    <g id="line2d_1">
-    <path d="M 21.15 84.549888 
-L 690.75 84.549888 
-" clip-path="url(#p48a01effcb)" style="fill: none; stroke: #dbdbdb; stroke-linecap: square"/>
+    <path d="M 13.95 77.349888 
+L 683.55 77.349888 
+" clip-path="url(#p33672ed3ea)" style="fill: none; stroke: #dbdbdb; stroke-linecap: square"/>
    </g>
    <g id="line2d_2">
-    <path d="M 21.15 106.54848 
-L 690.75 106.54848 
-" clip-path="url(#p48a01effcb)" style="fill: none; stroke: #dbdbdb; stroke-linecap: square"/>
+    <path d="M 13.95 99.34848 
+L 683.55 99.34848 
+" clip-path="url(#p33672ed3ea)" style="fill: none; stroke: #dbdbdb; stroke-linecap: square"/>
    </g>
    <g id="line2d_3">
-    <path d="M 21.15 138.48192 
-L 690.75 138.48192 
-" clip-path="url(#p48a01effcb)" style="fill: none; stroke: #dbdbdb; stroke-linecap: square"/>
+    <path d="M 13.95 131.28192 
+L 683.55 131.28192 
+" clip-path="url(#p33672ed3ea)" style="fill: none; stroke: #dbdbdb; stroke-linecap: square"/>
    </g>
    <g id="line2d_4">
-    <path d="M 21.15 184.608 
-L 690.75 184.608 
-" clip-path="url(#p48a01effcb)" style="fill: none; stroke: #dbdbdb; stroke-linecap: square"/>
+    <path d="M 13.95 177.408 
+L 683.55 177.408 
+" clip-path="url(#p33672ed3ea)" style="fill: none; stroke: #dbdbdb; stroke-linecap: square"/>
    </g>
    <g id="patch_4">
-    <path d="M 115.3125 184.608 
-L 690.75 184.608 
-L 690.75 138.48192 
-L 115.3125 138.48192 
+    <path d="M 108.1125 177.408 
+L 683.55 177.408 
+L 683.55 131.28192 
+L 108.1125 131.28192 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #f2f2f2"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #f2f2f2"/>
    </g>
    <g id="patch_5">
-    <path d="M 29.52 33.8112 
-L 682.38 33.8112 
-Q 690.75 33.8112 690.75 29.553408 
-L 690.75 13.231872 
-Q 690.75 8.97408 682.38 8.97408 
-L 29.52 8.97408 
-Q 21.15 8.97408 21.15 13.231872 
-L 21.15 29.553408 
-Q 21.15 33.8112 29.52 33.8112 
+    <path d="M 22.32 26.6112 
+L 675.18 26.6112 
+Q 683.55 26.6112 683.55 22.353408 
+L 683.55 6.031872 
+Q 683.55 1.77408 675.18 1.77408 
+L 22.32 1.77408 
+Q 13.95 1.77408 13.95 6.031872 
+L 13.95 22.353408 
+Q 13.95 26.6112 22.32 26.6112 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #404040; stroke: #404040; stroke-linejoin: miter"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #404040; stroke: #404040; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
-    <path d="M 122.2875 62.551296 
-L 388.38375 62.551296 
-Q 395.35875 62.551296 395.35875 59.003136 
-L 395.35875 45.520128 
-Q 395.35875 41.971968 388.38375 41.971968 
-L 122.2875 41.971968 
-Q 115.3125 41.971968 115.3125 45.520128 
-L 115.3125 59.003136 
-Q 115.3125 62.551296 122.2875 62.551296 
+    <path d="M 115.0875 55.351296 
+L 381.18375 55.351296 
+Q 388.15875 55.351296 388.15875 51.803136 
+L 388.15875 38.320128 
+Q 388.15875 34.771968 381.18375 34.771968 
+L 115.0875 34.771968 
+Q 108.1125 34.771968 108.1125 38.320128 
+L 108.1125 51.803136 
+Q 108.1125 55.351296 115.0875 55.351296 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #1f4e79; stroke: #1f4e79; stroke-linejoin: miter"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #1f4e79; stroke: #1f4e79; stroke-linejoin: miter"/>
    </g>
    <g id="patch_7">
-    <path d="M 414.88875 62.551296 
-L 683.775 62.551296 
-Q 690.75 62.551296 690.75 59.003136 
-L 690.75 45.520128 
-Q 690.75 41.971968 683.775 41.971968 
-L 414.88875 41.971968 
-Q 407.91375 41.971968 407.91375 45.520128 
-L 407.91375 59.003136 
-Q 407.91375 62.551296 414.88875 62.551296 
+    <path d="M 407.68875 55.351296 
+L 676.575 55.351296 
+Q 683.55 55.351296 683.55 51.803136 
+L 683.55 38.320128 
+Q 683.55 34.771968 676.575 34.771968 
+L 407.68875 34.771968 
+Q 400.71375 34.771968 400.71375 38.320128 
+L 400.71375 51.803136 
+Q 400.71375 55.351296 407.68875 55.351296 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #548235; stroke: #548235; stroke-linejoin: miter"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #548235; stroke: #548235; stroke-linejoin: miter"/>
    </g>
    <g id="patch_8">
-    <path d="M 212.788125 177.866496 
-L 297.883125 177.866496 
-Q 307.648125 177.866496 307.648125 172.899072 
-L 307.648125 150.190848 
-Q 307.648125 145.223424 297.883125 145.223424 
-L 212.788125 145.223424 
-Q 203.023125 145.223424 203.023125 150.190848 
-L 203.023125 172.899072 
-Q 203.023125 177.866496 212.788125 177.866496 
+    <path d="M 205.588125 170.666496 
+L 290.683125 170.666496 
+Q 300.448125 170.666496 300.448125 165.699072 
+L 300.448125 142.990848 
+Q 300.448125 138.023424 290.683125 138.023424 
+L 205.588125 138.023424 
+Q 195.823125 138.023424 195.823125 142.990848 
+L 195.823125 165.699072 
+Q 195.823125 170.666496 205.588125 170.666496 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #1f4e79; stroke: #1f4e79; stroke-linejoin: miter"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #1f4e79; stroke: #1f4e79; stroke-linejoin: miter"/>
    </g>
    <g id="patch_9">
-    <path d="M 506.784375 177.866496 
-L 591.879375 177.866496 
-Q 601.644375 177.866496 601.644375 172.899072 
-L 601.644375 150.190848 
-Q 601.644375 145.223424 591.879375 145.223424 
-L 506.784375 145.223424 
-Q 497.019375 145.223424 497.019375 150.190848 
-L 497.019375 172.899072 
-Q 497.019375 177.866496 506.784375 177.866496 
+    <path d="M 499.584375 170.666496 
+L 584.679375 170.666496 
+Q 594.444375 170.666496 594.444375 165.699072 
+L 594.444375 142.990848 
+Q 594.444375 138.023424 584.679375 138.023424 
+L 499.584375 138.023424 
+Q 489.819375 138.023424 489.819375 142.990848 
+L 489.819375 165.699072 
+Q 489.819375 170.666496 499.584375 170.666496 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #548235; stroke: #548235; stroke-linejoin: miter"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #548235; stroke: #548235; stroke-linejoin: miter"/>
    </g>
    <g id="patch_10">
-    <path d="M 41.3775 283.601664 
-L 154.3725 283.601664 
-Q 164.1375 283.601664 164.1375 278.63424 
-L 164.1375 253.79712 
-Q 164.1375 248.829696 154.3725 248.829696 
-L 41.3775 248.829696 
-Q 31.6125 248.829696 31.6125 253.79712 
-L 31.6125 278.63424 
-Q 31.6125 283.601664 41.3775 283.601664 
+    <path d="M 34.1775 276.401664 
+L 147.1725 276.401664 
+Q 156.9375 276.401664 156.9375 271.43424 
+L 156.9375 246.59712 
+Q 156.9375 241.629696 147.1725 241.629696 
+L 34.1775 241.629696 
+Q 24.4125 241.629696 24.4125 246.59712 
+L 24.4125 271.43424 
+Q 24.4125 276.401664 34.1775 276.401664 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #e8833a; stroke: #e8833a; stroke-linejoin: miter"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #e8833a; stroke: #e8833a; stroke-linejoin: miter"/>
    </g>
    <g id="patch_11">
-    <path d="M 323.865 291.0528 
-L 484.29 291.0528 
-Q 494.055 291.0528 494.055 286.085376 
-L 494.055 246.345984 
-Q 494.055 241.37856 484.29 241.37856 
-L 323.865 241.37856 
-Q 314.1 241.37856 314.1 246.345984 
-L 314.1 286.085376 
-Q 314.1 291.0528 323.865 291.0528 
+    <path d="M 316.665 283.8528 
+L 477.09 283.8528 
+Q 486.855 283.8528 486.855 278.885376 
+L 486.855 239.145984 
+Q 486.855 234.17856 477.09 234.17856 
+L 316.665 234.17856 
+Q 306.9 234.17856 306.9 239.145984 
+L 306.9 278.885376 
+Q 306.9 283.8528 316.665 283.8528 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #fffaeb; stroke: #000000; stroke-width: 2.5; stroke-linejoin: miter"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #fffaeb; stroke: #000000; stroke-width: 2.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_12">
-    <path d="M 555.435 285.375744 
-L 672.615 285.375744 
-Q 682.38 285.375744 682.38 280.40832 
-L 682.38 252.02304 
-Q 682.38 247.055616 672.615 247.055616 
-L 555.435 247.055616 
-Q 545.67 247.055616 545.67 252.02304 
-L 545.67 280.40832 
-Q 545.67 285.375744 555.435 285.375744 
+    <path d="M 548.235 278.175744 
+L 665.415 278.175744 
+Q 675.18 278.175744 675.18 273.20832 
+L 675.18 244.82304 
+Q 675.18 239.855616 665.415 239.855616 
+L 548.235 239.855616 
+Q 538.47 239.855616 538.47 244.82304 
+L 538.47 273.20832 
+Q 538.47 278.175744 548.235 278.175744 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #548235; stroke: #548235; stroke-linejoin: miter"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #548235; stroke: #548235; stroke-linejoin: miter"/>
    </g>
    <g id="text_1">
     <!-- 樣本:4 台車 · 23 天 · 1,647 筆 · 一個小型車隊、一個月,以下所有比例僅在此樣本內成立 -->
-    <g style="fill: #ffffff" transform="translate(109.287187 24.972718) scale(0.13 -0.13)">
+    <g style="fill: #ffffff" transform="translate(102.087187 17.772718) scale(0.13 -0.13)">
      <defs>
       <path id="MicrosoftJhengHeiBold-6a23" d="M 4006 4891 
 L 3438 4703 
@@ -1456,7 +1456,7 @@ z
    </g>
    <g id="text_2">
     <!-- ADAS · 行車輔助 -->
-    <g style="fill: #ffffff" transform="translate(202.623437 56.117101) scale(0.14 -0.14)">
+    <g style="fill: #ffffff" transform="translate(195.423438 48.917101) scale(0.14 -0.14)">
      <defs>
       <path id="MicrosoftJhengHeiBold-41" d="M 4531 0 
 L 3706 0 
@@ -1744,7 +1744,7 @@ z
    </g>
    <g id="text_3">
     <!-- DMS · 駕駛監控 -->
-    <g style="fill: #ffffff" transform="translate(499.614375 56.117101) scale(0.14 -0.14)">
+    <g style="fill: #ffffff" transform="translate(492.414375 48.917101) scale(0.14 -0.14)">
      <defs>
       <path id="MicrosoftJhengHeiBold-4d" d="M 5000 0 
 L 5000 3125 
@@ -2140,7 +2140,7 @@ z
    </g>
    <g id="text_4">
     <!-- 量體 -->
-    <g style="fill: #202020" transform="translate(57.23125 76.579889) scale(0.11 -0.11)">
+    <g style="fill: #202020" transform="translate(50.03125 69.379889) scale(0.11 -0.11)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-91cf" d="M 5447 3641 
 L 1025 3641 
@@ -2359,7 +2359,7 @@ z
    </g>
    <g id="text_5">
     <!-- 1,029 筆 -->
-    <g style="fill: #202020" transform="translate(224.235625 77.956842) scale(0.16 -0.16)">
+    <g style="fill: #202020" transform="translate(217.035625 70.756842) scale(0.16 -0.16)">
      <defs>
       <path id="MicrosoftJhengHeiBold-30" d="M 272 2328 
 Q 272 3603 708 4262 
@@ -2417,7 +2417,7 @@ z
    </g>
    <g id="text_6">
     <!-- 618 筆 -->
-    <g style="fill: #202020" transform="translate(525.033125 77.956842) scale(0.16 -0.16)">
+    <g style="fill: #202020" transform="translate(517.833125 70.756842) scale(0.16 -0.16)">
      <defs>
       <path id="MicrosoftJhengHeiBold-38" d="M 1338 2544 
 Q 478 2928 478 3694 
@@ -2462,7 +2462,7 @@ z
    </g>
    <g id="text_7">
     <!-- 誤報 -->
-    <g style="fill: #202020" transform="translate(57.23125 98.578481) scale(0.11 -0.11)">
+    <g style="fill: #202020" transform="translate(50.03125 91.378481) scale(0.11 -0.11)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-8aa4" d="M 2463 4294 
 L 441 4294 
@@ -2628,7 +2628,7 @@ z
    </g>
    <g id="text_8">
     <!-- 104 筆 -->
-    <g style="fill: #202020" transform="translate(231.036875 99.955434) scale(0.16 -0.16)">
+    <g style="fill: #202020" transform="translate(223.836875 92.755434) scale(0.16 -0.16)">
      <use xlink:href="#MicrosoftJhengHeiBold-31"/>
      <use xlink:href="#MicrosoftJhengHeiBold-30" x="59.570312"/>
      <use xlink:href="#MicrosoftJhengHeiBold-34" x="119.140625"/>
@@ -2638,7 +2638,7 @@ z
    </g>
    <g id="text_9">
     <!-- 20 筆 -->
-    <g style="fill: #202020" transform="translate(529.799375 99.955434) scale(0.16 -0.16)">
+    <g style="fill: #202020" transform="translate(522.599375 92.755434) scale(0.16 -0.16)">
      <use xlink:href="#MicrosoftJhengHeiBold-32"/>
      <use xlink:href="#MicrosoftJhengHeiBold-30" x="59.570312"/>
      <use xlink:href="#MicrosoftJhengHeiBold-20" x="119.140625"/>
@@ -2647,7 +2647,7 @@ z
    </g>
    <g id="text_10">
     <!-- 該樣本人工 -->
-    <g style="fill: #202020" transform="translate(40.73125 117.582387) scale(0.11 -0.11)">
+    <g style="fill: #202020" transform="translate(33.53125 110.382387) scale(0.11 -0.11)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-8a72" d="M 6009 4281 
 L 4294 4281 
@@ -2876,7 +2876,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-5de5" x="400"/>
     </g>
     <!-- 判定為正確 -->
-    <g style="fill: #202020" transform="translate(40.73125 133.506606) scale(0.11 -0.11)">
+    <g style="fill: #202020" transform="translate(33.53125 126.306606) scale(0.11 -0.11)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-5224" d="M 3853 1613 
 L 2259 1613 
@@ -3162,7 +3162,7 @@ z
    </g>
    <g id="text_11">
     <!-- 89.9% -->
-    <g style="fill: #202020" transform="translate(231.783125 120.534762) scale(0.16 -0.16)">
+    <g style="fill: #202020" transform="translate(224.583125 113.334762) scale(0.16 -0.16)">
      <defs>
       <path id="MicrosoftJhengHeiBold-2e" d="M 350 363 
 Q 350 553 487 678 
@@ -3228,7 +3228,7 @@ z
    </g>
    <g id="text_12">
     <!-- 96.8% -->
-    <g style="fill: #202020" transform="translate(525.779375 120.534762) scale(0.16 -0.16)">
+    <g style="fill: #202020" transform="translate(518.579375 113.334762) scale(0.16 -0.16)">
      <use xlink:href="#MicrosoftJhengHeiBold-39"/>
      <use xlink:href="#MicrosoftJhengHeiBold-36" x="59.570312"/>
      <use xlink:href="#MicrosoftJhengHeiBold-2e" x="119.140625"/>
@@ -3238,7 +3238,7 @@ z
    </g>
    <g id="text_13">
     <!-- 錯的是誰 -->
-    <g style="fill: #202020" transform="translate(46.23125 164.574257) scale(0.11 -0.11)">
+    <g style="fill: #202020" transform="translate(39.03125 157.374257) scale(0.11 -0.11)">
      <defs>
       <path id="MicrosoftJhengHeiBold-932f" d="M 2784 4206 
 L 2388 3841 
@@ -3524,7 +3524,7 @@ z
    </g>
    <g id="text_14">
     <!-- 模型 -->
-    <g style="fill: #ffffff" transform="translate(233.335625 167.603554) scale(0.22 -0.22)">
+    <g style="fill: #ffffff" transform="translate(226.135625 160.403554) scale(0.22 -0.22)">
      <defs>
       <path id="MicrosoftJhengHeiBold-6a21" d="M 5947 4366 
 L 5247 4366 
@@ -3619,7 +3619,7 @@ z
    </g>
    <g id="text_15">
     <!-- 人 -->
-    <g style="fill: #ffffff" transform="translate(538.331875 167.603554) scale(0.22 -0.22)">
+    <g style="fill: #ffffff" transform="translate(531.131875 160.403554) scale(0.22 -0.22)">
      <defs>
       <path id="MicrosoftJhengHeiBold-4eba" d="M 6047 103 
 L 5678 -366 
@@ -3640,7 +3640,7 @@ z
    </g>
    <g id="text_16">
     <!-- (Sambasivan et al., 2021) -->
-    <g style="fill: #737373" transform="translate(575.965625 197.569174) scale(0.1 -0.1)">
+    <g style="fill: #737373" transform="translate(568.765625 190.369174) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-28" d="M 1513 -1100 
 Q 469 94 469 1847 
@@ -3989,16 +3989,16 @@ z
     </g>
    </g>
    <g id="patch_13">
-    <path d="M 28.125 213.348096 
-L 30.56625 213.348096 
-L 30.56625 196.316928 
-L 28.125 196.316928 
+    <path d="M 20.925 206.148096 
+L 23.36625 206.148096 
+L 23.36625 189.116928 
+L 20.925 189.116928 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #404040"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #404040"/>
    </g>
    <g id="text_17">
     <!-- 同一套複核流程在處理兩個本質不同的問題,所以兩邊都沒被解決。 -->
-    <g style="fill: #202020" transform="translate(36.495 208.41259) scale(0.13 -0.13)">
+    <g style="fill: #202020" transform="translate(29.295 201.21259) scale(0.13 -0.13)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-540c" d="M 5722 159 
 Q 5722 -156 5500 -247 
@@ -5500,7 +5500,7 @@ z
    </g>
    <g id="text_18">
     <!-- 缺口 = 脈絡(判定依據不在畫面裡) -->
-    <g style="fill: #1f4e79" transform="translate(173.112344 223.118897) scale(0.11 -0.11)">
+    <g style="fill: #1f4e79" transform="translate(165.912344 215.918897) scale(0.11 -0.11)">
      <defs>
       <path id="MicrosoftJhengHeiBold-7f3a" d="M 2847 2572 
 L 1941 2572 
@@ -6240,7 +6240,7 @@ z
    </g>
    <g id="text_19">
     <!-- 缺口 = 判準(同一段影片,不同複核者給不同標籤) -->
-    <g style="fill: #476e2d" transform="translate(432.709531 223.118897) scale(0.11 -0.11)">
+    <g style="fill: #476e2d" transform="translate(425.509531 215.918897) scale(0.11 -0.11)">
      <defs>
       <path id="MicrosoftJhengHeiBold-6e96" d="M 6022 628 
 L 3506 628 
@@ -7014,7 +7014,7 @@ z
    </g>
    <g id="text_20">
     <!-- 誤報 FP ｜ 124 筆 -->
-    <g style="fill: #ffffff" transform="translate(38.232422 270.551617) scale(0.15 -0.15)">
+    <g style="fill: #ffffff" transform="translate(31.032422 263.351617) scale(0.15 -0.15)">
      <defs>
       <path id="MicrosoftJhengHeiBold-8aa4" d="M 2438 4159 
 L 434 4159 
@@ -7232,7 +7232,7 @@ z
    </g>
    <g id="text_21">
     <!-- 該樣本全部誤報 -->
-    <g style="fill: #202020" transform="translate(62.875 297.27247) scale(0.1 -0.1)">
+    <g style="fill: #202020" transform="translate(55.675 290.07247) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-5168" d="M 5978 3341 
 L 5797 3041 
@@ -7341,7 +7341,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-5831" x="600"/>
     </g>
     <!-- (行車輔助 104 + 駕駛監控 20) -->
-    <g style="fill: #202020" transform="translate(31.492188 311.749032) scale(0.1 -0.1)">
+    <g style="fill: #202020" transform="translate(24.292187 304.549032) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-884c" d="M 2253 5075 
 Q 1678 4359 647 3744 
@@ -8024,18 +8024,18 @@ z
     </g>
    </g>
    <g id="patch_14">
-    <path d="M 172.5075 266.21568 
-Q 239.11875 266.21568 300.13983 266.21568 
-" clip-path="url(#p48a01effcb)" style="fill: none; stroke: #e8833a; stroke-width: 5; stroke-linecap: round"/>
-    <path d="M 289.73983 261.01568 
-L 300.13983 266.21568 
-L 289.73983 271.41568 
+    <path d="M 165.3075 259.01568 
+Q 231.91875 259.01568 292.93983 259.01568 
+" clip-path="url(#p33672ed3ea)" style="fill: none; stroke: #e8833a; stroke-width: 5; stroke-linecap: round"/>
+    <path d="M 282.53983 253.81568 
+L 292.93983 259.01568 
+L 282.53983 264.21568 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #e8833a; stroke: #e8833a; stroke-width: 5; stroke-linecap: round"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #e8833a; stroke: #e8833a; stroke-width: 5; stroke-linecap: round"/>
    </g>
    <g id="text_22">
     <!-- 交通標誌辨識 -->
-    <g transform="translate(332.0775 272.825055) scale(0.24 -0.24)">
+    <g transform="translate(324.8775 265.625055) scale(0.24 -0.24)">
      <defs>
       <path id="MicrosoftJhengHeiBold-4ea4" d="M 5978 4634 
 L 5972 4097 
@@ -8454,18 +8454,18 @@ z
     </g>
    </g>
    <g id="patch_15">
-    <path d="M 501.03 266.21568 
-Q 519.8625 266.21568 535.117291 266.21568 
-" clip-path="url(#p48a01effcb)" style="fill: none; stroke: #4c7530; stroke-width: 3.2; stroke-linecap: round"/>
-    <path d="M 526.317291 261.81568 
-L 535.117291 266.21568 
-L 526.317291 270.61568 
+    <path d="M 493.83 259.01568 
+Q 512.6625 259.01568 527.917291 259.01568 
+" clip-path="url(#p33672ed3ea)" style="fill: none; stroke: #4c7530; stroke-width: 3.2; stroke-linecap: round"/>
+    <path d="M 519.117291 254.61568 
+L 527.917291 259.01568 
+L 519.117291 263.41568 
 z
-" clip-path="url(#p48a01effcb)" style="fill: #4c7530; stroke: #4c7530; stroke-width: 3.2; stroke-linecap: round"/>
+" clip-path="url(#p33672ed3ea)" style="fill: #4c7530; stroke: #4c7530; stroke-width: 3.2; stroke-linecap: round"/>
    </g>
    <g id="text_23">
     <!-- 速限資料: -->
-    <g style="fill: #ffffff" transform="translate(584.244375 259.937555) scale(0.14 -0.14)">
+    <g style="fill: #ffffff" transform="translate(577.044375 252.737555) scale(0.14 -0.14)">
      <defs>
       <path id="MicrosoftJhengHeiBold-901f" d="M 1953 4481 
 L 1556 4072 
@@ -8737,7 +8737,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiBold-3a" x="400"/>
     </g>
     <!-- 公司既有資產 -->
-    <g style="fill: #ffffff" transform="translate(572.025 280.204742) scale(0.14 -0.14)">
+    <g style="fill: #ffffff" transform="translate(564.825 273.004742) scale(0.14 -0.14)">
      <defs>
       <path id="MicrosoftJhengHeiBold-516c" d="M 2809 5100 
 Q 2184 3409 756 2259 
@@ -8940,7 +8940,7 @@ z
    </g>
    <g id="text_24">
     <!-- 不必外購、不必等新模型, -->
-    <g style="fill: #202020" transform="translate(557.872656 299.04655) scale(0.1 -0.1)">
+    <g style="fill: #202020" transform="translate(550.672656 291.84655) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-5fc5" d="M 3756 3981 
 L 3506 3744 
@@ -9462,7 +9462,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-2c" x="1100"/>
     </g>
     <!-- 這條今天就能動 -->
-    <g style="fill: #202020" transform="translate(579.025 313.523112) scale(0.1 -0.1)">
+    <g style="fill: #202020" transform="translate(571.825 306.323112) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-9019" d="M 6009 4238 
 L 2194 4238 
@@ -9904,20 +9904,20 @@ z
    </g>
    <g id="text_25">
     <g id="patch_16">
-     <path d="M 579.260313 139.057738 
-L 686.565 139.057738 
-Q 689.565 139.057738 689.565 136.057738 
-L 689.565 125.578051 
-Q 689.565 122.578051 686.565 122.578051 
-L 579.260313 122.578051 
-Q 576.260313 122.578051 576.260313 125.578051 
-L 576.260313 136.057738 
-Q 576.260313 139.057738 579.260313 139.057738 
+     <path d="M 572.060313 131.857738 
+L 679.365 131.857738 
+Q 682.365 131.857738 682.365 128.857738 
+L 682.365 118.378051 
+Q 682.365 115.378051 679.365 115.378051 
+L 572.060313 115.378051 
+Q 569.060313 115.378051 569.060313 118.378051 
+L 569.060313 128.857738 
+Q 569.060313 131.857738 572.060313 131.857738 
 z
 " style="fill: #e6e6e6; stroke: #c6c6c6; stroke-width: 0.8; stroke-linejoin: miter"/>
     </g>
     <!-- 同一把尺 · 一致性未量測 -->
-    <g style="fill: #666666" transform="translate(579.260313 133.571801) scale(0.1 -0.1)">
+    <g style="fill: #666666" transform="translate(572.060313 126.371801) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-628a" d="M 2503 2463 
 Q 2222 2334 1656 2138 
@@ -10244,13 +10244,13 @@ z
     </g>
    </g>
    <g id="line2d_5">
-    <path d="M 401.63625 186.027264 
-L 401.63625 40.552704 
-" clip-path="url(#p48a01effcb)" style="fill: none; stroke: #404040; stroke-width: 4.5"/>
+    <path d="M 394.43625 178.827264 
+L 394.43625 33.352704 
+" clip-path="url(#p33672ed3ea)" style="fill: none; stroke: #404040; stroke-width: 4.5"/>
    </g>
    <g id="text_26">
     <!-- 103 / 124 = 83% -->
-    <g style="fill: #b45f1f" transform="translate(184.11625 252.800519) scale(0.14 -0.14)">
+    <g style="fill: #b45f1f" transform="translate(176.91625 245.600519) scale(0.14 -0.14)">
      <defs>
       <path id="MicrosoftJhengHeiBold-2f" d="M 2884 4841 
 L 550 -803 
@@ -10279,7 +10279,7 @@ z
    </g>
    <g id="text_27">
     <!-- 公司自己的口徑 -->
-    <g style="fill: #202020" transform="translate(207.61875 283.344903) scale(0.09 -0.09)">
+    <g style="fill: #202020" transform="translate(200.41875 276.144903) scale(0.09 -0.09)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-516c" d="M 2663 5153 
 Q 2097 3406 628 2350 
@@ -10492,7 +10492,7 @@ z
    </g>
    <g id="text_28">
     <!-- 誤報的第一大來源只有一個 → 成本論證有一個可工程化的靶心。 -->
-    <g style="fill: #b45f1f" transform="translate(165.12 320.17963) scale(0.13 -0.13)">
+    <g style="fill: #b45f1f" transform="translate(157.92 312.97963) scale(0.13 -0.13)">
      <defs>
       <path id="MicrosoftJhengHeiBold-7b2c" d="M 3138 4372 
 L 1472 4372 
@@ -11262,7 +11262,7 @@ z
    </g>
    <g id="text_29">
     <!-- 漏放那一側只有一份很薄的獨立樣本,下一頁講。 -->
-    <g style="fill: #4d4d4d" transform="translate(32.31 349.788209) scale(0.11 -0.11)">
+    <g style="fill: #4d4d4d" transform="translate(25.11 342.588209) scale(0.11 -0.11)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-6f0f" d="M 1813 4372 
 L 1575 4141 
@@ -12181,20 +12181,20 @@ z
    </g>
    <g id="text_30">
     <g id="patch_17">
-     <path d="M 389.76125 360.64338 
-L 682.38 360.64338 
-Q 686.58 360.64338 686.58 356.44338 
-L 686.58 330.687755 
-Q 686.58 326.487755 682.38 326.487755 
-L 389.76125 326.487755 
-Q 385.56125 326.487755 385.56125 330.687755 
-L 385.56125 356.44338 
-Q 385.56125 360.64338 389.76125 360.64338 
+     <path d="M 382.56125 353.44338 
+L 675.18 353.44338 
+Q 679.38 353.44338 679.38 349.24338 
+L 679.38 323.487755 
+Q 679.38 319.287755 675.18 319.287755 
+L 382.56125 319.287755 
+Q 378.36125 319.287755 378.36125 323.487755 
+L 378.36125 349.24338 
+Q 378.36125 353.44338 382.56125 353.44338 
 z
 " style="fill: #ffffff; stroke: #c6c6c6; stroke-width: 0.9; stroke-linejoin: miter"/>
     </g>
     <!-- 該樣本四台車誤報率 2.5%-16.5%,差異主要反映各路線的路標環境, -->
-    <g style="fill: #202020" transform="translate(389.76125 338.681505) scale(0.1 -0.1)">
+    <g style="fill: #202020" transform="translate(382.56125 331.481505) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-56db" d="M 5684 -313 
 L 5338 -313 
@@ -13231,7 +13231,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-2c" x="2903.173828"/>
     </g>
     <!-- 不應解讀為駕駛行為差異。 -->
-    <g style="fill: #202020" transform="translate(562.38 353.957443) scale(0.1 -0.1)">
+    <g style="fill: #202020" transform="translate(555.18 346.757443) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-61c9" d="M 5931 4500 
 L 1209 4500 
@@ -13472,8 +13472,8 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p48a01effcb">
-   <rect x="7.2" y="7.2" width="697.5" height="354.816"/>
+  <clipPath id="p33672ed3ea">
+   <rect x="0" y="-0" width="697.5" height="354.816"/>
   </clipPath>
  </defs>
 </svg>

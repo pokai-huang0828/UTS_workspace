@@ -44,11 +44,11 @@ from matplotlib.patches import PathPatch, Ellipse, Rectangle  # noqa: E402
 # ------------------------------------------------------------------
 OUT_W, OUT_H = 12.2, 5.7         # 🔴 裁決 O 鎖死的成品實體吋數(= 組版內容區實形)
 
-# 共用機具 save() 用 bbox_inches='tight',而 tight 框恆等於整張 figure,
-# 再各邊加 pad_inches=0.1 => 成品 = figsize + 0.2 吋。
-# 所以 figsize 取 12.0 x 5.5,出檔後恰為 12.2 x 5.7(__main__ 有實測 assert)。
-# 這是把畫布**縮小**去對齊鎖死值,不是放大畫布規避字級規則。
-FIGW, FIGH = OUT_W - 0.2, OUT_H - 0.2
+# 2026-08-09 主迴圈更正:共用機具 save() 已改為 pad_inches=0(裁決 O 的落地修正)。
+# 原本 save() 用 matplotlib 預設的 pad_inches=0.1,四邊各加 0.1 吋白邊,
+# 所以本檔當初把 figsize 取成 12.0 x 5.5 去抵銷那 0.2 吋。
+# 白邊拿掉之後那個補償就變成過頭(輸出只剩 12.0 x 5.5),故改為直接取鎖死值。
+FIGW, FIGH = OUT_W, OUT_H
 
 LX0, LX1 = 0.005, 0.556          # 左 55%:八原則
 RX0, RX1 = 0.596, 0.995          # 右 40%:張力卡片(中間 4% 為連接線走道)

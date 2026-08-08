@@ -83,11 +83,17 @@ def assert_min_fontsize(fig, fs_min=FS_MIN):
 
 
 def save(fig, name):
-    """同時輸出 png + svg,300 dpi,bbox_inches='tight',白底。存檔前先驗字級。"""
+    """同時輸出 png + svg,300 dpi,bbox_inches='tight',白底。存檔前先驗字級。
+
+    🔴 pad_inches=0 是刻意的(裁決 O)。matplotlib 預設 pad_inches=0.1 會在四邊各加
+    0.1 吋白邊,使 12.2 x 5.7 的畫布吐出 12.4 x 5.9 的圖;等比置入 12.2 x 5.7 的
+    內容區時縮放比變成 0.967,fs=9 落地只剩 8.70pt —— 「fs=9 就是真 9pt」的保證破功。
+    白邊本來就由組版程式的版面留白負責,圖不需要自帶。
+    """
     assert_min_fontsize(fig)
     for ext in ("png", "svg"):
         fig.savefig(os.path.join(OUT, f"{name}.{ext}"), dpi=300,
-                    bbox_inches="tight", facecolor="white")
+                    bbox_inches="tight", pad_inches=0, facecolor="white")
     plt.close(fig)
     print("  ->", name)
 
