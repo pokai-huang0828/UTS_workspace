@@ -2,13 +2,24 @@
 """P8 用圖:三層 KPI 帶(指標卡三欄制 + 否決閘 + 底部閉環)。
 
 規格來源:v4/notes/04_十頁內容_v2.md 的「# P8 · 怎麼算成功:三層 KPI,一條回圈」→ ## 視覺規格
+畫布裁決:v4/notes/12_出圖稽核與畫布裁決.md 裁決 O —— 畫布鎖死 12.2 x 5.7 吋,
+          置入投影片內容區的縮放比 = 1.0,所以圖內 fs=9 就是真的 9pt。
 機具:scripts/make_figs_v4.py(直接 import,不修改)
 
 不畫:頁首標題、右上角五格進度指示(頁面共通元素,由組版程式負責)。
 不用:U+2212 負號、U+2248、U+27F2、U+2014、emoji(字型缺字或已列為禁用)。
+
+【本頁自訂的處置順序】(規格未寫,依裁決 O 第 3 條自訂並回報)
+  ① 帶狀純文字先移出圖 → 由 build_deck_v4.py 以投影片文字框放置
+     (貫穿說明句、四條當責三件套、錯誤攔截比例註記、各卡限定語、閉環註記)
+  ② 卡內欄位保留「數值 + 最短可辨識限定語」,完整限定語落在投影片頁腳
+  ③ 仍不足時才縮短卡名 —— 本輪未動用
+  🔒 全程不縮字(最小 fs=9)、不放大畫布。
 """
+import logging
 import os
 import sys
+import warnings
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))          # .../v4/scripts
@@ -20,11 +31,18 @@ from make_figs_v4 import (                          # noqa: E402
 )
 
 # ------------------------------------------------------------------ 度量
-FW, FH = 16.0, 9.0                 # 16:9
+FW, FH = 12.2, 5.7                 # 🔒 裁決 O:畫布鎖死,不得放大
 UX, UY = FW * 72.0, FH * 72.0      # 每 1 個 axes 單位 = 多少 pt
 LS = 1.24                          # 行距係數
 CLOSERS = "」』)〕】,、。;:!?%〉》｝/"
 OPENERS = "((「『【〔《〈"
+
+FS_BODY = 9                        # 欄位正文(= 全圖最小字級)
+FS_NAME = 11                       # 卡名
+FS_LAYER = 11                      # 左側層名直立色塊
+FS_SIDE = 9                        # 右側成效面向直欄
+FS_GATE = 11                       # 否決閘
+FS_NODE = 10                       # 閉環節點
 
 
 def px(pt):
@@ -62,6 +80,12 @@ def tokenize(para):
             toks.append(" ")
             i += 1
         elif ord(ch) < 0x2000:
+            # 半形串前導的收尾標點(如 ",W16" 的逗號)要單獨成 token,
+            # 否則它會被綁進數字串、被推到行首。
+            if ch in CLOSERS:
+                toks.append(ch)
+                i += 1
+                continue
             j = i
             while j < n and ord(para[j]) < 0x2000 and para[j] != " ":
                 j += 1
@@ -99,7 +123,8 @@ def wrap(text, width_pt, fs):
                 continue
             w = tw(tk, fs)
             if cur and curw + w > width_pt:
-                if len(tk) == 1 and tk in CLOSERS and len(cur.rstrip()) > 1:
+                # 收尾標點(含 ");" 這種被 tokenize 綁在一起的半形串)不得起行
+                if all(c in CLOSERS for c in tk) and len(cur.rstrip()) > 1:
                     c = cur.rstrip()
                     out.append(c[:-1])
                     cur = c[-1] + tk
@@ -142,78 +167,79 @@ def draw_lines(ax, x, y_top, lines, fs, color, bold=False, z=6):
     return y
 
 
-def draw_badge(ax, x, y_top, text, fs=9, fc=ORANGE):
+def draw_badge(ax, x, y_top, text, fs=FS_BODY, fc=ORANGE):
     """橘底白字小徽章(只用在欄 2)。"""
-    w = tw(text, fs) + 9.0
-    h = fs * 1.50
+    w = tw(text, fs) + 8.0
+    h = fs * 1.45
     ax.add_patch(FancyBboxPatch((x, y_top - py(h)), px(w), py(h),
                                 boxstyle="round,pad=0,rounding_size=.004",
                                 fc=fc, ec=fc, zorder=6))
     ax.text(x + px(w) / 2, y_top - py(h) / 2, text, ha="center", va="center",
             fontsize=fs, color="white", fontweight="bold", zorder=7)
-    return y_top - py(h) - py(2.5)
+    return y_top - py(h) - py(2.0)
 
 
 # ------------------------------------------------------------------ 指標卡
 SLACK = []
+CARDS = []          # (x, y, w, h) —— 供 audit() 檢查文字是否都在容器框內
 
 
-def draw_card(ax, x, y, w, h, name, cols, foot=None, foot_fs=9,
-              ec=NAVY, lw=1.2, name_fs=13, name_color=NAVY,
-              name_tag=None, tag_fs=10, tag_color=GREY, tag_boxed=False,
-              col1_color=GREY, col2_header=None, tag_ibm=None):
+def draw_card(ax, x, y, w, h, name, cols, ec=NAVY, lw=1.1,
+              name_color=NAVY, name_tag=None, tag_boxed=False,
+              col2_header=None, tag_ibm=None):
     """三欄制指標卡。cols = [欄1, 欄2, 欄3],每欄是 [(文字, fs, 色), ...] 或 ('badge', 文字)。"""
     ax.add_patch(FancyBboxPatch((x, y), w, h,
                                 boxstyle="round,pad=0,rounding_size=.006",
                                 fc="white", ec=ec, lw=lw, zorder=3))
-    padx, pady = 7.0, 5.0
+    CARDS.append((x, y, w, h))
+    padx, pady = 5.0, 4.0
     inner_x = x + px(padx)
     inner_w = w - 2 * px(padx)
 
     # ---- 卡名列(右上角可掛標籤)
     tag_w = 0.0
     if name_tag is not None:
-        tag_w = tw(name_tag, tag_fs) + (10.0 if tag_boxed else 4.0)
+        tag_w = tw(name_tag, FS_BODY) + (6.0 if tag_boxed else 4.0)
     if tag_ibm is not None:
-        tag_w = tw(tag_ibm, 9) + 4.0
-    n_lines = wrap(name, inner_w * UX - tag_w - 4, name_fs)
+        tag_w = tw(tag_ibm, FS_BODY) + 4.0
+    n_lines = wrap(name, inner_w * UX - tag_w - 3, FS_NAME)
     y_name_top = y + h - py(pady)
-    draw_lines(ax, inner_x, y_name_top, n_lines, name_fs, name_color, bold=True)
-    name_bot = y_name_top - lines_h(len(n_lines), name_fs)
+    draw_lines(ax, inner_x, y_name_top, n_lines, FS_NAME, name_color, bold=True)
+    name_bot = y_name_top - lines_h(len(n_lines), FS_NAME)
 
     if name_tag is not None:
-        ty = y_name_top - py(tag_fs * LS) * 0.5
+        ty = y_name_top - py(FS_BODY * LS) * 0.5
         if tag_boxed:
-            bw, bh = tw(name_tag, tag_fs) + 9.0, tag_fs * 1.55
+            bw, bh = tw(name_tag, FS_BODY) + 5.0, FS_BODY * 1.45
             ax.add_patch(FancyBboxPatch((x + w - px(padx + bw), ty - py(bh) / 2),
                                         px(bw), py(bh),
                                         boxstyle="round,pad=0,rounding_size=.004",
                                         fc=NAVY, ec=NAVY, zorder=6))
             ax.text(x + w - px(padx + bw / 2), ty, name_tag, ha="center",
-                    va="center", fontsize=tag_fs, color="white",
+                    va="center", fontsize=FS_BODY, color="white",
                     fontweight="bold", zorder=7)
         else:
             ax.text(x + w - px(padx), ty, name_tag, ha="right", va="center",
-                    fontsize=tag_fs, color=tag_color, zorder=6)
+                    fontsize=FS_BODY, color=GREY, zorder=6)
     if tag_ibm is not None:
-        ax.text(x + w - px(padx), y_name_top - py(9 * LS) * 0.5, tag_ibm,
-                ha="right", va="center", fontsize=9, color=GREY, zorder=6)
+        ax.text(x + w - px(padx), y_name_top - py(FS_BODY * LS) * 0.5, tag_ibm,
+                ha="right", va="center", fontsize=FS_BODY, color=GREY, zorder=6)
 
     # ---- 三欄
     fracs = (0.34, 0.33, 0.33)
     cw = [inner_w * f for f in fracs]
     cx = [inner_x, inner_x + cw[0], inner_x + cw[0] + cw[1]]
-    col_top = name_bot - py(4)
+    col_top = name_bot - py(3)
     bottoms = []
     for i, items in enumerate(cols):
-        text_w = cw[i] * UX - 6.0
-        xx = cx[i] + px(3)
+        text_w = cw[i] * UX - 5.0
+        xx = cx[i] + px(2.5)
         yy = col_top
         if i == 1 and col2_header:
-            hl = wrap(col2_header, text_w, 10)
-            draw_lines(ax, xx, yy, hl, 10, GREY)
-            yy -= lines_h(len(hl), 10)
-            yy -= py(1.5)
+            hl = wrap(col2_header, text_w, FS_BODY)
+            draw_lines(ax, xx, yy, hl, FS_BODY, GREY)
+            yy -= lines_h(len(hl), FS_BODY)
+            yy -= py(1.0)
         for it in items:
             if it[0] == "badge":
                 yy = draw_badge(ax, xx, yy, it[1])
@@ -226,27 +252,17 @@ def draw_card(ax, x, y, w, h, name, cols, foot=None, foot_fs=9,
         bottoms.append(yy)
     col_bot = min(bottoms)
 
-    # ---- 底緣註記(靠卡底,與欄位之間留白)
-    foot_top = y
-    if foot:
-        fl = wrap(foot, inner_w * UX, foot_fs)
-        foot_h = lines_h(len(fl), foot_fs)
-        foot_top = y + py(pady * 0.6) + foot_h
-        draw_lines(ax, inner_x, foot_top, fl, foot_fs, GREY)
-        ax.plot([inner_x, inner_x + inner_w], [foot_top + py(3)] * 2,
+    # ---- 欄間 1px 淺灰分隔線(只跨欄位區,不穿過任何文字)
+    for i in (1, 2):
+        ax.plot([cx[i], cx[i]], [col_top, max(col_bot, y + py(3))],
                 color=LIGHT, lw=0.8, zorder=4)
 
-    # ---- 欄間 1px 淺灰分隔線(只跨欄位區,不穿過任何文字)
-    sep_bot = max(col_bot, foot_top + py(4))
-    for i in (1, 2):
-        ax.plot([cx[i], cx[i]], [col_top, sep_bot], color=LIGHT, lw=0.8, zorder=4)
-
-    slack = (col_bot - (foot_top + py(4))) * UY
-    SLACK.append((name[:12], round(slack, 1)))
+    slack = (col_bot - (y + py(pady))) * UY
+    SLACK.append((name[:10], round(slack, 1)))
     assert slack > -0.5, "卡片內容溢出:%s(不足 %.1f pt)" % (name, -slack)
 
 
-def vband(ax, x, y, w, h, label, color, fs=14):
+def vband(ax, x, y, w, h, label, color, fs=FS_LAYER):
     ax.add_patch(FancyBboxPatch((x, y), w, h,
                                 boxstyle="round,pad=0,rounding_size=.006",
                                 fc=color, ec=color, zorder=4))
@@ -259,265 +275,314 @@ def build():
     fig, ax = newfig(FW, FH)
     fig.subplots_adjust(left=0, right=1, bottom=0, top=1)
 
-    LX, LW = 0.004, 0.040          # 左側直立層名色塊
-    RX, RW = 0.958, 0.038          # 右側成效面向窄欄
-    CX0, CX1 = 0.052, 0.950        # 卡片區左右界
+    LX, LW = 0.004, 0.028          # 左側直立層名色塊
+    RW = 0.030                     # 右側成效面向窄欄
+    RX = 0.996 - RW
+    CX0, CX1 = LX + LW + 0.007, RX - 0.007
+    SPAN = CX1 - CX0               # = 0.920
+
+    TOPY = 1 - py(11)                                   # 內容頂
+    b1y = TOPY - py(104)                                # 業務層帶
+    b2top = b1y - py(22)                                # 22pt 細連線走廊
+    b2y = b2top - py(104)                               # 營運層帶
+    gate_y = b2y - py(10)
+    b3top = b2y - py(20)
+    b3y = b3top - py(78)                                # 護欄層帶
+    loop_top = b3y - py(6)
+    loop_y = loop_top - py(42)                          # 底部閉環
+    legend_y = loop_y - py(10)
 
     # -------------------------------------------------- 帶 1|業務層
-    b1y, b1h = 0.712, 0.286
-    ax.add_patch(FancyBboxPatch((LX, b1y), RX + RW - LX, b1h,
+    ax.add_patch(FancyBboxPatch((LX, b1y), 0.996 - LX, py(104),
                                 boxstyle="round,pad=0,rounding_size=.008",
                                 fc=NAVY, ec="none", alpha=0.07, zorder=1))
-    vband(ax, LX, b1y, LW, b1h, "業務層", NAVY)
-    ax.text(RX + RW / 2, b1y + b1h / 2, "利潤(成本降低)· 客戶滿意度",
-            ha="center", va="center", fontsize=10, color=GREY, rotation=90, zorder=5)
+    vband(ax, LX, b1y, LW, py(104), "業務層", NAVY)
+    ax.text(RX + RW / 2, b1y + py(52), "利潤(成本降低)\n客戶滿意度",
+            ha="center", va="center", fontsize=FS_SIDE, color=GREY,
+            rotation=90, linespacing=1.35, zorder=5)
 
-    cy, ch = 0.7425, 0.2475
-    gw, gap = 0.048, 0.0085        # gw = 橘色母題方塊寬
-    w1 = (CX1 - CX0 - gw - 5 * gap) / 4
+    cy1, ch1 = b1y + py(4), py(96)
+    gw, g1 = 0.038, 0.0088         # gw = 橘色母題方塊寬
+    w1 = (SPAN - gw - 4 * g1) / 4
     x1 = [CX0,
-          CX0 + w1 + gap,
-          CX0 + 2 * (w1 + gap),
-          CX0 + 3 * (w1 + gap) + gw + gap]
-    x_motif = CX0 + 3 * (w1 + gap)
+          CX0 + w1 + g1,
+          CX0 + 2 * (w1 + g1),
+          CX0 + 3 * (w1 + g1) + gw + g1]
+    x_motif = CX0 + 3 * (w1 + g1)
 
     draw_card(
-        ax, x1[0], cy, w1, ch, "客戶爭議回覆時效",
-        [[("現況單件平均 2-5 天(從分析到回信的完整鏈路)", 11, GREY)],
-         [("2 天內;單純案件當天回覆", 11, "black"), ("badge", "提案目標")],
-         [("●期內建立基準,G2 給第一個趨勢,W16 後量測改善", 10, "black")]],
-        foot="時效改善的一半來自證據包自動化,另一半來自誤報量下降(脈絡特徵 → 對照重訓)",
-        foot_fs=10, ec=NAVY, lw=2.0,
-        name_tag="主要業務價值指標", tag_fs=10, tag_boxed=True)
+        ax, x1[0], cy1, w1, ch1, "客戶爭議回覆時效",
+        [[("現況單件平均 2-5 天(從分析到回信的完整鏈路)", FS_BODY, GREY)],
+         [("2 天內;單純案件當天回覆", FS_BODY, "black"), ("badge", "提案目標")],
+         [("●期內建立基準;G2 給第一個趨勢,W16 後量測改善", FS_BODY, "black")]],
+        ec=NAVY, lw=2.0, name_tag="主要業務價值指標", tag_boxed=True)
 
     draw_card(
-        ax, x1[1], cy, w1, ch, "獲得人工驗證判定的客戶涵蓋率",
-        [[("現況為配給制,依購買量與問題嚴重性排序;涵蓋率無紀錄,W6 建立", 11, GREY)],
-         [("以 W6 建立的基線為準,目標值於 G1 訂定", 11, "black"), ("badge", "提案規劃")],
-         [("○移交後", 10, "black")]],
-        foot="當責:業務負責人 · W6 交出基線 · 它決定 G1 要不要把複核優先序從客戶大小改成風險大小")
+        ax, x1[1], cy1, w1, ch1, "獲得人工驗證判定的客戶涵蓋率",
+        [[("現況配給制(依購買量與問題嚴重性);涵蓋率無紀錄,W6 建立",
+           FS_BODY, GREY)],
+         [("以 W6 基線為準,目標值於 G1 訂定", FS_BODY, "black"),
+          ("badge", "提案規劃")],
+         [("○移交後", FS_BODY, "black")]])
 
     draw_card(
-        ax, x1[2], cy, w1, ch, "可服務的每日事件量上限",
-        [[("現況撐一個大型車隊約 3,000 筆/天", 11, GREY)],
-         [("支撐全客戶 13,000+ 筆/天", 11, "black"), ("badge", "提案目標"),
-          ("所需人力由 G2 後依實測單位工時重估", 9, GREY)],
-         [("○移交後", 10, "black")]],
-        foot="此項的驅動因子不在我方控制內 - 由客戶的開通時點決定",
+        ax, x1[2], cy1, w1, ch1, "可服務的每日事件量上限",
+        [[("現況撐一個大型車隊約 3,000 筆/天", FS_BODY, GREY)],
+         [("支撐全客戶 13,000+ 筆/天", FS_BODY, "black"), ("badge", "提案目標")],
+         [("○移交後", FS_BODY, "black")]],
         tag_ibm="(IBM, n.d.)")
 
     draw_card(
-        ax, x1[3], cy, w1, ch, "可避免的年度增聘成本",
-        [[("以現行做法覆蓋全部既有客戶需 15-21 人(現有 5 人)", 11, GREY)],
-         [("每年約 NT$1,040-1,870 萬(以公開薪資量級推算,非核定預算)", 11, "black")],
-         [("○移交後", 10, "black")]],
+        ax, x1[3], cy1, w1, ch1, "可避免的年度增聘成本",
+        [[("以現行做法覆蓋全部既有客戶需 15-21 人(現有 5 人)", FS_BODY, GREY)],
+         [("每年約 NT$1,040-1,870 萬", FS_BODY, "black")],
+         [("○移交後", FS_BODY, "black")]],
         col2_header="不做本案時的年度增聘成本")
 
     # 橘色母題:人工複核防線(全片同形同色,本頁只出現一次)
-    mh = 0.100
-    my = cy + (ch - mh) / 2
+    mh = py(46)
+    my = cy1 + (ch1 - mh) / 2
     ax.add_patch(FancyBboxPatch((x_motif, my), gw, mh,
                                 boxstyle="round,pad=0,rounding_size=.006",
-                                fc=ORANGE, ec=ORANGE_DARK, lw=1.4, zorder=5))
+                                fc=ORANGE, ec=ORANGE_DARK, lw=1.2, zorder=5))
     ax.text(x_motif + gw / 2, my + mh / 2, "人工\n複核\n防線", ha="center",
-            va="center", fontsize=10, color="white", fontweight="bold",
-            linespacing=1.5, zorder=6)
-
-    # 貫穿說明句(置於業務層帶內底緣,讓帶間空隙留給細連線)
-    ax.text(CX0, b1y + py(11.5),
-            "最上層第一個指標,是客戶等多久拿到分析。下面兩層的指標,都是它的支撐。",
-            ha="left", va="center", fontsize=12, color=NAVY,
-            fontweight="bold", zorder=6)
+            va="center", fontsize=FS_BODY, color="white", fontweight="bold",
+            linespacing=1.45, zorder=6)
 
     # -------------------------------------------------- 帶 2|營運層
-    b2y, b2h = 0.368, 0.314
-    ax.add_patch(FancyBboxPatch((LX, b2y), RX + RW - LX, b2h,
+    ax.add_patch(FancyBboxPatch((LX, b2y), 0.996 - LX, py(104),
                                 boxstyle="round,pad=0,rounding_size=.008",
                                 fc=BLUE, ec="none", alpha=0.06, zorder=1))
-    vband(ax, LX, b2y, LW, b2h, "營運層", BLUE)
-    ax.text(RX + RW / 2, b2y + b2h / 2, "節省的工時", ha="center", va="center",
-            fontsize=10, color=GREY, rotation=90, zorder=5)
+    vband(ax, LX, b2y, LW, py(104), "營運層", BLUE)
+    ax.text(RX + RW / 2, b2y + py(52), "節省的工時", ha="center", va="center",
+            fontsize=FS_SIDE, color=GREY, rotation=90, zorder=5)
 
-    cy2, ch2 = 0.402, 0.272
-    gap2 = 0.009
-    w2 = (CX1 - CX0 - 4 * gap2) / 5
-    x2 = [CX0 + i * (w2 + gap2) for i in range(5)]
+    cy2, ch2 = b2y + py(16), py(88)
+    g2 = 0.0088
+    w2 = (SPAN - 4 * g2) / 5
+    x2 = [CX0 + i * (w2 + g2) for i in range(5)]
 
     draw_card(
         ax, x2[0], cy2, w2, ch2, "每筆批次複核的人工工時",
-        [[("約 20 秒/筆(例行批次複核 · 全量;營運端的實務估計,尚未以計時量測驗證)", 11, GREY)],
-         [("W6 建立正式基準,目標值於 G1 訂定", 11, "black")],
-         [("●期內", 10, "black")]],
-        foot="當責:複核營運主管 · W6 交出計時量測 · 它決定全客戶人力推算要不要在 G2 整組重算",
+        [[("約 20 秒/筆(全量;營運端估計,未計時驗證)", FS_BODY, GREY)],
+         [("W6 建立正式基準,目標值於 G1 訂定", FS_BODY, "black")],
+         [("●期內", FS_BODY, "black")]],
         ec=BLUE, name_color=BLUE)
 
     draw_card(
         ax, x2[1], cy2, w2, ch2, "每筆深入判讀的人工工時",
-        [[("約 4.4 分鐘/筆(由一次實際判讀反推,不含報告與回信)", 11, GREY)],
-         [("目標值於 W16 爭議回覆自動化交付後量測", 11, "black")],
-         [("●期內", 10, "black")]],
+        [[("約 4.4 分鐘/筆(由一次實際判讀反推)", FS_BODY, GREY)],
+         [("目標值於 W16 爭議回覆自動化交付後量測", FS_BODY, "black")],
+         [("●期內", FS_BODY, "black")]],
         ec=BLUE, name_color=BLUE)
 
     draw_card(
         ax, x2[2], cy2, w2, ch2, "ADAS · 行車輔助誤報率",
-        [[("某小型車隊單月樣本 104 / 1,029,約 10.1%", 11, GREY)],
-         [("降至 7% 以下", 11, "black"), ("badge", "提案目標"),
-          ("G2 第 12 週判", 11, "black"),
-          ("以該樣本為基準,G1 後依重新校準的量測重訂", 9, GREY)],
-         [("●期內", 10, "black")]],
+        [[("某小型車隊單月樣本 104 / 1,029,約 10.1%", FS_BODY, GREY)],
+         [("降至 7% 以下(G2 第 12 週判)", FS_BODY, "black"),
+          ("badge", "提案目標")],
+         [("●期內", FS_BODY, "black")]],
         ec=BLUE, name_color=BLUE)
 
     draw_card(
         ax, x2[3], cy2, w2, ch2, "客戶回頭標記率(越低越好)",
-        [[("現況 5-10%", 11, GREY)],
-         [("降至 5% 以下", 11, "black"), ("badge", "提案目標")],
-         [("●期內", 10, "black")]],
-        foot="同時是「駕駛端無效警示率」的可觀測代理", foot_fs=10,
+        [[("現況 5-10%", FS_BODY, GREY)],
+         [("降至 5% 以下", FS_BODY, "black"), ("badge", "提案目標")],
+         [("●期內", FS_BODY, "black")]],
         ec=BLUE, name_color=BLUE)
 
     draw_card(
         ax, x2[4], cy2, w2, ch2, "尖峰徵調研發人時",
-        [[("尖峰徵調 7 位研發工程師(離開本職、非常態編制、非專職)", 11, ORANGE_DARK)],
-         [("期內建立峰值徵調人時的量測基準,目標值於 G2 訂定;歸零列為移交後目標", 11, "black")],
-         [("●期內建立基準,G2 後兩個月量測(相依:脈絡特徵那一包 W5-12)", 10, "black")]],
+        [[("尖峰徵調 7 位研發工程師(非常態編制)", FS_BODY, ORANGE_DARK)],
+         [("期內建立量測基準,目標值於 G2 訂定", FS_BODY, "black")],
+         [("●期內建立基準,G2 後兩個月量測", FS_BODY, "black")]],
         ec=BLUE, name_color=ORANGE_DARK)
 
     # 營運層帶內:卡 7 → 卡 5 的因果細箭頭
-    ay = cy2 - py(11.0)
-    ax.add_patch(FancyArrowPatch((x2[2] + w2 * 0.35, ay),
-                                 (x2[0] + w2 * 0.45, ay),
-                                 arrowstyle="-|>", mutation_scale=10,
-                                 color=GREY, lw=1.0, zorder=5))
+    ay = b2y + py(8)
+    ax.add_patch(FancyArrowPatch((x2[2] + w2 * 0.30, ay),
+                                 (x2[0] + w2 * 0.50, ay),
+                                 arrowstyle="-|>", mutation_scale=9,
+                                 color=GREY, lw=0.9, zorder=5))
     ax.text((x2[0] + x2[2] + w2 * 0.8) / 2, ay, "誤報率 ↓ → 批次量 ↓",
-            ha="center", va="center", fontsize=9, color=GREY, zorder=6,
-            bbox=dict(boxstyle="round,pad=0.28", fc="white", ec="none"))
+            ha="center", va="center", fontsize=FS_BODY, color=GREY, zorder=6,
+            bbox=dict(boxstyle="round,pad=0.22", fc="white", ec="none"))
 
     # -------------------------------------------------- 細連線(四條,不織網)
-    ytop, ybot = b1y, cy2 + ch2 + py(4)
-    for xa, xb in ((x1[0] + w1 * 0.42, x2[1] + w2 * 0.5),
-                   (x1[0] + w1 * 0.58, x2[2] + w2 * 0.5),
-                   (x1[2] + w1 * 0.5, x2[0] + w2 * 0.62),
-                   (x1[3] + w1 * 0.5, x2[0] + w2 * 0.38)):
+    ytop, ybot = cy1, cy2 + ch2
+    for xa, xb in ((x1[0] + w1 * 0.40, x2[1] + w2 * 0.50),
+                   (x1[0] + w1 * 0.60, x2[2] + w2 * 0.50),
+                   (x1[2] + w1 * 0.50, x2[0] + w2 * 0.62),
+                   (x1[3] + w1 * 0.50, x2[0] + w2 * 0.38)):
         ax.add_patch(FancyArrowPatch((xa, ytop), (xb, ybot),
-                                     arrowstyle="-", color=LIGHT, lw=1.0,
-                                     connectionstyle="arc3,rad=0.06", zorder=2))
+                                     arrowstyle="-", color=LIGHT, lw=0.9,
+                                     connectionstyle="arc3,rad=0.05", zorder=2))
 
     # -------------------------------------------------- 否決閘
-    gy = 0.358
-    ax.plot([LX, RX + RW], [gy, gy], color=RED, lw=2.0, ls=(0, (5, 3)), zorder=5)
-    ax.text(0.5, gy, "否決閘:任一護欄未達標,上面兩層的成績不採計",
-            ha="center", va="center", fontsize=11, color=RED, fontweight="bold",
-            zorder=6, bbox=dict(boxstyle="round,pad=0.35", fc="white",
-                                ec="none"))
+    ax.plot([LX, 0.996], [gate_y, gate_y], color=RED, lw=1.8,
+            ls=(0, (5, 3)), zorder=5)
+    ax.text(0.5, gate_y, "否決閘:任一護欄未達標,上面兩層的成績不採計",
+            ha="center", va="center", fontsize=FS_GATE, color=RED,
+            fontweight="bold", zorder=6,
+            bbox=dict(boxstyle="round,pad=0.30", fc="white", ec="none"))
 
     # -------------------------------------------------- 帶 3|護欄層
-    b3y, b3h = 0.134, 0.218
-    ax.add_patch(FancyBboxPatch((LX, b3y), RX + RW - LX, b3h,
+    ax.add_patch(FancyBboxPatch((LX, b3y), 0.996 - LX, py(78),
                                 boxstyle="round,pad=0,rounding_size=.008",
-                                fc=LIGHT, ec=RED, lw=2.0, alpha=0.55, zorder=1))
-    vband(ax, LX, b3y, LW, b3h, "護欄層｜否決型", RED, fs=12)
-    ax.text(RX + RW / 2, b3y + b3h / 2, "風險管理", ha="center", va="center",
-            fontsize=10, color=GREY, rotation=90, zorder=5)
+                                fc=LIGHT, ec=RED, lw=1.8, alpha=0.55, zorder=1))
+    vband(ax, LX, b3y, LW, py(78), "護欄層｜否決型", RED, fs=10)
+    ax.text(RX + RW / 2, b3y + py(39), "風險管理", ha="center", va="center",
+            fontsize=FS_SIDE, color=GREY, rotation=90, zorder=5)
 
-    cy3, ch3 = 0.148, 0.198
-    CX3 = 0.700
-    gap3 = 0.012
-    w3 = (CX3 - CX0 - 2 * gap3) / 3
-    x3 = [CX0 + i * (w3 + gap3) for i in range(3)]
+    cy3, ch3 = b3y + py(3), py(72)
+    g3 = 0.012
+    w3 = (SPAN - 2 * g3) / 3
+    x3 = [CX0 + i * (w3 + g3) for i in range(3)]
 
     draw_card(
         ax, x3[0], cy3, w3, ch3, "漏放率",
-        [[("目前不存在;唯一量測是一份 39 筆人工觸發測試,且自註為下限", 11, GREY)],
-         [("W6 交出帶 95% 信賴區間的點估計,上限值於 G1 由委員會核定", 11, "black")],
-         [("●期內", 10, "black")]],
-        foot="當責:技術負責人 · W6 交出點估計與信賴區間 · 它決定 G1 放不放行後段工作",
+        [[("目前不存在;唯一量測是一份 39 筆人工觸發測試,自註為下限",
+           FS_BODY, GREY)],
+         [("W6 交出帶 95% 信賴區間的點估計,上限值於 G1 由委員會核定",
+           FS_BODY, "black")],
+         [("●期內", FS_BODY, "black")]],
         ec=RED, name_color=RED)
 
     draw_card(
         ax, x3[1], cy3, w3, ch3, "複核者一致性",
-        [[("現況未量測", 11, GREY)],
-         [("W10 前建立基線,目標值於 G2 訂定", 11, "black")],
-         [("●期內", 10, "black")]],
-        foot="當責:複核營運主管 · W10 交出基線 · 它決定 G2 准不准開放對照重訓",
+        [[("現況未量測", FS_BODY, GREY)],
+         [("W10 前建立基線,目標值於 G2 訂定", FS_BODY, "black")],
+         [("●期內", FS_BODY, "black")]],
         ec=RED, name_color=RED)
 
     draw_card(
         ax, x3[2], cy3, w3, ch3, "訓練資料可追溯率",
-        [[("0%", 11, GREY)],
-         [("100%(否決型,無中間值)", 11, "black")],
-         [("●期內", 10, "black")]],
+        [[("0%", FS_BODY, GREY)],
+         [("100%(否決型,無中間值)", FS_BODY, "black")],
+         [("●期內", FS_BODY, "black")]],
         ec=RED, name_color=RED)
 
-    # 護欄層右端外側:期內不可得的那一項
-    nx, nw = 0.712, 0.238
-    nl = wrap("錯誤攔截比例:需漏放率先建立才算得出來,期內不可得。"
-              "當責:技術負責人;待漏放率基線建立後進入移交後的常態儀表板",
-              nw * UX - 18, 10)
-    nh = py(12) + lines_h(len(nl) + 1, 10) + py(9)
-    ny = cy3 + ch3 - nh
-    ax.add_patch(FancyBboxPatch((nx, ny), nw, nh,
-                                boxstyle="round,pad=0,rounding_size=.006",
-                                fc="white", ec=GREY, lw=1.0, ls=(0, (4, 3)),
-                                zorder=3))
-    ax.text(nx + px(9), cy3 + ch3 - py(6) - py(10 * LS) * 0.5,
-            "期內不可得(仍須當責與交期)", ha="left", va="center",
-            fontsize=10, color=RED, fontweight="bold", zorder=6)
-    draw_lines(ax, nx + px(9), cy3 + ch3 - py(6) - lines_h(1, 10) - py(3),
-               nl, 10, GREY)
-
     # -------------------------------------------------- 帶 4|底部閉環
-    by, bh = 0.024, 0.100
-    ax.add_patch(FancyBboxPatch((LX, by), RX + RW - LX, bh,
+    ax.add_patch(FancyBboxPatch((LX, loop_y), 0.996 - LX, py(42),
                                 boxstyle="round,pad=0,rounding_size=.010",
                                 fc=ORANGE, ec=ORANGE, zorder=3))
     nodes = ["脈絡特徵讓誤報下降", "每日批次複核量下降", "釋放人力",
              "人力投入事件訓練照片生成", "訓練資料品質提升"]
-    n_y, n_h = 0.084, 0.030
-    n_x0, n_x1 = 0.030, 0.970
-    n_w = 0.140
+    n_w, n_h = 0.160, py(24)
+    n_y = loop_y + py(14)
+    n_x0, n_x1 = 0.020, 0.980
     step = (n_x1 - n_x0 - n_w) / 4
     for i, t in enumerate(nodes):
         xx = n_x0 + i * step
         ax.add_patch(FancyBboxPatch((xx, n_y), n_w, n_h,
                                     boxstyle="round,pad=0,rounding_size=.006",
-                                    fc=ORANGE_DARK, ec="white", lw=1.0, zorder=5))
+                                    fc=ORANGE_DARK, ec="white", lw=0.9, zorder=5))
         ax.text(xx + n_w / 2, n_y + n_h / 2, t, ha="center", va="center",
-                fontsize=11, color="white", fontweight="bold", zorder=6)
+                fontsize=FS_NODE, color="white", fontweight="bold", zorder=6)
         if i < 4:
             ax.add_patch(FancyArrowPatch((xx + n_w + px(2), n_y + n_h / 2),
                                          (xx + step - px(2), n_y + n_h / 2),
-                                         arrowstyle="-|>", mutation_scale=11,
-                                         color="white", lw=1.6, zorder=5))
+                                         arrowstyle="-|>", mutation_scale=10,
+                                         color="white", lw=1.4, zorder=5))
     # 回捲弧線:訓練資料品質提升 → 模型誤報下降 → 回到第一節點
-    rx0, rx1, ry = n_x1, n_x0, 0.050
-    dx = 0.016
-    ax.plot([rx0, rx0 + dx, rx0 + dx], [n_y + n_h / 2, n_y + n_h / 2, ry],
-            color="white", lw=1.6, zorder=5)
-    ax.plot([rx0 + dx, rx1 - dx], [ry, ry], color="white", lw=1.6, zorder=5)
-    ax.add_patch(FancyArrowPatch((rx1 - dx, ry),
-                                 (rx1 - dx, n_y + n_h / 2 - py(1)),
-                                 arrowstyle="-|>", mutation_scale=11,
-                                 color="white", lw=1.6, zorder=5))
-    ax.plot([rx1 - dx, rx1], [n_y + n_h / 2, n_y + n_h / 2],
-            color="white", lw=1.6, zorder=5)
-    ax.text(0.44, ry, "模型誤報下降", ha="center", va="center", fontsize=10,
-            color="white", fontweight="bold", zorder=6,
-            bbox=dict(boxstyle="round,pad=0.30", fc=ORANGE, ec="none"))
-    ax.text(RX + RW - px(10), by + py(7.5), "這條同時回答:省下的人去哪了 / 訓練資料哪裡來",
-            ha="right", va="center", fontsize=9, color="white", zorder=6)
+    ry = loop_y + py(7)
+    dx = 0.012
+    ax.plot([n_x1, n_x1 + dx, n_x1 + dx], [n_y + n_h / 2, n_y + n_h / 2, ry],
+            color="white", lw=1.4, zorder=5)
+    ax.plot([n_x1 + dx, n_x0 - dx], [ry, ry], color="white", lw=1.4, zorder=5)
+    ax.add_patch(FancyArrowPatch((n_x0 - dx, ry),
+                                 (n_x0 - dx, n_y + n_h / 2 - py(1)),
+                                 arrowstyle="-|>", mutation_scale=10,
+                                 color="white", lw=1.4, zorder=5))
+    ax.plot([n_x0 - dx, n_x0], [n_y + n_h / 2, n_y + n_h / 2],
+            color="white", lw=1.4, zorder=5)
+    ax.text(0.46, ry, "模型誤報下降", ha="center", va="center",
+            fontsize=FS_BODY, color="white", fontweight="bold", zorder=6,
+            bbox=dict(boxstyle="round,pad=0.26", fc=ORANGE, ec="none"))
 
-    # -------------------------------------------------- 頁腳
-    ax.text(LX, 0.0075,
+    # -------------------------------------------------- 欄位圖例(解碼三欄制用)
+    ax.text(LX, legend_y,
             "欄位:左 = 基準與來源｜中 = 目標,或目標值由哪一道門、第幾週訂出"
-            "｜右 = 量測期間(● 期內可得 ○ 移交後可得)",
-            ha="left", va="center", fontsize=9, color=GREY, zorder=6)
-    ax.text(RX + RW, 0.0075, "移交後的成熟度階段語彙參照 (IBM, 2020)",
-            ha="right", va="center", fontsize=9, color=GREY, zorder=6)
+            "｜右 = 量測期間(● 期內可得 ○ 移交後可得);"
+            "〔提案目標〕〔提案規劃〕= 提案人設定值",
+            ha="left", va="center", fontsize=FS_BODY, color=GREY, zorder=6)
 
     assert_min_fontsize(fig)
-    print("  卡片餘裕(pt):", SLACK)
     return fig
 
 
+# ================================================================== 自我稽核
+def audit(fig):
+    """1) 所有 Text 兩兩 bbox 無重疊 2) 所有 Text 都在容器框內。"""
+    from matplotlib.text import Text
+
+    fig.canvas.draw()
+    rend = fig.canvas.get_renderer()
+    ax = fig.axes[0]
+    inv = ax.transData.inverted()
+
+    items = []
+    for t in fig.findobj(Text):
+        s = t.get_text()
+        if not s or not s.strip():
+            continue
+        bb = t.get_window_extent(renderer=rend)
+        items.append((s.replace("\n", "/")[:24], bb,
+                      bb.transformed(inv)))
+
+    # ---- 兩兩重疊
+    over = []
+    for i in range(len(items)):
+        for j in range(i + 1, len(items)):
+            a, b = items[i][1], items[j][1]
+            ix = min(a.x1, b.x1) - max(a.x0, b.x0)
+            iy = min(a.y1, b.y1) - max(a.y0, b.y0)
+            if ix > 0 and iy > 0:
+                area = ix * iy
+                small = min(a.width * a.height, b.width * b.height)
+                if area > 0.02 * small:
+                    over.append((items[i][0], items[j][0], round(area, 1)))
+    assert not over, "文字重疊 %d 處:%s" % (len(over), over[:6])
+
+    # ---- 在畫布內
+    outside = [n for n, _, d in items
+               if d.x0 < -0.001 or d.x1 > 1.001 or d.y0 < -0.001 or d.y1 > 1.001]
+    assert not outside, "文字超出畫布:%s" % outside[:6]
+
+    # ---- 在所屬卡片框內(以文字中心點歸屬)
+    bad = []
+    for n, _, d in items:
+        cxm, cym = (d.x0 + d.x1) / 2, (d.y0 + d.y1) / 2
+        for (x, y, w, h) in CARDS:
+            if x <= cxm <= x + w and y <= cym <= y + h:
+                if (d.x0 < x - 0.0015 or d.x1 > x + w + 0.0015
+                        or d.y0 < y - 0.0015 or d.y1 > y + h + 0.0015):
+                    bad.append(n)
+                break
+    assert not bad, "文字溢出卡片框:%s" % bad[:6]
+
+    print("  稽核:%d 個文字物件,零重疊、零越界、%d 張卡片框內。"
+          % (len(items), len(CARDS)))
+    print("  卡片餘裕(pt):", SLACK)
+
+
 if __name__ == "__main__":
-    save(build(), "fig_v4_08")
+    log = []
+
+    class _H(logging.Handler):
+        def emit(self, record):
+            log.append(record.getMessage())
+
+    h = _H(level=logging.WARNING)
+    logging.getLogger("matplotlib").addHandler(h)
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        f = build()
+        audit(f)
+        save(f, "fig_v4_08")
+        msgs = [str(x.message) for x in w]
+    logging.getLogger("matplotlib").removeHandler(h)
+    glyph = [m for m in msgs + log
+             if "findfont" in m or "missing from font" in m or "Glyph" in m]
+    print("  字型警告:", glyph if glyph else "無")
+    assert not glyph, "有缺字警告:%s" % glyph[:4]

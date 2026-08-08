@@ -1,14 +1,23 @@
 # -*- coding: utf-8 -*-
-"""P5 用圖:五欄選項卡 + 成本形狀縮圖 + G1 因果判定門帶 + 三條策略窄帶 + 競爭地位帶。
+"""P5 用圖:五欄選項卡(成本形狀縮圖)+ G1 因果判定門帶與判定分岔。
 
 規格來源:v4/notes/04_十頁內容_v2.md  # P5 · 五條路,含三條不用 AI  →  ## 視覺規格
+畫布裁決:v4/notes/12_出圖稽核與畫布裁決.md  §二 裁決 O
 共用機具:v4/scripts/make_figs_v4.py(直接 import,不修改)
 
 紅線:
+- 畫布固定 12.2 x 5.7 吋(= 組版內容區的實際形狀,置入縮放比 = 1.0),
+  不得為了塞下內容而放大畫布。
 - 色值只用 make_figs_v4 的常數(橘 #E8833A / 深藍 #1F4E79),不得出現舊值。
-- 圖內最小字級 fs=9。
+- 圖內最小字級 fs=9,不得下修。
 - 圖不畫投影片標題、不畫右上角五格進度指示(由組版程式負責)。
 - 負號一律 ASCII hyphen;不用 emoji / 全形減號 / em dash。
+
+🔑 帶狀純文字一律移出圖,由 build_deck_v4.py 以投影片文字框放置(向量、可縮放)。
+   本檔把移出的內容完整保留在 SLIDE_TEXT 裡,供組版程式直接 import 使用,
+   一個字都沒有刪。圖裡只留「需要圖形關係才講得清楚」的主視覺:
+   五條成本曲線(同一組軸才可比)、判決徽章色碼、G1 判定分岔的兩個出口、
+   選項 2 -> 選項 3 的關係線。
 """
 import os
 import sys
@@ -25,45 +34,70 @@ import numpy as np  # noqa: E402
 from matplotlib.patches import FancyBboxPatch, Rectangle, Polygon, FancyArrowPatch  # noqa: E402
 from matplotlib.text import Text  # noqa: E402
 
-# ------------------------------------------------------------------ 版面常數
-W, H = 20.0, 11.25          # 16:9
-FS_S = 9                    # 小字(說明 / 註記)
-FS_B = 9                    # 卡片正文
-FS_M = 10                   # 徽章 / 算式框 / 競爭地位帶
-FS_T = 11                   # 卡片標題 / 帶內小標
+# ------------------------------------------------------------------ 畫布(鎖死)
+W, H = 12.2, 5.7            # 裁決 O:組版內容區的實際形狀,縮放比 = 1.0
+
+# save() 用 bbox_inches="tight" + 預設 pad 0.1 吋,而 tight 的下界是 axes 自己的框。
+# 所以把 axes 內縮 0.1 吋,裁切後的實體尺寸才會剛好回到 12.2 x 5.7(縮放比 1.0)。
+PAD = 0.10
+DX0, DX1 = PAD, W - PAD     # 可畫區(英吋)
+DY0, DY1 = PAD, H - PAD
+XS, YS = DX1 - DX0, DY1 - DY0
+
+FS_S = 9                    # 小字(軸標籤 / 註記 / 帶內正文)
+FS_B = 9                    # 卡片正文(關鍵事實)
+FS_M = 10                   # 徽章 / 帶內小標
+FS_T = 10                   # 卡片標題
 FS_H = 12                   # G1 帶標題
 
 BODY = "#333333"
 PAPER = "#FAFAFA"
 
-# 五欄:選項 0 佔 24%,其餘四欄各 19%(欄間留白)
-X_L, X_R = 0.020, 0.980
-GAP = 0.008
-_usable = (X_R - X_L) - 4 * GAP
-COL_W = [0.24 * _usable, 0.19 * _usable, 0.19 * _usable, 0.19 * _usable, 0.19 * _usable]
-COL_X = []
-_x = X_L
-for _w in COL_W:
-    COL_X.append(_x)
-    _x += _w + GAP
-COL_C = [COL_X[i] + COL_W[i] / 2 for i in range(5)]
 
-CARD_TOP, CARD_BOT = 0.988, 0.452
-HDR_H = 0.034
-BADGE_Y, BADGE_H = 0.906, 0.026
-PLOT_TOP, PLOT_H = 0.896, 0.070
-PLOT_W, YLAB_W = 0.093, 0.019
-TICK_Y = 0.8165
-CAP_Y = 0.7985
-TEXT_TOP = 0.7875
-KF_Y, KF_H = 0.458, 0.030
-TEXT_FLOOR = KF_Y + KF_H + 0.006
+def X(inch):
+    """絕對橫座標(英吋)-> axes 分數。"""
+    return (inch - DX0) / XS
 
-BAND_TOP = 0.374          # G1 帶上緣
-BAND_BOT = 0.268
-STRAT_TOP, STRAT_BOT = 0.262, 0.090
-COMP_TOP, COMP_BOT = 0.084, 0.034
-FOOT_TOP, FOOT_BOT = 0.029, 0.002
+
+def Y(inch):
+    """絕對縱座標(英吋)-> axes 分數。"""
+    return (inch - DY0) / YS
+
+
+def XW(d):
+    """橫向長度(英吋)-> axes 分數。"""
+    return d / XS
+
+
+def YH(d):
+    """縱向長度(英吋)-> axes 分數。"""
+    return d / YS
+
+
+# ------------------------------------------------------------------ 版面(英吋)
+# 五欄等寬:算式框移出圖之後,選項 0 就沒有加寬的理由;
+# 規格說加寬「不是強調」,所以框一走、寬度就該回到齊平,否則反而變成強調。
+COL_L, COL_R = 0.24, 11.96
+GAP_IN = 0.10
+COL_W_IN = (COL_R - COL_L - 4 * GAP_IN) / 5
+COL_X_IN = [COL_L + i * (COL_W_IN + GAP_IN) for i in range(5)]
+COL_C_IN = [x + COL_W_IN / 2 for x in COL_X_IN]
+
+CARD_TOP_IN = 5.56
+HDR_H_IN = 0.24
+MOTIF_Y_IN = 5.23                      # 選項 0 頂條下那行極小字的中心
+BADGE_TOP_IN, BADGE_H_IN = 5.09, 0.21
+PLOT_TOP_IN, PLOT_H_IN = 4.80, 2.18
+PLOT_W_IN, YLAB_W_IN = 1.78, 0.34
+TICK_Y_IN = 2.51
+CAP_TOP_IN = 2.38
+KF_TOP_IN, KF_H_IN = 1.98, 0.36
+CARD_BOT_IN = 1.56
+
+BAND_TOP_IN, BAND_BOT_IN = 1.04, 0.12
+DCX_IN, DCY_IN = COL_C_IN[2], 1.30     # 判定菱形中心
+DHW_IN, DHH_IN = 1.15, 0.19            # 菱形半寬 / 半高
+REL_X_IN, REL_Y_IN = 8.90, 1.36        # 選項 2 -> 選項 3 關係線
 
 WIDE = "→←↑↓※"
 
@@ -81,11 +115,7 @@ def tw(s, fs):
 
 
 def _tokens(s):
-    """英數字連寫成一個不可拆的 token;CJK、空白、半形括號各自成 token。
-
-    半形括號要獨立出來,行首行尾的括號規則才管得到它;
-    但半形逗號不獨立(否則 13,000 會被拆行)。
-    """
+    """英數字連寫成一個不可拆的 token;CJK、空白、半形括號各自成 token。"""
     out, buf = [], ""
     for ch in s:
         if ch != " " and ch not in WIDE and ch not in "()" and ord(ch) < 0x2E80:
@@ -100,16 +130,12 @@ def _tokens(s):
     return out
 
 
-# 用碼位寫死,避免全形 / 半形括號在編輯過程被換掉而讓規則失效
 HANG = "，。；：、）」』〕％,.;:)%"
 OPEN = "（「『〔【("
 
 
 def wrap(s, fs, max1, maxr=None):
-    """貪婪換行。max1 = 第一行可用寬度(英吋),maxr = 其餘行(預設同 max1)。
-
-    兩條中文排版規則:①行首不落標點(懸掛);②行尾不落開括號。
-    """
+    """貪婪換行。max1 / maxr 為英吋。行首不落標點、行尾不落開括號。"""
     if maxr is None:
         maxr = max1
     lines = []
@@ -121,7 +147,6 @@ def wrap(s, fs, max1, maxr=None):
             if tok == " " and cur == "":
                 i += 1
                 continue
-            # 行尾不落開括號:括號與其後一字綁在一起判斷
             if cur and tok in OPEN and i + 1 < len(toks):
                 if tw(cur + tok + toks[i + 1], fs) > lim:
                     lines.append(cur)
@@ -129,7 +154,7 @@ def wrap(s, fs, max1, maxr=None):
                     continue
             cand = cur + tok
             if cur and tw(cand, fs) > lim:
-                if tok in HANG:                   # 標點懸掛,不另起一行
+                if tok in HANG:
                     cur = cand
                     i += 1
                     continue
@@ -142,72 +167,62 @@ def wrap(s, fs, max1, maxr=None):
     return lines
 
 
-def lh(fs, mul=1.36):
-    """行高(y 單位)。"""
-    return fs * mul / 72.0 / H
+def lh_in(fs, mul=1.36):
+    """行高(英吋)。"""
+    return fs * mul / 72.0
 
 
-def draw_lines(ax, x, y_top, lines, fs, color, ha="left", weight="normal",
-               first_dx=0.0, mul=1.36, z=7):
-    """由 y_top 往下逐行畫,回傳畫完後的 y。first_dx 只位移第一行(給標籤留位)。"""
-    step = lh(fs, mul)
-    y = y_top
-    for i, ln in enumerate(lines):
-        ax.text(x + (first_dx if i == 0 else 0.0), y - step / 2, ln,
-                ha=ha, va="center", fontsize=fs, color=color, fontweight=weight,
-                zorder=z)
+def draw_lines(ax, x_in, y_top_in, lines, fs, color, ha="left", weight="normal",
+               mul=1.36, z=7):
+    """由 y_top(英吋)往下逐行畫,回傳畫完後的 y(英吋)。"""
+    step = lh_in(fs, mul)
+    y = y_top_in
+    for ln in lines:
+        ax.text(X(x_in), Y(y - step / 2), ln, ha=ha, va="center", fontsize=fs,
+                color=color, fontweight=weight, zorder=z)
         y -= step
     return y
 
 
-def labeled(ax, x, y_top, label, body, fs, max_in, lcolor=NAVY, bcolor=BODY):
-    """「標籤:內文」— 標籤深藍粗體,內文接在同一行後面續排。"""
-    lw = tw(label, fs) / W
-    lines = wrap(body, fs, max_in - tw(label, fs), max_in)
-    ax.text(x, y_top - lh(fs) / 2, label, ha="left", va="center",
-            fontsize=fs, color=lcolor, fontweight="bold", zorder=7)
-    return draw_lines(ax, x, y_top, lines, fs, bcolor, first_dx=lw)
-
-
-def rbox(ax, x, y, w, h, fc, ec, lw=1.4, ls="solid", alpha=1.0, z=2, r=0.006):
-    ax.add_patch(FancyBboxPatch((x, y), w, h,
+def rbox(ax, x_in, y_in, w_in, h_in, fc, ec, lw=1.4, ls="solid", alpha=1.0, z=2,
+         r=0.006):
+    ax.add_patch(FancyBboxPatch((X(x_in), Y(y_in)), XW(w_in), YH(h_in),
                                 boxstyle="round,pad=0,rounding_size=%.4f" % r,
                                 fc=fc, ec=ec, lw=lw, ls=ls, alpha=alpha, zorder=z))
 
 
 # ------------------------------------------------------------------ 成本形狀縮圖
-def _lin(x, x0, y0, x1, y1):
-    return y0 + (y1 - y0) * (x - x0) / (x1 - x0)
-
-
-def mini_plot(ax, cx, kind):
-    """五欄共用同一組軸的小折線圖(同尺寸、同軸、同線寬)。"""
-    x0 = cx - (YLAB_W + PLOT_W) / 2 + YLAB_W
-    yb = PLOT_TOP - PLOT_H
+def mini_plot(ax, cx_in, kind):
+    """五欄共用同一組軸的小折線圖(同尺寸、同軸範圍、同線寬)。"""
+    x0 = cx_in - (YLAB_W_IN + PLOT_W_IN) / 2 + YLAB_W_IN
+    yb = PLOT_TOP_IN - PLOT_H_IN
 
     def PX(u):
-        return x0 + u * PLOT_W
+        return X(x0 + u * PLOT_W_IN)
 
     def PY(v):
-        return yb + v * PLOT_H
+        return Y(yb + v * PLOT_H_IN)
 
     # 軸
     ax.plot([PX(0), PX(1)], [PY(0), PY(0)], color=GREY, lw=1.0, zorder=4)
     ax.plot([PX(0), PX(0)], [PY(0), PY(1)], color=GREY, lw=1.0, zorder=4)
     for u in (0.0, 1.0):
-        ax.plot([PX(u), PX(u)], [PY(0), PY(0) - 0.004], color=GREY, lw=1.0, zorder=4)
-    ax.text(PX(0.02), TICK_Y, "3K", ha="left", va="center", fontsize=FS_S, color=GREY, zorder=7)
-    ax.text(PX(0.98), TICK_Y, "13K+", ha="right", va="center", fontsize=FS_S, color=GREY, zorder=7)
-    ax.text(PX(0.5), TICK_Y, "每日事件量", ha="center", va="center", fontsize=FS_S,
+        ax.plot([PX(u), PX(u)], [PY(0), PY(0) - YH(0.05)], color=GREY, lw=1.0, zorder=4)
+
+    ax.text(PX(0.015), Y(TICK_Y_IN), "3K", ha="left", va="center", fontsize=FS_S,
             color=GREY, zorder=7)
-    ax.text(PX(0) - 0.0025, PY(0.94), "高", ha="right", va="center", fontsize=FS_S,
+    ax.text(PX(0.985), Y(TICK_Y_IN), "13K+", ha="right", va="center", fontsize=FS_S,
             color=GREY, zorder=7)
-    ax.text(PX(0) - 0.0025, PY(0.06), "低", ha="right", va="center", fontsize=FS_S,
+    ax.text(PX(0.5), Y(TICK_Y_IN), "每日事件量", ha="center", va="center",
+            fontsize=FS_S, color=GREY, zorder=7)
+    ax.text(X(x0 - 0.04), PY(0.95), "高", ha="right", va="center", fontsize=FS_S,
             color=GREY, zorder=7)
-    ax.text(x0 - 0.0132, PY(0.5), "人工複核工時", ha="center", va="center",
+    ax.text(X(x0 - 0.04), PY(0.05), "低", ha="right", va="center", fontsize=FS_S,
+            color=GREY, zorder=7)
+    ax.text(X(x0 - 0.24), PY(0.5), "人工複核工時", ha="center", va="center",
             fontsize=FS_S, color=GREY, rotation=90, zorder=7)
 
-    LW = 1.9
+    LW = 2.0
     if kind == 0:                                   # 直線線性上升(紅)
         ax.plot([PX(.03), PX(1)], [PY(.12), PY(.93)], color=RED, lw=LW, zorder=5)
 
@@ -216,7 +231,7 @@ def mini_plot(ax, cx, kind):
             return _lin(u, .03, .10, 1.0, .80)
         us = np.linspace(.03, .50, 60)
         vs = np.array([base(u) for u in us])
-        vs[(us >= .34) & (us <= .48)] = base(.41)   # 削平的尖峰
+        vs[(us >= .34) & (us <= .48)] = base(.41)
         ax.plot([PX(u) for u in us], [PY(v) for v in vs], color=ORANGE, lw=LW, zorder=5)
         pk = [(.34, base(.34)), (.41, base(.41) + .30), (.48, base(.48))]
         ax.plot([PX(p[0]) for p in pk], [PY(p[1]) for p in pk],
@@ -224,18 +239,19 @@ def mini_plot(ax, cx, kind):
         us2 = np.linspace(.50, 1.0, 30)
         ax.plot([PX(u) for u in us2], [PY(base(u)) for u in us2],
                 color=GREY, lw=LW, ls=(0, (3, 2)), zorder=5)
-        ax.add_patch(FancyArrowPatch((PX(.41), PY(base(.41)) - .022),
-                                     (PX(.41), PY(base(.41)) - .004),
-                                     arrowstyle="-|>", mutation_scale=9,
-                                     color=ORANGE_DARK, lw=1.2, zorder=6))
+        ax.add_patch(FancyArrowPatch((PX(.41), PY(base(.41) + .22)),
+                                     (PX(.41), PY(base(.41) + .04)),
+                                     arrowstyle="-|>", mutation_scale=10,
+                                     color=ORANGE_DARK, lw=1.3, zorder=6))
 
     elif kind == 1:                                 # 整段向下平移一階、之後仍線性
-        ax.plot([PX(.03), PX(.32)], [PY(.12), PY(.36)], color=GREEN, lw=LW, zorder=5)
-        ax.plot([PX(.32), PX(.32)], [PY(.36), PY(.13)], color=GREEN, lw=LW, zorder=5)
-        ax.plot([PX(.32), PX(1)], [PY(.13), PY(.70)], color=GREEN, lw=LW, zorder=5)
-        ax.add_patch(FancyArrowPatch((PX(.50), PY(.30)), (PX(.35), PY(.245)),
-                                     arrowstyle="-|>", mutation_scale=9,
-                                     color=GREEN, lw=1.2, zorder=6))
+        # 平移點放在前段,後面留一整條長直線 —— 否則會被讀成尖峰而不是「下移一階」
+        ax.plot([PX(.03), PX(.20)], [PY(.14), PY(.30)], color=GREEN, lw=LW, zorder=5)
+        ax.plot([PX(.20), PX(.20)], [PY(.30), PY(.06)], color=GREEN, lw=LW, zorder=5)
+        ax.plot([PX(.20), PX(1)], [PY(.06), PY(.74)], color=GREEN, lw=LW, zorder=5)
+        ax.add_patch(FancyArrowPatch((PX(.40), PY(.30)), (PX(.24), PY(.19)),
+                                     arrowstyle="-|>", mutation_scale=10,
+                                     color=GREEN, lw=1.3, zorder=6))
 
     elif kind == 2:                                 # 前期投入區 + 之後次線性平緩
         ax.add_patch(Rectangle((PX(.03), PY(0)), PX(.33) - PX(.03), PY(1) - PY(0),
@@ -244,371 +260,338 @@ def mini_plot(ax, cx, kind):
         us = np.linspace(.33, 1.0, 60)
         vs = .42 + .18 * ((us - .33) / .67) ** .45
         ax.plot([PX(u) for u in us], [PY(v) for v in vs], color=NAVY, lw=LW, zorder=5)
+        ax.text(PX(.18), PY(.68), "前期專案投入", ha="center", va="center",
+                fontsize=FS_S, color=GREY, rotation=90, zorder=7)
 
     elif kind == 3:                                 # 前段空白,中後段灰虛線才開始
         ax.plot([PX(.55), PX(1)], [PY(.28), PY(.52)], color=GREY, lw=LW,
                 ls=(0, (3, 2)), zorder=5)
+        ax.text(PX(.26), PY(.72), "仍在研擬", ha="center", va="center",
+                fontsize=FS_S, color=GREY, zorder=7)
 
 
-# ------------------------------------------------------------------ 卡片內容
+def _lin(x, x0, y0, x1, y1):
+    return y0 + (y1 - y0) * (x - x0) / (x1 - x0)
+
+
+# ------------------------------------------------------------------ 圖內卡片資料
 CARDS = [
-    dict(
-        title="選項 0 · 加人", kind=0, motif=True,
-        badge=("拒絕", RED, "white", RED, "solid", 1.2),
-        cap="線性:量成長,人力等比成長", cap_c=RED,
-        bullets=[
-            ("做什麼:", "增聘複核人力,以現行做法覆蓋全部既有客戶。"),
-            ("成本形狀:", "線性上升,事件量成長多少,人力就成長多少。"),
-            ("為什麼:", "加人會讓迴路轉得更久,不會讓它停:裝機量成長 → 複核量成長 → "
-                      "人力吃緊 → 標註品質不穩 → 回流訓練資料不穩 → 誤報降不下來 → 複核量繼續成長。"),
-        ],
-        cite="(Sambasivan et al., 2021)",
-        kf=("以現行做法覆蓋全部既有客戶:15-21 人(現有 5 人)", LIGHT, BODY),
-    ),
-    dict(
-        title="選項 0b · 調班 + 尖峰人力池", kind="0b", motif=False,
-        badge=("待 G1 判定", AMBER, "white", ORANGE_DARK, (0, (3, 2)), 1.6),
-        cap="削峰:尖峰徵調的正規化;斜率待 W1-6 量測", cap_c=ORANGE_DARK,
-        bullets=[
-            ("做什麼:", "重排班表把人力挪到尖峰時段 + 建一個可調用的尖峰人力池"
-                      "(含目前尖峰徵調的 7 位研發工程師,使其從臨時徵調變成有編組、有訓練的正式安排)"),
-            ("成本形狀:", "線性,但斜率低於選項 0;可削掉尖峰,削不掉每日底量。"
-                       "〔注意〕斜率與削峰幅度目前沒有量測。"),
-            ("為什麼:", "〔待確認〕本案目前沒有實證理由否決這條路。它夠不夠,取決於兩天逾時的時間"
-                      "究竟落在排隊與排班,還是落在找證據、誤報量與證據包製作。"
-                      "這正是 G1 要判的事,所以這裡不寫結論,寫的是判它的方法。"),
-        ],
-        cite=None,
-        kf=("最便宜的一條;本案不預先否決它", AMBER, "white"),
-    ),
-    dict(
-        title="選項 1 · 規則式脈絡融合", kind=1, motif=False,
-        badge=("先做", GREEN, "white", GREEN, "solid", 1.2),
-        cap="83% 同一根因:整段下移一階", cap_c=GREEN,
-        bullets=[
-            ("做什麼:", "定位 + 地圖速限硬規則比對,不用機器學習。"),
-            ("成本形狀:", "整段向下平移一階後仍線性;基準線一次降下來。"),
-            ("為什麼:", "某小型車隊單月樣本的誤報 103 / 124 = 83% 同一根因,而速限資料自有。"),
-        ],
-        cite=None,
-        kf=("速限資料:自有", GREEN, "white"),
-    ),
-    dict(
-        title="選項 2 · 脈絡 + 判準 + 對照重訓", kind=2, motif=False,
-        badge=("採用", NAVY, "white", NAVY, "solid", 2.4),
-        cap="前期專案投入後轉為次線性", cap_c=NAVY,
-        bullets=[
-            ("做什麼:", "規則式脈絡 + 判準一致性 + 以乾淨標註做對照重訓。"),
-            ("成本形狀:", "前段一塊前期專案投入,之後轉為次線性平緩。"),
-            ("為什麼:", "三者共用同一份凍結評估集,誤報改善與漏放率才能被同一把尺量。"),
-            ("價值傳導鏈:", "誤報下降 → 每日批次複核量下降 → 單筆判讀變快 → 交付時效縮短。"),
-        ],
-        cite=None,
-        kf=("三件事共用同一凍結評估集", NAVY, "white"),
-    ),
-    dict(
-        title="選項 3 · 雲端判讀規劃", kind=3, motif=False,
-        badge=("前置條件", "white", GREY, GREY, (0, (3, 2)), 1.4),
-        cap="仍在研擬:中後段才起步", cap_c=GREY,
-        bullets=[
-            ("做什麼:", "公司既有的雲端判讀規劃,目前仍在研擬。"),
-            ("成本形狀:", "前段完全空白,中後段才以灰虛線起步。"),
-            ("為什麼:", "雲端判定真假,誰判定雲端?本案是它的前置條件,不是競爭關係。"),
-        ],
-        cite=None,
-        kf=("本案是它的前置條件", LIGHT, BODY),
-    ),
+    dict(title="選項 0 · 加人", kind=0, motif=True,
+         badge=("拒絕", RED, "white", RED, "solid", 1.2),
+         cap="線性:量成長,人力等比成長", cap_c=RED,
+         # 明寫斷行點,免得「15-21 人」被拆到兩行
+         kf=("以現行做法覆蓋全部既有客戶:\n15-21 人(現有 5 人)", LIGHT, BODY)),
+    dict(title="選項 0b · 調班+尖峰人力池", kind="0b", motif=False,
+         badge=("待 G1 判定", AMBER, "white", ORANGE_DARK, (0, (3, 2)), 1.6),
+         cap="削峰:尖峰徵調的正規化;斜率待 W1-6 量測", cap_c=ORANGE_DARK,
+         kf=("最便宜的一條;本案不預先否決它", AMBER, "white")),
+    dict(title="選項 1 · 規則式脈絡融合", kind=1, motif=False,
+         badge=("先做", GREEN, "white", GREEN, "solid", 1.2),
+         cap="83% 同一根因:整段下移一階", cap_c=GREEN,
+         kf=("速限資料:自有", GREEN, "white")),
+    dict(title="選項 2 · 脈絡+判準+對照重訓", kind=2, motif=False,
+         badge=("採用", NAVY, "white", NAVY, "solid", 2.4),
+         cap="前期專案投入後轉為次線性", cap_c=NAVY,
+         kf=("三件事共用同一凍結評估集", NAVY, "white")),
+    dict(title="選項 3 · 雲端判讀規劃", kind=3, motif=False,
+         badge=("前置條件", "white", GREY, GREY, (0, (3, 2)), 1.4),
+         cap="仍在研擬:中後段才起步", cap_c=GREY,
+         kf=("本案是它的前置條件", LIGHT, BODY)),
 ]
-
-FORMULA = [
-    ("批次", "13,000 x 20 秒 = 72.2 人時"),
-    ("爭議", "13,000 x 5-10% x 4.4 分 = 47.7-95.3 人時"),
-    ("合計", "119.9-167.5 人時 / 8 小時 = 15-21 人(現有 5 人)"),
-    ("工作量比", "119.9 / 27.7 = 4.33 倍,這就是「四倍以上」的算術依據"),
-]
-FORMULA_NOTES = [
-    "全客戶每日平均總事件量 13,000+ 筆為雲端伺服器實測統計;人力數為提案推算,非核定編制。",
-    "本推算沿用兩個尚未驗證的假設:(1) 約 20 秒/筆為營運端的實務估計,尚未以計時量測驗證;"
-    "(2) 所有客戶有相同的案件組合與 5-10% 的爭議比例。兩項都由 W1-6 檢驗,結果在 G1 上桌;"
-    "若任一項被推翻,15-21 人這個數字要重算。",
-]
-
-OPT2_G2 = ("離線模型試驗(對照重訓那一包,WP-E)提前到 W8-12;G2(第 12 週)以同一份凍結評估集"
-           "同時比三組:(1) 現行影像模型 (2) 規則式脈絡基線 (3) 脈絡增強的學習模型。"
-           "通過條件:誤報改善達預先註冊的門檻,且漏放率的信賴區間不惡化。"
-           "G2 只能調整模型假設與規模,不能取消這個實驗;要不要部署由 G3 決定。")
-OPT2_BLUE = ("這一軌買的不是那二十筆誤報。它買兩件事:第一,判準不一致會直接變成訓練標籤,"
-             "污染的是整個模型;第二,這一類判定會進到駕駛考核,判錯的成本落在人身上,不落在報表上。")
 
 G1_CELLS = [
-    ("W1-6 要交出什麼",
+    ("格 1  W1-6 要交出什麼",
      "一件客戶爭議的時間拆解:等待 → 找證據 → 判讀 → 內部覆核 → 回信,五段各佔多少;"
      "兩天逾時率;尖峰到件分布。"),
-    ("怎麼判",
+    ("格 2  怎麼判",
      "把五段分成兩堆:「AI 可處理」(找證據、誤報量、證據包製作)與"
      "「AI 不可處理」(排隊、排班、人力調度)。"),
-    ("判定規則",
-     "AI 可處理的那一堆佔主要延遲 → 放行選項 1 / 2 的後段;否則 → 轉選項 0b"
-     "(調班 + 尖峰人力池),本案的後五個工作包不執行。"),
+    ("格 3  判定規則",
+     "AI 可處理的那一堆佔主要延遲 → 放行選項 1 / 2 的後段;否則 → 轉選項 0b,"
+     "本案的後五個工作包不執行。"),
 ]
 G1_NOTE = ("〔注意〕這五段時間目前沒有拆解過,兩天逾時率目前沒有數字。"
            "這正是第一段預算要買的東西:六週買一個答案,答案不對就不做後面。")
 
-STRAT = [
-    ("(1) 脈絡特徵工程",
-     "靶心是某小型車隊單月樣本中 103 / 124 = 83% 的同一根因;對應以現行做法覆蓋全部既有客戶時,"
-     "每年可避免的增聘成本 NT$1,040-1,870 萬〔提案推算〕。"
-     "此為不做本案時的年度增聘成本暴露,非本案承諾的節省額。",
-     ["以公開薪資量級推算,非核定預算。",
-      "〔待確認〕此金額採用的是「一般工程師」的公開薪資量級,而實際要增聘的是「複核分析人員」;"
-      "兩者的薪資水準可能有落差,職類確認前這個金額只能當量級看,不得視為定案。"
-      "由業務負責人於 G1 前確認職類與薪資尺;確認結果會改變這一格的數字,不改變選項的排序。",
-      "〔提案推算〕"]),
-    ("(2) 標註品質",
-     "現況複核者一致性未量測,本案從零建立;量化目標為一致性達到設定門檻。"
-     "這是對照重訓的結果能不能進入部署的前提,不是能不能做這個實驗的前提:"
-     "實驗自 W8 起跑,G2 只調整假設與規模、不得取消,G3 才決定是否部署(G3 放行條件)。",
-     ["〔提案目標〕"]),
-    ("(3) 爭議回覆自動化",
-     "單件客戶爭議回覆時效基準 2-5 天 → 目標 2 天內、單純案件當天。",
-     ["〔提案目標〕"]),
+
+# ==================================================================
+# 移出圖、改由 build_deck_v4.py 以投影片文字框放置的內容(逐字保留)
+# 位置代號:
+#   COL0..COL4 = 五欄卡片正下方對齊該欄的文字欄(圖下方文字區)
+#   BAND       = 通欄
+# ==================================================================
+SLIDE_TEXT = [
+    dict(id="P5-T01", slot="COL0", label="選項 0 · 算式框(fs>=10,四列標籤靠左對齊、算式靠左對齊)",
+         rows=[("批次", "13,000 x 20 秒 = 72.2 人時"),
+               ("爭議", "13,000 x 5-10% x 4.4 分 = 47.7-95.3 人時"),
+               ("合計", "119.9-167.5 人時 / 8 小時 = 15-21 人(現有 5 人)"),
+               ("工作量比", "119.9 / 27.7 = 4.33 倍,這就是「四倍以上」的算術依據")]),
+    dict(id="P5-T02", slot="COL0", label="選項 0 · 算式框框底兩行灰字(fs>=9)",
+         text=["全客戶每日平均總事件量 13,000+ 筆為雲端伺服器實測統計;人力數為提案推算,非核定編制。",
+               "本推算沿用兩個尚未驗證的假設:(1) 約 20 秒/筆為營運端的實務估計,尚未以計時量測驗證;"
+               "(2) 所有客戶有相同的案件組合與 5-10% 的爭議比例。兩項都由 W1-6 檢驗,結果在 G1 上桌;"
+               "若任一項被推翻,15-21 人這個數字要重算。"]),
+    dict(id="P5-T03", slot="COL0", label="選項 0 · 三行要點",
+         text=["做什麼:增聘複核人力,以現行做法覆蓋全部既有客戶。",
+               "成本形狀:線性上升,事件量成長多少,人力就成長多少。",
+               "為什麼:加人會讓迴路轉得更久,不會讓它停:裝機量成長 → 複核量成長 → 人力吃緊 → "
+               "標註品質不穩 → 回流訓練資料不穩 → 誤報降不下來 → 複核量繼續成長。",
+               "(Sambasivan et al., 2021)"]),
+    dict(id="P5-T04", slot="COL1", label="選項 0b · 三行要點(規格明訂:任何情況下不得縮字或省略)",
+         text=["做什麼:重排班表把人力挪到尖峰時段 + 建一個可調用的尖峰人力池"
+               "(含目前尖峰徵調的 7 位研發工程師,使其從臨時徵調變成有編組、有訓練的正式安排)",
+               "成本形狀:線性,但斜率低於選項 0;可削掉尖峰,削不掉每日底量。"
+               "〔注意〕斜率與削峰幅度目前沒有量測。",
+               "為什麼:〔待確認〕本案目前沒有實證理由否決這條路。它夠不夠,取決於兩天逾時的時間"
+               "究竟落在排隊與排班,還是落在找證據、誤報量與證據包製作。"
+               "這正是 G1 要判的事,所以這裡不寫結論,寫的是判它的方法。"]),
+    dict(id="P5-T05", slot="COL2", label="選項 1 · 三行要點",
+         text=["做什麼:定位 + 地圖速限硬規則比對,不用機器學習。",
+               "成本形狀:整段向下平移一階後仍線性;基準線一次降下來。",
+               "為什麼:某小型車隊單月樣本的誤報 103 / 124 = 83% 同一根因,而速限資料自有。"]),
+    dict(id="P5-T06", slot="COL3", label="選項 2 · 三行要點 + 價值傳導鏈 + G2 段",
+         text=["做什麼:規則式脈絡 + 判準一致性 + 以乾淨標註做對照重訓。",
+               "成本形狀:前段一塊前期專案投入,之後轉為次線性平緩。",
+               "為什麼:三者共用同一份凍結評估集,誤報改善與漏放率才能被同一把尺量。",
+               "價值傳導鏈:誤報下降 → 每日批次複核量下降 → 單筆判讀變快 → 交付時效縮短。",
+               "離線模型試驗(對照重訓那一包,WP-E)提前到 W8-12;G2(第 12 週)以同一份凍結評估集"
+               "同時比三組:(1) 現行影像模型 (2) 規則式脈絡基線 (3) 脈絡增強的學習模型。"
+               "通過條件:誤報改善達預先註冊的門檻,且漏放率的信賴區間不惡化。"
+               "G2 只能調整模型假設與規模,不能取消這個實驗;要不要部署由 G3 決定。"]),
+    dict(id="P5-T07", slot="COL3", label="選項 2 · 卡片下緣淺藍小框(底色 #2E75B6 16% 透明,字色 #1F4E79)",
+         text=["這一軌買的不是那二十筆誤報。它買兩件事:第一,判準不一致會直接變成訓練標籤,"
+               "污染的是整個模型;第二,這一類判定會進到駕駛考核,判錯的成本落在人身上,不落在報表上。"]),
+    dict(id="P5-T08", slot="COL4", label="選項 3 · 三行要點",
+         text=["做什麼:公司既有的雲端判讀規劃,目前仍在研擬。",
+               "成本形狀:前段完全空白,中後段才以灰虛線起步。",
+               "為什麼:雲端判定真假,誰判定雲端?本案是它的前置條件,不是競爭關係。"]),
+    dict(id="P5-T09", slot="BAND", label="三條策略窄帶 · 標題(淺灰底通欄,三等分)",
+         text=["三條策略,各自的量化落點"]),
+    dict(id="P5-T10", slot="BAND", label="三條策略窄帶 · 第 1 格「(1) 脈絡特徵工程」",
+         text=["靶心是某小型車隊單月樣本中 103 / 124 = 83% 的同一根因;對應以現行做法覆蓋全部既有客戶時,"
+               "每年可避免的增聘成本 NT$1,040-1,870 萬〔提案推算〕。"
+               "此為不做本案時的年度增聘成本暴露,非本案承諾的節省額。",
+               "以公開薪資量級推算,非核定預算。",
+               "〔待確認〕此金額採用的是「一般工程師」的公開薪資量級,而實際要增聘的是「複核分析人員」;"
+               "兩者的薪資水準可能有落差,職類確認前這個金額只能當量級看,不得視為定案。"
+               "由業務負責人於 G1 前確認職類與薪資尺;確認結果會改變這一格的數字,不改變選項的排序。",
+               "〔提案推算〕"]),
+    dict(id="P5-T11", slot="BAND", label="三條策略窄帶 · 第 2 格「(2) 標註品質」",
+         text=["現況複核者一致性未量測,本案從零建立;量化目標為一致性達到設定門檻。"
+               "這是對照重訓的結果能不能進入部署的前提,不是能不能做這個實驗的前提:"
+               "實驗自 W8 起跑,G2 只調整假設與規模、不得取消,G3 才決定是否部署(G3 放行條件)。",
+               "〔提案目標〕"]),
+    dict(id="P5-T12", slot="BAND", label="三條策略窄帶 · 第 3 格「(3) 爭議回覆自動化」",
+         text=["單件客戶爭議回覆時效基準 2-5 天 → 目標 2 天內、單純案件當天。",
+               "〔提案目標〕"]),
+    dict(id="P5-T13", slot="BAND", label="競爭地位帶(深藍 #1F4E79 底、白字,單段落通欄)",
+         text=["競爭者用更貴的車上算力換更準的初判。他們買得到算力,買不到我們每天上萬筆"
+               "已經被人判過的判定回饋,那是我們這個架構的副產品。"
+               "本案要做的,是把這批回饋從一次性專案變成常設、可稽核的量測資產。硬體買得到,這個買不到。"]),
+    dict(id="P5-T14", slot="BAND", label="頁腳引文條(淺灰底通欄,左句右引文)",
+         text=["設計指引:利害關係人需要完全透明時,規則式可能更優 · 不要為了可以用 AI 而用 AI",
+               "(Rudin, 2019)"]),
 ]
-
-COMPETE = ("競爭者用更貴的車上算力換更準的初判。他們買得到算力,買不到我們每天上萬筆"
-           "已經被人判過的判定回饋,那是我們這個架構的副產品。"
-           "本案要做的,是把這批回饋從一次性專案變成常設、可稽核的量測資產。硬體買得到,這個買不到。")
-
-FOOT_L = "設計指引:利害關係人需要完全透明時,規則式可能更優 · 不要為了可以用 AI 而用 AI"
-FOOT_R = "(Rudin, 2019)"
 
 
 # ------------------------------------------------------------------ 主建圖
 def build():
     fig, ax = newfig(W, H)
-    # 讓座標軸鋪滿整張圖:1 個 x 單位 = W 英吋、1 個 y 單位 = H 英吋,
-    # 排版全部用英吋算,才不會被 subplot 預設邊界打亂。
-    ax.set_position([0, 0, 1, 1])
+    # axes = 可畫區(內縮 0.1 吋),tight 裁切 + 0.1 吋 pad 之後回到 12.2 x 5.7
+    ax.set_position([DX0 / W, DY0 / H, XS / W, YS / H])
     ax.add_patch(Rectangle((0, 0), 1, 1, fc="white", ec="none", zorder=0))
-    used = []
 
     # ============ 五欄卡片 ============
     for i, c in enumerate(CARDS):
-        x, w = COL_X[i], COL_W[i]
-        cx = COL_C[i]
+        x, w = COL_X_IN[i], COL_W_IN
+        cx = COL_C_IN[i]
         hot = (i == 3)
-        rbox(ax, x, CARD_BOT, w, CARD_TOP - CARD_BOT,
+        rbox(ax, x, CARD_BOT_IN, w, CARD_TOP_IN - CARD_BOT_IN,
              fc=(BLUE if hot else PAPER), ec=(NAVY if hot else LIGHT),
              lw=(2.6 if hot else 1.4), alpha=(0.09 if hot else 1.0), z=2)
-        if hot:   # 淡藍底是 alpha 疊出來的,外框要再描一次才不會被沖淡
-            rbox(ax, x, CARD_BOT, w, CARD_TOP - CARD_BOT, fc="none", ec=NAVY, lw=2.6, z=6)
+        if hot:
+            rbox(ax, x, CARD_BOT_IN, w, CARD_TOP_IN - CARD_BOT_IN, fc="none",
+                 ec=NAVY, lw=2.6, z=6)
 
         # (1) 頂條
-        rbox(ax, x, CARD_TOP - HDR_H, w, HDR_H, fc=NAVY, ec=NAVY, lw=1.0, z=3)
+        rbox(ax, x, CARD_TOP_IN - HDR_H_IN, w, HDR_H_IN, fc=NAVY, ec=NAVY, lw=1.0, z=3)
         if c["motif"]:
             # 橘色母題:與 P1 同形狀、同色的人工防線方塊(本頁只出現這一次)
-            ms = 0.0118
-            ax.add_patch(Rectangle((x + 0.006, CARD_TOP - HDR_H / 2 - ms * W / H / 2),
-                                   ms, ms * W / H, fc=ORANGE, ec="white", lw=1.0, zorder=5))
-            ax.text(x + 0.006 + ms + 0.005, CARD_TOP - HDR_H / 2, c["title"],
-                    ha="left", va="center", fontsize=FS_T, color="white", fontweight="bold",
-                    zorder=5)
-            ax.text(x + 0.006, CARD_TOP - HDR_H - 0.008, "這條路是把它放大",
-                    ha="left", va="top", fontsize=FS_S, color=ORANGE_DARK, zorder=5)
+            ms = 0.19
+            ax.add_patch(Rectangle((X(x + 0.10), Y(CARD_TOP_IN - HDR_H_IN / 2 - ms / 2)),
+                                   XW(ms), YH(ms), fc=ORANGE, ec="white", lw=1.0,
+                                   zorder=5))
+            ax.text(X(x + 0.10 + ms + 0.07), Y(CARD_TOP_IN - HDR_H_IN / 2), c["title"],
+                    ha="left", va="center", fontsize=FS_T, color="white",
+                    fontweight="bold", zorder=5)
+            ax.text(X(x + 0.10), Y(MOTIF_Y_IN), "這條路是把它放大", ha="left",
+                    va="center", fontsize=FS_S, color=ORANGE_DARK, zorder=5)
         else:
-            ax.text(cx, CARD_TOP - HDR_H / 2, c["title"], ha="center", va="center",
-                    fontsize=FS_T, color="white", fontweight="bold", zorder=5)
+            ax.text(X(cx), Y(CARD_TOP_IN - HDR_H_IN / 2), c["title"], ha="center",
+                    va="center", fontsize=FS_T, color="white", fontweight="bold",
+                    zorder=5)
 
         # 判決徽章
         btxt, bfc, btc, bec, bls, blw = c["badge"]
-        bw = tw(btxt, FS_M) / W + 0.014
-        rbox(ax, cx - bw / 2, BADGE_Y, bw, BADGE_H, fc=bfc, ec=bec, lw=blw, ls=bls, z=5,
-             r=0.005)
-        ax.text(cx, BADGE_Y + BADGE_H / 2, btxt, ha="center", va="center",
-                fontsize=FS_M, color=btc, fontweight="bold", zorder=6)
+        bw = tw(btxt, FS_M) + 0.20
+        rbox(ax, cx - bw / 2, BADGE_TOP_IN - BADGE_H_IN, bw, BADGE_H_IN, fc=bfc,
+             ec=bec, lw=blw, ls=bls, z=5, r=0.005)
+        ax.text(X(cx), Y(BADGE_TOP_IN - BADGE_H_IN / 2), btxt, ha="center",
+                va="center", fontsize=FS_M, color=btc, fontweight="bold", zorder=6)
 
         # (2) 成本形狀縮圖(五欄同尺寸、同軸、同線寬)
         mini_plot(ax, cx, c["kind"])
-        ax.text(cx, CAP_Y, c["cap"], ha="center", va="center", fontsize=FS_S,
-                color=c["cap_c"], zorder=5)
 
-        # (3) 三行要點
-        pad = 0.007
-        tx = x + pad
-        maxin = (w - 2 * pad) * W
-        y = TEXT_TOP
-        for lab, bod in c["bullets"]:
-            y = labeled(ax, tx, y, lab, bod, FS_B, maxin)
-            y -= 0.0025
-        if c["cite"]:
-            ax.text(x + w - pad, y - lh(FS_S) / 2, c["cite"], ha="right", va="center",
-                    fontsize=FS_S, color=GREY)
-            y -= lh(FS_S)
+        # (3) 形狀說明(緊貼縮圖,是曲線的圖說,不是帶狀文字)
+        draw_lines(ax, cx, CAP_TOP_IN, wrap(c["cap"], FS_S, w - 0.16), FS_S,
+                   c["cap_c"], ha="center", z=5)
 
-        # (4) 選項 0 專屬算式框 —— 本頁最重要的一格,完整印出,不縮字
-        if i == 0:
-            y -= 0.004
-            fx, fw = x + 0.002, w - 0.004
-            fpad = 0.005
-            lab_w = max(tw(l, FS_M) for l, _ in FORMULA) / W + 0.005
-            rows = []
-            for lab, expr in FORMULA:
-                rows.append((lab, wrap(expr, FS_M, (fw - 2 * fpad) * W - lab_w * W)))
-            nrow = sum(len(r[1]) for r in rows)
-            fh = nrow * lh(FS_M, 1.40) + 2 * fpad
-            ax.add_patch(Rectangle((fx, y - fh), fw, fh, fc="white", ec=GREY, lw=1.0,
-                                   zorder=5))
-            ry = y - fpad
-            for lab, ls_ in rows:
-                ax.text(fx + fpad, ry - lh(FS_M, 1.40) / 2, lab, ha="left", va="center",
-                        fontsize=FS_M, color=NAVY, fontweight="bold", zorder=7)
-                for k, ln in enumerate(ls_):
-                    ax.text(fx + fpad + lab_w, ry - lh(FS_M, 1.40) / 2, ln, ha="left",
-                            va="center", fontsize=FS_M, color=BODY, zorder=7)
-                    ry -= lh(FS_M, 1.40)
-            y = y - fh - 0.005
-            for nt in FORMULA_NOTES:
-                y = draw_lines(ax, tx, y, wrap(nt, FS_S, maxin), FS_S, GREY, mul=1.3)
-                y -= 0.001
-
-        # 選項 2:價值傳導鏈之後的 G2 段 + 卡片下緣淺藍小框
-        if i == 3:
-            y = draw_lines(ax, tx, y, wrap(OPT2_G2, FS_B, maxin), FS_B, BODY)
-            y -= 0.005
-            bpad = 0.005
-            bl = wrap(OPT2_BLUE, FS_S, (w - 2 * pad - 2 * bpad) * W)
-            bh = len(bl) * lh(FS_S, 1.32) + 2 * bpad
-            rbox(ax, x + pad, y - bh, w - 2 * pad, bh, fc=BLUE, ec=BLUE, lw=1.0,
-                 alpha=0.16, z=5, r=0.004)
-            draw_lines(ax, x + pad + bpad, y - bpad, bl, FS_S, NAVY, mul=1.32)
-            y = y - bh
-
-        used.append((c["title"], round((TEXT_FLOOR - y) * H, 3)))
-
-        # (5) 底部關鍵事實
+        # (4) 底部關鍵事實(色碼與徽章同一套語意,靠位置與底色說話)
         kft, kfc, kftc = c["kf"]
-        rbox(ax, x + 0.004, KF_Y, w - 0.008, KF_H, fc=kfc, ec=kfc, lw=1.0, z=5, r=0.005)
-        kl = wrap(kft, FS_B, (w - 0.016) * W)
-        ax.text(x + w / 2, KF_Y + KF_H / 2, "\n".join(kl), ha="center", va="center",
-                fontsize=FS_B, color=kftc, fontweight="bold", zorder=6, linespacing=1.3)
+        rbox(ax, x + 0.05, KF_TOP_IN - KF_H_IN, w - 0.10, KF_H_IN, fc=kfc, ec=kfc,
+             lw=1.0, z=5, r=0.005)
+        kl = wrap(kft, FS_B, w - 0.20)
+        ax.text(X(cx), Y(KF_TOP_IN - KF_H_IN / 2), "\n".join(kl), ha="center",
+                va="center", fontsize=FS_B, color=kftc, fontweight="bold",
+                zorder=6, linespacing=1.3)
 
-    # ============ 選項 2 → 選項 3 關係線 ============
-    rl_y = 0.390
-    ax.plot([0.755, 0.755], [CARD_BOT, rl_y], color=NAVY, lw=1.6, zorder=3)
-    ax.plot([0.755, COL_C[4]], [rl_y, rl_y], color=NAVY, lw=1.6, zorder=3)
-    ax.add_patch(FancyArrowPatch((COL_C[4], rl_y), (COL_C[4], CARD_BOT - 0.002),
+    # ============ 選項 2 -> 選項 3 關係線 ============
+    ax.plot([X(REL_X_IN), X(REL_X_IN)], [Y(CARD_BOT_IN), Y(REL_Y_IN)],
+            color=NAVY, lw=1.6, zorder=3)
+    ax.plot([X(REL_X_IN), X(COL_C_IN[4])], [Y(REL_Y_IN), Y(REL_Y_IN)],
+            color=NAVY, lw=1.6, zorder=3)
+    ax.add_patch(FancyArrowPatch((X(COL_C_IN[4]), Y(REL_Y_IN)),
+                                 (X(COL_C_IN[4]), Y(CARD_BOT_IN - 0.02)),
                                  arrowstyle="-|>", mutation_scale=13, color=NAVY,
                                  lw=1.6, zorder=3))
-    ax.text((0.755 + COL_C[4]) / 2, rl_y + 0.004, "提供可稽核的量測與乾淨標註",
-            ha="center", va="bottom", fontsize=FS_S, color=NAVY, zorder=7)
+    ax.text(X((REL_X_IN + COL_C_IN[4]) / 2), Y(REL_Y_IN + 0.05),
+            "提供可稽核的量測與乾淨標註", ha="center", va="bottom", fontsize=FS_S,
+            color=NAVY, zorder=7)
 
     # ============ G1 因果判定門帶 ============
-    rbox(ax, X_L, BAND_BOT, X_R - X_L, BAND_TOP - BAND_BOT, fc="white", ec=NAVY,
-         lw=2.0, z=3, r=0.005)
-    ax.text(0.030, BAND_TOP - 0.026, "G1(第 6 週)", ha="left", va="center",
+    rbox(ax, COL_L, BAND_BOT_IN, COL_R - COL_L, BAND_TOP_IN - BAND_BOT_IN,
+         fc="white", ec=NAVY, lw=2.0, z=3, r=0.005)
+    ax.text(X(0.42), Y(BAND_TOP_IN - 0.17), "G1(第 6 週)", ha="left", va="center",
             fontsize=FS_H, color=NAVY, fontweight="bold", zorder=7)
-    ax.text(0.030, BAND_TOP - 0.026 - lh(FS_H, 1.45), "= 因果判定門", ha="left",
-            va="center", fontsize=FS_H, color=NAVY, fontweight="bold", zorder=7)
+    ax.text(X(0.42), Y(BAND_TOP_IN - 0.17 - lh_in(FS_H, 1.45)), "= 因果判定門",
+            ha="left", va="center", fontsize=FS_H, color=NAVY, fontweight="bold",
+            zorder=7)
 
-    cx0, cx1 = 0.158, 0.780
-    cw = (cx1 - cx0 - 2 * GAP) / 3
+    cx0, cx1 = 1.72, 9.40
+    cw = (cx1 - cx0 - 2 * GAP_IN) / 3
     for j, (t, b) in enumerate(G1_CELLS):
-        gx = cx0 + j * (cw + GAP)
-        rbox(ax, gx, BAND_BOT + 0.010, cw, BAND_TOP - BAND_BOT - 0.020, fc=PAPER,
-             ec=LIGHT, lw=1.0, z=4, r=0.004)
-        ax.text(gx + 0.006, BAND_TOP - 0.028, "格 %d  %s" % (j + 1, t), ha="left",
-                va="center", fontsize=FS_T, color=NAVY, fontweight="bold", zorder=5)
-        draw_lines(ax, gx + 0.006, BAND_TOP - 0.040,
-                   wrap(b, FS_B, (cw - 0.012) * W), FS_B, BODY)
+        gx = cx0 + j * (cw + GAP_IN)
+        rbox(ax, gx, BAND_BOT_IN + 0.04, cw, BAND_TOP_IN - BAND_BOT_IN - 0.08,
+             fc=PAPER, ec=LIGHT, lw=1.0, z=4, r=0.004)
+        ax.text(X(gx + 0.07), Y(BAND_TOP_IN - 0.17), t, ha="left", va="center",
+                fontsize=FS_M, color=NAVY, fontweight="bold", zorder=5)
+        draw_lines(ax, gx + 0.07, BAND_TOP_IN - 0.30,
+                   wrap(b, FS_S, cw - 0.14), FS_S, BODY, z=5)
 
-    ax.text(0.790, BAND_TOP - 0.028, "為什麼要買這六週", ha="left", va="center",
-            fontsize=FS_T, color=NAVY, fontweight="bold", zorder=7)
-    draw_lines(ax, 0.790, BAND_TOP - 0.040, wrap(G1_NOTE, FS_S, (0.972 - 0.790) * W),
-               FS_S, GREY)
+    ax.text(X(9.50), Y(BAND_TOP_IN - 0.17), "為什麼要買這六週", ha="left",
+            va="center", fontsize=FS_M, color=NAVY, fontweight="bold", zorder=7)
+    draw_lines(ax, 9.50, BAND_TOP_IN - 0.30, wrap(G1_NOTE, FS_S, 11.90 - 9.50),
+               FS_S, GREY, mul=1.22)
 
-    # 判定分岔:菱形 + 兩條同粗同樣清楚的箭頭
-    dcx, dcy, dhw, dhh = 0.600, 0.412, 0.050, 0.024
-    ax.plot([dcx, dcx], [BAND_TOP, dcy - dhh], color=NAVY, lw=1.6, zorder=3)
-    ax.add_patch(Polygon([[dcx, dcy + dhh], [dcx + dhw, dcy], [dcx, dcy - dhh],
-                          [dcx - dhw, dcy]], closed=True, fc="white", ec=NAVY, lw=1.8,
-                         zorder=5))
-    ax.text(dcx, dcy, "主要延遲在哪一堆?", ha="center", va="center", fontsize=FS_S,
-            color=NAVY, fontweight="bold", zorder=6)
+    # ============ 判定分岔:菱形 + 兩條同粗同樣清楚的箭頭 ============
+    ax.plot([X(DCX_IN), X(DCX_IN)], [Y(BAND_TOP_IN), Y(DCY_IN - DHH_IN)],
+            color=NAVY, lw=1.6, zorder=3)
+    ax.add_patch(Polygon([[X(DCX_IN), Y(DCY_IN + DHH_IN)],
+                          [X(DCX_IN + DHW_IN), Y(DCY_IN)],
+                          [X(DCX_IN), Y(DCY_IN - DHH_IN)],
+                          [X(DCX_IN - DHW_IN), Y(DCY_IN)]],
+                         closed=True, fc="white", ec=NAVY, lw=1.8, zorder=5))
+    ax.text(X(DCX_IN), Y(DCY_IN), "主要延遲在哪一堆?", ha="center", va="center",
+            fontsize=FS_S, color=NAVY, fontweight="bold", zorder=6)
 
-    ax.plot([dcx - dhw, COL_C[1]], [dcy, dcy], color=ORANGE, lw=2.0, zorder=4)
-    ax.add_patch(FancyArrowPatch((COL_C[1], dcy), (COL_C[1], CARD_BOT - 0.002),
+    # 左:轉向選項 0b(橘,人力成本語意)
+    ax.plot([X(DCX_IN - DHW_IN), X(COL_C_IN[1])], [Y(DCY_IN), Y(DCY_IN)],
+            color=ORANGE, lw=2.0, zorder=4)
+    ax.add_patch(FancyArrowPatch((X(COL_C_IN[1]), Y(DCY_IN)),
+                                 (X(COL_C_IN[1]), Y(CARD_BOT_IN - 0.02)),
                                  arrowstyle="-|>", mutation_scale=14, color=ORANGE,
                                  lw=2.0, zorder=4))
-    ax.text((dcx - dhw + COL_C[1]) / 2, dcy + 0.009, "轉向:選項 0b", ha="center",
-            va="bottom", fontsize=FS_S, color=ORANGE_DARK, fontweight="bold", zorder=7)
+    ax.text(X((DCX_IN - DHW_IN + COL_C_IN[1]) / 2), Y(DCY_IN + 0.04),
+            "轉向:選項 0b", ha="center", va="bottom", fontsize=FS_S,
+            color=ORANGE_DARK, fontweight="bold", zorder=7)
 
-    ax.plot([dcx + dhw, COL_C[3]], [dcy, dcy], color=NAVY, lw=2.0, zorder=4)
-    ax.add_patch(FancyArrowPatch((COL_C[3], dcy), (COL_C[3], CARD_BOT - 0.002),
+    # 右:放行選項 1 / 2(深藍)
+    ax.plot([X(DCX_IN + DHW_IN), X(COL_C_IN[3])], [Y(DCY_IN), Y(DCY_IN)],
+            color=NAVY, lw=2.0, zorder=4)
+    ax.add_patch(FancyArrowPatch((X(COL_C_IN[3]), Y(DCY_IN)),
+                                 (X(COL_C_IN[3]), Y(CARD_BOT_IN - 0.02)),
                                  arrowstyle="-|>", mutation_scale=14, color=NAVY,
                                  lw=2.0, zorder=4))
-    ax.text((dcx + dhw + COL_C[3]) / 2, dcy + 0.009, "放行:選項 1 / 2", ha="center",
-            va="bottom", fontsize=FS_S, color=NAVY, fontweight="bold", zorder=7)
+    ax.text(X((DCX_IN + DHW_IN + COL_C_IN[3]) / 2), Y(DCY_IN + 0.04),
+            "放行:選項 1 / 2", ha="center", va="bottom", fontsize=FS_S,
+            color=NAVY, fontweight="bold", zorder=7)
 
-    # ============ 三條策略窄帶 ============
-    rbox(ax, X_L, STRAT_BOT, X_R - X_L, STRAT_TOP - STRAT_BOT, fc=LIGHT, ec=LIGHT,
-         lw=1.0, alpha=0.42, z=2, r=0.005)
-    ax.text(0.028, STRAT_TOP - 0.011, "三條策略,各自的量化落點", ha="left", va="center",
-            fontsize=FS_T, color=NAVY, fontweight="bold")
-    sx0, sx1 = 0.025, 0.975
-    sw = (sx1 - sx0 - 2 * GAP) / 3
-    for j, (t, b, notes) in enumerate(STRAT):
-        gx = sx0 + j * (sw + GAP)
-        top = STRAT_TOP - 0.024
-        rbox(ax, gx, STRAT_BOT + 0.006, sw, top - STRAT_BOT - 0.004, fc="white",
-             ec=LIGHT, lw=1.0, z=3, r=0.004)
-        yy = top - 0.008
-        ax.text(gx + 0.006, yy - lh(FS_T) / 2, t, ha="left", va="center",
-                fontsize=FS_T, color=NAVY, fontweight="bold", zorder=4)
-        yy -= lh(FS_T, 1.45)
-        yy = draw_lines(ax, gx + 0.006, yy, wrap(b, FS_B, (sw - 0.012) * W), FS_B, BODY)
-        yy -= 0.002
-        for nt in notes:
-            yy = draw_lines(ax, gx + 0.006, yy, wrap(nt, FS_S, (sw - 0.012) * W),
-                            FS_S, GREY, mul=1.3)
-
-    # ============ 競爭地位帶 ============
-    rbox(ax, X_L, COMP_BOT, X_R - X_L, COMP_TOP - COMP_BOT, fc=NAVY, ec=NAVY, lw=1.0,
-         z=3, r=0.005)
-    cl = wrap(COMPETE, FS_B, tw(COMPETE, FS_B) / 2 + 0.35)
-    ax.text((X_L + X_R) / 2, (COMP_TOP + COMP_BOT) / 2, "\n".join(cl), ha="center",
-            va="center", fontsize=FS_B, color="white", zorder=7, linespacing=1.6)
-
-    # ============ 頁腳引文條 ============
-    rbox(ax, X_L, FOOT_BOT, X_R - X_L, FOOT_TOP - FOOT_BOT, fc=LIGHT, ec=LIGHT, lw=1.0,
-         alpha=0.55, z=2, r=0.004)
-    ax.text(0.030, (FOOT_TOP + FOOT_BOT) / 2, FOOT_L, ha="left", va="center",
-            fontsize=FS_S, color=BODY, zorder=4)
-    ax.text(0.970, (FOOT_TOP + FOOT_BOT) / 2, FOOT_R, ha="right", va="center",
-            fontsize=FS_S, color=GREY, zorder=4)
-
-    # ------------- 自我稽核 -------------
-    print("  欄位文字用高(英吋,>0 表示超出可用區,需縮排):")
-    for t, u in used:
-        print("    %-22s 溢出 %+.3f in" % (t, u))
     assert_min_fontsize(fig)
     return fig
 
 
+# ------------------------------------------------------------------ 出圖前稽核
 def audit(fig):
-    """出圖前檢查:所有文字是否落在畫布內。"""
+    """① 所有 Text 落在可畫區內 ② 所有 Text 兩兩 bbox 不重疊。"""
     fig.canvas.draw()
     r = fig.canvas.get_renderer()
-    fb = fig.bbox
-    bad = []
+    dpi = fig.dpi
+
+    items = []
     for t in fig.findobj(Text):
-        if not t.get_text().strip():
+        s = t.get_text()
+        if not s or not s.strip():
             continue
         bb = t.get_window_extent(r)
-        if bb.x0 < fb.x0 - 1 or bb.x1 > fb.x1 + 1 or bb.y0 < fb.y0 - 1 or bb.y1 > fb.y1 + 1:
-            bad.append(t.get_text()[:28])
-    print("  超出畫布的文字:", bad if bad else "無")
+        items.append((s.replace("\n", " / ")[:30],
+                      bb.x0 / dpi, bb.x1 / dpi, bb.y0 / dpi, bb.y1 / dpi))
+
+    TOL = 0.01                     # 英吋:字型 bbox 含上下伸部,留一點容差
+    out = [it[0] for it in items
+           if it[1] < DX0 - TOL or it[2] > DX1 + TOL
+           or it[3] < DY0 - TOL or it[4] > DY1 + TOL]
+    print("  超出可畫區的文字:", out if out else "無")
+
+    # 容器框:五張卡片 + G1 判定門帶 + 兩者之間的分岔區。每個文字必須整個落在其中一個裡面。
+    boxes = [(COL_X_IN[i], COL_X_IN[i] + COL_W_IN, CARD_BOT_IN, CARD_TOP_IN)
+             for i in range(5)]
+    boxes.append((COL_L, COL_R, BAND_BOT_IN, BAND_TOP_IN))          # G1 帶
+    boxes.append((COL_L, COL_R, BAND_TOP_IN, CARD_BOT_IN))          # 分岔區
+    esc = [it[0] for it in items
+           if not any(it[1] >= bx0 - TOL and it[2] <= bx1 + TOL
+                      and it[3] >= by0 - TOL and it[4] <= by1 + TOL
+                      for bx0, bx1, by0, by1 in boxes)]
+    print("  跑出容器框的文字:", esc if esc else "無")
+    assert not esc, "有文字跑出容器框:%s" % esc
+
+    bad = []
+    for a in range(len(items)):
+        for b in range(a + 1, len(items)):
+            A, B = items[a], items[b]
+            ox = min(A[2], B[2]) - max(A[1], B[1])
+            oy = min(A[4], B[4]) - max(A[3], B[3])
+            if ox > TOL and oy > TOL:
+                bad.append((A[0], B[0], round(ox, 3), round(oy, 3)))
+    print("  文字兩兩重疊:", "無" if not bad else bad[:10])
+    print("  文字物件數:", len(items))
+    assert not out, "有文字超出可畫區:%s" % out
+    assert not bad, "有文字互相重疊:%s" % bad[:10]
+
+
+def dump_slide_text():
+    print("\n  === 移出圖、交給 build_deck_v4.py 放的文字(逐字保留)===")
+    n = 0
+    for b in SLIDE_TEXT:
+        print("  [%s] %s / %s" % (b["id"], b["slot"], b["label"]))
+        for ln in b.get("text", []):
+            n += len(ln)
+        for lab, expr in b.get("rows", []):
+            n += len(lab) + len(expr)
+    print("  共 %d 塊,合計 %d 字。" % (len(SLIDE_TEXT), n))
 
 
 if __name__ == "__main__":
     f = build()
     audit(f)
     save(f, "fig_v4_05")
+    dump_slide_text()
