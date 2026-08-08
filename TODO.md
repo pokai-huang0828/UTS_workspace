@@ -172,13 +172,11 @@
 > | [A3_參考文獻_查證版.md](Artificial%20Intelligence%20for%20Enterprises/notes/A3_參考文獻_查證版.md) | ✅ 七筆實地查證 |
 > | `Assessment3/figures/fig_v3_*.png` | ✅ **10 張**,300dpi + SVG,零缺字 |
 > | `Assessment3/Huang_26254793_421104_Assessment 3.pptx` | ✅ **14 頁**,已逐頁目視修正 |
-> | `A3_講稿與答辯_v3.md` | ⏳ **workflow 跑中** |
+> | [A3_講稿與答辯_v3.md](Artificial%20Intelligence%20for%20Enterprises/notes/A3_講稿與答辯_v3.md) | ✅ **已定稿** 702 行,**9:20(560 秒)**,六章節齊全 |
 >
 > ### 🔴 待辦(依優先序)
-> - [ ] **① 講稿 workflow 收尾** —— task `wjptavbqg` / run `wf_a7eb0679-6eb`,
->       進度 8/10(三稿+答辯+兩評審+三驗證已回,finalize 跑中)。
->       若新 session 沒收到通知,查 `subagents/workflows/wf_a7eb0679-6eb/journal.jsonl`;
->       可用 `Workflow({scriptPath, resumeFromRunId:'wf_a7eb0679-6eb'})` 續跑
+> - [x] ~~① 講稿 workflow~~ ✅ **已完成並落檔**(三稿競擇 → 兩評審 → 三視角驗證 → 定稿)
+>       ⚠️ **主迴圈尚未讀過內容**,只驗了結構(行數/章節/配時)。新 session 應先通讀一次
 > - [ ] **② Codex 二驗** —— Kenny 明確要求。**這次要連 v3 內容一起驗**,
 >       因為 Codex 上次審的是 v2,**v3 至今沒有任何人審過**。
 >       指令:`Get-Content prompt.txt -Raw | codex exec --sandbox danger-full-access --skip-git-repo-check -c model_reasoning_effort="xhigh"`
