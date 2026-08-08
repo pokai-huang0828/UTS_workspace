@@ -152,25 +152,59 @@
       **字數多寡他不扣分**,扣的是格式排版、引用、目錄、結論
 - [ ] A3 錄影:Zoom / 騰訊會議 / **PowerPoint 內建錄製**(可放人像小窗),輸出 **MP4**;
       **一頁約一分鐘**,不可照稿念,老師要求「多模擬幾次、了如指掌」;資料不必真實但要能自圓其說
-> ## ✅ **A3 內容已全部備妥,剩下純執行**(2026-08-07 完成)
+> ## 🔴 **A3 現況(2026-08-08 09:40)—— v2 地基被推翻,已重構為 v3**
 >
-> | 檔案 | 用途 |
+> ### 論證主線已換
+> **v2**(封存):CBA 留存軸是空白 → 請求 27.5 人月建房貸留存 AI 系統。
+> **v3**(現行):**到期日是確定事件,找出客戶不需要 AI;沒人知道的是「介入到底有沒有用」——
+> 請求 8 週、3.5 人月的 discovery + 規則式對照實驗,先把那個答案買回來。**
+>
+> 換掉的原因見 [A3_Codex異家族審查.md](Artificial%20Intelligence%20for%20Enterprises/notes/A3_Codex異家族審查.md):
+> Codex 用 CBA 自己的公開資料推翻三個前提(CEE 早已做過到期留存 / CDR 不是一鍵轉貸 /
+> 2026 不是固定利率到期高峰),且四項 rubric 全判 **D 檔**。
+>
+> ### 檔案狀態
+> | 檔案 | 狀態 |
 > |---|---|
-> | [A3_提案內容_v2.md](Artificial%20Intelligence%20for%20Enterprises/notes/A3_提案內容_v2.md) | ✅ **唯一可餵投影片的檔**(v1 已封,不得上傳) |
-> | [A3_講稿與答辯_v1.md](Artificial%20Intelligence%20for%20Enterprises/notes/A3_講稿與答辯_v1.md) | 逐頁 cue card(開場句/三關鍵詞/過場句)+ 12 題答辯 |
-> | `Assessment3/figures/` | **12 張圖** PNG 300dpi + SVG,腳本可重跑 |
+> | [A3_提案內容_v3.md](Artificial%20Intelligence%20for%20Enterprises/notes/A3_提案內容_v3.md) | ✅ **唯一可餵投影片的檔** |
+> | [A3_提案內容_v2.md](Artificial%20Intelligence%20for%20Enterprises/notes/A3_提案內容_v2.md) | 🔴 已封存,素材庫用,**不得交件** |
+> | [A3_提案規劃_v1.md](Artificial%20Intelligence%20for%20Enterprises/notes/A3_提案規劃_v1.md) | 🔴 已封存,**絕不可上傳**(通篇對評分者的策略分析) |
+> | [A3_參考文獻_查證版.md](Artificial%20Intelligence%20for%20Enterprises/notes/A3_參考文獻_查證版.md) | ✅ 七筆實地查證 |
+> | `Assessment3/figures/fig_v3_*.png` | ✅ **10 張**,300dpi + SVG,零缺字 |
+> | `Assessment3/Huang_26254793_421104_Assessment 3.pptx` | ✅ **14 頁**,已逐頁目視修正 |
+> | `A3_講稿與答辯_v3.md` | ⏳ **workflow 跑中** |
 >
-> **總長 9:20**,逐頁字數實算驗證。經兩輪對抗驗證(88 條 + 三視角),
-> 抓出並修正 8 處 v2 錯誤,含配時表加總錯 100 秒、資源尖峰說反、RACI 不一致。
+> ### 🔴 待辦(依優先序)
+> - [ ] **① 講稿 workflow 收尾** —— task `wjptavbqg` / run `wf_a7eb0679-6eb`,
+>       進度 8/10(三稿+答辯+兩評審+三驗證已回,finalize 跑中)。
+>       若新 session 沒收到通知,查 `subagents/workflows/wf_a7eb0679-6eb/journal.jsonl`;
+>       可用 `Workflow({scriptPath, resumeFromRunId:'wf_a7eb0679-6eb'})` 續跑
+> - [ ] **② Codex 二驗** —— Kenny 明確要求。**這次要連 v3 內容一起驗**,
+>       因為 Codex 上次審的是 v2,**v3 至今沒有任何人審過**。
+>       指令:`Get-Content prompt.txt -Raw | codex exec --sandbox danger-full-access --skip-git-repo-check -c model_reasoning_effort="xhigh"`
+>       ⚠️ 三個 Win 坑:PowerShell 會把多行 prompt 拆成多引數(必須用 stdin 管道)、
+>       非 git 目錄要加 `--skip-git-repo-check`、**不要對原生 exe 用 `2>&1`**
+> - [ ] **③ 補查兩個已用但未驗證的事實**:
+>       (a) CEE「2022 年每天約 3,500 萬項決策」—— Codex 轉述,**已印在 P2 與 fig_v3_01 上**,
+>           若查無出處要改圖改講稿;(b) 參考文獻查證版的**內容**(只看過 agent 摘要)
+> - [ ] ④ 參考文獻頁填入**實際 APA 條目**(現在是說明文字)
+> - [ ] ⑤ 配時回填實測值(v3 §〇 現在是估計)
+> - [ ] ⑥ 彩排(兩次時長差 ≤15 秒、都 ≤9:40、無需停下重來)
+> - [ ] ⑦ **逐頁錄製**(非一鏡到底)→ MP4 → **8/17 白天交件,不要排在當天**
 >
-> **剩下的執行步驟**:
-> - [ ] 依 v2 做 .pptx(12 頁 + 封面 + 參考文獻頁),套 T1–T6 展示技巧與版面淨空區
-> - [ ] P7 倫理護欄表要在 PowerPoint 手工做(**唯一沒有現成圖檔的內容頁**)
-> - [ ] 參考文獻:A1 的 12 筆**不得原樣複用**,四筆必修 + 新增 2–3 筆外部文獻
-> - [ ] 彩排至出場條件(兩次時長差 ≤15 秒、都 ≤9:40、無需停下重來)
-> - [ ] **逐頁錄製**(非一鏡到底)→ MP4 → **8/17 白天交件,不要排在當天**
-> - [ ] ⚠️ **IBM AI 成熟度框架**的正式維度名稱待 Kenny 回單元五教材確認後手動加回
-> - [ ] ⚠️ 自評最弱頁 = **P7 倫理(61 秒)**;結構性隱憂 = P10+P11 只佔 17% 時間卻對 30 分
+> ### ✅ 已驗證的關鍵事實(可直接引用)
+> - **CEE 2019 定存到期留存**:「orchestrated contact with **100,000 customers who have a
+>   maturing term deposit**. We have got an **85% renewal rate**」——
+>   CBA 2019 半年報分析師簡報第 6 頁,執行長發言,**主迴圈自己解 PDF 逐字驗證**。
+>   同頁另有:CEE 即時分析 **300 億資料點**、橫跨 **23 個通路**、半年 **1,000 萬次**面對面對話(累計 1.3 億次)
+> - **A$611.5bn 查無出處** → 一律改用 **A$634bn**;市占 25.4% 對應 **1H25** 非 FY25
+>
+> ### ⚠️ 已知風險
+> - **v3 沒被任何人審過**(最大缺口,待 ②)
+> - 可能的反向風險:v3 縮到 3.5 人月,會不會被評分者讀成「這人根本沒提出 AI 方案」——
+>   已在講稿 workflow 的評審指令裡指定要檢查這一點
+> - **交件前禁字掃描**:`rubric / 幾分項 / 檔次 / 優異 / 管濟偉 / Jiwei / 李春平 / SKILL /
+>   派工 / 對抗驗證 / 主迴圈 / 復盤 / 審查者`
 - [ ] 下載示例兩份(Canvas `files/12834409`、`files/12834407`,需登入)
       ⚠️ 老師 8/4 明確說「**沒有範例可分享**」,這兩個檔可能是作業說明而非範例,先確認是什麼
 - [ ] 尚未開工。題目與 rubric 已抓齊 → `notes/A3_題目與rubric.md`
