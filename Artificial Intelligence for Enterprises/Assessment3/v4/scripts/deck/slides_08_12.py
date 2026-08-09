@@ -96,9 +96,10 @@ P8_NOTES = "\n\n".join([
     "③ 支撐全客戶 13,000+ 筆/天〔所需人力由 G2 後依實測單位工時重估〕;"
     "此項的驅動因子不在我方控制內 —— 由客戶的開通時點決定。",
 
-    "④ 每年約 NT$1,040-1,870 萬:以公開薪資量級推算,非核定預算,非本案承諾的節省額｜"
+    "④ 每年約 NT$1,144-2,106 萬:以初階工程師的公開薪資量級推算,非核定預算,"
+    "非本案承諾的節省額｜"
     "⑤ 約 20 秒/筆 = 例行批次複核 · 全量;營運端的實務估計,尚未以計時量測驗證｜"
-    "⑥ 約 4.4 分鐘/筆:由一次實際判讀反推,不含報告與回信｜"
+    "⑥ 約 5.25 分鐘/筆:由一次實際判讀反推(5 人 × 3.6 個分析日),不含報告與回信｜"
     "⑦ 降至 7% 以下:以該樣本為基準,G1 後依重新校準的量測重訂。",
 
     "⑧ 客戶回頭標記率同時是「駕駛端無效警示率」的可觀測代理｜"
@@ -302,7 +303,7 @@ def _p10(prs, ctx):
 # ==================================================================
 # 參考文獻(page_idx 11)—— 無圖、無導軌,雙欄:左 8 條、右 7 條
 # ==================================================================
-REF_LEFT = [
+REF_ENTRIES = [
     "Australian Human Rights Commission. (2020). Using artificial intelligence to "
     "make decisions: Addressing the problem of algorithmic bias (Technical paper). "
     "https://humanrights.gov.au/sites/default/files/document/publication/"
@@ -335,9 +336,7 @@ REF_LEFT = [
     "IBM. (n.d.). University Hospitals Coventry and Warwickshire (UHCW) NHS Trust: "
     "Patient-centered care from AI-centered efficiencies [Case study]. "
     "https://www.ibm.com/case-studies/uhcw-nhs-trust",
-]
 
-REF_RIGHT = [
     "National Institute of Standards and Technology. (2023). Artificial intelligence "
     "risk management framework (AI RMF 1.0) (NIST AI 100-1). U.S. Department of "
     "Commerce. https://doi.org/10.6028/NIST.AI.100-1",
@@ -377,34 +376,187 @@ REF_RIGHT = [
 REF_FOOT = ("The company name has been changed for commercial in confidence reasons."
             "　內部數字均標示為假設或推算量級,並於各頁附推算方式。")
 
-# 每條在 5.30 吋欄寬、12pt 下的實際換行行數(以字型 advance 逐字量測後寫死),
-# 用來一條一列往下堆,條目之間才留得出間距 —— 15 條擺一頁靠縮行距與欄距,不縮字級。
-REF_L_LINES = [5, 3, 4, 4, 4, 2, 3, 3]
-REF_R_LINES = [4, 4, 3, 4, 4, 5, 6]
+# ------------------------------------------------------------------
+# 🔴 換行量測 —— 這一頁出過疊印,原因是「行數用猜的」
+# ------------------------------------------------------------------
+# 舊版把 15 條的行數寫死成常數,其中 4 條少算一行,於是下一條直接壓上去
+# (Department of Industry 的 principles 行、Parasuraman 的 DOI 行、
+#  Press 的 task-survey-says/ 行、Sculley 的 Abstract.html 行)。
+# 改成用 PIL 載 Microsoft JhengHei、逐 token 模擬 PowerPoint 換行,建版時現算。
+#
+# 模擬規則是拿 PowerPoint 匯出的 PNG 反推、再逐條對回去校準出來的:
+#   · 拉丁字以空白斷詞;CJK 每字可斷
+#   · **連字號 "-" 之後可斷行,斜線 "/" 不可** —— 所以長網址不是在 / 斷,
+#     而是整串移到新的一行後再硬切(humanrights 那條就是這樣變成 5 行的)
+#   · 單一 token 比整行長時,填滿一行硬切,剩下的必定進下一行
+# 校準結果:15 條 + 頁尾在 5.30 吋欄寬下,模擬行數與 PowerPoint 實測**完全一致**。
+_MSJH = r"C:\Windows\Fonts\msjh.ttc"
+_BREAK_AFTER = "-"
+_FONT_CACHE = {}
 
-REF_SP = 0.88                       # 行距倍數(縮行距,不縮字級)
-REF_LH = 12.0 * 1.342 * REF_SP / 72.0   # 一行 = 0.1967 吋
-REF_GAP = 0.06                      # 條目之間
-REF_TOP, REF_W = 0.98, 5.30
+
+def _font(size_pt):
+    """以 1px = 1pt 載入 JhengHei,getlength() 回傳的就是點值。"""
+    key = int(round(size_pt))
+    if key not in _FONT_CACHE:
+        from PIL import ImageFont
+        _FONT_CACHE[key] = ImageFont.truetype(_MSJH, key, index=0)
+    return _FONT_CACHE[key]
 
 
-def _ref_column(x, entries, counts, color):
-    blocks, y = [], REF_TOP
-    for i, (e, n) in enumerate(zip(entries, counts)):
-        h = n * REF_LH
-        blocks.append(dict(id="REF-%s%d" % ("L" if x < 3 else "R", i + 1),
-                           x=x, y=y, w=REF_W, h=h, text=e,
-                           size=12, color=color, spacing=REF_SP))
-        y += h + REF_GAP
+def _is_cjk(ch):
+    o = ord(ch)
+    return (0x2E80 <= o <= 0x9FFF or 0xF900 <= o <= 0xFAFF
+            or 0xFF00 <= o <= 0xFF60 or 0x3000 <= o <= 0x303F)
+
+
+def _tokens(text):
+    """切成 PowerPoint 的斷行單位。"""
+    out, buf = [], ""
+    for ch in text:
+        if ch == " ":
+            if buf:
+                out.append(buf)
+                buf = ""
+            out.append(" ")
+        elif _is_cjk(ch):
+            if buf:
+                out.append(buf)
+                buf = ""
+            out.append(ch)
+        else:
+            buf += ch
+            if ch in _BREAK_AFTER:
+                out.append(buf)
+                buf = ""
+    if buf:
+        out.append(buf)
+    return out
+
+
+def line_count(text, width_in, size_pt=12.0):
+    """這段文字在 width_in 吋欄寬(內距已歸零)、size_pt 字級下會排成幾行。"""
+    f = _font(size_pt)
+    limit = width_in * 72.0
+    lines, cur = 1, 0.0
+    for tk in _tokens(text):
+        w = f.getlength(tk)
+        if tk == " ":
+            if cur > 0:                       # 行首的空白吃掉
+                cur += w
+            continue
+        if cur + w <= limit + 1e-6:
+            cur += w
+            continue
+        if cur > 0:                           # 這個 token 整串移到下一行
+            lines += 1
+            cur = 0.0
+        while w > limit + 1e-6:               # 比整行還長 -> 填滿一行硬切
+            acc, i = 0.0, 0
+            while i < len(tk):
+                cw = f.getlength(tk[i])
+                if acc + cw > limit + 1e-6:
+                    break
+                acc += cw
+                i += 1
+            i = max(i, 1)
+            tk = tk[i:]
+            w = f.getlength(tk)
+            lines += 1
+        cur = w
+    return lines
+
+
+# ------------------------------------------------------------------ 參考文獻版位
+# 行高:PowerPoint 的行節距 = 字級 x 1.20 x 行距倍數(匯出 PNG 量到 0.2092 吋
+# @ 12pt / 1.05,對上 12 x 1.20 x 1.05 / 72 = 0.2100)。單行的墨跡帶約 0.176 吋,
+# 所以節距**必須 > 0.176** 才不會上下行的字互相碰到 —— 舊版的 0.88 行距剛好壓在
+# 這條線上(0.176),那也是「條目黏成一片」的來源。這裡取 0.95 -> 節距 0.190 吋。
+REF_SP = 0.95
+REF_LH = 12.0 * 1.20 * REF_SP / 72.0        # 一行 = 0.1900 吋
+# 段距 0.08 吋:框高 n x 節距 只涵蓋到末行的基線帶,末行的降部(p / g / y / _)
+# 還會再往下約 0.013 吋,所以 0.08 的段距實得約 0.067 吋淨空 —— 匯出 PNG 實測
+# 相鄰兩條的墨跡淨空 0.093-0.140 吋,肉眼分得開,這一頁的「黏成一片」由此解掉。
+REF_GAP = 0.08
+REF_TOP = 0.80                              # 標題 26pt 的墨跡收在 y 0.74
+
+# 🔑 欄寬從 5.30 加寬到 5.90:總行數由 63 掉到 56,這是騰出段距的關鍵。
+# 右欄 x+w = 12.50 越過右下淨空區左緣(11.283),所以**右欄底緣必須收在 6.35 以上**;
+# 左欄不越界,可以一路排到頁尾條之前。兩欄等寬,右欄短、左欄長。
+REF_W = 5.90
+REF_X_L, REF_X_R = 0.55, 6.60
+REF_SPLIT = 9                    # 前 9 條走左欄 —— 依字母序切,不打亂 APA 排序
+REF_BOT_L, REF_BOT_R = 7.18, 6.35
+
+REF_FOOT_X, REF_FOOT_W = 0.55, 10.70
+REF_FOOT_Y, REF_FOOT_H = 7.22, 0.20
+
+
+def _ref_blocks(color, foot_color):
+    """由上往下累加 y,逐條現算行數 —— 不再有寫死的行數常數。"""
+    blocks = []
+    for col, (x, entries, first) in enumerate((
+            (REF_X_L, REF_ENTRIES[:REF_SPLIT], 1),
+            (REF_X_R, REF_ENTRIES[REF_SPLIT:], REF_SPLIT + 1))):
+        y = REF_TOP
+        for i, e in enumerate(entries):
+            n = line_count(e, REF_W)
+            h = n * REF_LH
+            blocks.append(dict(id="REF-%s%02d" % ("LR"[col], first + i),
+                               x=x, y=y, w=REF_W, h=h, text=e,
+                               size=12, color=color, spacing=REF_SP, lines=n))
+            y += h + REF_GAP
+    blocks.append(dict(id="REF-FOOT", x=REF_FOOT_X, y=REF_FOOT_Y,
+                       w=REF_FOOT_W, h=REF_FOOT_H, text=REF_FOOT,
+                       size=12, color=foot_color, spacing=1.0,
+                       lines=line_count(REF_FOOT, REF_FOOT_W)))
     return blocks
+
+
+def assert_ref_layout(blocks):
+    """把 place_slide_text 不檢查的那一項補上:框高夠不夠、框之間會不會疊到。"""
+    # 1. 宣告高度必須裝得下實際行數
+    for b in blocks:
+        need = b["lines"] * (12.0 * 1.20 * b["spacing"] / 72.0)
+        if b["h"] + 1e-6 < need:
+            raise AssertionError(
+                "%s 框高不足:宣告 %.4f 吋,%d 行實際需要 %.4f 吋"
+                % (b["id"], b["h"], b["lines"], need))
+    # 2. 兩兩不得相交(同欄比 y,跨欄 x 本來就分開,用矩形交集一次判掉)
+    for i in range(len(blocks)):
+        a = blocks[i]
+        for j in range(i + 1, len(blocks)):
+            c = blocks[j]
+            if (a["x"] < c["x"] + c["w"] - 1e-6 and c["x"] < a["x"] + a["w"] - 1e-6
+                    and a["y"] < c["y"] + c["h"] - 1e-6
+                    and c["y"] < a["y"] + a["h"] - 1e-6):
+                raise AssertionError(
+                    "%s 與 %s 疊印:y %.3f-%.3f vs %.3f-%.3f"
+                    % (a["id"], c["id"], a["y"], a["y"] + a["h"],
+                       c["y"], c["y"] + c["h"]))
+    # 3. 底緣:左欄收在頁尾條之前,右欄收在淨空區之上,頁尾條收在安全邊之內
+    for b in blocks:
+        if b["id"] == "REF-FOOT":
+            lim = 7.44
+        else:
+            lim = REF_BOT_R if b["x"] > 3.0 else REF_BOT_L
+        if b["y"] + b["h"] > lim + 1e-6:
+            raise AssertionError("%s 底緣 %.3f 超過上限 %.3f"
+                                 % (b["id"], b["y"] + b["h"], lim))
+    return blocks
+
+
+def ref_layout(ctx=None):
+    """給驗證腳本用:不開 PowerPoint 就拿得到這一頁的完整版位。"""
+    from pptx.dml.color import RGBColor
+    dark = ctx["DARK"] if ctx else RGBColor(0x33, 0x33, 0x33)
+    grey = ctx["GREY"] if ctx else RGBColor(0x80, 0x80, 0x80)
+    return assert_ref_layout(_ref_blocks(dark, grey))
 
 
 def _refs(prs, ctx):
     s = ctx["new_slide"](prs, 11, ctx=ctx)
-    blocks = _ref_column(0.55, REF_LEFT, REF_L_LINES, ctx["DARK"])
-    blocks += _ref_column(5.95, REF_RIGHT, REF_R_LINES, ctx["DARK"])
-    blocks.append(dict(id="REF-FOOT", x=0.55, y=7.26, w=10.70, h=0.23,
-                       text=REF_FOOT, size=12, color=ctx["GREY"], spacing=1.0))
+    blocks = assert_ref_layout(_ref_blocks(ctx["DARK"], ctx["GREY"]))
     _zero_margins(ctx["place_slide_text"](s, blocks))
     ctx["speaker_notes"](s, "這些是本提案引用的公開文獻,完整清單在這一頁。")
     return s

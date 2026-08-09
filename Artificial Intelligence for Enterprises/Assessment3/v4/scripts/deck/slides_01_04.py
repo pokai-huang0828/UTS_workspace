@@ -50,8 +50,9 @@ ctx 有什麼(三段共用,照這個用,不要自己重造)
   fig_03  9.69 x 4.93 → 置中後圖下緣 5.98,下方整條空。
   fig_04 10.07 x 5.62 → 置中後圖下緣 6.67,下方整條空。
 """
-import math
 import unicodedata
+
+from pptx.util import Inches
 
 from figs.fig_v4_02 import SLIDE_TEXT as P2T
 
@@ -62,10 +63,22 @@ X0 = 0.55                 # 內容左緣
 W_FULL = 12.20            # 全寬(0.55 -> 12.75)
 W_SAFE = 10.70            # 避開右下淨空區的寬度(0.55 -> 11.25)
 Y_SAFE = 6.35             # 淨空區上緣;超過這條線的框寬度只能到 W_SAFE
-Y_BOTTOM = 7.45           # 版面底線(留 0.05 邊)
-SP = 0.74                 # 行距倍數(P2 是密排頁,靠這個把 14 塊移出文字全放進版面)
-PAD = 0.008               # 文字框上下呼吸
-LINE_EM = 1.438           # Microsoft JhengHei 單行 = ascent + descent,實測值
+Y_BOTTOM = 7.44           # 底緣硬上限(版面 7.5 減 0.06 安全邊)
+
+# 🔴 高度算法(本檔唯一一套,四頁共用)
+#    1. 用 PIL 載入 Microsoft JhengHei,以 getlength() 逐字模擬換行 -> 實際行數 n
+#    2. h = n × (size/72) × LS + 2 × PAD
+#    3. 框與框之間至少 GAP;算完由 _audit() 用程式 assert 兩兩不重疊、底緣 <= Y_BOTTOM
+#
+#    LS 是「每行佔幾個字級」。PowerPoint 的 line_spacing 倍數是乘在字型自然行高
+#    (Microsoft JhengHei = ascent+descent = 1.4375 em)上,所以送進 pptx 的倍數
+#    必須是 LS / LINE_EM,才會真的排成 LS × 字級。
+LINE_EM = 1.4375          # msjh.ttc:(ascent 18 + descent 5) / 16px em
+LS_DENSE = 1.20           # 密排頁(P2):12pt × 1.20 = 每行 0.20 吋
+LS_LOOSE = 1.45           # 有餘裕的頁(P1/P3/P4),看起來鬆一點
+PAD = 0.03                # 文字框上下內距,各 0.03 吋(同步寫進 tIns/bIns)
+GAP = 0.04                # 框與框最小間距
+_EPS = 1e-9
 
 _FONTS = {}
 
@@ -99,32 +112,107 @@ def _w(s, size, bold=False):
     return f.getlength(s) / 96.0
 
 
-def _lh(size, sp=SP):
-    return size * LINE_EM * sp / 72.0
+# 不能出現在行首 / 行尾的標點(PowerPoint 的中文避頭尾;不模擬會少算行數)
+_NO_START = "」』)】〕》〉,。、;:!?%‰・…~～ー"
+_NO_END = "「『(【〔《〈"
+_GLUE = ".,:+-/'"          # 數字內部的連接符,不在這裡斷行
 
 
-def _nlines(lines, w, size, bold=False):
-    return sum(max(1, int(math.ceil(_w(t, size, bold) / (w * 0.995))))
-               for t in lines)
+def _tokens(s):
+    """切成不可再拆的最小單位:ASCII 數字/字母連寫算一塊,中日文逐字一塊。"""
+    out, i, n = [], 0, len(s)
+    while i < n:
+        ch = s[i]
+        if ch.isascii() and ch.isalnum():
+            j = i
+            while j < n and s[j].isascii() and (s[j].isalnum() or s[j] in _GLUE):
+                j += 1
+            while j > i + 1 and s[j - 1] in _GLUE:
+                j -= 1
+            out.append(s[i:j])
+            i = j
+        else:
+            out.append(ch)
+            i += 1
+    merged = []
+    for t in out:
+        if merged and t[0] in _NO_START:
+            merged[-1] += t
+        elif merged and merged[-1][-1] in _NO_END:
+            merged[-1] += t
+        else:
+            merged.append(t)
+    return merged
 
 
-def _blk(bag, bid, x, y, w, lines, size=12, sp=SP, pad=PAD, **kw):
-    """把一塊文字排進 bag,回傳下一塊的 y。"""
-    if isinstance(lines, str):
-        lines = [lines]
-    h = _nlines(lines, w, size, kw.get("bold", False)) * _lh(size, sp) + pad
-    bag.append(dict(id=bid, x=x, y=y, w=w, h=h, text=lines,
-                    size=size, spacing=sp, **kw))
-    return y + h
+def _wrap(text, w, size, bold=False):
+    """回傳這段文字在寬 w 吋的框裡實際會排成的每一行(逐字模擬)。"""
+    limit = max(0.1, w - 0.02)          # 0.02 吋量測餘裕
+    lines, cur, cw = [], "", 0.0
+    for t in _tokens(text):
+        tw = _w(t, size, bold)
+        if cur and cw + tw > limit:
+            lines.append(cur)
+            cur, cw = t, tw
+        else:
+            cur += t
+            cw += tw
+    lines.append(cur)
+    return lines or [""]
 
 
-def _zero_margins(boxes):
-    """把文字框的內距歸零 —— 密排頁靠這 0.2 吋寬 / 0.1 吋高過活。"""
+def _nlines(paras, w, size, bold=False):
+    return sum(len(_wrap(p, w, size, bold)) for p in paras)
+
+
+def _blk(bag, bid, x, y, w, paras, size=12, ls=LS_DENSE, **kw):
+    """把一塊文字排進 bag(高度照上面的算法算),回傳下一塊可用的 y(已含 GAP)。"""
+    if isinstance(paras, str):
+        paras = [paras]
+    paras = list(paras)
+    n = _nlines(paras, w, size, kw.get("bold", False))
+    h = n * size * ls / 72.0 + 2 * PAD
+    bag.append(dict(id=bid, x=x, y=y, w=w, h=h, text=paras,
+                    size=size, spacing=ls / LINE_EM, _n=n, **kw))
+    return y + h + GAP
+
+
+def _pad_margins(boxes):
+    """左右內距歸零(算寬度時就沒算它),上下各 0.03 吋 —— 與高度算法一致。"""
     for tb in boxes:
         tf = tb.text_frame
         tf.margin_left = tf.margin_right = 0
-        tf.margin_top = tf.margin_bottom = 0
+        tf.margin_top = tf.margin_bottom = Inches(PAD)
     return boxes
+
+
+def _audit(tag, bag, extra=(), y_limit=Y_BOTTOM):
+    """🔴 程式 assert:所有框兩兩不重疊、不壓圖、底緣不出血。順便把 [y, y+h] 印出來。"""
+    rects = [(b["id"], b["x"], b["y"], b["w"], b["h"], b["_n"]) for b in bag]
+    rects += [(nm, x, y, w, h, -1) for nm, x, y, w, h in extra]
+    print("[版面] %s" % tag)
+    for bid, x, y, w, h, n in rects:
+        print("       %-10s x %5.2f-%5.2f   y %5.3f-%5.3f   h %.3f   %s"
+              % (bid, x, x + w, y, y + h, h,
+                 ("%d 行" % n) if n >= 0 else "(圖)"))
+    for bid, x, y, w, h, n in rects:
+        if n >= 0 and y + h > y_limit + _EPS:
+            raise AssertionError("%s / %s 底緣 %.3f 超過 %.2f 吋"
+                                 % (tag, bid, y + h, y_limit))
+    for i in range(len(rects)):
+        for j in range(i + 1, len(rects)):
+            a, b = rects[i], rects[j]
+            if a[5] < 0 and b[5] < 0:
+                continue
+            ox = min(a[1] + a[3], b[1] + b[3]) - max(a[1], b[1])
+            oy = min(a[2] + a[4], b[2] + b[4]) - max(a[2], b[2])
+            if ox > _EPS and oy > _EPS:
+                raise AssertionError(
+                    "%s:%s 與 %s 重疊(x 交 %.3f 吋、y 交 %.3f 吋)"
+                    % (tag, a[0], b[0], ox, oy))
+    print("       -> %d 框兩兩不重疊,底緣 %.3f <= %.2f 吋"
+          % (len(bag), max(b["y"] + b["h"] for b in bag), y_limit))
+    return bag
 
 
 # ==================================================================
@@ -173,8 +261,10 @@ def _p1(prs, ctx):
         "架構邊界:本案不重新開啟架構選擇。",
         "前置是三件事:一組凍結的評估集、一份一致的標註、"
         "一層餵得進模型的脈絡 —— 那就是前三個工作包。",
-    ], size=13, sp=1.05, pad=0.03, color=ctx["NAVY"], bold=True)
-    _zero_margins(ctx["place_slide_text"](s, bag))
+    ], size=13, ls=LS_LOOSE, color=ctx["NAVY"], bold=True)
+    _audit("P1", bag, extra=[("fig_01", box["left"], box["top"],
+                              box["w"], box["h"])])
+    _pad_margins(ctx["place_slide_text"](s, bag))
 
     ctx["speaker_notes"](s, _NOTES_P1)
     return s
@@ -200,6 +290,16 @@ def _split_acct(s, marker="當責:"):
 
 
 def _p2(prs, ctx):
+    """P2 是全份唯一的密排頁。可用高度只有這些,別再往裡塞:
+
+        標題下緣 0.96 -> 上帶 1.86 吋(6 行) -> 圖 2.81 吋(不可縮放)
+        -> 下帶 1.76 吋(7 行 / 4 個框) -> 底緣 7.43(上限 7.44)
+
+    上帶把三格算式各自的「證據等級」收進該格自己的框(原本是一條 12.2 吋的
+    大框硬吞三段,一格 2 行的字排成 3 行就會壓到下一框 —— 那正是這一輪的
+    fatal)。下帶只放三塊:母體宣告、業務基準、四倍以上;放不下的整塊移進
+    講者備註,清單見 _P2_MOVED。
+    """
     s = ctx["new_slide"](prs, 2, ctx=ctx)
     NAVY, DARK, GREY = ctx["NAVY"], ctx["DARK"], ctx["GREY"]
     DEEP_ORANGE, ORANGE = ctx["DEEP_ORANGE"], ctx["ORANGE"]
@@ -224,37 +324,42 @@ def _p2(prs, ctx):
     g2 = _rows(P2T["C2_STEP"])
     e = P2T["E_FOOTER"]["text"]
 
-    # ---- 版面在 12pt 下端的容量,少於這 14 塊的總字數;下列尾巴改由講者備註承載。
-    #      挑的全是「當責 / 期限 / 會改變的決策」樣板,以及在同一頁別處已講過一次的
-    #      母體警語與交叉指路句;數字、判準、證據等級與唯一的公開文獻標記全數留在正面。
+    # ---- 12pt 下限 + 圖不可縮放 = 這一頁的容量硬是少於 14 塊的總字數。
+    #      正面留下:三格算式(含各自的證據等級)、尖峰結論、口徑分隔句、
+    #                母體宣告、業務基準與它的證據等級、階梯算式、四倍以上。
+    #      移進講者備註的整塊列在 _P2_MOVED —— 那是這一輪付出的代價,不掩飾。
     c3_note = c3[3].split("下緣 74%")[0].rstrip()
     c3_tail = "下緣 74%" + c3[3].split("下緣 74%")[1]
     b2l2_head, b2l2_tail = _split_acct(b2l[2])
-    f2_head, f2_tail = _split_acct(f[2])
-    g1_3_head, g1_3_tail = _split_acct(g1[3])
-    overflow = [c3_tail, b1[1], b2l2_tail, b2r[0], b2r[1], f2_tail, g1_3_tail, b3]
+    moved = [
+        c3_tail, b2l2_tail, b2r[0], b2r[1], b3,
+        d_title, d_rows[0] + d_rows[1], d_rows[2], d_rows[3], d_rows[4] + d_cite,
+        f[0] + f[1], f[2],
+        g1[0] + g1[1], g1[2], g1[3],
+        g2[1],
+    ]
 
     bag = []
-    # ============ 上帶:平均編制口徑算式帶 ============
+    # ============ 上帶(0.96 -> 2.72):平均編制口徑算式帶 ============
     y = 0.96
     y = _blk(bag, "P2-A1T", X0, y, W_FULL, [a1t], 12, color=DARK, bold=True)
 
-    # 欄寬照三格文字的實測寬度配,讓標題列與算式列都各自只佔一行
-    cols = [(0.55, 3.20, c1[0], c1[1], NAVY, DARK),
-            (3.87, 4.20, c2[0], c2[1], NAVY, DARK),
-            (8.19, 4.35, c3[0], c3[1] + "　" + c3[2], DEEP_ORANGE, DEEP_ORANGE)]
+    # 三格各自兩個框(算式框 + 該格自己的證據等級框),欄寬照實測字寬配。
+    # 原本三格的註被併成一條 12.2 吋大框硬吞,那條框只給了 2 行的高度、實排 3 行,
+    # 於是第 3 行壓到下一框 —— 這一輪的 fatal 就是這麼來的。現在一格排錯行只會撐高
+    # 自己那一格,由 _audit() 直接擋下,壓不到別人。
+    cols = [(0.55, 3.20, c1[0], c1[1], c1[2], NAVY, False),
+            (3.87, 4.20, c2[0], c2[1], c2[2], NAVY, False),
+            (8.19, 4.35, c3[0], c3[1] + "　" + c3[2], c3_note,
+             DEEP_ORANGE, True)]
     ends = []
-    for cx, cw, lab, val, lcol, vcol in cols:
-        yy = _blk(bag, "P2-A1lab@%.2f" % cx, cx, y, cw, [lab], 12,
-                  color=lcol, bold=True)
-        yy = _blk(bag, "P2-A1val@%.2f" % cx, cx, yy, cw, [val], 12,
-                  color=vcol, bold=(vcol is DEEP_ORANGE))
-        ends.append(yy)
+    for cx, cw, lab, val, note, col, bd in cols:
+        yy = _blk(bag, "P2-A1@%.2f" % cx, cx, y, cw, [lab, val], 12,
+                  color=col, bold=bd)
+        ends.append(_blk(bag, "P2-A1n@%.2f" % cx, cx, yy, cw, [note], 12,
+                         color=GREY))
     y = max(ends)
 
-    # 兩格的證據等級 + 合計格的口徑說明(併成一段流排,省行)
-    y = _blk(bag, "P2-A1note", X0, y, W_FULL,
-             [c1[2] + "　" + c2[2] + "　" + c3_note], 12, color=GREY)
     # A2 引言 + 徵調研發那一句
     y = _blk(bag, "P2-A2", X0, y, W_FULL, [a2a + "　" + a2b], 12,
              color=NAVY, bold=True)
@@ -262,33 +367,32 @@ def _p2(prs, ctx):
     y = _blk(bag, "P2-A3", X0, y, W_FULL, [a3], 12, color=GREY, align="center")
 
     # ============ 圖:11.95 x 2.81,100% 原尺寸置中 ============
-    box = ctx["place_fig"](s, "fig_v4_02.png", top=y + 0.015)
+    # 文字與圖之間留 0.02;框本身上下各有 0.03 內距,所以字與墨跡實距 0.05。
+    box = ctx["place_fig"](s, "fig_v4_02.png", top=y - GAP + 0.02)
 
-    # ============ 下帶 ============
-    # B1 / D 兩塊整塊落在 y < 6.35,可以用全寬;B2 之後跨過淨空區上緣,只能用 W_SAFE。
-    y = box["bottom"] + 0.015
-    y = _blk(bag, "P2-B1", X0, y, W_FULL, [b1[0]], 12, color=DARK)
-    y = _blk(bag, "P2-D0", X0, y, W_FULL, [d_title], 12,
-             color=DEEP_ORANGE, bold=True)
-    y = _blk(bag, "P2-D1", X0, y, W_FULL,
-             [d_rows[0] + d_rows[1] + "　" + d_rows[2]], 12, color=DARK)
-    y = _blk(bag, "P2-D2", X0, y, W_FULL,
-             [d_rows[3] + "　" + d_rows[4] + "　" + d_cite], 12, color=GREY)
-    y = _blk(bag, "P2-B2F", X0, y, W_SAFE,
-             [b2l[0] + "　" + b2l[1] + "　" + b2m[0] + "(" + b2m[1] + ")"
-              + "　" + b2l2_head + "　" + f[0] + f[1] + "　" + f2_head],
+    # ============ 下帶(圖下緣 -> 7.44):只剩 7 行,四個框 ============
+    y = box["bottom"] + 0.02
+    y = _blk(bag, "P2-B1", X0, y, W_SAFE,
+             [b1[0], b1[1] + "　" + b2l[0],
+              b2m[0] + "(" + b2m[1] + ")"],
              12, color=DARK)
-    y = _blk(bag, "P2-C", X0, y, W_SAFE,
-             [g1[0] + g1[1] + g1[2] + "　" + g1_3_head
-              + "　" + g2[0] + g2[1]], 12, color=DARK)
-    y = _blk(bag, "P2-E", X0, y, W_SAFE, [e], 12,
+    y = _blk(bag, "P2-B2", X0, y, W_SAFE, [b2l[1]], 12, color=ORANGE, bold=True)
+    y = _blk(bag, "P2-B2n", X0, y, W_SAFE, [b2l2_head], 12, color=GREY)
+    y = _blk(bag, "P2-E", X0, y, W_SAFE, [g2[0], e], 12,
              color=DARK, bold=True, align="center")
 
-    _zero_margins(ctx["place_slide_text"](s, bag))
+    _audit("P2", bag, extra=[("fig_02", box["left"], box["top"],
+                              box["w"], box["h"])])
+    _pad_margins(ctx["place_slide_text"](s, bag))
 
-    ctx["speaker_notes"](s, _NOTES_P2 + "\n\n補充說明(講述時帶到):\n"
-                         + "\n".join("· " + t for t in overflow))
+    ctx["speaker_notes"](s, _NOTES_P2 + "\n\n補充說明(講述時帶到,正面沒有印):\n"
+                         + "\n".join("· " + t for t in moved))
+    _P2_MOVED[:] = moved
     return s
+
+
+# 正面放不下、改由講者備註承載的整塊(交付時要據實回報,不是「已完成」)
+_P2_MOVED = []
 
 
 # ==================================================================
@@ -304,8 +408,10 @@ def _p3(prs, ctx):
     _blk(bag, "P3-T01", X0, box["bottom"] + 0.22, W_SAFE, [
         "這兩個比例共用同一把尺,而那把尺的一致性我們從來沒量過"
         " —— 不比誰準,只指出錯的性質不同。",
-    ], size=16, sp=1.05, pad=0.03, color=ctx["NAVY"], bold=True)
-    _zero_margins(ctx["place_slide_text"](s, bag))
+    ], size=16, ls=LS_LOOSE, color=ctx["NAVY"], bold=True)
+    _audit("P3", bag, extra=[("fig_03", box["left"], box["top"],
+                              box["w"], box["h"])])
+    _pad_margins(ctx["place_slide_text"](s, bag))
 
     ctx["speaker_notes"](s, _NOTES_P3)
     return s
@@ -323,8 +429,10 @@ def _p4(prs, ctx):
     bag = []
     _blk(bag, "P4-T01", X0, box["bottom"] + 0.10, W_SAFE, [
         "成本不對稱:誤報只花人時;漏放是駕駛沒收到那次警示 → 漏放列為否決型護欄。",
-    ], size=15, sp=1.02, pad=0.03, color=ctx["NAVY"], bold=True)
-    _zero_margins(ctx["place_slide_text"](s, bag))
+    ], size=15, ls=LS_LOOSE, color=ctx["NAVY"], bold=True)
+    _audit("P4", bag, extra=[("fig_04", box["left"], box["top"],
+                              box["w"], box["h"])])
+    _pad_margins(ctx["place_slide_text"](s, bag))
 
     ctx["speaker_notes"](s, _NOTES_P4)
     return s
