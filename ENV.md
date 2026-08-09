@@ -29,6 +29,7 @@
 | **yt-dlp** | 🔴 **沒裝**(pip 查無) | 要用:`pip install yt-dlp` |
 | jupyter | 🔴 沒裝 | A3 不需要;A2b 若要重跑才需要 |
 | Word / PowerPoint COM | ✅ 可用 | 組版的逐頁 PNG 導出靠它 |
+| **Google Workspace MCP** | 🔴 **不能用** | `~/.workspace-mcp/client_secret.json` 不存在,`GOOGLE_OAUTH_CLIENT_ID` / `_SECRET` 也沒設。<br>→ 要寫 Google Sheet 只能走 **Chrome 擴充功能**(內建瀏覽器沒登入 Google,而我不能代輸入密碼) |
 
 ### MSI 專屬注意
 

@@ -26,6 +26,16 @@ NARR = re.compile(r"(?m)^##\s*口白逐字\s*$")
 NEXT_H = re.compile(r"(?m)^#{1,2}\s+")
 COUNTABLE = re.compile(r"[一-鿿㐀-䶿 A-Za-z0-9]".replace(" ", ""))
 
+# 🔴 舞台指示不是口白:整段被括號包住的錄影標記 / 交界移交註記,不唸出聲,不計配時。
+#    這是本腳本第一版的實測瑕疵 —— 它把 P6/P7 三段括號註記算成口白,
+#    憑空多出 210 字(+47.7 秒),讓 567.5 秒的片子看起來像 615.2 秒、假超時。
+#    其中一段自己就寫著「口白不出聲」,另一段自己就寫著「不列入本頁 224 字」。
+#    (?ms):^ $ 錨在行邊界而 . 可跨行,故多行括號註記能整段剝掉;.*? 非貪婪,連續兩段不會被併吃。
+STAGE = re.compile(r"(?ms)^[ 	]*[*_]{0,2}[((].*?[))][*_]{0,2}[ 	]*$")
+
+# 各單元「> 配時 … 口白 NNN 字」的自帶宣告值 —— 當回歸護欄用,避免同類瑕疵再無聲復發。
+DECL = re.compile(r"(?m)^>\s*配時.*?口白\s*\*{0,2}\s*([0-9]+)\s*字")
+
 
 def body_after_first_unit(text, path):
     """丟掉分段標題,從第一個單元標題切到檔尾。"""
@@ -43,6 +53,7 @@ def narration_chars(unit_text):
     rest = unit_text[m.end():]
     nxt = NEXT_H.search(rest)
     block = rest[:nxt.start()] if nxt else rest
+    block = STAGE.sub("", block)          # 🔴 先剝掉舞台指示(錄影標記 / 交界移交)
     # 去掉引言區塊(> …)與 markdown 強調記號
     lines = [l for l in block.split("\n") if not l.lstrip().startswith(">")]
     plain = re.sub(r"[*_`~]", "", "\n".join(lines))
@@ -58,7 +69,12 @@ def main():
     rows, total = [], 0
     for i, m in enumerate(units):
         end = units[i + 1].start() if i + 1 < len(units) else len(merged)
-        n, _ = narration_chars(merged[m.start():end])
+        unit = merged[m.start():end]
+        n, _ = narration_chars(unit)
+        d = DECL.search(unit)
+        if d and int(d.group(1)) != n:
+            print(f"⚠ 護欄:{m.group(1).strip()[:28]} 實算 {n} 字 ≠ 自帶宣告 {d.group(1)} 字"
+                  f" —— 先查是內容改了還是抽取歪了")
         rows.append((m.group(1).strip(), n, n / RATE))
         total += n
     secs = total / RATE
