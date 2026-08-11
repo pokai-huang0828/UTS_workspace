@@ -36,6 +36,30 @@ STAGE = re.compile(r"(?ms)^[ 	]*[*_]{0,2}[((].*?[))][*_]{0,2}[ 	]*$")
 # 各單元「> 配時 … 口白 NNN 字」的自帶宣告值 —— 當回歸護欄用,避免同類瑕疵再無聲復發。
 DECL = re.compile(r"(?m)^>\s*配時.*?口白\s*\*{0,2}\s*([0-9]+)\s*字")
 
+# 🔴 逐頁口白硬上限(來源:09 修訂裁決檔 §4 裁決 D,§11.7 明文維持不變)。
+#    腳本第一版只擋全片 600 秒,不擋逐頁 —— 主迴圈 08-09 為了修 fatal 在 P5/P9 加字,
+#    全片仍在 600 秒內所以毫無警訊,但乙+丙段已超支 21 字。逐頁上限才是真正的護欄。
+LIMITS = {
+    "鉤子": 23, "P1": 290, "P2": 320, "P3": 230, "P4": 260,
+    "P5": 220, "P6": 224, "P7": 225, "P8": 207, "P9": 208,
+    "P10": 280, "參考文獻": 21,
+}
+
+
+def limit_for(title):
+    """單元標題 → 該頁硬上限。標題形如 'P5 · 五條路…'、'鉤子 · 開場靜畫'、
+    '參考文獻(第 11 頁 — 不佔十頁額度)'。
+
+    🔴 用前綴比對,不要「切分隔號再 split()」—— 參考文獻那個標題沒有分隔號,
+       切出來會是「參考文獻(第」整串,查不到而靜默回 None。
+       長鍵優先排序,否則 'P1' 會誤命中 'P10'。
+    """
+    head = title.split("·")[0].strip()
+    for k in sorted(LIMITS, key=len, reverse=True):
+        if head.startswith(k):
+            return LIMITS[k]
+    return None
+
 
 def body_after_first_unit(text, path):
     """丟掉分段標題,從第一個單元標題切到檔尾。"""
@@ -66,7 +90,7 @@ def main():
 
     # 逐單元配時
     units = list(H1.finditer(merged))
-    rows, total = [], 0
+    rows, total, over = [], 0, []
     for i, m in enumerate(units):
         end = units[i + 1].start() if i + 1 < len(units) else len(merged)
         unit = merged[m.start():end]
@@ -75,7 +99,11 @@ def main():
         if d and int(d.group(1)) != n:
             print(f"⚠ 護欄:{m.group(1).strip()[:28]} 實算 {n} 字 ≠ 自帶宣告 {d.group(1)} 字"
                   f" —— 先查是內容改了還是抽取歪了")
-        rows.append((m.group(1).strip(), n, n / RATE))
+        title = m.group(1).strip()
+        lim = limit_for(title)
+        if lim is not None and n > lim:
+            over.append((title, n, lim, n - lim))
+        rows.append((title, n, n / RATE, lim))
         total += n
     secs = total / RATE
 
@@ -97,13 +125,15 @@ def main():
         "",
         f"## 配時(本表由 `assemble_v2.py` 實算,非 agent 自報)",
         "",
-        f"| 單位 | 口白字數 | 秒({RATE} 字/秒) |",
-        "|---|---:|---:|",
+        f"| 單位 | 口白字數 | 🔴 硬上限 | 餘額 | 秒({RATE} 字/秒) |",
+        "|---|---:|---:|---:|---:|",
     ]
-    for name, n, s in rows:
-        hdr.append(f"| {name} | {n} | {s:.1f} |")
+    for name, n, s, lim in rows:
+        L = str(lim) if lim is not None else "—"
+        bal = ("🔴 " + str(n - lim) if n > lim else str(lim - n)) if lim is not None else "—"
+        hdr.append(f"| {name} | {n} | {L} | {bal} | {s:.1f} |")
     hdr += [
-        f"| **合計** | **{total}** | **{secs:.1f} 秒 = {int(secs // 60)}:{int(secs % 60):02d}** |",
+        f"| **合計** | **{total}** | **{sum(v for v in LIMITS.values())}** | **{sum(LIMITS.values()) - total}** | **{secs:.1f} 秒 = {int(secs // 60)}:{int(secs % 60):02d}** |",
         "",
         (f"距 {HARD_LIMIT:.0f} 秒硬上限餘裕 **{HARD_LIMIT - secs:.1f} 秒**。"
          if secs <= HARD_LIMIT else
@@ -116,14 +146,23 @@ def main():
 
     print(f"✅ 重組完成 → {os.path.basename(OUT)}  ({len(merged):,} 字元內容 + 檔頭)")
     print(f"\n{'單位':44}{'字數':>6}{'秒':>8}")
-    for name, n, s in rows:
-        print(f"  {name[:42]:42}{n:6}{s:8.1f}")
+    for name, n, s, lim in rows:
+        mark = "" if lim is None else ("  🔴 超 %d" % (n - lim) if n > lim else "  餘 %d" % (lim - n))
+        print(f"  {name[:38]:38}{n:6}{(lim if lim else 0):7}{s:8.1f}{mark}")
     print(f"  {'合計':42}{total:6}{secs:8.1f}  = {int(secs//60)}:{int(secs%60):02d}")
+    if over:
+        tot = sum(o[3] for o in over)
+        print(f"\n🔴 **逐頁硬上限超支 {len(over)} 頁,合計 {tot} 字({tot / RATE:.1f} 秒)**"
+              f" —— 紀律:加 N 字就要在同一頁砍 N 字")
+        for tt, n, lim, d in over:
+            print(f"     {tt[:34]:36} {n} / 上限 {lim} → 超 {d}")
     if secs > HARD_LIMIT:
         print(f"\n🔴 超出 600 秒硬上限 {secs - HARD_LIMIT:.1f} 秒")
     else:
-        print(f"\n✅ 餘裕 {HARD_LIMIT - secs:.1f} 秒")
-    return 0 if secs <= HARD_LIMIT else 1
+        mark = "⚠️" if over else "✅"
+        tail = " —— 但逐頁超支,不算過關" if over else ""
+        print(f"\n{mark} 全片餘裕 {HARD_LIMIT - secs:.1f} 秒{tail}")
+    return 0 if (secs <= HARD_LIMIT and not over) else 1
 
 
 if __name__ == "__main__":
