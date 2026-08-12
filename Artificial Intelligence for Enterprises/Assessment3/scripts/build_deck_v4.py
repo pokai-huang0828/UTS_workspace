@@ -28,10 +28,12 @@ import importlib
 # ------------------------------------------------------------------
 # 路徑:本檔在 Assessment3/v4/scripts/,共用版面庫在 Assessment3/build_deck.py
 # ------------------------------------------------------------------
-HERE = os.path.dirname(os.path.abspath(__file__))   # .../v4/scripts
-V4 = os.path.dirname(HERE)                          # .../v4
-A3 = os.path.dirname(V4)                            # .../Assessment3
-for _p in (A3, HERE):                               # HERE 讓 deck/ 與 figs/ 可被 import
+HERE = os.path.dirname(os.path.abspath(__file__))   # .../Assessment3/scripts
+V4 = os.path.dirname(HERE)                          # .../Assessment3(攤平前是 .../v4)
+A3 = os.path.dirname(V4)                            # 攤平前是 .../Assessment3
+# 🔴 2026-08-12:commit 7cbd049 把 v4/ 這層拿掉之後,build_deck.py 落在 V4 這一層,
+#    原本只掛 A3 會 ModuleNotFoundError。兩層都掛,攤平前後都能跑。
+for _p in (V4, A3, HERE):                           # HERE 讓 deck/ 與 figs/ 可被 import
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
