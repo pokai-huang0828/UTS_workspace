@@ -1515,3 +1515,33 @@ P2 口白「佔六成到六成四」、P7 卡一「判定仍由人做…設計�
 ### 派工成本帳
 
 - 新增 `A3FONT-FINALQA-03`，預留上限 40k；本 session 三個 scope 預留上限合計 **200k tokens**（低於 1.05M）。協作工具仍未回傳實際 token 用量，不虛報實耗。
+
+---
+
+## 2026-08-13 23:52 · Assessment 3 對外簡報版完成（Codex）
+
+### 使用者回饋與本輪改動
+
+- 使用者指出原版像「對自己講」、比較表太簡陋、排版仍需優化、參考文獻過度分散。
+- 最新交件候選：`Artificial Intelligence for Enterprises/Assessment3/Huang_26254793_421104_Assessment 3_對外簡報_可編輯.pptx`；原始檔與兩個先前優化版均保留，未覆寫。
+- 13 頁全份改成外部主管可理解的企業提案：問題 → 證據 → 四種方案 → 風險／倫理護欄 → KPI → 路線圖 → 投資建議；畫面移除 W/G/R/WP 等內部代碼與未解釋縮寫。
+- P6–8 改為視覺化比較、雙層風險與倫理狀態；P10 改成六泳道路線圖；P11 改為先量測／不承諾的投資決策；P12–13 改為緊湊雙欄、1–15 連續編號。
+- 所有 slide-local 可編輯文字、presentation／slide master／notes master 主題字型均為 `Microsoft JhengHei`。
+
+### R-完成／R-獨立證據
+
+- R-完成：artifact-tool 重建並輸出 13/13 頁；`slides_test.py` = `Test passed. No overflow detected.`；官方 template-fidelity = `pass`、`issueCount: 0`。
+- R-完成：package scan = 13 slides / 13 notes；畫面禁用內語 0 命中；`新細明體 / 細明體 / PMingLiU / MingLiU` 0 命中；Microsoft JhengHei 2,184 命中。
+- R-完成：對最終候選執行實際文字框替換與另存測試，`edited: true`，確認不是圖片化文字且可編輯。
+- R-完成：SHA-256 = `970C85312FAFA6CF611FEF840A537961FD834173609A3F9196EA3F1705935E76`。
+- R-獨立：非產出者 `a3_final_verifier` 逐張 full-size 檢查 13 張 PNG 與 package，判定 **READY**；確認對外語氣、P6–8/P10–13 版面、15 筆文獻、字型與關鍵數字均通過，必修頁碼為無。
+
+### 後續待辦
+
+- 可選：正式錄影若以 Microsoft PowerPoint 播放，Kenny 在場時再補一次 COM／實機播放檢查。
+- 必做：一分鐘試錄 + 鏡頭測試 → 答辯彩排 ×2 → 逐頁錄製 → 8/17 白天交件；持續盯 OLI 答辯時段信。
+
+### 派工成本帳
+
+- 本 session scope：`A3OPT-CONTENT-01` 80k、`A3OPT-FINALQA-02` 80k、`A3FONT-FINALQA-03` 40k、`A3POLISH-DESIGN-04` 60k、`A3EXTERNAL-COPY-05` 60k、`A3EXTERNAL-FINALQA-06` 60k；預留上限合計 **380k tokens**（低於 1.05M）。
+- `A3POLISH-DESIGN-04` 因依賴載入卡住，在實際修改前中止；仍保守保留其 60k 上限。協作工具未回傳實際 token 用量，不虛報實耗。
