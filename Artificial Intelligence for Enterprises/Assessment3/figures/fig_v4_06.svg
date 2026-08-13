@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-08-09T07:43:37.045943</dc:date>
+    <dc:date>2026-08-13T20:25:07.655586</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -35,7 +35,7 @@ L 878.4 410.4
 L 878.4 0 
 L 0 0 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #ffffff"/>
+" clip-path="url(#p4e78db428e)" style="fill: #ffffff"/>
    </g>
    <g id="patch_3">
     <path d="M 50.9472 262.656 
@@ -43,7 +43,7 @@ L 121.2192 262.656
 L 121.2192 191.52 
 L 50.9472 191.52 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #eaf0e7; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: #eaf0e7; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 50.9472 191.52 
@@ -51,7 +51,7 @@ L 121.2192 191.52
 L 121.2192 120.384 
 L 50.9472 120.384 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #f6f6e8; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: #f6f6e8; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
     <path d="M 50.9472 120.384 
@@ -59,7 +59,7 @@ L 121.2192 120.384
 L 121.2192 49.248 
 L 50.9472 49.248 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #fff9e6; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: #fff9e6; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
     <path d="M 121.2192 262.656 
@@ -67,7 +67,7 @@ L 191.4912 262.656
 L 191.4912 191.52 
 L 121.2192 191.52 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #f6f6e8; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: #f6f6e8; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_7">
     <path d="M 121.2192 191.52 
@@ -75,7 +75,7 @@ L 191.4912 191.52
 L 191.4912 120.384 
 L 121.2192 120.384 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #fff9e6; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: #fff9e6; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_8">
     <path d="M 121.2192 120.384 
@@ -83,7 +83,7 @@ L 191.4912 120.384
 L 191.4912 49.248 
 L 121.2192 49.248 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #fcf1e8; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: #fcf1e8; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_9">
     <path d="M 191.4912 262.656 
@@ -91,7 +91,7 @@ L 261.7632 262.656
 L 261.7632 191.52 
 L 191.4912 191.52 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #fff9e6; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: #fff9e6; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_10">
     <path d="M 191.4912 191.52 
@@ -99,7 +99,7 @@ L 261.7632 191.52
 L 261.7632 120.384 
 L 191.4912 120.384 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #fcf1e8; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: #fcf1e8; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_11">
     <path d="M 191.4912 120.384 
@@ -107,7 +107,7 @@ L 261.7632 120.384
 L 261.7632 49.248 
 L 191.4912 49.248 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #f9e8e8; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: #f9e8e8; stroke: #ffffff; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_12">
     <path d="M 439.2 104.940356 
@@ -115,7 +115,7 @@ L 875.7648 104.940356
 L 875.7648 57.8664 
 L 439.2 57.8664 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #f7f9fa"/>
+" clip-path="url(#p4e78db428e)" style="fill: #f7f9fa"/>
    </g>
    <g id="patch_13">
     <path d="M 439.2 139.214311 
@@ -123,7 +123,7 @@ L 875.7648 139.214311
 L 875.7648 104.940356 
 L 439.2 104.940356 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #ffffff"/>
+" clip-path="url(#p4e78db428e)" style="fill: #ffffff"/>
    </g>
    <g id="patch_14">
     <path d="M 439.2 173.488267 
@@ -131,7 +131,7 @@ L 875.7648 173.488267
 L 875.7648 139.214311 
 L 439.2 139.214311 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #f7f9fa"/>
+" clip-path="url(#p4e78db428e)" style="fill: #f7f9fa"/>
    </g>
    <g id="patch_15">
     <path d="M 439.2 220.562222 
@@ -139,7 +139,7 @@ L 875.7648 220.562222
 L 875.7648 173.488267 
 L 439.2 173.488267 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #ffffff"/>
+" clip-path="url(#p4e78db428e)" style="fill: #ffffff"/>
    </g>
    <g id="patch_16">
     <path d="M 439.2 254.836178 
@@ -147,7 +147,7 @@ L 875.7648 254.836178
 L 875.7648 220.562222 
 L 439.2 220.562222 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #f7f9fa"/>
+" clip-path="url(#p4e78db428e)" style="fill: #f7f9fa"/>
    </g>
    <g id="patch_17">
     <path d="M 439.2 289.110133 
@@ -155,7 +155,7 @@ L 875.7648 289.110133
 L 875.7648 254.836178 
 L 439.2 254.836178 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #ffffff"/>
+" clip-path="url(#p4e78db428e)" style="fill: #ffffff"/>
    </g>
    <g id="patch_18">
     <path d="M 439.2 323.384089 
@@ -163,7 +163,7 @@ L 875.7648 323.384089
 L 875.7648 289.110133 
 L 439.2 289.110133 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #f7f9fa"/>
+" clip-path="url(#p4e78db428e)" style="fill: #f7f9fa"/>
    </g>
    <g id="patch_19">
     <path d="M 439.2 357.658044 
@@ -171,7 +171,7 @@ L 875.7648 357.658044
 L 875.7648 323.384089 
 L 439.2 323.384089 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #ffffff"/>
+" clip-path="url(#p4e78db428e)" style="fill: #ffffff"/>
    </g>
    <g id="patch_20">
     <path d="M 439.2 391.932 
@@ -179,7 +179,7 @@ L 875.7648 391.932
 L 875.7648 357.658044 
 L 439.2 357.658044 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #e0e6ec"/>
+" clip-path="url(#p4e78db428e)" style="fill: #e0e6ec"/>
    </g>
    <g id="text_1">
     <!-- 緩解前 -&gt; 殘餘風險位移 -->
@@ -1087,7 +1087,7 @@ L 261.7632 49.248
 L 50.9472 49.248 
 L 50.9472 262.656 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #c6c6c6; stroke-width: 1.2; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #c6c6c6; stroke-width: 1.2; stroke-linejoin: miter"/>
    </g>
    <g id="text_3">
     <!-- 低 -->
@@ -5524,79 +5524,79 @@ L 875.7648 57.8664
 L 875.7648 38.988 
 L 439.2 38.988 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #1f4e79; stroke: #1f4e79; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: #1f4e79; stroke: #1f4e79; stroke-linejoin: miter"/>
    </g>
    <g id="line2d_1">
     <path d="M 439.2 104.940356 
 L 875.7648 104.940356 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_2">
     <path d="M 439.2 139.214311 
 L 875.7648 139.214311 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_3">
     <path d="M 439.2 173.488267 
 L 875.7648 173.488267 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_4">
     <path d="M 439.2 220.562222 
 L 875.7648 220.562222 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_5">
     <path d="M 439.2 254.836178 
 L 875.7648 254.836178 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_6">
     <path d="M 439.2 289.110133 
 L 875.7648 289.110133 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_7">
     <path d="M 439.2 323.384089 
 L 875.7648 323.384089 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_8">
     <path d="M 439.2 357.658044 
 L 875.7648 357.658044 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_9">
     <path d="M 439.2 391.932 
 L 875.7648 391.932 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_10">
     <path d="M 513.416016 57.8664 
 L 513.416016 391.932 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_11">
     <path d="M 701.13888 57.8664 
 L 701.13888 391.932 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #c6c6c6; stroke-width: 0.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_12">
     <path d="M 439.2 374.795022 
 L 430.416 374.795022 
 L 430.416 28.728 
 L 80.8128 28.728 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke-dasharray: 3.06,2.21; stroke-dashoffset: 0; stroke: #c00000; stroke-opacity: 0.45; stroke-width: 0.85"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke-dasharray: 3.06,2.21; stroke-dashoffset: 0; stroke: #c00000; stroke-opacity: 0.45; stroke-width: 0.85"/>
    </g>
    <g id="patch_23">
     <path d="M 80.8128 30.731643 
 Q 80.8128 47.091811 80.8128 62.50165 
-" clip-path="url(#pd73e2309b1)" style="fill: none; opacity: 0.45; stroke-dasharray: 3.06,2.21; stroke-dashoffset: 0; stroke: #c00000; stroke-width: 0.85; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; opacity: 0.45; stroke-dasharray: 3.06,2.21; stroke-dashoffset: 0; stroke: #c00000; stroke-width: 0.85; stroke-linecap: round"/>
     <path d="M 83.0128 58.10165 
 L 80.8128 62.50165 
 L 78.6128 58.10165 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #c00000; opacity: 0.45; stroke-dasharray: 3.06,2.21; stroke-dashoffset: 0; stroke: #c00000; stroke-width: 0.85; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: #c00000; opacity: 0.45; stroke-dasharray: 3.06,2.21; stroke-dashoffset: 0; stroke: #c00000; stroke-width: 0.85; stroke-linecap: round"/>
    </g>
    <g id="patch_24">
     <path d="M 50.9472 24.624 
@@ -5604,7 +5604,7 @@ L 73.7856 24.624
 L 73.7856 20.9304 
 L 50.9472 20.9304 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #e8833a"/>
+" clip-path="url(#p4e78db428e)" style="fill: #e8833a"/>
    </g>
    <g id="patch_25">
     <path d="M 80.8128 101.9952 
@@ -5618,77 +5618,77 @@ C 65.0016 90.377179 66.667568 94.399181 69.632593 97.364207
 C 72.597619 100.329232 76.619621 101.9952 80.8128 101.9952 
 L 80.8128 101.9952 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke-dasharray: 5.4,3.96; stroke-dashoffset: 0; stroke: #c00000; stroke-width: 1.8; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke-dasharray: 5.4,3.96; stroke-dashoffset: 0; stroke: #c00000; stroke-width: 1.8; stroke-linejoin: miter"/>
    </g>
    <g id="patch_26">
     <path d="M 168.836422 158.23162 
 Q 136.918321 149.545476 107.475952 156.828742 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #a4a4a4; stroke-width: 2.6; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #a4a4a4; stroke-width: 2.6; stroke-linecap: round"/>
     <path d="M 112.711826 158.005867 
 L 107.475952 156.828742 
 L 111.559177 153.346318 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #a4a4a4; stroke: #a4a4a4; stroke-width: 2.6; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: #a4a4a4; stroke: #a4a4a4; stroke-width: 2.6; stroke-linecap: round"/>
    </g>
    <g id="patch_27">
     <path d="M 215.873872 164.019906 
 Q 184.213275 164.599561 157.897131 179.754457 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #a4a4a4; stroke-width: 1.3; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #a4a4a4; stroke-width: 1.3; stroke-linecap: round"/>
     <path d="M 163.254405 179.438836 
 L 157.897131 179.754457 
 L 160.858998 175.279265 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #a4a4a4; stroke: #a4a4a4; stroke-width: 1.3; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: #a4a4a4; stroke: #a4a4a4; stroke-width: 1.3; stroke-linecap: round"/>
    </g>
    <g id="patch_28">
     <path d="M 123.776929 107.079795 
 Q 110.214604 146.678254 82.331807 174.063799 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #a4a4a4; stroke-width: 2.6; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #a4a4a4; stroke-width: 2.6; stroke-linecap: round"/>
     <path d="M 87.438038 172.412615 
 L 82.331807 174.063799 
 L 84.074598 168.988104 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #a4a4a4; stroke: #a4a4a4; stroke-width: 2.6; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: #a4a4a4; stroke: #a4a4a4; stroke-width: 2.6; stroke-linecap: round"/>
    </g>
    <g id="patch_29">
     <path d="M 154.091448 68.491239 
 Q 153.284872 102.010228 168.323678 130.52091 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #3a3a3a; stroke-width: 1.3; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #3a3a3a; stroke-width: 1.3; stroke-linecap: round"/>
     <path d="M 168.207011 125.155615 
 L 168.323678 130.52091 
 L 163.961442 127.395066 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #3a3a3a; stroke: #3a3a3a; stroke-width: 1.3; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: #3a3a3a; stroke: #3a3a3a; stroke-width: 1.3; stroke-linecap: round"/>
    </g>
    <g id="patch_30">
     <path d="M 204.998132 70.411717 
 Q 176.67677 124.707387 132.411105 165.005148 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #3a3a3a; stroke-width: 1.3; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #3a3a3a; stroke-width: 1.3; stroke-linecap: round"/>
     <path d="M 137.57622 163.548584 
 L 132.411105 165.005148 
 L 134.344922 159.999117 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #3a3a3a; stroke: #3a3a3a; stroke-width: 1.3; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: #3a3a3a; stroke: #3a3a3a; stroke-width: 1.3; stroke-linecap: round"/>
    </g>
    <g id="patch_31">
     <path d="M 230.586486 105.172423 
 Q 196.771726 117.748791 162.427888 112.213218 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #3a3a3a; stroke-width: 1.3; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #3a3a3a; stroke-width: 1.3; stroke-linecap: round"/>
     <path d="M 166.784822 115.346448 
 L 162.427888 112.213218 
 L 167.548632 110.607609 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #3a3a3a; stroke: #3a3a3a; stroke-width: 1.3; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: #3a3a3a; stroke: #3a3a3a; stroke-width: 1.3; stroke-linecap: round"/>
    </g>
    <g id="patch_32">
     <path d="M 180.9504 68.508294 
 Q 180.9504 72.863177 180.9504 75.429206 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke-dasharray: 3.52,2.72; stroke-dashoffset: 0; stroke: #c00000; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke-dasharray: 3.52,2.72; stroke-dashoffset: 0; stroke: #c00000; stroke-width: 1.6; stroke-linecap: round"/>
     <path d="M 183.3504 70.629206 
 L 180.9504 75.429206 
 L 178.5504 70.629206 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #c00000; stroke-dasharray: 3.52,2.72; stroke-dashoffset: 0; stroke: #c00000; stroke-width: 1.6; stroke-linecap: round"/>
+" clip-path="url(#p4e78db428e)" style="fill: #c00000; stroke-dasharray: 3.52,2.72; stroke-dashoffset: 0; stroke: #c00000; stroke-width: 1.6; stroke-linecap: round"/>
    </g>
    <g id="patch_33">
     <path d="M 50.9472 385.3656 
@@ -5696,7 +5696,7 @@ L 59.7312 385.3656
 L 59.7312 376.3368 
 L 50.9472 376.3368 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #c00000"/>
+" clip-path="url(#p4e78db428e)" style="fill: #c00000"/>
    </g>
    <g id="patch_34">
     <path d="M 164.8512 385.3656 
@@ -5704,7 +5704,7 @@ L 173.6352 385.3656
 L 173.6352 376.3368 
 L 164.8512 376.3368 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #3a3a3a"/>
+" clip-path="url(#p4e78db428e)" style="fill: #3a3a3a"/>
    </g>
    <g id="patch_35">
     <path d="M 287.7552 385.3656 
@@ -5712,7 +5712,7 @@ L 296.5392 385.3656
 L 296.5392 376.3368 
 L 287.7552 376.3368 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #a4a4a4"/>
+" clip-path="url(#p4e78db428e)" style="fill: #a4a4a4"/>
    </g>
    <g id="patch_36">
     <path d="M 439.2 24.624 
@@ -5720,7 +5720,7 @@ L 462.0384 24.624
 L 462.0384 20.9304 
 L 439.2 20.9304 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #e8833a"/>
+" clip-path="url(#p4e78db428e)" style="fill: #e8833a"/>
    </g>
    <g id="patch_37">
     <path d="M 439.2 391.932 
@@ -5728,7 +5728,7 @@ L 442.2744 391.932
 L 442.2744 357.658044 
 L 439.2 357.658044 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #c00000"/>
+" clip-path="url(#p4e78db428e)" style="fill: #c00000"/>
    </g>
    <g id="patch_38">
     <path d="M 439.2 391.932 
@@ -5737,11 +5737,11 @@ L 875.7648 38.988
 L 439.2 38.988 
 L 439.2 391.932 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #c6c6c6; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #c6c6c6; stroke-linejoin: miter"/>
    </g>
    <g id="line2d_13">
     <defs>
-     <path id="m7f11d47086" d="M 0 5 
+     <path id="m4d56bc0fa9" d="M 0 5 
 C 1.326016 5 2.597899 4.473168 3.535534 3.535534 
 C 4.473168 2.597899 5 1.326016 5 0 
 C 5 -1.326016 4.473168 -2.597899 3.535534 -3.535534 
@@ -5753,13 +5753,13 @@ C -2.597899 4.473168 -1.326016 5 0 5
 z
 " style="stroke: #a4a4a4; stroke-width: 1.7"/>
     </defs>
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#m7f11d47086" x="98.3808" y="159.2352" style="fill: #ffffff; stroke: #a4a4a4; stroke-width: 1.7"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#m4d56bc0fa9" x="98.3808" y="159.2352" style="fill: #ffffff; stroke: #a4a4a4; stroke-width: 1.7"/>
     </g>
    </g>
    <g id="line2d_14">
     <defs>
-     <path id="m4b4a11b7c1" d="M 0 8 
+     <path id="mb183739765" d="M 0 8 
 C 2.121625 8 4.156639 7.15707 5.656854 5.656854 
 C 7.15707 4.156639 8 2.121625 8 0 
 C 8 -2.121625 7.15707 -4.156639 5.656854 -5.656854 
@@ -5771,33 +5771,33 @@ C -4.156639 7.15707 -2.121625 8 0 8
 z
 "/>
     </defs>
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#m4b4a11b7c1" x="177.4368" y="160.8768" style="fill: #a4a4a4"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#mb183739765" x="177.4368" y="160.8768" style="fill: #a4a4a4"/>
     </g>
    </g>
    <g id="line2d_15">
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#m7f11d47086" x="151.0848" y="183.8592" style="fill: #ffffff; stroke: #a4a4a4; stroke-width: 1.7"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#m4d56bc0fa9" x="151.0848" y="183.8592" style="fill: #ffffff; stroke: #a4a4a4; stroke-width: 1.7"/>
     </g>
    </g>
    <g id="line2d_16">
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#m4b4a11b7c1" x="224.8704" y="164.16" style="fill: #a4a4a4"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#mb183739765" x="224.8704" y="164.16" style="fill: #a4a4a4"/>
     </g>
    </g>
    <g id="line2d_17">
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#m7f11d47086" x="75.5424" y="180.576" style="fill: #ffffff; stroke: #a4a4a4; stroke-width: 1.7"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#m4d56bc0fa9" x="75.5424" y="180.576" style="fill: #ffffff; stroke: #a4a4a4; stroke-width: 1.7"/>
     </g>
    </g>
    <g id="line2d_18">
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#m4b4a11b7c1" x="126.4896" y="98.496" style="fill: #a4a4a4"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#mb183739765" x="126.4896" y="98.496" style="fill: #a4a4a4"/>
     </g>
    </g>
    <g id="line2d_19">
     <defs>
-     <path id="mc6ea378698" d="M 0 5 
+     <path id="mc709faee7b" d="M 0 5 
 C 1.326016 5 2.597899 4.473168 3.535534 3.535534 
 C 4.473168 2.597899 5 1.326016 5 0 
 C 5 -1.326016 4.473168 -2.597899 3.535534 -3.535534 
@@ -5809,13 +5809,13 @@ C -2.597899 4.473168 -1.326016 5 0 5
 z
 " style="stroke: #3a3a3a; stroke-width: 1.7"/>
     </defs>
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#mc6ea378698" x="172.1664" y="137.484" style="fill: #ffffff; stroke: #3a3a3a; stroke-width: 1.7"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#mc709faee7b" x="172.1664" y="137.484" style="fill: #ffffff; stroke: #3a3a3a; stroke-width: 1.7"/>
     </g>
    </g>
    <g id="line2d_20">
     <defs>
-     <path id="mefd98e9e39" d="M 0 8 
+     <path id="m9f46c5f691" d="M 0 8 
 C 2.121625 8 4.156639 7.15707 5.656854 5.656854 
 C 7.15707 4.156639 8 2.121625 8 0 
 C 8 -2.121625 7.15707 -4.156639 5.656854 -5.656854 
@@ -5827,33 +5827,33 @@ C -4.156639 7.15707 -2.121625 8 0 8
 z
 "/>
     </defs>
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#mefd98e9e39" x="154.5984" y="59.508" style="fill: #3a3a3a"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#m9f46c5f691" x="154.5984" y="59.508" style="fill: #3a3a3a"/>
     </g>
    </g>
    <g id="line2d_21">
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#mc6ea378698" x="126.4896" y="170.316" style="fill: #ffffff; stroke: #3a3a3a; stroke-width: 1.7"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#mc709faee7b" x="126.4896" y="170.316" style="fill: #ffffff; stroke: #3a3a3a; stroke-width: 1.7"/>
     </g>
    </g>
    <g id="line2d_22">
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#mefd98e9e39" x="209.0592" y="62.3808" style="fill: #3a3a3a"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#m9f46c5f691" x="209.0592" y="62.3808" style="fill: #3a3a3a"/>
     </g>
    </g>
    <g id="line2d_23">
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#mc6ea378698" x="154.5984" y="110.808" style="fill: #ffffff; stroke: #3a3a3a; stroke-width: 1.7"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#mc709faee7b" x="154.5984" y="110.808" style="fill: #ffffff; stroke: #3a3a3a; stroke-width: 1.7"/>
     </g>
    </g>
    <g id="line2d_24">
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#mefd98e9e39" x="238.9248" y="101.7792" style="fill: #3a3a3a"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#m9f46c5f691" x="238.9248" y="101.7792" style="fill: #3a3a3a"/>
     </g>
    </g>
    <g id="line2d_25">
     <defs>
-     <path id="m0852962ff8" d="M 0 5 
+     <path id="m2ed6ac63a3" d="M 0 5 
 C 1.326016 5 2.597899 4.473168 3.535534 3.535534 
 C 4.473168 2.597899 5 1.326016 5 0 
 C 5 -1.326016 4.473168 -2.597899 3.535534 -3.535534 
@@ -5865,13 +5865,13 @@ C -2.597899 4.473168 -1.326016 5 0 5
 z
 " style="stroke: #c00000; stroke-width: 1.7"/>
     </defs>
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#m0852962ff8" x="180.9504" y="83.7216" style="fill: #ffffff; stroke: #c00000; stroke-width: 1.7"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#m2ed6ac63a3" x="180.9504" y="83.7216" style="fill: #ffffff; stroke: #c00000; stroke-width: 1.7"/>
     </g>
    </g>
    <g id="line2d_26">
     <defs>
-     <path id="m18b1b06529" d="M 0 8 
+     <path id="m0dc2bb8b3c" d="M 0 8 
 C 2.121625 8 4.156639 7.15707 5.656854 5.656854 
 C 7.15707 4.156639 8 2.121625 8 0 
 C 8 -2.121625 7.15707 -4.156639 5.656854 -5.656854 
@@ -5883,13 +5883,13 @@ C -4.156639 7.15707 -2.121625 8 0 8
 z
 "/>
     </defs>
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#m18b1b06529" x="180.9504" y="59.508" style="fill: #c00000"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#m0dc2bb8b3c" x="180.9504" y="59.508" style="fill: #c00000"/>
     </g>
    </g>
    <g id="line2d_27">
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#m18b1b06529" x="80.8128" y="86.184" style="fill: #c00000"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#m0dc2bb8b3c" x="80.8128" y="86.184" style="fill: #c00000"/>
     </g>
    </g>
    <g id="patch_39">
@@ -5898,67 +5898,83 @@ L 278.4528 74.2912
 L 278.4528 66.3552 
 L 270.5472 66.3552 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #3a3a3a"/>
+" clip-path="url(#p4e78db428e)" style="fill: #3a3a3a"/>
    </g>
    <g id="patch_40">
-    <path d="M 270.5472 98.119771 
-L 278.4528 98.119771 
-L 278.4528 90.183771 
-L 270.5472 90.183771 
+    <path d="M 270.5472 92.824533 
+L 278.4528 92.824533 
+L 278.4528 84.888533 
+L 270.5472 84.888533 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #3a3a3a"/>
+" clip-path="url(#p4e78db428e)" style="fill: #3a3a3a"/>
    </g>
    <g id="patch_41">
-    <path d="M 270.5472 134.748343 
-L 278.4528 134.748343 
-L 278.4528 126.812343 
-L 270.5472 126.812343 
+    <path d="M 270.5472 124.157867 
+L 278.4528 124.157867 
+L 278.4528 116.221867 
+L 270.5472 116.221867 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #3a3a3a"/>
+" clip-path="url(#p4e78db428e)" style="fill: #3a3a3a"/>
    </g>
    <g id="patch_42">
-    <path d="M 270.5472 158.576914 
-L 278.4528 158.576914 
-L 278.4528 150.640914 
-L 270.5472 150.640914 
+    <path d="M 270.5472 142.6912 
+L 278.4528 142.6912 
+L 278.4528 134.7552 
+L 270.5472 134.7552 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #c00000"/>
+" clip-path="url(#p4e78db428e)" style="fill: #c00000"/>
    </g>
    <g id="patch_43">
-    <path d="M 270.5472 182.405486 
-L 278.4528 182.405486 
-L 278.4528 174.469486 
-L 270.5472 174.469486 
+    <path d="M 270.5472 161.224533 
+L 278.4528 161.224533 
+L 278.4528 153.288533 
+L 270.5472 153.288533 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #a4a4a4"/>
+" clip-path="url(#p4e78db428e)" style="fill: #a4a4a4"/>
    </g>
    <g id="patch_44">
-    <path d="M 270.5472 206.234057 
-L 278.4528 206.234057 
-L 278.4528 198.298057 
-L 270.5472 198.298057 
+    <path d="M 270.5472 179.757867 
+L 278.4528 179.757867 
+L 278.4528 171.821867 
+L 270.5472 171.821867 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #a4a4a4"/>
+" clip-path="url(#p4e78db428e)" style="fill: #a4a4a4"/>
    </g>
    <g id="patch_45">
-    <path d="M 270.5472 230.062629 
-L 278.4528 230.062629 
-L 278.4528 222.126629 
-L 270.5472 222.126629 
+    <path d="M 270.5472 198.2912 
+L 278.4528 198.2912 
+L 278.4528 190.3552 
+L 270.5472 190.3552 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #a4a4a4"/>
+" clip-path="url(#p4e78db428e)" style="fill: #a4a4a4"/>
    </g>
    <g id="patch_46">
+    <path d="M 270.5472 216.824533 
+L 278.4528 216.824533 
+L 278.4528 208.888533 
+L 270.5472 208.888533 
+z
+" clip-path="url(#p4e78db428e)" style="fill: #c00000"/>
+   </g>
+   <g id="patch_47">
+    <path d="M 270.5472 235.357867 
+L 278.4528 235.357867 
+L 278.4528 227.421867 
+L 270.5472 227.421867 
+z
+" clip-path="url(#p4e78db428e)" style="fill: #c00000"/>
+   </g>
+   <g id="patch_48">
     <path d="M 270.5472 253.8912 
 L 278.4528 253.8912 
 L 278.4528 245.9552 
 L 270.5472 245.9552 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: #c00000"/>
+" clip-path="url(#p4e78db428e)" style="fill: #c00000"/>
    </g>
    <g id="line2d_28">
     <defs>
-     <path id="mb00afd7ade" d="M 0 5.5 
+     <path id="mc1afd2749c" d="M 0 5.5 
 C 1.458617 5.5 2.857689 4.920485 3.889087 3.889087 
 C 4.920485 2.857689 5.5 1.458617 5.5 0 
 C 5.5 -1.458617 4.920485 -2.857689 3.889087 -3.889087 
@@ -5970,13 +5986,13 @@ C -2.857689 4.920485 -1.458617 5.5 0 5.5
 z
 " style="stroke: #3a3a3a"/>
     </defs>
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#mb00afd7ade" x="56.2176" y="319.2912" style="fill: #3a3a3a; stroke: #3a3a3a"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#mc1afd2749c" x="56.2176" y="319.2912" style="fill: #3a3a3a; stroke: #3a3a3a"/>
     </g>
    </g>
    <g id="line2d_29">
     <defs>
-     <path id="m931efcf7b3" d="M 0 4 
+     <path id="md26c553902" d="M 0 4 
 C 1.060812 4 2.078319 3.578535 2.828427 2.828427 
 C 3.578535 2.078319 4 1.060812 4 0 
 C 4 -1.060812 3.578535 -2.078319 2.828427 -2.828427 
@@ -5988,11 +6004,11 @@ C -2.078319 3.578535 -1.060812 4 0 4
 z
 " style="stroke: #3a3a3a; stroke-width: 1.6"/>
     </defs>
-    <g clip-path="url(#pd73e2309b1)">
-     <use xlink:href="#m931efcf7b3" x="119.232" y="319.2912" style="fill: #ffffff; stroke: #3a3a3a; stroke-width: 1.6"/>
+    <g clip-path="url(#p4e78db428e)">
+     <use xlink:href="#md26c553902" x="119.232" y="319.2912" style="fill: #ffffff; stroke: #3a3a3a; stroke-width: 1.6"/>
     </g>
    </g>
-   <g id="patch_47">
+   <g id="patch_49">
     <path d="M 193.0032 326.7576 
 C 194.983312 326.7576 196.882591 325.970893 198.282742 324.570742 
 C 199.682893 323.170591 200.4696 321.271312 200.4696 319.2912 
@@ -6004,22 +6020,22 @@ C 185.5368 321.271312 186.323507 323.170591 187.723658 324.570742
 C 189.123809 325.970893 191.023088 326.7576 193.0032 326.7576 
 L 193.0032 326.7576 
 z
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke-dasharray: 3.36,2.52; stroke-dashoffset: 0; stroke: #c00000; stroke-width: 1.4; stroke-linejoin: miter"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke-dasharray: 3.36,2.52; stroke-dashoffset: 0; stroke: #c00000; stroke-width: 1.4; stroke-linejoin: miter"/>
    </g>
    <g id="line2d_30">
     <path d="M 176.9184 348.84 
 L 196.2432 348.84 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #242424; stroke-width: 2.6; stroke-linecap: square"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #242424; stroke-width: 2.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_31">
     <path d="M 229.8384 348.84 
 L 249.1632 348.84 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke: #242424; stroke-width: 1.3; stroke-linecap: square"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke: #242424; stroke-width: 1.3; stroke-linecap: square"/>
    </g>
    <g id="line2d_32">
     <path d="M 282.7584 348.84 
 L 302.0832 348.84 
-" clip-path="url(#pd73e2309b1)" style="fill: none; stroke-dasharray: 3.52,2.72; stroke-dashoffset: 0; stroke: #242424; stroke-width: 1.6"/>
+" clip-path="url(#p4e78db428e)" style="fill: none; stroke-dasharray: 3.52,2.72; stroke-dashoffset: 0; stroke: #242424; stroke-width: 1.6"/>
    </g>
    <g id="text_22">
     <!-- 編號與類別 -->
@@ -6885,7 +6901,7 @@ z
    </g>
    <g id="text_36">
     <!-- R2   -->
-    <g style="fill: #242424" transform="translate(284.6016 98.313678) scale(0.1 -0.1)">
+    <g style="fill: #242424" transform="translate(284.6016 93.01844) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiBold-52"/>
      <use xlink:href="#MicrosoftJhengHeiBold-32" x="66.650391"/>
      <use xlink:href="#MicrosoftJhengHeiBold-20" x="126.220703"/>
@@ -6894,7 +6910,7 @@ z
    </g>
    <g id="text_37">
     <!-- 資料級聯 -->
-    <g style="fill: #242424" transform="translate(302.2416 98.313678) scale(0.1 -0.1)">
+    <g style="fill: #242424" transform="translate(302.2416 93.01844) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-7d1a" d="M 2906 1544 
 L 2619 1434 
@@ -7071,7 +7087,7 @@ z
    </g>
    <g id="text_38">
     <!-- R3   -->
-    <g style="fill: #242424" transform="translate(284.6016 122.142249) scale(0.1 -0.1)">
+    <g style="fill: #242424" transform="translate(284.6016 111.551773) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiBold-52"/>
      <use xlink:href="#MicrosoftJhengHeiBold-33" x="66.650391"/>
      <use xlink:href="#MicrosoftJhengHeiBold-20" x="126.220703"/>
@@ -7080,7 +7096,7 @@ z
    </g>
    <g id="text_39">
     <!-- 自動化偏差 -->
-    <g style="fill: #242424" transform="translate(302.3316 122.142249) scale(0.1 -0.1)">
+    <g style="fill: #242424" transform="translate(302.3316 111.551773) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-81ea" d="M 5422 -325 
 L 5075 -325 
@@ -7371,7 +7387,7 @@ z
    </g>
    <g id="text_40">
     <!-- (Parasuraman &amp; Manzey, 2010) -->
-    <g style="fill: #737373" transform="translate(284.6016 134.614827) scale(0.09 -0.09)">
+    <g style="fill: #737373" transform="translate(284.6016 124.024351) scale(0.09 -0.09)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-50" d="M 1172 1838 
 L 1172 0 
@@ -7643,7 +7659,7 @@ z
    </g>
    <g id="text_41">
     <!-- R4  無申訴管道 (幾乎沒動) -->
-    <g style="fill: #c00000" transform="translate(284.6016 158.770821) scale(0.1 -0.1)">
+    <g style="fill: #c00000" transform="translate(284.6016 142.885106) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiBold-7121" d="M 6016 1288 
 L 453 1288 
@@ -8271,7 +8287,7 @@ z
    </g>
    <g id="text_42">
     <!-- R5   -->
-    <g style="fill: #242424" transform="translate(284.6016 182.599392) scale(0.1 -0.1)">
+    <g style="fill: #242424" transform="translate(284.6016 161.41844) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiBold-52"/>
      <use xlink:href="#MicrosoftJhengHeiBold-35" x="66.650391"/>
      <use xlink:href="#MicrosoftJhengHeiBold-20" x="126.220703"/>
@@ -8280,7 +8296,7 @@ z
    </g>
    <g id="text_43">
     <!-- 角色改變抵觸 -->
-    <g style="fill: #242424" transform="translate(302.2416 182.599392) scale(0.1 -0.1)">
+    <g style="fill: #242424" transform="translate(302.2416 161.41844) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-89d2" d="M 5697 134 
 Q 5697 -56 5559 -187 
@@ -8766,7 +8782,7 @@ z
    </g>
    <g id="text_44">
     <!-- R6   -->
-    <g style="fill: #242424" transform="translate(284.6016 206.427963) scale(0.1 -0.1)">
+    <g style="fill: #242424" transform="translate(284.6016 179.951773) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiBold-52"/>
      <use xlink:href="#MicrosoftJhengHeiBold-36" x="66.650391"/>
      <use xlink:href="#MicrosoftJhengHeiBold-20" x="126.220703"/>
@@ -8775,7 +8791,7 @@ z
    </g>
    <g id="text_45">
     <!-- 回本難證與競合 -->
-    <g style="fill: #242424" transform="translate(302.2416 206.427963) scale(0.1 -0.1)">
+    <g style="fill: #242424" transform="translate(302.2416 179.951773) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-56de" d="M 5728 -325 
 L 5369 -325 
@@ -9200,7 +9216,7 @@ z
    </g>
    <g id="text_46">
     <!-- R7   -->
-    <g style="fill: #242424" transform="translate(284.6016 230.256535) scale(0.1 -0.1)">
+    <g style="fill: #242424" transform="translate(284.6016 198.485106) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiBold-52"/>
      <use xlink:href="#MicrosoftJhengHeiBold-37" x="66.650391"/>
      <use xlink:href="#MicrosoftJhengHeiBold-20" x="126.220703"/>
@@ -9209,7 +9225,7 @@ z
    </g>
    <g id="text_47">
     <!-- 缺高層支持 -->
-    <g style="fill: #242424" transform="translate(302.2416 230.256535) scale(0.1 -0.1)">
+    <g style="fill: #242424" transform="translate(302.2416 198.485106) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiRegular-7f3a" d="M 2859 2688 
 L 1869 2688 
@@ -9472,7 +9488,7 @@ z
    </g>
    <g id="text_48">
     <!-- R8  誤報紀錄舉證地位 -->
-    <g style="fill: #c00000" transform="translate(284.6016 254.085106) scale(0.1 -0.1)">
+    <g style="fill: #c00000" transform="translate(284.6016 217.01844) scale(0.1 -0.1)">
      <defs>
       <path id="MicrosoftJhengHeiBold-8aa4" d="M 2438 4159 
 L 434 4159 
@@ -10052,13 +10068,445 @@ z
     </g>
    </g>
    <g id="text_49">
+    <!-- R9  自動結案的漏放 -->
+    <g style="fill: #c00000" transform="translate(284.6016 235.551773) scale(0.1 -0.1)">
+     <defs>
+      <path id="MicrosoftJhengHeiBold-39" d="M 566 744 
+Q 969 506 1444 506 
+Q 2078 506 2418 987 
+Q 2759 1469 2759 2338 
+Q 2750 2338 2744 2341 
+Q 2428 1772 1700 1772 
+Q 1084 1772 692 2200 
+Q 300 2628 300 3272 
+Q 300 3997 745 4459 
+Q 1191 4922 1906 4922 
+Q 2659 4922 3073 4340 
+Q 3488 3759 3488 2691 
+Q 3488 1391 2966 655 
+Q 2444 -81 1472 -81 
+Q 950 -81 566 88 
+L 566 744 
+z
+M 1031 3353 
+Q 1031 2903 1261 2636 
+Q 1491 2369 1897 2369 
+Q 2250 2369 2486 2612 
+Q 2722 2856 2722 3209 
+Q 2722 3675 2489 4003 
+Q 2256 4331 1863 4331 
+Q 1497 4331 1264 4047 
+Q 1031 3763 1031 3353 
+z
+" transform="scale(0.015625)"/>
+      <path id="MicrosoftJhengHeiBold-81ea" d="M 5491 -319 
+L 4903 -319 
+L 4903 6 
+L 1544 6 
+L 1544 -319 
+L 959 -319 
+L 959 4575 
+L 2503 4575 
+Q 2684 4863 2822 5300 
+L 3444 5197 
+Q 3344 4850 3163 4575 
+L 5491 4575 
+L 5491 -319 
+z
+M 4903 3272 
+L 4903 4019 
+L 1544 4019 
+L 1544 3272 
+L 4903 3272 
+z
+M 4903 1947 
+L 4903 2731 
+L 1544 2731 
+L 1544 1947 
+L 4903 1947 
+z
+M 4903 556 
+L 4903 1409 
+L 1544 1409 
+L 1544 556 
+L 4903 556 
+z
+" transform="scale(0.015625)"/>
+      <path id="MicrosoftJhengHeiBold-7d50" d="M 2803 1697 
+L 2344 1491 
+Q 2319 1606 2266 1753 
+Q 1447 1538 569 1381 
+L 441 1863 
+Q 966 2266 1522 3103 
+Q 1044 3028 594 2988 
+L 475 3438 
+Q 1072 4066 1606 5331 
+L 2125 5131 
+Q 1731 4263 1184 3553 
+Q 1584 3597 1863 3669 
+Q 2022 3928 2131 4166 
+L 2631 3922 
+Q 2013 2756 1269 2016 
+Q 1556 2063 2081 2216 
+Q 2009 2397 1947 2509 
+L 2394 2713 
+Q 2647 2247 2803 1697 
+z
+M 6009 3963 
+L 4628 3963 
+L 4628 3256 
+L 5888 3256 
+L 5888 2731 
+L 2869 2731 
+L 2869 3256 
+L 4056 3256 
+L 4056 3963 
+L 2688 3963 
+L 2688 4506 
+L 4056 4506 
+L 4056 5253 
+L 4628 5253 
+L 4628 4506 
+L 6009 4506 
+L 6009 3963 
+z
+M 5778 -325 
+L 5203 -325 
+L 5203 -25 
+L 3566 -25 
+L 3566 -325 
+L 2969 -325 
+L 2969 2131 
+L 5778 2131 
+L 5778 -325 
+z
+M 5203 506 
+L 5203 1600 
+L 3566 1600 
+L 3566 506 
+L 5203 506 
+z
+M 2869 263 
+L 2413 128 
+Q 2331 694 2113 1281 
+L 2559 1409 
+Q 2803 769 2869 263 
+z
+M 2113 -56 
+L 1619 -191 
+Q 1597 406 1428 1178 
+L 1881 1288 
+Q 2050 688 2113 -56 
+z
+M 1259 1141 
+Q 1134 294 863 -366 
+L 391 -147 
+Q 672 563 769 1281 
+L 1259 1141 
+z
+" transform="scale(0.015625)"/>
+      <path id="MicrosoftJhengHeiBold-6f0f" d="M 1838 4459 
+L 1416 4056 
+Q 966 4584 519 4903 
+L 959 5319 
+Q 1506 4894 1838 4459 
+z
+M 5838 3794 
+L 2503 3794 
+L 2503 2284 
+Q 2503 881 1813 -378 
+L 1375 50 
+Q 1947 1028 1947 2375 
+L 1947 5172 
+L 5838 5172 
+L 5838 3794 
+z
+M 5275 4294 
+L 5275 4678 
+L 2503 4678 
+L 2503 4294 
+L 5275 4294 
+z
+M 1753 2828 
+L 1363 2400 
+Q 869 2972 403 3256 
+L 794 3694 
+Q 1381 3319 1753 2828 
+z
+M 6022 2956 
+L 4575 2956 
+L 4575 2606 
+L 5875 2606 
+L 5875 269 
+Q 5875 -6 5723 -175 
+Q 5572 -344 4934 -306 
+L 4800 213 
+Q 4956 203 5069 203 
+Q 5269 203 5319 240 
+Q 5369 278 5369 359 
+L 5369 2131 
+L 4575 2131 
+L 4575 -313 
+L 4063 -313 
+L 4063 2131 
+L 3291 2131 
+L 3291 -313 
+L 2772 -313 
+L 2772 2597 
+L 4063 2597 
+L 4063 2956 
+L 2688 2956 
+L 2688 3456 
+L 6022 3456 
+L 6022 2956 
+z
+M 1625 1759 
+Q 1303 484 872 -347 
+L 391 19 
+Q 825 841 1131 2119 
+L 1625 1759 
+z
+M 3963 1509 
+L 3622 1241 
+Q 3522 1491 3372 1716 
+L 3688 1991 
+Q 3834 1797 3963 1509 
+z
+M 5281 1656 
+Q 5122 1431 4909 1247 
+L 4653 1563 
+Q 4822 1716 4997 1984 
+L 5281 1656 
+z
+M 3963 838 
+Q 3844 563 3653 325 
+L 3353 622 
+Q 3513 813 3653 1119 
+L 3963 838 
+z
+M 5275 594 
+L 4978 300 
+Q 4825 600 4659 806 
+L 4934 1106 
+Q 5169 828 5275 594 
+z
+" transform="scale(0.015625)"/>
+      <path id="MicrosoftJhengHeiBold-653e" d="M 6041 97 
+L 5722 -378 
+Q 4925 28 4403 594 
+Q 3863 38 3138 -359 
+L 2803 116 
+Q 3538 472 4056 1038 
+Q 3688 1638 3506 2363 
+L 4019 2566 
+Q 4184 1941 4403 1538 
+Q 4859 2334 4972 3775 
+L 4044 3775 
+Q 3734 2831 3316 2194 
+L 2913 2597 
+Q 3547 3619 3847 5344 
+L 4391 5209 
+Q 4328 4850 4197 4331 
+L 5972 4331 
+L 5972 3775 
+L 5522 3775 
+Q 5372 1944 4750 1050 
+Q 5253 478 6041 97 
+z
+M 3122 3944 
+L 1625 3944 
+Q 1625 3544 1613 3163 
+L 2828 3163 
+Q 2828 2056 2789 1161 
+Q 2750 266 2686 62 
+Q 2622 -141 2462 -231 
+Q 2303 -322 1988 -322 
+Q 1816 -322 1631 -306 
+L 1484 244 
+Q 1791 231 1966 231 
+Q 2169 231 2198 515 
+Q 2228 800 2259 2613 
+L 1581 2613 
+Q 1503 666 756 -341 
+L 378 178 
+Q 725 666 903 1433 
+Q 1081 2200 1069 3944 
+L 434 3944 
+L 434 4481 
+L 1581 4481 
+Q 1453 4897 1325 5203 
+L 1894 5313 
+Q 2028 5000 2169 4481 
+L 3122 4481 
+L 3122 3944 
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#MicrosoftJhengHeiBold-52"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-39" x="66.650391"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-20" x="126.220703"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-20" x="151.220703"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-81ea" x="176.220703"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-52d5" x="276.220703"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-7d50" x="376.220703"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-6848" x="476.220703"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-7684" x="576.220703"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-6f0f" x="676.220703"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-653e" x="776.220703"/>
+    </g>
+   </g>
+   <g id="text_50">
+    <!-- R10  自動結案的冤枉 -->
+    <g style="fill: #c00000" transform="translate(284.6016 254.085106) scale(0.1 -0.1)">
+     <defs>
+      <path id="MicrosoftJhengHeiBold-30" d="M 272 2328 
+Q 272 3603 708 4262 
+Q 1144 4922 1972 4922 
+Q 3550 4922 3550 2444 
+Q 3550 1231 3119 575 
+Q 2688 -81 1869 -81 
+Q 1078 -81 675 537 
+Q 272 1156 272 2328 
+z
+M 1019 2356 
+Q 1019 506 1916 506 
+Q 2800 506 2800 2394 
+Q 2800 4331 1934 4331 
+Q 1019 4331 1019 2356 
+z
+" transform="scale(0.015625)"/>
+      <path id="MicrosoftJhengHeiBold-51a4" d="M 6053 744 
+Q 6028 231 5870 -34 
+Q 5713 -300 5294 -300 
+L 3897 -300 
+Q 3544 -278 3397 -136 
+Q 3250 6 3250 288 
+L 3250 1466 
+Q 2647 144 716 -372 
+L 391 122 
+Q 2006 500 2619 1453 
+L 1038 1453 
+L 1038 2753 
+Q 863 2653 728 2606 
+L 403 3078 
+Q 1663 3681 2338 4588 
+L 1178 4588 
+L 1178 3847 
+L 594 3847 
+L 594 5119 
+L 5869 5119 
+L 5869 3847 
+L 5275 3847 
+L 5275 4588 
+L 2572 4588 
+L 2906 4409 
+Q 2763 4203 2700 4134 
+L 4634 4134 
+L 4634 3628 
+Q 4316 3272 4159 3122 
+L 5422 3122 
+L 5422 1453 
+L 3809 1453 
+L 3809 416 
+Q 3809 291 3912 256 
+Q 4016 222 4813 222 
+Q 5278 222 5350 270 
+Q 5422 319 5465 484 
+Q 5509 650 5509 903 
+L 6053 744 
+z
+M 3878 3628 
+L 2234 3628 
+Q 2038 3447 1619 3122 
+L 3406 3122 
+Q 3800 3534 3878 3628 
+z
+M 4850 1966 
+L 4850 2619 
+L 3513 2619 
+Q 3497 2291 3425 1966 
+L 4850 1966 
+z
+M 2938 2619 
+L 1594 2619 
+L 1594 1966 
+L 2828 1966 
+Q 2903 2238 2938 2619 
+z
+M 5294 794 
+L 4959 391 
+Q 4519 716 4038 928 
+L 4331 1338 
+Q 4909 1091 5294 794 
+z
+" transform="scale(0.015625)"/>
+      <path id="MicrosoftJhengHeiBold-6789" d="M 2797 3603 
+L 1966 3603 
+L 1966 3406 
+Q 2384 2922 2656 2516 
+L 2316 2047 
+Q 2103 2466 1966 2644 
+L 1966 -325 
+L 1416 -325 
+L 1416 2478 
+Q 1078 1628 703 1209 
+L 378 1709 
+Q 966 2441 1381 3603 
+L 488 3603 
+L 488 4153 
+L 1416 4153 
+L 1416 5269 
+L 1966 5269 
+L 1966 4153 
+L 2797 4153 
+L 2797 3603 
+z
+M 6009 -191 
+L 2472 -191 
+L 2472 359 
+L 3950 359 
+L 3950 2291 
+L 2784 2291 
+L 2784 2834 
+L 3950 2834 
+L 3950 4569 
+L 2638 4569 
+L 2638 5119 
+L 5875 5119 
+L 5875 4569 
+L 4525 4569 
+L 4525 2834 
+L 5728 2834 
+L 5728 2291 
+L 4525 2291 
+L 4525 359 
+L 6009 359 
+L 6009 -191 
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#MicrosoftJhengHeiBold-52"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-31" x="66.650391"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-30" x="126.220703"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-20" x="185.791016"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-20" x="210.791016"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-81ea" x="235.791016"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-52d5" x="335.791016"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-7d50" x="435.791016"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-6848" x="535.791016"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-7684" x="635.791016"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-51a4" x="735.791016"/>
+     <use xlink:href="#MicrosoftJhengHeiBold-6789" x="835.791016"/>
+    </g>
+   </g>
+   <g id="text_51">
     <!-- R1 -->
     <g style="fill: #242424" transform="translate(442.88928 77.757284) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiBold-52"/>
      <use xlink:href="#MicrosoftJhengHeiBold-31" x="66.650391"/>
     </g>
    </g>
-   <g id="text_50">
+   <g id="text_52">
     <!-- 技術局限 -->
     <g style="fill: #242424" transform="translate(442.88928 90.557284) scale(0.1 -0.1)">
      <defs>
@@ -10303,7 +10751,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-9650" x="300"/>
     </g>
    </g>
-   <g id="text_51">
+   <g id="text_53">
     <!-- 解釋:規則式脈絡層可逐條檢查;複核介面 -->
     <g style="fill: #242424" transform="translate(517.105296 71.357284) scale(0.1 -0.1)">
      <defs>
@@ -11146,7 +11594,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-9762" x="1646.09375"/>
     </g>
    </g>
-   <g id="text_52">
+   <g id="text_54">
     <!-- 顯示外部證據(該路段速限來源)而非信心 -->
     <g style="fill: #242424" transform="translate(517.105296 84.157284) scale(0.1 -0.1)">
      <defs>
@@ -12067,7 +12515,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-5fc3" x="1664.160156"/>
     </g>
    </g>
-   <g id="text_53">
+   <g id="text_55">
     <!-- 分數 -->
     <g style="fill: #242424" transform="translate(517.105296 96.957284) scale(0.1 -0.1)">
      <defs>
@@ -12226,7 +12674,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-6578" x="100"/>
     </g>
    </g>
-   <g id="text_54">
+   <g id="text_56">
     <!-- 複核者推翻模型判定的比例居高不下 -->
     <g style="fill: #242424" transform="translate(704.82816 77.757284) scale(0.1 -0.1)">
      <defs>
@@ -12797,7 +13245,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-4e0b" x="1500"/>
     </g>
    </g>
-   <g id="text_55">
+   <g id="text_57">
     <!-- 或不降 -->
     <g style="fill: #242424" transform="translate(704.82816 90.557284) scale(0.1 -0.1)">
      <defs>
@@ -12876,21 +13324,21 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-964d" x="200"/>
     </g>
    </g>
-   <g id="text_56">
+   <g id="text_58">
     <!-- R2 -->
     <g style="fill: #242424" transform="translate(442.88928 118.43124) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiBold-52"/>
      <use xlink:href="#MicrosoftJhengHeiBold-32" x="66.650391"/>
     </g>
    </g>
-   <g id="text_57">
+   <g id="text_59">
     <!-- 數據 -->
     <g style="fill: #242424" transform="translate(442.88928 131.23124) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiRegular-6578"/>
      <use xlink:href="#MicrosoftJhengHeiRegular-64da" x="100"/>
     </g>
    </g>
-   <g id="text_58">
+   <g id="text_60">
     <!-- 審計:黃金題 + 抽樣雙人複核 + 脈絡資料 -->
     <g style="fill: #242424" transform="translate(517.105296 118.43124) scale(0.1 -0.1)">
      <defs>
@@ -13569,7 +14017,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-6599" x="1670.507812"/>
     </g>
    </g>
-   <g id="text_59">
+   <g id="text_61">
     <!-- 來源版本快照 -->
     <g style="fill: #242424" transform="translate(517.105296 131.23124) scale(0.1 -0.1)">
      <defs>
@@ -13751,7 +14199,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-7167" x="500"/>
     </g>
    </g>
-   <g id="text_60">
+   <g id="text_62">
     <!-- 交通標誌根因佔比偏離基準(基準見頁 -->
     <g style="fill: #242424" transform="translate(704.82816 118.43124) scale(0.1 -0.1)">
      <defs>
@@ -14550,7 +14998,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-9801" x="1532.080078"/>
     </g>
    </g>
-   <g id="text_61">
+   <g id="text_63">
     <!-- 腳) -->
     <g style="fill: #242424" transform="translate(704.82816 131.23124) scale(0.1 -0.1)">
      <defs>
@@ -14642,7 +15090,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-29" x="100"/>
     </g>
    </g>
-   <g id="text_62">
+   <g id="text_64">
     <!-- R2 附 -->
     <g style="fill: #242424" transform="translate(442.88928 152.705195) scale(0.1 -0.1)">
      <defs>
@@ -14709,14 +15157,14 @@ z
      <use xlink:href="#MicrosoftJhengHeiBold-9644" x="151.220703"/>
     </g>
    </g>
-   <g id="text_63">
+   <g id="text_65">
     <!-- 數據 -->
     <g style="fill: #242424" transform="translate(442.88928 165.505195) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiRegular-6578"/>
      <use xlink:href="#MicrosoftJhengHeiRegular-64da" x="100"/>
     </g>
    </g>
-   <g id="text_64">
+   <g id="text_66">
     <!-- 審計:脈絡資料進線前先做一致性檢查 -->
     <g style="fill: #242424" transform="translate(517.105296 159.105195) scale(0.1 -0.1)">
      <defs>
@@ -15120,7 +15568,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-67e5" x="1523.046875"/>
     </g>
    </g>
-   <g id="text_65">
+   <g id="text_67">
     <!-- 同一路段連續出現同向偏誤 -->
     <g style="fill: #242424" transform="translate(704.82816 159.105195) scale(0.1 -0.1)">
      <defs>
@@ -15579,21 +16027,21 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-8aa4" x="1100"/>
     </g>
    </g>
-   <g id="text_66">
+   <g id="text_68">
     <!-- R3 -->
     <g style="fill: #242424" transform="translate(442.88928 193.379151) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiBold-52"/>
      <use xlink:href="#MicrosoftJhengHeiBold-33" x="66.650391"/>
     </g>
    </g>
-   <g id="text_67">
+   <g id="text_69">
     <!-- 數據 -->
     <g style="fill: #242424" transform="translate(442.88928 206.179151) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiRegular-6578"/>
      <use xlink:href="#MicrosoftJhengHeiRegular-64da" x="100"/>
     </g>
    </g>
-   <g id="text_68">
+   <g id="text_70">
     <!-- 教育・介面 -->
     <g style="fill: #242424" transform="translate(517.105296 186.979151) scale(0.1 -0.1)">
      <defs>
@@ -15737,7 +16185,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-9762" x="400"/>
     </g>
    </g>
-   <g id="text_69">
+   <g id="text_71">
     <!--  (Goddard et al., 2012) -->
     <g style="fill: #737373" transform="translate(567.055296 186.70376) scale(0.09 -0.09)">
      <defs>
@@ -15847,7 +16295,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-29" x="1000.96875"/>
     </g>
    </g>
-   <g id="text_70">
+   <g id="text_72">
     <!-- :介面不 -->
     <g style="fill: #242424" transform="translate(660.115296 186.979151) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiRegular-3a"/>
@@ -15856,7 +16304,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-4e0d" x="223.046875"/>
     </g>
    </g>
-   <g id="text_71">
+   <g id="text_73">
     <!-- 顯示模型信心 -->
     <g style="fill: #242424" transform="translate(517.105296 199.779151) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiRegular-986f"/>
@@ -15867,7 +16315,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-5fc3" x="500"/>
     </g>
    </g>
-   <g id="text_72">
+   <g id="text_74">
     <!--  (Guo et al., 2017) -->
     <g style="fill: #737373" transform="translate(577.045296 199.50376) scale(0.09 -0.09)">
      <defs>
@@ -15903,7 +16351,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-29" x="781.103516"/>
     </g>
    </g>
-   <g id="text_73">
+   <g id="text_75">
     <!-- ,並在抽樣 -->
     <g style="fill: #242424" transform="translate(650.305296 199.779151) scale(0.1 -0.1)">
      <defs>
@@ -15995,7 +16443,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-6a23" x="323.046875"/>
     </g>
    </g>
-   <g id="text_74">
+   <g id="text_76">
     <!-- 盲測組上做對照 -->
     <g style="fill: #242424" transform="translate(517.105296 212.579151) scale(0.1 -0.1)">
      <defs>
@@ -16227,7 +16675,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-7167" x="600"/>
     </g>
    </g>
-   <g id="text_75">
+   <g id="text_77">
     <!-- 盲測組與對照組的判定差異超過設計 -->
     <g style="fill: #242424" transform="translate(704.82816 193.379151) scale(0.1 -0.1)">
      <defs>
@@ -16541,7 +16989,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-8a08" x="1500"/>
     </g>
    </g>
-   <g id="text_76">
+   <g id="text_78">
     <!-- 書所訂容忍值 -->
     <g style="fill: #242424" transform="translate(704.82816 206.179151) scale(0.1 -0.1)">
      <defs>
@@ -16891,14 +17339,14 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-503c" x="500"/>
     </g>
    </g>
-   <g id="text_77">
+   <g id="text_79">
     <!-- R4 -->
     <g style="fill: #242424" transform="translate(442.88928 234.053106) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiBold-52"/>
      <use xlink:href="#MicrosoftJhengHeiBold-34" x="66.650391"/>
     </g>
    </g>
-   <g id="text_78">
+   <g id="text_80">
     <!-- 倫理 -->
     <g style="fill: #242424" transform="translate(442.88928 246.853106) scale(0.1 -0.1)">
      <defs>
@@ -17045,7 +17493,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-7406" x="100"/>
     </g>
    </g>
-   <g id="text_79">
+   <g id="text_81">
     <!-- 問責:申訴機制到位前,本案產出不供個人 -->
     <g style="fill: #242424" transform="translate(517.105296 234.053106) scale(0.1 -0.1)">
      <defs>
@@ -17648,7 +18096,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-4eba" x="1646.09375"/>
     </g>
    </g>
-   <g id="text_80">
+   <g id="text_82">
     <!-- 考核使用 -->
     <g style="fill: #242424" transform="translate(517.105296 246.853106) scale(0.1 -0.1)">
      <defs>
@@ -17803,7 +18251,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-7528" x="300"/>
     </g>
    </g>
-   <g id="text_81">
+   <g id="text_83">
     <!-- 駕駛端申訴請求無處可收,件數恆為零 -->
     <g style="fill: #242424" transform="translate(704.82816 240.453106) scale(0.1 -0.1)">
      <defs>
@@ -18595,14 +19043,14 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-96f6" x="1523.046875"/>
     </g>
    </g>
-   <g id="text_82">
+   <g id="text_84">
     <!-- R5 -->
     <g style="fill: #242424" transform="translate(442.88928 268.327062) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiBold-52"/>
      <use xlink:href="#MicrosoftJhengHeiBold-35" x="66.650391"/>
     </g>
    </g>
-   <g id="text_83">
+   <g id="text_85">
     <!-- 社會性 -->
     <g style="fill: #242424" transform="translate(442.88928 281.127062) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiRegular-793e"/>
@@ -18610,7 +19058,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-6027" x="200"/>
     </g>
    </g>
-   <g id="text_84">
+   <g id="text_86">
     <!-- 教育:角色轉型說明 + 判準手冊共同編寫 -->
     <g style="fill: #242424" transform="translate(517.105296 274.727062) scale(0.1 -0.1)">
      <defs>
@@ -19211,7 +19659,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-5beb" x="1646.777344"/>
     </g>
    </g>
-   <g id="text_85">
+   <g id="text_87">
     <!-- 複核團隊留任率或黃金題參與率下滑 -->
     <g style="fill: #242424" transform="translate(704.82816 274.727062) scale(0.1 -0.1)">
      <defs>
@@ -19683,21 +20131,21 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-6ed1" x="1500"/>
     </g>
    </g>
-   <g id="text_86">
+   <g id="text_88">
     <!-- R6 -->
     <g style="fill: #242424" transform="translate(442.88928 302.601017) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiBold-52"/>
      <use xlink:href="#MicrosoftJhengHeiBold-36" x="66.650391"/>
     </g>
    </g>
-   <g id="text_87">
+   <g id="text_89">
     <!-- 經濟 -->
     <g style="fill: #242424" transform="translate(442.88928 315.401017) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiRegular-7d93"/>
      <use xlink:href="#MicrosoftJhengHeiRegular-6fdf" x="100"/>
     </g>
    </g>
-   <g id="text_88">
+   <g id="text_90">
     <!-- 審計:三道決策門逐段釋出額度 -->
     <g style="fill: #242424" transform="translate(517.105296 309.001017) scale(0.1 -0.1)">
      <defs>
@@ -20135,7 +20583,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-5ea6" x="1223.046875"/>
     </g>
    </g>
-   <g id="text_89">
+   <g id="text_91">
     <!-- 決策門審查時單位成本改善低於門檻 -->
     <g style="fill: #242424" transform="translate(704.82816 309.001017) scale(0.1 -0.1)">
      <defs>
@@ -20560,14 +21008,14 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-6abb" x="1500"/>
     </g>
    </g>
-   <g id="text_90">
+   <g id="text_92">
     <!-- R7 -->
     <g style="fill: #242424" transform="translate(442.88928 336.874973) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiBold-52"/>
      <use xlink:href="#MicrosoftJhengHeiBold-37" x="66.650391"/>
     </g>
    </g>
-   <g id="text_91">
+   <g id="text_93">
     <!-- 組織與管理 -->
     <g style="fill: #242424" transform="translate(442.88928 349.674973) scale(0.1 -0.1)">
      <defs>
@@ -20650,7 +21098,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-7406" x="400"/>
     </g>
    </g>
-   <g id="text_92">
+   <g id="text_94">
     <!-- 問責:贊助人指派 + 決策門出席為放行前 -->
     <g style="fill: #242424" transform="translate(517.105296 336.874973) scale(0.1 -0.1)">
      <defs>
@@ -21113,7 +21561,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-524d" x="1646.777344"/>
     </g>
    </g>
-   <g id="text_93">
+   <g id="text_95">
     <!-- 提 -->
     <g style="fill: #242424" transform="translate(517.105296 349.674973) scale(0.1 -0.1)">
      <defs>
@@ -21194,7 +21642,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-63d0"/>
     </g>
    </g>
-   <g id="text_94">
+   <g id="text_96">
     <!-- 決策門會議連續兩次無高階出席 -->
     <g style="fill: #242424" transform="translate(704.82816 343.274973) scale(0.1 -0.1)">
      <defs>
@@ -21522,14 +21970,14 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-5e2d" x="1300"/>
     </g>
    </g>
-   <g id="text_95">
+   <g id="text_97">
     <!-- R8 -->
     <g style="fill: #242424" transform="translate(442.88928 371.148928) scale(0.1 -0.1)">
      <use xlink:href="#MicrosoftJhengHeiBold-52"/>
      <use xlink:href="#MicrosoftJhengHeiBold-38" x="66.650391"/>
     </g>
    </g>
-   <g id="text_96">
+   <g id="text_98">
     <!-- 政治法律政策 -->
     <g style="fill: #242424" transform="translate(442.88928 383.948928) scale(0.1 -0.1)">
      <defs>
@@ -21635,7 +22083,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-7b56" x="500"/>
     </g>
    </g>
-   <g id="text_97">
+   <g id="text_99">
     <!-- 問責:列為法務前置事項,本案不自行認定; -->
     <g style="fill: #242424" transform="translate(517.105296 371.148928) scale(0.1 -0.1)">
      <defs>
@@ -22078,7 +22526,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-3b" x="1746.09375"/>
     </g>
    </g>
-   <g id="text_98">
+   <g id="text_100">
     <!-- 法務書面意見於 G1 前到位 -->
     <g style="fill: #242424" transform="translate(517.105296 383.948928) scale(0.1 -0.1)">
      <defs>
@@ -22594,7 +23042,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiBold-4f4d" x="1084.619141"/>
     </g>
    </g>
-   <g id="text_99">
+   <g id="text_101">
     <!-- 客戶回頭標記的案件中出現援引我方 -->
     <g style="fill: #242424" transform="translate(704.82816 371.148928) scale(0.1 -0.1)">
      <defs>
@@ -23014,7 +23462,7 @@ z
      <use xlink:href="#MicrosoftJhengHeiRegular-65b9" x="1500"/>
     </g>
    </g>
-   <g id="text_100">
+   <g id="text_102">
     <!-- 誤報判定的事故爭議 -->
     <g style="fill: #242424" transform="translate(704.82816 383.948928) scale(0.1 -0.1)">
      <defs>
@@ -23226,7 +23674,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="pd73e2309b1">
+  <clipPath id="p4e78db428e">
    <rect x="0" y="0" width="878.4" height="410.4"/>
   </clipPath>
  </defs>

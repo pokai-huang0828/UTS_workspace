@@ -334,10 +334,10 @@ def build():
 
     draw_card(
         ax, x1[3], cy1, w1, ch1, "可避免的年度增聘成本",
-        [[("以現行做法覆蓋全部既有客戶需 15-21 人(現有 5 人)", FS_BODY, GREY)],
-         [("每年約 NT$1,040-1,870 萬", FS_BODY, "black")],
+        [[("不做本案 17-24 人;移交後 11-12 人", FS_BODY, GREY)],
+         [("5-13 人 約 NT$520-1,521 萬/年", FS_BODY, "black")],
          [("○移交後", FS_BODY, "black")]],
-        col2_header="不做本案時的年度增聘成本")
+        col2_header="可避免的部分")
 
     # 橘色母題:人工複核防線(全片同形同色,本頁只出現一次)
     mh = py(46)
@@ -371,8 +371,8 @@ def build():
 
     draw_card(
         ax, x2[1], cy2, w2, ch2, "每筆深入判讀的人工工時",
-        [[("約 4.4 分鐘/筆(由一次實際判讀反推)", FS_BODY, GREY)],
-         [("目標值於 W16 爭議回覆自動化交付後量測", FS_BODY, "black")],
+        [[("約 5.25 分鐘/筆(由一次實際判讀反推)", FS_BODY, GREY)],
+         [("正式量測提前至 W6,與時間拆解同批交出", FS_BODY, "black")],
          [("●期內", FS_BODY, "black")]],
         ec=BLUE, name_color=BLUE)
 
@@ -436,22 +436,20 @@ def build():
 
     cy3, ch3 = b3y + py(3), py(72)
     g3 = 0.012
-    w3 = (SPAN - 2 * g3) / 3
-    x3 = [CX0 + i * (w3 + g3) for i in range(3)]
+    w3 = (SPAN - 3 * g3) / 4        # 裁決 21_ Z-1:三張 → 四張
+    x3 = [CX0 + i * (w3 + g3) for i in range(4)]
 
     draw_card(
         ax, x3[0], cy3, w3, ch3, "漏放率",
-        [[("目前不存在;唯一量測是一份 39 筆人工觸發測試,自註為下限",
-           FS_BODY, GREY)],
-         [("W6 交出帶 95% 信賴區間的點估計,上限值於 G1 由委員會核定",
-           FS_BODY, "black")],
+        [[("目前不存在;唯一量測 39 筆,自註為下限", FS_BODY, GREY)],
+         [("W6 交出點估計 + 95% CI;上限於 G1 核定", FS_BODY, "black")],
          [("●期內", FS_BODY, "black")]],
         ec=RED, name_color=RED)
 
     draw_card(
         ax, x3[1], cy3, w3, ch3, "複核者一致性",
         [[("現況未量測", FS_BODY, GREY)],
-         [("W10 前建立基線,目標值於 G2 訂定", FS_BODY, "black")],
+         [("W10 建基線;目標值 G2 訂", FS_BODY, "black")],
          [("●期內", FS_BODY, "black")]],
         ec=RED, name_color=RED)
 
@@ -459,6 +457,16 @@ def build():
         ax, x3[2], cy3, w3, ch3, "訓練資料可追溯率",
         [[("0%", FS_BODY, GREY)],
          [("100%(否決型,無中間值)", FS_BODY, "black")],
+         [("●期內", FS_BODY, "black")]],
+        ec=RED, name_color=RED)
+
+    # 🔴 卡 13 漏濾率(裁決 R 新增 · 否決型 · 本案風險面最大的一張)
+    #    它原本只寫在投影片文字、沒有卡也沒有數字表列 —— 依本片自己的紀律
+    #    「只進要點沒進出圖規格 = 等於沒做」,它等於不存在。
+    draw_card(
+        ax, x3[3], cy3, w3, ch3, "漏濾率",
+        [[("目前不存在", FS_BODY, GREY)],
+         [("W12 交出差值 95% CI(δ 於 G1 訂)", FS_BODY, "black")],
          [("●期內", FS_BODY, "black")]],
         ec=RED, name_color=RED)
 
