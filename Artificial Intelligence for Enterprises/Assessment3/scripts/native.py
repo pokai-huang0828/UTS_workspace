@@ -304,12 +304,20 @@ def blk_bar(slide, x, y, w, h, spec):
     if spec.get("bracket") and hot_x0 is not None:
         b = spec["bracket"]
         rule(slide, hot_x0, yy, hot_x1 - hot_x0, color=NAVY, thick=0.03)
-        text(slide, hot_x0, yy + 0.10, hot_x1 - hot_x0, 0.30, b["text"],
-             size=14, color=NAVY, bold=True, align="center", who="brk")
-        if b.get("big"):
-            text(slide, hot_x0, yy + 0.44, hot_x1 - hot_x0, 0.60, b["big"],
+        # 🔴 big 可能是**布林旗標**(「這一行要放大」)或字串(要另外放大的那句)。
+        #    先前一律當字串印,結果 "big": true 就在投影片中央印出一個大大的 True。
+        big = b.get("big")
+        big_str = big if isinstance(big, str) else None
+        emph = bool(big)
+        text(slide, hot_x0, yy + 0.10, hot_x1 - hot_x0, 0.44, b["text"],
+             size=(17 if emph and not big_str else 14), color=NAVY, bold=True,
+             align="center", who="brk")
+        if big_str:
+            text(slide, hot_x0, yy + 0.58, hot_x1 - hot_x0, 0.60, big_str,
                  size=30, color=NAVY, bold=True, align="center", who="brk-big")
-        yy += 1.10
+            yy += 1.24
+        else:
+            yy += 0.62
     if spec.get("note"):
         text(slide, x, min(yy, y + h - 0.30), w, 0.30, spec["note"], size=12,
              color=GREY, who="bar-note")
@@ -387,49 +395,71 @@ def blk_compare(slide, x, y, w, h, spec):
 
 
 def blk_matrix(slide, x, y, w, h, spec):
-    """表格:cols[] + rows[{name, cells[], hot}]。用原生形狀畫,每格可編輯。"""
-    cols = spec["cols"]
-    rows = spec["rows"]
+    """真 PowerPoint 表格(GraphicFrame),不是用文字框排出來的假表。
+
+    🔑 為什麼改用真表格:
+       ① Kenny 可以在 PowerPoint 裡增刪列、拉欄寬 —— 假表做不到
+       ② **列高由 PowerPoint 自己算**,我不必再手動量測換行
+          (先前 matrix 的重疊,根因就是我算的列高跟實際渲染對不上)
+       ③ 表格樣式一致,不會每一格各自為政
+    """
+    cols = list(spec["cols"])
+    rows = list(spec["rows"])
     name_w = w * spec.get("name_frac", 0.30)
     cw = (w - name_w) / max(len(cols), 1)
-    hh = 0.38
 
-    # 🔴 兩趟。第一趟用保守的 2 行上限挑出放得下的列;
-    #    第二趟由**實際分到的列高**反推真正能放幾行,再 clamp 一次。
-    #    先前寫死 max_lines=3 而列高被擠到 0.3 吋 —— 文字照樣畫三行,於是重疊。
-    def _need(r, ml):
-        cs = [clamp(str(c), cw - 0.16, 12, ml) for c in r["cells"]]
-        return max([text_h(clamp(str(r["name"]), name_w - 0.20, 13, ml),
-                           name_w - 0.20, 13)]
-                   + [text_h(c, cw - 0.16, 12) for c in cs]) + 0.08
+    # 一列大約要多高(給 fit_items 用的粗估;真高度由 PowerPoint 決定)
+    def _rough(r):
+        return max([text_h(str(r["name"]), name_w - 0.16, 12)]
+                   + [text_h(str(c), cw - 0.16, 12) for c in r["cells"]]) + 0.06
 
-    rows, _hidden = fit_items(rows, h - hh, lambda r: _need(r, 2),
-                              min_keep=3, who="matrix")
-    n = max(len(rows), 1)
-    budget = (h - hh) / n
-    max_lines = max(1, int(budget * 72.0 / (12 * 1.22 * SAFETY)))
-    for j, c in enumerate(cols):
-        text(slide, x + name_w + j * cw, y, cw, hh, c, size=13, color=GREY,
-             bold=True, align="center", anchor="middle", who=f"col{j}")
-    ry = y + hh
+    HDR = 0.36
+    rows, _hidden = fit_items(rows, h - HDR, _rough, min_keep=3, who="matrix")
+    n = len(rows)
+
+    _guard(x, y, w, h, "matrix")
+    gf = slide.shapes.add_table(n + 1, len(cols) + 1,
+                                Inches(x), Inches(y), Inches(w), Inches(h))
+    tbl = gf.table
+    tbl.first_row = True
+    tbl.horz_banding = False
+
+    tbl.columns[0].width = Inches(name_w)
+    for j in range(len(cols)):
+        tbl.columns[j + 1].width = Inches(cw)
+    tbl.rows[0].height = Inches(HDR)
+    for i in range(n):
+        tbl.rows[i + 1].height = Inches(max((h - HDR) / max(n, 1), 0.30))
+
+    def _cell(c, s, size, color, bold=False, fill=None, align="center"):
+        c.text = ""
+        c.margin_left = c.margin_right = Emu(45720)      # 0.05"
+        c.margin_top = c.margin_bottom = Emu(18288)      # 0.02"
+        c.vertical_anchor = MSO_ANCHOR.MIDDLE
+        if fill:
+            c.fill.solid(); c.fill.fore_color.rgb = rgb(fill)
+        else:
+            c.fill.background()
+        para = c.text_frame.paragraphs[0]
+        para.alignment = {"left": PP_ALIGN.LEFT, "center": PP_ALIGN.CENTER}[align]
+        run = para.add_run(); run.text = str(s)
+        run.font.size = Pt(size); run.font.bold = bold
+        run.font.name = FONT; run.font.color.rgb = rgb(color)
+
+    # 表頭
+    _cell(tbl.cell(0, 0), spec.get("corner", ""), 12, WHITE, True, NAVY, "left")
+    for j, cname in enumerate(cols):
+        _cell(tbl.cell(0, j + 1), cname, 12, WHITE, True, NAVY)
+
+    # 內容
     for i, r in enumerate(rows):
-        cells = [clamp(str(c), cw - 0.16, 12, max_lines, f"matrix[{i}]{r['name']}")
-                 for c in r["cells"]]
-        nm = clamp(str(r["name"]), name_w - 0.20, 13, max_lines, f"matrix[{i}]name")
-        need = max([text_h(nm, name_w - 0.20, 13)]
-                   + [text_h(c, cw - 0.16, 12) for c in cells]) + 0.08
-        rh = max(min(need, budget), 0.30)
-        if r.get("hot"):
-            box(slide, x, ry, w, rh - 0.03, fill="#FBEFEF", line=None,
-                radius=False, who=f"mrow{i}-bg")
-        text(slide, x + 0.10, ry, name_w - 0.18, rh - 0.03, nm, size=13,
-             color=(RED if r.get("hot") else INK), anchor="middle", who=f"mrow{i}")
-        for j, cell in enumerate(cells):
-            text(slide, x + name_w + j * cw + 0.08, ry, cw - 0.16, rh - 0.03,
-                 cell, size=12, color=(RED if r.get("hot") else GREY),
-                 align="center", anchor="middle", spacing=1.2,
-                 who=f"mcell{i}{j}")
-        ry += rh
+        hot = bool(r.get("hot"))
+        bg = "#FBEFEF" if hot else WHITE
+        col = RED if hot else INK
+        _cell(tbl.cell(i + 1, 0), r["name"], 12, col, hot, bg, "left")
+        for j, c in enumerate(r["cells"]):
+            _cell(tbl.cell(i + 1, j + 1), c, 12, (RED if hot else GREY), False, bg)
+    return gf
 
 
 def blk_callout(slide, x, y, w, h, spec):
