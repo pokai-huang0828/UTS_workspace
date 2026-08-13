@@ -428,19 +428,26 @@ def blk_matrix(slide, x, y, w, h, spec):
     # 🔴 PowerPoint 表格**會自己長高** —— add_table 給的列高是最小值不是上限,
     #    內容放不下它就撐開,於是壓到下一個版塊。
     #    所以先把每一格 clamp 到固定行數,列高就可預測。
-    CELL_LINES = 3
-    for r in rows:
-        r["name"] = clamp(str(r["name"]), name_w - 0.16, 12, CELL_LINES,
-                          f"matrix-name:{r['name']}")
-        r["cells"] = [clamp(str(c), cw - 0.16, 12, CELL_LINES, "matrix-cell")
-                      for c in r["cells"]]
-
     def _rough(r):
         return max([text_h(str(r["name"]), name_w - 0.16, 12)]
                    + [text_h(str(c), cw - 0.16, 12) for c in r["cells"]]) + 0.06
 
     HDR = 0.36
-    rows, _hidden = fit_items(rows, h - HDR, _rough, min_keep=2, who="matrix")
+    raw = [dict(r) for r in rows]
+
+    # 🔴 行數上限自動降階。fit_items 的 min_keep 會保底留幾列,
+    #    但那幾列本身可能就太高 —— p10 的表格因此掉出版面底部。
+    #    所以 3 行放不下就試 2 行、再試 1 行,直到總高進得了 h。
+    for CELL_LINES in (3, 2, 1):
+        rows = [dict(r) for r in raw]
+        for r in rows:
+            r["name"] = clamp(str(r["name"]), name_w - 0.16, 12, CELL_LINES,
+                              f"matrix-name:{r['name']}")
+            r["cells"] = [clamp(str(c), cw - 0.16, 12, CELL_LINES, "matrix-cell")
+                          for c in r["cells"]]
+        rows, _hidden = fit_items(rows, h - HDR, _rough, min_keep=2, who="matrix")
+        if HDR + sum(_rough(r) for r in rows) <= h + 1e-6:
+            break
     n = len(rows)
 
     _guard(x, y, w, h, "matrix")
