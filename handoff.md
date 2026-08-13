@@ -1458,3 +1458,38 @@ P2 口白「佔六成到六成四」、P7 卡一「判定仍由人做…設計�
   於是現在 P5 概念層次、P9 具體型號,**同一份簡報兩個層次**。要 Kenny 裁一個。
 - **P8 卡 4**:`P08-11.md` 的 KPI ④(第 23 行)寫可避免 = NT$520-1,521 萬,
   但同一檔的視覺規格(第 90-93 行)仍寫 1,248-2,223 萬 —— **母版自己不一致**,本輪照任務書走機械替換,標記待裁。
+
+---
+
+## 2026-08-13 21:56 · Assessment 3 呈現重構完成（Codex）
+
+### 交付物
+
+- 新檔：`Artificial Intelligence for Enterprises/Assessment3/Huang_26254793_421104_Assessment 3_優化版.pptx`
+- 原檔未覆寫。新檔共 **13 頁**：11 頁主體 + 2 頁參考文獻；13/13 頁都有 speaker notes 與 `[Sources]` 區塊。
+- 敘事改為：管理摘要 → 瓶頸與證據 → AI 可介入範圍 → 方案比較 → 風險/倫理 → KPI → 四閘門路線圖 → 六週有界請求。
+- 內容完成 v2.5 七項缺口：漏濾率、R9/R10、倫理雙狀態、可避免增聘、稽核稅、三年 TCO 雙軌、G4。
+
+### 已裁決的內容衝突
+
+- 主片保持概念層，不列 `Qwen3.5 122B-A10B(4-bit)` 或其他具體模型。
+- **NT$520–1,521 萬**明確定義為移交後「可避免增聘成本」；**NT$1,248–2,223 萬**是「不做專案的總增聘暴露」。
+- **850/1,000**只標為移交後/G4 狀態；專案期倫理狀態另列，避免混淆。
+- P2 改為「AI 可介入 43–78%，批次目前不是瓶頸，W1–6 再以 throughput 驗證」。
+
+### R-完成／R-獨立證據
+
+- R-完成：artifact-tool 產製與 13/13 頁渲染成功；`slides_test.py` 回報 `Test passed. No overflow detected.`。
+- R-完成：package scan = Slides 13 / Notes 13 / EmptyPlaceholders 0 / VisibleQwen 0 / Ellipsis 0 / Forbidden 0 / URLs 14 / RefAuthors 15。
+- R-完成：官方 template-fidelity 檢查 `status: pass`、`issueCount: 0`。
+- R-獨立：非產出者 `a3_final_verifier` 逐頁檢查後判定 **READY**；確認無裁切/重疊/過小字，三組關鍵語義、六週請求與 15 筆參考文獻皆正確。
+
+### 後續待辦
+
+- 可選：若正式錄影仍以 Microsoft PowerPoint 播放，Kenny 在場時補做一次 COM/實機播放檢查。
+- 必做：一分鐘試錄 + 鏡頭測試 → 答辯彩排 ×2 → 逐頁錄製 → 8/17 白天交件；持續盯 OLI 答辯時段信。
+
+### 派工成本帳
+
+- `A3OPT-CONTENT-01`：內容與證據獨立審核；`A3OPT-FINALQA-02`：最終版獨立驗收。
+- 兩個 scope 的預留上限合計 **160k tokens**（低於 1.05M 上限）；協作工具未回傳實際 token 用量，不虛報實耗。
