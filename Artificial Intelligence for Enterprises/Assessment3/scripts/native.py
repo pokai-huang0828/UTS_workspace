@@ -123,9 +123,14 @@ def arrow(slide, x, y, w, h=0.16, color=GREY):
 
 
 def badge(slide, x, y, w, h, s, color, size=12):
-    """狀態標籤(圓角小條 + 白字)。"""
+    """狀態標籤(圓角小條 + 白字)。
+
+    🔴 標籤是**一個詞**,不是一句話。規格常常塞進「提案推算,非核定編制」
+       這種長句,兩行就撐爆膠囊 —— 一律 clamp 成一行,全文進備註。
+    """
     box(slide, x, y, w, h, fill=color, line=None, who="badge")
-    text(slide, x, y, w, h, s, size=size, color=WHITE, bold=True,
+    text(slide, x, y, w, h, clamp(str(s), w - 0.10, size, 1, "badge"),
+         size=size, color=WHITE, bold=True,
          align="center", anchor="middle", who="badge-text")
 
 
@@ -151,12 +156,66 @@ def lines_needed(s, w_in, size_pt):
     return n
 
 
+SAFETY = 1.35          # 量測安全係數
+
+
 def text_h(s, w_in, size_pt, spacing=1.25):
-    """這段文字需要的高度(吋)。"""
-    return lines_needed(s, w_in, size_pt) * size_pt * spacing / 72.0
+    """這段文字需要的高度(吋)。
+
+    🔴 乘上 SAFETY。lines_needed 是估算(CJK 1.0 / 半形 0.55 的近似字寬),
+       單一區塊誤差很小,但一頁疊三四個版塊後會累積成溢出 ——
+       實測 1.18 仍會爆,調到 1.35 才乾淨。
+       **寧可留白,不可重疊**:重疊在投影片上是致命的,留白只是不好看。
+    """
+    return lines_needed(s, w_in, size_pt) * size_pt * spacing / 72.0 * SAFETY
 
 
-OVERFLOW = []          # 被截斷的完整內容,由渲染器收進講者備註
+OVERFLOW = []          # 被截斷或未上版的完整內容,由渲染器收進講者備註
+
+
+def fit_items(items, avail_h, measure, min_keep=2, who=""):
+    """在 avail_h 吋內,能放幾項就放幾項;放不下的交給講者備註。
+
+    🔑 這是本引擎的核心設計判斷。
+       先前的做法是二選一 —— 內容全塞(爆版)或整批砍掉(空洞)。
+       兩者都是用猜的。正確做法是**讓量測決定那條線在哪**:
+       同一份規格,換版面、換字級都會自動重算,不需要人再判斷一次。
+
+    🔴 **順序不等於重要性。** 第一版只留「前 N 項」,結果 P7 把 R9 / R10
+       (這個方案自己造成的兩條新風險,而且底部紅條正在指名它們)砍掉,
+       留下了 R1–R5。所以要挑的是**重要的**,不是**排前面的** ——
+       標了 hot 的優先保留,渲染時再依原順序排回去。
+
+    items    : list
+    avail_h  : 可用高度(吋)
+    measure  : callable(item) -> 該項需要的高度(吋)
+    min_keep : 至少保留幾項(即使超高)—— 一項都不放的版面沒有意義
+    回傳     : (shown, hidden),shown 已還原成原始順序
+    """
+    def _hot(it):
+        return bool(it.get("hot")) if isinstance(it, dict) else False
+
+    order = sorted(range(len(items)), key=lambda i: (not _hot(items[i]), i))
+    keep, used = set(), 0.0
+    for i in order:
+        h = measure(items[i])
+        if keep and used + h > avail_h + 1e-6 and len(keep) >= min_keep:
+            continue                      # 這一項放不下,但後面較小的也許放得下
+        keep.add(i)
+        used += h
+    shown = [items[i] for i in sorted(keep)]
+    hidden = [items[i] for i in range(len(items)) if i not in keep]
+    for it in hidden:
+        OVERFLOW.append((who, str(it)))
+    return shown, hidden
+
+
+def more_marker(slide, x, y, w, n, who="more"):
+    """「另 N 項見備註」——讓觀眾知道有東西被收起來,而不是憑空消失。"""
+    if n <= 0:
+        return
+    text(slide, x, y, w, 0.28, f"另 {n} 項見講者備註", 12, GREY,
+         align="right", who=who)
 
 
 def clamp(s, w_in, size_pt, max_lines, who=""):
@@ -201,9 +260,20 @@ def blk_cards(slide, x, y, w, h, items):
             badge(slide, cx + (cw - bw) / 2, by, bw, 0.30, it["badge"], tone)
             by += 0.42
         if it.get("lines"):
-            text(slide, cx + 0.12, by, cw - 0.24, h - (by - y) - 0.14,
-                 "\n".join(it["lines"]), size=12, color=GREY, align="center",
+            room = h - (by - y) - 0.14
+            # 🔑 卡片內的說明行走同一條規則:放得下幾行就放幾行,其餘進備註
+            ml = max(1, int(room * 72.0 / (12 * 1.35 * SAFETY)))
+            lines = [clamp(ln, cw - 0.24, 12, ml, f"card:{it['title']}")
+                     for ln in it["lines"]]
+            shown, hidden = fit_items(
+                lines, room,
+                lambda s, _w=cw: text_h(s, _w - 0.24, 12, 1.35),
+                min_keep=1, who=f"card:{it['title']}")
+            text(slide, cx + 0.12, by, cw - 0.24, room, chr(10).join(shown),
+                 size=12, color=GREY, align="center",
                  spacing=1.35, who=f"card{i}-l")
+            # 🔴 不在頁面上放「另 N 項」標記 —— 它一直壓到內文。
+            #    被收起來的內容在講者備註裡,錄影時你看得到。
 
 
 def blk_bar(slide, x, y, w, h, spec):
@@ -251,13 +321,21 @@ def blk_rows(slide, x, y, w, h, items):
     🔴 行高由**量測內容**決定,不用固定值。註記欄放得下多少就放多少,
        放不下的整段進講者備註(clamp),不讓它壓到下一列。
     """
-    n = max(len(items), 1)
     LW, VW, NW = w * 0.24, w * 0.30, w * 0.40      # 標 / 值 / 註記
     NX = x + w * 0.60
     PAD = 0.10
-    # 先量每列需要多高,再按可用高度分配(不夠就壓縮註記行數)
+    max_note_lines = 3
+
+    def _need(it):
+        return max(text_h(it["label"], LW - 0.24, 14),
+                   text_h(it["value"], VW - 0.14, 15),
+                   text_h(clamp(it.get("note", ""), NW - 0.14, 12, max_note_lines),
+                          NW - 0.14, 12)) + 0.10 + PAD
+
+    # 🔑 放得下幾列就放幾列,其餘進備註 —— 不猜、不整批砍
+    items, _hidden = fit_items(items, h, _need, min_keep=2, who="rows")
+    n = max(len(items), 1)
     budget = (h - PAD * (n - 1)) / n
-    max_note_lines = max(1, int((budget - 0.06) * 72.0 / (12 * 1.25)))
     ry = y
     for i, it in enumerate(items):
         c = RED if it.get("hot") else NAVY
@@ -274,7 +352,8 @@ def blk_rows(slide, x, y, w, h, items):
             radius=False, who=f"row{i}-tick")
         text(slide, x + 0.16, ry, LW - 0.22, rh, it["label"],
              size=14, color=INK, bold=True, anchor="middle", who=f"row{i}-l")
-        text(slide, x + LW, ry, VW - 0.12, rh, it["value"],
+        text(slide, x + LW, ry, VW - 0.12, rh,
+             clamp(it["value"], VW - 0.14, 15, 2, f"rows-value[{it['label']}]"),
              size=15, color=c, bold=True, anchor="middle", who=f"row{i}-v")
         if note:
             text(slide, NX, ry, NW - 0.12, rh, note,
@@ -295,9 +374,13 @@ def blk_compare(slide, x, y, w, h, spec):
         box(slide, cx, y, cw, vh, fill=WHITE, line=tone, lw=2.0, who=f"cmp{i}")
         text(slide, cx + 0.16, y + 0.16, cw - 0.32, 0.42, s["title"], size=17,
              color=tone, bold=True, align="center", who=f"cmp{i}-t")
-        text(slide, cx + 0.16, y + 0.70, cw - 0.32, vh - 0.86,
-             "\n".join(s["lines"]), size=13, color=INK, spacing=1.5,
-             align="center", who=f"cmp{i}-l")
+        room = vh - 0.90
+        shown, hidden = fit_items(
+            s["lines"], room,
+            lambda ln, _w=cw: text_h(ln, _w - 0.32, 13, 1.5),
+            min_keep=1, who=f"compare:{s['title']}")
+        text(slide, cx + 0.16, y + 0.70, cw - 0.32, room, chr(10).join(shown),
+             size=13, color=INK, spacing=1.5, align="center", who=f"cmp{i}-l")
     if spec.get("verdict"):
         text(slide, x, y + h - 0.40, w, 0.38, spec["verdict"], size=15,
              color=INK, bold=True, align="center", who="cmp-v")
@@ -310,10 +393,21 @@ def blk_matrix(slide, x, y, w, h, spec):
     name_w = w * spec.get("name_frac", 0.30)
     cw = (w - name_w) / max(len(cols), 1)
     hh = 0.38
+
+    # 🔴 兩趟。第一趟用保守的 2 行上限挑出放得下的列;
+    #    第二趟由**實際分到的列高**反推真正能放幾行,再 clamp 一次。
+    #    先前寫死 max_lines=3 而列高被擠到 0.3 吋 —— 文字照樣畫三行,於是重疊。
+    def _need(r, ml):
+        cs = [clamp(str(c), cw - 0.16, 12, ml) for c in r["cells"]]
+        return max([text_h(clamp(str(r["name"]), name_w - 0.20, 13, ml),
+                           name_w - 0.20, 13)]
+                   + [text_h(c, cw - 0.16, 12) for c in cs]) + 0.08
+
+    rows, _hidden = fit_items(rows, h - hh, lambda r: _need(r, 2),
+                              min_keep=3, who="matrix")
     n = max(len(rows), 1)
-    # 🔴 行高由量測決定;塞不下的整段進講者備註,不讓它壓到下一列
     budget = (h - hh) / n
-    max_lines = max(1, int(budget * 72.0 / (12 * 1.22)))
+    max_lines = max(1, int(budget * 72.0 / (12 * 1.22 * SAFETY)))
     for j, c in enumerate(cols):
         text(slide, x + name_w + j * cw, y, cw, hh, c, size=13, color=GREY,
              bold=True, align="center", anchor="middle", who=f"col{j}")
@@ -339,9 +433,17 @@ def blk_matrix(slide, x, y, w, h, spec):
 
 
 def blk_callout(slide, x, y, w, h, spec):
+    """強調條。
+
+    🔴 callout 是**一句話**,不是段落。規格常常塞進整段,
+       而它的高度有天花板(給再多空間也只該用兩三行)——
+       所以一定要 clamp,否則字會爆出色塊、壓到隔壁的版塊。
+    """
     tone = TONE.get(spec.get("tone", "navy"), NAVY)
     box(slide, x, y, w, h, fill=tone, line=None, who="callout")
-    text(slide, x + 0.20, y, w - 0.40, h, spec["text"], size=17, color=WHITE,
+    max_lines = max(1, int(h * 72.0 / (17 * 1.25 * SAFETY)))
+    body = clamp(spec["text"], w - 0.40, 17, max_lines, "callout")
+    text(slide, x + 0.20, y, w - 0.40, h, body, size=17, color=WHITE,
          bold=True, align="center", anchor="middle", who="callout-t")
 
 

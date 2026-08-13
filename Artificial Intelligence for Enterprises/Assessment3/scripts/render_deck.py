@@ -116,13 +116,26 @@ def content(prs, pg):
     bot = (FOOT_Y - 0.14) if foot else BODY_BOT
     avail = bot - (BODY_TOP + 0.16)
     gap = 0.22
-    wts = [WEIGHT.get(b["kind"], 1.0) for b in blocks]
-    tot = sum(wts)
     usable = avail - gap * (len(blocks) - 1)
 
+    # 🔑 高度按**實際需要**分配,不用固定權重。
+    #    固定權重的問題:某個 block 被分層縮短後,多出來的空間就空在那裡,
+    #    而隔壁塞不下的 block 卻還在把內容往備註丟。
+    #    callout 有天花板(它是一句話,給再多空間也只用一行高)。
+    specs = [json.loads(b["spec"]) if isinstance(b["spec"], str) else b["spec"]
+             for b in blocks]
+    CAP = {"callout": 1.35}
+    needs = []
+    for b, sp in zip(blocks, specs):
+        w0 = N.W - 2 * M
+        nd = N.text_h(sp.get("text", ""), w0 - 0.40, 17) + 0.30 \
+            if b["kind"] == "callout" else usable * WEIGHT.get(b["kind"], 1.0)
+        needs.append(min(nd, CAP.get(b["kind"], 1e9)))
+    tot = sum(needs) or 1.0
+    heights = [usable * n / tot for n in needs]
+
     y = BODY_TOP + 0.16
-    for b, w in zip(blocks, wts):
-        h = usable * w / tot
+    for b, h in zip(blocks, heights):
         spec = json.loads(b["spec"]) if isinstance(b["spec"], str) else b["spec"]
         fn = N.RENDER[b["kind"]]
         width = N.W - 2 * M
