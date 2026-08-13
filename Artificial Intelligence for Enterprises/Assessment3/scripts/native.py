@@ -408,13 +408,39 @@ def blk_matrix(slide, x, y, w, h, spec):
     name_w = w * spec.get("name_frac", 0.30)
     cw = (w - name_w) / max(len(cols), 1)
 
-    # 一列大約要多高(給 fit_items 用的粗估;真高度由 PowerPoint 決定)
+    # 🔴 欄數對齊:規格常常 cols 有 4 個但 rows 只給 3 格 → 右邊多一個空欄。
+    #    少的補空字串,多的截掉。
+    for r in rows:
+        cs = list(r["cells"])[:len(cols)]
+        r["cells"] = cs + [""] * (len(cols) - len(cs))
+
+    # 🔴 整欄都空的直接丟掉。規格給 4 個欄名卻只有 3 格資料時,
+    #    補空字串會留下一整條空白欄 —— 那比沒有這一欄更糟,
+    #    委員會會以為那裡的東西被漏掉了。
+    keep_c = [j for j in range(len(cols))
+              if any(str(r["cells"][j]).strip() for r in rows)]
+    if len(keep_c) < len(cols):
+        cols = [cols[j] for j in keep_c]
+        for r in rows:
+            r["cells"] = [r["cells"][j] for j in keep_c]
+        cw = (w - name_w) / max(len(cols), 1)
+
+    # 🔴 PowerPoint 表格**會自己長高** —— add_table 給的列高是最小值不是上限,
+    #    內容放不下它就撐開,於是壓到下一個版塊。
+    #    所以先把每一格 clamp 到固定行數,列高就可預測。
+    CELL_LINES = 3
+    for r in rows:
+        r["name"] = clamp(str(r["name"]), name_w - 0.16, 12, CELL_LINES,
+                          f"matrix-name:{r['name']}")
+        r["cells"] = [clamp(str(c), cw - 0.16, 12, CELL_LINES, "matrix-cell")
+                      for c in r["cells"]]
+
     def _rough(r):
         return max([text_h(str(r["name"]), name_w - 0.16, 12)]
                    + [text_h(str(c), cw - 0.16, 12) for c in r["cells"]]) + 0.06
 
     HDR = 0.36
-    rows, _hidden = fit_items(rows, h - HDR, _rough, min_keep=3, who="matrix")
+    rows, _hidden = fit_items(rows, h - HDR, _rough, min_keep=2, who="matrix")
     n = len(rows)
 
     _guard(x, y, w, h, "matrix")
@@ -427,9 +453,11 @@ def blk_matrix(slide, x, y, w, h, spec):
     tbl.columns[0].width = Inches(name_w)
     for j in range(len(cols)):
         tbl.columns[j + 1].width = Inches(cw)
+    # 列高照**各列自己的需要**設,不用平均值 —— 平均值會讓內容多的列被撐開,
+    # 而撐開的量正好就是壓到下一個版塊的量。
     tbl.rows[0].height = Inches(HDR)
-    for i in range(n):
-        tbl.rows[i + 1].height = Inches(max((h - HDR) / max(n, 1), 0.30))
+    for i, r in enumerate(rows):
+        tbl.rows[i + 1].height = Inches(max(_rough(r), 0.32))
 
     def _cell(c, s, size, color, bold=False, fill=None, align="center"):
         c.text = ""
