@@ -1493,3 +1493,25 @@ P2 口白「佔六成到六成四」、P7 卡一「判定仍由人做…設計�
 
 - `A3OPT-CONTENT-01`：內容與證據獨立審核；`A3OPT-FINALQA-02`：最終版獨立驗收。
 - 兩個 scope 的預留上限合計 **160k tokens**（低於 1.05M 上限）；協作工具未回傳實際 token 用量，不虛報實耗。
+
+---
+
+## 2026-08-13 22:28 · Assessment 3 字型相容性修正（Codex）
+
+### 原因與修正
+
+- 使用者在 PowerPoint 編輯時看到文字回落到「新細明體」。根因是建置器把字型寫成 artifact-tool 不接受的 `fontFamily`；正確屬性是 `typeface`，前者被靜默忽略後沿用來源母片的 Hant 字型「新細明體」。
+- 新交件候選：`Artificial Intelligence for Enterprises/Assessment3/Huang_26254793_421104_Assessment 3_優化版_可編輯.pptx`。
+- 所有 slide-local 可編輯文字明確寫入 `Microsoft JhengHei`；同時把 presentation theme、slide-master theme 與 notes theme 的 major/minor latin、eastAsian、Hant、Hans 全改為 `Microsoft JhengHei`，讓既有文字、續打文字與新文字框都不再回落。
+
+### R-完成／R-獨立證據
+
+- R-完成：13/13 slide XML 明示 Microsoft JhengHei；`新細明體 / PMingLiU / MingLiU` 合計 0 命中；package 仍為 13 slides / 13 notes。
+- R-完成：建立測試副本，實際把標題改成 `完整脈絡【編輯測試】` 後匯出；字串與 Microsoft JhengHei 均成功保留，證明文字物件可編輯。
+- R-完成：最終檔 `slides_test.py` 回報 `Test passed. No overflow detected.`；SHA-256 = `AFB009F01446C18998F516050C385E1B6B9041C26609ABD2949BD2AE9B3AD56B`。
+- R-獨立：非產出者 `a3_final_verifier` 重新讀取最終檔與 13 張 PNG，判定 **READY**；字型、slides/notes 數量與逐頁版面均通過。
+- 低度觀察：P10 `WP-A` 末字「準」單獨換行但仍完整在框內，不影響本次字型修正交付；若錄影前仍要再拋光，可縮短為「工時」或微調該框。
+
+### 派工成本帳
+
+- 新增 `A3FONT-FINALQA-03`，預留上限 40k；本 session 三個 scope 預留上限合計 **200k tokens**（低於 1.05M）。協作工具仍未回傳實際 token 用量，不虛報實耗。
