@@ -130,6 +130,56 @@ def badge(slide, x, y, w, h, s, color, size=12):
 
 
 # ══════════════════════════════════════════════════════════════════
+# 文字量測 —— 版塊要按內容決定高度,不能用固定行高
+# ══════════════════════════════════════════════════════════════════
+def _wide(ch):
+    """全形(CJK / 全形標點)算 1.0 個字寬,半形算 0.55。"""
+    o = ord(ch)
+    return 1.0 if (0x2E80 <= o <= 0x9FFF or 0xFF00 <= o <= 0xFF60
+                   or 0x3000 <= o <= 0x303F) else 0.55
+
+
+def lines_needed(s, w_in, size_pt):
+    """在寬 w_in 吋、字級 size_pt 下,這段文字要幾行。"""
+    if not s:
+        return 0
+    per_line = max(w_in * 72.0 / size_pt, 1.0)      # 一行放得下幾個全形字
+    n = 0
+    for para in str(s).split(chr(10)):
+        u = sum(_wide(c) for c in para)
+        n += max(1, int(u / per_line) + (1 if u % per_line else 0))
+    return n
+
+
+def text_h(s, w_in, size_pt, spacing=1.25):
+    """這段文字需要的高度(吋)。"""
+    return lines_needed(s, w_in, size_pt) * size_pt * spacing / 72.0
+
+
+OVERFLOW = []          # 被截斷的完整內容,由渲染器收進講者備註
+
+
+def clamp(s, w_in, size_pt, max_lines, who=""):
+    """超過 max_lines 就截斷,完整內容存進 OVERFLOW 交給講者備註。
+
+    🔑 這樣做的理由:表格欄位塞進整段句子會overlap,
+       但那些句子有內容不能丟 —— 投影片留可掃描的版本,全文進備註。
+    """
+    if lines_needed(s, w_in, size_pt) <= max_lines:
+        return s
+    per_line = max(w_in * 72.0 / size_pt, 1.0)
+    budget = int(per_line * max_lines) - 1
+    acc, out = 0.0, []
+    for c in str(s):
+        acc += _wide(c)
+        if acc > budget:
+            break
+        out.append(c)
+    OVERFLOW.append((who, str(s)))
+    return "".join(out).rstrip("　,、;·") + "…"
+
+
+# ══════════════════════════════════════════════════════════════════
 # 版塊 —— 六種,對應設計稿的 block kind
 # ══════════════════════════════════════════════════════════════════
 def blk_cards(slide, x, y, w, h, items):
@@ -196,21 +246,41 @@ def blk_bar(slide, x, y, w, h, spec):
 
 
 def blk_rows(slide, x, y, w, h, items):
-    """左標右值的資料列。items = [{label, value, note, hot}]"""
-    n = len(items)
-    rh = min(0.72, h / max(n, 1))
+    """左標右值的資料列。items = [{label, value, note, hot}]
+
+    🔴 行高由**量測內容**決定,不用固定值。註記欄放得下多少就放多少,
+       放不下的整段進講者備註(clamp),不讓它壓到下一列。
+    """
+    n = max(len(items), 1)
+    LW, VW, NW = w * 0.24, w * 0.30, w * 0.40      # 標 / 值 / 註記
+    NX = x + w * 0.60
+    PAD = 0.10
+    # 先量每列需要多高,再按可用高度分配(不夠就壓縮註記行數)
+    budget = (h - PAD * (n - 1)) / n
+    max_note_lines = max(1, int((budget - 0.06) * 72.0 / (12 * 1.25)))
+    ry = y
     for i, it in enumerate(items):
-        ry = y + i * rh
         c = RED if it.get("hot") else NAVY
-        box(slide, x, ry + 0.04, 0.05, rh - 0.16, fill=c, line=None,
+        note = it.get("note", "")
+        if note:
+            note = clamp(note, NW - 0.14, 12, max_note_lines, f"rows[{i}]{it['label']}")
+        need = max(
+            text_h(it["label"], LW - 0.24, 14),
+            text_h(it["value"], VW - 0.14, 15),
+            text_h(note, NW - 0.14, 12) if note else 0,
+        ) + 0.10
+        rh = max(min(need, budget), 0.34)
+        box(slide, x, ry + 0.03, 0.05, rh - 0.10, fill=c, line=None,
             radius=False, who=f"row{i}-tick")
-        text(slide, x + 0.18, ry + 0.02, w * 0.42, rh - 0.10, it["label"],
+        text(slide, x + 0.16, ry, LW - 0.22, rh, it["label"],
              size=14, color=INK, bold=True, anchor="middle", who=f"row{i}-l")
-        text(slide, x + w * 0.46, ry + 0.02, w * 0.30, rh - 0.10, it["value"],
-             size=16, color=c, bold=True, anchor="middle", who=f"row{i}-v")
-        if it.get("note"):
-            text(slide, x + w * 0.78, ry + 0.02, w * 0.22, rh - 0.10, it["note"],
-                 size=12, color=GREY, anchor="middle", who=f"row{i}-n")
+        text(slide, x + LW, ry, VW - 0.12, rh, it["value"],
+             size=15, color=c, bold=True, anchor="middle", who=f"row{i}-v")
+        if note:
+            text(slide, NX, ry, NW - 0.12, rh, note,
+                 size=12, color=GREY, anchor="middle", spacing=1.2,
+                 who=f"row{i}-n")
+        ry += rh + PAD
 
 
 def blk_compare(slide, x, y, w, h, spec):
@@ -239,22 +309,33 @@ def blk_matrix(slide, x, y, w, h, spec):
     rows = spec["rows"]
     name_w = w * spec.get("name_frac", 0.30)
     cw = (w - name_w) / max(len(cols), 1)
-    hh = 0.40
-    rh = min(0.52, (h - hh) / max(len(rows), 1))
+    hh = 0.38
+    n = max(len(rows), 1)
+    # 🔴 行高由量測決定;塞不下的整段進講者備註,不讓它壓到下一列
+    budget = (h - hh) / n
+    max_lines = max(1, int(budget * 72.0 / (12 * 1.22)))
     for j, c in enumerate(cols):
         text(slide, x + name_w + j * cw, y, cw, hh, c, size=13, color=GREY,
              bold=True, align="center", anchor="middle", who=f"col{j}")
+    ry = y + hh
     for i, r in enumerate(rows):
-        ry = y + hh + i * rh
+        cells = [clamp(str(c), cw - 0.16, 12, max_lines, f"matrix[{i}]{r['name']}")
+                 for c in r["cells"]]
+        nm = clamp(str(r["name"]), name_w - 0.20, 13, max_lines, f"matrix[{i}]name")
+        need = max([text_h(nm, name_w - 0.20, 13)]
+                   + [text_h(c, cw - 0.16, 12) for c in cells]) + 0.08
+        rh = max(min(need, budget), 0.30)
         if r.get("hot"):
-            box(slide, x, ry, w, rh - 0.04, fill="#FBEFEF", line=None,
+            box(slide, x, ry, w, rh - 0.03, fill="#FBEFEF", line=None,
                 radius=False, who=f"mrow{i}-bg")
-        text(slide, x + 0.10, ry, name_w - 0.14, rh - 0.04, r["name"], size=13,
+        text(slide, x + 0.10, ry, name_w - 0.18, rh - 0.03, nm, size=13,
              color=(RED if r.get("hot") else INK), anchor="middle", who=f"mrow{i}")
-        for j, cell in enumerate(r["cells"]):
-            text(slide, x + name_w + j * cw, ry, cw, rh - 0.04, cell, size=12,
-                 color=(RED if r.get("hot") else GREY), align="center",
-                 anchor="middle", who=f"mcell{i}{j}")
+        for j, cell in enumerate(cells):
+            text(slide, x + name_w + j * cw + 0.08, ry, cw - 0.16, rh - 0.03,
+                 cell, size=12, color=(RED if r.get("hot") else GREY),
+                 align="center", anchor="middle", spacing=1.2,
+                 who=f"mcell{i}{j}")
+        ry += rh
 
 
 def blk_callout(slide, x, y, w, h, spec):
