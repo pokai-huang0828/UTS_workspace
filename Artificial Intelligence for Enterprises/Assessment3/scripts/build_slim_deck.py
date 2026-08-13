@@ -101,8 +101,18 @@ def f_pipeline():
     ax.text(0.52, 0.28, "約 5.25 分鐘 / 筆", fontsize=22, color=ORANGE,
             fontweight="bold", va="center")
     ax.plot([0.46, 0.46], [0.20, 0.46], color=LIGHT, lw=2)
-    ax.text(0.5, 0.08, "差 16 倍 —— 差在要不要離開畫面去找證據",
+    ax.text(0.5, 0.135, "差 16 倍 —— 差在要不要離開畫面去找證據",
             ha="center", fontsize=17, color=INK, fontweight="bold")
+
+    # 名詞定義帶:老師不是我們公司的人,這三個詞不定義就聽不懂後面九頁
+    ax.plot([0.04, 0.96], [0.075, 0.075], color=LIGHT, lw=1.5)
+    defs = [("一個「事件」", "車上鏡頭判定的一次危險駕駛"),
+            ("一次「爭議」", "客戶說這個警示不對,要我們回頭查"),
+            ("那道人工防線", "5 位專職分析,逐筆看過才算數")]
+    for i, (k, v) in enumerate(defs):
+        x = 0.04 + i * 0.318
+        ax.text(x, 0.035, k, fontsize=13, color=NAVY, fontweight="bold", va="center")
+        ax.text(x, 0.005, v, fontsize=12, color=GREY, va="center")
     return save(fig, "s01_pipeline")
 
 
@@ -354,23 +364,49 @@ def f_cost():
 # 逐頁內容 —— 標題 / 要點(≤3) / 圖 / 底線一句
 # ══════════════════════════════════════════════════════════════════
 PAGES = [
-    dict(t=None, hero="五個人。\n三千支影片。\n兩天。", fig=None, foot=None),
-    dict(t="用例:兩階段推論,與它下游那道人工防線",
+    dict(cover=True,
+         title="讓機器讀懂一次事件的完整脈絡",
+         subtitle="地端 AI 事件判讀 —— 六個月、三道決策門的立案提案",
+         hook="今天,五個人要看完三千支影片;而客戶要的答案,兩天內。",
+         scale="車隊行車影像 AI · 單一大型車隊約 3,000 筆事件/天 · 5 位專職分析人員",
+         who=["Po-Kai Huang(學號 26254793)",
+              "421104 Artificial Intelligence for Enterprises · Assessment 3",
+              "2026 年 8 月"],
+         confid="The company name has been changed for commercial in confidence reasons.　"
+                "內部數字均標示為假設或推算量級,並於各頁附推算方式。"),
+    dict(eb="介紹", t="自動化到第二階段就停了",
+         sub="剩下每一筆,都要由人看過 —— 而這道防線有兩種單價",
          b=[], fig=f_pipeline, foot=None),
-    dict(t="為什麼是現在:工作量沒變多,客戶要的時效變了",
-         b=["現況約半數爭議超過兩天", "客戶要的是兩天內、單純案件當天"],
-         fig=f_timeline, foot=None),
-    dict(t="發現過程:兩種病,兩個缺口", b=[], fig=f_twogaps, foot=None),
-    dict(t="我們看不見的那一半:有資料,沒有習慣", b=[], fig=f_blindspot, foot=None),
-    dict(t="五條路,含三條不用 AI", b=[], fig=f_options, foot=None),
-    dict(t="風險:七類十條", b=[], fig=f_risks,
+    dict(eb="業務影響", t="工作量沒變多,客戶要的時效變了",
+         sub="一件客戶爭議現況 2–5 天;客戶要的是兩天內、單純案件當天",
+         b=[], fig=f_timeline, foot=None),
+    dict(eb="業務影響", t="不是一種病,是兩種",
+         sub="我把誤報拆開看,兩側缺的東西不一樣 —— 所以解法也不一樣",
+         b=[], fig=f_twogaps, foot=None),
+    dict(eb="業務影響", t="我們量得到誤報,量不到漏放",
+         sub="該報而沒報的,沒有人會來告訴我們",
+         b=[], fig=f_blindspot, foot=None),
+    dict(eb="AI 機會", t="五條路,我選的這條有停止條件",
+         sub="三條不用 AI;採用案是地端視覺語言模型,但它六個月內不對外生效",
+         b=[], fig=f_options, foot=None),
+    dict(eb="AI 機會", t="選了這條,我先講它會出什麼事",
+         sub="七類十條;其中兩條是這個方案自己造成的",
+         b=[], fig=f_risks,
          foot="R8 曾判誤報的紀錄在事故舉證中的地位 —— 這題我沒有答案,由法務在 G1 前給書面意見"),
-    dict(t="倫理:對照澳洲 AI 倫理八原則(2019)", b=[], fig=f_ethics, foot=None),
-    dict(t="怎麼算成功:三層 KPI,一條回圈", b=[], fig=f_kpi, foot=None),
-    dict(t="六個月 · 六個工作包 · 三道決策門", b=[], fig=f_plan,
+    dict(eb="AI 機會", t="這個方案的代價,我自己標紅",
+         sub="對照澳洲 AI 倫理八原則(2019);移交後有七盞紅燈",
+         b=[], fig=f_ethics, foot=None),
+    dict(eb="效益與衡量", t="護欄層可以一票否決上面兩層",
+         sub="三層 KPI,一條回圈 —— 訂不出目標值的,寫明由哪一道門、第幾週訂",
+         b=[], fig=f_kpi, foot=None),
+    dict(eb="項目計畫", t="三道門,每一道都能讓這個案子停下來",
+         sub="六個月,六個工作包;順序不能換",
+         b=[], fig=f_plan,
          foot="要不要真的對外自動結案,不在這六個月決定"),
-    dict(t="資源、當責與請求", b=[], fig=f_cost, foot=None),
-    dict(t="參考文獻", b=[], fig=None, foot=None, refs=True),
+    dict(eb="項目計畫", t="成本主體是人,不是設備",
+         sub="而自動化也不是免費的 —— 稽核會吃掉一部分節省",
+         b=[], fig=f_cost, foot=None),
+    dict(eb=None, t="參考文獻", sub=None, b=[], fig=None, foot=None, refs=True),
 ]
 
 
@@ -444,9 +480,23 @@ def build():
     for i, pg in enumerate(PAGES):
         s = prs.slides.add_slide(prs.slide_layouts[6])
 
-        if pg.get("hero"):
-            txt(s, M, 2.1, W - 2 * M, 3.4, pg["hero"], 54, NAVY, bold=True,
-                align="center", anchor="middle", spacing=1.5)
+        if pg.get("cover"):
+            # 左側深藍色條 —— 封面的視覺錨點
+            bar = s.shapes.add_shape(1, Inches(0), Inches(0), Inches(0.34), Inches(H))
+            bar.fill.solid(); bar.fill.fore_color.rgb = _P(NAVY)
+            bar.line.fill.background(); bar.shadow.inherit = False
+
+            txt(s, 1.05, 1.32, W - 2.6, 1.15, pg["title"], 40, NAVY, bold=True)
+            txt(s, 1.05, 2.58, W - 2.6, 0.55, pg["subtitle"], 20, INK)
+            rule = s.shapes.add_shape(1, Inches(1.05), Inches(3.30),
+                                      Inches(3.2), Inches(0.035))
+            rule.fill.solid(); rule.fill.fore_color.rgb = _P(ORANGE)
+            rule.line.fill.background(); rule.shadow.inherit = False
+            txt(s, 1.05, 3.62, W - 2.6, 0.6, pg["hook"], 18, ORANGE, bold=True)
+            txt(s, 1.05, 4.34, W - 2.6, 0.45, pg["scale"], 13, GREY)
+            txt(s, 1.05, 5.20, W - 2.6 - SAFE_R, 1.05,
+                chr(10).join(pg["who"]), 15, INK, spacing=1.35)
+            txt(s, 1.05, H - 0.72, W - 2.1, 0.5, pg["confid"], 11, GREY, spacing=1.2)
         else:
             txt(s, M, TITLE_Y, W - M - 0.6, 0.85, pg["t"], 28, NAVY, bold=True)
             # 標題下的細分隔線。python-pptx 的新圖形預設是 _NoneFill,
