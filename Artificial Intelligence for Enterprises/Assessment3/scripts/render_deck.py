@@ -28,7 +28,7 @@ M = 0.72                       # 版心左右
 TITLE_Y = 0.42
 RULE_Y = 1.52
 BODY_TOP = 1.76
-BODY_BOT = N.H - 0.42          # 內容底線
+BODY_BOT = N.H - 0.38          # 內容底線(0.42→0.38:第 9 頁差 0.12" 才裝得下八條 KPI)
 FOOT_Y = N.H - 0.62
 
 COVER = dict(
@@ -145,6 +145,67 @@ def put_notes(slide, idx, extra_lines):
         slide.notes_slide.notes_text_frame.text = chr(10).join(parts)
 
 
+def need_h(kind, sp, w):
+    """這個版塊**真正需要**多少高度(吋)。
+
+    🔴 為什麼要有這個函式:
+       版心高度原本按 WEIGHT 這張跟內容無關的固定權重分配,
+       於是「三張卡片、每張三行長句」跟「三張卡片、每張一個詞」拿到一樣的高度。
+       實際後果是第 6 頁那張〈這 85% 到底是什麼(三層,一層都不可省)〉——
+       標題印出來了,**三層本身被 clamp 吃掉**,片上只剩一句半。
+       那是全案最重要的一句話,而它是被一個猜出來的高度砍掉的。
+
+    這裡的估算刻意跟各 blk_* 的實際幾何對齊(卡片標題 0.62 + 徽章 0.42、
+    表格表頭 0.36、rows 的 PAD 0.10 …),數值不必精準到吋,
+    但**必須隨內容單調成長** —— 分配是按比例正規化的,重要的是相對大小。
+    """
+    if kind == "callout":
+        return N.text_h(sp.get("text", ""), w - 0.40, 17) + 0.30
+
+    if kind == "matrix":
+        rows, cols = sp.get("rows", []), sp.get("cols", [])
+        name_w = w * sp.get("name_frac", 0.30)
+        cw = (w - name_w) / max(len(cols), 1)
+        # 每格允許到 2 行時的高度 —— 壓到 1 行雖然放得下,但那是降級不是需求
+        return 0.36 + sum(
+            max([min(N.text_h(str(r["name"]), name_w - 0.16, 12,
+                              safety=N.PINNED_SAFETY), 2 * 0.345)]
+                + [min(N.text_h(str(c), cw - 0.16, 12,
+                                safety=N.PINNED_SAFETY), 2 * 0.345)
+                   for c in r["cells"]]) + 0.06
+            for r in rows)
+
+    if kind == "cards":
+        items = sp["items"]
+        cw = (w - 0.16 * (len(items) - 1)) / max(len(items), 1)
+        return max(0.82 + (0.42 if it.get("badge") else 0) + 0.14
+                   + sum(N.text_h(ln, cw - 0.24, 12, 1.35)
+                         for ln in it.get("lines", []))
+                   for it in items)
+
+    if kind == "compare":
+        cw = (w - 0.30) / 2
+        return 0.90 + (0.48 if sp.get("verdict") else 0) + max(
+            sum(N.text_h(ln, cw - 0.32, 13, 1.5) for ln in sp[s]["lines"])
+            for s in ("left", "right"))
+
+    if kind == "rows":
+        LW, VW, NW = w * 0.24, w * 0.30, w * 0.40
+        return sum(max(N.text_h(it["label"], LW - 0.24, 14),
+                       N.text_h(it["value"], VW - 0.14, 15),
+                       min(N.text_h(it.get("note", ""), NW - 0.14, 12),
+                           3 * 0.30)) + 0.20
+                   for it in sp["items"])
+
+    if kind == "bar":
+        h = (0.48 if sp.get("label") else 0) + 0.72
+        if sp.get("bracket"):
+            h += 1.24 if isinstance(sp["bracket"].get("big"), str) else 0.62
+        return h + (0.30 if sp.get("note") else 0)
+
+    return 2.0
+
+
 def cover(prs):
     s = prs.slides.add_slide(prs.slide_layouts[6])
     N.box(s, 0, 0, 0.34, N.H, fill=N.NAVY, line=None, radius=False, who="cover-bar")
@@ -199,7 +260,7 @@ def content(prs, pg):
     foot = pg.get("foot")
     bot = (FOOT_Y - 0.14) if foot else BODY_BOT
     avail = bot - (BODY_TOP + 0.16)
-    gap = 0.22
+    gap = 0.14
     usable = avail - gap * (len(blocks) - 1)
 
     # 🔑 高度按**實際需要**分配,不用固定權重。
@@ -209,14 +270,70 @@ def content(prs, pg):
     specs = [json.loads(b["spec"]) if isinstance(b["spec"], str) else b["spec"]
              for b in blocks]
     CAP = {"callout": 1.35}
-    needs = []
-    for b, sp in zip(blocks, specs):
-        w0 = N.W - 2 * M
-        nd = N.text_h(sp.get("text", ""), w0 - 0.40, 17) + 0.30 \
-            if b["kind"] == "callout" else usable * WEIGHT.get(b["kind"], 1.0)
-        needs.append(min(nd, CAP.get(b["kind"], 1e9)))
-    tot = sum(needs) or 1.0
-    heights = [usable * n / tot for n in needs]
+    needs = [min(need_h(b["kind"], sp, N.W - 2 * M), CAP.get(b["kind"], 1e9))
+             for b, sp in zip(blocks, specs)]
+
+    # 🔴 表格先拿到**保證下限**,剩下的空間才按需求比例分。
+    #    理由是兩種版塊掉東西的後果不一樣:
+    #      · cards / rows 少印一行,是說明變短 —— 難看,但沒有自相矛盾;
+    #      · matrix 少印一列,是**標題承諾「十條風險」而片上只有六條** ——
+    #        那是投影片自己跟自己打架,而且看的人一數就知道。
+    #    所以表格的最小高度(每格壓到 1 行)不參與競爭,直接扣下來。
+    #    callout 也給一條下限 —— 第 9 頁那條被分到 **0.00"**,等於這個版塊不存在。
+    FLOOR = {"callout": 0.62}
+    floors = [(0.36 + len(sp.get("rows", [])) * 0.32) if b["kind"] == "matrix"
+              else FLOOR.get(b["kind"], 0.0)
+              for b, sp in zip(blocks, specs)]
+    # 下限加總可能就已經超過版心(第 9 頁:兩張表 + callout)。
+    # 這時要縮下限,否則 slack 變負數、版塊會被排到版面外(實測掉出底部 0.74")。
+    # 🔑 縮的順序有先後:**先縮 callout,表格的下限最後才動** ——
+    #    callout 短一句只是話變短,表格少一列是投影片自打嘴巴。
+    if sum(floors) > usable:
+        over = sum(floors) - usable
+        for i, b in enumerate(blocks):
+            if over <= 1e-9:
+                break
+            if b["kind"] != "matrix":
+                cut = min(floors[i], over)
+                floors[i] -= cut
+                over -= cut
+        if over > 1e-9:                       # 光表格的下限就塞不下,只好等比縮
+            k = usable / sum(floors)
+            floors = [f * k for f in floors]
+    slack = max(usable - sum(floors), 0.0)
+    extra = [max(n - f, 0.0) for n, f in zip(needs, floors)]
+    tot = sum(extra) or 1.0
+    heights = [f + slack * e / tot for f, e in zip(floors, extra)]
+
+    # 🔴 每種版塊都有一個「再少就畫不出來」的高度。低於它會產生**零高或負高的形狀**,
+    #    python-pptx 照寫、zip 也合法,但 PowerPoint 會拒絕開啟整個檔案。
+    #    不足的部分一律向最高的那個版塊借。
+    MIN = {"callout": 0.36, "cards": 1.75, "rows": 0.70,
+           "compare": 0.95, "bar": 0.80, "matrix": 0.70}
+    for _ in range(len(heights)):
+        i = min(range(len(heights)),
+                key=lambda k: heights[k] - MIN.get(blocks[k]["kind"], 0.3))
+        gap_i = MIN.get(blocks[i]["kind"], 0.3) - heights[i]
+        if gap_i <= 1e-6:
+            break
+        # 向**餘裕最多**的版塊借,不是向最高的借 —— 最高的那個可能自己就剛好卡在下限
+        # (第 10 頁 cards 1.69" 既是最矮也是最高,迴圈當場空轉)。
+        j = max(range(len(heights)),
+                key=lambda k: heights[k] - max(MIN.get(blocks[k]["kind"], 0.3),
+                                               floors[k]))
+        if j == i:
+            break
+        # 借的時候不能借到低於對方的 floor —— 否則剛保住的表格列又被借走
+        # (實測第 10 頁四臂表就是這樣從 1.64" 被扣到 1.58",少印一臂)。
+        take = min(gap_i,
+                   heights[j] - max(MIN.get(blocks[j]["kind"], 0.3), floors[j]))
+        if take <= 1e-6:
+            break
+        heights[j] -= take
+        heights[i] += take
+    assert all(h > MIN.get(b["kind"], 0.3) - 1e-6 for h, b in zip(heights, blocks)), \
+        f"第 {pg['n']} 頁塞不下:" + "、".join(
+            f'{b["kind"]}={h:.2f}"' for b, h in zip(blocks, heights))
 
     y = BODY_TOP + 0.16
     for b, h in zip(blocks, heights):

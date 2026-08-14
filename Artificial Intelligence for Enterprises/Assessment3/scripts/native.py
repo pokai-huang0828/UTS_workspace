@@ -41,6 +41,13 @@ def rgb(h):
 
 
 def _guard(x, y, w, h, who):
+    # 🔴 尺寸必須為正。負高度的形狀 python-pptx 照寫不誤,zip 也是合法的,
+    #    但 **PowerPoint 會直接拒絕開啟整個檔案**(「PowerPoint could not open the file」)。
+    #    2026-08-14 我改版心分配時就做出過這種檔:第 9 頁 callout 高 0、
+    #    第 10 頁三個文字框高 −0.17"。python-pptx 讀得開,所以驗證全過,
+    #    是拿 PowerPoint COM 去導 PNG 才炸出來。
+    #    → 這條 assert 就是那個缺掉的守門員:寧可 build 失敗,不可交出開不了的檔。
+    assert w > 0.01 and h > 0.01, f"{who} 尺寸非正:w={w:.3f} h={h:.3f}(PowerPoint 會拒絕開檔)"
     assert -0.01 <= x and x + w <= W + 0.01, f"{who} 超出版面寬:{x:.2f}+{w:.2f}"
     assert -0.01 <= y and y + h <= H + 0.01, f"{who} 超出版面高:{y:.2f}+{h:.2f}"
     if x + w > SAFE_X + 1e-6 and y + h > SAFE_Y + 1e-6:
@@ -159,15 +166,25 @@ def lines_needed(s, w_in, size_pt):
 SAFETY = 1.35          # 量測安全係數
 
 
-def text_h(s, w_in, size_pt, spacing=1.25):
+PINNED_SAFETY = 1.15   # 行數已被 clamp 釘死時用的係數(見下)
+
+
+def text_h(s, w_in, size_pt, spacing=1.25, safety=None):
     """這段文字需要的高度(吋)。
 
     🔴 乘上 SAFETY。lines_needed 是估算(CJK 1.0 / 半形 0.55 的近似字寬),
        單一區塊誤差很小,但一頁疊三四個版塊後會累積成溢出 ——
        實測 1.18 仍會爆,調到 1.35 才乾淨。
        **寧可留白,不可重疊**:重疊在投影片上是致命的,留白只是不好看。
+
+    🔑 但 SAFETY 保的是「**這段文字會佔幾行**」這個估計的誤差。
+       文字已經被 clamp 釘死在 N 行之後,行數不再是估計值,
+       這時再乘 1.35 就是重複計價 —— 表格因此每列虛胖兩成,
+       10 條風險量成 6.59" 塞不進 4.19",然後默默丟掉 4 條。
+       所以呼叫端可以傳 safety=PINNED_SAFETY,只留字體度量的餘裕。
     """
-    return lines_needed(s, w_in, size_pt) * size_pt * spacing / 72.0 * SAFETY
+    return (lines_needed(s, w_in, size_pt) * size_pt * spacing / 72.0
+            * (SAFETY if safety is None else safety))
 
 
 OVERFLOW = []          # 被截斷或未上版的完整內容,由渲染器收進講者備註
@@ -226,6 +243,13 @@ def clamp(s, w_in, size_pt, max_lines, who=""):
     """
     if lines_needed(s, w_in, size_pt) <= max_lines:
         return s
+    s = str(s)
+    # 🔴 2026-08-14:硬換行必須先攤平,否則 clamp 根本壓不到 max_lines。
+    #    「A\nB」壓成 1 行,舊版只按字寬截斷,\n 原封不動留著 → 還是 2 行。
+    #    於是 blk_matrix 的 3→2→1 降階跑到 1 也沒用,表格照樣塞不下、照樣丟列。
+    #    (第 7 頁 10 條風險需 6.59" 只有 4.19" —— 每列實測仍是 2.1 行。)
+    if s.count(chr(10)) + 1 > max_lines:
+        s = "　".join(p.strip() for p in s.split(chr(10)) if p.strip())
     per_line = max(w_in * 72.0 / size_pt, 1.0)
     budget = int(per_line * max_lines) - 1
     acc, out = 0.0, []
@@ -256,7 +280,12 @@ def blk_cards(slide, x, y, w, h, items):
              size=15, color=INK, bold=True, align="center", who=f"card{i}-t")
         by = y + 0.82
         if it.get("badge"):
-            bw = min(cw - 0.5, 1.35)
+            # 🔴 膠囊寬度要**跟著字長走**,不能寫死 1.35"。
+            #    1.35" 在 12pt 只放得下 8 個全形字,「提案推算,非核定編制」是 10 個
+            #    → clamp 成「提案推算,非…」印在片上,那是一句沒有意義的話。
+            need_w = lines_needed(it["badge"], 99, 12) and \
+                sum(_wide(c) for c in str(it["badge"])) * 12 / 72.0 + 0.28
+            bw = max(0.9, min(cw - 0.20, need_w))
             badge(slide, cx + (cw - bw) / 2, by, bw, 0.30, it["badge"], tone)
             by += 0.42
         if it.get("lines"):
@@ -428,26 +457,59 @@ def blk_matrix(slide, x, y, w, h, spec):
     # 🔴 PowerPoint 表格**會自己長高** —— add_table 給的列高是最小值不是上限,
     #    內容放不下它就撐開,於是壓到下一個版塊。
     #    所以先把每一格 clamp 到固定行數,列高就可預測。
+    #    行數已由 clamp 釘死,所以這裡用 PINNED_SAFETY 而不是 SAFETY(見 text_h)。
+    #    ⚠️ 檢查用的列高必須跟**渲染用的**一模一樣。舊版檢查用 _rough、
+    #    渲染用 max(_rough, 0.32),於是「量起來放得下」的表格畫出來卻超高。
     def _rough(r):
-        return max([text_h(str(r["name"]), name_w - 0.16, 12)]
-                   + [text_h(str(c), cw - 0.16, 12) for c in r["cells"]]) + 0.06
+        return max(0.32, max(
+            [text_h(str(r["name"]), name_w - 0.16, 12, safety=PINNED_SAFETY)]
+            + [text_h(str(c), cw - 0.16, 12, safety=PINNED_SAFETY)
+               for c in r["cells"]]) + 0.06)
 
     HDR = 0.36
     raw = [dict(r) for r in rows]
 
-    # 🔴 行數上限自動降階。fit_items 的 min_keep 會保底留幾列,
-    #    但那幾列本身可能就太高 —— p10 的表格因此掉出版面底部。
-    #    所以 3 行放不下就試 2 行、再試 1 行,直到總高進得了 h。
-    for CELL_LINES in (3, 2, 1):
-        rows = [dict(r) for r in raw]
-        for r in rows:
-            r["name"] = clamp(str(r["name"]), name_w - 0.16, 12, CELL_LINES,
+    # 🔴 行數上限自動降階。3 行放不下就試 2 行、再試 1 行,直到全部列進得了 h。
+    #
+    # 🔴🔴 2026-08-14 修掉一個把整份交付檔弄成半成品的 bug:
+    #    舊版在迴圈**裡面**就呼叫 fit_items,而 fit_items 會先丟列讓它「放得下」,
+    #    於是後面那句 `if 總高 <= h: break` **恆為真** —— 第一圈就 break,
+    #    CELL_LINES 2 與 1 從來沒被跑過。降階機制整段是死碼。
+    #    後果:第 6 頁標題寫「五條路」只印 2 列、第 7 頁「十條風險」只印 6 列、
+    #    第 8 頁「琥珀 7 紅 1」只印 6 列、第 9 頁「①–⑨ 四道護欄」只印 2+2 列。
+    #    **投影片自己承諾的條數對不上自己印出來的條數**,比留白難看一百倍。
+    #
+    # 🔑 正確順序:**先壓字,再考慮丟列**。
+    #    丟列是最後手段 —— 一列都不丟能放下,就一列都不丟。
+    def _clamped(cell_lines):
+        out = [dict(r) for r in raw]
+        for r in out:
+            r["name"] = clamp(str(r["name"]), name_w - 0.16, 12, cell_lines,
                               f"matrix-name:{r['name']}")
-            r["cells"] = [clamp(str(c), cw - 0.16, 12, CELL_LINES, "matrix-cell")
+            r["cells"] = [clamp(str(c), cw - 0.16, 12, cell_lines, "matrix-cell")
                           for c in r["cells"]]
+        return out
+
+    # ⚠️ clamp() 每截斷一次就往 OVERFLOW 塞一筆。試 3 個級距會塞三份重複的,
+    #    所以先記位置,選定後倒回去只留最終那一版。
+    mark = len(OVERFLOW)
+    rows, chosen = None, 1
+    for CELL_LINES in (3, 2, 1):
+        cand = _clamped(CELL_LINES)
+        rows, chosen = cand, CELL_LINES               # 記住目前最緊的一版
+        if HDR + sum(_rough(r) for r in cand) <= h + 1e-6:
+            break                                     # 全部列都放得下 → 收工,不丟任何一列
+    del OVERFLOW[mark:]
+    rows = _clamped(chosen)
+    need = HDR + sum(_rough(r) for r in rows)
+    if need > h + 1e-6:
+        # 連 1 行/格都塞不下,這時才丟列(並且進講者備註)
         rows, _hidden = fit_items(rows, h - HDR, _rough, min_keep=2, who="matrix")
-        if HDR + sum(_rough(r) for r in rows) <= h + 1e-6:
-            break
+        # 🔴 大聲報出來。上一版就是**默默**丟列,結果標題寫「十條風險」片上只有 6 條,
+        #    而我完全不知道 —— 是模擬考官翻頁對照才發現的。
+        print(f'   ⚠️ 表格丟了 {len(_hidden)} / {len(raw)} 列'
+              f'(需 {need:.2f}" · 只有 {h:.2f}" · 已壓到 {chosen} 行/格):'
+              + '、'.join(str(r["name"]).split(chr(10))[0][:14] for r in _hidden))
     n = len(rows)
 
     _guard(x, y, w, h, "matrix")
@@ -464,7 +526,7 @@ def blk_matrix(slide, x, y, w, h, spec):
     # 而撐開的量正好就是壓到下一個版塊的量。
     tbl.rows[0].height = Inches(HDR)
     for i, r in enumerate(rows):
-        tbl.rows[i + 1].height = Inches(max(_rough(r), 0.32))
+        tbl.rows[i + 1].height = Inches(_rough(r))
 
     def _cell(c, s, size, color, bold=False, fill=None, align="center"):
         c.text = ""
