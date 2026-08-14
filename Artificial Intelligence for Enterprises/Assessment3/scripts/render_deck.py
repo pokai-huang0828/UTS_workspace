@@ -85,31 +85,61 @@ def narration():
             u = t[m.start():e]
             nm = NARR.search(u)
             if not nm:
-                out.append((m.group(1).strip(), ""))
+                out.append((m.group(1).strip(), "", []))
                 continue
             rest = u[nm.end():]
             nx = NXT.search(rest)
-            blk = STAGE.sub("", rest[:nx.start()] if nx else rest)
+            raw = rest[:nx.start()] if nx else rest
+            # 舞台指示不唸出聲,但它是**錄影提示**(哪裡停、哪裡切全螢幕人像),
+            # 所以要留下來放在講稿下方,不是丟掉。
+            cues = [re.sub(r"[*_`~]", "", c).strip("()（） \n")
+                    for c in STAGE.findall(raw)]
+            blk = STAGE.sub("", raw)
             body = "\n".join(l for l in blk.split("\n")
                              if not l.lstrip().startswith(">")).strip()
-            out.append((m.group(1).strip(), re.sub(r"[*_`~]", "", body)))
+            out.append((m.group(1).strip(), re.sub(r"[*_`~]", "", body), cues))
     return out
 
 
 NARR_CACHE = None
 
 
+RATE = 4.4          # 字/秒(全片配時基準)
+CJK = re.compile(r"[一-鿿A-Za-z0-9]")
+
+
 def put_notes(slide, idx, extra_lines):
-    """講者備註 = 口白逐字(最上面,錄影時看這個)+ 分隔線 + 被收起來的細節。"""
+    """講者備註 = **提詞稿**。
+
+    結構刻意固定,錄影時眼睛只掃第一行就知道這頁該講多久:
+        【第 N 頁 · 約 XX 秒 · 累計 X:XX】
+        ── 講稿 ──
+        <照著唸的字>
+        ── 錄影提示 ──
+        <哪裡停、哪裡切全螢幕人像>
+        → 換下一頁
+        ── 備查(不唸)──
+        <被收起來的細節>
+    """
     global NARR_CACHE
     if NARR_CACHE is None:
         NARR_CACHE = narration()
     parts = []
     if idx < len(NARR_CACHE) and NARR_CACHE[idx][1]:
-        title, body = NARR_CACHE[idx]
-        parts.append(f"◆ 口白逐字 —— {title}")
+        title, body, cues = NARR_CACHE[idx]
+        n = len(CJK.findall(body))
+        secs = n / RATE
+        cum = sum(len(CJK.findall(NARR_CACHE[k][1])) for k in range(idx + 1)) / RATE
+        parts.append(f"【第 {idx + 1} 頁 · {title}】"
+                     f"　約 {secs:.0f} 秒 · {n} 字 · 累計 {int(cum // 60)}:{int(cum % 60):02d}")
+        parts.append("── 講稿(照著唸)──")
         parts.append(body)
-        parts.append("─" * 34)
+        if cues:
+            parts.append("── 錄影提示(不唸)──")
+            parts.extend(f"· {c}" for c in cues)
+        parts.append("→ 換下一頁")
+        if extra_lines:
+            parts.append("── 備查(不唸,答辯用)──")
     parts.extend(extra_lines)
     if parts:
         slide.notes_slide.notes_text_frame.text = chr(10).join(parts)
