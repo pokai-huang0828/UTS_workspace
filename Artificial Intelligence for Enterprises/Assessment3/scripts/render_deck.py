@@ -63,6 +63,58 @@ WEIGHT = {"cards": 1.35, "matrix": 1.25, "compare": 1.20,
           "bar": 1.15, "rows": 1.00, "callout": 0.34}
 
 
+def narration():
+    """從 notes/_v2_parts 取出十二個單元的口白逐字。
+
+    順序:鉤子 → P1…P10 → 參考文獻,正好對上投影片 1…12。
+    舞台指示(整段被括號包住的錄影標記)剝掉 —— 那是給錄影用的,不唸出聲。
+    """
+    import glob
+    H1 = re.compile(r"(?m)^#\s+(.+)$")
+    NARR = re.compile(r"(?m)^##\s*口白逐字\s*$")
+    NXT = re.compile(r"(?m)^#{1,2}\s+")
+    STAGE = re.compile(r"(?ms)^[ \t]*[*_]{0,2}[(（].*?[)）][*_]{0,2}[ \t]*$")
+    out = []
+    for f in sorted(glob.glob(os.path.join(A3, "notes", "_v2_parts", "*.md"))):
+        t = open(f, encoding="utf-8").read()
+        hs = list(H1.finditer(t))
+        for i, m in enumerate(hs):
+            if i == 0:
+                continue                      # 分段標題(甲/乙/丙段),不是單元
+            e = hs[i + 1].start() if i + 1 < len(hs) else len(t)
+            u = t[m.start():e]
+            nm = NARR.search(u)
+            if not nm:
+                out.append((m.group(1).strip(), ""))
+                continue
+            rest = u[nm.end():]
+            nx = NXT.search(rest)
+            blk = STAGE.sub("", rest[:nx.start()] if nx else rest)
+            body = "\n".join(l for l in blk.split("\n")
+                             if not l.lstrip().startswith(">")).strip()
+            out.append((m.group(1).strip(), re.sub(r"[*_`~]", "", body)))
+    return out
+
+
+NARR_CACHE = None
+
+
+def put_notes(slide, idx, extra_lines):
+    """講者備註 = 口白逐字(最上面,錄影時看這個)+ 分隔線 + 被收起來的細節。"""
+    global NARR_CACHE
+    if NARR_CACHE is None:
+        NARR_CACHE = narration()
+    parts = []
+    if idx < len(NARR_CACHE) and NARR_CACHE[idx][1]:
+        title, body = NARR_CACHE[idx]
+        parts.append(f"◆ 口白逐字 —— {title}")
+        parts.append(body)
+        parts.append("─" * 34)
+    parts.extend(extra_lines)
+    if parts:
+        slide.notes_slide.notes_text_frame.text = chr(10).join(parts)
+
+
 def cover(prs):
     s = prs.slides.add_slide(prs.slide_layouts[6])
     N.box(s, 0, 0, 0.34, N.H, fill=N.NAVY, line=None, radius=False, who="cover-bar")
@@ -79,6 +131,7 @@ def cover(prs):
            15, N.INK, spacing=1.35, who="cover-who")
     N.text(s, 1.05, N.H - 0.70, N.SAFE_X - 1.10, 0.5, COVER["confid"], 12, N.GREY,
            spacing=1.2, who="cover-conf")
+    put_notes(s, 0, [])
     return s
 
 
@@ -97,6 +150,7 @@ def refs_page(prs):
     N.text(s, M, N.H - 0.52, N.SAFE_X - M, 0.34,
            "APA 7th　·　The company name has been changed for commercial in "
            "confidence reasons.", 12, N.GREY, who="ref-foot")
+    put_notes(s, 11, [])
     return s
 
 
@@ -154,13 +208,11 @@ def content(prs, pg):
         N.text(s, M, FOOT_Y, N.SAFE_X - M, 0.5, foot, 13, N.GREY, who="foot")
 
     # 版塊放不下而被截斷的完整內容 → 講者備註(內容不丟)
-    notes = [f"【{k}】{v}" for k, v in N.OVERFLOW]
+    extra = [f"【{k}】{v}" for k, v in N.OVERFLOW]
     N.OVERFLOW.clear()
-    extra = pg.get("why")
-    if extra:
-        notes.append(f"【這一頁的作用】{extra}")
-    if notes:
-        s.notes_slide.notes_text_frame.text = chr(10).join(notes)
+    if pg.get("why"):
+        extra.append(f"【這一頁的作用】{pg['why']}")
+    put_notes(s, pg["n"] - 1, extra)      # 投影片 n → 單元索引 n-1
     return s
 
 
