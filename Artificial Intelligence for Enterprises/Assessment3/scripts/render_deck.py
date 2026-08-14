@@ -308,8 +308,15 @@ def content(prs, pg):
     # 🔴 每種版塊都有一個「再少就畫不出來」的高度。低於它會產生**零高或負高的形狀**,
     #    python-pptx 照寫、zip 也合法,但 PowerPoint 會拒絕開啟整個檔案。
     #    不足的部分一律向最高的那個版塊借。
-    MIN = {"callout": 0.36, "cards": 1.75, "rows": 0.70,
-           "compare": 0.95, "bar": 0.80, "matrix": 0.70}
+    # cards 的下限 2.20" 是算出來的:標題 0.62 + 徽章 0.42 + 內距 0.14 = 1.18" 的固定開銷,
+    # 再加三行 12pt(3 x 0.304)。低於這個數,卡片就只剩標題 + 一行殘句。
+    # 每個數字都是從對應 blk_* 的固定開銷反推的,不是猜的:
+    #   cards   標題 0.62 + 徽章 0.42 + 內距 0.14 + 三行 12pt(3×0.304)
+    #   compare 標題 0.42 + 裁決 0.48 + 內距 + 一行 13pt
+    #   rows    fit_items 保底兩列 × 0.34 + 列距 0.10
+    #   bar     標題 0.48 + 長條 0.72
+    MIN = {"callout": 0.36, "cards": 2.20, "rows": 0.80,
+           "compare": 1.75, "bar": 1.20, "matrix": 0.70}
     for _ in range(len(heights)):
         i = min(range(len(heights)),
                 key=lambda k: heights[k] - MIN.get(blocks[k]["kind"], 0.3))
