@@ -33,20 +33,23 @@ tot = 0
 w("| 頁 | 這一頁要落地的那句話 | 目標秒 | 累計 |")
 w("|---|---|---:|---:|")
 for i, sk in enumerate(PITCH.SKELETON):
-    body = N[i][1] if i < len(N) else ""
+    body = R.unit(i)[1]
     n = len(R.CJK.findall(body)); tot += n
     w(f"| {i+1} | {sk['one'][:34]} | {n/R.RATE:.0f} | {int(tot/R.RATE//60)}:{int(tot/R.RATE%60):02d} |")
 w(f"| **合計** | | **{tot/R.RATE:.0f}** | **{int(tot/R.RATE//60)}:{int(tot/R.RATE%60):02d}** |")
 w("")
-w(f"距 600 秒硬上限餘裕 **{600 - tot/R.RATE:.0f} 秒** —— 但這是**純口白**推估,")
-w("不含換頁換氣(十二次約 12 秒)與第 7 頁那 2 秒靜默,也不含用自己的話講時的停頓。")
-w("**實際請以排練計時為準。**")
+w(f"純口白推估 **{tot/R.RATE:.0f} 秒**,距 600 秒硬上限只剩 **{600 - tot/R.RATE:.0f} 秒** ——")
+w(f"而換頁換氣十二次約 12 秒、第 7 頁還有 2 秒靜默,**加起來會頂到 {tot/R.RATE+14:.0f} 秒**。")
+w("")
+w("> 🔴 **所以這份預設是超時的。** 第一次排練請計時,若超過 9:40:")
+w("> **砍第 3 頁最後四句**(20 秒限定的重複 + 五萬台 / 三個分母 / 成長階梯)= 省 26 秒。")
+w("> 那一段的 20 秒限定第 2 頁已經完整講過,是重複;成長論證是「為什麼是現在」的補強,不是主軸。")
 w("")
 w("---")
 w("")
 
 for i, sk in enumerate(PITCH.SKELETON):
-    title, body, cues = N[i] if i < len(N) else ("", "", [])
+    title, body, cues = R.unit(i)
     n = len(R.CJK.findall(body))
     w(f"## 第 {i+1} 頁 · {title}")
     w(f"`目標 {n/R.RATE:.0f} 秒`")
@@ -65,6 +68,9 @@ for i, sk in enumerate(PITCH.SKELETON):
         w("")
         for x in sk["red"]:
             w(f"> ⚠️ {x}")
+    if sk.get("cut"):
+        w("")
+        w(f"> ✂️ **超時砍這裡** —— {sk['cut']}")
     allcues = list(cues)
     if sk.get("cue") and not any(sk["cue"][:12] in c for c in allcues):
         allcues.append(sk["cue"])

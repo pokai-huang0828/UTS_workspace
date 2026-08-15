@@ -36,7 +36,14 @@ COVER = dict(
     title="讓機器讀懂一次事件的完整脈絡",
     subtitle="地端 AI 事件判讀 —— 六個月、三道決策門的立案提案",
     hook="今天,五個人要看完三千支影片;而客戶要的答案,兩天內。",
-    scale="車隊行車影像 AI · 單一大型車隊約 3,000 筆事件/天 · 5 位專職分析人員",
+    # 🔴 2026-08-15:原本只有一行「車隊行車影像 AI · 3,000 筆/天 · 5 位分析人員」。
+    #    評分者是學界的 VLM 研究者,沒有車隊產業背景 —— 這幾個字他聽不懂,
+    #    而後面九頁的每一個數字都建立在「事件」與「爭議」這兩個詞上。
+    #    所以第一頁要先把生意講清楚:賣什麼給誰、什麼叫一筆事件、什麼叫一次爭議。
+    scale=["客戶是車隊 —— 物流 · 客運 · 租賃;車上裝我們的鏡頭與車機",
+           "鏡頭偵測到一次危險駕駛 → 記一筆「事件」(影片 + 時間地點 + 系統分類)",
+           "客戶回頭說「這筆判錯了」= 一次「爭議」—— 只能由人重看影片才判得出來",
+           "單一大型車隊約 3,000 筆事件/天 · 全公司 5 位專職分析人員逐筆看"],
     who=["Po-Kai Huang(學號 26254793)",
          "421104 Artificial Intelligence for Enterprises · Assessment 3",
          "2026 年 8 月"],
@@ -105,6 +112,22 @@ def narration():
 NARR_CACHE = None
 
 
+def unit(idx):
+    """第 idx 頁的 (單元名, 逐字, 錄影提示)。
+
+    🔑 pitch.py 的 say 欄可以覆寫逐字 —— 第 1 頁的開場口白只寫在那裡,
+       不在 notes/_v2_parts(那批檔案是十二個單元的原始口白,不含新補的開場)。
+    """
+    global NARR_CACHE
+    if NARR_CACHE is None:
+        NARR_CACHE = narration()
+    title, body, cues = NARR_CACHE[idx] if idx < len(NARR_CACHE) else ("", "", [])
+    sk = PITCH.SKELETON[idx] if idx < len(PITCH.SKELETON) else None
+    if sk and sk.get("say"):
+        body = sk["say"]
+    return title, body, cues
+
+
 RATE = 4.4          # 字/秒(全片配時基準)
 CJK = re.compile(r"[一-鿿A-Za-z0-9]")
 
@@ -133,11 +156,11 @@ def put_notes(slide, idx, extra_lines):
     if NARR_CACHE is None:
         NARR_CACHE = narration()
     parts = []
-    if idx < len(NARR_CACHE) and NARR_CACHE[idx][1]:
-        title, body, cues = NARR_CACHE[idx]
+    if idx < len(NARR_CACHE) and unit(idx)[1]:
+        title, body, cues = unit(idx)
         n = len(CJK.findall(body))
         secs = n / RATE
-        cum = sum(len(CJK.findall(NARR_CACHE[k][1])) for k in range(idx + 1)) / RATE
+        cum = sum(len(CJK.findall(unit(k)[1])) for k in range(idx + 1)) / RATE
         parts.append(f"【第 {idx + 1} 頁 · {title}】"
                      f"　目標 {secs:.0f} 秒 · 累計 {int(cum // 60)}:{int(cum % 60):02d}")
 
@@ -154,6 +177,9 @@ def put_notes(slide, idx, extra_lines):
             if sk.get("red"):
                 parts.append("")
                 parts.extend(f"⚠️ {x}" for x in sk["red"])
+            if sk.get("cut"):
+                parts.append("")
+                parts.append("✂️ " + sk["cut"])
             if sk.get("cue") and not any(sk["cue"][:12] in c for c in cues):
                 cues = list(cues) + [sk["cue"]]   # 口白檔裡可能已經寫過同一條,別重複
         if cues:
@@ -244,10 +270,10 @@ def cover(prs):
     N.rule(s, 1.05, 3.30, 3.2, color=N.ORANGE)
     N.text(s, 1.05, 3.60, N.W - 2.6, 0.6, COVER["hook"], 18, N.ORANGE, bold=True,
            who="cover-hook")
-    N.text(s, 1.05, 4.32, N.W - 2.6, 0.45, COVER["scale"], 13, N.GREY,
-           who="cover-scale")
-    N.text(s, 1.05, 5.16, N.W - 2.6 - N.SAFE_R, 1.05, "\n".join(COVER["who"]),
-           15, N.INK, spacing=1.35, who="cover-who")
+    N.text(s, 1.05, 4.26, N.W - 2.6, 1.16, "\n".join(COVER["scale"]), 13, N.GREY,
+           spacing=1.30, who="cover-scale")
+    N.text(s, 1.05, 5.56, N.W - 2.6 - N.SAFE_R, 0.92, "\n".join(COVER["who"]),
+           14, N.INK, spacing=1.30, who="cover-who")
     N.text(s, 1.05, N.H - 0.70, N.SAFE_X - 1.10, 0.5, COVER["confid"], 12, N.GREY,
            spacing=1.2, who="cover-conf")
     put_notes(s, 0, [])
