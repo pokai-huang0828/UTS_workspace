@@ -18,6 +18,7 @@ from pptx import Presentation
 from pptx.util import Inches
 
 import native as N
+import pitch as PITCH
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 A3 = os.path.dirname(HERE)
@@ -109,17 +110,24 @@ CJK = re.compile(r"[一-鿿A-Za-z0-9]")
 
 
 def put_notes(slide, idx, extra_lines):
-    """講者備註 = **提詞稿**。
+    """講者備註 = **提詞稿**,兩層。
 
-    結構刻意固定,錄影時眼睛只掃第一行就知道這頁該講多久:
-        【第 N 頁 · 約 XX 秒 · 累計 X:XX】
-        ── 講稿 ──
-        <照著唸的字>
+    🔴 2026-08-15 改版。Jiwei Guan 的作業說明寫著:
+       「视频不是简单地"念 PPT"，而是一个 Selling Pitch」
+       「如果完全照读 AI 生成的稿件，往往会显得不自然」
+       —— 而先前的備註就是一份 2,464 字的逐字稿,照唸正好踩中他點名的那條。
+       逐字稿還有個更實際的問題:眼睛在稿子裡找位置的時候,人就不看鏡頭了。
+
+    所以第一層改成**骨架**(自己的話講),逐字稿降為第二層(忘詞才看):
+        【第 N 頁 · 目標 XX 秒 · 累計 X:XX】
+        ★ 一句話  ← 這頁只有一句會被記住,講完它才換頁
+        · 關鍵詞  ← 撐起那句話的三個支點
+        # 數字    ← 講錯就毀掉可信度的,照著唸
+        ⚠️ 紅線   ← 這頁特有的禁語與必附限定語
         ── 錄影提示 ──
-        <哪裡停、哪裡切全螢幕人像>
         → 換下一頁
-        ── 備查(不唸)──
-        <被收起來的細節>
+        ── 逐字備援(忘詞才看,不是拿來唸的)──
+        ── 備查(答辯用)──
     """
     global NARR_CACHE
     if NARR_CACHE is None:
@@ -131,14 +139,34 @@ def put_notes(slide, idx, extra_lines):
         secs = n / RATE
         cum = sum(len(CJK.findall(NARR_CACHE[k][1])) for k in range(idx + 1)) / RATE
         parts.append(f"【第 {idx + 1} 頁 · {title}】"
-                     f"　約 {secs:.0f} 秒 · {n} 字 · 累計 {int(cum // 60)}:{int(cum % 60):02d}")
-        parts.append("── 講稿(照著唸)──")
-        parts.append(body)
+                     f"　目標 {secs:.0f} 秒 · 累計 {int(cum // 60)}:{int(cum % 60):02d}")
+
+        sk = PITCH.SKELETON[idx] if idx < len(PITCH.SKELETON) else None
+        if sk:
+            parts.append("")
+            parts.append(f"★ {sk['one']}")
+            if sk.get("keys"):
+                parts.append("")
+                parts.extend(f"· {k}" for k in sk["keys"])
+            if sk.get("nums"):
+                parts.append("")
+                parts.extend(f"# {x}" for x in sk["nums"])
+            if sk.get("red"):
+                parts.append("")
+                parts.extend(f"⚠️ {x}" for x in sk["red"])
+            if sk.get("cue") and not any(sk["cue"][:12] in c for c in cues):
+                cues = list(cues) + [sk["cue"]]   # 口白檔裡可能已經寫過同一條,別重複
         if cues:
+            parts.append("")
             parts.append("── 錄影提示(不唸)──")
             parts.extend(f"· {c}" for c in cues)
+        parts.append("")
         parts.append("→ 換下一頁")
+        parts.append("")
+        parts.append(f"── 逐字備援 · {n} 字(忘詞才看,不是拿來唸的)──")
+        parts.append(body)
         if extra_lines:
+            parts.append("")
             parts.append("── 備查(不唸,答辯用)──")
     parts.extend(extra_lines)
     if parts:
