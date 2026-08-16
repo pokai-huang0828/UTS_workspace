@@ -473,6 +473,11 @@ def main():
 
     pic = sum(1 for sl in prs.slides for sh in sl.shapes if sh.shape_type == 13)
     shp = sum(len(sl.shapes) for sl in prs.slides)
+    try:
+        import lock_pages
+        lock_pages.check(OUT)
+    except Exception as e:
+        print(f"   ⚠️ 鎖定比對跳過:{e}")
     print(f"✅ {os.path.basename(OUT)}")
     print(f"   {len(prs.slides)} 頁 · {os.path.getsize(OUT)/2**20:.2f} MB")
     print(f"   形狀 {shp} 個 · 圖片 {pic} 個 {'✅ 全原生可編輯' if pic == 0 else '🔴 仍有貼圖'}")
