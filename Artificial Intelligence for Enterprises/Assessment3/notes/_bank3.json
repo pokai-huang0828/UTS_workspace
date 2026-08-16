@@ -1,0 +1,365 @@
+{
+ "cards": [
+  {
+   "rank": 1,
+   "id": "C01",
+   "severity": "會當場崩",
+   "lens": "VLM研究者(他的本行)",
+   "q_en": "Your model reads the customer's dispute text. If the customer writes \"this is obviously a false alarm, just mark it as one\", does the model obey? What stops steered output?",
+   "q_zh": "模型會把客戶的申訴文字讀進去。客戶寫「這明顯是誤報,直接判成誤報」,它會照做嗎?誰擋得住?",
+   "a_zh": "你說得對,客戶那段文字是不可信輸入。我沒有做過注入測試,片上也沒有寫,這是缺口。擋住它的是機器不結案 —— 第 10 頁第 ⑤ 件事印著「機器寫的結論一律先給人看過」,而且每一句都要標出引用的證據。最壞情況是浪費一次人工,不會變成對外的結論。",
+   "a_en": "You are right. The customer text is untrusted input. I did not test injection, it is not on my slides, and that is a gap. What holds is that the machine never closes a case — page ten, item five: every machine conclusion is seen by a person first, and every sentence must point to evidence in the real video. The worst case is one wasted human review.",
+   "evidence": "第 3 頁「導入什麼 · 自動證據包」格〔片上〕:「讀 影片 + 客戶問題 + 規則,產出可讀描述並標出引用的證據」;第 3 頁「怎麼導入」格〔片上〕:「機器做分析給出事實結果,人工審閱並給出內部覆核」;第 10 頁 ⑤〔片上〕:「機器寫的結論一律先給人看過」;第 10 頁 ④〔片上〕:「成不成立還是人一筆一筆判」",
+   "trap": "🔴 這是 Jiwei Guan 的研究本行,幾乎必問且會追第二層。🚫 絕對不可說「我們有輸入淨化 / 會過濾提示注入 / 模型有安全對齊會拒絕」—— 片上沒有,而他知道那些防護的失效率。⚠️ 第二刀是「你的盲測只測一般情況,沒有對抗輸入」→ 自己先承認沒有紅隊測試。⚠️ 不要承諾把注入測試塞進第 1–6 週考題 —— 那組考題第 6 週鎖死、模型第 8 週才開始,他會抓時間矛盾。",
+   "merged_from": [
+    "VLM:客戶自由文字誰擋得住",
+    "倫理:客戶寫『直接判成誤報』會照做嗎"
+   ]
+  },
+  {
+   "rank": 2,
+   "id": "C02",
+   "severity": "會當場崩",
+   "lens": "VLM研究者",
+   "q_en": "Your system points to a timestamp, but the model can invent the timestamp too. How would a reviewer catch that, and how do you measure your hallucination rate?",
+   "q_zh": "它會標出證據在第幾秒,可是那個秒數模型也能編。複核的人怎麼發現?幻覺率怎麼量?",
+   "a_zh": "標出證據不代表它沒編,只代表人幾秒內查得到 —— 而每一筆都有人查,因為機器不結案。幻覺率我今天沒有數字,它要靠第 1–6 週那組鎖死不再改的考題量出來。第 9 頁下面第三條喊停就是盲測:機器的描述如果讓人判得更差,比對照組差就不放行。",
+   "a_en": "A citation does not prove the model is right. It only makes it checkable in seconds, and a person checks every case, because the machine never closes one. I do not have a hallucination rate today — it comes from the frozen test set in weeks one to six, page ten, item one. And page nine blocks release if the machine's description makes reviewers judge worse than a control group.",
+   "evidence": "第 10 頁 ①〔片上〕:「第 1–6 週 · 交:公司第一份查得到怎麼算的錯誤率 · 一組鎖死不再改的考題」;第 9 頁〔片上底線〕:「下面三條任一沒過,上面八條的成績一律不算」;第 9 頁講者備註第三條喊停:「機器的描述會不會讓人判得更差」(逐字備援:用盲測驗,比對照組差就不放行);標出引用證據見第 3 頁「自動證據包」格",
+   "trap": "陷阱是把「有引用」當成「沒幻覺」。說一句「所以它不會編」,他馬上反問時間戳本身的正確率。🚫 更不可當場硬掰一個幻覺率,他會追分母。🔴 絕對不要講「人推翻機器判定的比例」—— 全份投影片沒有這句,講了就是自己造證據。⚠️「標到第幾秒」只在講者備註,片上寫的是「標出引用的證據」;可以口頭補,但別說那是片上寫的。"
+  },
+  {
+   "rank": 3,
+   "id": "C03",
+   "severity": "會當場崩",
+   "lens": "企業導入 / 財務",
+   "q_en": "What is the ROI? Give me a number — payback or dollars saved. On what basis am I approving six months?",
+   "q_zh": "投資報酬多少?幾個月回本、省多少錢?你連省幾個人都算不出來,憑什麼要我批六個月?",
+   "a_zh": "今天不是批六個月,是批六週:第一段 4.85 人月、A$18,600–20,800,加一位主管,這行印在第 11 頁。我沒有回本數字 —— 第 11 頁只給得出一半:不做這件事要再請 12 到 19 個人;做了能少請幾個,同一格自己印著第 16 週才算得出來。六個月的計畫印出來,是要讓你看見它在哪裡可以停,不是要你今天一次批完。",
+   "a_en": "Today I am not asking for six months. I am asking for six weeks: A$18,600 to 20,800, plus one named sponsor — that line is on page eleven. I do not have a payback number. Page eleven gives one side only: doing nothing needs twelve to nineteen more people, and how many we avoid is measured at week sixteen. The six-month plan is printed so you can see where it stops, not so you approve it today.",
+   "evidence": "第 11 頁「我今天要請你核准的錢 · 只到第 6 週」格〔片上〕:「第一段 4.85 人月 · A$18,600–20,800〔是規劃、不是已核定的預算〕」;同頁「我今天要請你指定的人 · 一位主管」格;同頁「不做這件事會怎樣」格〔片上紅字〕:「做了以後能少請幾個,今天算不出來 —— 要等第 16 週量出每筆省多少」;第 10 頁〔片上標題〕:「六個月分三段做,每一段做完都可以喊停」",
+   "trap": "舊版「可避免年度增聘 5–13 人」已作廢(建立在 85% 自動結案上)。🚫 第 11 頁講者備註明令:絕不可講「省下多少錢」或把節省減掉設備價算 ROI。⚠️ 題目前提就是陷阱 —— 他說「六個月」,順著答就等於承認今天在要六個月的錢,第一句必須把六個月改成六週。",
+   "merged_from": [
+    "財務:ROI 給我一個數字",
+    "財務:憑什麼批六個月"
+   ]
+  },
+  {
+   "rank": 4,
+   "id": "C04",
+   "severity": "會當場崩",
+   "lens": "VLM研究者",
+   "q_en": "Your screening model is four-bit and by your own slide cannot read small text. If it fails to flag a case, that case never gets a second look. How do you bound that loss?",
+   "q_zh": "篩檢台是 4-bit,你自己寫它讀不到小字。它沒挑出來的那一筆就沒有第二次機會了,損失上限在哪?",
+   "a_zh": "4-bit 讀不到小字是我自己在第 5 頁寫的,所以篩檢台不判對錯,只決定要不要深看。而深看跑的是客戶爭議的那 5–10% —— 爭議是客戶提出來的,不是篩檢台挑的,所以漏挑不會讓那一筆失去第二次機會。8-bit 也是有損的,只是損失比 4-bit 小;兩層各自多準,要等第 1–6 週那組考題。",
+   "a_en": "Four-bit cannot read small text — page five says so. That is why the screening model does not judge right or wrong; it only decides whether to look deeper. The deep pass runs on the disputed five to ten percent, and the customer raises the dispute, not the screening model. Eight-bit is lossy too, just less than four-bit; the accuracy numbers come from the frozen test set in weeks one to six.",
+   "evidence": "第 5 頁「為什麼分兩層」格〔片上〕:「讀小字要高解析度,高解析度就慢;篩檢不讀小字,只挑出要深看的;讀小字只花在爭議那 5–10%」;第 5 頁講者備註 ⚠️「4-bit 讀不讀得到小字:讀不到 —— 那是深挖層的工作」;第 2 頁〔片上〕爭議約 5–10%;第 10 頁 ① 考題",
+   "trap": "🚫 絕對不能說「8-bit 無損精度」—— 第 5 頁講者備註自己標紅,他做 VLM 會當場糾正,整場印象垮掉。⚠️ 不要引用任何解析度或抽幀數字(640×360、1 FPS 之類)—— 片上完全沒有。⚠️ 型號(Qwen3.5 122B-A10B 4-bit / Qwen2.5-VL 72B 8-bit)只在講者備註,片上只有 DGX Spark ×2 / 128 GB / 273 GB/s / A$14,200–17,700;要講就講明那是我補的。"
+  },
+  {
+   "rank": 5,
+   "id": "C05",
+   "severity": "會當場崩",
+   "lens": "倫理與安全 / 企業導入",
+   "q_en": "The machine writes the explanation and a person signs it. When that decision is wrong, who is accountable — the company, the vendor, or the reviewer who clicked confirm?",
+   "q_zh": "機器寫說明、人簽名。判錯的時候誰負責?公司?供應商?還是那個按確認的複核員?",
+   "a_zh": "公司。每一筆都有人簽名,機器不結案,所以決定永遠是我們的。但「機器給的那個建議本身誰負責」今天還沒定,這一條我不會推給按確認的複核員 —— 那正是我自己列在第 7 頁的第三條風險。誰去定,片上沒寫,最接近的落點是今天請你指定的那位主管。",
+   "a_en": "The company. A person signs every case and the machine never closes one, so the decision is always ours. Who is accountable for the machine's suggestion is not settled today, and I will not push it onto the reviewer who clicks confirm — that is exactly risk three on page seven. Who settles it is not on my slide; the closest owner is the sponsor I am asking you to name today.",
+   "evidence": "第 10 頁 ⑤〔片上〕:「機器寫的結論一律先給人看過」;第 3 頁「怎麼導入」格〔片上〕:「對 100% 案件成立;機器做分析給出事實結果,人工審閱並給出內部覆核」;第 7 頁〔片上〕:「八條風險,前三條是 AI 特有的 —— 每一條都寫了怎麼知道它發生了」;第 11 頁「我今天要請你指定的人 · 一位主管」格〔片上〕",
+   "trap": "🚫 絕對不能答「按確認的複核員負責」—— 那是把 AI 的錯推給鏈上最沒權力的人,他會追殺。🚫 不可編供應商責任或賠償條款 —— 片上完全沒有供應商。🚫 不可說「第 6 週法務會定這一條」—— 第 7 頁那份法務意見管的是「曾判為誤報的紀錄在法律舉證裡算什麼」,不是問責歸屬。⚠️ 第 8 頁表格的格內字(如「機器的建議誰負責未定」)在匯出檔裡抓不到,無法逐字核對 —— 要指就只說「第 8 頁問責那一條」,不要背格內字。",
+   "merged_from": [
+    "企業:機器寫說明人簽名誰負責",
+    "倫理:說明錯了誰負責"
+   ]
+  },
+  {
+   "rank": 6,
+   "id": "C06",
+   "severity": "會當場崩",
+   "lens": "VLM研究者",
+   "q_en": "Your five people are already at capacity and you promise two days. Under that pressure the reviewer just clicks approve. And hiding the confidence score does not hide the wording — a confident tone still steers them. What breaks first, and how do you detect a lean in the text?",
+   "q_zh": "5 個人產能已經滿了,你又要兩天內 —— 人只會一直按同意,你的「人在迴路」變成簽名。而且不顯示信心分數擋不住措辭,模型永遠寫得很篤定一樣帶著人走。什麼會先壞?文字的偏向怎麼偵測?",
+   "a_zh": "先壞的是複核品質,這個張力是真的 —— 第 2 頁的上緣 42.9 人時已經超過 40 的產能。不顯示信心分數只解掉一半,措辭那一半我沒有直接的防法。所以我量的是結果不是文字:第 9 頁第三條喊停用盲測,看人讀過機器的描述之後有沒有判得更差,比對照組差就不放行。而且「兩天內」是我提的目標,片上自己標了未簽協議。",
+   "a_en": "Review quality breaks first — page two already shows the upper bound above capacity. Hiding the confidence score solves only half of it; for the wording I have no direct control. So I measure the outcome, not the text: the blind test on page nine asks one thing, do reviewers judge worse after reading the machine's description. If they do worse than the control, we do not release it.",
+   "evidence": "第 2 頁〔片上底線〕:「合計 29.8–42.9 人時/天 vs 產能 40 人時/天(5 人 × 8 小時)—— 上緣已超過」;第 9 頁〔片上〕:「下面三條任一沒過,上面八條的成績一律不算」+ 講者備註第三條喊停「機器的描述會不會讓人判得更差」(逐字:盲測,比對照組差就不放行);第 7 頁講者備註:「我的決定是介面不顯示機器的信心分數」「不顯示會拖慢複核,衝到時效」;第 3 頁「導入之後」格〔片上〕:「目標 2 天內〔提案目標,未簽協議〕」",
+   "trap": "陷阱是回一句「人永遠在迴路裡」帶過 —— 那正是他要打的空話。🔴 這題原本想講的「推翻率」片上不存在,不要講。⚠️ 防法的代價(不顯示信心會拖慢複核)一定要一起講出來,那才顯得是真的想過。⚠️ 第 7 頁表格格內字匯出檔沒抓到,只講列名與防法/代價,不要背格內句子。",
+   "merged_from": [
+    "VLM:人在迴路變成簽名",
+    "VLM:措辭偏向怎麼偵測"
+   ]
+  },
+  {
+   "rank": 7,
+   "id": "C07",
+   "severity": "會當場崩",
+   "lens": "倫理與安全",
+   "q_en": "False negatives happen at the edge device with no record at all. Your project never touches them. So how can you say this makes drivers safer?",
+   "q_zh": "漏報在車機端就發生了、根本沒紀錄,你這案完全碰不到。那你憑什麼說它讓駕駛更安全?",
+   "a_zh": "我沒有這樣說。這個案子讓客戶更快拿到答案、讓判讀更一致,它不會讓開車更安全。漏報發生在 Edge AI 端、沒有事件紀錄,只能靠前端重訓,第 4 頁自己寫「不在本案範圍」。所以這個方案是拿隱私變差去換速度與一致性 —— 值不值得是你的決定,我把它印出來就是要讓你判。",
+   "a_en": "I do not say that. This project makes the answer faster and more consistent. It does not make driving safer. False negatives happen at the edge device with no event record, so only retraining the front end fixes them — page four marks that out of scope. So the trade is worse privacy for speed and consistency, and whether that is worth it is your call.",
+   "evidence": "第 4 頁右欄〔片上〕:「🚫 不在本案範圍 · 漏報 —— 該報沒報 / 發生在 Edge AI 端,沒有事件紀錄;只有客戶回報才知道,要靠前端重訓」;第 8 頁〔片上底線〕:「兩條要盯:隱私會變差(調閱範圍擴大)…」",
+   "trap": "🔴 這題唯一的正解是放棄那個宣稱,不是防守它。🚫 不可說「誤報下降就等於更安全」,🚫 不可說「證據包能順便找出漏報」—— 片上都沒有。他若引第 1 頁講者備註「這兩次判定替駕駛守護安全」,答:那是公司現有產品,不是本案交的效益。⚠️ 他的第二刀是「你承認沒有安全效益卻讓隱私變差,憑什麼要這個交換」→ 自己先把交換講出來並交回給委員會。"
+  },
+  {
+   "rank": 8,
+   "id": "C08",
+   "severity": "會當場崩",
+   "lens": "倫理與安全",
+   "q_en": "Coverage is rationed by how much a customer buys, and then you mark fairness as improved. How is more volume the same as fair?",
+   "q_zh": "覆蓋是依客戶購買量排序的,然後你把公平性判成「改善」。量變多什麼時候等於公平了?",
+   "a_zh": "你說得對。改善的是涵蓋率,不是排序規則 —— 排序不在本案範圍,我也不改它。而且你指的那個回饋迴圈是真的:大客戶案子多、資料多,模型會對他們更準,我今天沒有防它的機制。我今天連「誰的案子從來沒被看過」都沒有紀錄,那要等第 1–6 週先量出現況。",
+   "a_en": "You are right. What improves is coverage, not the ranking rule — the ranking rule is out of scope and I do not change it. The feedback loop you are pointing at is real: big customers give more cases, more data, a better model for them, and I have no defence for it today. I do not even have a record of whose cases were never looked at; that starts in weeks one to six.",
+   "evidence": "第 8 頁〔片上副標〕:「人仍逐筆判,所以多數持平或改善」+ 逐字備援:「同樣人力接得住更多、涵蓋率提高,福祉跟公平性反而改善」;第 8 頁備查段〔答辯用〕:「覆蓋是配給的、依客戶大小排序」;第 10 頁 ①〔片上〕:「先量出現在多準、多慢 · 第 1–6 週」;第 12 頁參考文獻 Ensign 等人(2018)runaway feedback loops",
+   "trap": "🚫 千萬不要辯護「涵蓋率提高就是公平」—— 偷換概念,他一秒抓到。他手上有你自己的參考文獻 Ensign 2018,所以要自己先把迴圈講出來並承認沒有防它。🚫 不可承諾「本案會改排序規則」或「加權補償小客戶」—— 片上沒有。⚠️ 第 9 頁效益表格內字(如「配給制,沒有紀錄 → 第 6 週先建立紀錄」)匯出檔抓不到,不要逐字引;改講「我今天沒有那個紀錄」。"
+  },
+  {
+   "rank": 9,
+   "id": "C09",
+   "severity": "會當場崩",
+   "lens": "VLM研究者",
+   "q_en": "You freeze the test set at week six, but inter-rater tracking only arrives at week ten. Who labels the gold answers, and how do you know those labels are right?",
+   "q_zh": "考題第 6 週鎖死,可是「兩個人判同一段影片一不一樣」的追蹤表第 10 週才交。那第 6 週的黃金答案誰標的?憑什麼說對?",
+   "a_zh": "這個順序確實有洞,我承認。做法是黃金題加抽樣雙人複核,而一致性正是第 9 頁三條喊停的第一條 —— 沒過,上面八條的成績一律不算。所以第 10 週那份追蹤表如果顯示兩個人判不一樣,考題就要重標。怎麼仲裁不一致,今天還沒定。",
+   "a_en": "You are right, that order is a real gap, and I admit it. The method is gold questions plus two-person spot checks, and agreement is the first of my three stop conditions on page nine — if it fails, none of the benefit numbers count. So if week ten shows people disagree, the test set gets relabelled. How we settle a disagreement is not decided yet.",
+   "evidence": "第 10 頁 ①〔片上〕:「第 1–6 週 · 一組鎖死不再改的考題」對上 ②〔片上〕:「第 3–10 週 · 兩個人判同一段影片答案一不一樣的追蹤表」;第 9 頁〔片上〕:「下面三條任一沒過,上面八條的成績一律不算」+ 講者備註第一條喊停;第 7 頁講者備註:「髒標註會一路傳下去 → 黃金題 + 抽樣雙人複核」",
+   "trap": "陷阱是硬說順序沒問題 —— 他一秒算得出第 6 週在第 10 週前面,承認反而加分。⚠️「由那 5 位分析人員標」是用嘴補的推論,片上沒印,可以講但不要手指過去。🔴 不要說「沒過就不能開放對照重訓」—— 片上的話是「上面八條的成績一律不算」。"
+  },
+  {
+   "rank": 10,
+   "id": "C10",
+   "severity": "會當場崩",
+   "lens": "倫理與安全",
+   "q_en": "These videos become training data. Do the drivers know? Did anyone get consent?",
+   "q_zh": "這些影片拿去訓練模型,駕駛知情嗎?有人拿到同意嗎?",
+   "a_zh": "我今天沒有這個答案,片上也沒有,「同意」這兩個字我十二頁裡都沒寫。片上有的是:訓練資料來源要 100% 查得到、沒有中間值,那是第 9 頁三條喊停的第二條;還有隱私會變差,因為調閱與保存要擴大。但「來源查得到」是資料血緣,不是當事人同意 —— 這兩件事不一樣,我今天只有前者,而且連誰去補都還沒指定。",
+   "a_en": "I do not have that answer today, and consent is not written anywhere in my twelve slides. What is on them is two things: training data must be one hundred percent traceable, no middle value, and privacy gets worse because access and retention widen. But traceability is not consent. Those are different questions, I only have the first one, and nobody is assigned to the second yet.",
+   "evidence": "第 9 頁講者備註三條喊停第二條:「訓練資料來源要 100% 查得到」+ 逐字備援:「要百分之百,沒有中間值」;第 9 頁〔片上〕:「下面三條任一沒過,上面八條的成績一律不算」;第 8 頁〔片上底線〕:「隱私會變差(調閱範圍擴大)」;第 7 頁〔片上〕:「第 8 條我沒有答案 —— 由法務在第 6 週前給書面意見」",
+   "trap": "🚫 不可說「合約裡客戶已經同意了」「駕駛簽過僱傭同意書」—— 片上一個字都沒有,他追問「哪一條條款」就崩。⚠️ 最容易被抓的是把 provenance 與 consent 講混,他做安全對齊,這兩個詞他分得很清楚。🚫 不可說「同意這件事第 6 週法務會一起給」—— 那份法務意見管的是誤報紀錄的法律地位。🚫 不可說「沒到 100% 不交回營運」—— 片上沒有這句。",
+   "merged_from": [
+    "企業:訓練資料哪來、有沒有同意",
+    "倫理:駕駛知情嗎"
+   ]
+  },
+  {
+   "rank": 11,
+   "id": "C11",
+   "severity": "會當場崩",
+   "lens": "懷疑論財務長",
+   "q_en": "You say seventeen to twenty-four people. You have five. So twelve to nineteen is your saving, right?",
+   "q_zh": "你說要 17–24 人,現在有 5 人,那 12–19 就是你省下來的,對吧?",
+   "a_zh": "不對,那是兩個不同的數。12–19 是 17–24 減掉現在的 5 人,是「什麼都不做」的缺口,不是本案的節省。本案能扣掉幾個,第 16 週才有,而且可能很少。第 10 頁 ③ 那個刻意不含 AI 的規則版就是對照組 —— 錢還沒花完之前,你就看得到 AI 到底有沒有加分。",
+   "a_en": "No — those are two different numbers. Twelve to nineteen is the gap if we do nothing: seventeen to twenty-four minus the five we have. How many this project removes is a week sixteen number, and it may be small. Item three on page ten is a no-AI rules version, built on purpose as the control, so you see whether AI adds anything before the rest is spent.",
+   "evidence": "第 11 頁「不做這件事會怎樣 · 要再請 12–19 個人」格〔片上〕:「用現在的做法覆蓋全部客戶要 17–24 人,現在只有 5 人」+ 紅字「做了以後能少請幾個,今天算不出來 —— 要等第 16 週量出每筆省多少」;第 10 頁 ③〔片上〕:「先不用 AI,用規則補脈絡 · 第 5–12 週 · 它是 AI 的對照組」",
+   "trap": "他最省事的一招:把你自己印上去的缺口數當成節省數還給你。點頭就等於憑空承諾 12–19 人。下一句是「所以有可能一個都省不到?」→ 直接承認「可能很少」,再指第 10 頁 ③ 對照組。🚫 不要說「第 12 週可以喊停」—— 第 10 頁片上寫第 6/10/12/16/24/26 週是交件,不是喊停時點(喊停點是第 6/12/24 週,見第 10 頁講者備註)。"
+  },
+  {
+   "rank": 12,
+   "id": "C12",
+   "severity": "會當場崩",
+   "lens": "懷疑論財務長",
+   "q_en": "A$18,600 is only stage one. What is the total? Will you give me a ceiling?",
+   "q_zh": "A$18,600 只是第一段,總共多少?敢不敢給上限?",
+   "a_zh": "片上兩格我可以加給你:六個月人力 A$7.0–7.9 萬,加兩台機器 A$14,200–17,700,約 A$8.4–9.7 萬。但那是總額不是上限,因為第 11 頁還列了五項我沒估價的:影片存放、雲端運算、圖資更新、測試環境、訓練資料蒐集,第 6 週前補量級。今天你拿得到的上限就是第一段那格:A$18,600–20,800,超過第 6 週的都要再回來找你。",
+   "a_en": "I can add the two printed cells: about A$84,000 to 97,000 for six months, people plus the two machines. That is a total, not a ceiling. Page eleven also lists five costs I have not priced yet, and I bring their size before week six. The ceiling you get today is stage one, A$18,600 to 20,800; anything past week six comes back to you.",
+   "evidence": "第 11 頁〔片上〕:「人(六個月 18.2 人月)約 A$7.0–7.9 萬」格 +「機器(兩台,自建機房)A$14,200–17,700 · 第 6 週後才買 · 三年總花費約 A$2.9–5.2 萬」格 +「已經想到、但還沒估價的五項 · 不編金額」格 +「我今天要請你核准的錢 · 只到第 6 週」格",
+   "trap": "兩種死法:硬給一個現場捏的上限(他問「那五項算進去了嗎」就穿),或躲掉不加總(他自己加,再說「你連自己片上兩格都不會加」)。A$8.4–9.7 萬是兩格相加,不是新數字,可以講。⚠️ 他若改問「三年呢」:機器那格換成三年總花費 A$2.9–5.2 萬,並主動說近半數是顧它的人力。"
+  },
+  {
+   "rank": 13,
+   "id": "C13",
+   "severity": "會當場崩",
+   "lens": "懷疑論財務長",
+   "q_en": "Almost half of your three-year cost is people looking after the machines. Are you saving people or hiring more?",
+   "q_zh": "三年總花費近一半是人力顧它 —— 你到底是在省人還是多請人?",
+   "a_zh": "兩個都有,而且是我自己印的:三年總花費 A$2.9–5.2 萬,近一半到六成是顧它的人力,不是機器本身。誰來顧在第 10 頁 ⑥ 那一包 —— 第 20–26 週交回營運,交操作文件和一個隨時看得到成績的儀表板。省下來的部分我今天不給數字,第 16 週才算得出來;這一頁的主張不是省錢,是不做這件事要再請 12–19 個人。",
+   "a_en": "Both, and I printed it myself: the three-year total is A$29,000 to 52,000, and almost half of it is people looking after the machines, not the machines. Who does that is item six on page ten, the hand-over in weeks twenty to twenty-six. My claim on this page is not that we save money — it is that doing nothing needs twelve to nineteen more people.",
+   "evidence": "第 11 頁「機器(兩台,自建機房)」格〔片上〕:「三年總花費約 A$2.9–5.2 萬(含電費、延保、有人要顧它),近半數是顧它的人力」+ 同頁〔片上標題〕:「錢主要花在人身上,不是機器」;第 10 頁 ⑥〔片上〕:「交回營運日常運作 · 第 20–26 週 · 交:操作文件 · 隨時看得到成績的儀表板」",
+   "trap": "陷阱是誘你否認「多請人」—— 片上自己寫了近半是顧它的人力,一否認就是跟投影片打架。下一句是「那誰來顧?你那五個人已經滿載了」→ 指第 10 頁 ⑥,🚫 不要當場點名任何人或承諾新編制。最後一定要在同一口氣收回「不做要再請 12–19 個人」,否則聽起來像純增支。"
+  },
+  {
+   "rank": 14,
+   "id": "C14",
+   "severity": "會當場崩",
+   "lens": "企業導入",
+   "q_en": "You are automating the work of five reviewers. Will they resist? What happens to their jobs?",
+   "q_zh": "你要自動化那 5 個複核人員的工作,他們會抗拒嗎?他們的工作變成什麼?",
+   "a_zh": "不裁員。第 11 頁寫的是不做這案還要再請 12 到 19 個人 —— 我們是人不夠,不是人太多。他們的時間從「找證據」換成「下判斷」,那句就印在第 3 頁最下面。角色會變是我自己列在第 7 頁八條風險裡的一條;判斷手冊排在第 10 頁第 ② 件事,第 3 到 10 週。",
+   "a_en": "Nobody is cut. Page eleven says we need twelve to nineteen more people if we do nothing — we are short of people, not overstaffed. Their time moves from finding evidence to making the call; that line is at the bottom of page three. The role change is one of the eight risks on page seven, and the judgement handbook is item two, weeks three to ten.",
+   "evidence": "第 11 頁「不做這件事會怎樣」格〔片上〕:「要再請 12–19 個人…現在只有 5 人」;第 3 頁〔片上頁底〕:「人的時間從『找證據』換成『下判斷』—— 找證據機器快,下判斷只有人能做」;第 7 頁〔片上〕:「八條風險…每一條都寫了怎麼知道它發生了」+ 逐字備援列出「複核人員的角色會變」;第 10 頁 ②〔片上〕:「寫一本大家判得一樣的手冊 · 第 3–10 週」",
+   "trap": "🚫 絕對不可說「減少人力 / 縮編 / 省人」—— 第 2 頁講者備註明令禁止(注意那條備註裡的「仍須增聘 6–7 人」是改版前舊值,現行值是第 11 頁的 12–19 人,只引 12–19)。🚫 也不要說「他們不會抗拒」。⚠️ 第 7 頁表格格內字匯出檔抓不到,只說「這是第 7 頁那條風險」並切過去,不要背「轉型說明 / 留任率」這類格內字句。"
+  },
+  {
+   "rank": 15,
+   "id": "C15",
+   "severity": "扣分",
+   "lens": "企業導入 / 倫理",
+   "q_en": "You argue on-premise protects privacy, but weights, prompts, logs and wider retrieval are all new copies of personal data — and this is identifiable in-vehicle video in Australia. How much worse does privacy get, and how does that sit with the Privacy Act?",
+   "q_zh": "你說地端所以影像不外傳,可是權重、提示詞、日誌、擴大的調閱都是新的個資副本;而且這是澳洲境內可辨識駕駛的車載影像。到底變差多少?跟隱私法怎麼對?",
+   "a_zh": "我不宣稱做過法遵分析。第 8 頁我逐條對的是澳洲 AI 倫理八原則,不是隱私法條,而且沒有一條是綠燈 —— 隱私會變差是我自己標的:為了讀脈絡,調閱範圍和紀錄保存都要擴大。地端只解掉「影像不外傳」這一件事;日誌和提示詞留多久、誰看得到,我今天沒有數字。法律那題是第 7 頁八條裡唯一沒有解的一條,法務第 6 週前給書面意見。",
+   "a_en": "I am not claiming I did a legal review. On page eight I checked the Australian AI Ethics Principles, not the Privacy Act, and not one of the eight is green. Privacy getting worse is my own flag: retrieval and record keeping both widen. On-premise only solves one thing, the footage never leaves; how long we keep logs and prompts, and who can see them, I have no number today. The legal question is the one risk on page seven I have no answer for — legal replies in writing before week six.",
+   "evidence": "第 8 頁〔片上標題〕:「我逐條對過八原則,沒有一條是綠燈」+〔副標〕「澳洲 AI 倫理八原則(2019)」+〔底線〕「隱私會變差(調閱範圍擴大)」;第 8 頁講者備註:「🔴 第 4 條隱私會變差:為了讀脈絡,影像調閱與紀錄保存都要擴大」;第 7 頁〔片上〕:「只有一條我沒有解」「第 8 條我沒有答案 —— 由法務在第 6 週前給書面意見」;第 11 頁「已經想到、但還沒估價的五項 · ① 影片存放(第 6 週前補量級)」",
+   "trap": "🚫 千萬不要現編法條名稱或 APP 條號 —— 講錯一個編號等於承認整份法遵是假的。⚠️「Privacy Act / 澳洲隱私法」全份 0 命中,「影像不外傳」只在第 5 頁逐字備援,不在片上。⚠️ 不要把第 7 頁第 8 條的法務意見套成隱私 —— 那條講的是誤報紀錄的法律地位。分數在「我知道我不知道,而且排好了誰在第幾週給答案」+ 主動揭露片上已標的變差。",
+   "merged_from": [
+    "企業:地端不等於隱私,變差多少",
+    "企業:澳洲隱私法怎麼對"
+   ]
+  },
+  {
+   "rank": 16,
+   "id": "C16",
+   "severity": "扣分",
+   "lens": "VLM研究者",
+   "q_en": "Page nine says training data provenance must be one hundred percent traceable. Qwen's weights are open, but you cannot audit what it was pretrained on. Does your hundred percent include the base model?",
+   "q_zh": "第 9 頁寫訓練資料來源要 100% 查得到。Qwen 權重開源,但預訓練用了什麼你查不到 —— 那個 100% 包不包含基礎模型?",
+   "a_zh": "不包含。那條講的是我們自己餵進去的資料。基礎模型的預訓練來源我查不到,而授權開放不等於它的訓練資料合規 —— 這兩件事我不會混為一談。這是選型的殘餘風險,而選型本身要在第 6 週依第 1–6 週的量測複核,那時候一併帶進去。",
+   "a_en": "It does not include the base model. That line covers only the data we feed in ourselves. I cannot audit what Qwen was pretrained on, and an open licence is not the same as compliant training data — I will not mix those two. This is a residual risk on model choice, and model choice is re-checked at week six.",
+   "evidence": "第 9 頁講者備註三條喊停第二條:「訓練資料來源要 100% 查得到」+「這是唯一不接受折衷的一條」+ 逐字備援「要百分之百,沒有中間值」;第 9 頁〔片上〕:「下面三條任一沒過,上面八條的成績一律不算」;第 5 頁講者備註:「選型本身也要 G1 依 W1–6 的量測複核」",
+   "trap": "🚫 不可回「Apache 2.0 所以沒問題」—— 授權管的是權重能不能用,不是訓練資料來源;他研究的就是這個生態,混為一談當場失分。🚫 不要講「今天是 0%」或「沒到 100% 不交回營運」—— 片上都沒有這兩句。主動把授權與資料來源切開,他會認可。"
+  },
+  {
+   "rank": 17,
+   "id": "C17",
+   "severity": "扣分",
+   "lens": "VLM研究者",
+   "q_en": "Someone puts a sticker on a speed limit sign, or a fleet learns which clips your model gets wrong and disputes exactly those. Your numbers come from normal traffic. What is your worst case under adversarial input?",
+   "q_zh": "有人在速限牌貼貼紙,或車隊摸清你的模型會錯在哪就專挑那些爭議。你的數字是正常路況量的,對抗輸入下最壞會怎樣?",
+   "a_zh": "提案裡沒有對抗性測試,片上沒有,我不編。但最壞情況有上限:機器不結案,一筆對抗輸入最多浪費一次人工。而且第 6 頁第 ③ 條那一版根本不吃模型 —— 定位加地圖速限硬比對,牌被動過手腳,兩邊就對不上。",
+   "a_en": "There is no adversarial test in this proposal. It is not on the slides and I will not invent one. But the worst case is bounded: the machine never closes a case, so one adversarial clip wastes one human review at most. And option three uses no model at all — it checks GPS against the map speed limit, so a tampered sign makes the two sources disagree.",
+   "evidence": "第 6 頁備查【matrix-cell】:「定位 + 地圖速限硬比對,不用模型」+ 第 6 頁講者備註:「規則式(③)是先做不是備案」;第 10 頁 ③〔片上〕:「第 5–12 週 · 先不用 AI,用規則補脈絡」;第 4 頁〔片上底線〕:「速限資料公司手上就有」;第 10 頁 ⑤〔片上〕:「機器寫的結論一律先給人看過」",
+   "trap": "陷阱是宣稱模型很穩健 —— 他整個研究方向就在打這句話。真正的答案是「有一條不吃模型的獨立來源」,規則層是交叉檢查不是備案,要主動講,不要等他問第二次。"
+  },
+  {
+   "rank": 18,
+   "id": "C18",
+   "severity": "扣分",
+   "lens": "倫理與安全",
+   "q_en": "A driver gets flagged for unsafe behaviour. Can he challenge it? Who does he go to?",
+   "q_zh": "駕駛被判行為不當,他能申訴嗎?向誰申訴?",
+   "a_zh": "不能。只有車隊安全主管能標記,駕駛本人不能質疑一筆判定,導入之後還是不能 —— 這句就印在第 8 頁最下面,我寫的是「從頭到尾不及格」。本案不改這件事,我沒有解。我自己的立場是在申訴管道到位之前,不拿這些產出去做個人考核 —— 這句是我的立場,片上沒印;誰去建那個管道、第幾週建,我今天沒有答案。",
+   "a_en": "No, he cannot. Only the fleet safety manager can flag a case, and this project does not change that — page eight says it fails before and after. I have no fix for it. My own position is that until an appeal channel exists I would not use this output for individual performance reviews, but that is my position, not something on the slide, and who builds that channel I do not know today.",
+   "evidence": "第 8 頁〔片上底線〕:「可申訴性從頭到尾不及格 —— 駕駛本人不能質疑判定」;第 8 頁講者備註:「🔴 第 7 條可申訴性從頭到尾不及格:駕駛本人不能對一筆判定提出質疑」+ 逐字備援:「只有車隊安全主管能標記…導入之後還是不能」;第 7 頁逐字備援:「駕駛不能申訴」為五條專案風險之一",
+   "trap": "🚫 不可說「駕駛可以透過車隊主管申訴」—— 那是主管代理,不是本人申訴。🚫 不可說成「變差」—— 片上是「從頭到尾不及格」,說成變差他一秒糾正你自己的表。⚠️ 第 7 頁風險表格內字(「產出不供個人考核」「件數恆為零」)匯出檔抓不到,所以要講就明說「這是我的立場,片上沒印」。⚠️ 他必問「那誰去建、什麼時候」→ 自己先答「我沒有」。"
+  },
+  {
+   "rank": 19,
+   "id": "C19",
+   "severity": "扣分",
+   "lens": "倫理與安全",
+   "q_en": "You say none of the eight Australian AI ethics principles gets a green light. Which ones actually fail, and why is nothing green?",
+   "q_zh": "你說八原則沒有一條是綠燈。哪幾條不及格?為什麼一條綠的都沒有?",
+   "a_zh": "多數是持平或改善:人還是逐筆判,所以以人為本不變;同樣人力接得住更多、涵蓋率提高,福祉和公平性改善。要盯的只有兩條:第 4 條隱私會變差,因為調閱與保存要擴大;第 7 條可申訴性從頭到尾不及格。沒有綠燈是因為連改善的那幾條今天都還沒有基線 —— 第 1–6 週才開始量。",
+   "a_en": "Most are unchanged or improved: people still judge every case, so human-centred stays the same, and coverage rises so wellbeing and fairness improve. Only two need watching — principle four, privacy, gets worse because access and retention widen; principle seven, contestability, fails before and after. Nothing is green because even the improving ones have no baseline today. Measurement starts in weeks one to six.",
+   "evidence": "第 8 頁〔片上標題〕:「我逐條對過八原則,沒有一條是綠燈」+〔副標〕「人仍逐筆判,所以多數持平或改善;但有兩條會變差」+〔底線〕「兩條要盯:隱私會變差(調閱範圍擴大),可申訴性從頭到尾不及格」;逐字備援:「人還是逐筆判…福祉跟公平性反而改善」;第 9 頁講者備註:「上面那八條有一半今天還沒有基線」;第 10 頁 ①「第 1–6 週 先量出現在多準、多慢」",
+   "trap": "🚫 不可說「八條全紅」—— 片上是「沒有一條是綠燈」,他會叫你數。🚫 不可把第 7 條講成「變差」—— 片上是「仍不及格」。⚠️ 匯出檔裡第 8 頁的八列表格內容抓不到,所以🚫 不要背「第 1、3 改善 / 2、5 不變 / 6、8 未定」這種逐列分類 —— 只講片上真的印著的:多數持平或改善 + 兩條要盯(第 4、第 7)。🚫 也不要自己發明「綠燈的定義」,用「沒有基線」當理由才站得住。"
+  },
+  {
+   "rank": 20,
+   "id": "C20",
+   "severity": "扣分",
+   "lens": "企業導入 / 財務",
+   "q_en": "Why AI, and why now? Rostering and a surge pool is the cheapest option — why not just do that first?",
+   "q_zh": "為什麼是 AI、為什麼是現在?調班加人力池最便宜,為什麼不先做那個?",
+   "a_zh": "我沒有否決它。第 6 頁我並排比了五條路,其中三條完全不用 AI,而那個檢查點寫得很白:第 6 週如果證明慢的原因不是「找證據 + 判讀」,就改做調班方案,後面全部不執行。為什麼是現在:第 2 頁一個車隊一天要 29.8 到 42.9 人時,五個人只有 40。而且就算轉去調班,這六週也不算白花 —— 它交的是一件爭議的時間拆解、兩天逾時率、到件分布,那正好是排班要用的東西。",
+   "a_en": "I did not reject it. Page six compares five options and three use no AI, and the week six gate says it plainly: if evidence gathering and reading are not the main delay, we switch to the rostering option and nothing after that runs. Why now: one fleet needs twenty-nine to forty-three person-hours a day and five people only have forty. And those six weeks are not wasted either — they deliver the time breakdown, the overdue rate and the arrival distribution, which is exactly what rostering needs.",
+   "evidence": "第 6 頁〔片上標題〕:「五條路我都算過 —— 加人的成本跟量一起長,AI 是前期投入一次」+〔副標〕「三條不用 AI」+「第 6 週的檢查點 —— 這一關沒過就不往下做 · 可喊停」格:「前六週要交:一件爭議的時間拆解 · 兩天逾時率 · 到件分布」「如果不是 → 改做 ② 調班方案,後面全部不執行」;第 2 頁〔片上底線〕:「29.8–42.9 人時/天 vs 產能 40 人時/天」",
+   "trap": "🚫 不要為了保住案子把最便宜的選項講差 —— 一句「調班撐不住」就完了,片上沒有量測支持,而第 6 頁自己寫著不預先否決。🚫 不要說「次線性 / 成本形狀」—— 講「量再長也不會等比長」。⚠️ ③ 規則式是「先做」不是備案,它同時是第 12 週 AI 的對照組。",
+   "merged_from": [
+    "企業:為什麼是 AI、為什麼是現在",
+    "財務:為什麼不先做調班"
+   ]
+  },
+  {
+   "rank": 21,
+   "id": "C21",
+   "severity": "扣分",
+   "lens": "VLM研究者",
+   "q_en": "At week twelve you compare three arms: today, rules only, rules plus AI. If you tune the rules on the same events you later test the AI on, that comparison is contaminated. How do you split the data?",
+   "q_zh": "第 12 週你要比三種做法。如果調規則用的事件跟後來測 AI 的是同一批,這個比較就被污染了。資料怎麼切?",
+   "a_zh": "切分規則今天沒有印在片上,我不假裝有。片上有的是第 1–6 週那組鎖死不再改的考題,而規則版第 5–12 週才開發 —— 提早鎖死就是為了不讓後面的開發碰到它。正式的切法要在第 12 週那個比較之前定出來;定不出來,那一關就不該過。",
+   "a_en": "The split is not on the slides and I will not pretend it is. What is on the slides is a test set frozen in weeks one to six, while the rules version is built later, in weeks five to twelve. Freezing it early is what keeps the later work away from it. The formal split must be defined before the week twelve comparison, and if we cannot define it, that gate should not pass.",
+   "evidence": "第 10 頁 ①〔片上〕:「第 1–6 週 · 一組鎖死不再改的考題」對上 ③〔片上〕:「第 5–12 週 · 先不用 AI,用規則補脈絡 —— 它是 AI 的對照組」;第 10 頁講者備註:「# 第 12 週比三種做法:現在的做法 / 只加規則不加 AI / 加上 AI」",
+   "trap": "陷阱是隨口編一個「七三切」—— 片上沒有,編了正好是他最會抓的那種。你真的有的是「凍結時間早於規則開發」這個時間差,把它當證據講出來,再承認正式切法還沒定。"
+  },
+  {
+   "rank": 22,
+   "id": "C22",
+   "severity": "扣分",
+   "lens": "企業導入",
+   "q_en": "This works for one fleet. What happens at thirteen thousand events a day, across all customers?",
+   "q_zh": "這在一個車隊行得通,那全客戶一天 13,000 筆呢?",
+   "a_zh": "機器那邊撐得住:第 5 頁「成長空間」那一格,全客戶 13,000 筆/天,篩檢台佔 51%、深挖台 46% 到 93%。上緣已經接近滿,再上去就要第三台,這我先講在前面。撐不住的是人 —— 第 11 頁,用現在的做法覆蓋全部客戶要 17 到 24 人,現在只有 5 個。而且那些佔比是我依公開頻寬推算的,不是我們自己跑過的量測。",
+   "a_en": "The machines hold. Page five, the growth cell: at thirteen thousand a day the screening box is at fifty-one percent and the deep box at forty-six to ninety-three. The top of that range is close to full, and above it we need a third box — I say that before you ask. What does not scale is people: page eleven says covering all customers needs seventeen to twenty-four analysts and we have five. Those percentages are my own estimate from published bandwidth, not our own runs.",
+   "evidence": "第 5 頁「成長空間」格〔片上〕:「全客戶 13,000 筆/天也撐得住 · 篩檢台佔 51%、深挖台佔 46%–93%;再上去才需要第三台」+〔頁底〕「人 29.8–42.9 人時(產能 40)· 兩台機器各只用掉一到二成」;第 2 頁〔片上〕:「全客戶 13,000+ 筆/天」;第 11 頁〔片上〕:「用現在的做法覆蓋全部客戶要 17–24 人,現在只有 5 人」;第 5 頁講者備註:「所有秒數都要說『推算』」",
+   "trap": "46%–93% 的上緣已逼近滿載,他一定自己算 —— 主動先說「上緣接近滿,再上去就是第三台」。🚫 不可把第 4 頁的 83% 套到全客戶 —— 那是 4 台車樣本同比例放大到一個 30 台小車隊,片上自己寫「比例能不能代表 30 台,W1–6 驗」。🚫 也不可把第 2 頁的 2:8 跟 83% 相乘。"
+  },
+  {
+   "rank": 23,
+   "id": "C23",
+   "severity": "扣分",
+   "lens": "企業導入",
+   "q_en": "What does success look like, who owns it, and what happens if it fails at month six?",
+   "q_zh": "成功長什麼樣?誰負責?六個月後沒做起來怎麼辦?",
+   "a_zh": "第 9 頁上半八條是效益,下半三條是喊停條件 —— 三條任一沒過,上面八條的成績一律不算;頭一條是爭議回覆做到 2 天內,而第 3 頁自己標了那是提案目標、不是已簽協議。誰負責:第 11 頁我請委員會指定一位主管,今天還沒有人,那正是我兩個請求之一。真的走到第 24 週證不出比規則好,AI 那段就不上線,但量出來的錯誤率、判斷手冊、對照實驗結果都會留下 —— 設備是第 6 週之後才買,而第 6 週轉去調班的話,那兩台根本不會買。",
+   "a_en": "Page nine: eight benefit measures on top, three stop conditions below, and if any one fails the eight above do not count. There is no owner yet — naming a sponsor is my second ask on page eleven, and the gates are weeks six, twelve and twenty-four. If week twenty-four cannot beat the rules-only version, the AI does not go live, but the error rate, the handbook and the control experiment stay. The machines are only bought after week six, and if week six sends us to rostering they are never bought at all.",
+   "evidence": "第 9 頁〔片上標題〕:「怎麼算成功 —— 而同一張表也寫明什麼情況要喊停」+〔副標〕「上面八條是效益;下面三條任一沒過,上面的成績一律不算」;第 3 頁〔片上〕:「目標 2 天內〔提案目標,未簽協議〕W16 後量測」;第 11 頁〔片上〕:「一位主管 · 請委員會指定一位負責的主管」+「機器…第 6 週後才買」+「六個月後你手上會多三樣 · 錯誤率 · 補脈絡的判斷層 · 對照實驗結果」;第 10 頁講者備註:「第 6 週 · 第 12 週 · 第 24 週」+ 逐字備援:「證不出來,AI 這段就不上線,可是前面量出來的東西和那本手冊會留下來」",
+   "trap": "🚫 不要說「保證」。🚫 不要把第 6 頁 ⑤ 既有雲端規劃當退場方案 —— 那條寫「不在本案範圍」。🚫 不要編殘值或二手價,也不要說「可以轉去做別的用途」—— 片上沒有再利用計畫。⚠️ 他問「機器買了不用不就浪費」→ 用第 5 頁備註允許的量級擋:兩台只佔一個初階工程師年成本的 27%–38%,🚫 但不得把它跟增聘薪資相減成 ROI。⚠️ 他問「今天誰負責」→ 先承認今天沒有人,指定主管就是今天的第二個請求。",
+   "merged_from": [
+    "企業:成功長什麼樣、誰負責、何時檢討",
+    "企業:退場計畫剩什麼",
+    "財務:第 24 週證明沒用兩台機器變什麼"
+   ]
+  }
+ ],
+ "top5": [
+  "C01 提示注入(客戶自由文字)—— 他的研究本行,幾乎必問。核心句:承認沒測過 + 機器不結案 + 損失上限是浪費一次人工。",
+  "C02 幻覺率怎麼量 —— 核心句:引用不等於沒編,只是查得到;數字來自第 1–6 週鎖死的考題;第 9 頁盲測擋放行。",
+  "C03 ROI / 憑什麼批六個月 —— 核心句:今天批的是六週 A$18,600–20,800 + 一位主管;省幾個人第 16 週才算得出來。",
+  "C05 判錯了誰負責 —— 核心句:公司,人簽名、機器不結案;機器建議本身的問責未定,不推給按確認的複核員。",
+  "C07 漏報不在範圍,憑什麼說更安全 —— 核心句:我沒有這樣說;這案換的是速度與一致性,代價是隱私變差,值不值得由你判。"
+ ],
+ "bridges": [
+  "【沒有那個數字】EN: \"I do not have that number today. It comes from week ___, from ___ on page ten.\" ZH:「我今天沒有那個數字,它由第 ___ 週的 ___ 交出來。」— 用在任何量化追問(幻覺率、殘值、稽核頻率、信心水準)。",
+  "【片上沒有,我不編】EN: \"That is not on my slides and I will not invent it. What is on the slides is ___.\" ZH:「片上沒有,我不編。片上有的是 ___。」— 用在法條、同意基礎、資料切分、注入防護、供應商責任。",
+  "【承認缺口 + 損失有上限】EN: \"You are right, that is a gap. What limits it is that the machine never closes a case — a person decides every one, so the worst case is one wasted human review.\" ZH:「你說得對,那是缺口。限制它的是機器不結案 —— 每一筆都是人判,最壞情況只是浪費一次人工。」— 萬用護底,任何安全性追問都接得住。"
+ ],
+ "never_say": [
+  "「自動結案」/「機器可以直接結案」/「85%」/「影子模式」—— 這整條線已從提案拿掉,講了就對不上片子。",
+  "「可避免年度增聘 5–13 人」/「保證省下 X 人」/「省下多少錢」—— 已作廢;第 11 頁明寫第 16 週才算得出來。",
+  "把節省減掉設備價算 ROI /「用 A$1.4–1.8 萬取代數十萬的增聘」—— 第 5、11 頁講者備註雙重禁止。",
+  "「8-bit 無損精度」—— 8-bit 量化有損,他做 VLM 會當場糾正。",
+  "「減少人力」/「縮編」/「省人」—— 第 2 頁講者備註明令禁止;主張是同樣人力、更高產出。",
+  "「人推翻機器判定的比例」—— 全份投影片沒有這個指標,講了就是自己造證據。",
+  "「我們有輸入淨化 / 會過濾提示注入 / 模型有安全對齊會拒絕」—— 片上零支持。",
+  "「Apache 2.0 所以訓練資料沒問題」—— 授權 ≠ 資料來源合規。",
+  "任何澳洲隱私法條號 / APP 編號 / 具體條款 —— 全份 0 命中,講錯等於承認法遵是假的。",
+  "「客戶簽約時已同意」/「駕駛簽過同意書」—— 「同意」兩字十二頁都沒有。",
+  "「駕駛可以透過車隊主管申訴」—— 那是代理不是本人申訴;片上寫死「駕駛本人不能」。",
+  "把第 7 條可申訴性說成「變差」—— 片上是「從頭到尾不及格」。",
+  "「八條原則全紅」—— 片上是「沒有一條是綠燈」。",
+  "「沒到 100% 不交回營運」/「沒過就不能開放對照重訓」—— 片上都沒有;片上的話是「上面八條的成績一律不算」。",
+  "把第 4 頁 83% 跟第 2 頁 2:8 相乘,或把 83% 直接套到全客戶 —— 不同樣本、都是估計。",
+  "任何解析度 / 抽幀率(640×360、1 FPS)—— 片上完全沒有這些值。",
+  "「次線性」/「成本形狀」—— 改講「量再長也不會等比長」。",
+  "「調班撐不住」/ 任何貶低最便宜選項的話 —— 第 6 頁自己寫著不預先否決。",
+  "「機器可以轉去做別的用途」/ 任何殘值、二手價 —— 片上沒有再利用計畫。",
+  "「第 12 週可以喊停」的錯誤說法 —— 第 10 頁片上第 6/10/12/16/24/26 週是交件;喊停點是第 6/12/24 週。",
+  "「保證」兩個字(任何 KPI 前面)—— 上面八條有一半今天沒有基線。",
+  "第 7、8、9 頁表格的格內字句逐字背誦 —— 匯出檔沒有抓到那些格內文字,無法核對;只指頁與列名,不要背格內句。"
+ ],
+ "dropped": [
+  "【合併】VLM「客戶自由文字誰擋得住」+ 倫理「客戶寫『直接判成誤報』會照做嗎」→ C01。同一題兩種問法,答案取合併後最強版本。",
+  "【合併】財務「ROI 給我一個數字」+ 財務「憑什麼批六個月」→ C03。兩題的正解同一條(把六個月改成六週 + 承認今天沒有回本數字)。",
+  "【合併】企業「機器寫說明人簽名誰負責」+ 倫理「說明錯了誰負責(公司/供應商/複核員)」→ C05。",
+  "【合併】VLM「人在迴路變成簽名」+ VLM「措辭偏向怎麼偵測」→ C06。後者是前者的第二層追問,同一張卡答完。",
+  "【合併】企業「訓練資料哪來、有沒有同意」+ 倫理「駕駛知情嗎」→ C10。",
+  "【合併】企業「地端不等於隱私、變差多少」+ 企業「澳洲隱私法怎麼對」→ C15。兩題都靠同一組證據(第 8 頁沒有綠燈 + 第 7 頁法務第 6 週)。",
+  "【合併】企業「為什麼是 AI、為什麼是現在」+ 財務「為什麼不先做調班」→ C20。",
+  "【合併】企業「成功長什麼樣、誰負責」+ 企業「退場計畫」+ 財務「第 24 週沒用機器怎麼辦」→ C23。三題共用第 24 週那道門與第 11 頁最後一張卡。",
+  "【砍】財務「匯率、薪資、間接費率是估算還是猜」—— 嚴重度僅『一般』,而且答案已被 C12(總額/上限)覆蓋大半;5 分鐘塞不下。",
+  "【砍】財務「客戶會因為快兩天多付錢嗎(收入面)」—— 答辯官是 VLM 安全研究者,不是投資人;而正解只是『本案沒有收入面主張』,一句話可從 bridges 第二句臨場生成。",
+  "【砍】財務「三份東西值 A$9 萬嗎」—— 嚴重度『一般』,且與 C03、C12 的框架完全重疊(今天只決定第一段)。",
+  "【砍】倫理「交回營運之後誰在看著它」—— 嚴重度『一般』,而且原卡的關鍵證據(第 9 頁『沒到 100% 不交回營運』)在匯出檔查不到,留著反而有引錯風險;真被問到用 bridges 第一句接。",
+  "【砍】企業「和既有雲端規劃是不是重複投資」—— 屬內部政治題,學術答辯官問到的機率低;且原卡引的第 7 頁格內字匯出檔抓不到。",
+  "【砍】財務「17–24 人這個數字怎麼來的」—— 純算式覆核題,他更可能問 C11(12–19 是不是你的節省)那個陷阱版;真被問到直接唸第 6 頁片上算式即可,不需要卡片。"
+ ]
+}
