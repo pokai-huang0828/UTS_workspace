@@ -139,6 +139,11 @@ def unit(idx):
     title, body, cues = NARR_CACHE[ni] if ni < len(NARR_CACHE) else ("", "", [])
     if sk and sk.get("say"):
         body = sk["say"]
+    # 🔴 單元名來自 notes/_v2_parts,那批檔案停在舊版結構。
+    #    第 6 頁片上已改成「三條路」,備註抬頭卻還印著「P5 · 五條路,含三條不用 AI」——
+    #    而那一行是他上台前看的第一行字。骨架寫了 title 就以骨架為準。
+    if sk and sk.get("title"):
+        title = sk["title"]
     return title, body, cues
 
 
