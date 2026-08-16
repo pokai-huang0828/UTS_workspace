@@ -570,9 +570,15 @@ def blk_matrix(slide, x, y, w, h, spec):
         tbl.columns[j + 1].width = Inches(cw)
     # 列高照**各列自己的需要**設,不用平均值 —— 平均值會讓內容多的列被撐開,
     # 而撐開的量正好就是壓到下一個版塊的量。
+    # 🔴 分到的高度用不完就會在版面留一塊洞。表格是唯一「給多少都用得完」的版塊 ——
+    #    多的平均分到每一列,列距鬆開反而更好讀。
+    #    但要設上限:兩列的表格如果把 2" 全吃下去,會變成兩條巨大的色帶。
+    #    每列最多加 0.34"(約一行 12pt 的高度),超過的寧可留白。
+    bonus = min(max(h - need, 0.0) / max(n, 1), 0.34) if n else 0.0
+
     tbl.rows[0].height = Inches(HDR)
     for i, r in enumerate(rows):
-        tbl.rows[i + 1].height = Inches(_rough(r))
+        tbl.rows[i + 1].height = Inches(_rough(r) + bonus)
 
     def _cell(c, s, size, color, bold=False, fill=None, align="center"):
         c.text = ""

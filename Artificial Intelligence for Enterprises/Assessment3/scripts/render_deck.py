@@ -393,6 +393,24 @@ def content(prs, pg):
     tot = sum(extra) or 1.0
     heights = [f + slack * e / tot for f, e in zip(floors, extra)]
 
+    # 🔴 有些版塊**拿到再多高度也用不完**:rows 把每一列畫成自然高度就停了、
+    #    callout 就是一句話。多給的那一塊不會消失,它會變成**版面正中央的一個洞**。
+    #    第 4 頁刪掉一列之後就是這樣:rows 分到 1.86" 卻只畫得出 1.31",
+    #    於是表格和底部那條 callout 中間空了 1.2",看起來像沒做完。
+    # 🔑 表格不一樣 —— 它永遠用得完:給多少就把列高平均加上去,字距鬆開反而更好讀。
+    #    所以把用不完的收回來交給表格;沒有表格的頁面就讓空白落在**底部**,
+    #    那比落在中間好看得多。
+    # ⚠️ 門檻 0.30":小於這個的空隙**肉眼看不出來**,而重排會動到每一個版塊的
+    #    y 座標。Kenny 逐頁核可過的頁面不該為了 0.08" 的空隙整頁下移 ——
+    #    實測加這條之前,第 5 頁十四個形狀全部被推低 0.08",只為了填一個看不見的縫。
+    cap = [1e9 if b["kind"] == "matrix" else n
+           for b, n in zip(blocks, needs)]
+    spare = sum(max(h_ - c, 0.0) for h_, c in zip(heights, cap))
+    mx = [i for i, b in enumerate(blocks) if b["kind"] == "matrix"]
+    if mx and spare > 0.30:
+        heights = [min(h_, c) for h_, c in zip(heights, cap)]
+        heights[mx[0]] += spare
+
     # 🔴 每種版塊都有一個「再少就畫不出來」的高度。低於它會產生**零高或負高的形狀**,
     #    python-pptx 照寫、zip 也合法,但 PowerPoint 會拒絕開啟整個檔案。
     #    不足的部分一律向最高的那個版塊借。
