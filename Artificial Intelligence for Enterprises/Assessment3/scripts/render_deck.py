@@ -324,7 +324,15 @@ def content(prs, pg):
     if pg.get("eyebrow"):
         N.text(s, M, TITLE_Y, 6.0, 0.30, pg["eyebrow"], 13, N.ORANGE, bold=True,
                who="eyebrow")
-    N.text(s, M, TITLE_Y + 0.32, N.W - M - 0.55, 0.62, pg["title"], 27, N.NAVY,
+    # 🔴 標題框只有 0.62" 高 = 一行 27pt。放不下就會**折到第二行,壓在副標上** ——
+    #    第 6 頁實測撞出「…能不能反／悔」蓋住副標,而所有既有檢查(overflow、鎖定、
+    #    作廢值、COM 開檔)沒有一支會叫。標題是全片字最大的一行,撞版一眼就看得到。
+    _tw = N.text_w(pg["title"], 27)
+    _tmax = N.W - M - 0.55
+    if _tw > _tmax:
+        print(f'   🔴 第 {pg["n"]} 頁標題放不下(需 {_tw:.2f}" · 只有 {_tmax:.2f}")'
+              f' —— 會折行壓到副標:{pg["title"]}')
+    N.text(s, M, TITLE_Y + 0.32, _tmax, 0.62, pg["title"], 27, N.NAVY,
            bold=True, who="title")
     N.text(s, M, TITLE_Y + 1.00, N.W - M - 0.55, 0.40, pg["subtitle"], 15,
            N.GREY, who="subtitle")
