@@ -127,11 +127,15 @@ def unit(idx):
     sk = PITCH.SKELETON[idx] if idx < len(PITCH.SKELETON) else None
     if sk is not None and "narr" in sk and sk["narr"] is None:
         return sk.get("title", ""), sk.get("say", ""), []
-    # 前面有幾頁是「沒有口白單元」的,索引就往前挪幾格
-    skip = sum(1 for j in range(idx)
-               if j < len(PITCH.SKELETON)
-               and PITCH.SKELETON[j].get("narr", "?") is None)
-    ni = idx - skip
+    # 🔴 頁序改過好幾輪(插入選型頁、刪掉漏放頁),索引不能再用「猜的」——
+    #    骨架裡標了 narr=N 就用 N,那是唯一可靠的對應。
+    if sk is not None and isinstance(sk.get("narr"), int):
+        ni = sk["narr"]
+    else:
+        skip = sum(1 for j in range(idx)
+                   if j < len(PITCH.SKELETON)
+                   and PITCH.SKELETON[j].get("narr", "?") is None)
+        ni = idx - skip
     title, body, cues = NARR_CACHE[ni] if ni < len(NARR_CACHE) else ("", "", [])
     if sk and sk.get("say"):
         body = sk["say"]
