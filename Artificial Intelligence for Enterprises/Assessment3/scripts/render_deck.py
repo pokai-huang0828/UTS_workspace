@@ -428,13 +428,31 @@ def content(prs, pg):
     # ⚠️ 門檻 0.30":小於這個的空隙**肉眼看不出來**,而重排會動到每一個版塊的
     #    y 座標。Kenny 逐頁核可過的頁面不該為了 0.08" 的空隙整頁下移 ——
     #    實測加這條之前,第 5 頁十四個形狀全部被推低 0.08",只為了填一個看不見的縫。
+    # 🔴 上限不能低於該版塊的**硬下限**(cards 2.32 / compare · bar 2.15 …)。
+    #    第一版只用 need 當上限,把 cards 壓到 1.99" —— 低於它的 2.32" 下限,
+    #    於是後面那道「補足下限」的借用又從 rows 借回去,rows 反而從 2.74 掉到 2.43,
+    #    多丟一列。上限與下限必須是同一組數字,否則兩道規則會互相拉扯。
     cap = [1e9 if b["kind"] == "matrix" else n
            for b, n in zip(blocks, needs)]
     spare = sum(max(h_ - c, 0.0) for h_, c in zip(heights, cap))
-    mx = [i for i, b in enumerate(blocks) if b["kind"] == "matrix"]
-    if mx and spare > 0.30:
+    if spare > 1e-6:
         heights = [min(h_, c) for h_, c in zip(heights, cap)]
-        heights[mx[0]] += spare
+        # 🔴 先補**還沒吃飽的**版塊,再談填空白。
+        #    舊版只把剩餘還給表格,沒有表格的頁面就讓它空著 ——
+        #    第 11 頁實測:整頁還剩 0.31" 沒人用,而 rows 差 **0.02"** 就放得下第五列,
+        #    於是「不做這件事會怎樣(要再請 12–19 個人)」被丟進備註。
+        #    一邊有空位、一邊在丟內容,那不是取捨,是分配錯了。
+        short = [max(n - h_, 0.0) for n, h_ in zip(needs, heights)]
+        tot_short = sum(short)
+        if tot_short > 1e-6:
+            give = min(spare, tot_short)
+            heights = [h_ + give * sh / tot_short
+                       for h_, sh in zip(heights, short)]
+            spare -= give
+        # 還有剩才輪到「填空白」—— 表格是唯一給多少都用得完的版塊
+        mx = [i for i, b in enumerate(blocks) if b["kind"] == "matrix"]
+        if mx and spare > 0.30:
+            heights[mx[0]] += spare
 
     # 🔴 每種版塊都有一個「再少就畫不出來」的高度。低於它會產生**零高或負高的形狀**,
     #    python-pptx 照寫、zip 也合法,但 PowerPoint 會拒絕開啟整個檔案。
@@ -455,18 +473,27 @@ def content(prs, pg):
 
     # 🔴 rows 的下限得看**列數**,不能是一個常數。第 2 頁收成一列之後,
     #    常數 0.80" 反而去跟 cards / compare 搶 0.46",兩邊都被擠到印不全。
+    # 🔴 下限不能大於這個版塊**實際需要**的高度。
+    #    cards 的 2.32" 是照「三行說明」算的,但第 11 頁那三張卡只有兩行(只需 1.99")——
+    #    一條「至少要這麼高」的規則把 0.33" 鎖在用不到的地方,
+    #    而隔壁的 rows 正好差 0.10" 放不下第五列,被迫把
+    #    「不做這件事會怎樣(要再請 12–19 個人)」丟進備註。
+    #    「最少要多高才畫得出來」只在它真的有那麼多內容時才成立。
+    hard = [min(_MIN.get(b["kind"], 0.3), needs[i])
+            for i, b in enumerate(blocks)]
+
     class MIN:
         @staticmethod
         def get(kind, default=0.3, _i=[0]):
             return _MIN.get(kind, default)
 
-    mins = [max(floors[i], _MIN.get(b["kind"], 0.3)) if b["kind"] != "rows"
+    mins = [max(floors[i], hard[i]) if b["kind"] != "rows"
             else max(floors[i], 0.44)
             for i, b in enumerate(blocks)]
     for _ in range(len(heights)):
         i = min(range(len(heights)),
                 key=lambda k: heights[k] - mins[k])
-        gap_i = MIN.get(blocks[i]["kind"], 0.3) - heights[i]
+        gap_i = hard[i] - heights[i]
         if gap_i <= 1e-6:
             break
         # 向**餘裕最多**的版塊借,不是向最高的借 —— 最高的那個可能自己就剛好卡在下限
