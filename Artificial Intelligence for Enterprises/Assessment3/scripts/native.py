@@ -163,6 +163,11 @@ def lines_needed(s, w_in, size_pt):
     return n
 
 
+def text_w(s, size_pt):
+    """這段文字排成**一行**要多寬(吋)。用來把欄寬收到剛好夠。"""
+    return max(sum(_wide(c) for c in str(s).replace(chr(10), "")), 1) * size_pt / 72.0
+
+
 SAFETY = 1.35          # 量測安全係數
 
 
@@ -348,7 +353,13 @@ def blk_bar(slide, x, y, w, h, spec):
         else:
             yy += 0.62
     if spec.get("note"):
-        text(slide, x, min(yy, y + h - 0.30), w, 0.30, spec["note"], size=12,
+        # 🔴 2026-08-16:舊版寫 min(yy, y + h - 0.30) —— 版塊高度不夠時,
+        #    這個 min 會把註記**往上夾**,直接壓在括號說明那一行上面。
+        #    第 3 頁就是這樣:「合計 2.5–5.5 天」印在「AI 可處理段…」正上方,
+        #    兩行疊在一起。Kenny 在 PowerPoint 裡手動把它往下拖 0.34" 才看得清楚。
+        #    正解是**不要夾**:放在該放的位置,高度不夠就讓 _guard 擋下來,
+        #    再由 need_h / MIN 去把版塊撐開(bar 的下限已同步調到 2.15")。
+        text(slide, x, yy, w, 0.30, spec["note"], size=12,
              color=GREY, who="bar-note")
 
 
@@ -358,8 +369,15 @@ def blk_rows(slide, x, y, w, h, items):
     🔴 行高由**量測內容**決定,不用固定值。註記欄放得下多少就放多少,
        放不下的整段進講者備註(clamp),不讓它壓到下一列。
     """
-    LW, VW, NW = w * 0.24, w * 0.30, w * 0.40      # 標 / 值 / 註記
-    NX = x + w * 0.60
+    # 🔴 2026-08-16:值欄寬度改成**跟著內容走**,不再固定 30%。
+    #    Kenny 在 PowerPoint 裡手動把第 10 頁的說明欄從 4.64" 拉到 7.92" ——
+    #    他是對的:那一頁的值欄固定吃掉 3.45",裡面只放「W1–6」四個字,
+    #    而旁邊的說明欄擠到必須截斷。固定比例在值短的時候就是在浪費版面。
+    LW = w * 0.24
+    vmax = max([text_w(str(it["value"]), 15) for it in items] or [0]) + 0.24
+    VW = max(min(w * 0.30, vmax), w * 0.10)
+    NW = w - LW - VW
+    NX = x + LW + VW
     PAD = 0.10
     max_note_lines = 3
 

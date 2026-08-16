@@ -371,9 +371,10 @@ def content(prs, pg):
     #           結果第 6 頁那張〈三層,一層都不可省〉只印得出兩層,少的正好是放行層。
     #   compare 標題 0.42 + 裁決 0.48 + 內距 + 一行 13pt
     #   rows    fit_items 保底兩列 × 0.34 + 列距 0.10
-    #   bar     標題 0.48 + 長條 0.72
+    #   bar     標題 0.48 + 長條 0.72 + 括號 0.62 + 註記 0.30 = 2.12 → 取 2.15
+    #           (低於這個數,註記會被壓到括號說明那一行上面 —— 第 3 頁踩過)
     MIN = {"callout": 0.36, "cards": 2.32, "rows": 0.80,
-           "compare": 1.75, "bar": 1.20, "matrix": 0.70}
+           "compare": 1.75, "bar": 2.15, "matrix": 0.70}
     for _ in range(len(heights)):
         i = min(range(len(heights)),
                 key=lambda k: heights[k] - MIN.get(blocks[k]["kind"], 0.3))
