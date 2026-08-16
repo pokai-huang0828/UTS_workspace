@@ -265,12 +265,22 @@ def need_h(kind, sp, w):
             for s in ("left", "right"))
 
     if kind == "rows":
-        LW, VW, NW = w * 0.24, w * 0.30, w * 0.40
+        # 🔴 欄寬必須跟 blk_rows **算得一模一樣**,否則估出來的高度是假的。
+        #    舊版寫死 VW = w*0.30、NW = w*0.40,但 blk_rows 的值欄是**跟著內容走**的
+        #    (只放「第 20–26 週」就只吃 1.58",不是 3.57")——
+        #    於是說明欄實際有 7.46" 卻被當成 4.76",行數估多、整塊高度虛胖 0.5"+。
+        #    後果是第 10 頁 rows 分到 3.74" 只畫得出 3.20",中間空 0.67",
+        #    而「用不完就還給表格」那條規則因為看的是這個假高度,永遠不會觸發。
+        items = sp["items"]
+        LW = w * 0.24
+        vmax = max([N.text_w(str(it["value"]), 15) for it in items] or [0]) + 0.24
+        VW = max(min(w * 0.30, vmax), w * 0.10)
+        NW = w - LW - VW
         return sum(max(N.text_h(it["label"], LW - 0.24, 14),
-                       N.text_h(it["value"], VW - 0.14, 15),
+                       N.text_h(str(it["value"]), VW - 0.14, 15),
                        min(N.text_h(it.get("note", ""), NW - 0.14, 12),
                            3 * 0.30)) + 0.20
-                   for it in sp["items"])
+                   for it in items)
 
     if kind == "bar":
         h = (0.48 if sp.get("label") else 0) + 0.72
