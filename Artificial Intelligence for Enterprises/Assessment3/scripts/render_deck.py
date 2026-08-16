@@ -116,12 +116,23 @@ def unit(idx):
 
     🔑 pitch.py 的 say 欄可以覆寫逐字 —— 第 1 頁的開場口白只寫在那裡,
        不在 notes/_v2_parts(那批檔案是十二個單元的原始口白,不含新補的開場)。
+
+    🔴 2026-08-16:投影片變 13 頁,但 notes/_v2_parts 仍是 12 個單元 ——
+       新加的「選型與部署」沒有對應單元。它在 pitch.py 標 narr=None,
+       而它**後面每一頁的口白索引都要往前挪一格**,否則整份講稿會錯位一頁。
     """
     global NARR_CACHE
     if NARR_CACHE is None:
         NARR_CACHE = narration()
-    title, body, cues = NARR_CACHE[idx] if idx < len(NARR_CACHE) else ("", "", [])
     sk = PITCH.SKELETON[idx] if idx < len(PITCH.SKELETON) else None
+    if sk is not None and "narr" in sk and sk["narr"] is None:
+        return sk.get("title", ""), sk.get("say", ""), []
+    # 前面有幾頁是「沒有口白單元」的,索引就往前挪幾格
+    skip = sum(1 for j in range(idx)
+               if j < len(PITCH.SKELETON)
+               and PITCH.SKELETON[j].get("narr", "?") is None)
+    ni = idx - skip
+    title, body, cues = NARR_CACHE[ni] if ni < len(NARR_CACHE) else ("", "", [])
     if sk and sk.get("say"):
         body = sk["say"]
     return title, body, cues
@@ -155,7 +166,7 @@ def put_notes(slide, idx, extra_lines):
     if NARR_CACHE is None:
         NARR_CACHE = narration()
     parts = []
-    if idx < len(NARR_CACHE) and unit(idx)[1]:
+    if unit(idx)[1]:      # 頁數已與 NARR_CACHE 脫鉤,不能再用長度判斷
         title, body, cues = unit(idx)
         n = len(CJK.findall(body))
         secs = n / RATE
@@ -279,7 +290,7 @@ def cover(prs):
     return s
 
 
-def refs_page(prs):
+def refs_page(prs, idx=11):
     s = prs.slides.add_slide(prs.slide_layouts[6])
     N.text(s, M, TITLE_Y + 0.28, 6.0, 0.6, "參考文獻", 28, N.NAVY, bold=True,
            who="ref-title")
@@ -294,7 +305,7 @@ def refs_page(prs):
     N.text(s, M, N.H - 0.52, N.SAFE_X - M, 0.34,
            "APA 7th　·　The company name has been changed for commercial in "
            "confidence reasons.", 12, N.GREY, who="ref-foot")
-    put_notes(s, 11, [])
+    put_notes(s, idx, [])
     return s
 
 
@@ -467,7 +478,7 @@ def main():
     cover(prs)
     for pg in pages:
         content(prs, pg)
-    refs_page(prs)
+    refs_page(prs, len(pages) + 1)   # 封面 0、內容 1..N、文獻 N+1
 
     prs.save(OUT)
 
