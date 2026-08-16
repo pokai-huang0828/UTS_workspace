@@ -299,6 +299,7 @@ def refs_page(prs):
 
 
 def content(prs, pg):
+    N.PAGE = pg["n"]
     s = prs.slides.add_slide(prs.slide_layouts[6])
     if pg.get("eyebrow"):
         N.text(s, M, TITLE_Y, 6.0, 0.30, pg["eyebrow"], 13, N.ORANGE, bold=True,

@@ -193,6 +193,7 @@ def text_h(s, w_in, size_pt, spacing=1.25, safety=None):
 
 
 OVERFLOW = []          # 被截斷或未上版的完整內容,由渲染器收進講者備註
+PAGE = 0               # 目前渲染到第幾頁(只為了讓警告訊息指得出頁碼)
 
 
 def fit_items(items, avail_h, measure, min_keep=2, who=""):
@@ -229,6 +230,17 @@ def fit_items(items, avail_h, measure, min_keep=2, who=""):
     hidden = [items[i] for i in range(len(items)) if i not in keep]
     for it in hidden:
         OVERFLOW.append((who, str(it)))
+    if hidden:
+        # 🔴 大聲報。matrix 已經有這條,但 rows / compare / cards 一直是**默默**丟 ——
+        #    第 2 頁的 compare 規格三行只印一行(而漏掉的是「營運端的實務估計,
+        #    尚未以計時量測驗證」這條必附限定語),rows 三列只印兩列,
+        #    我完全不知道,是逐頁審到第 2 頁才發現。
+        def _lbl(it):
+            if isinstance(it, dict):
+                return str(it.get("label") or it.get("name") or it)[:20]
+            return str(it)[:20]
+        print(f'   ⚠️ 第 {PAGE} 頁 {who} 丟了 {len(hidden)} / {len(items)} 項'
+              f'(可用 {avail_h:.2f}"):' + '、'.join(_lbl(it) for it in hidden))
     return shown, hidden
 
 
@@ -525,7 +537,7 @@ def blk_matrix(slide, x, y, w, h, spec):
         rows, _hidden = fit_items(rows, h - HDR, _rough, min_keep=2, who="matrix")
         # 🔴 大聲報出來。上一版就是**默默**丟列,結果標題寫「十條風險」片上只有 6 條,
         #    而我完全不知道 —— 是模擬考官翻頁對照才發現的。
-        print(f'   ⚠️ 表格丟了 {len(_hidden)} / {len(raw)} 列'
+        print(f'   ⚠️ 第 {PAGE} 頁 表格丟了 {len(_hidden)} / {len(raw)} 列'
               f'(需 {need:.2f}" · 只有 {h:.2f}" · 已壓到 {chosen} 行/格):'
               + '、'.join(str(r["name"]).split(chr(10))[0][:14] for r in _hidden))
     n = len(rows)
