@@ -20,6 +20,9 @@ from pptx.enum.shapes import MSO_SHAPE
 NAVY = "#1F4E79"
 ORANGE = "#E8833A"
 RED = "#C00000"
+# 🔴 2026-08-16 新增:第 8 頁的「改善」要跟「不變」在視覺上分得開。
+#    深綠(不是螢光綠)—— 跟 NAVY 同一個飽和度層級,投影與錄影都讀得出來。
+GREEN = "#1E7145"
 GREY = "#6B7885"
 LIGHT = "#DCE3EA"
 PALE = "#EAF1F8"
@@ -601,13 +604,18 @@ def blk_matrix(slide, x, y, w, h, spec):
         _cell(tbl.cell(0, j + 1), cname, 12, WHITE, True, NAVY)
 
     # 內容
+    # 🔑 逐列可以指定 tone:"red" / "green",沒指定就沿用舊的 hot 布林。
+    #    第 8 頁八條倫理原則要讓「改善」跟「不變」一眼分得開 ——
+    #    全部同一個灰,委員會分不出哪幾條是這個案子帶來的好處。
+    ROW_TONE = {"red": ("#FBEFEF", RED, RED),
+                "green": ("#EDF6EF", GREEN, GREEN)}
     for i, r in enumerate(rows):
-        hot = bool(r.get("hot"))
-        bg = "#FBEFEF" if hot else WHITE
-        col = RED if hot else INK
-        _cell(tbl.cell(i + 1, 0), r["name"], 12, col, hot, bg, "left")
+        tone = r.get("tone") or ("red" if r.get("hot") else "")
+        bg, col, sub = ROW_TONE.get(tone, (WHITE, INK, GREY))
+        strong = tone in ROW_TONE
+        _cell(tbl.cell(i + 1, 0), r["name"], 12, col, strong, bg, "left")
         for j, c in enumerate(r["cells"]):
-            _cell(tbl.cell(i + 1, j + 1), c, 12, (RED if hot else GREY), False, bg)
+            _cell(tbl.cell(i + 1, j + 1), c, 12, sub, False, bg)
     return gf
 
 
