@@ -40,6 +40,13 @@ def fingerprint(deck=DECK, pages=None):
 
 
 def save(pages):
+    # 🔴 沒給頁碼就直接死。
+    #    fingerprint() 的過濾是 `if pages and i not in pages`,空 list 是 falsy ——
+    #    於是 save([]) 會**靜默鎖住全部 12 頁**,而且只印一行「🔒 已鎖定第  頁」。
+    #    我打錯一個 `--help`(不是 `--check`)就掉進這條路,把還在改的 6–12 頁全鎖了。
+    #    鎖錯的後果不是報錯,是之後每次改都被誤報成「動到定案頁」—— 狼來了,最後沒人理它。
+    if not pages:
+        sys.exit("🔴 lock_pages.py 要給頁碼。用法:lock_pages.py 1 2 3 · lock_pages.py --check")
     data = json.load(open(LOCK, encoding="utf-8")) if os.path.exists(LOCK) else {}
     data.update(fingerprint(pages=set(pages)))
     json.dump(data, open(LOCK, "w", encoding="utf-8"), ensure_ascii=False, indent=1)

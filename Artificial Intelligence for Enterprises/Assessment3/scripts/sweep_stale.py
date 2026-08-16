@@ -15,9 +15,38 @@ STALE = [("43%–78%", r"43%[–-]78%"), ("2.5–5.5 天", r"2\.5[–-]5\.5"),
          ("60%–64%", r"60%[–-]64%"), ("16–23 人", r"16[–-]23 人"),
          ("4.4 分鐘", r"4\.4 分"), ("1,144–2,106", r"1,144[–-]2,106"),
          ("56.9–113.8", r"56\.9[–-]113\.8"), ("2.2–3.5 小時", r"2\.2[–-]3\.5 小時")]
+
+# 🔑 白名單 —— **刻意提到作廢值**的地方,而且理由必須寫在這裡。
+#    純字串黑名單分不出「拿它當主張」跟「解釋我們為什麼不拿它當主張」,
+#    但後者在答辯裡是必要的誠實。所以放行採**逐字全句比對**,不是關鍵字放行:
+#    句子只要改一個字就會重新被抓到,不會變成一張擴散的免死金牌。
+ALLOW = [
+    # 第 3 頁備註:坦承 0.25/0.25 是比營運端原口述(0.5/0.5)收緊過的值。
+    # 不寫出 43%–78%,委員會就不知道收緊幅度有多大 —— 那就不叫坦承。
+    "(用 0.5/0.5 算是 43%–78%)",
+]
+
+
+def strip_allowed(t):
+    for a in ALLOW:
+        t = t.replace(a, "")
+    return t
+
+
+def shape_text(sl):
+    """🔴 表格文字不在 text_frame 裡 —— 只走 text_frame 會漏掉整張表。
+       同一個 bug 讓答辯題庫的 agent 斷言「片上沒有 X」,而 X 就印在表格上。
+       見 scripts/dump_deck.py 的事故紀錄。"""
+    out = []
+    for sh in sl.shapes:
+        if sh.has_table:
+            out += [c.text for r in sh.table.rows for c in r.cells]
+        elif sh.has_text_frame:
+            out.append(sh.text_frame.text)
+    return " ".join(out)
 bad = []
 for pg in P:
-    s = json.dumps(pg, ensure_ascii=False)
+    s = strip_allowed(json.dumps(pg, ensure_ascii=False))
     for name, pat in STALE:
         for m in re.finditer(pat, s):
             bad.append((pg['n'], name, s[max(0, m.start()-40):m.start()+30]))
@@ -33,7 +62,7 @@ import pitch
 print("\n=== pitch.py(講稿骨架)殘留 ===")
 b2 = []
 for i, sk in enumerate(pitch.SKELETON):
-    blob = json.dumps(sk, ensure_ascii=False)
+    blob = strip_allowed(json.dumps(sk, ensure_ascii=False))
     for name, pat in STALE:
         if re.search(pat, blob):
             b2.append((i+1, name))
@@ -44,8 +73,8 @@ prs = Presentation('Huang_26254793_421104_Assessment 3.pptx')
 print("\n=== 交付檔(含講者備註)殘留 ===")
 b3 = []
 for i, sl in enumerate(prs.slides, 1):
-    txt = " ".join(sh.text_frame.text for sh in sl.shapes if sh.has_text_frame)
-    txt += " " + (sl.notes_slide.notes_text_frame.text or "")
+    txt = shape_text(sl) + " " + (sl.notes_slide.notes_text_frame.text or "")
+    txt = strip_allowed(txt)
     for name, pat in STALE:
         if re.search(pat, txt):
             b3.append((i, name))
