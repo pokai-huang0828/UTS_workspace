@@ -334,10 +334,29 @@ def content(prs, pg):
     #        那是投影片自己跟自己打架,而且看的人一數就知道。
     #    所以表格的最小高度(每格壓到 1 行)不參與競爭,直接扣下來。
     #    callout 也給一條下限 —— 第 9 頁那條被分到 **0.00"**,等於這個版塊不存在。
-    FLOOR = {"callout": 0.62}
-    floors = [(0.36 + len(sp.get("rows", [])) * 0.32) if b["kind"] == "matrix"
-              else FLOOR.get(b["kind"], 0.0)
-              for b, sp in zip(blocks, specs)]
+    #    🔴 2026-08-16:**rows 也要有下限**,理由跟表格一模一樣。
+    #    第 10 頁副標寫「六包只有一包是 AI」而片上只印得出兩包、
+    #    第 11 頁標題寫「成本主體是人」而「人力」那一列根本沒印 ——
+    #    那不是「說明變短」,是投影片自己承諾的條數對不上自己印出來的條數。
+    #    0.34" 是 blk_rows 的最小列高,0.10" 是列距。
+    def _pre_min(kind):
+        return {"callout": 0.36, "cards": 2.32, "rows": 0.44,
+                "compare": 2.15, "bar": 2.15, "matrix": 0.70}.get(kind, 0.3)
+
+    def _floor(kind, sp):
+        if kind == "matrix":
+            return 0.36 + len(sp.get("rows", [])) * 0.32
+        if kind == "rows":
+            n = len(sp.get("items", []))
+            return n * 0.34 + 0.10 * max(n - 1, 0)
+        return {"callout": 0.62}.get(kind, 0.0)
+
+    floors = [_floor(b["kind"], sp) for b, sp in zip(blocks, specs)]
+    if sum(max(floors[i], _pre_min(b["kind"]))
+           for i, b in enumerate(blocks)) > usable + 1e-6:
+        floors = [0.0 if b["kind"] == "rows" else f
+                  for b, f in zip(blocks, floors)]
+
     # 下限加總可能就已經超過版心(第 9 頁:兩張表 + callout)。
     # 這時要縮下限,否則 slack 變負數、版塊會被排到版面外(實測掉出底部 0.74")。
     # 🔑 縮的順序有先後:**先縮 callout,表格的下限最後才動** ——
@@ -347,11 +366,11 @@ def content(prs, pg):
         for i, b in enumerate(blocks):
             if over <= 1e-9:
                 break
-            if b["kind"] != "matrix":
+            if b["kind"] not in ("matrix", "rows"):
                 cut = min(floors[i], over)
                 floors[i] -= cut
                 over -= cut
-        if over > 1e-9:                       # 光表格的下限就塞不下,只好等比縮
+        if over > 1e-9:                       # 光表格 + rows 的下限就塞不下,只好等比縮
             k = usable / sum(floors)
             floors = [f * k for f in floors]
     slack = max(usable - sum(floors), 0.0)
@@ -373,32 +392,44 @@ def content(prs, pg):
     #   rows    fit_items 保底兩列 × 0.34 + 列距 0.10
     #   bar     標題 0.48 + 長條 0.72 + 括號 0.62 + 註記 0.30 = 2.12 → 取 2.15
     #           (低於這個數,註記會被壓到括號說明那一行上面 —— 第 3 頁踩過)
-    MIN = {"callout": 0.36, "cards": 2.32, "rows": 0.80,
-           "compare": 1.75, "bar": 2.15, "matrix": 0.70}
+    _MIN = {"callout": 0.36, "cards": 2.32, "rows": 0.80,
+            "compare": 2.15, "bar": 2.15, "matrix": 0.70}
+
+    # 🔴 rows 的下限得看**列數**,不能是一個常數。第 2 頁收成一列之後,
+    #    常數 0.80" 反而去跟 cards / compare 搶 0.46",兩邊都被擠到印不全。
+    class MIN:
+        @staticmethod
+        def get(kind, default=0.3, _i=[0]):
+            return _MIN.get(kind, default)
+
+    mins = [max(floors[i], _MIN.get(b["kind"], 0.3)) if b["kind"] != "rows"
+            else max(floors[i], 0.44)
+            for i, b in enumerate(blocks)]
     for _ in range(len(heights)):
         i = min(range(len(heights)),
-                key=lambda k: heights[k] - MIN.get(blocks[k]["kind"], 0.3))
+                key=lambda k: heights[k] - mins[k])
         gap_i = MIN.get(blocks[i]["kind"], 0.3) - heights[i]
         if gap_i <= 1e-6:
             break
         # 向**餘裕最多**的版塊借,不是向最高的借 —— 最高的那個可能自己就剛好卡在下限
         # (第 10 頁 cards 1.69" 既是最矮也是最高,迴圈當場空轉)。
         j = max(range(len(heights)),
-                key=lambda k: heights[k] - max(MIN.get(blocks[k]["kind"], 0.3),
-                                               floors[k]))
+                key=lambda k: heights[k] - max(mins[k], floors[k]))
         if j == i:
             break
         # 借的時候不能借到低於對方的 floor —— 否則剛保住的表格列又被借走
         # (實測第 10 頁四臂表就是這樣從 1.64" 被扣到 1.58",少印一臂)。
-        take = min(gap_i,
-                   heights[j] - max(MIN.get(blocks[j]["kind"], 0.3), floors[j]))
+        take = min(gap_i, heights[j] - max(mins[j], floors[j]))
         if take <= 1e-6:
             break
         heights[j] -= take
         heights[i] += take
-    assert all(h > MIN.get(b["kind"], 0.3) - 1e-6 for h, b in zip(heights, blocks)), \
-        f"第 {pg['n']} 頁塞不下:" + "、".join(
-            f'{b["kind"]}={h:.2f}"' for b, h in zip(blocks, heights))
+    tight = [f'{b["kind"]}={h:.2f}"(需 {m:.2f}")'
+             for b, h, m in zip(blocks, heights, mins) if h < m - 1e-6]
+    if tight:
+        # 🔴 這一頁的內容超過版心裝得下的量。不讓 build 掛掉(那會擋住其他頁的產出),
+        #    但一定要吵 —— 這是「該砍內容了」的訊號,不是排版還能再擠一擠。
+        print(f'   🔴 第 {pg["n"]} 頁版塊塞不下:' + "、".join(tight))
 
     y = BODY_TOP + 0.16
     for b, h in zip(blocks, heights):

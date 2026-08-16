@@ -307,6 +307,14 @@ def blk_cards(slide, x, y, w, h, items):
             by += 0.42
         if it.get("lines"):
             room = h - (by - y) - 0.14
+            if room < 0.24:
+                # 🔴 同 blk_compare:高度不足就整批進備註,絕不畫負高度的框
+                #    (第 10 頁實測 room = −0.64",那會讓 PowerPoint 拒絕開檔)
+                for ln in it["lines"]:
+                    OVERFLOW.append((f"card:{it['title']}", str(ln)))
+                print(f'   ⚠️ 第 {PAGE} 頁 card:{it["title"][:16]} 高度不足,'
+                      f'{len(it["lines"])} 行全部進備註')
+                continue
             # 🔑 卡片內的說明行走同一條規則:放得下幾行就放幾行,其餘進備註
             ml = max(1, int(room * 72.0 / (12 * 1.35 * SAFETY)))
             lines = [clamp(ln, cw - 0.24, 12, ml, f"card:{it['title']}")
@@ -442,6 +450,14 @@ def blk_compare(slide, x, y, w, h, spec):
         text(slide, cx + 0.16, y + 0.16, cw - 0.32, 0.42, s["title"], size=17,
              color=tone, bold=True, align="center", who=f"cmp{i}-t")
         room = vh - 0.90
+        if room < 0.30:
+            # 🔴 高度不足以放任何一行 —— 只印標題與裁決,絕不產出負高度的文字框
+            #    (負高度會讓 PowerPoint 拒絕開啟整個檔案)。
+            for ln in s["lines"]:
+                OVERFLOW.append((f"compare:{s['title']}", str(ln)))
+            print(f'   ⚠️ 第 {PAGE} 頁 compare:{s["title"][:16]} 高度不足,'
+                  f'{len(s["lines"])} 行全部進備註')
+            continue
         shown, hidden = fit_items(
             s["lines"], room,
             lambda ln, _w=cw: text_h(ln, _w - 0.32, 13, 1.5),
