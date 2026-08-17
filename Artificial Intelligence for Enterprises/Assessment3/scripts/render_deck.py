@@ -71,47 +71,51 @@ COVER = dict(
 #    另補兩筆填補零支撐的主張(流暢型幻覺、量化精度損失)—— 那兩個正是評分者的主場。
 #    每一筆後面掛頁碼標註,讓評分者一眼看到都真的被用到。
 REFS = [
-    # 🔴 APA 7 依作者姓氏字母序 —— 不是依重要性排。Department < Dettmers(Dep < Det)。
+    # 🔴 APA 7 §9.44:依**作者姓氏字母序**,不是依重要性或頁碼(Department < Dettmers)。
+    #    但頁碼標註放在**每筆最前面** —— 全部靠左對齊,眼睛一掃就知道哪一筆撐哪一頁;
+    #    掛在句尾時它藏在一長串 DOI 後面,等於沒標。標註是註解,不是引文的一部分,
+    #    放前面不影響 APA 的條目格式。
     # 第 8 頁全頁的骨架。🔴 機關名年份錯置:八原則 2019-11-07 由 DIIS 發布,
     #    DISR 這個名字 2022 年 7 月才存在(等於讓 2022 年成立的機關掛 2019 年的著作)。
     #    篇名也不可擅自展開成 artificial intelligence —— 官方標題就是 AI。
-    "Department of Industry, Innovation and Science. (2019). Australia's AI ethics "
-    "principles. https://www.industry.gov.au/publications/australias-ai-ethics-principles"
-    "　(第 8 頁)",
+    "(第 8 頁)　Department of Industry, Innovation and Science. (2019). Australia's AI "
+    "ethics principles. "
+    "https://www.industry.gov.au/publications/australias-ai-ethics-principles",
     # 🔴 新增:第 5 頁「8-bit 損失比 4-bit 小」原本零文獻支撐,而它撐著「為什麼要兩台」。
     #    ⚠️ 這篇一般被稱作 LLM.int8()(arXiv 2208.07339),但 **NeurIPS 論文集裡的標題是
     #    GPT3.int8()** —— 片上照版本紀錄寫,被問到就說明,那反而是個加分的細節。
-    "Dettmers, T., Lewis, M., Belkada, Y., & Zettlemoyer, L. (2022). GPT3.int8(): 8-bit "
-    "matrix multiplication for transformers at scale. In Advances in neural information "
-    "processing systems (Vol. 35).　(第 5 頁)",
+    "(第 5 頁)　Dettmers, T., Lewis, M., Belkada, Y., & Zettlemoyer, L. (2022). "
+    "GPT3.int8(): 8-bit matrix multiplication for transformers at scale. In Advances in "
+    "neural information processing systems (Vol. 35).",
     # 第 7 頁第 3 列「機器給了判定結果,人可能照抄」+ 介面層緩解。
     #    原篇名被砍掉後半,拿那個標題去 PubMed 搜不到這篇。
-    "Goddard, K., Roudsari, A., & Wyatt, J. C. (2012). Automation bias: A systematic "
-    "review of frequency, effect mediators, and mitigators. Journal of the American "
-    "Medical Informatics Association, 19(1), 121–127. "
-    "https://doi.org/10.1136/amiajnl-2011-000089　(第 7 頁)",
+    "(第 7 頁)　Goddard, K., Roudsari, A., & Wyatt, J. C. (2012). Automation bias: A "
+    "systematic review of frequency, effect mediators, and mitigators. Journal of the "
+    "American Medical Informatics Association, 19(1), 121–127. "
+    "https://doi.org/10.1136/amiajnl-2011-000089",
     # 第 9 頁⑨ 盲測「比對照組差就不放行」。這篇獨有的貢獻是
     #    「有人監督本身不構成防護」—— 正是把它列成喊停條件的依據。
-    "Parasuraman, R., & Manzey, D. H. (2010). Complacency and bias in human use of "
-    "automation: An attentional integration. Human Factors, 52(3), 381–410. "
-    "https://doi.org/10.1177/0018720810376055　(第 9 頁)",
+    "(第 9 頁)　Parasuraman, R., & Manzey, D. H. (2010). Complacency and bias in human "
+    "use of automation: An attentional integration. Human Factors, 52(3), 381–410. "
+    "https://doi.org/10.1177/0018720810376055",
     # 🔴 新增:第 7 頁第 1 列「機器會判錯,但講得很順」原本零文獻支撐 ——
     #    那是風險表第一列、整套「標出證據」設計的存在理由,也是評分者的主場。
-    "Rohrbach, A., Hendricks, L. A., Burns, K., Darrell, T., & Saenko, K. (2018). "
-    "Object hallucination in image captioning. In Proceedings of the 2018 Conference on "
-    "Empirical Methods in Natural Language Processing (pp. 4035–4045). "
-    "https://doi.org/10.18653/v1/D18-1437　(第 7 頁)",
+    "(第 7 頁)　Rohrbach, A., Hendricks, L. A., Burns, K., Darrell, T., & Saenko, K. "
+    "(2018). Object hallucination in image captioning. In Proceedings of the 2018 "
+    "Conference on Empirical Methods in Natural Language Processing (pp. 4035–4045). "
+    "https://doi.org/10.18653/v1/D18-1437",
     # 第 10 頁「順序不能換」+ 第 4 頁「判準不一致的標籤餵進去」。
-    "Sambasivan, N., Kapania, S., Highfill, H., Akrong, D., Paritosh, P., & Aroyo, L. M. "
-    "(2021). “Everyone wants to do the model work, not the data work”: Data cascades "
-    "in high-stakes AI. In Proceedings of the 2021 CHI Conference on Human Factors in "
-    "Computing Systems. https://doi.org/10.1145/3411764.3445518　(第 4、10 頁)",
+    "(第 4、10 頁)　Sambasivan, N., Kapania, S., Highfill, H., Akrong, D., Paritosh, P., "
+    "& Aroyo, L. M. (2021). “Everyone wants to do the model work, not the data "
+    "work”: Data cascades in high-stakes AI. In Proceedings of the 2021 CHI "
+    "Conference on Human Factors in Computing Systems. "
+    "https://doi.org/10.1145/3411764.3445518",
     # 第 11 頁「近半數是顧它的人力」+「五項還沒估價」= 模型以外的成本。
     #    🔴 原本用 APA 省略號吃掉三位作者;這篇共十位,APA 7 要列前 19 位。
-    "Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., "
-    "Chaudhary, V., Young, M., Crespo, J.-F., & Dennison, D. (2015). Hidden technical "
-    "debt in machine learning systems. In Advances in neural information processing "
-    "systems (Vol. 28).　(第 11 頁)",
+    "(第 11 頁)　Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, "
+    "D., Chaudhary, V., Young, M., Crespo, J.-F., & Dennison, D. (2015). Hidden "
+    "technical debt in machine learning systems. In Advances in neural information "
+    "processing systems (Vol. 28).",
 ]
 
 # 每種 block 的相對高度權重 —— 用來分配版心的垂直空間

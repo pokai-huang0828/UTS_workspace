@@ -543,13 +543,13 @@ A$14,200–17,700
 ### 投影片 12 / 12
 --- 片上文字 ---
 參考文獻
-Department of Industry, Innovation and Science. (2019). Australia's AI ethics principles. https://www.industry.gov.au/publications/australias-ai-ethics-principles　(第 8 頁)
-Dettmers, T., Lewis, M., Belkada, Y., & Zettlemoyer, L. (2022). GPT3.int8(): 8-bit matrix multiplication for transformers at scale. In Advances in neural information processing systems (Vol. 35).　(第 5 頁)
-Goddard, K., Roudsari, A., & Wyatt, J. C. (2012). Automation bias: A systematic review of frequency, effect mediators, and mitigators. Journal of the American Medical Informatics Association, 19(1), 121–127. https://doi.org/10.1136/amiajnl-2011-000089　(第 7 頁)
-Parasuraman, R., & Manzey, D. H. (2010). Complacency and bias in human use of automation: An attentional integration. Human Factors, 52(3), 381–410. https://doi.org/10.1177/0018720810376055　(第 9 頁)
-Rohrbach, A., Hendricks, L. A., Burns, K., Darrell, T., & Saenko, K. (2018). Object hallucination in image captioning. In Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing (pp. 4035–4045). https://doi.org/10.18653/v1/D18-1437　(第 7 頁)
-Sambasivan, N., Kapania, S., Highfill, H., Akrong, D., Paritosh, P., & Aroyo, L. M. (2021). “Everyone wants to do the model work, not the data work”: Data cascades in high-stakes AI. In Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems. https://doi.org/10.1145/3411764.3445518　(第 4、10 頁)
-Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., Chaudhary, V., Young, M., Crespo, J.-F., & Dennison, D. (2015). Hidden technical debt in machine learning systems. In Advances in neural information processing systems (Vol. 28).　(第 11 頁)
+(第 8 頁)　Department of Industry, Innovation and Science. (2019). Australia's AI ethics principles. https://www.industry.gov.au/publications/australias-ai-ethics-principles
+(第 5 頁)　Dettmers, T., Lewis, M., Belkada, Y., & Zettlemoyer, L. (2022). GPT3.int8(): 8-bit matrix multiplication for transformers at scale. In Advances in neural information processing systems (Vol. 35).
+(第 7 頁)　Goddard, K., Roudsari, A., & Wyatt, J. C. (2012). Automation bias: A systematic review of frequency, effect mediators, and mitigators. Journal of the American Medical Informatics Association, 19(1), 121–127. https://doi.org/10.1136/amiajnl-2011-000089
+(第 9 頁)　Parasuraman, R., & Manzey, D. H. (2010). Complacency and bias in human use of automation: An attentional integration. Human Factors, 52(3), 381–410. https://doi.org/10.1177/0018720810376055
+(第 7 頁)　Rohrbach, A., Hendricks, L. A., Burns, K., Darrell, T., & Saenko, K. (2018). Object hallucination in image captioning. In Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing (pp. 4035–4045). https://doi.org/10.18653/v1/D18-1437
+(第 4、10 頁)　Sambasivan, N., Kapania, S., Highfill, H., Akrong, D., Paritosh, P., & Aroyo, L. M. (2021). “Everyone wants to do the model work, not the data work”: Data cascades in high-stakes AI. In Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems. https://doi.org/10.1145/3411764.3445518
+(第 11 頁)　Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., Chaudhary, V., Young, M., Crespo, J.-F., & Dennison, D. (2015). Hidden technical debt in machine learning systems. In Advances in neural information processing systems (Vol. 28).
 APA 7th　·　The company name has been changed for commercial in confidence reasons.
 --- 講者備註 ---
 【第 12 頁 · 參考文獻(不佔十頁額度)】　目標 5 秒 · 累計 12:26
