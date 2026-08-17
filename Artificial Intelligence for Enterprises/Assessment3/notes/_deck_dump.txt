@@ -552,13 +552,13 @@ A$14,200–17,700
 (第 11 頁)　Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., Chaudhary, V., Young, M., Crespo, J.-F., & Dennison, D. (2015). Hidden technical debt in machine learning systems. In Advances in neural information processing systems (Vol. 28).
 APA 7th　·　The company name has been changed for commercial in confidence reasons.
 --- 講者備註 ---
-【第 12 頁 · 參考文獻(不佔十頁額度)】　目標 5 秒 · 累計 12:26
+【第 12 頁 · 參考文獻(不佔十頁額度)】　目標 0 秒 · 累計 12:21
 
-★ 以上引用依 APA 第七版列出。
+★ (不出聲)第 11 頁最後一句講完停 2 秒再切到這頁,停 3 秒收。
 
-⚠️ 這一頁不佔十頁額度,5 秒帶過
+⚠️ 🚫 **這一頁不要出聲** —— 全片最後一個聲音必須是第 11 頁那句「六個月後各位手上會多三樣」
+⚠️ 這一頁不佔十頁額度;停 3 秒讓評分者看得到書目就可以結束錄影
 
 → 換下一頁
 
-── 逐字備援 · 21 字(忘詞才看,不是拿來唸的)──
-這些是本提案引用的公開文獻,完整清單在這一頁。
+── 逐字備援 · 0 字(忘詞才看,不是拿來唸的)──

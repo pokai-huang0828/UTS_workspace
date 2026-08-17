@@ -190,7 +190,11 @@ def unit(idx):
                    and PITCH.SKELETON[j].get("narr", "?") is None)
         ni = idx - skip
     title, body, cues = NARR_CACHE[ni] if ni < len(NARR_CACHE) else ("", "", [])
-    if sk and sk.get("say"):
+    # 🔴 用 is not None 而不是真值判斷 —— 空字串代表「這一頁不出聲」,
+    #    那是一個**刻意的設定**,不是「沒設定」。第 12 頁就是這樣:
+    #    第 11 頁備註寫著「全片最後一個印象就是那一句」,而參考文獻頁若再唸一句
+    #    「以上引用依 APA 第七版列出」,最後聽到的就變成那句書目話。
+    if sk and sk.get("say") is not None:
         body = sk["say"]
     # 🔴 單元名來自 notes/_v2_parts,那批檔案停在舊版結構。
     #    第 6 頁片上已改成「三條路」,備註抬頭卻還印著「P5 · 五條路,含三條不用 AI」——
@@ -228,7 +232,7 @@ def put_notes(slide, idx, extra_lines):
     if NARR_CACHE is None:
         NARR_CACHE = narration()
     parts = []
-    if unit(idx)[1]:      # 頁數已與 NARR_CACHE 脫鉤,不能再用長度判斷
+    if unit(idx)[1] or unit(idx)[0]:   # 有逐字或有抬頭就寫備註(不出聲的頁也要有提示)
         title, body, cues = unit(idx)
         n = len(CJK.findall(body))
         secs = n / RATE
