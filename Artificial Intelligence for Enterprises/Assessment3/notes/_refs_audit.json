@@ -1,0 +1,163 @@
+{
+ "refs": [
+  {
+   "ref": "Australian Human Rights Commission. (2020). Using artificial intelligence to make decisions: Addressing the problem of algorithmic bias.",
+   "action": "drop",
+   "page_tag": "—",
+   "entry": "—",
+   "reason": "全片唯一沾得上邊的是第 8 頁③「公平:誰的案子先被看 ｜ 依客戶購買量排序 ｜ 涵蓋率提高 → 改善」——那是 B2B 商業排序,不是演算法對受保護群體產生的差別待遇。片上、備註、逐字稿全篇沒有歧視/偏差/族群差異的任何一句;第 4 頁 DMS「駕駛行為因光線誤判」從頭到尾被寫成視覺模型的技術缺陷,沒有一個字連到膚色或族群。而 AHRC 這份報告的前提是「AI 在做決定」,本案主張機器不結案、判定 100% 由人。第 8 頁的框架歸屬又已經寫死是 DISR/課程單元六,⑦ 可申訴那條還逐字引 DISR 原文 —— AHRC 沒有任何 DISR 沒蓋到的功能。被問「哪一頁用到 AHRC」只能指著購買量排序那一格,比不引更難看。【救法(不建議)】第 8 頁③ 改寫成「不同車隊/駕駛族群之間誤報率是否一致」——那是開一條片上目前沒有、也沒有量測計畫的新戰線。"
+  },
+  {
+   "ref": "Department of Industry, Science and Resources. (2019). Australia's artificial intelligence ethics principles.",
+   "action": "fix",
+   "page_tag": "第 8 頁",
+   "entry": "Department of Industry, Innovation and Science. (2019). Australia's AI ethics principles. Australian Government. https://www.industry.gov.au/publications/australias-ai-ethics-principles　(第 8 頁)",
+   "reason": "對應無可爭議 —— 第 8 頁整頁的骨架就是這八條,編號與順序沿用原框架,底線那句「應設有及時的機制,讓相關方提出質疑」是逐字引原文,備註明載「課程單元六 6.3.4 引用的澳洲 AI 倫理八原則」。抽掉這一筆,第 8 頁八列會變成來源不明的自訂清單,整頁的正當性(「框架不是我挑的」)當場崩掉。這是留下來的五筆裡最承重的一筆。\n【但書目有兩個錯,而且評分者在澳洲,掃一眼就知道】\n① 機關名與年份時序錯置:八原則是 2019 年 11 月由 Department of Industry, Innovation and Science(DIIS)發布;「Department of Industry, Science and Resources」(DISR)這個名字要到 2022 年 7 月才存在。等於讓一個 2022 年才成立的機關掛 2019 年的著作。\n② 篇名擅自展開縮寫:官方標題是「Australia's AI Ethics Principles」,不是「Australia's artificial intelligence ethics principles」。APA 7 篇名照原文抄,而且展開後會跟另一份文件 Australia's Artificial Intelligence Ethics Framework 撞名,被問「你引的是原則還是框架」會答不清楚。\n【連動修改 —— 這一筆改了片外也要改】第 8 頁講者備註三處寫「(DISR, 2019)」(★下的框架來源列、# 數字列、備查段)要一併改成「(DIIS, 2019)」。逐字備援那句「課程單元六引用的澳洲 AI 倫理八原則」不含機關代號,不用動。\n【若課程投影片自己寫 DISR】不必跟著錯,答辯時一句話帶過:「原始發布機關是 DIIS,2022 年改名為 DISR」——這反而是一個加分的細節。\n【排版】篇名 Australia's AI ethics principles 要斜體。"
+  },
+  {
+   "ref": "Ensign, D., Friedler, S. A., Neville, S., Scheidegger, C., & Venkatasubramanian, S. (2018). Runaway feedback loops in predictive policing. PMLR, 81, 160–171.",
+   "action": "drop",
+   "page_tag": "—",
+   "entry": "—",
+   "reason": "這就是 Kenny 擔心的「為了已經不存在的內容而引」的實例,而且有直接的刪除證據。12 頁片上加全部備註,沒有任何一句描述「系統自己的輸出回流成下一輪的輸入或訓練資料、因而自我強化」。唯一的錨點是第 7 頁原本的第 8 列「以前判成誤報的紀錄算不算證據」(拿自己過去的判定回頭當證據 = 典型回流),而第 7 頁備註白紙黑字:「🚫 不要再提『以前判成誤報的紀錄算不算證據』那一件 —— 已刪除」、備查再記一次「③第 8 列整列刪掉」。刪除後全片再無回饋迴圈敘述:第 4 頁「判準不一致的標籤餵進去」是標註品質(Sambasivan)、第 9 頁⑧「不能拿這批答案去訓練」是標籤可靠度,兩者都不是輸出回流。【無救法】要救得先把那一列加回去,而那一列是 Kenny 自己判定要刪的。"
+  },
+  {
+   "ref": "Goddard, K., Roudsari, A., & Wyatt, J. C. (2012). Automation bias: A systematic review. JAMIA, 19(1), 121–127.",
+   "action": "fix",
+   "page_tag": "第 7 頁",
+   "entry": "Goddard, K., Roudsari, A., & Wyatt, J. C. (2012). Automation bias: A systematic review of frequency, effect mediators, and mitigators. Journal of the American Medical Informatics Association, 19(1), 121–127. https://doi.org/10.1136/amiajnl-2011-000089　(第 7 頁)",
+   "reason": "對應是承重的。第 7 頁第 3 列「組織｜3 機器給了判定結果,人可能照抄」就是自動化偏誤的教科書定義,而防法(介面不顯示信心分數)、代價(複核變慢)、偵測(有機器幫忙那組判得比沒有的差)三格是這條文獻的標準組合 —— 尤其「介面層緩解」正是這篇系統性回顧涵蓋的 mitigators。「人會照抄」是一個關於人類行為的經驗宣稱,沒有文獻就只是提案人的猜測,而它撐著一個會拖慢複核、撞到兩天目標的設計決定。備註「🔴 不可講成『不會發生,因為最後是人審核』· 評分者研究的就是這個」也直接站在這篇上。\n【頁碼標註只掛第 7 頁】與 Parasuraman & Manzey 分工:Goddard = 第 7 頁(這件事會不會發生 + 介面層怎麼防),P&M = 第 9 頁(盲測怎麼驗)。兩筆各指一頁,「同一風險為什麼引兩篇」就不會被問成重複引用。\n【書目三個錯】① 篇名被砍掉後半:原題是「Automation bias: A systematic review of frequency, effect mediators, and mitigators」,現在這個標題拿去 PubMed 搜不到這篇(PMID 21685142)。② JAMIA 是縮寫,APA 7 要寫全名 Journal of the American Medical Informatics Association。③ 缺 DOI。作者、年份、卷期頁碼原本就對,不動。\n【排版】期刊名與卷號 19 斜體,(1) 不斜體。DOI 字串請最後上 PubMed 該篇頁面掃一眼確認。"
+  },
+  {
+   "ref": "Guo, C., Pleiss, G., Sun, Y., & Weinberger, K. Q. (2017). On calibration of modern neural networks. PMLR, 70, 1321–1330.",
+   "action": "drop",
+   "page_tag": "—",
+   "entry": "—",
+   "reason": "硬湊。片上唯一觸點是第 7 頁第 3 列的「信心分數」四個字,但不顯示的理由自始至終寫在同一列:風險是「人可能照抄」(自動化偏誤)、代價是「複核會變慢」。全片沒有任何一句主張那個分數本身未經校準或系統性過度自信 —— 而那是 Guo 的全部內容。拿掉 Guo,那一列一個字都不用改,這就是「不必要引用」的定義。誤掛點更危險:第 7 頁第 1 列「機器會判錯,但講得很順」是流暢型幻覺、第 2 列「給 AI 校正」是拿固定考題對答案(不是 probability calibration),兩處都同字不同義;評分者做 VLM 安全對齊,當場就會把校準跟幻覺分開。被問「你引 Guo 是要說什麼」,唯一誠實的答案是「我沒顯示分數」——那不需要 Guo。【救法】第 7 頁第 3 列補第二個理由:「這類分數本身未經校準、系統性過度自信,顯示它等於給複核者一個看起來精確其實不可靠的錨點」——補了 Guo 才是必要的;不補就刪。"
+  },
+  {
+   "ref": "Hopp, W. J., & Spearman, M. L. (2011). Factory physics (3rd ed., chaps. 7–9). Waveland Press.",
+   "action": "drop",
+   "page_tag": "—",
+   "entry": "—",
+   "reason": "引一本排隊論教科書去支撐一段自己聲明要排除的區段。片上跟排隊有關的只有兩處,而兩處的論證方向都是把排隊排除在瓶頸之外:第 3 頁「排隊本身只有 0–1 天 —— 那是排班解得掉的唯一一段」、備註「不在本案範圍」;第 6 頁再用它把調班那條路的上限釘死。指定 chaps. 7–9 正是排隊論那三章,等於自己遞刀:既然引了 Factory Physics,那第 2 頁 29.8–42.9 人時對上產能 40 人時、利用率逼近甚至超過 1,你的 Kingman 分析呢、變異性怎麼估的?——而第 6 頁備註自己承認事件量是浮動的、沒量過。至於第 6 頁「一天的量要看 3–5 天」是 129.1–185.9 ÷ 40 的除法,片上沒有出現利用率曲線、變異度、Little's law、WIP 任何一個構件。【刪掉不留缺口】那句積壓是算術,不需要任何文獻。"
+  },
+  {
+   "ref": "National Institute of Standards and Technology. (2023). Artificial intelligence risk management framework (AI RMF 1.0).",
+   "action": "drop",
+   "page_tag": "—",
+   "entry": "—",
+   "reason": "最該刪的一筆:參考文獻列了一個講稿明令不准講的框架。全片「NIST」只出現兩次,一次是第 7 頁備註叫自己不要講(「🚫 不要說『緩解』『偵測訊號』『NIST』『黃金題』『快照』」),另一次就是第 12 頁這一行 —— 前者正是「片上不存在」的反證。AI RMF 的構件一個都沒出現:沒有 GOVERN/MAP/MEASURE/MANAGE、沒有七項可信賴特性、沒有 profile 或 tier。第 7 頁那張表的來源第 7 頁備查自己交代得很清楚:四欄結構來自 rubric 30 分的四個 HD 門檻、分類「資料/組織/倫理/經濟」是作業說明自己給的、倫理框架是 DISR 八原則 —— 三個來源沒有一個是 NIST。「片上有在做風險治理」不等於「用了那個框架」。被問「你哪一頁用到 AI RMF 的哪一個 function」,連一個構件名稱都指不出來,而且答不出來會連帶讓第 7 頁那張最能拿分的表看起來像套框架套來的。【無救法】要留就得在第 7 頁表頭真的掛上 MAP/MEASURE/MANAGE,而那與備註的禁令直接衝突。"
+  },
+  {
+   "ref": "Northcutt, C. G., Athalye, A., & Mueller, J. (2021). Pervasive label errors in test sets destabilize machine learning benchmarks. NeurIPS Datasets and Benchmarks Track.",
+   "action": "drop",
+   "page_tag": "—",
+   "entry": "—",
+   "reason": "主題碰得到,方向是反的,而且會反咬自己一格。這篇的範圍很窄:測試集本身標錯 → benchmark 排名不可信。片上唯一像測試集的是第 7 頁第 2 列「定期跑一組答案確定的事件」(固定考題),而片上對它的把握欄寫的是「高 · 答案是確定的」—— 正好是這篇用實證推翻的假設。引它等於自己附一篇打自己那格把握度的論文:「你引了 Northcutt,那你憑什麼說答案是確定的?」評分者做安全對齊,這一刀他會砍。至於第 9 頁⑧「兩個人給不同答案 … 沒過就不能拿這批答案去訓練」與第 10 頁②的判斷手冊,後果全部落在訓練側,那是 Sambasivan 的地盤,不是測試集標註錯誤。【救法】第 7 頁第 2 列把握欄從「高 · 答案是確定的」改成「固定考題本身也要定期抽驗標註」,並把第 9 頁⑧ 的後果擴寫成「連量測基準都不能用」——那等於自己拆掉一格把握「高」。維持現狀就刪。"
+  },
+  {
+   "ref": "Parasuraman, R., & Manzey, D. H. (2010). Complacency and bias in human use of automation. Human Factors, 52(3), 381–410.",
+   "action": "fix",
+   "page_tag": "第 9 頁",
+   "entry": "Parasuraman, R., & Manzey, D. H. (2010). Complacency and bias in human use of automation: An attentional integration. Human Factors, 52(3), 381–410. https://doi.org/10.1177/0018720810376055　(第 9 頁)",
+   "reason": "留,但頁碼標註只掛第 9 頁⑨「機器的描述會不會讓人判得更差 ｜ 第 12 週交盲測結果 ｜ 比對照組差就不放行」。理由:片上「比對照組差就不放行」用的正是這篇的 aided vs unaided 對照範式,而這篇真正獨有的貢獻是「有人監督本身不構成防護」——那正是第 9 頁把它列成喊停條件、第 7 頁第 3 列把握只給「中 · 擋不住措辭」的依據,也正對備註「寫演算法的人自己審自己的輸出是缺少獨立檢查」。\n【必須背下來的分工(答辯必問)】Goddard = 第 7 頁,決策支援介面情境的系統性回顧,證明「人會照抄」會發生、介面層可以擋;P&M = 第 9 頁,證明所以必須用盲測去量、不能靠「反正最後有人審」。兩筆各掛一頁,問到「同一條風險為什麼引兩篇」就照這句答。\n【自知的弱點】片上沒有任何一句提到長期監控鬆懈或注意力衰退(complacency 的本體),所以被追問時只能講到「有輔助那組表現反而變差」這一層 —— 不要主動把話題帶去 complacency。\n【書目一個錯】副標整段掉了:原題是「Complacency and bias in human use of automation: An attentional integration」。這篇是該領域被引上千次的經典,評分者做人機安全對齊,標題缺一截他認得出。作者、年份、卷期頁碼全對,補 DOI 即可。\n【排版】期刊名 Human Factors 與卷號 52 斜體。"
+  },
+  {
+   "ref": "Rudin, C. (2019). Stop explaining black box machine learning models for high stakes decisions. Nature Machine Intelligence, 1(5), 206–215.",
+   "action": "drop",
+   "page_tag": "—",
+   "entry": "—",
+   "reason": "全份最危險的一筆 —— 不是沒用到,是反向。三個可能的掛點全部不成立:① 第 3 頁/第 7 頁第 1 列「用白話寫分析結果,並標出用到的數據」,是對兩顆黑箱 VLM(122B / 72B)做事後解釋 —— 那正是這篇點名反對的 post-hoc explanation,拿它來撐等於引一篇否定本案做法的論文;② 第 10 頁③「不含 AI 的規則版本」,片上寫明的理由是「它是 AI 的對照組,不然 AI 有沒有用永遠說不清」——那是實驗歸因,不是可解釋性,第 10 頁備查也只講對照組;③ Rudin 的前提是模型在做 high-stakes decision,而本案通篇「機器不做結案」「機器寫的結論一律先給人看過才對外」、判定 100% 由人 —— 前提就不成立。而且被砍掉的篇名後半正好是全篇論點,現在這個標題的意思甚至反了。評分者做 VLM 安全對齊,這一筆是他最可能抽問、也最容易當場翻盤的。【救法(要動兩頁)】第 10 頁③ 把規則版重新定位成 interpretable baseline,並在口白主動說明本案為何仍需黑箱 + 第 24 週「證不出比規則好 → AI 不上線」重寫成「可解釋方案優先」。不做這兩件事就刪。"
+  },
+  {
+   "ref": "Sambasivan, N., Kapania, S., Highfill, H., Akrong, D., Paritosh, P., & Aroyo, L. (2021). \"Everyone wants to do the model work, not the data work\": Data cascades in high-stakes AI. CHI '21.",
+   "action": "fix",
+   "page_tag": "第 4、10 頁",
+   "entry": "Sambasivan, N., Kapania, S., Highfill, H., Akrong, D., Paritosh, P., & Aroyo, L. M. (2021). \"Everyone wants to do the model work, not the data work\": Data cascades in high-stakes AI. In Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems (Article 39, pp. 1–15). Association for Computing Machinery. https://doi.org/10.1145/3411764.3445518　(第 4、10 頁)",
+   "reason": "留,撐的是一個結構性決策而不只是主題呼應。第 10 頁六件工作包裡三件非 AI 的資料工作全排在 AI 之前,而且用詞是「順序不能換」——這個強度靠常識的垃圾進垃圾出撐不住;data cascades 對「上游資料工作被低估、問題到下游才複合爆開」的實證才撐得住。第 4 頁「判準→先統一標註」與逐字備援「標註品質那一包排在模型前面,不是保守,是必要」、第 10 頁備查「順序本身就是風險控制」是同一條線的另外兩處落點。委員/評分者必問的「為什麼六個月只有一件是 AI、前面三件是不是繞路」,答案就靠這篇。\n【書目三個問題】① 出處過簡:CHI '21 只是會議簡稱,APA 7 要寫完整論文集名 Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems,並附文章編號/頁碼、出版者 Association for Computing Machinery 與 DOI。② Aroyo 原文署名 Lora M. Aroyo,應作 Aroyo, L. M.。③ 篇名那對引號是原標題的一部分,保留是對的,但改用直式雙引號,APA 7 不用彎引號。\n【要你自己核一眼】「Article 39」我沒有逐字確認到 —— 上 ACM DL 該篇頁面看一下;查不到就整個括號改成 (pp. 1–15),15 頁是確定的。\n【排版】論文集名斜體;篇名內的引號不斜體。"
+  },
+  {
+   "ref": "Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., … Dennison, D. (2015). Hidden technical debt in machine learning systems. NeurIPS, 28.",
+   "action": "fix",
+   "page_tag": "第 11 頁",
+   "entry": "Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., Chaudhary, V., Young, M., Crespo, J.-F., & Dennison, D. (2015). Hidden technical debt in machine learning systems. In Advances in neural information processing systems (Vol. 28, pp. 2503–2511). Curran Associates.　(第 11 頁)",
+   "reason": "留,但答辯時要講對它撐的是什麼。對得上的是第 11 頁兩格:「三年總花費 … 近半數是顧它的人力,不是機器」,以及「想到了但還沒估價的五項:①影片存放 ②雲端運算 ③圖資更新 ④測試環境 ⑤訓練資料蒐集」——後者逐項都是這篇點名的模型以外成本(尤其③圖資更新 = 不穩定的外部資料依賴);第 7 頁第 2 列代價欄「那組事件要人維護,而且要定期重跑」是同一條債的第三處落點。\n【口徑】它撐的是「ML 系統的成本主體在模型以外」這個判斷與那份成本清單的完整性,不是 A$2.9–5.2 萬那個金額 —— 被問時不要講成「文獻說會花這麼多」。扣分項是片上完全沒有用這篇的語彙(技術債、glue code、資料依賴),所以是「用了論點沒用名詞」;建議把「五項沒估 = 隱性技術債清單」寫進第 11 頁備查,被問到能立刻指格位。\n【書目一個致命錯】APA 7 的省略號規則用反了,而且實際吃掉三個人:這篇共 10 位作者,APA 7 明訂 2–20 位一律全部列出,只有 21 位以上才縮;現在的寫法漏掉 Chaudhary, V.、Young, M.、Crespo, J.-F.。這是 APA 7 相對第 6 版最常被抓的改動之一。另外 2015 年該會議名稱是 NIPS(NeurIPS 是 2018 年才改的),寫「NeurIPS, 28」屬時代錯置 —— 改用論文集全名 Advances in neural information processing systems (Vol. 28) 就同時解掉。\n【刻意省略編者】NIPS 第 28 冊的編者組我沒有逐字確認,寧可省略也不要寫錯;若你上 papers.nips.cc 第 28 冊首頁確認了,可加 In C. Cortes, N. Lawrence, D. Lee, M. Sugiyama, & R. Garnett (Eds.),。URL 也請從該頁複製,不要自己拼。頁碼 2503–2511 請一併掃一眼。\n【排版】論文集名 Advances in neural information processing systems 斜體。"
+  }
+ ],
+ "coverage": [
+  {
+   "topic": "流暢型幻覺(機器講錯但講得很順)",
+   "status": "缺口 · 最高優先",
+   "page": "第 7 頁第 1 列(連帶第 3 頁「產出可讀描述並標出引用的證據」)",
+   "quote": "資料｜1 機器會判錯,但講得很順 ｜ 用白話寫分析結果,並標出用到的數據 ｜ 講錯的跟講對的一樣順,比錯數字難發現",
+   "gap": "這是全片風險表的第一列、也是整套「標出證據在第幾秒」設計的存在理由,目前零文獻支撐。而評分者 Jiwei Guan 研究的就是視覺語言模型的安全 —— 他一定會問「你憑什麼說 VLM 會產生流暢但錯誤的描述」。刪掉 Rudin 與 Guo 之後,第 7 頁前兩列完全沒有任何來源,這比多引一筆牽強的更危險。",
+   "suggest": "首選(最貼 VLM,而且是評分者的主場文獻):Rohrbach, A., Hendricks, L. A., Burns, K., Darrell, T., & Saenko, K. (2018). Object hallucination in image captioning. In Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing (pp. 4035–4045). Association for Computational Linguistics.｜若想要涵蓋面更廣的綜述:Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Xu, Y., Ishii, E., Bang, Y. J., Madotto, A., & Fung, P. (2023). Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12), Article 248. https://doi.org/10.1145/3571730",
+   "note": "兩篇都確定存在,但頁碼/文章編號請上原始論文集頁面核一眼再印。只引一篇即可 —— 引 Rohrbach 的話,第 7 頁第 1 列與第 3 頁「標出引用的證據」就一起有了依據,而且它是「模型描述出畫面裡沒有的東西」的經典,跟本案「速限牌讀不到卻講得很順」完全同型。"
+  },
+  {
+   "topic": "量化(4-bit / 8-bit)的精度損失",
+   "status": "缺口 · 高優先",
+   "page": "第 5 頁",
+   "quote": "常駐模型 ｜ Qwen3.5 122B-A10B(4-bit) ｜ Qwen2.5-VL 72B(8-bit);備註:「🚫 不可說『8-bit 無損精度』—— 8-bit 量化是有損的,只是損失小於 4-bit」「4-bit 讀不讀得到小字:讀不到 —— 所以那是深挖層的工作」",
+   "gap": "「4-bit 讀不到小字、8-bit 讀得到」是整個兩層架構(為什麼要兩台、為什麼分篩檢/深挖)的支點,目前純屬提案人主張。備註自己都知道這句會被當場糾正,卻沒有給來源。這是評分者最可能追問而片上答不出的第二個點。",
+   "suggest": "最貼「8-bit 損失小於 4-bit」這句:Dettmers, T., Lewis, M., Belkada, Y., & Zettlemoyer, L. (2022). LLM.int8(): 8-bit matrix multiplication for transformers at scale. In Advances in neural information processing systems (Vol. 35).｜若要一併撐 4-bit 那一側:Frantar, E., Ashkboos, S., Hoefler, T., & Alistarh, D. (2023). GPTQ: Accurate post-training quantization for generative pre-trained transformers. International Conference on Learning Representations.",
+   "note": "兩篇都確定存在;卷號/頁碼/URL 請從官方論文集頁面補齊。建議只引 LLM.int8() 一篇,並在第 5 頁備註補一句「量化是有損的,8-bit 的損失小於 4-bit,這也是深挖層用 8-bit 的原因」——引了就要在片上或口白說得出來,否則又變成裝飾引用。"
+  },
+  {
+   "topic": "標註者一致性(兩個人判同一段影片答案不一樣)",
+   "status": "缺口 · 中優先",
+   "page": "第 9 頁⑧(連帶第 10 頁②、第 7 頁第 2 列)",
+   "quote": "⑧ 同一段影片,兩個人給不同答案 ｜ 從來沒量過 ｜ 第 10 週建立基線 ｜ 沒過就不能拿這批答案去訓練",
+   "gap": "這是兩條喊停條件之一,委員會必問「一致率怎麼算、多少才算過」;目前只靠 Sambasivan 從資料工作那一側外圍撐著,沒有任何量測方法的來源。刪掉 Northcutt 之後這一格更是完全裸的。",
+   "suggest": "Cohen, J. (1960). A coefficient of agreement for nominal scales. Educational and Psychological Measurement, 20(1), 37–46. https://doi.org/10.1177/001316446002000104｜若還要一個判讀門檻的依據:Landis, J. R., & Koch, G. G. (1977). The measurement of observer agreement for categorical data. Biometrics, 33(1), 159–174.",
+   "note": "兩篇都是確定存在的經典。⚠️ 條件式建議:引了就必須在第 9 頁⑧ 或講者備註寫出用哪個統計量與門檻(例如「以 Cohen's κ 量測,κ ≥ 0.6 才算過」),否則它會變成新的一筆「答不出用在哪」的引用 —— 那就違背這次校對的目的。如果第 10 週的量測方法還沒定,寧可不引。"
+  },
+  {
+   "topic": "自動化偏誤(人看到機器答案就照抄)",
+   "status": "已有支撐 · 無缺口",
+   "page": "第 7 頁第 3 列 · 第 9 頁⑨",
+   "quote": "組織｜3 機器給了判定結果,人可能照抄 ｜ 介面不顯示機器的信心分數;⑨ 機器的描述會不會讓人判得更差 ｜ 第 12 週交盲測結果 ｜ 比對照組差就不放行",
+   "gap": "無。Goddard(第 7 頁,現象與介面層緩解)+ Parasuraman & Manzey(第 9 頁,盲測範式與「有人審核不構成防護」)已經雙層蓋住,而且兩筆各掛一頁不會被讀成重複引用。",
+   "suggest": "不需要再加。",
+   "note": "這是全份最扎實的一區,而且正對評分者的主場 —— 答辯時主動把這兩筆的分工講出來(見 refs 裡 Goddard 與 P&M 的 reason),是加分不是防守。"
+  },
+  {
+   "topic": "資料級聯(上游資料工作被低估,下游才爆)",
+   "status": "已有支撐 · 無缺口",
+   "page": "第 10 頁 · 第 4 頁",
+   "quote": "前面三件先把 AI 要吃的東西備好,地端 AI 排在第五件 —— 順序不能換",
+   "gap": "無。Sambasivan et al. (2021) 直接撐住「順序不能換」這個強主張,第 4 頁「判準不一致的標籤餵進去,訓練資料本身就是髒的」是同一條線。",
+   "suggest": "不需要再加。",
+   "note": "這一筆撐的是排程結構本身,不只是主題相關 —— 是刪到只剩五筆之後最能證明「引用是真的在工作」的一筆。"
+  },
+  {
+   "topic": "澳洲 AI 倫理八原則",
+   "status": "已有支撐,但引註本身要修 · 高優先",
+   "page": "第 8 頁(全頁)",
+   "quote": "政府那八條 AI 倫理原則我逐條對過 —— 沒有一條因為這個案子變差;第七條原文:「應設有及時的機制,讓相關方提出質疑」",
+   "gap": "覆蓋沒有缺口(整頁就是這個框架,還逐字引原文),但機關名稱錯標:2019 年的發布機關是 DIIS,DISR 是 2022 年才有的名字。片上參考文獻與第 8 頁備註三處都要一起改 —— 詳見 refs 第 2 筆。",
+   "suggest": "Department of Industry, Innovation and Science. (2019). Australia's AI ethics principles.(篇名不要把 AI 展開成 artificial intelligence)",
+   "note": "這是全份唯一「抽掉整頁就垮」的引用,也因此是最不能寫錯的一筆。評分者在澳洲,機關改名的時序他知道。"
+  },
+  {
+   "topic": "兩顆模型的規格與授權出處",
+   "status": "缺口 · 中低優先(補了同時解掉「只剩五筆」的數量觀感)",
+   "page": "第 5 頁",
+   "quote": "Qwen3.5 122B-A10B(4-bit) ｜ Qwen2.5-VL 72B(8-bit);MoE 只活化 10B,算得快;備註:「深挖台那顆走通義千問自己的授權、不是 Apache 2.0。🚫 不可說『它是開源的』」",
+   "gap": "參數量、活化參數、原生吃影片、以及授權條款這些片上與備註都在主張的事實,全片沒有任何出處。授權那一條尤其需要來源 —— 備註自己說「不可說它是開源的,會被當場糾正」,那就更需要指得出授權文件。",
+   "suggest": "引官方技術報告與 model card(例如 Qwen2.5-VL 的技術報告 arXiv 版,以及 Hugging Face model card 上的 license 檔)。MoE「只活化一部分參數所以算得快」若要文獻,可用 Fedus, W., Zoph, B., & Shazeer, N. (2022). Switch transformers: Scaling to trillion parameter models with simple and efficient sparsity. Journal of Machine Learning Research, 23(120), 1–39.",
+   "note": "⚠️ 我不確認「Qwen3.5 122B-A10B」這個型號字串 —— 請 Kenny 從官方頁面把版本字串、參數量、授權名稱逐字核對後再寫進參考文獻。型號寫錯比不引更糟,對一個做 VLM 的評分者尤其。Switch Transformers 那篇是確定存在的。"
+  },
+  {
+   "topic": "【非引用缺口 · 排版與 APA 通則】",
+   "status": "待處理",
+   "page": "第 12 頁",
+   "quote": "APA 7th　·　The company name has been changed for commercial in confidence reasons.",
+   "gap": "① 十二條原本全部沒有 DOI/URL —— APA 7 規定有 DOI 就必須放,這是這一頁最系統性的缺口,已在上面五條的 entry 裡補齊。② 斜體:期刊名+卷號、書名/報告名/論文集名要斜體;片上若能設就設(每條的 reason 已標出該斜體的範圍)。③ 懸掛縮排 1.27 cm。④ 刪成五條後字母序仍正確:Department → Goddard → Parasuraman → Sambasivan → Sculley,不用重排。⑤ 頁碼範圍用 en dash(121–127)是對的,不要改成 hyphen。",
+   "suggest": "「(第 N 頁)」的頁碼標註不是 APA 規範的一部分,是給評分者對照用的輔助 —— 建議排成灰色小字或放在條目右側,視覺上與 APA 條目分開,避免被讀成書目的一部分。若簡報要求嚴格 APA,就把頁碼標註改放在講者備註、口白時說「這五筆分別用在第 8、7、9、4/10、11 頁」。",
+   "note": "這一項不影響「有沒有用到」,但屬於「重金校對」該一起做掉的。"
+  }
+ ],
+ "verdict": "12 筆刪 7、留 5,且留下的 5 筆書目全部要修(其中 DISR→DIIS 的機關改名時序錯置與 Rudin/Goddard/Parasuraman 的篇名被砍是會被評分者一眼看穿的錯標)—— 刪掉的 7 筆全是「為了已刪除或從未存在的內容而引」,尤其 NIST 被第 7 頁備註明令不准講、Ensign 的錨點那一列有白紙黑字的刪除紀錄、Rudin 更是反向(本案正是它反對的 post-hoc explanation);真正的風險不在剩下五筆太少,而在第 7 頁第 1 列的流暢型幻覺與第 5 頁的量化精度損失這兩個評分者主場的主張目前零支撐,要補回數量就從補這兩筆開始,不要把刪掉的加回去。"
+}

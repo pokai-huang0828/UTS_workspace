@@ -356,20 +356,21 @@ AI 機會
 
 ★ 八條沒有一條因為這個案子變差 —— 而每一條我都寫得出為什麼,不是一句沒問題帶過。
 
-· 框架不是我挑的 —— 是課程單元六 6.3.4 引用的澳洲 AI 倫理八原則(DISR, 2019)
+· 框架不是我挑的 —— 是課程單元六 6.3.4 引用的澳洲 AI 倫理八原則(DIIS, 2019)
 · 🔴 第 7 條可申訴:駕駛透過車隊主管轉達,我們**調影片做事實分析還他清白**
 · 隱私:影像一律 180 天、證據包同期限,**不因本案改變**
 · 透明:對外交出去的一直是**人工審核的結果**,不是機器的結論
 · 問責有主:複核歸營運複核人,AI 判錯歸 RD 團隊
 · 🔴 唯一沒解的是第 5 條:漏報在 Edge AI 端就發生、沒有紀錄,本案碰不到
 
-# 澳洲 AI 倫理八原則(DISR, 2019)· 課程單元六 6.3.4
+# 澳洲 AI 倫理八原則(DIIS, 2019)· 課程單元六 6.3.4
 # 第七條原文:「應設有及時的機制,讓相關方對 AI 系統的結果提出質疑」
 # 影像保留 180 天 · 證據包同期限,不因本案改變
 
 ⚠️ 🚫 不要再講「移交後」「天花板」「850 筆沒人看過」—— 那條線已經拿掉了
 ⚠️ 這一頁的價值在**主動揭露**:兩條變差的自己講出來,其餘六條才會被信
 ⚠️ 🔴 第七條那句原文要**逐字唸出來**,並說明它出自課程單元六 6.3.4
+⚠️ 🔴 八原則 2019-11-07 由 **DIIS**(Department of Industry, Innovation and Science)發布;DISR 這個名字 2022 年 7 月才有。課程投影片若寫 DISR 不必跟著錯 ——答辯時一句「原始發布機關是 DIIS,2022 年改名 DISR」反而是加分的細節
 ⚠️ 🚫 不可再說「駕駛本人不能質疑」「可申訴從頭到尾不及格」「隱私會變差」——2026-08-16 Kenny 更正:影像一律 180 天不因本案改變;駕駛可以反駁,透過主管轉達,我們調影片做事實分析還他清白
 ⚠️ 🔑 全綠不靠嘴巴,靠機制 —— 每一條後面都要接得出那個機制(180 天 / 主管轉達再調影片 / 人工審核 / 複核歸營運、AI 歸 RD)。被問「你確定沒有代價嗎」,就把第 5 條交出去:漏報本案碰不到,那是真的沒解
 ⚠️ ⚠️ 他若追問「客戶知不知道背後有 AI」:對外交出去的是人工審核的結果,AI 是我們內部整理證據的工具 —— 這是公司的立場,不是規避。🚫 但不要說「我們會告訴客戶」,也不要說「我們刻意不講」
@@ -542,18 +543,13 @@ A$14,200–17,700
 ### 投影片 12 / 12
 --- 片上文字 ---
 參考文獻
-Australian Human Rights Commission. (2020). Using artificial intelligence to make decisions: Addressing the problem of algorithmic bias.
-Department of Industry, Science and Resources. (2019). Australia's artificial intelligence ethics principles.
-Ensign, D., Friedler, S. A., Neville, S., Scheidegger, C., & Venkatasubramanian, S. (2018). Runaway feedback loops in predictive policing. PMLR, 81, 160–171.
-Goddard, K., Roudsari, A., & Wyatt, J. C. (2012). Automation bias: A systematic review. JAMIA, 19(1), 121–127.
-Guo, C., Pleiss, G., Sun, Y., & Weinberger, K. Q. (2017). On calibration of modern neural networks. PMLR, 70, 1321–1330.
-Hopp, W. J., & Spearman, M. L. (2011). Factory physics (3rd ed., chaps. 7–9). Waveland Press.
-National Institute of Standards and Technology. (2023). Artificial intelligence risk management framework (AI RMF 1.0).
-Northcutt, C. G., Athalye, A., & Mueller, J. (2021). Pervasive label errors in test sets destabilize machine learning benchmarks. NeurIPS Datasets and Benchmarks Track.
-Parasuraman, R., & Manzey, D. H. (2010). Complacency and bias in human use of automation. Human Factors, 52(3), 381–410.
-Rudin, C. (2019). Stop explaining black box machine learning models for high stakes decisions. Nature Machine Intelligence, 1(5), 206–215.
-Sambasivan, N., Kapania, S., Highfill, H., Akrong, D., Paritosh, P., & Aroyo, L. (2021). “Everyone wants to do the model work, not the data work”: Data cascades in high-stakes AI. CHI '21.
-Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., … Dennison, D. (2015). Hidden technical debt in machine learning systems. NeurIPS, 28.
+Department of Industry, Innovation and Science. (2019). Australia's AI ethics principles. https://www.industry.gov.au/publications/australias-ai-ethics-principles　(第 8 頁)
+Dettmers, T., Lewis, M., Belkada, Y., & Zettlemoyer, L. (2022). GPT3.int8(): 8-bit matrix multiplication for transformers at scale. In Advances in neural information processing systems (Vol. 35).　(第 5 頁)
+Goddard, K., Roudsari, A., & Wyatt, J. C. (2012). Automation bias: A systematic review of frequency, effect mediators, and mitigators. Journal of the American Medical Informatics Association, 19(1), 121–127. https://doi.org/10.1136/amiajnl-2011-000089　(第 7 頁)
+Parasuraman, R., & Manzey, D. H. (2010). Complacency and bias in human use of automation: An attentional integration. Human Factors, 52(3), 381–410. https://doi.org/10.1177/0018720810376055　(第 9 頁)
+Rohrbach, A., Hendricks, L. A., Burns, K., Darrell, T., & Saenko, K. (2018). Object hallucination in image captioning. In Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing (pp. 4035–4045). https://doi.org/10.18653/v1/D18-1437　(第 7 頁)
+Sambasivan, N., Kapania, S., Highfill, H., Akrong, D., Paritosh, P., & Aroyo, L. M. (2021). “Everyone wants to do the model work, not the data work”: Data cascades in high-stakes AI. In Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems. https://doi.org/10.1145/3411764.3445518　(第 4、10 頁)
+Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., Chaudhary, V., Young, M., Crespo, J.-F., & Dennison, D. (2015). Hidden technical debt in machine learning systems. In Advances in neural information processing systems (Vol. 28).　(第 11 頁)
 APA 7th　·　The company name has been changed for commercial in confidence reasons.
 --- 講者備註 ---
 【第 12 頁 · 參考文獻(不佔十頁額度)】　目標 5 秒 · 累計 12:26

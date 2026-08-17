@@ -52,19 +52,66 @@ COVER = dict(
            "內部數字均標示為假設或推算量級,並於各頁附推算方式。",
 )
 
+# 🔴 2026-08-17 全面重整:12 筆 → 7 筆。
+#    Kenny:「第 12 頁針對我前面的內容重金校對,不要有錯標。」
+#    投影片改過非常多輪(自動結案整條拿掉、風險頁重寫、倫理頁改成「沒有一條變差」),
+#    但參考文獻沒有跟著更新 —— 逐條核對後,**七筆是為了已經不存在的內容而引的**:
+#      · NIST AI RMF —— 全片「NIST」只出現兩次,一次是第 7 頁備註**叫自己不要講**
+#      · Rudin (2019) —— **方向相反**:它反對高風險決策用黑箱 + 事後解釋,
+#        而本案用的就是兩顆黑箱 VLM + 事後說明
+#      · Ensign (2018) —— 唯一錨點是第 7 頁「以前判成誤報的紀錄算不算證據」那一列,
+#        而那一列 Kenny 已經下令刪掉
+#      · Hopp & Spearman —— 引排隊論去撐一段片上明說「不是瓶頸、不在本案範圍」的區段;
+#        指定 chaps. 7–9 更是自己遞刀(那你的 Kingman 分析呢)
+#      · Northcutt (2021) —— **會反咬**:它證明測試集本身會標錯,
+#        而第 7 頁第 2 列的把握寫「高 · 答案是確定的」
+#      · Guo (2017) —— 講信心校準,不是幻覺;片上不顯示信心分數的理由是「人會照抄」
+#      · AHRC (2020) —— 講受保護群體的差別待遇,片上通篇沒有族群/歧視
+#    留下的五筆**書目全部有錯**(篇名被砍掉後半、機關名年份錯置、缺 DOI),已逐筆查證修正。
+#    另補兩筆填補零支撐的主張(流暢型幻覺、量化精度損失)—— 那兩個正是評分者的主場。
+#    每一筆後面掛頁碼標註,讓評分者一眼看到都真的被用到。
 REFS = [
-    "Australian Human Rights Commission. (2020). Using artificial intelligence to make decisions: Addressing the problem of algorithmic bias.",
-    "Department of Industry, Science and Resources. (2019). Australia's artificial intelligence ethics principles.",
-    "Ensign, D., Friedler, S. A., Neville, S., Scheidegger, C., & Venkatasubramanian, S. (2018). Runaway feedback loops in predictive policing. PMLR, 81, 160–171.",
-    "Goddard, K., Roudsari, A., & Wyatt, J. C. (2012). Automation bias: A systematic review. JAMIA, 19(1), 121–127.",
-    "Guo, C., Pleiss, G., Sun, Y., & Weinberger, K. Q. (2017). On calibration of modern neural networks. PMLR, 70, 1321–1330.",
-    "Hopp, W. J., & Spearman, M. L. (2011). Factory physics (3rd ed., chaps. 7–9). Waveland Press.",
-    "National Institute of Standards and Technology. (2023). Artificial intelligence risk management framework (AI RMF 1.0).",
-    "Northcutt, C. G., Athalye, A., & Mueller, J. (2021). Pervasive label errors in test sets destabilize machine learning benchmarks. NeurIPS Datasets and Benchmarks Track.",
-    "Parasuraman, R., & Manzey, D. H. (2010). Complacency and bias in human use of automation. Human Factors, 52(3), 381–410.",
-    "Rudin, C. (2019). Stop explaining black box machine learning models for high stakes decisions. Nature Machine Intelligence, 1(5), 206–215.",
-    "Sambasivan, N., Kapania, S., Highfill, H., Akrong, D., Paritosh, P., & Aroyo, L. (2021). “Everyone wants to do the model work, not the data work”: Data cascades in high-stakes AI. CHI '21.",
-    "Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., … Dennison, D. (2015). Hidden technical debt in machine learning systems. NeurIPS, 28.",
+    # 🔴 APA 7 依作者姓氏字母序 —— 不是依重要性排。Department < Dettmers(Dep < Det)。
+    # 第 8 頁全頁的骨架。🔴 機關名年份錯置:八原則 2019-11-07 由 DIIS 發布,
+    #    DISR 這個名字 2022 年 7 月才存在(等於讓 2022 年成立的機關掛 2019 年的著作)。
+    #    篇名也不可擅自展開成 artificial intelligence —— 官方標題就是 AI。
+    "Department of Industry, Innovation and Science. (2019). Australia's AI ethics "
+    "principles. https://www.industry.gov.au/publications/australias-ai-ethics-principles"
+    "　(第 8 頁)",
+    # 🔴 新增:第 5 頁「8-bit 損失比 4-bit 小」原本零文獻支撐,而它撐著「為什麼要兩台」。
+    #    ⚠️ 這篇一般被稱作 LLM.int8()(arXiv 2208.07339),但 **NeurIPS 論文集裡的標題是
+    #    GPT3.int8()** —— 片上照版本紀錄寫,被問到就說明,那反而是個加分的細節。
+    "Dettmers, T., Lewis, M., Belkada, Y., & Zettlemoyer, L. (2022). GPT3.int8(): 8-bit "
+    "matrix multiplication for transformers at scale. In Advances in neural information "
+    "processing systems (Vol. 35).　(第 5 頁)",
+    # 第 7 頁第 3 列「機器給了判定結果,人可能照抄」+ 介面層緩解。
+    #    原篇名被砍掉後半,拿那個標題去 PubMed 搜不到這篇。
+    "Goddard, K., Roudsari, A., & Wyatt, J. C. (2012). Automation bias: A systematic "
+    "review of frequency, effect mediators, and mitigators. Journal of the American "
+    "Medical Informatics Association, 19(1), 121–127. "
+    "https://doi.org/10.1136/amiajnl-2011-000089　(第 7 頁)",
+    # 第 9 頁⑨ 盲測「比對照組差就不放行」。這篇獨有的貢獻是
+    #    「有人監督本身不構成防護」—— 正是把它列成喊停條件的依據。
+    "Parasuraman, R., & Manzey, D. H. (2010). Complacency and bias in human use of "
+    "automation: An attentional integration. Human Factors, 52(3), 381–410. "
+    "https://doi.org/10.1177/0018720810376055　(第 9 頁)",
+    # 🔴 新增:第 7 頁第 1 列「機器會判錯,但講得很順」原本零文獻支撐 ——
+    #    那是風險表第一列、整套「標出證據」設計的存在理由,也是評分者的主場。
+    "Rohrbach, A., Hendricks, L. A., Burns, K., Darrell, T., & Saenko, K. (2018). "
+    "Object hallucination in image captioning. In Proceedings of the 2018 Conference on "
+    "Empirical Methods in Natural Language Processing (pp. 4035–4045). "
+    "https://doi.org/10.18653/v1/D18-1437　(第 7 頁)",
+    # 第 10 頁「順序不能換」+ 第 4 頁「判準不一致的標籤餵進去」。
+    "Sambasivan, N., Kapania, S., Highfill, H., Akrong, D., Paritosh, P., & Aroyo, L. M. "
+    "(2021). “Everyone wants to do the model work, not the data work”: Data cascades "
+    "in high-stakes AI. In Proceedings of the 2021 CHI Conference on Human Factors in "
+    "Computing Systems. https://doi.org/10.1145/3411764.3445518　(第 4、10 頁)",
+    # 第 11 頁「近半數是顧它的人力」+「五項還沒估價」= 模型以外的成本。
+    #    🔴 原本用 APA 省略號吃掉三位作者;這篇共十位,APA 7 要列前 19 位。
+    "Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., "
+    "Chaudhary, V., Young, M., Crespo, J.-F., & Dennison, D. (2015). Hidden technical "
+    "debt in machine learning systems. In Advances in neural information processing "
+    "systems (Vol. 28).　(第 11 頁)",
 ]
 
 # 每種 block 的相對高度權重 —— 用來分配版心的垂直空間
@@ -316,13 +363,27 @@ def refs_page(prs, idx=11):
     N.text(s, M, TITLE_Y + 0.28, 6.0, 0.6, "參考文獻", 28, N.NAVY, bold=True,
            who="ref-title")
     N.rule(s, M, RULE_Y, N.W - 2 * M)
-    y = BODY_TOP
     # 文獻列會排到版面底部,兩欄都必須收在人像淨空區左緣以內
     half = (N.SAFE_X - M - 0.45) / 2
-    for i, r in enumerate(REFS):
-        col, row = i // 6, i % 6
-        N.text(s, M + col * (half + 0.45), BODY_TOP + row * 0.80, half, 0.76,
-               r, 12, N.INK, spacing=1.25, who=f"ref{i}")
+    # 🔴 行高必須**量出來**,不能寫死。
+    #    舊版用「每筆 0.80"、每欄 6 筆」的固定格子 —— 那是在條目只有兩三行時成立的。
+    #    2026-08-17 補上 DOI 之後每筆變成 4–6 行,固定格子讓七筆**整片疊在一起**,
+    #    最後一筆還壓到頁尾那行 APA 聲明上。COM 開得起來、python 也不會叫,
+    #    但那一頁的字是糊的。
+    # 🔑 改成:先量每一筆要多高,再由高度決定換欄,而不是由筆數。
+    avail = (N.H - 0.62) - BODY_TOP          # 版心底到頁尾聲明之間
+    # 🔴 行距 1.20 是實測出來的:1.25 時第四筆會卡在兩欄之間(左欄 5.20" > 5.12")。
+    REF_SP = 1.20
+    hs = [N.text_h(r, half, 12, REF_SP) + 0.10 for r in REFS]
+    col, y = 0, BODY_TOP
+    for i, (r, h) in enumerate(zip(REFS, hs)):
+        if y + h > BODY_TOP + avail + 1e-6 and col == 0:
+            col, y = 1, BODY_TOP             # 第一欄裝滿 → 換第二欄
+        N.text(s, M + col * (half + 0.45), y, half, h - 0.10,
+               r, 12, N.INK, spacing=REF_SP, who=f"ref{i}")
+        y += h
+        if y > BODY_TOP + avail + 1e-6 and col == 1:
+            print(f"   🔴 參考文獻第 {i + 1} 筆之後放不下 —— 需要縮字級或減筆數")
     N.text(s, M, N.H - 0.52, N.SAFE_X - M, 0.34,
            "APA 7th　·　The company name has been changed for commercial in "
            "confidence reasons.", 12, N.GREY, who="ref-foot")
