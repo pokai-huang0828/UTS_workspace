@@ -1658,3 +1658,83 @@ Machine Learning/
 
 見 TODO.md 頂端新增的「🆕 321513 Machine Learning」區塊。最急三件:裝 Anaconda、
 選 A2/A3 情境(選了就綁死到 A3)、9/6 前完成單元一測驗。
+
+
+---
+
+## 2026-08-25 · ML 課程資料庫建置完成 —— 單元一~四全文 + A2/A3 前置
+
+### 背景
+
+同一個 session 從零開始:新課程 321513 Machine Learning(Session 5 2026)開課,
+Kenny 要求讀 Canvas 內容並在 repo 建課程資料庫,之後逐步擴大到「單元一做法套用到單元四結束」。
+
+### 做了什麼
+
+**Canvas 全文抓取**(走 REST API,非逐頁點擊)
+- `/api/v1/courses/40074/modules?include[]=items` 取得 5 模組 **83 項**清單
+- `/api/v1/courses/40074/pages/{slug}` 逐頁取 HTML body,瀏覽器端 DOM 轉文字
+  (保留表格 cell、圖片 alt、iframe src、連結 href)
+- **83 項全部落檔**:導學 10 + 單元一 12 + 單元二 24 + 單元三 19 + 單元四 18
+
+**檔案下載**(`/api/v1/files/{id}/public_url` 取簽章網址後 curl)
+- A2 三份範例 PDF、A3 兩份 Notebook、TeleMarketing.csv、資料字典、
+  A3 兩份 rubric PDF、**4 份 Google Cloud MLOps PDF**
+- 172MB 圖像 zip 已 gitignore(超過 GitHub 單檔上限)
+
+**環境**
+- 確認不需 Anaconda:VS Code + Python 3.11.9 + ms-toolsai.jupyter + ipykernel,
+  sklearn/xgboost/lightgbm/tensorflow/keras/torch 全齊
+- 安裝 **yt-dlp 2026.8.19**(零相依,不影響 pycaret 鎖住的 pandas/numpy/scipy)
+- 發現兩份 A3 Notebook 都是 **Google Colab 版** → ydata_profiling 的環境顧慮作廢
+
+### R-完成證據
+
+- **所有下載檔案大小與 Canvas API 回報一致**(逐項比對,如 TeleMarketing.csv 4,735,892 B)
+- **權重取自 assignment_groups 原始回傳**,非推測:A1 20% / A2 35% / A3 45%
+- **兩個頁面練習實算出答案**:分類 TP=4 FP=3 TN=1 FN=2 → Acc 50%/Prec 57.14%/Recall 66.67%/F1 61.54%;
+  迴歸 MAE 1.6/MSE 3.2/RMSE 1.7889/R² 0.3651
+- **Bank X 成本模型實算自 CSV**:目標組 17,642 通 / 1,258.1 小時 / A$62,905 / 每位成功客戶 A$27.35;
+  對照組轉換率 9.94% vs 目標組 13.04%(+3.1pp)
+
+### 這一輪推翻的自己的判斷(重要)
+
+1. **「duration 是洩漏要刪掉」→ 過度簡化**。讀完 Notebook 才發現官方把它分 11 桶當**成本槓桿**模擬,
+   同時最佳化轉換率與呼叫成本。準確說法:直接當預測特徵是洩漏、當成本槓桿是合理設計;
+   **真正沒被處理的是對照組 duration 全為 0 的交互作用**。
+2. **「Example_3 沒有參考文獻」→ 誤判**。關鍵字掃描造成,逐頁精讀後確認有 5 條腳註 URL,
+   只是沒有 APA 文末清單。**Example_1 才是引用格式最正確的**。
+3. **「互動活動的內容 = 頁面反饋文字」→ 只對一半**。1.6 截圖證明活動把五個因素寫成**診斷問句**,
+   措辭與頁面描述不同,而問句形式更接近測驗題型。後續 1.7 又證實兩次(三種誤差區分、推薦演算法對照)。
+4. **「popflick 是 403 擋爬蟲」→ 錯**。真實瀏覽器顯示 **404,連結已死**。
+
+### 發現的課程問題(對 Kenny 有實際影響)
+
+- ⚰️ **兩個死連結**:單元 1.9 的 popflick(404)、單元 3.3.4 的 CNET Zillow 報導(404)。
+  Kenny 的 A1/A2a 重複失分點正是「引用要可溯源」,**不可沿用**。
+  Zillow 的可查證數字已另尋(減記>$540M、3.5年累虧>$10億、裁員 25%、SEC 10-K 連結)。
+- ⚠️ **單元三 3 支嵌入影片與頁面描述不符**(用 bilibili API 以 cid 反查):
+  3.1 實際是吳恩達 MLOps 課程 P1「專項課程概述」;3.3.4 實際是「Intro to CI for ML」;
+  3.4 實際是林軒田《機器學習基石》1.1。三頁該學的內容已用其他來源補齊。
+- ⚠️ **澳洲 AI 倫理原則已更新**:課程引 2019 年版 8 條,已於 **2025-10-21** 被
+  《Guidance for AI Adoption》6 項必要實踐取代。兩個都引可拉開差距。
+- 🚨 **時序風險**:A2 的正課(單元三 CRISP-ML + MLOps)在第 4–5 週才上,A2 第 5 週週日交;
+  A3 若選房仲需單元四 CNN(第 6 週),A3 第 7 週交。
+
+### 落檔清單
+
+```
+Machine Learning/
+├── README.md                                總覽、日期、權重、資料落差
+├── notes/  01_~04_ 四單元全文 + 00_導學 + 01b_~04b_ 外部資源補讀 + 90_地圖
+├── assessments/  A2_專案提案 · A3_專案實施 · A2_寫作範本 · _資源清單
+│   ├── A2_範例/  三份 PDF + _三份範例比較.md
+│   └── A3_rubrics/  兩份 rubric PDF
+├── refs/unit3/   4 份 Google Cloud MLOps PDF
+└── data/  bank_x(csv/ipynb/字典/_Notebook拆解) · real_estate(ipynb) · _資料偵察.md
+```
+
+### 後續待辦
+
+見 TODO.md 的 ML 區塊。最急:**決定 A2/A3 情境**(資料面偏向 Bank X)、
+9/6 前完成單元一測驗、提早自讀單元三。
