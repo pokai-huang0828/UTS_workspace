@@ -15,7 +15,7 @@
 
 ## 🖥️ MSI(`$env:COMPUTERNAME` = **MSI**,Micro-Star Raider 18 HX AI A2XWIG)
 
-**最後實查:2026-08-09**(jupyter / ML 套件列 2026-08-25 複查)
+**最後實查:2026-08-09**(jupyter / ML 套件 / yt-dlp 三列 2026-08-25 複查)
 
 | 工具 | 狀態 | 路徑 / 版本 |
 |---|---|---|
@@ -26,7 +26,8 @@
 | code(VS Code) | ✅ PATH OK | |
 | **ffmpeg / ffprobe** | ⚠️ **裝了但預設不在 PATH**<br>2026-08-09 已加進 User PATH | **9.0-full_build**<br>`C:\Users\kenny\AppData\Local\Microsoft\WinGet\Packages\`<br>`Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\`<br>`ffmpeg-9.0-full_build\bin` |
 | **gh** | 🔴 **沒裝**(winget 查無) | 要用:`winget install --id GitHub.cli -e` |
-| **yt-dlp** | 🔴 **沒裝**(pip 查無) | 要用:`pip install yt-dlp` |
+| **yt-dlp** | ✅ **2026-08-25 已裝** | **2026.08.19**,`C:\Users\kenny\AppData\Local\Programs\Python\Python311\Scripts\yt-dlp.exe`<br>零相依安裝(乾跑顯示僅 `Would install yt-dlp-2026.8.19` 一項),**不影響 pycaret 鎖住的 pandas/numpy/scipy**<br>⚠️ **YouTube 一定要加 `--js-runtimes node`**,否則警告 "No supported JavaScript runtime" 且部分格式抓不到(預設只認 deno;本機有 node v24.18.1) |
+| **影片來源實測**(2026-08-25) | 見右 | **YouTube** ✅ 標題/時長/自動字幕全可(含 zh-TW);實測 `OhCzX0iLnOc` 抽出 1,659 字逐字稿<br>**bilibili** ⚠️ 影片可下載,但**只有 danmaku 彈幕,沒有字幕軌** → 要逐字稿得下載影片再跑 Whisper<br>**ted.com / embed.ted.com** 🔴 抽取失敗(`JSON object must be str...`)→ 改用 `ytsearch1:` 找 YouTube 版本(TED-Ed 那支 = `RzkD_rTEBYs`) |
 | jupyter(CLI) | 🔴 CLI 沒裝 —— **但不影響跑 .ipynb** | 2026-08-25 複查:VS Code 擴充 `ms-toolsai.jupyter` + `ipykernel 7.1.0` 已裝,**在 VS Code 直接開 .ipynb 選 Python 3.11.9 kernel 即可**,不需要 `jupyter notebook` 伺服器,也不需要 Anaconda(conda 未裝且不需裝) |
 | **ML 課套件**(2026-08-25 實查) | ✅ 兩情境全齊 | sklearn 1.4.2 · xgboost 3.2.0 · lightgbm 4.6.0 · pandas 2.1.4 · numpy 1.26.4 · scipy 1.11.4 · matplotlib 3.7.5 · seaborn 0.13.2 · openpyxl 3.1.5<br>tensorflow 2.20.0 · keras 3.13.2 · torch 2.10.0 · torchvision 0.25.0 · pillow 12.0.0 |
 | Word / PowerPoint COM | ✅ 可用 | 組版的逐頁 PNG 導出靠它 |
