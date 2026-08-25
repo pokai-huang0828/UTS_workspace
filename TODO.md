@@ -23,7 +23,7 @@
 | **2026-10-11 週日 23:59** | 單元四測驗 |
 | **2026-10-12 週一 23:59** | **A3 專案實施(45%)** |
 
-- [ ] 🔴 **裝 Anaconda + Jupyter**(做法見 `Machine Learning/notes/00_課程導學.md` §3)
+- [x] ~~裝 Anaconda + Jupyter~~ ✅ **不需要**(2026-08-25 實查):VS Code + Python 3.11.9 + `ms-toolsai.jupyter` + ipykernel;sklearn/xgboost/lightgbm/tensorflow/keras/torch/torchvision/pandas 全齊,兩情境都跑得動
 - [ ] 🔴 **選 A2/A3 情境**(二選一,A2 選了 A3 就綁死):Bank X 電話行銷(表格/分類) vs 房仲 X 圖像分類(CNN)
 - [ ] 🔴 **下載 A2 三份範例作業**(Example_1/2/3.pdf,官方說都不是 HD 但可組合優點)→ 連結在 `Machine Learning/assessments/_資源清單.md`
 - [ ] 🟡 **提早自讀單元三**(CRISP-ML 六階段 + MLOps)—— 正課在第 4–5 週,但 A2 第 5 週就要交,時序會撞

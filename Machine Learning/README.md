@@ -80,7 +80,7 @@ Machine Learning/
 
 ## 5. 立即要做的三件事（迎新週）
 
-1. **裝環境**：安裝 Anaconda（含 Jupyter Notebook），做法見 `notes/00_課程導學.md` §3。
+1. ~~**裝環境**~~ ✅ **已就緒，不需要 Anaconda**。VS Code + Python 3.11.9 + Jupyter 擴充，兩個情境的套件全齊（sklearn/xgboost/lightgbm/tensorflow/keras/torch/torchvision）。實查明細見 `notes/00_課程導學.md` §3 開頭。
 2. **選情境**：A2 與 A3 是同一條線，A2 選的情境會一路做到 A3。二選一：**Bank X 電話行銷（表格資料／分類）** 或 **房仲 X 圖像分類（CNN）**。細節見 `assessments/A2_專案提案.md` §2。
 3. **第 1 週測驗**：9/2 開放、9/6 週日 23:59 截止，讀完 `notes/01_單元一_機器學習導論.md` 即可作答。
 
