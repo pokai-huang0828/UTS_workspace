@@ -63,7 +63,9 @@
 - [x] ~~補讀單元一的外部連結與影片~~ ✅ **2026-08-25 完成** → `Machine Learning/notes/01b_單元一_外部資源補讀.md`
       - ✅ 取得:**ml-ops.org CRISP-ML(Q) 完整框架**(最有價值)、TED-Ed 逐字稿 1,148 字、
         Janelle Shane 逐字稿 1,659 字、**4 支 bilibili 影片**(抽影格讀燒錄字幕)、postindustria、futurice、Deloitte
-      - 🔴 抓不到:IBM(403)、**McKinsey State of AI(連線被擋,試 3 次)**、popflick(403)、Nature(DNS)、LinkedIn/Wired 未試
+      - 🔴 抓不到:IBM(403)、**McKinsey State of AI(連線被擋,試 3 次)**、Nature(DNS)、LinkedIn/Wired 未試
+      - ⚰️ **popflick 是連結已死不是被擋**:真實瀏覽器顯示 404 Page not found。
+        **課程 1.9 引用了一個已被移除的來源 → 別沿用這筆引用**(你的重複失分點正是「引用要可溯源」)
       - 🔴 **4 個互動活動 LTI 無頭握手失敗** → 但答案已在筆記裡(1.6 的反饋表就是拖放答案);
         **Kenny 要自己點一次讓 Canvas 記完成度**
       - ⭐ 淨收穫:**(Q) 的四步驟**(定義需求→任務實例化→風險界定→緩解策略)、
