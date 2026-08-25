@@ -1594,3 +1594,67 @@ evidence 指向「投影片上根本沒印出來」的格子** —— 但那份�
 
 - 答辯彩排 ×2,照 §1 必背六張的順序跑;每張壓 30 秒,超時就砍中段不砍結論。
 - §0 那一節印出來或開第二個視窗,上場前最後 60 秒只看它。
+
+
+---
+
+## 2026-08-25 · 新課程 321513 Machine Learning —— Canvas 課程導學 + 單元一落檔,建立課程資料庫
+
+### 背景
+
+新學期(Session 5 2026)開課,迎新週。Kenny 要求先讀 Canvas 的「課程導學」與「單元一」,
+並在 repo 開新資料夾整理課程內容,作為後續作業的前置資料庫。
+
+### 做了什麼
+
+- Canvas 需 SSO 登入,in-app 瀏覽器無 session。**沒有代打帳密** —— 開瀏覽器視窗停在登入頁,
+  由 Kenny 本人登入後再接手。
+- 登入後改走 **Canvas REST API**(而非逐頁點擊):`/api/v1/courses/40074/modules?include[]=items`
+  取得全課程 5 模組 83 項清單,再用 `/api/v1/courses/40074/pages/{slug}` 逐頁取 HTML body,
+  於瀏覽器端以 DOM 轉文字(保留表格 cell、圖片 alt、iframe src、連結 href)。
+- 另抓 `assignment_groups`(確認權重)、`assignments/{id}`(含 rubric)、`discussion_topics`。
+- 新增 `Machine Learning/` 資料夾,結構比照既有課程慣例(notes / assessments / data)。
+
+### R-完成證據
+
+- **課程導學 10 項 + 單元一 12 項 = 22 項全文抓取**,已逐項落檔;單元二~四(24/19/18 項)
+  只取得標題清單,已在 `notes/90_全課程單元地圖.md` 明確標為 ⬜ 未閱讀。
+- **權重來自 Canvas `assignment_groups` 原始回傳**,非推測:
+  A1 單元測驗 ×4 = **20%**、A2 專案提案 = **35%**、A3 專案實施 = **45%**(`apply_assignment_group_weights: true`)。
+- **A2 rubric 原始配分**:商業問題 20 / ML 解決方案 20 / **CRISP-ML 階段 40** / MLOps 10 / 寫作品質 10。
+- **A3 兩份 rubric 全文轉錄**:商業路徑(程式碼 30 / **商業價值轉化 40** / 未來改進 10 / 後續問題 20);
+  技術路徑(超參數 20 / 變數識別 20 / **模型評估與選擇 30** / 模型比較 10 / 後續問題 20)。
+- 截止日期以 API 的 UTC 值換算雪梨時間(9 月 AEST UTC+10、10 月起 AEDT UTC+11),已在 README 註明換算依據。
+
+### 落檔清單
+
+```
+Machine Learning/
+├── README.md                       總覽、關鍵日期、權重、資料落差
+├── notes/00_課程導學.md             教學團隊、進度表、Python/Anaconda/Jupyter、Zoom、討論區
+├── notes/01_單元一_機器學習導論.md   1.1–1.9 全文 + 單元總結 + 自製測驗準備重點
+├── notes/90_全課程單元地圖.md        83 項頁面清單,✅/⬜ 標示閱讀狀態
+├── assessments/A2_專案提案.md       兩情境 + CRISP-ML 六階段要求 + rubric
+├── assessments/A3_專案實施.md       Notebook/資料集 + 商業/技術雙路徑 + 兩份 rubric + 選路徑決策表
+├── assessments/_資源清單.md         所有待下載檔案與外部連結(逐項標 ⬜ 未下載)
+└── data/                           空,待放 Bank X CSV / 房產圖片
+```
+
+### 誠實記錄的資料落差(不是已完成事項)
+
+- **Zoom 實際日期時間未公布** —— Canvas「Zoom 會議安排」的時間表是空白樣板,第 1~6 週的
+  日期/時間/錄影連結/存取密碼全未填。需開學後回 Canvas Zoom 分頁確認。
+- **「重要指引」與「UTS 圖書館」兩頁**是 lib.uts.edu.au 的外嵌 iframe,Canvas 頁面本體無實質文字,iframe 內容未抓。
+- **單元二~四內文未讀**,僅有標題清單。
+- **所有附件未下載**:A2 三份範例 PDF、A3 兩份 Notebook、兩份資料集、兩份 rubric PDF。
+
+### 發現的時序風險(已寫進 TODO 與各檔)
+
+- **A2 的正課是單元三**(CRISP-ML 六階段 + MLOps),但單元三在**第 4–5 週**才上,
+  而 A2 第 5 週週日就要交。3.3.1–3.3.6 直接對應 A2 rubric 佔 40 分的那一項。→ 需提早自讀。
+- **A3 若選圖像情境**,需要單元四的 CNN(第 6 週才教),A3 第 7 週週一交。後續問題還牽涉 RNN/LSTM。
+
+### 後續待辦
+
+見 TODO.md 頂端新增的「🆕 321513 Machine Learning」區塊。最急三件:裝 Anaconda、
+選 A2/A3 情境(選了就綁死到 A3)、9/6 前完成單元一測驗。
