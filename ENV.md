@@ -15,7 +15,7 @@
 
 ## 🖥️ MSI(`$env:COMPUTERNAME` = **MSI**,Micro-Star Raider 18 HX AI A2XWIG)
 
-**最後實查:2026-08-09**
+**最後實查:2026-08-09**(jupyter / ML 套件列 2026-08-25 複查)
 
 | 工具 | 狀態 | 路徑 / 版本 |
 |---|---|---|
@@ -27,7 +27,8 @@
 | **ffmpeg / ffprobe** | ⚠️ **裝了但預設不在 PATH**<br>2026-08-09 已加進 User PATH | **9.0-full_build**<br>`C:\Users\kenny\AppData\Local\Microsoft\WinGet\Packages\`<br>`Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\`<br>`ffmpeg-9.0-full_build\bin` |
 | **gh** | 🔴 **沒裝**(winget 查無) | 要用:`winget install --id GitHub.cli -e` |
 | **yt-dlp** | 🔴 **沒裝**(pip 查無) | 要用:`pip install yt-dlp` |
-| jupyter | 🔴 沒裝 | A3 不需要;A2b 若要重跑才需要 |
+| jupyter(CLI) | 🔴 CLI 沒裝 —— **但不影響跑 .ipynb** | 2026-08-25 複查:VS Code 擴充 `ms-toolsai.jupyter` + `ipykernel 7.1.0` 已裝,**在 VS Code 直接開 .ipynb 選 Python 3.11.9 kernel 即可**,不需要 `jupyter notebook` 伺服器,也不需要 Anaconda(conda 未裝且不需裝) |
+| **ML 課套件**(2026-08-25 實查) | ✅ 兩情境全齊 | sklearn 1.4.2 · xgboost 3.2.0 · lightgbm 4.6.0 · pandas 2.1.4 · numpy 1.26.4 · scipy 1.11.4 · matplotlib 3.7.5 · seaborn 0.13.2 · openpyxl 3.1.5<br>tensorflow 2.20.0 · keras 3.13.2 · torch 2.10.0 · torchvision 0.25.0 · pillow 12.0.0 |
 | Word / PowerPoint COM | ✅ 可用 | 組版的逐頁 PNG 導出靠它 |
 | **Google Workspace MCP** | 🔴 **不能用** | `~/.workspace-mcp/client_secret.json` 不存在,`GOOGLE_OAUTH_CLIENT_ID` / `_SECRET` 也沒設。<br>→ 要寫 Google Sheet 只能走 **Chrome 擴充功能**(內建瀏覽器沒登入 Google,而我不能代輸入密碼) |
 
