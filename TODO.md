@@ -39,7 +39,19 @@
       - 🔴 **陷阱2 結構性缺失**:`contact`/`month`/`day_of_week` 缺的 23,546 列 **完全等於對照組**(沒被打電話)。不能直接丟
       - 房仲:7,000 張圖 / 7 類各 1,000 張(完全平衡);172 MB zip **已 gitignore**;`interior` 與其他室內類別語意重疊
       - ⚠️ **環境缺口**:Bank X Notebook 用到 `ydata_profiling`,未裝。**不要直接 pip install**(pycaret 鎖住 pandas/numpy/scipy)→ 開獨立 venv 或用 pandas 手動 EDA
-- [ ] 🔴 **決定 A2/A3 情境** —— 實查後資料面偏向 Bank X(內建商業基準值 + 兩個可寫深度的陷阱 + 不需 GPU),但由 Kenny 定
+- [x] ~~打開 Bank X Notebook 看 8 個填空~~ ✅ **2026-08-25 完成** → `Machine Learning/data/bank_x/_Notebook拆解.md`
+      - 🔑 **兩份 Notebook 都是 Google Colab 版**(`from google.colab import drive`,路徑 `/content/drive/MyDrive/`,
+        Bank X metadata 寫 `accelerator: GPU`)→ **先前擔心的 ydata_profiling 裝不了,在 Colab 上根本不是問題**
+      - 🔑 **8 個填空裡 4 個標了 `Tech Focus Only`** → **選商業路徑只要做 4 處**,其中 3 處是一行的事
+        (TODO1 fillna · TODO2 LabelEncoder.transform · TODO3 換 'LR' 跑特徵選擇 · cell58 補 GridSearch 參數值)
+      - ⚠️ cell58 是 `GridSearchCV(cv=5)`,目前已 18 組合 ×5 折 = 90 次訓練,**多填數字會爆炸**
+      - 📌 **修正先前判斷**:duration 不是單純「洩漏要刪掉」。官方在「客戶評分」段把它分 11 桶
+        當**成本槓桿**模擬(通話越短權重越高),同時最佳化轉換率與呼叫成本。準確論述 = 「直接當預測特徵是洩漏、
+        當成本槓桿是合理設計」;**但對照組 duration 全為 0 的交互作用官方沒處理**,這才是真正可寫的洞
+      - 📌 另一個現成材料:cell58 的 ColumnTransformer 把 `duration` 放進去**兩次**(power + scaler),產生重複欄位
+- [ ] 🔴 **決定 A2/A3 情境** —— 實查後更偏向 Bank X:內建商業基準值(9.94% vs 13.04%)、
+      商業路徑程式量僅約 30 分鐘、三個可寫深度的資料議題、第 3 週就教到;房仲要等第 6 週才教 CNN。**由 Kenny 定**
+- [ ] 🟡 決定跑法:Colab(官方預設,零環境風險)vs 本機(要改 3 處 + 開 venv)
 - [ ] 🟡 開學後回 Canvas Zoom 分頁補上實際場次時間(Canvas 上的時間表目前是空白樣板)
 - [ ] ⚪ 逐單元補筆記 `02_`/`03_`/`04_`(單元二~四本次只抓到標題清單)
 
