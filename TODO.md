@@ -24,7 +24,7 @@
 | **2026-10-12 週一 23:59** | **A3 專案實施(45%)** |
 
 - [x] ~~裝 Anaconda + Jupyter~~ ✅ **不需要**(2026-08-25 實查):VS Code + Python 3.11.9 + `ms-toolsai.jupyter` + ipykernel;sklearn/xgboost/lightgbm/tensorflow/keras/torch/torchvision/pandas 全齊,兩情境都跑得動
-- [ ] 🔴 **選 A2/A3 情境**(二選一,A2 選了 A3 就綁死):Bank X 電話行銷(表格/分類) vs 房仲 X 圖像分類(CNN)
+
 - [x] ~~下載 A2 三份範例作業~~ ✅ **2026-08-25 完成** → `Machine Learning/assessments/A2_範例/`,拆解見同資料夾 `_三份範例比較.md`
       - 關鍵發現:**3 份裡 2 份選房仲**(Example_1/2),只有 Example_3 選 Bank X
       - **Example_1 是唯一 CRISP-ML 六階段全部點名的**(rubric 佔 40 分)但 4,026 字超篇幅 2.1 倍
@@ -32,7 +32,14 @@
       - **Example_3 最精簡**(7 頁 1,791 字)但**沒有參考文獻** —— 別學
       - [ ] 🟡 三份逐頁精讀(目前只做了結構掃描,尚未逐頁看內容與圖表)
 - [ ] 🟡 **提早自讀單元三**(CRISP-ML 六階段 + MLOps)—— 正課在第 4–5 週,但 A2 第 5 週就要交,時序會撞
-- [ ] 🟡 下載 A3 Notebook 與資料集 → 放 `Machine Learning/data/`
+- [x] ~~下載 A3 Notebook 與資料集~~ ✅ **2026-08-25 完成**,全部大小與 Canvas 記錄一致 → 偵察報告 `Machine Learning/data/_資料偵察.md`
+      - Bank X:`TeleMarketing.csv` **41,188 列 × 17 欄**;Notebook 77 cell / 8 處填空
+      - 🔑 **`campaign` 欄就是目標組/對照組**:對照組轉換率 **9.94%** vs 目標組 **13.04%**,**提升 3.1pp** ← A2 可直接引用的商業基準值
+      - 🔴 **陷阱1 `duration` 是資料洩漏**:對照組全為 0,y=yes 平均 246 秒 vs y=no 92.7 秒。建模要排除,但主動指出是 rubric 加分點
+      - 🔴 **陷阱2 結構性缺失**:`contact`/`month`/`day_of_week` 缺的 23,546 列 **完全等於對照組**(沒被打電話)。不能直接丟
+      - 房仲:7,000 張圖 / 7 類各 1,000 張(完全平衡);172 MB zip **已 gitignore**;`interior` 與其他室內類別語意重疊
+      - ⚠️ **環境缺口**:Bank X Notebook 用到 `ydata_profiling`,未裝。**不要直接 pip install**(pycaret 鎖住 pandas/numpy/scipy)→ 開獨立 venv 或用 pandas 手動 EDA
+- [ ] 🔴 **決定 A2/A3 情境** —— 實查後資料面偏向 Bank X(內建商業基準值 + 兩個可寫深度的陷阱 + 不需 GPU),但由 Kenny 定
 - [ ] 🟡 開學後回 Canvas Zoom 分頁補上實際場次時間(Canvas 上的時間表目前是空白樣板)
 - [ ] ⚪ 逐單元補筆記 `02_`/`03_`/`04_`(單元二~四本次只抓到標題清單)
 
