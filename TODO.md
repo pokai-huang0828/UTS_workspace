@@ -25,7 +25,12 @@
 
 - [x] ~~裝 Anaconda + Jupyter~~ ✅ **不需要**(2026-08-25 實查):VS Code + Python 3.11.9 + `ms-toolsai.jupyter` + ipykernel;sklearn/xgboost/lightgbm/tensorflow/keras/torch/torchvision/pandas 全齊,兩情境都跑得動
 - [ ] 🔴 **選 A2/A3 情境**(二選一,A2 選了 A3 就綁死):Bank X 電話行銷(表格/分類) vs 房仲 X 圖像分類(CNN)
-- [ ] 🔴 **下載 A2 三份範例作業**(Example_1/2/3.pdf,官方說都不是 HD 但可組合優點)→ 連結在 `Machine Learning/assessments/_資源清單.md`
+- [x] ~~下載 A2 三份範例作業~~ ✅ **2026-08-25 完成** → `Machine Learning/assessments/A2_範例/`,拆解見同資料夾 `_三份範例比較.md`
+      - 關鍵發現:**3 份裡 2 份選房仲**(Example_1/2),只有 Example_3 選 Bank X
+      - **Example_1 是唯一 CRISP-ML 六階段全部點名的**(rubric 佔 40 分)但 4,026 字超篇幅 2.1 倍
+      - **Example_2 MLOps 寫最深**(提 15 次)但完全沒用 CRISP-ML 階段名當標題
+      - **Example_3 最精簡**(7 頁 1,791 字)但**沒有參考文獻** —— 別學
+      - [ ] 🟡 三份逐頁精讀(目前只做了結構掃描,尚未逐頁看內容與圖表)
 - [ ] 🟡 **提早自讀單元三**(CRISP-ML 六階段 + MLOps)—— 正課在第 4–5 週,但 A2 第 5 週就要交,時序會撞
 - [ ] 🟡 下載 A3 Notebook 與資料集 → 放 `Machine Learning/data/`
 - [ ] 🟡 開學後回 Canvas Zoom 分頁補上實際場次時間(Canvas 上的時間表目前是空白樣板)
