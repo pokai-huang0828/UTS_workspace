@@ -186,3 +186,59 @@ prep = ColumnTransformer(
 | 54–60 | **最終流程** | 完整 sklearn Pipeline + RFE + GridSearch，存成 `ml_pipe.joblib` ← 超參數填空、Tech[60] |
 | 61–65 | **客戶評分** | duration 分桶 + 成本加權評分，輸出可排序的客戶名單 |
 | 66–76 | 分群分析（**可選**） | KMeans 8 群 + 7 張視覺化圖 |
+
+---
+
+## 2026-09-15 補充 —— 對照 9/10 春平老師講的「資料洩漏」原則，官方程式碼有兩處沒做到
+
+> 起因：9/10 Zoom 老師強調「**缺失值填補、正規化時測試集要排除在外**」、「**驗證折是模擬考、測試集是正式考，模型從頭到尾不能見過測試集**」。
+> 回頭逐 cell 查原始碼，找到兩處。紀錄見 [`91_上課紀錄.md`](../../notes/91_上課紀錄.md) 9/10 entry。
+> ⚠️ **自查（程式碼證據），尚未獨立驗證。** 寫進報告前要過 Codex（R-獨立）。
+
+### 發現 1 · cell [26]｜測試集自己重新擬合冪變換
+
+```python
+# cell 21 的函式：method='pwr' 用的是 sklearn 的「函式版」power_transform，每次呼叫都重新擬合，不保存轉換器
+dataset[c+'_tfm'] = power_transform(dataset[[c]]).reshape(-1,1)
+
+# cell 23：訓練集
+num_features_tfm, _ , train_data = feature_transform(['duration'], train_data, 'pwr')
+
+# cell 26：測試集 —— 又呼叫一次 'pwr' → 用測試集自己的資料重新擬合
+_,_,test_data = feature_transform(['duration'], test_data, 'pwr')
+```
+
+- `power_transform()` 預設 `standardize=True` → **λ 參數和平均/標準差都從測試集自己算**
+- 同一個 cell 下面兩行的 `StandardScaler` 卻做對了（用訓練集 fit 好的 `std_scaler[c].transform`）
+- 🎯 **諷刺點**：TODO 2（cell 30）的觀念考點正是「測試集只能 `transform`、不能再 fit」，官方自己在 cell 26 犯了同一條
+- 📍 `duration_tfm` 出現在：cell 35–36 的 t-SNE（只是視覺化）、cell 45/47 特徵選擇的**候選清單**
+- ⚠️ **影響大小未查**：它有沒有進到 cell 50 建模用的 `selected_faeture`，還沒追。
+  另外 `duration` 本身就是洩漏欄位（見上文），所以這條在報告裡是「流程嚴謹性」論點，不是「分數被灌水」論點
+
+### 發現 2 · cell [58]｜交叉驗證包在 Pipeline 最後一步
+
+```python
+pipe = Pipeline(steps=[('prep', prep),     # PowerTransformer + StandardScaler + 編碼器
+                       ('rfe',  rfe),      # RFE 特徵選擇（用隨機森林 + 標籤 y）
+                       ('clf',  clf_cv)])  # GridSearchCV(cv=5)
+ml_pipe = pipe.fit(X=train_data, y=train_data['y'])
+```
+
+- `Pipeline.fit` 會先把 `prep`、`rfe` 在**整個 train_data** 上 `fit_transform`，最後一步的 `GridSearchCV` 才切 5 折
+- → 每一折的**驗證資料**早就參與過前處理和 **RFE 選特徵（用到標籤）** → **驗證 AUC 可能偏樂觀**，選出的超參數可能偏
+- 嚴謹寫法：把整條 Pipeline 包進 GridSearchCV（`GridSearchCV(Pipeline([prep, rfe, rf]), ...)`），每折各自重擬合
+- ✅ **cell 59 的測試集 AUC 是乾淨的**：test_data 沒參與任何 fit。有問題的是「模擬考」，不是「正式考」
+
+### 查過、不算問題的
+
+| cell | 內容 | 判斷 |
+|---|---|---|
+| 13 | 切分前 `fillna("Not Applicable")` | ✅ 補固定字串，沒用到統計量 |
+| 26 | `StandardScaler` 用訓練集 fit、測試集 transform | ✅ 正確 |
+| 28 / 32–33 | Ordinal / OneHot 編碼器用訓練集 fit、測試集 transform | ✅ 正確 |
+
+### 怎麼用
+
+- 9/10 老師說：給了骨架程式碼，自己改寫「**大概率不太行**」（開會確認中）
+- 👉 **程式照官方補完、不改結構**；兩個發現寫進報告「**限制與未來改進**」（商業路徑 10 分）或技術路徑的嚴謹性論述
+- 和上面已記的 `duration` 重複進 ColumnTransformer 兩次，可以合成一段「官方流程的三個嚴謹性缺口」
