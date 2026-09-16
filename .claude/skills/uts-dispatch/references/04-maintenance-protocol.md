@@ -48,6 +48,7 @@
 
 - 2026-07-09 | Codex 複核 Run A | 全 repo 文件寫 `python`,Mac 只有 `python3` → HC4 照抄 = command not found | 不逐檔寫死 per-OS runner(沿 07-03 教訓 3),CLAUDE.md HC4 加一句全域代換規則(Win=`python`/Mac=`python3`) | Mac 跑 `python3 .claude/scripts/build.py --check` exit 0
 - 2026-07-09 | Codex 複核 Run B | 工具 `--dir` 缺值 IndexError;deadman 只驗檔案存在、不驗可讀內容(空 jsonl = 假綠燈) | `--dir` 缺值/接 flag → exit 2;有檔但 0 可讀 user 訊息 → 印 WARN + exit 1 | `--dir` 無值實跑 exit 2;空內容目錄實跑 exit 1;正常跑仍 exit 0
+- 2026-09-15 | harness 漂移 | Codex 預設模型被改成 `gpt-6-astra`,PATH 上 npm 版 CLI 0.147.0 太舊 → API 400,背景兩趟 Codex 全損 | 實查 `codex --version` + `config.toml`;改用桌面 App 內建 CLI(`CODEX_CLI_PATH`),不升級、不改設定;SKILL §0 更新附日期 | 內建 CLI smoke 回 `PONG`、EXIT=0;正式兩趟跑完 `git status` 無 Codex 改動
 
 > 新教訓 append 在上方清單末尾(勿寫死條數)。屬於「判斷類」的教訓,同時到 [02](02-judgment-rubrics.md) 開提案(先問 Kenny)。
 

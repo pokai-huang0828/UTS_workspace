@@ -189,11 +189,11 @@ prep = ColumnTransformer(
 
 ---
 
-## 2026-09-15 補充 —— 對照 9/10 春平老師講的「資料洩漏」原則，官方程式碼有兩處沒做到
+## 2026-09-15 補充 —— 對照 9/10 春平老師講的「資料洩漏」原則，官方程式碼有三處沒做到（＋1 處待查）
 
 > 起因：9/10 Zoom 老師強調「**缺失值填補、正規化時測試集要排除在外**」、「**驗證折是模擬考、測試集是正式考，模型從頭到尾不能見過測試集**」。
 > 回頭逐 cell 查原始碼，找到兩處。紀錄見 [`91_上課紀錄.md`](../../notes/91_上課紀錄.md) 9/10 entry。
-> ⚠️ **自查（程式碼證據），尚未獨立驗證。** 寫進報告前要過 Codex（R-獨立）。
+> ✅ **2026-09-15 Codex（異家族）核對**：發現 1、2 成立；Codex 另抓到發現 3（我已對原始碼確認）。發現 4 是我事後自查，**尚未獨立驗證**。
 
 ### 發現 1 · cell [26]｜測試集自己重新擬合冪變換
 
@@ -212,7 +212,8 @@ _,_,test_data = feature_transform(['duration'], test_data, 'pwr')
 - 同一個 cell 下面兩行的 `StandardScaler` 卻做對了（用訓練集 fit 好的 `std_scaler[c].transform`）
 - 🎯 **諷刺點**：TODO 2（cell 30）的觀念考點正是「測試集只能 `transform`、不能再 fit」，官方自己在 cell 26 犯了同一條
 - 📍 `duration_tfm` 出現在：cell 35–36 的 t-SNE（只是視覺化）、cell 45/47 特徵選擇的**候選清單**
-- ⚠️ **影響大小未查**：它有沒有進到 cell 50 建模用的 `selected_faeture`，還沒追。
+- ✅ **流向已追（自查）**：cell 45 存檔輸出顯示 `selected_feature_RF` **含 `duration_tfm`**（也含 `duration_scl`），cell 51 用它在測試集比較 RF 與 XGB → 這個問題**有流進模型比較**。
+  cell 56 從 `campaign_data` 重建資料，所以**沒有流進 cell 58 的最終流程**。
   另外 `duration` 本身就是洩漏欄位（見上文），所以這條在報告裡是「流程嚴謹性」論點，不是「分數被灌水」論點
 
 ### 發現 2 · cell [58]｜交叉驗證包在 Pipeline 最後一步
@@ -227,7 +228,31 @@ ml_pipe = pipe.fit(X=train_data, y=train_data['y'])
 - `Pipeline.fit` 會先把 `prep`、`rfe` 在**整個 train_data** 上 `fit_transform`，最後一步的 `GridSearchCV` 才切 5 折
 - → 每一折的**驗證資料**早就參與過前處理和 **RFE 選特徵（用到標籤）** → **驗證 AUC 可能偏樂觀**，選出的超參數可能偏
 - 嚴謹寫法：把整條 Pipeline 包進 GridSearchCV（`GridSearchCV(Pipeline([prep, rfe, rf]), ...)`），每折各自重擬合
-- ✅ **cell 59 的測試集 AUC 是乾淨的**：test_data 沒參與任何 fit。有問題的是「模擬考」，不是「正式考」
+- ❌ ~~cell 59 的測試集 AUC 是乾淨的~~（**2026-09-15 更正**，見發現 3）：最終流程本身只在訓練集擬合，但這批測試資料**早在 cell 50–53 就被拿來選模型**
+
+### 發現 3 · cell [50]–[56]｜測試集被拿來選模型（Codex 發現）
+
+```python
+# cell 50（modeling 函式內）：在測試集上算兩個模型的 AUC
+auc_score['rf'] = roc_auc_score(test_data['response'], model_rf.best_estimator_.predict(test_data[selected_faeture]))
+auc_score['gb'] = roc_auc_score(test_data['response'], model_gb.best_estimator_.predict(test_data[selected_faeture]))
+
+# cell 53（markdown）：从上面可以看出, RF 的表现优于 XGB. 因此我们在最终流程中采用 RF 模型
+
+# cell 56：同樣 test_size=0.4、同一個 random_state 重切 → 還是同一批測試資料
+train_data, test_data = train_test_split(df_data, test_size=0.4, random_state=RANDOM_SATE)
+```
+
+- 用測試集比較模型、再用**同一批**測試集報最終成績 → cell 59 的 AUC **不是沒碰過的正式考**，可能偏樂觀
+- 嚴謹做法：選模型用驗證集（交叉驗證），測試集只在最後用一次（= 9/10 老師的「模擬考 vs 正式考」）
+
+### 發現 4 · cell [51]｜XGB 的 AUC 剛好 0.5（自查，未重跑）
+
+- cell 51 存檔輸出：`{'rf': 0.7353483836367084, 'gb': 0.5}`
+- AUC 是用 `.predict()` 的 **0/1 結果**算，不是 `.predict_proba()` 的機率
+- XGB 設 `scale_pos_weight=87`，但實際負正比約 **7.9**（36,548 / 4,640）
+- AUC 剛好 0.5 **符合「全部預測成同一類」**的情況 → **「RF 優於 XGB」這個選模依據可能不公平**
+- ⚠️ 沒有重跑 Notebook 驗證，寫進報告前要過獨立核對
 
 ### 查過、不算問題的
 
@@ -240,5 +265,5 @@ ml_pipe = pipe.fit(X=train_data, y=train_data['y'])
 ### 怎麼用
 
 - 9/10 老師說：給了骨架程式碼，自己改寫「**大概率不太行**」（開會確認中）
-- 👉 **程式照官方補完、不改結構**；兩個發現寫進報告「**限制與未來改進**」（商業路徑 10 分）或技術路徑的嚴謹性論述
-- 和上面已記的 `duration` 重複進 ColumnTransformer 兩次，可以合成一段「官方流程的三個嚴謹性缺口」
+- 👉 **程式先照所選路徑補完官方骨架**，不換掉官方模型、不整份重寫；技術路徑仍要照作業說明擴展與比較替代模型。這些發現寫進報告「**限制與未來改進**」（商業路徑 10 分），或技術路徑「**模型評估與選擇**」（30 分）、「**模型比較**」（10 分）的論證
+- 和上面已記的 `duration` 重複進 ColumnTransformer 兩次，可以合成一段「官方流程的嚴謹性缺口」

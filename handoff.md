@@ -1856,3 +1856,61 @@ Canvas 全部顯示**雪梨時間**。**2026-10-04 起雪梨進夏令時,與台�
 ### 後續待辦
 
 見 TODO.md ML 區塊。最急:**9/16 開放的單元二測驗**(用筆電、注意方框多選、讀完第 3 週再做,9/20 截止)。
+
+---
+
+## 2026-09-15(晚)· ML 課程資訊整合進 README + Codex 異家族審查(R1 完成並修正;R2/R3 撞 Codex 額度)
+
+**輸入**:Kenny「整合一下目前蒐集到的資訊」。
+**判斷**:範圍 = 321513 ML 課程;載體 = `Machine Learning/README.md`(GitHub 開資料夾會直接顯示,原本就是課程總覽,只是停在 9/3)。
+待辦仍只放 TODO.md,逐場原話仍在 `notes/91_上課紀錄.md`,README 只放「目前確定的規則與事實」。
+
+### 輸出
+
+- `Machine Learning/README.md` **重寫成課程總整理**(12 節):一分鐘現況、時間總表(雪梨→台灣)、評分、測驗規則與各單元規格、
+  延期遲交、A2、A3(含 Bank X 資料問題表)、情境比較、考點地圖、教學團隊與求助、矛盾與待確認、檔案索引、資料落差
+- 過期狀態清掉:`A2_專案提案.md`「範例尚未下載」「單元三尚未閱讀」、`A3_專案實施.md`「全部尚未下載」;兩份 brief 與 `A2_寫作範本.md` 補台灣時間
+
+### 🔴 更正自己先前的錯(會影響 Kenny 決定)
+
+1. **A2 截止是台灣 10/04 20:59,不是 21:59**。雪梨 2026-10-04 **凌晨 02:00** 就切夏令時,當天 23:59 已是 UTC+11。
+   先前 TODO 寫「A2 與 A3 剛好卡在切換前後」是錯的。證據:Canvas API 原始值 `2026-10-04T12:59:59Z`;Python `zoneinfo` 換算;Codex R1 CLAIM 1 CONFIRMED。
+   已修 TODO、`91_上課紀錄.md` 9/9 entry、README、兩份 brief、寫作範本。
+2. **「cell 59 測試集 AUC 是乾淨的」是錯的**(Codex R1 抓到,我對原始碼確認):cell 50–51 用 `test_data` 算 RF/XGB 的 AUC,
+   cell 53 據此選 RF,cell 56 同 `test_size=0.4`、同 seed 重切 → 最終測試集是同一批。已修 README §6.5、`_Notebook拆解.md`、91 的 9/10 entry、TODO。
+3. **「A3 不換模型、不重寫」說得太滿**(Codex R1 F3):技術路徑作業說明本身要求「在官方程式碼基礎上擴展」並比較替代模型。
+   老師 9/10 那句是回答同學想換掉 Inception V3 → 範圍限定為「不換掉官方模型、不整份重寫」。
+
+### 新發現(自查)
+
+- cell 45 存檔輸出 `selected_feature_RF` **含 `duration_tfm`** → cell 26 測試集重新擬合的問題**有流進** cell 50–51 的模型比較;cell 56 重建資料,所以沒流進 cell 58 最終流程
+- cell 51 存檔輸出 `{'rf': 0.7353483836367084, 'gb': 0.5}`:AUC 用 `.predict()` 硬標籤算,XGB `scale_pos_weight=87`(實際負正比約 7.9)→ 0.5 符合全部猜同一類,**RF 勝 XGB 的比較可能不公平**。**未重跑、未獨立驗證**
+
+### Codex 異家族審查紀錄
+
+- **環境漂移**:npm 版 `codex` 0.147.0,但 `~/.codex/config.toml` 預設 `model = "gpt-6-astra"` → API 400「requires a newer version」,第一次兩趟全損。
+  改用 Codex 桌面 App 內建 CLI(`config.toml` 的 `CODEX_CLI_PATH`,0.154.0-alpha.6.2,smoke 回 PONG)。已依 04 權限表更新 SKILL §0 + 教訓登記簿。
+- prompt 純 ASCII;來源複製成 ASCII 檔名到 scratchpad,11 檔 sha256 對賬一致
+- **R1-A**(日期/數字/Notebook):C1、C2、C3、C5 CONFIRMED;**C4 PARTLY-REFUTED**(測試集選模) → NOT READY
+- **R1-B**(章節位置/矛盾/遺漏):C6、C7、C8 PARTLY-REFUTED + F1–F9 → NOT READY。處理:
+  F1 資料洩漏章節改指 91(9/10)· F2 規則出處場次修正(並把 9/10 逐字稿裡老師重申的「測驗沒有例外」「每天扣 5%、超過寬限零分」補進 91)·
+  F3 §10.1 改名「說法差異與待釐清」、重寫 A3 程式範圍/A1 權重/答案公布三列 · F4 見上方更正 2 · F5 應考清單加「練習補碼」與「讀多深」·
+  F6 §6.4 補執行平台未決(Colab vs 本機、ydata_profiling、pycaret 鎖版本)· F7 A3 補商業路徑新產品構想、HD 要圖表、APA · F8 A2 篇幅與格式加「建議/例如」· F9 §12 補互動活動的價值
+  另補:A$27.35 標明「假設時薪 A$50」、90 次訓練註明不含重訓
+- **R2(缺陷關閉 + 新內容)、R3(全件終審)**:平行開跑後**撞 Codex 用量上限**(「You've hit your usage limit」,**重置 2026-09-16 02:41**)。
+  ⚠️ **修改後的內容尚未經獨立複查** → README 頂端已加查證狀態提示,TODO 已列待辦
+- 每趟跑完 `git status` 對賬:Codex 未改動任何 repo 檔案
+
+### R-完成證據
+
+- 修正腳本每處 `assert count == 1`,共 32 + 3 處全部命中
+- read-back:README 16 張表、91 的 9/10 段 11 張、Notebook 補充 1 張,**欄數全部一致**;12 個關鍵修正字串全部在檔;錯誤的「測試集 AUC 仍是乾淨的」已不存在
+
+### 成本
+
+- Claude subagent:0(§8 帳本不變)
+- Codex(gpt-6-astra xhigh):R1-A 82,875 · R1-B 90,320 · R2 45,498(中斷)· R3 32,086(中斷)· 合計約 25.1 萬 token
+
+### 後續待辦
+
+見 TODO.md:**Codex R2/R3(9/16 02:41 後)**、XGB AUC 0.5 的獨立核對、單元二測驗(9/16 開放)。
