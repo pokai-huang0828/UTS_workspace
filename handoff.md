@@ -2130,3 +2130,15 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - **全文審查**:workflow `a2-full-draft-review`(事實＋參考文獻／涵蓋＋一致性／閱卷者＋刪字 3 審查 → 15 條 major 經反方確認、1 條駁回、39 條 minor → 修訂者套用;20 代理 2,537,639 tokens)。重點:重複紀錄**不是**高估增量的主因(兩組同樣處理後仍 +3.13pp,真正墊高的是兩組組成不同)→ 措辭全改;上線硬門檻統一為表 4 ②③⑤;新增表 4 ⑤ 式 1 淨值門檻與「隨機外撥組」;摘要與 §5 的請求一致;參考文獻 Studer 2021、Google Cloud 2024 已核,UTS 2026a/2026b 待 Kenny 登入 Canvas 核對
 - **主控收尾**:標題拿掉英文括號、式註移到附錄 B → 正文 1,741＋標題 82＋式 51＝1,874(漢字 1,725);Word 連全形標點約 2,200 → 請 Kenny 10/1 問老師算法
 - **待 Kenny**:改寫成自己的話、畫圖 1/2、核對參考文獻、排版 PDF、10/3 17:00 前上傳、交完做單元三測驗;「打電話不給優惠」組目前寫「下一輪加」
+
+---
+
+## 2026-10-01(清晨)· A2 交件檔 v1.1(Word＋PDF＋圖 1、圖 2)＋發現 GitHub 資料庫是公開的
+
+**輸入**:Kenny「你來做 我要看你完成的所有內容再改」
+
+- **圖**:`A2_交件/make_figures.py`(matplotlib;圖 1 成本 vs 折扣外溢、圖 2 Level 1 MLOps 架構;數字由 CSV 重算;以列印寬度 15.8 cm 設計、字 ≥ 8 pt;dataviz 驗色:相鄰色對 CVD/正常視覺通過,灰色低彩度是刻意的中性色,另加斜線紋理與直接標籤)
+- **Word/PDF**:`A2_交件/build_docx.py`(python-docx,去掉要點/私註/字數行)→ Word COM 匯出 PDF。**中文路徑下 ExportAsFixedFormat 會卡住** → 改在 `C:\Users\kenny\Documents\` 用 ASCII 檔名 SaveAs2(17);頁面預覽用 Windows.Data.Pdf(`Documents\pdf2png.ps1`),PDF_Tools 無法渲染
+- **獨立檢查**(workflow `verify-a2-docx-pdf`,3 代理 600,029 tokens):內容逐字忠實、無私註外洩;修正 5 個版面 major(圖 2 字太小→重畫、表格列跨頁→cantSplit、等寬欄→依表設欄寬、附錄 B 格式、圖 2 造成半頁空白→移到表 11 前)＋中繼資料(作者改成本人)＋圖 2 流程(漏箭頭、失敗出口、觸發對齊表 10、點線框/橘框圖例)。25 → **23 頁**
+- 🔴 **GitHub `pokai-huang0828/UTS_workspace` 是公開的**(未登入 API 回 200)→ A2 草稿先前已公開可見,有 Turnitin 比對到網路來源/被抄的風險。交件檔兩個 commit **只在本機、未 push**,等 Kenny 決定(建議改成 private)
+- 封面新增「學校」「授課教師 Dr Vahid Behbood（Subject Coordinator）」→ 待 Kenny 確認授課教師寫誰
