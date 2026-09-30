@@ -104,12 +104,12 @@ def repeat_header(row):
     trpr.append(el)
 
 
-def add_field(p, instr):
+def add_field(p, instr, placeholder="1"):
     r = p.add_run()
     b = OxmlElement("w:fldChar"); b.set(qn("w:fldCharType"), "begin")
     t = OxmlElement("w:instrText"); t.set(qn("xml:space"), "preserve"); t.text = instr
     s = OxmlElement("w:fldChar"); s.set(qn("w:fldCharType"), "separate")
-    txt = OxmlElement("w:t"); txt.text = "（在 Word 按右鍵 → 更新功能變數）"
+    txt = OxmlElement("w:t"); txt.text = placeholder
     e = OxmlElement("w:fldChar"); e.set(qn("w:fldCharType"), "end")
     for el in (b, t, s):
         r._element.append(el)
@@ -194,10 +194,44 @@ def parse(md):
 
 
 # ---------------------------------------------------------------- 產生文件
+# 各表欄寬（cm，合計約 15.9）；長內容欄給寬、短內容欄給窄
+WIDTHS = {"1": [3.4, 2.8, 4.6, 3.4, 1.7], "2": [2.6, 2.5, 2.0, 2.2, 1.9, 2.2, 2.5],
+          "3": [3.0, 4.2, 6.9, 1.8], "4": [1.3, 3.4, 3.0, 4.0, 4.2], "5": [1.8, 2.4, 1.6, 2.0, 3.3, 4.8],
+          "6": [1.9, 4.0, 4.2, 5.8], "7": [1.9, 2.7, 2.8, 2.6, 2.2, 3.7], "8": [1.9, 3.8, 5.6, 4.6],
+          "9": [1.8, 2.8, 1.2, 1.9, 2.4, 3.4, 2.4], "10": [2.6, 1.9, 4.4, 4.6, 2.4],
+          "11": [2.2, 1.2, 3.3, 5.7, 3.5], "A": [3.4, 5.6, 2.6, 4.3]}
+NOTE_PT = 10
+CAP_PT = 11
+
+
+def no_split(row):
+    trpr = row._tr.get_or_add_trPr()
+    trpr.append(OxmlElement("w:cantSplit"))
+
+
+def set_col_widths(t, widths):
+    t.autofit = False
+    for ci, w in enumerate(widths):
+        if ci < len(t.columns):
+            t.columns[ci].width = Cm(w)
+    for row in t.rows:
+        for ci, w in enumerate(widths):
+            if ci < len(row.cells):
+                row.cells[ci].width = Cm(w)
+
+
 def build():
+    from docx.enum.text import WD_TAB_ALIGNMENT
+
     md = SRC.read_text(encoding="utf-8")
     blocks = parse(md)
     doc = Document()
+    cp = doc.core_properties
+    cp.author = "黃柏凱 (Po-Kai Huang)"
+    cp.last_modified_by = "Po-Kai Huang"
+    cp.comments = ""
+    cp.title = "把電話與優惠留給打了才會買的人"
+    cp.subject = "321513 Machine Learning - Assessment Task 2"
 
     sec = doc.sections[0]
     sec.page_height, sec.page_width = Cm(29.7), Cm(21.0)
@@ -205,6 +239,9 @@ def build():
         setattr(sec, side, Cm(2.54))
 
     style_fonts(doc.styles["Normal"], BODY_PT)
+    op = OxmlElement("w:overflowPunct")  # 行尾標點不突出版心
+    op.set(qn("w:val"), "0")
+    doc.styles["Normal"].element.get_or_add_pPr().append(op)
     style_fonts(doc.styles["Heading 1"], 14, bold=True)
     style_fonts(doc.styles["Heading 2"], 13, bold=True)
     for name in ("Heading 1", "Heading 2"):
@@ -212,13 +249,11 @@ def build():
         pf.space_before, pf.space_after, pf.line_spacing = Pt(12), Pt(6), 1.5
         pf.keep_with_next = True
 
-    # 頁碼
     fp = sec.footer.paragraphs[0]
     fp.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    add_field(fp, "PAGE")
+    add_field(fp, "PAGE", "1")
 
     # ---- 封面
-    idx = 0
     assert blocks[0] == ("h", (1, "封面"))
     idx = 1
     cover_lines, cover_table = [], None
@@ -229,13 +264,13 @@ def build():
         elif k == "table":
             cover_table = v
         idx += 1
-    for _ in range(4):
+    for _ in range(7):
         para_format(doc.add_paragraph(), 1.0)
     for j, t in enumerate(cover_lines):
         p = doc.add_paragraph()
         para_format(p, 1.3, after=10, align=WD_ALIGN_PARAGRAPH.CENTER)
         add_inline(p, t, size=(20 if j == 0 else 15 if j == 1 else 12))
-    para_format(doc.add_paragraph(), 1.0, after=24)
+    para_format(doc.add_paragraph(), 1.0, after=30)
     tbl = doc.add_table(rows=0, cols=2)
     tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
     for row in cover_table[1:]:
@@ -243,11 +278,10 @@ def build():
         for c, txt in zip(r, row):
             c.text = ""
             p = c.paragraphs[0]
-            para_format(p, 1.2, after=4)
+            para_format(p, 1.3, after=4)
             add_inline(p, txt, size=11)
         set_run_font(r[0].paragraphs[0].runs[0], 11, bold=True)
-    for r in tbl.rows:
-        r.cells[0].width, r.cells[1].width = Cm(3.2), Cm(12.0)
+    set_col_widths(tbl, [3.2, 12.0])
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 
     # ---- 目錄
@@ -255,11 +289,13 @@ def build():
     para_format(p, 1.5, after=12)
     add_inline(p, "**目錄**", size=14)
     toc = doc.add_paragraph()
-    add_field(toc, 'TOC \\o "1-2" \\h \\z \\u')
+    add_field(toc, 'TOC \\o "1-2" \\h \\z \\u', "（目錄）")
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 
     # ---- 內文
     in_refs = False
+    cur_table = None
+    pending_note = None  # 表標題括號內的說明，移到表格下方
     for k, v in blocks[idx:]:
         if k == "h":
             level, title = v
@@ -273,7 +309,8 @@ def build():
         elif k == "p":
             p = doc.add_paragraph()
             if in_refs:
-                para_format(p, 2.0, after=0)
+                p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.EXACTLY
+                p.paragraph_format.line_spacing = Pt(30)
                 p.paragraph_format.left_indent = Cm(1.27)
                 p.paragraph_format.first_line_indent = Cm(-1.27)
                 add_inline(p, v, size=BODY_PT)
@@ -282,21 +319,35 @@ def build():
                 add_inline(p, v)
         elif k == "bullet":
             p = doc.add_paragraph(style="List Bullet")
-            para_format(p, 1.5, after=2)
-            add_inline(p, v, size=SMALL_PT + 1)
+            para_format(p, 2.0, after=0)
+            add_inline(p, v, size=BODY_PT)
         elif k == "eq":
             p = doc.add_paragraph()
-            para_format(p, 1.5, before=4, after=4, align=WD_ALIGN_PARAGRAPH.CENTER)
-            add_inline(p, v)
+            parts = [x for x in re.split("　{2,}", v) if x]
+            if len(parts) == 2:
+                para_format(p, 1.5, before=4, after=4, align=WD_ALIGN_PARAGRAPH.LEFT)
+                ts = p.paragraph_format.tab_stops
+                ts.add_tab_stop(Cm(7.96), WD_TAB_ALIGNMENT.CENTER)
+                ts.add_tab_stop(Cm(15.92), WD_TAB_ALIGNMENT.RIGHT)
+                add_inline(p, "\t" + parts[0] + "\t" + parts[1])
+            else:
+                para_format(p, 1.5, before=4, after=4, align=WD_ALIGN_PARAGRAPH.CENTER)
+                add_inline(p, v)
         elif k == "tcap":
+            m = re.match(r"(\*\*表 ([0-9A]+)｜[^*]+\*\*)(.*)$", v)
+            cur_table = m.group(2) if m else None
+            title, rest = (m.group(1), m.group(3).strip()) if m else (v, "")
+            if rest.startswith("（") and rest.endswith("）") and cur_table != "3":
+                pending_note = "註：" + rest[1:-1]
+                rest = ""
             p = doc.add_paragraph()
             para_format(p, 1.2, before=10, after=4)
             p.paragraph_format.keep_with_next = True
-            add_inline(p, v, size=SMALL_PT + 1)
+            add_inline(p, title + (" " + rest if rest else ""), size=CAP_PT)
         elif k == "note":
             p = doc.add_paragraph()
-            para_format(p, 1.2, before=3, after=8)
-            add_inline(p, v, size=9, color="333333")
+            para_format(p, 1.2, before=3, after=6)
+            add_inline(p, v, size=NOTE_PT, color="333333")
         elif k == "table":
             ncol = len(v[0])
             t = doc.add_table(rows=0, cols=ncol)
@@ -304,13 +355,17 @@ def build():
             t.alignment = WD_TABLE_ALIGNMENT.CENTER
             for ri, row in enumerate(v):
                 cells = t.add_row().cells
+                no_split(t.rows[-1])
                 row = (row + [""] * ncol)[:ncol]
                 for c, txt in zip(cells, row):
                     c.text = ""
-                    parts = [s.strip() for s in txt.split("｜")] if ri > 0 and txt.count("**") >= 4 else [txt]
+                    split = ri > 0 and (txt.count("**") >= 4 or re.search("｜[^｜]{1,6}：", txt))
+                    parts = [s.strip() for s in txt.split("｜")] if split else [txt]
                     for pi, part in enumerate(parts):
                         p = c.paragraphs[0] if pi == 0 else c.add_paragraph()
                         para_format(p, 1.1, after=1)
+                        if ri == 0:
+                            p.paragraph_format.keep_with_next = True
                         add_inline(p, part, size=9 if ncol < 6 else 8.5)
                     if ri == 0:
                         shade(c, "E8E6E1")
@@ -318,7 +373,16 @@ def build():
                             r.bold = True
                 if ri == 0:
                     repeat_header(t.rows[0])
-            doc.add_paragraph().paragraph_format.space_after = Pt(2)
+            if cur_table in WIDTHS and len(WIDTHS[cur_table]) == ncol:
+                set_col_widths(t, WIDTHS[cur_table])
+            cur_table = None
+            if pending_note:
+                p = doc.add_paragraph()
+                para_format(p, 1.2, before=3, after=6)
+                add_inline(p, pending_note, size=NOTE_PT, color="333333")
+                pending_note = None
+            else:
+                doc.add_paragraph().paragraph_format.space_after = Pt(2)
         elif k == "fig":
             num, cap = v
             p = doc.add_paragraph()
@@ -327,7 +391,7 @@ def build():
             p.add_run().add_picture(str(FIGS[num]), width=Cm(15.8))
             c = doc.add_paragraph()
             para_format(c, 1.2, after=10)
-            add_inline(c, cap.replace(f"圖 {num}｜", f"**圖 {num}｜**", 1), size=SMALL_PT)
+            add_inline(c, cap.replace(f"圖 {num}｜", f"**圖 {num}｜**", 1), size=CAP_PT)
     doc.save(OUT)
     return OUT, blocks
 
