@@ -347,6 +347,7 @@ def build():
         elif k == "note":
             p = doc.add_paragraph()
             para_format(p, 1.2, before=3, after=6)
+            p.paragraph_format.keep_together = True
             add_inline(p, v, size=NOTE_PT, color="333333")
         elif k == "table":
             ncol = len(v[0])
