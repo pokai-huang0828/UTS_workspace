@@ -114,16 +114,16 @@ def fig2():
     ax.axis("off")
 
     # 圖例
-    ax.plot([2, 7], [127, 127], color=INK2, lw=1.1)
-    ax.text(8, 127, "自動", fontsize=8, va="center", color=INK2)
-    ax.plot([16, 21], [127, 127], color=INK2, lw=1.1, linestyle="--")
-    ax.text(22, 127, "人工", fontsize=8, va="center", color=INK2)
-    ax.add_patch(FancyBboxPatch((30, 125.8), 3.2, 2.4, boxstyle="round,pad=0,rounding_size=0.4",
+    ax.plot([2, 6], [127, 127], color=INK2, lw=1.1)
+    ax.text(7, 127, "一定執行", fontsize=8, va="center", color=INK2)
+    ax.plot([19, 23], [127, 127], color=INK2, lw=1.1, linestyle="--")
+    ax.text(24, 127, "條件成立才執行", fontsize=8, va="center", color=INK2)
+    ax.add_patch(FancyBboxPatch((44, 125.8), 3.2, 2.4, boxstyle="round,pad=0,rounding_size=0.4",
                                 fc=ORANGE_FILL, ec=ACCENT, lw=1))
-    ax.text(34, 127, "驗證關卡", fontsize=8, va="center", color=INK2)
-    ax.add_patch(FancyBboxPatch((46, 125.8), 3.2, 2.4, boxstyle="round,pad=0,rounding_size=0.4",
+    ax.text(48, 127, "驗證關卡", fontsize=8, va="center", color=INK2)
+    ax.add_patch(FancyBboxPatch((61, 125.8), 3.2, 2.4, boxstyle="round,pad=0,rounding_size=0.4",
                                 fc="none", ec=INK2, lw=1, linestyle=(0, (1, 1.5))))
-    ax.text(50, 127, "Level 1 自動化範圍", fontsize=8, va="center", color=INK2)
+    ax.text(65, 127, "Level 1 自動化範圍", fontsize=8, va="center", color=INK2)
 
     # 開發端泳道
     ax.add_patch(FancyBboxPatch((0.5, 104), 99, 19, boxstyle="round,pad=0,rounding_size=1.2",
@@ -145,7 +145,7 @@ def fig2():
     ax.text(11.5, 97.5, "撥號前欄位", fontsize=8, color=INK2, va="center")
 
     # Level 1 自動化範圍（點線框）
-    ax.add_patch(FancyBboxPatch((1.5, 50), 97, 46.5, boxstyle="round,pad=0,rounding_size=1.0",
+    ax.add_patch(FancyBboxPatch((2.2, 50), 96.3, 46.5, boxstyle="round,pad=0,rounding_size=1.0",
                                 fc="none", ec=INK2, lw=1.1, linestyle=(0, (1, 1.5)), zorder=1))
     # 第一列：擷取 → 資料驗證 → 前處理＋訓練
     box(ax, 3, 77, 26, 11, "擷取撥號前欄位\n（依表 5 欄位合約）")
@@ -154,7 +154,7 @@ def fig2():
     arrow(ax, (29, 82.5), (36, 82.5))
     arrow(ax, (62, 82.5), (70, 82.5))
     ax.text(49, 91, "分布偏移 → 照常重訓", fontsize=8, color=INK2, ha="center", va="center")
-    arrow(ax, (49, 77), (49, 73.5), color=RED)
+    arrow(ax, (49, 77), (49, 73.5), color=RED, ls="--")
     ax.text(49, 71.6, "欄位不符 → 停止並通知", fontsize=8, color=RED, ha="center", va="center")
     # 第二列（右 → 左）：模型驗證 → 註冊文件；批次評分
     ax.add_patch(FancyBboxPatch((66, 51), 30, 24, boxstyle="round,pad=0,rounding_size=0.8",
@@ -164,12 +164,12 @@ def fig2():
     ax.text(81, 53.3, "未過 → 不晉升、保留現行版", ha="center", va="center", fontsize=7.8, color=RED, zorder=3)
     arrow(ax, (83, 77), (83, 75))
     box(ax, 36, 58, 24, 10, "註冊文件\n（候選）")
-    arrow(ax, (66, 63), (60, 63))
+    arrow(ax, (66, 63), (60, 63), ls="--")
     box(ax, 3, 55, 26, 15, "批次評分\n（每個外撥日前）\n欄位異常 → 改用\n手機規則名單", fs=8)
 
     # 人工 go/no-go（點線框外）
-    box(ax, 30, 38, 34, 8, "人工 go/no-go：市場總監＋法遵", ls="--", fs=8)
-    arrow(ax, (48, 58), (48, 46), ls="--")
+    box(ax, 30, 38, 34, 8, "人工 go/no-go：市場總監＋法遵", fs=8)
+    arrow(ax, (48, 58), (48, 46))
     arrow(ax, (30, 42), (20, 55), ls="--")
     ax.text(66, 42, "第 12 週決定是否擴大（表 9）；\n之後每次新版晉升；\n核准後狀態改為「生產」",
             fontsize=7.8, color=INK2, va="center", linespacing=1.25)
@@ -181,14 +181,14 @@ def fig2():
     arrow(ax, (42, 25.5), (56, 25.5))
     box(ax, 56, 3, 42, 12, "外撥結果＋對照組申辦結果\n→ 回寫資料倉儲成為新標籤", fs=8)
     arrow(ax, (77, 18), (77, 15))
-    box(ax, 4, 2, 44, 14,
+    box(ax, 3.5, 2, 47.5, 14,
         "監控（表 10）：輸入分布、名單轉換率、增量、分群差距\n觸發重訓：① 排程（每輪結束）② 輸入分布漂移\n"
         "③ 效能低於表 4 門檻（先改手機規則，重訓後回影子模式）\n④ 資格標準變更（先影子評分）", fs=7.4)
-    arrow(ax, (56, 9), (48, 9))
+    arrow(ax, (56, 9), (51, 9))
     # 觸發 → 擷取（沿左緣）
-    ax.plot([1.8, 1.8], [9, 82.5], color=INK2, lw=1.1, zorder=4)
-    ax.plot([1.8, 4], [9, 9], color=INK2, lw=1.1, zorder=4)
-    arrow(ax, (1.8, 82.5), (3, 82.5))
+    ax.plot([0.9, 0.9], [9, 82.5], color=INK2, lw=1.1, zorder=4, linestyle="--")
+    ax.plot([0.9, 3.5], [9, 9], color=INK2, lw=1.1, zorder=4, linestyle="--")
+    arrow(ax, (0.9, 82.5), (3, 82.5), ls="--")
 
     out = HERE / "fig2_mlops_level1.png"
     fig.savefig(out, facecolor=SURFACE)
