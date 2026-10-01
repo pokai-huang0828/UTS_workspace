@@ -2142,3 +2142,4 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - **獨立檢查**(workflow `verify-a2-docx-pdf`,3 代理 600,029 tokens):內容逐字忠實、無私註外洩;修正 5 個版面 major(圖 2 字太小→重畫、表格列跨頁→cantSplit、等寬欄→依表設欄寬、附錄 B 格式、圖 2 造成半頁空白→移到表 11 前)＋中繼資料(作者改成本人)＋圖 2 流程(漏箭頭、失敗出口、觸發對齊表 10、點線框/橘框圖例)。25 → **23 頁**
 - 🔴 **GitHub `pokai-huang0828/UTS_workspace` 是公開的**(未登入 API 回 200)→ A2 草稿先前已公開可見,有 Turnitin 比對到網路來源/被抄的風險。交件檔兩個 commit **只在本機、未 push**,等 Kenny 決定(建議改成 private)
 - 封面新增「學校」「授課教師 Dr Vahid Behbood（Subject Coordinator）」→ 待 Kenny 確認授課教師寫誰
+- **決定**:Kenny 2026-10-01「不用 直接push」→ 維持公開、照常 push(風險已告知)
