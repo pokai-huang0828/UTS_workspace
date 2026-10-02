@@ -3,6 +3,7 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $docx = Join-Path $here "Huang_26254793_321513_A2.docx"
 $pdf  = Join-Path $here "Huang_26254793_321513_A2.pdf"
 $log  = Join-Path $here "to_pdf.log"
+$docx = [string]$docx; $pdf = [string]$pdf
 "start" | Out-File $log
 $word = New-Object -ComObject Word.Application
 $word.Visible = $false
