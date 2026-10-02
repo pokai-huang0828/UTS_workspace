@@ -17,6 +17,9 @@ HERE = Path(__file__).resolve().parent
 SRC = HERE.parent / "A2_草稿_v1.md"
 OUT = HERE / "Huang_26254793_321513_A2.docx"
 FIGS = {"1": HERE / "fig1_cost_vs_leakage.png", "2": HERE / "fig2_mlops_level1.png"}
+FIG_W = {"1": 15.8, "2": 14.8}  # cm；圖 2 是直式整頁圖（高寬比 1.31），14.8 cm 讓「節標題＋圖＋圖說」剛好一頁
+# 整頁圖若接在正文後面，前一頁下半會整塊空白（舊版 p17）→ 移到所屬節標題正後方，正文與表 11 接在圖後連續排
+FIG_AFTER_HEADING = {"2"}
 
 LATIN = "Times New Roman"
 CJK = "新細明體"
@@ -174,6 +177,11 @@ def parse(md):
             blocks.append(("eq", re.sub(r"</?p[^>]*>", "", ln)))
             i += 1
             continue
+        m = re.match(r"\*\*框｜(.+)\*\*$", ln)  # 「框」：下一個表格畫成框（表格不計字數）
+        if m:
+            blocks.append(("boxcap", m.group(1)))
+            i += 1
+            continue
         if re.match(r"\*\*表 [0-9A]+｜", ln):
             blocks.append(("tcap", ln))
             i += 1
@@ -220,11 +228,53 @@ def set_col_widths(t, widths):
                 row.cells[ci].width = Cm(w)
 
 
+BOX_W = [3.4, 12.5]
+
+
+def add_box(doc, title, rows):
+    """「框」＝兩欄表格：合併的標題列（深底）＋每列「項目｜內容」（略過 md 表頭列）。"""
+    t = doc.add_table(rows=0, cols=2)
+    t.style = doc.styles["Table Grid"]
+    t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    t.autofit = False
+    head = t.add_row().cells
+    cell = head[0].merge(head[1])
+    p = cell.paragraphs[0]
+    para_format(p, 1.1, before=2, after=2)
+    add_inline(p, "**" + title + "**", size=NOTE_PT + 0.5)
+    shade(cell, "D9D6CF")
+    for row in rows:
+        cells = t.add_row().cells
+        for ci, txt in enumerate((row + ["", ""])[:2]):
+            p = cells[ci].paragraphs[0]
+            para_format(p, 1.15, after=1)
+            add_inline(p, f"**{txt}**" if ci == 0 else txt, size=NOTE_PT)
+        shade(cells[0], "F3F2EE")
+    for ci, w in enumerate(BOX_W):
+        t.columns[ci].width = Cm(w)
+    cell.width = Cm(sum(BOX_W))
+    for r in t.rows[1:]:
+        for ci, w in enumerate(BOX_W):
+            r.cells[ci].width = Cm(w)
+    for ri, r in enumerate(t.rows):  # 整框不跨頁：列不拆、除最後一列外都 keep_with_next
+        no_split(r)
+        for c in r.cells:
+            for p in c.paragraphs:
+                p.paragraph_format.keep_with_next = ri < len(t.rows) - 1
+    repeat_header(t.rows[0])
+    doc.add_paragraph().paragraph_format.space_after = Pt(2)
+
+
 def build():
     from docx.enum.text import WD_TAB_ALIGNMENT
 
     md = SRC.read_text(encoding="utf-8")
     blocks = parse(md)
+    for fb in [b for b in blocks if b[0] == "fig" and b[1][0] in FIG_AFTER_HEADING]:
+        i = blocks.index(fb)
+        blocks.pop(i)
+        h = max(j for j in range(i) if blocks[j][0] == "h")
+        blocks.insert(h + 1, fb)
     doc = Document()
     cp = doc.core_properties
     cp.author = "黃柏凱 (Po-Kai Huang)"
@@ -296,6 +346,7 @@ def build():
     in_refs = False
     cur_table = None
     pending_note = None  # 表標題括號內的說明，移到表格下方
+    pending_box = None  # 「框｜標題」之後的表格畫成框
     for k, v in blocks[idx:]:
         if k == "h":
             level, title = v
@@ -349,6 +400,11 @@ def build():
             para_format(p, 1.2, before=3, after=6)
             p.paragraph_format.keep_together = True
             add_inline(p, v, size=NOTE_PT, color="333333")
+        elif k == "boxcap":
+            pending_box = v
+        elif k == "table" and pending_box:
+            add_box(doc, pending_box, v[1:])
+            pending_box = None
         elif k == "table":
             ncol = len(v[0])
             t = doc.add_table(rows=0, cols=ncol)
@@ -389,7 +445,7 @@ def build():
             p = doc.add_paragraph()
             para_format(p, 1.0, before=8, after=2, align=WD_ALIGN_PARAGRAPH.CENTER)
             p.paragraph_format.keep_with_next = True
-            p.add_run().add_picture(str(FIGS[num]), width=Cm(15.8))
+            p.add_run().add_picture(str(FIGS[num]), width=Cm(FIG_W[num]))
             c = doc.add_paragraph()
             para_format(c, 1.2, after=10)
             add_inline(c, cap.replace(f"圖 {num}｜", f"**圖 {num}｜**", 1), size=CAP_PT)
