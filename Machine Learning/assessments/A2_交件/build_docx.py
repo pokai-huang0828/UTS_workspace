@@ -394,7 +394,7 @@ def build():
             p = doc.add_paragraph()
             para_format(p, 1.2, before=10, after=4)
             p.paragraph_format.keep_with_next = True
-            add_inline(p, title + (" " + rest if rest else ""), size=CAP_PT)
+            add_inline(p, title + rest, size=CAP_PT)
         elif k == "note":
             p = doc.add_paragraph()
             para_format(p, 1.2, before=3, after=6)

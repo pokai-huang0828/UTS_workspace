@@ -16,7 +16,7 @@ try {
   "toc count $n" | Out-File $log -Append
   if ($n -gt 0) { $d.TablesOfContents.Item(1).Update() }
   "toc updated" | Out-File $log -Append
-  $d.ExportAsFixedFormat($pdf, 17)
+  $d.ExportAsFixedFormat($pdf, 17, $false, 0, 0, 1, 1, 0, $true, $true, 1, $true, $true, $false)
   "exported" | Out-File $log -Append
   ("pages: " + $d.ComputeStatistics(2)) | Out-File $log -Append
   ("words: " + $d.ComputeStatistics(0)) | Out-File $log -Append
