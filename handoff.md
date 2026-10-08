@@ -2269,3 +2269,20 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - **核對後的關鍵修正**:B2 表補 A2 硬門檻 ⑤ 式 1 淨值(草稿:229),「9 個門檻」改「10 條標準、3 條上線硬門檻」;②的 13.04%/16.6% 要在去重後測試集重算且只取 campaign=1;撥號前版本要**另建 pipeline**(cell-64 拿 duration 當成本槓桿,不能直接改 cell-58)且一併拿掉 campaign;cell-59 的 0.845 是真 AUC(GridSearchCV.score);坑 4 只影響 cell-45/47/51;負正比去重後約 6.8;老師原話歸屬 5 處校正(91:1093-1096 限定詞、91:1425-1427 工具沒講、91:705-706 原句)
 - ⚠️ **A3 方向仍未定**:指揮官建議商業(B2 40 分直接對 A2 表 4;工作量小;不碰改模型灰區)—— 前提是今晚老師答「可新增分析 cell」
 - **subagent tokens(本 entry)**:haiku 3 生產＋1 核對 ≈ 94,432(核對)＋生產未回報;sonnet 125,333(觀念)＋121,202(核對);前 2 個 sonnet 因 session 重啟失敗、無產出
+
+---
+
+## 2026-10-08～09 · A3 商業路徑實作完成(Notebook＋報告)
+
+**輸入**:Kenny 10/8「以商業重點來寫」;ultracode 開啟(Kenny 同意超過 uts-dispatch 預設 1.5M 預算)。本 session 開在 MiTAC-VMX,uts-dispatch 載不到 → 照其規則手動派工,用 Workflow 編排
+
+- **環境**:新建 `Machine Learning/.venv`(gitignored;numpy 2.0.2 / pandas 2.2.2 / sklearn 1.6.1 / xgboost 3.0.2 / seaborn 0.13.2 / matplotlib 3.10.0 / scipy 1.15.3 / ydata-profiling 4.18.4 / pymupdf,仿 Colab);kernelspec `a3venv` 裝在 venv prefix。**全域 Python 未動**(pycaret 鎖版)。第一次 pip 卡 1 小時(網路慢),改 `--only-binary` 分兩批裝成功
+- **Workflow 1 規格**(7 agent,1.25M):A2 表 4 十條標準配方抽取＋兩條獨立重算(全部 exact)＋Notebook 逐格地圖＋報告大綱＋A2 組版工具盤點。**關鍵發現**:官方 Notebook 在 pandas ≥2.1(含 Colab)cell-45/47/50 會 TypeError(dict 當欄位索引);seaborn 0.13 countplot 百分比默默標錯
+- **Workflow 2 Notebook**(11 agent,3.82M,2 輪修正):`A3_交件/Huang_26254793_321513_A3.ipynb` 由 `build_nb.py` 產生;官方 cell 只改 2/3/5/9/11/13/15/30/44/47/58(每處 `# [A3 修正]`);Part B 對照 A2 表 4 十條＋7 張圖;KPI 全部寫入 `a3_kpi_results.json`(由 Notebook 輸出抽取)
+- **Workflow 3 報告**(8 agent,1.96M,1 輪修正):`A3_報告.md` → `build_docx_a3.py` → `to_pdf_a3.ps1`(Word COM)→ `.docx`/`.pdf` 18 頁;`count_chars.py` 正文 1,635(漢字 1,434＋英數 201,含標題 137)。核對抓到 1 high(⑤淨值漏算通話成本)已修
+- **指揮官自查**:全新資料夾重跑 0 錯誤、KPI 位元一致;7 張圖逐張看過;核對員未驗的 ydata 匯入風險 → 補 cell-3 try/except＋cell-11 略過,**模擬匯入失敗實測 24 格 0 錯誤**,重建後 KPI 0 差異;PDF 第 3/5/7 頁看過
+- **結論數字**:撥號前 AUC 0.7912(≥0.75)但同經濟期內 0.5390;同月配對名單 16.77% vs 手機規則 16.58%(+0.19pp,CI 含 0)→ 未證實;每筆成交 A$22.11 vs 目標 A$20.87 → 未達;三條上線硬門檻 ②③⑤ 離線皆無法通過 → 報告建議停在 A2 表 9 階段 0
+- **爭議裁決**:「一組 (cpi,cci)≈一個年月」—— 核對員說是月的 1/2–1/3,修稿員駁回(資料無年份、月名跨多年),指揮官判修稿員對,不改
+- **閱卷模擬**(fresh sonnet):B1 26/30、B2 35/40、B3 8.5/10、B4 17.5/20,合計約 87(84–92);扣分主因:未在 Colab 實測、表格密度
+- ⚠️ **未做**:沒在真的 Colab 跑(要 Kenny 帳號);UTS 2026a/2026b 兩筆參考文獻要登入 Canvas 核對
+- **subagent tokens(本 entry)**:約 7.0M(三個 workflow 合計 7.03M)＋稍早單獨派工約 0.45M;本 session 累計約 7.5M

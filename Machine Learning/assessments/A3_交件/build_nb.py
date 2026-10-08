@@ -101,6 +101,26 @@ def edit_official(cells):
     c['source'] = src_lines('# [A3 修正] 用 %pip 而不是 !pip：%pip 會裝進目前 kernel 所在的環境（Colab 支援），避免裝到別的 Python\n'
                             '%pip install ydata-profiling')
 
+    # cell-3: guard the optional ydata_profiling import so a failed install never stops the other imports in this cell
+    replace_once(cells[3], 'from ydata_profiling import ProfileReport\n',
+                 '# [A3 修正] ydata-profiling 只用來產生 EDA 報告；若安裝失敗或與 Colab 版本衝突，不讓整格 import 中斷（後面的 sklearn 等照常匯入）\n'
+                 'try:\n'
+                 '    from ydata_profiling import ProfileReport\n'
+                 'except Exception as e:\n'
+                 '    ProfileReport = None\n'
+                 "    print('ydata-profiling unavailable, the EDA report will be skipped:', type(e).__name__)\n")
+
+    # cell-11: skip the EDA report when ydata_profiling is unavailable
+    c = cells[11]
+    assert ''.join(c['source']).strip() == "prof = ProfileReport(data)\nprof.to_file(output_file='EDA.html')"
+    c['source'] = src_lines(
+        "# [A3 修正] ydata-profiling 不可用時略過 EDA 報告（只少了 EDA.html，不影響後面任何一格）\n"
+        "if ProfileReport is not None:\n"
+        "    prof = ProfileReport(data)\n"
+        "    prof.to_file(output_file='EDA.html')\n"
+        "else:\n"
+        "    print('skip the EDA report (ydata-profiling unavailable)')")
+
     # cell-5: Colab-only drive mount
     c = cells[5]
     assert ''.join(c['source']).strip() == "from google.colab import drive\ndrive.mount('/content/drive')"
@@ -2226,6 +2246,8 @@ MD['intro'] = r'''
 | 官方 cell | 修改 | 理由 |
 |---|---|---|
 | cell-2 安裝 ydata-profiling | `!pip` 改成 `%pip install ydata-profiling` | `%pip` 會裝進目前 kernel 的環境；`!pip` 可能裝到別的 Python |
+| cell-3 匯入套件 | `from ydata_profiling import ProfileReport` 包 `try / except` | ydata-profiling 只用於 EDA 報告；安裝失敗時不讓同格的 sklearn 等匯入一起中斷 |
+| cell-11 產生 EDA 報告 | `ProfileReport` 不可用時印訊息並略過 | 只少了 EDA.html，後面每一格照常執行 |
 | cell-5 掛載 Google Drive | 包 `try / except`：沒有 `google.colab`（非 Colab）就略過；Colab 上拒絕或取消授權時只印訊息 | 「全部執行」不會停在掛載；Colab 正常授權時行為不變 |
 | cell-9 讀取 CSV | 保留官方路徑；不存在時改讀環境變數 `TELEMARKETING_CSV`，預設為工作目錄（Colab 是 `/content`）下的 `TeleMarketing.csv`；都找不到時丟出說明清楚的錯誤 | 本機、或把 CSV 直接上傳到 `/content`，都能執行 |
 | cell-13 資料清洗（TODO 1） | `month`、`day_of_week` 補 `"Not Applicable"` | 補完 TODO；缺值是結構性的（對照組沒被打電話） |
