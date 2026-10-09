@@ -1,5 +1,5 @@
 """build_nb.py -- A3 submission notebook generator
-Kenny Huang (26254793) - 321513 Machine Learning - Assessment 3 - Business focus (Bank X telemarketing)
+Po-Kai Huang (26254793) - 321513 Machine Learning - Assessment 3 - Business focus (Bank X telemarketing)
 
 Run with the isolated venv (never the global Python):
     "<Machine Learning>/.venv/Scripts/python.exe" build_nb.py [--runs 2] [--exec-dir DIR]
@@ -30,6 +30,12 @@ nested-CV size of the RFE bias; LR-RFE control runs; CIs for the period-stratifi
 below-threshold difference; error costs at D = A$10/36/100; judgement labels without "部分" plus a yes/no column;
 Fig 6 (confusion matrix) and Fig 7 (cost per round); Colab hardening of the Drive mount / CSV path; local paths are
 no longer printed at all (quiet pip, fixed kernel cell name) instead of being scrubbed afterwards.
+
+Revision hd (HD review): money view in B-13 (random calling with the mobile-rule month mix, the most the list could
+save vs the mobile rule even at the A2 target, would-buy discount per round at the example D = A$36) + Fig 7 bar and
+new Fig 8; Fig 9 (AUC decomposition, numbers from B-2 only); B-14 batch-scoring time (hardware-dependent, excluded from
+the run-to-run check); all Part B figure text >= 9 pt; one "# [A3]" comment line on the four comment-only
+"TODO: Tech Focus Only" cells; B3 / B4 summary cell. No existing number changes.
 """
 import argparse
 import base64
@@ -104,8 +110,11 @@ def edit_official(cells):
     # cell-3: guard the optional ydata_profiling import so a failed install never stops the other imports in this cell
     replace_once(cells[3], 'from ydata_profiling import ProfileReport\n',
                  '# [A3 修正] ydata-profiling 只用來產生 EDA 報告；若安裝失敗或與 Colab 版本衝突，不讓整格 import 中斷（後面的 sklearn 等照常匯入）\n'
+                 '# [A3 修正] 新版 ydata-profiling 匯入時會印「已改名」的 DeprecationWarning（不影響功能），只在這一行匯入時不顯示（warnings 已在本格第一行匯入）\n'
                  'try:\n'
-                 '    from ydata_profiling import ProfileReport\n'
+                 '    with warnings.catch_warnings():\n'
+                 "        warnings.simplefilter('ignore', DeprecationWarning)\n"
+                 '        from ydata_profiling import ProfileReport\n'
                  'except Exception as e:\n'
                  '    ProfileReport = None\n'
                  "    print('ydata-profiling unavailable, the EDA report will be skipped:', type(e).__name__)\n")
@@ -208,6 +217,14 @@ def edit_official(cells):
                  "# [A3 修正] 補完超參數：max_depth 第三值 9、n_estimators 第三值 300（理由見最終 pipeline 之後的解讀，依本次 CV 結果）\n"
                  "rf_parameters = {'max_depth':[3,5,9],")
     replace_once(cells[58], "'n_estimators':[100,200,___]", "'n_estimators':[100,200,300]")
+
+    # cells 38 / 48 / 52 / 60: "TODO: Tech Focus Only" open questions (technical focus). Comment-only cells; one comment line
+    # is added on top so that a marker does not read them as unfinished code. Nothing executable changes.
+    for i in (38, 48, 52, 60):
+        s = ''.join(cells[i]['source'])
+        assert s.startswith('# TODO: Tech Focus Only'), (i, s[:40])
+        assert all(ln.strip() == '' or ln.lstrip().startswith('#') for ln in s.splitlines()), ('not comment-only', i)
+        cells[i]['source'] = src_lines('# [A3] 技術重點（Tech Focus Only）的開放題；本作業選商業重點，依作業說明不處理\n' + s)
 
     for i, c in enumerate(cells):
         if c['cell_type'] == 'code':
@@ -1340,33 +1357,35 @@ A3_KPI['part_b']['b2'] = {
 '''
 
 B_FIG1 = r'''
-# [Fig 1] 上：同月同深度累積增益；下：與手機規則同通數時各名單的轉換率（圖中文字用英文）
+# [Fig 1] 上：同月同深度累積增益；下：與手機規則同通數時各名單的轉換率（圖中文字用英文；字級 >= 9 pt）
 pb_tot_yes = int(pb_y_teT.sum())
-fig, (ax, ax2) = plt.subplots(2, 1, figsize=(6.4, 7.6), dpi=150, gridspec_kw={'height_ratios': [1.25, 1]})
+fig = plt.figure(figsize=(6.6, 9.0), dpi=150)
+ax = fig.add_axes([0.12, 0.555, 0.85, 0.395])
+ax2 = fig.add_axes([0.42, 0.115, 0.55, 0.34])
 ax.plot(100 * np.r_[0, pb_curve['called_share']], 100 * np.r_[0, pb_curve['captured_share']], color=PB_ACCENT, lw=2,
-        marker='o', ms=3, label='ML list, same depth in every month')
+        marker='o', ms=3, label='ML list, same depth per month')
 ax.plot(100 * np.r_[0, pb_curve_p['called_share']], 100 * np.r_[0, pb_curve_p['captured_share']], color=PB_GREY, lw=1.3,
-        ls='-.', label='ML list, same depth in every (cpi, cci) period')
+        ls='-.', label='ML list, same depth per period')
 ax.plot([0, 100], [0, 100], color=PB_LIGHT, ls='--', lw=1.3, label='Random calling (expected)')
 pb_x = 100 * pb_K / len(pb_teT)
 ax.axvline(pb_x, color=PB_LIGHT, lw=0.8, ls=':')
-ax.text(pb_x - 1, 97, 'mobile-rule call count\n(%s calls, %.0f%%)' % (format(pb_K, ','), pb_x), fontsize=7, color=PB_GREY,
+ax.text(pb_x - 1, 97, 'mobile-rule call count\n(%s calls, %.0f%%)' % (format(pb_K, ','), pb_x), fontsize=9, color=PB_GREY,
         ha='right', va='top')
 pb_mob_cap = 100 * (pb_mob['y'] == 'yes').sum() / pb_tot_yes
 pb_ml_cap = 100 * (pb_L['y'] == 'yes').sum() / pb_tot_yes
 ax.scatter([pb_x], [pb_mob_cap], s=70, marker='D', facecolor='white', edgecolor=PB_GREY, lw=1.4, zorder=5,
            label='Mobile rule: %.1f%% of conversions' % pb_mob_cap)
 ax.scatter([pb_x], [pb_ml_cap], s=22, color=PB_ACCENT, zorder=6,
-           label='ML list, mobile-rule calls per month: %.1f%%' % pb_ml_cap)
+           label='ML list, same calls per month: %.1f%%' % pb_ml_cap)
 ax.set_xlim(0, 100)
 ax.set_ylim(0, 100)
-ax.set_xlabel('Customers called (%% of the test target group, n = %s)' % format(len(pb_teT), ','), fontsize=9)
-ax.set_ylabel('Conversions captured (%% of all %s)' % format(pb_tot_yes, ','), fontsize=9)
-ax.set_title('Fig 1. Pre-call list vs mobile rule (deduplicated test data)', loc='left', fontsize=10)
-ax.tick_params(labelsize=8)
+ax.set_xlabel('Customers called (%% of the test target group, n = %s)' % format(len(pb_teT), ','), fontsize=10)
+ax.set_ylabel('Conversions captured (%% of all %s)' % format(pb_tot_yes, ','), fontsize=10)
+ax.set_title('Fig 1. Pre-call list vs mobile rule (deduplicated test data)', loc='left', fontsize=11)
+ax.tick_params(labelsize=9)
 ax.spines[['top', 'right']].set_visible(False)
 ax.grid(color='#ececec', lw=0.8)
-ax.legend(frameon=False, fontsize=7.5, loc='lower right')
+ax.legend(frameon=False, fontsize=9, loc='lower right', borderaxespad=0.2, handlelength=1.8)
 
 pb_pts = [('Random, all customers', pb_r_rand, None, PB_LIGHT),
           ('Random, mobile-rule month mix', pb_r_rand_mm, None, PB_LIGHT),
@@ -1379,17 +1398,17 @@ for i, (lab, r, ci, colr) in enumerate(pb_pts):
     if ci is not None:   # 誤差線 = 手機規則轉換率 + (ML − 手機) 的 95% percentile 區間（B = 1,000，計畫判準用的區間）
         ax2.plot([100 * (pb_r_mob + ci['pct_lo']), 100 * (pb_r_mob + ci['pct_hi'])], [i, i], color=PB_ACCENT, lw=1.2, alpha=0.5)
     ax2.scatter([100 * r], [i], s=40, color=colr, zorder=3, edgecolor='white')
-    ax2.text(100 * r + 0.12, i + 0.18, '%.2f%%' % (100 * r), fontsize=7.5, color='black')
+    ax2.text(100 * r + 0.12, i + 0.2, '%.2f%%' % (100 * r), fontsize=9, color='black')
 ax2.axvline(100 * pb_r_mob, color=PB_GREY, lw=0.8, ls='--')
 ax2.set_yticks(range(len(pb_pts)))
-ax2.set_yticklabels([p[0] for p in pb_pts], fontsize=7.5)
+ax2.set_yticklabels([p[0] for p in pb_pts], fontsize=9)
+ax2.set_ylim(-0.6, len(pb_pts) - 0.3)
 ax2.set_xlabel('Conversion rate at %s calls (%%)\nbars: mobile-rule rate + 95%% CI of (list - mobile), B = 1,000;\n'
-               'a list passes only if its whole bar is right of the dashed line' % format(pb_K, ','), fontsize=7.5)
-ax2.tick_params(axis='x', labelsize=8)
+               'a list passes only if its whole bar is right of the dashed line' % format(pb_K, ','), fontsize=9)
+ax2.tick_params(axis='x', labelsize=9)
 ax2.spines[['top', 'right']].set_visible(False)
 ax2.grid(axis='x', color='#ececec', lw=0.8)
 ax2.set_axisbelow(True)
-fig.tight_layout()
 plt.show()
 '''
 
@@ -1472,27 +1491,27 @@ A3_KPI['part_b']['b1'] = {
 
 B_FIG2 = r'''
 # [Fig 2] 每筆成交的通話成本 vs 名單深度（描述性；不拿來挑截斷點）
-fig, ax = plt.subplots(figsize=(6.4, 4.4), dpi=150)
+fig, ax = plt.subplots(figsize=(6.6, 5.0), dpi=150)
 ax.plot(100 * pb_curve['called_share'], pb_curve['cost_formula'], color=PB_ACCENT, lw=2, marker='o', ms=3,
-        label='ML list, same depth per month: A2 formula c(r)/r')
-ax.plot(100 * pb_curve['called_share'], pb_curve['cost_actual'], color=PB_ACCENT, lw=1, ls='--', label='same, actual call seconds')
+        label='ML list per month, A2 formula c(r)/r')
+ax.plot(100 * pb_curve['called_share'], pb_curve['cost_actual'], color=PB_ACCENT, lw=1, ls='--', label='ML list per month, actual seconds')
 ax.plot(100 * pb_curve_p['called_share'], pb_curve_p['cost_formula'], color=PB_GREY, lw=1.6, ls='-.', marker='s', ms=2.5,
-        label='ML list, same depth per (cpi, cci) period: c(r)/r')
-for yv, lab, ls in [(pb_a2['cost_per_conv_pilot'], 'A2 baseline, random calling', ':'),
-                    (pb_cost_per_conv(pb_r_mob), 'Mobile rule, same test data', (0, (6, 2, 1, 2))),
-                    (pb_a2['cost_per_conv_target_18pct'], 'A2 target (18% conversion)', '-')]:
+        label='ML list per period, c(r)/r')
+for yv, lab, ls in [(pb_a2['cost_per_conv_pilot'], 'A2 baseline (random)', ':'),
+                    (pb_cost_per_conv(pb_r_mob), 'mobile rule', (0, (6, 2, 1, 2))),
+                    (pb_a2['cost_per_conv_target_18pct'], 'A2 target (18%)', '-')]:
     ax.axhline(yv, color=PB_GREY if ls != '-' else 'black', ls=ls, lw=0.9, label=r'A\$%.2f  %s' % (yv, lab))
 ax.scatter([100 * pb_K / len(pb_teT)], [pb_cost_per_conv(pb_r_L)], s=55, color=PB_ACCENT, edgecolor='white', zorder=6,
-           label=r'ML list at the mobile-rule call count: A\$%.2f' % pb_cost_per_conv(pb_r_L))
+           label=r'ML list at mobile-rule calls: A\$%.2f' % pb_cost_per_conv(pb_r_L))
 ax.set_xlim(0, 100)
 ax.set_ylim(0, max(30, float(pb_curve_p['cost_formula'].max()) + 2))
-ax.set_xlabel('Customers called (% of the test target group)', fontsize=9)
-ax.set_ylabel(r'Call cost per conversion (A\$)', fontsize=9)
-ax.set_title('Fig 2. Call cost per conversion vs list depth (descriptive only)', loc='left', fontsize=10)
-ax.tick_params(labelsize=8)
+ax.set_xlabel('Customers called (% of the test target group)', fontsize=10)
+ax.set_ylabel(r'Call cost per conversion (A\$)', fontsize=10)
+ax.set_title('Fig 2. Call cost per conversion vs list depth (descriptive)', loc='left', fontsize=11)
+ax.tick_params(labelsize=9)
 ax.spines[['top', 'right']].set_visible(False)
 ax.grid(color='#ececec', lw=0.8)
-ax.legend(frameon=False, fontsize=7, loc='lower right')
+ax.legend(frameon=False, fontsize=9, loc='lower right', borderaxespad=0.2, handlelength=1.8, labelspacing=0.35)
 plt.show()
 '''
 
@@ -1618,13 +1637,13 @@ A3_KPI['part_b']['b3b4'] = {'dedup': pb_up, 'raw': pb_up_raw,
 '''
 
 B_FIG3 = r'''
-# [Fig 3] 名單 vs 同門檻對照組的轉換率（去重 vs 原始資料）；A2 試點全體當參考
-fig, ax = plt.subplots(figsize=(6.4, 4.4), dpi=150)
+# [Fig 3] 名單 vs 同門檻對照組的轉換率（去重 vs 原始資料）；A2 試點全體當參考（字級 >= 9 pt）
+fig, ax = plt.subplots(figsize=(6.6, 5.2), dpi=150)
 pb_groups = ['A2 pilot, all customers\n(raw, no score cut-off)', 'A3 deduplicated\n(score >= cut-off)', 'A3 raw data\n(score >= cut-off)']
 pb_called_v = [pb_a2['pilot_target_conv_pct'], pb_up['list_conv_pct'], pb_up_raw['list_conv_pct']]
 pb_ctrl_v = [pb_a2['pilot_control_conv_pct'], pb_up['control_above_conv_pct'], pb_up_raw['control_above_conv_pct']]
 pb_notes = ['uplift %+.2f pp' % pb_a2['pilot_uplift_pp']] + [
-    'uplift %+.2f pp [%+.2f, %+.2f]\nwithin periods %+.2f\n[%+.2f, %+.2f]' % (u_['uplift_pp'], u_['uplift_ci_low_pp'], u_['uplift_ci_high_pp'],
+    'uplift %+.2f pp\n[%+.2f, %+.2f]\nwithin periods %+.2f\n[%+.2f, %+.2f]' % (u_['uplift_pp'], u_['uplift_ci_low_pp'], u_['uplift_ci_high_pp'],
                                                                          u_['period_stratified_uplift_pp'], u_['period_stratified_ci_low_pp'],
                                                                          u_['period_stratified_ci_high_pp']) for u_ in (pb_up, pb_up_raw)]
 xg = np.arange(3)
@@ -1633,20 +1652,22 @@ b1 = ax.bar(xg - w / 2, pb_called_v, w, color=PB_ACCENT, label='Called: target g
 b2 = ax.bar(xg + w / 2, pb_ctrl_v, w, color=PB_LIGHT, label='Not called: control group (same cut-off)')
 for bars in (b1, b2):
     for b in bars:
-        ax.text(b.get_x() + b.get_width() / 2, b.get_height() + 0.3, '%.1f%%' % b.get_height(), ha='center', fontsize=8)
+        ax.text(b.get_x() + b.get_width() / 2, b.get_height() + 0.3, '%.1f%%' % b.get_height(), ha='center', fontsize=9)
 ymax = max(pb_called_v + pb_ctrl_v)
 for i, note in enumerate(pb_notes):
-    ax.text(i, ymax + 2.2, note, ha='center', fontsize=7.2, color=PB_GREY, va='bottom')
+    ax.text(i, ymax + 2.0, note, ha='center', fontsize=9, color='#333333', va='bottom', linespacing=1.15)
 ax.set_xticks(xg)
-ax.set_xticklabels(pb_groups, fontsize=8)
-ax.set_ylim(0, ymax + 13)
-ax.set_ylabel('Conversion rate (%)', fontsize=9)
-ax.set_title('Fig 3. Calls + offer vs no call, same score cut-off (95% bootstrap CIs)', loc='left', fontsize=10)
-ax.tick_params(axis='y', labelsize=8)
+ax.set_xticklabels(pb_groups, fontsize=9)
+ax.set_ylim(0, ymax + 10.5)
+ax.set_ylabel('Conversion rate (%)', fontsize=10)
+ax.set_title('Fig 3. Call + offer vs no call, same score cut-off', loc='left', fontsize=11)
+ax.tick_params(axis='y', labelsize=9)
 ax.spines[['top', 'right']].set_visible(False)
 ax.grid(axis='y', color='#ececec', lw=0.8)
 ax.set_axisbelow(True)
-ax.legend(frameon=False, fontsize=7.5, loc='upper left', bbox_to_anchor=(0, -0.2), ncol=2)
+ax.legend(frameon=False, fontsize=9, loc='upper left', bbox_to_anchor=(0, -0.15), ncol=2)
+ax.text(0, -0.25, 'Brackets: 95% bootstrap CI (B = 1,000).\nWithin periods: list vs control compared inside each (cpi, cci) period.',
+        transform=ax.transAxes, fontsize=9, color=PB_GREY, va='top')
 plt.show()
 '''
 
@@ -1690,10 +1711,11 @@ A3_KPI['part_b']['b5'] = pb_b5
 
 B_ERR = r'''
 # [Part B-8] 三種錯誤的代價（A2 表 4 註）與「漏掉的是誰」（A2 表 8 註）；門檻與 B-6 相同（全體單一門檻 t）
-# ① 打給本來就會買的人：白送一份折扣 D，再加一通成交電話；人數 ≈ 名單人數 × 同門檻對照組轉換率
-# ② 漏掉打了才會買的人：少一份淨收益（收益 − 折扣 = D），扣掉省下的一通成交電話；人數 ≈ 未入選目標組人數 × 未入選者的增量
+# 錯誤 A 打給本來就會買的人：白送一份折扣 D，再加一通成交電話；人數 ≈ 名單人數 × 同門檻對照組轉換率
+# 錯誤 B 漏掉打了才會買的人：少一份淨收益（收益 − 折扣 = D），扣掉省下的一通成交電話；人數 ≈ 未入選目標組人數 × 未入選者的增量
 #    （增量的點估計 ≤ 0 時「估計不出」，不截成 0；另用 95% 區間上限換算人數上限）
-# ③ 打給不會買的人：每通約 A$3.07；人數 = 名單中未成交者（FP）
+# 錯誤 C 打給不會買的人：每通約 A$3.07；人數 = 名單中未成交者（FP）
+# （KPI JSON 的 'largest' 仍記 '1' / '2' / '3' ＝ 錯誤 A / B / C）
 # D 是示例折扣額（A2 未定，由財務提供）：A$36 是 A2 附錄 A 的兩平示例，另列 A$10、A$100 看排序是否改變
 PB_D_LIST = (10.0, 36.0, 100.0)
 
@@ -1750,11 +1772,11 @@ def pb_tot_txt(v):
 
 
 pb_err_tab = pd.DataFrame([
-    ('① calls a would-buy customer (discount given away + call)', 'D + A$%.2f' % PB_CALL_YES, pb_err['dedup']['unit_cost_at_D36'][0],
+    ('A: calls a would-buy customer (discount given away + call)', 'D + A$%.2f' % PB_CALL_YES, pb_err['dedup']['unit_cost_at_D36'][0],
      pb_err['dedup']['n_wouldbuy_on_list'], pb_err['dedup']['total_at_D36'][0], pb_err['raw']['n_wouldbuy_on_list'], pb_err['raw']['total_at_D36'][0]),
-    ('② misses a customer who buys only if called (net revenue lost - call saved)', 'D - A$%.2f' % PB_CALL_YES, pb_err['dedup']['unit_cost_at_D36'][1],
+    ('B: misses a customer who buys only if called (net revenue lost - call saved)', 'D - A$%.2f' % PB_CALL_YES, pb_err['dedup']['unit_cost_at_D36'][1],
      pb_n2_txt(pb_err['dedup']), pb_tot_txt(pb_err['dedup']['total_at_D36'][1]), pb_n2_txt(pb_err['raw']), pb_tot_txt(pb_err['raw']['total_at_D36'][1])),
-    ('③ calls a customer who does not buy', 'A$%.2f' % PB_CALL_NO, pb_err['dedup']['unit_cost_at_D36'][2],
+    ('C: calls a customer who does not buy', 'A$%.2f' % PB_CALL_NO, pb_err['dedup']['unit_cost_at_D36'][2],
      pb_err['dedup']['n_fp'], pb_err['dedup']['total_at_D36'][2], pb_err['raw']['n_fp'], pb_err['raw']['total_at_D36'][2]),
 ], columns=['error (A2 table 4 note)', 'cost per person', 'per person at D = A$36 (illustrative)', 'people (dedup)', 'total A$ (dedup)',
             'people (raw)', 'total A$ (raw)'])
@@ -1762,10 +1784,11 @@ display(pb_err_tab)
 pb_dtab = []
 for v_ in ('dedup', 'raw'):
     for D_, r_ in pb_err[v_]['by_D'].items():
-        pb_dtab.append((v_, 'A$' + D_, r_['total'][0], pb_tot_txt(r_['total'][1]), r_['total_2_upper'], r_['total'][2], 'error ' + r_['largest']))
+        pb_dtab.append((v_, 'A$' + D_, r_['total'][0], pb_tot_txt(r_['total'][1]), r_['total_2_upper'], r_['total'][2],
+                        'error ' + {'1': 'A', '2': 'B', '3': 'C'}[r_['largest']]))
 print('Illustrative discount amounts D (A2 has not fixed D; finance to supply): total cost of each error, test target group')
-display(pd.DataFrame(pb_dtab, columns=['data', 'D', '① total A$', '② total A$', '② upper bound A$', '③ total A$', 'largest total']))
-print('per person: ① - ② = 2 x A$%.2f > 0 for any D; ② > ③ only when D > A$%.2f' % (PB_CALL_YES, PB_CALL_YES + PB_CALL_NO))
+display(pd.DataFrame(pb_dtab, columns=['data', 'D', 'A total A$', 'B total A$', 'B upper bound A$', 'C total A$', 'largest total']))
+print('per person: A - B = 2 x A$%.2f > 0 for any D; B > C only when D > A$%.2f' % (PB_CALL_YES, PB_CALL_YES + PB_CALL_NO))
 print('scale: one test target group (%d customers, list of %d) under the A2 2:1 assumption' % (len(pb_teT), pb_K))
 A3_KPI['part_b']['errors'] = {**pb_err, 'D_where_2_exceeds_3': a3_r(PB_CALL_YES + PB_CALL_NO, 2), 'D_list': list(PB_D_LIST)}
 '''
@@ -1819,7 +1842,8 @@ A3_KPI['part_b']['ml4'] = {'gaps': pb_gap, 'overall_test_auc': a3_r(pb_auc_te),
 B_FIG4 = r'''
 # [Fig 4] 分群 AUC 點圖：實心 = 納入判定的群、空心 = 只列報；淺色帶 = 從該維度最低 AUC 起算 0.05 的容許寬度
 pb_dim_lab = {'age_band': 'Age band', 'marital': 'Marital status', 'month': 'Month (proxy for period)'}
-fig, ax = plt.subplots(figsize=(6.4, 7.0), dpi=150)
+fig, ax = plt.subplots(figsize=(7.0, 7.8), dpi=150)
+fig.subplots_adjust(left=0.31, right=0.97, top=0.95, bottom=0.15)
 ypos, ylabels, y = [], [], 0
 for dim in PB_ORDER:
     seg = pb_seg[pb_seg['dimension'] == dim]
@@ -1837,22 +1861,23 @@ for dim in PB_ORDER:
     ax.fill_betweenx([y0 - 0.45, y - 0.55], lo_auc, lo_auc + 0.05, color=PB_ACCENT, alpha=0.10, lw=0)
     gap = pb_gap[dim]['max_minus_min']
     ax.text(0.01, y0 - 0.75, '%s: max - min = %.3f %s 0.05' % (pb_dim_lab[dim], gap, '<=' if gap <= 0.05 else '>'),
-            transform=ax.get_yaxis_transform(), ha='left', fontsize=7.5, color='black')
+            transform=ax.get_yaxis_transform(), ha='left', fontsize=9, color='black')
     y += 1.2
 ax.axvline(pb_auc_te, color=PB_GREY, ls='--', lw=0.9)
 ax.set_yticks(ypos)
-ax.set_yticklabels(ylabels, fontsize=7.5)
+ax.set_yticklabels(ylabels, fontsize=9)
 ax.invert_yaxis()
-ax.set_xlabel('ROC-AUC within the group (bars: bootstrap 95%% CI; dashed: overall %.3f)' % pb_auc_te, fontsize=8.5)
+ax.set_xlabel('ROC-AUC within the group (bars: 95%% bootstrap CI; dashed: overall %.3f)' % pb_auc_te, fontsize=9.5)
 ax.set_xlim(0.1, 1.0)
-ax.set_title('Fig 4. Segment AUC, test target group (gate: max - min <= 0.05)', loc='left', fontsize=10)
-ax.tick_params(axis='x', labelsize=8)
+ax.set_title('Fig 4. Segment AUC (gate: max - min <= 0.05)', loc='left', fontsize=11)
+ax.tick_params(axis='x', labelsize=9)
 ax.spines[['top', 'right']].set_visible(False)
 ax.grid(axis='x', color='#ececec', lw=0.8)
 ax.set_axisbelow(True)
-fig.text(0.01, 0.0, 'Filled = in the gate; hollow = reported only (marital unknown, months with < 30 conversions).\n'
-         'Shaded = 0.05 tolerance starting at the lowest gated group: a dimension passes only if all filled dots fall inside.',
-         fontsize=6.5, color=PB_GREY, va='top')
+fig.text(0.01, 0.072, 'Test target group. Filled = in the gate; hollow = reported only (marital unknown,\n'
+         'months with < 30 conversions). Shaded = 0.05 tolerance from the lowest gated group:\n'
+         'a dimension passes only if all filled dots fall inside.',
+         fontsize=9, color=PB_GREY, va='top')
 plt.show()
 '''
 
@@ -1880,18 +1905,18 @@ A3_KPI['part_b']['drop_retrain'] = {k: {'test_auc': a3_r(v), 'change': a3_r(v - 
 
 B_FIG5 = r'''
 # [Fig 5] permutation importance 長條圖（關聯，不是因果）
-fig, ax = plt.subplots(figsize=(6.4, 4.0), dpi=150)
+fig, ax = plt.subplots(figsize=(6.6, 4.6), dpi=150)
 t_ = pb_pi_tab.iloc[::-1]
 ax.barh(t_['feature'], t_['mean AUC drop'], xerr=t_['sd'], color=PB_ACCENT, height=0.6,
         error_kw=dict(ecolor=PB_GREY, lw=0.8, capsize=2))
 ax.axvline(0, color=PB_GREY, lw=0.8)
-ax.set_xlabel('Drop in ROC-AUC when the column is shuffled (mean of 10 repeats, +/- sd)', fontsize=8.5)
-ax.set_title('Fig 5. Permutation importance of the pre-call model (test target group)', loc='left', fontsize=10)
-ax.tick_params(labelsize=8)
+ax.set_xlabel('Drop in ROC-AUC when the column is shuffled (mean of 10 repeats, +/- sd)', fontsize=9.5)
+ax.set_title('Fig 5. Permutation importance, pre-call model (test target group)', loc='left', fontsize=11)
+ax.tick_params(labelsize=9)
 ax.spines[['top', 'right']].set_visible(False)
 ax.grid(axis='x', color='#ececec', lw=0.8)
 ax.set_axisbelow(True)
-fig.text(0.01, -0.01, 'Association with the model score, not a causal effect of the feature on buying.', fontsize=7, color=PB_GREY)
+fig.text(0.01, -0.02, 'Association with the model score, not a causal effect of the feature on buying.', fontsize=9, color=PB_GREY, va='top')
 plt.show()
 '''
 
@@ -2057,6 +2082,32 @@ pb_save_target = PB_PILOT_COST - pb_ext['a2_target_18pct']['call_cost_exact']   
 pb_save_ml = PB_PILOT_COST - pb_ext['ml_list']['call_cost_exact']
 pb_save_ml_vs_mob = pb_ext['mobile']['call_cost_exact'] - pb_ext['ml_list']['call_cost_exact']
 pb_save_ml_p = PB_PILOT_COST - pb_ext['ml_list_period']['call_cost_exact']
+# 金額視角（hd 修訂新增；全部示算，都用未取整的數字相減後才取整）
+# (1) 依手機規則的月份組成隨機外撥（B-3 的轉換率）外推一輪：現況是全體隨機外撥、沒有控制月份，這一列把月份組成的功勞分出來
+pb_ext_rmm = pb_round_cost(pb_r_rand_mm)
+pb_save_rmm = PB_PILOT_COST - pb_ext_rmm['call_cost_exact']
+pb_save_ml_vs_rmm = pb_ext_rmm['call_cost_exact'] - pb_ext['ml_list']['call_cost_exact']
+pb_save_mob_vs_rmm = pb_ext_rmm['call_cost_exact'] - pb_ext['mobile']['call_cost_exact']
+# (2) 名單就算達到 A2 目標（轉換率 18%），每輪最多比手機規則多省多少通話費
+pb_save_tgt_vs_mob = pb_ext['mobile']['call_cost_exact'] - pb_ext['a2_target_18pct']['call_cost_exact']
+# (3) 折扣外溢：同樣 2,300 筆成交，送給本來就會買者的折扣 = 2,300 x 本來就會買的比例 x D（示例 D = A$36、收益：折扣 = 2:1）
+#     本來就會買的比例 = 同門檻對照組轉換率 / 名單轉換率（B-6，未取整）；試點用 A2 全體 13.04% 對 9.94%
+PB_ROUND_CONV = 2300
+pb_wb = {'pilot': pb_r_ctrl_raw / pb_r_pilot, 'raw': pb_upx_raw['rC'] / pb_upx_raw['r'], 'dedup': pb_upx['rC'] / pb_upx['r']}
+pb_spill = {k: PB_ROUND_CONV * v * PB_D for k, v in pb_wb.items()}
+pb_D_star = {k: pb_save_tgt_vs_mob / (PB_ROUND_CONV * pb_wb[k]) for k in ('raw', 'dedup')}   # 白送的折扣 > (2) 所需的 D
+
+
+def pb_spend(r, share):
+    # 一輪（2,300 筆成交）的支出拆成三段：未成交電話、成交電話（兩段相加 = 2,300 x c(r)/r）、送給本來就會買者的折扣
+    calls = PB_ROUND_CONV / r
+    return {'calls': int(round(calls)), 'unconverted_calls_aud': int(round((calls - PB_ROUND_CONV) * PB_CALL_NO)),
+            'converted_calls_aud': int(round(PB_ROUND_CONV * PB_CALL_YES)),
+            'wouldbuy_discount_aud': int(round(PB_ROUND_CONV * share * PB_D)), 'would_buy_share_pct': a3_r(100 * share, 1)}
+
+
+pb_spend_rows = {'pilot': pb_spend(pb_r_pilot, pb_wb['pilot']), 'ml_list_raw_share': pb_spend(pb_r_L, pb_wb['raw']),
+                 'ml_list_dedup_share': pb_spend(pb_r_L, pb_wb['dedup'])}
 
 
 def pb_mult(u, r):
@@ -2072,8 +2123,10 @@ pb_goal = pd.DataFrame([
      A3_KPI['part_b']['kpi_judgement']['b4']),
     ('每輪通話成本（同樣 2,300 筆成交）', 'A$%s' % format(int(round(PB_PILOT_COST)), ','),
      '約 A$%s，每輪省約 A$%s' % (format(pb_ext['a2_target_18pct']['call_cost'], ','), format(int(round(pb_save_target)), ',')),
-     'ML 名單外推 A$%s：比現況省 A$%s（目標節省的 %.0f%%），比手機規則（A$%s）只省 A$%s；同時期配對 A$%s' % (
+     'ML 名單外推 A$%s：比現況省 A$%s（目標節省的 %.0f%%），但比同月組成的隨機外撥（A$%s）只省 A$%s（目標的 %.0f%%）、'
+     '比手機規則（A$%s）只省 A$%s；同時期配對 A$%s' % (
          format(pb_ext['ml_list']['call_cost'], ','), format(int(round(pb_save_ml)), ','), 100 * pb_save_ml / pb_save_target,
+         format(pb_ext_rmm['call_cost'], ','), format(int(round(pb_save_ml_vs_rmm)), ','), 100 * pb_save_ml_vs_rmm / pb_save_target,
          format(pb_ext['mobile']['call_cost'], ','), format(int(round(pb_save_ml_vs_mob)), ','), format(pb_ext['ml_list_period']['call_cost'], ',')),
      '未達' if pb_save_ml < pb_save_target else '達標'),
     ('外撥量', '%s 通' % format(pb_a2['pilot_target_n'], ','), '少約 %.0f%%' % pb_ext['a2_target_18pct']['fewer_calls_vs_pilot_pct'],
@@ -2086,6 +2139,19 @@ pb_goal = pd.DataFrame([
 ], columns=['A2 表 1 目標', '現況（試點）', 'A2 目標', 'A3 離線結果', '判定'])
 display(pb_goal.style.apply(lambda col: ['background-color: %s; font-weight: bold' % PB_COLOR[v] for v in col], subset=['判定'])
         .set_properties(**{'text-align': 'left'}).hide(axis='index'))
+print('Money view per round of 2,300 conversions (illustrative; A$50 per hour, call time only; discount D = A$36, revenue : discount = 2:1)')
+display(pd.DataFrame([
+    ('依手機規則月份組成的隨機外撥（%.2f%%）外推一輪' % (100 * pb_r_rand_mm), 'A$%s' % format(pb_ext_rmm['call_cost'], ','),
+     '比現況（全體隨機外撥）省 A$%s：只靠月份組成' % format(int(round(pb_save_rmm)), ',')),
+    ('同月配對名單 vs 同月組成的隨機外撥', '省 A$%s' % format(int(round(pb_save_ml_vs_rmm)), ','),
+     'A2 目標節省的 %.0f%%；手機規則 vs 同月組成的隨機外撥：省 A$%s' % (100 * pb_save_ml_vs_rmm / pb_save_target, format(int(round(pb_save_mob_vs_rmm)), ','))),
+    ('名單達 A2 目標（18%）時，相對手機規則最多多省', 'A$%s' % format(int(round(pb_save_tgt_vs_mob)), ','),
+     '目前同月配對名單實際多省 A$%s' % format(int(round(pb_save_ml_vs_mob)), ',')),
+    ('每輪送給本來就會買者的折扣（D = A$36）', '試點 A$%s；名單 原始 A$%s／去重 A$%s' % tuple(format(int(round(pb_spill[k])), ',') for k in ('pilot', 'raw', 'dedup')),
+     '本來就會買的比例 %.1f%%／%.1f%%／%.1f%%' % tuple(100 * pb_wb[k] for k in ('pilot', 'raw', 'dedup'))),
+    ('白送的折扣超過上上列「最多多省」所需的 D', 'A$%.2f（原始）／A$%.2f（去重）' % (pb_D_star['raw'], pb_D_star['dedup']),
+     '每張卡折扣高於此值，白送的折扣就超過名單最多能多省的通話費'),
+], columns=['項目（每輪 2,300 筆成交）', '金額', '說明']))
 A3_KPI['part_b']['goals'] = {
     'pilot_call_cost_aud': int(round(PB_PILOT_COST)),
     'saving_target_aud': int(round(pb_save_target)), 'saving_ml_vs_pilot_aud': int(round(pb_save_ml)),
@@ -2100,33 +2166,48 @@ A3_KPI['part_b']['goals'] = {
     'multiple_ml_dedup_period': a3_r(pb_upx['r'] / pb_upx['u_period'], 1) if (pb_upx['u_period'] or 0) > 0 else None,
     'judgement': dict(zip(['incremental', 'spillover', 'round_cost', 'fewer_calls', 'revenue_multiple'], pb_goal['判定'])),
 }
+# hd 修訂新增的鍵（上面的鍵一個都不改）
+A3_KPI['part_b']['goals'].update({
+    'random_mm_round': pb_ext_rmm,
+    'saving_random_mm_vs_pilot_aud': int(round(pb_save_rmm)),
+    'saving_ml_vs_random_mm_aud': int(round(pb_save_ml_vs_rmm)),
+    'saving_ml_vs_random_mm_share_of_target_pct': a3_r(100 * pb_save_ml_vs_rmm / pb_save_target, 1),
+    'saving_mobile_vs_random_mm_aud': int(round(pb_save_mob_vs_rmm)),
+    'saving_target_vs_mobile_aud': int(round(pb_save_tgt_vs_mob)),
+    'spillover_discount_per_round_D36_aud': {k: int(round(v)) for k, v in pb_spill.items()},
+    'D_spill_exceeds_target_vs_mobile_saving_aud': {k: a3_r(v, 2) for k, v in pb_D_star.items()},
+    'round_spend_D36': pb_spend_rows,
+})
 '''
 
 B_FIG7 = r'''
-# [Fig 7] 每輪通話成本（同樣 2,300 筆成交；A2 表 1 的目標層級）：現況、手機規則、ML 名單、A2 目標（外推值，不是測得的）
-pb_bars = [('Pilot today (random calling)', PB_PILOT_COST, PB_LIGHT),
-           ('Mobile rule', pb_ext['mobile']['call_cost_exact'], PB_GREY),
-           ('ML list, month-matched', pb_ext['ml_list']['call_cost_exact'], PB_ACCENT),
-           ('ML list, period-matched', pb_ext['ml_list_period']['call_cost_exact'], PB_ACCENT),
-           ('A2 target (18% conversion)', pb_ext['a2_target_18pct']['call_cost_exact'], 'white')]
-fig, ax = plt.subplots(figsize=(6.4, 3.9), dpi=150)
-for i, (lab, v, col) in enumerate(pb_bars):
-    ax.barh(i, v, color=col, edgecolor='black' if col == 'white' else col, lw=0.9, height=0.62, hatch='///' if col == 'white' else None)
-    note = '' if i == 0 else r'  (%sA\$%s vs today)' % ('\u2212' if v < PB_PILOT_COST else '+', format(int(round(abs(PB_PILOT_COST - v))), ','))
-    ax.text(v + 500, i, r'A\$%s%s' % (format(int(round(v)), ','), note), va='center', fontsize=7.8)
+# [Fig 7] 每輪通話成本（同樣 2,300 筆成交；A2 表 1 的目標層級）：現況、同月組成的隨機外撥、手機規則、ML 名單、A2 目標（外推值，不是測得的）
+pb_bars = [('Pilot today (random calling)', PB_PILOT_COST, PB_LIGHT, None),
+           ('Random, mobile-rule month mix', pb_ext_rmm['call_cost_exact'], '#dcdcdc', None),
+           ('Mobile rule', pb_ext['mobile']['call_cost_exact'], PB_GREY, None),
+           ('ML list, month-matched', pb_ext['ml_list']['call_cost_exact'], PB_ACCENT, None),
+           ('ML list, period-matched', pb_ext['ml_list_period']['call_cost_exact'], PB_ACCENT, None),
+           ('A2 target (18% conversion)', pb_ext['a2_target_18pct']['call_cost_exact'], 'white', '///')]
+fig, ax = plt.subplots(figsize=(6.8, 4.8), dpi=150)
+fig.subplots_adjust(left=0.36, right=0.97, top=0.92, bottom=0.25)
+for i, (lab, v, col, hat) in enumerate(pb_bars):
+    ax.barh(i, v, color=col, edgecolor='black' if col == 'white' else col, lw=0.9, height=0.62, hatch=hat)
+    note = '' if i == 0 else r'  (%sA\$%s vs today)' % ('−' if v < PB_PILOT_COST else '+', format(int(round(abs(PB_PILOT_COST - v))), ','))
+    ax.text(v + 600, i, r'A\$%s%s' % (format(int(round(v)), ','), note), va='center', fontsize=9)
 ax.set_yticks(range(len(pb_bars)))
-ax.set_yticklabels([b[0] for b in pb_bars], fontsize=8)
+ax.set_yticklabels([b[0] for b in pb_bars], fontsize=9.5)
 ax.invert_yaxis()
-ax.set_xlim(0, PB_PILOT_COST * 1.45)
+ax.set_xlim(0, PB_PILOT_COST * 1.8)
 ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: format(int(v), ',')))
-ax.set_xlabel(r'Call cost per round with 2,300 conversions (A\$; A\$50 per hour, call time only)', fontsize=8.5)
-ax.set_title('Fig 7. Cost per round: ML list vs mobile rule vs A2 target', loc='left', fontsize=10)
-ax.tick_params(axis='x', labelsize=8)
+ax.set_xlabel(r'Call cost per round of 2,300 conversions (A\$)', fontsize=10)
+ax.set_title('Fig 7. Call cost per round (2,300 conversions)', loc='left', fontsize=11)
+ax.tick_params(axis='x', labelsize=9)
 ax.spines[['top', 'right']].set_visible(False)
 ax.grid(axis='x', color='#ececec', lw=0.8)
 ax.set_axisbelow(True)
-fig.text(0.01, -0.03, r'ML list (month-matched) vs mobile rule: only A\$%s less per round. Extrapolated from test-set conversion rates.'
-         % format(int(round(pb_save_ml_vs_mob)), ','), fontsize=7, color='black')
+fig.text(0.01, 0.135, r'Month-matched ML list: A\$%s less than the mobile rule and A\$%s less than random calling' '\n'
+         r'with the same month mix. Extrapolated from test-set conversion rates; A\$50 per hour, call time only.'
+         % (format(int(round(pb_save_ml_vs_mob)), ','), format(int(round(pb_save_ml_vs_rmm)), ',')), fontsize=9, color='black', va='top')
 plt.show()
 '''
 
@@ -2134,7 +2215,7 @@ B_FIG6 = r'''
 # [Fig 6] 混淆矩陣（B-5 主表：同月同通數名單）畫成 2×2；格內是人數與通話成本（A2 假設：時薪 A$50、只計通話時間）
 from matplotlib.colors import LinearSegmentedColormap
 pb_cmg = np.array([[pb_cm_m['TP'], pb_cm_m['FN']], [pb_cm_m['FP'], pb_cm_m['TN']]])
-fig, ax = plt.subplots(figsize=(6.4, 4.4), dpi=150)
+fig, ax = plt.subplots(figsize=(6.6, 5.0), dpi=150)
 ax.imshow(pb_cmg / pb_cmg.max(), cmap=LinearSegmentedColormap.from_list('a3', ['#ffffff', '#9fbfe3']), vmin=0, vmax=1, aspect='auto')
 pb_cm_txt = [[('TP  %s' % format(pb_cm_m['TP'], ','), 'bought, on the list\nA\\$%.2f call + one discount each\n(some would buy anyway)' % PB_CALL_YES),
               ('FN  %s' % format(pb_cm_m['FN'], ','), 'bought, not on the list\nsome still buy without a call;\nloss = only those who need it')],
@@ -2143,25 +2224,125 @@ pb_cm_txt = [[('TP  %s' % format(pb_cm_m['TP'], ','), 'bought, on the list\nA\\$
 for i in range(2):
     for j in range(2):
         head, body = pb_cm_txt[i][j]
-        ax.text(j, i - 0.22, head, ha='center', va='center', fontsize=11, fontweight='bold')
-        ax.text(j, i + 0.14, body, ha='center', va='center', fontsize=7)
+        ax.text(j, i - 0.25, head, ha='center', va='center', fontsize=12, fontweight='bold')
+        ax.text(j, i + 0.13, body, ha='center', va='center', fontsize=9.5, linespacing=1.2)
 ax.set_xticks([0, 1])
-ax.set_xticklabels(['On the list (called)', 'Not on the list (not called)'], fontsize=8.5)
+ax.set_xticklabels(['On the list (called)', 'Not on the list (not called)'], fontsize=10)
 ax.set_yticks([0, 1])
-ax.set_yticklabels(['Bought', 'Did not buy'], fontsize=8.5)
+ax.set_yticklabels(['Bought', 'Did not buy'], fontsize=10)
 ax.tick_params(length=0)
 for sp in ax.spines.values():
     sp.set_visible(False)
-ax.set_title('Fig 6. Confusion matrix of the month-matched list (%s calls)' % format(pb_K, ','), loc='left', fontsize=10)
-fig.text(0.01, 0.01, 'Precision %.1f%%, recall %.1f%% (mobile rule recall %.1f%%). Shading = count. Costs use the A2 assumptions.'
-         % (pb_cm_m['precision_pct'], pb_cm_m['recall_pct'], 100 * pb_mob_rec), fontsize=7, color=PB_GREY)
+ax.set_title('Fig 6. Confusion matrix, month-matched list (%s calls)' % format(pb_K, ','), loc='left', fontsize=11)
+fig.text(0.01, -0.01, 'Precision %.1f%%, recall %.1f%% (mobile rule recall %.1f%%). Shading = count.\n'
+         'Costs use the A2 assumptions (A\\$50 per hour, call time only).'
+         % (pb_cm_m['precision_pct'], pb_cm_m['recall_pct'], 100 * pb_mob_rec), fontsize=9, color=PB_GREY, va='top')
 plt.show()
+'''
+
+B_FIG8 = r'''
+# [Fig 8] 每輪的錢花在哪（示算）：同樣 2,300 筆成交時的未成交電話、成交電話，與送給本來就會買者的折扣（示例 D = A$36、收益：折扣 = 2:1）
+# 數字都是 B-13 已算好的（pb_wb、pb_r_pilot、pb_r_L）；名單的通話段用同月配對名單（同 Fig 7）
+pb_sp_rows = [('Pilot today (random calling)\nwould-buy share %.1f%% (A2)' % (100 * pb_wb['pilot']), pb_r_pilot, pb_wb['pilot']),
+              ('ML list, month-matched\nwould-buy share %.1f%% (raw data)' % (100 * pb_wb['raw']), pb_r_L, pb_wb['raw']),
+              ('ML list, month-matched\nwould-buy share %.1f%% (dedup)' % (100 * pb_wb['dedup']), pb_r_L, pb_wb['dedup'])]
+pb_sp_cols = [('Calls that did not convert', PB_LIGHT, 'black'), ('Calls that converted', PB_GREY, 'white'),
+              (r'Discount given to customers who would buy anyway (D = A\$36)', PB_ACCENT, 'white')]
+fig = plt.figure(figsize=(6.8, 5.4), dpi=150)
+ax = fig.add_axes([0.36, 0.42, 0.61, 0.50])
+pb_sp_max = 0.0
+for i, (lab, r_, sh_) in enumerate(pb_sp_rows):
+    calls_ = PB_ROUND_CONV / r_
+    seg_ = [(calls_ - PB_ROUND_CONV) * PB_CALL_NO, PB_ROUND_CONV * PB_CALL_YES, PB_ROUND_CONV * sh_ * PB_D]
+    left_ = 0.0
+    for v_, (lab_k, col_k, txt_k) in zip(seg_, pb_sp_cols):
+        ax.barh(i, v_, left=left_, color=col_k, height=0.62, edgecolor='white', lw=1, label=lab_k if i == 0 else None)
+        ax.text(left_ + v_ / 2, i, '%.1fk' % (v_ / 1000), ha='center', va='center', fontsize=9, color=txt_k)
+        left_ += v_
+    pb_sp_max = max(pb_sp_max, left_)
+ax.set_yticks(range(len(pb_sp_rows)))
+ax.set_yticklabels([r_[0] for r_ in pb_sp_rows], fontsize=9.5)
+ax.invert_yaxis()
+ax.set_xlim(0, pb_sp_max * 1.04)
+ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: format(int(v), ',')))
+ax.set_xlabel(r'A\$ per round of 2,300 conversions (bar labels in thousands)', fontsize=10)
+ax.set_title('Fig 8. Where the money goes per round (illustrative)', loc='left', fontsize=11)
+ax.tick_params(axis='x', labelsize=9)
+ax.spines[['top', 'right']].set_visible(False)
+ax.grid(axis='x', color='#ececec', lw=0.8)
+ax.set_axisbelow(True)
+fig.legend(frameon=False, fontsize=9, loc='upper left', bbox_to_anchor=(0.005, 0.315), ncol=1)
+fig.text(0.01, 0.185, r'Illustrative: D = A\$36 is the A2 example discount (revenue : discount = 2:1), not a real figure.' '\n'
+         r'Calls: A\$50 per hour, call time only; the ML list uses the month-matched list (as in Fig 7).' '\n'
+         'Would-buy share = control conversion / list conversion above the same score cut-off (B-6).\n'
+         r'Even at the A2 target, the list would save at most A\$%s per round vs the mobile rule.'
+         % format(int(round(pb_save_tgt_vs_mob)), ','), fontsize=9, color=PB_GREY, va='top')
+plt.show()
+'''
+
+B_FIG9 = r'''
+# [Fig 9] 撥號前 AUC 從哪來：概念驗證（含 duration）→ 撥號前（全部月份）→ 月內 → 同一 (cpi, cci) 時期內。只畫 B-2 已算好的數字
+pb_ml_k = A3_KPI['part_b']['ml']
+pb_auc_bars = [('Proof of concept, official model\n(with duration; all test rows)', pb_ml_k['ml1_poc_test_auc'], PB_LIGHT),
+               ('Pre-call RF, all months', pb_ml_k['ml2_test_auc'], PB_ACCENT),
+               ('Pre-call RF, within month', pb_ml_k['ml2_within_month_auc'], PB_ACCENT),
+               ('Pre-call RF, within (cpi, cci) period', pb_ml_k['ml2_within_period_auc'], PB_ACCENT)]
+fig = plt.figure(figsize=(6.6, 4.2), dpi=150)
+ax = fig.add_axes([0.37, 0.27, 0.60, 0.62])
+for i, (lab, v, col) in enumerate(pb_auc_bars):
+    ax.barh(i, v, color=col, height=0.58)
+    ax.text(0.015, i, '%.4f' % v, va='center', ha='left', fontsize=10, fontweight='bold',
+            color='black' if col == PB_LIGHT else 'white')
+ax.axvline(0.75, color='black', ls='--', lw=1.1)
+ax.axvline(0.5, color='black', ls=':', lw=1.4)
+ax.text(0.75, -0.62, 'A2 gate 0.75', ha='center', va='bottom', fontsize=9)
+ax.text(0.5, -0.62, 'random 0.5', ha='center', va='bottom', fontsize=9)
+ax.set_yticks(range(len(pb_auc_bars)))
+ax.set_yticklabels([b[0] for b in pb_auc_bars], fontsize=9.5)
+ax.set_ylim(len(pb_auc_bars) - 0.5, -0.95)
+ax.set_xlim(0, 1)
+ax.set_xlabel('Test ROC-AUC', fontsize=10)
+ax.set_title('Fig 9. Where the pre-call AUC comes from', loc='left', fontsize=11)
+ax.tick_params(axis='x', labelsize=9)
+ax.spines[['top', 'right']].set_visible(False)
+ax.grid(axis='x', color='#ececec', lw=0.8)
+ax.set_axisbelow(True)
+fig.text(0.01, 0.15, 'Dashed: A2 gate for ML2 (0.75); dotted: random ranking (0.5). Pre-call RF: 11 pre-call columns,\n'
+         'test target group (%s customers). Within month / period: AUC inside each month / (cpi, cci) period,\n'
+         'weighted by rows; one period is about one year-month.'
+         % format(len(pb_teT), ','), fontsize=9, color=PB_GREY, va='top')
+plt.show()
+'''
+
+B_LAT = r'''
+# [Part B-14] 批次評分耗時（A2 表 8 可擴展性／延遲）：硬體相依、只當量級；不進判定，也不列入跨次執行的一致性比對
+# 撥號前 RF（主模型）與 XGB（表 7 勝出者）替整個測試集（目標組＋對照組）單執行緒批次評分，重複 5 次取中位數；不改任何模型或資料
+import time
+pb_X_all = pd.concat([pb_teT[PB_FEATURES], pb_teC[PB_FEATURES]])
+
+
+def pb_time(m, n=5):
+    t_ = []
+    for _ in range(n):
+        t0_ = time.perf_counter()
+        m.predict_proba(pb_X_all)
+        t_.append(time.perf_counter() - t0_)
+    return float(np.median(t_))
+
+
+pb_lat_rf, pb_lat_x = pb_time(pb_main), pb_time(pb_xgb)
+print('batch scoring of %s customers, single thread, median of 5 runs: RF %.3f s, XGB %.3f s (hardware-dependent)'
+      % (format(len(pb_X_all), ','), pb_lat_rf, pb_lat_x))
+A3_KPI['part_b']['scoring_latency'] = {
+    'rows': len(pb_X_all), 'repeats': 5, 'threads': 1, 'rf_median_s': a3_r(pb_lat_rf, 3), 'xgb_median_s': a3_r(pb_lat_x, 3),
+    'rf_ms_per_1000_rows': a3_r(1000 * pb_lat_rf / len(pb_X_all) * 1000, 1),
+    'note': 'wall-clock time on the build machine; hardware-dependent; excluded from the run-to-run check'}
 '''
 
 B_JSON = r'''
 # [附錄] 本次執行的數字總表（JSON）。markdown 中的數字都由它填入；第一、二層每個鍵各佔一行，以免輸出過長
 A3_KPI['meta'] = {
-    'student': 'Kenny Huang 26254793', 'subject': '321513 Machine Learning AT3 (business focus)',
+    'student': 'Po-Kai Huang 26254793', 'subject': '321513 Machine Learning AT3 (business focus)',
     'versions': {'python': sys.version.split()[0], 'numpy': np.__version__, 'pandas': pd.__version__,
                  'scikit-learn': sklearn.__version__, 'xgboost': xgboost.__version__, 'scipy': scipy.__version__,
                  'matplotlib': matplotlib.__version__, 'seaborn': sns.__version__},
@@ -2233,20 +2414,20 @@ MD['intro'] = r'''
 <a id="a3-top" name="a3-top"></a>
 # A3 說明
 
-**學生**：Kenny Huang（26254793）｜321513 Machine Learning｜Assessment 3｜**選擇的方向：商業（Business focus）**，情境為 Bank X 信用卡電話行銷。
+**學生**：黃柏凱（Po-Kai Huang，26254793）｜321513 Machine Learning｜Assessment 3｜**選擇的方向：商業（Business focus）**，情境為 Bank X 信用卡電話行銷。
 
 **目錄**（Colab 左側的「目錄」面板也可以依標題跳轉）
 - [Part A｜官方流程與解讀](#part-a)：官方 cell 依原順序執行，每段輸出後插一格「解讀」。
-- [Part B｜商業評估：對照 A2 成功標準](#part-b)：開頭先給答案 → [十條標準一覽](#part-b-summary) → B-0～B-13 逐條證據 → [結論](#conclusion) → 附錄 A（業務② 區間的穩健性）與數字總表。
+- [Part B｜商業評估：對照 A2 成功標準](#part-b)：開頭先給答案 → [十條標準一覽](#part-b-summary) → B-0～B-14 逐條證據 → [結論](#conclusion) → [B3、B4 摘要](#b3-b4-summary) → 附錄 A（業務② 區間的穩健性）與數字總表。
 
-本 notebook 以官方 `AT3_TeleMarketing.ipynb` 為底：官方 cell 依原順序全部保留，官方 markdown（簡體中文）一字未動；只在下表的地方修改官方程式碼，每處都以 `# [A3 修正]` 註明。我新增的 cell 以 `[A3 新增]`（Part A）或 `[Part B-n]`、`[Fig n]`（Part B）開頭，說明用繁體中文；圖內文字用英文（Colab 沒有中文字型）。文中「官方 cell-N」指官方原檔的第 N 格（從 0 起算）；Colab 不顯示格號，所以引用時都會附上那一格在做什麼。
+本 notebook 以官方 `AT3_TeleMarketing.ipynb` 為底：官方 cell 依原順序全部保留，官方 markdown（簡體中文）一字未動；只在下表的地方修改官方程式碼，每處都以 `# [A3 修正]` 註明（四格 Tech Focus Only 只加一行 `# [A3]` 說明註解）。我新增的 cell 以 `[A3 新增]`（Part A）或 `[Part B-n]`、`[Fig n]`（Part B）開頭，說明用繁體中文；圖內文字用英文（Colab 沒有中文字型）。文中「官方 cell-N」指官方原檔的第 N 格（從 0 起算）；Colab 不顯示格號，所以引用時都會附上那一格在做什麼。
 
 **官方 cell 的修改（全部）**
 
 | 官方 cell | 修改 | 理由 |
 |---|---|---|
 | cell-2 安裝 ydata-profiling | `!pip` 改成 `%pip install ydata-profiling` | `%pip` 會裝進目前 kernel 的環境；`!pip` 可能裝到別的 Python |
-| cell-3 匯入套件 | `from ydata_profiling import ProfileReport` 包 `try / except` | ydata-profiling 只用於 EDA 報告；安裝失敗時不讓同格的 sklearn 等匯入一起中斷 |
+| cell-3 匯入套件 | `from ydata_profiling import ProfileReport` 包 `try / except`；只在這一行匯入時隱藏 DeprecationWarning | ydata-profiling 只用於 EDA 報告；安裝失敗時不讓同格的 sklearn 等匯入一起中斷；新版匯入時會印「已改名」提示，不影響功能 |
 | cell-11 產生 EDA 報告 | `ProfileReport` 不可用時印訊息並略過 | 只少了 EDA.html，後面每一格照常執行 |
 | cell-5 掛載 Google Drive | 包 `try / except`：沒有 `google.colab`（非 Colab）就略過；Colab 上拒絕或取消授權時只印訊息 | 「全部執行」不會停在掛載；Colab 正常授權時行為不變 |
 | cell-9 讀取 CSV | 保留官方路徑；不存在時改讀環境變數 `TELEMARKETING_CSV`，預設為工作目錄（Colab 是 `/content`）下的 `TeleMarketing.csv`；都找不到時丟出說明清楚的錯誤 | 本機、或把 CSV 直接上傳到 `/content`，都能執行 |
@@ -2256,17 +2437,19 @@ MD['intro'] = r'''
 | cell-44 `feature_selection_model` | 回傳 `list(selected_features)` | pandas 2.1 起不准用 dict 當欄位索引，cell-45／47／50 在 Colab 會 TypeError |
 | cell-47 LR 特徵選擇（TODO 3） | `label='response'`、`model='LR'`、`k=10` | 補完 TODO，與上一格 RF 的寫法一致 |
 | cell-58 最終 pipeline 超參數 | `max_depth` 第三值 9、`n_estimators` 第三值 300 | 依本次 CV 結果（見最終 pipeline 之後的解讀） |
+| cell-38、48、52、60（`# TODO: Tech Focus Only`） | 第一行加一行註解 `# [A3] 技術重點（Tech Focus Only）的開放題…`；這四格原本就只有註解，程式不變 | 這四題屬技術重點（Tech Focus）；本作業選商業重點，依作業說明不處理，原題保留 |
 
 另有三格執行所需的新增（都不是修改官方 cell）：產生 EDA 報告（官方 cell-11）後把 matplotlib 切回 inline（ydata-profiling 會讓之後所有圖都不顯示，而且不報錯）、TODO 1 之後檢查空值、分群前固定亂數種子。
 
 **怎麼執行**
-- **Colab**：把 `TeleMarketing.csv` 放在 My Drive 根目錄 → 執行階段 → 全部執行，並授權掛載 Drive（不想授權時，把 CSV 上傳到左側檔案區的 `/content` 也可以）。第一格會安裝 ydata-profiling；它要求 pandas < 3、matplotlib ≤ 3.10、scipy < 1.17、numpy < 2.4，若 Colab 內建版本較新，pip 會降版並提示重新啟動執行階段 —— 重新啟動後從第二格起全部執行即可（第一格可略過）。免費版只有 2 個 vCPU，最終 pipeline、t-SNE、巢狀交叉驗證與 bootstrap 會比本機慢數倍，整份預計 15 分鐘以上（未在 Colab 實測）。
+- **Colab**：把 `TeleMarketing.csv` 放在 My Drive 根目錄 → 執行階段 → 全部執行，並授權掛載 Drive（不想授權時，把 CSV 上傳到左側檔案區的 `/content` 也可以）。第一格會安裝 ydata-profiling；它要求 pandas < 3、matplotlib ≤ 3.10、scipy < 1.17、numpy < 2.4，若 Colab 內建版本較新，pip 會降版並提示重新啟動執行階段 —— 重新啟動後從第二格起全部執行即可（第一格可略過）。免費版只有 2 個 vCPU，最終 pipeline、t-SNE、巢狀交叉驗證與 bootstrap 會比本機慢數倍，整份預計 15 分鐘以上。
+- **Colab 實測**：尚未在 Colab 實測；本檔存著的輸出是本機從頭執行的結果（見下一點）。
 - **本機**：設定環境變數 `TELEMARKETING_CSV` 指向 CSV（或把 CSV 放在工作目錄）。
-- **本檔存著的輸出**：在 2026-10 建置當下的本機環境從頭執行（約 {{run.minutes}} 分鐘）：Python {{meta.versions.python}}、numpy {{meta.versions.numpy}}、pandas {{meta.versions.pandas}}、scikit-learn {{meta.versions.scikit-learn}}、xgboost {{meta.versions.xgboost}}、seaborn {{meta.versions.seaborn}}、matplotlib {{meta.versions.matplotlib}}，是建置當時 Colab 的同一組主要版本；之後 Colab 升級時可能不同。本機執行時 pip 用安靜模式，所以第一格只印出一行提示。**我沒有在 Colab 上存輸出。** markdown 裡的數字都由最後一格程式印出的數字總表自動填入，與存著的輸出一致；在其他環境重跑，少數數字（KMeans 分群、LR 的 RFE）可能略有不同。
+- **本檔存著的輸出**：在 2026-10 建置當下的本機環境從頭執行（約 {{run.minutes}} 分鐘）：Python {{meta.versions.python}}、numpy {{meta.versions.numpy}}、pandas {{meta.versions.pandas}}、scikit-learn {{meta.versions.scikit-learn}}、xgboost {{meta.versions.xgboost}}、seaborn {{meta.versions.seaborn}}、matplotlib {{meta.versions.matplotlib}}；Colab 當下的套件版本未核對，可能不同。本機執行時 pip 用安靜模式，所以第一格只印出一行提示。**我沒有在 Colab 上存輸出。** markdown 裡的數字都由最後一格程式印出的數字總表自動填入，與存著的輸出一致；在其他環境重跑，少數數字（KMeans 分群、LR 的 RFE）可能略有不同。
 
 **結構**
 - **Part A｜官方流程＋分析**：在 EDA、t-SNE、兩種特徵選擇、模型比較、最終 pipeline、客戶評分、分群的輸出之後，各插一格「解讀」（需要時先插一小格程式印出要引用的數字），並指出官方流程的方法問題與影響大小。
-- **Part B｜商業評估**：接在官方最後一格之後，用撥號前模型逐條檢驗我在 A2 表 4 寫下的 10 條成功標準（業務 ①–⑤、ML ①–⑤；②③⑤ 為上線硬門檻）與 A2 表 1 的商業目標，附 7 張圖（Fig 1–7）、總表與結論。
+- **Part B｜商業評估**：接在官方最後一格之後，用撥號前模型逐條檢驗我在 A2 表 4 寫下的 10 條成功標準（業務①–⑤、ML①–⑤；業務②③⑤ 為上線硬門檻）與 A2 表 1 的商業目標，附 9 張圖（Fig 1–9）、總表與結論；最後是 B3（未來改進與新產品）、B4（放寬資格後能否沿用）的摘要，完整版在 PDF 報告。
 '''
 
 MD['part_a'] = r'''
@@ -2376,15 +2559,16 @@ MD['b_head'] = r'''
 這一部分接在官方最後一格之後，官方流程完全不動。問題只有一個：**這個模型能不能照 A2 的計畫往下走？**
 
 > **先給答案**
-> 1. 模型比隨機外撥好：與手機規則同樣通數時，名單轉換率 {{part_b.b2.ml_conv_pct}}%，隨機外撥 {{part_b.b2.random_conv_pct}}%。
-> 2. 但和現行手機規則（{{part_b.b2.mobile_conv_pct}}%）同月、同通數比，只高 {{part_b.b2.diff_pp|.2f}} 個百分點，95% 區間含 0 —— 看不出比手機規則好。
-> 3. 三條上線硬門檻（②③⑤）沒有一條能離線判定為通過；十條中只有 ML①、ML③ 達標。
+> 1. 模型比隨機外撥好：與手機規則同樣通數時，名單轉換率 {{part_b.b2.ml_conv_pct}}%；全體隨機外撥 {{part_b.b2.random_conv_pct}}%，依手機規則的月份組成隨機外撥 {{part_b.b2.random_month_matched_conv_pct}}%。
+> 2. 但和現行手機規則（{{part_b.b2.mobile_conv_pct}}%）同月、同通數比，只高 {{part_b.b2.diff_pp|.2f}} 個百分點，95% 區間含 0 —— 看不出比手機規則好。排序力大多來自認出外撥時期：同一 (cpi, cci) 時期內 AUC 只有 {{part_b.ml.ml2_within_period_auc}}（圖 9）。
+> 3. 三條上線硬門檻（業務②③⑤）沒有一條能離線判定為通過；十條中只有 ML①、ML③ 達標。
 > 4. 依 A2 表 7 勝出的 XGB，十條判定與 RF 完全相同。
-> 5. 建議：依 A2 表 9 階段 0，**不進影子模式**；先補撥號前的客戶特徵與有日期、客戶編號的資料，再用新的時間段重測。
+> 5. 錢的缺口主要在優惠設計，不在名單（示算）：名單相對手機規則每輪只多省 A\${{part_b.goals.saving_ml_vs_mobile_aud|,}} 通話費，即使達到 A2 目標也最多多省 A\${{part_b.goals.saving_target_vs_mobile_aud|,}}；每張折扣只要高於約 A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.raw|.2f}}（原始）／A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.dedup|.2f}}（去重），每輪白送給本來就會買者的折扣就超過這個數，名單也沒有讓這筆變少。以示例折扣 D = A\$36 算，這筆約 A\${{part_b.goals.spillover_discount_per_round_D36_aud.raw|,}}–{{part_b.goals.spillover_discount_per_round_D36_aud.dedup|,}}（B-13、圖 8）。
+> 6. 建議：依 A2 表 9 階段 0，**不進影子模式**；先補撥號前的客戶特徵與有日期、客戶編號的資料，再用新的時間段重測。
 
 **名詞**（Part B 反覆用到）
 - **時期**：一組 (cpi, cci) 值。這兩個指標每月公布一次，同一組值大致是同一個年月；資料跨年，所以一個「月份」裡混有 2–3 個時期。
-- **同月配對名單**：每個月打的通數與手機規則相同、取該月分數最高的人 —— 外撥日不能換月份，這是實際做得到的名單（①②與混淆矩陣用它）。**單一門檻名單**：全體分數 ≥ 門檻 t 的人；對照組沒有月份，③④⑤ 只能用它。
+- **同月配對名單**：每個月打的通數與手機規則相同、取該月分數最高的人 —— 外撥日不能換月份，這是實際做得到的名單（業務①②與混淆矩陣用它）。**單一門檻名單**：全體分數 ≥ 門檻 t 的人；對照組沒有月份，業務③④⑤ 只能用它。
 - **percentile 區間**：bootstrap 重抽結果的 2.5%–97.5% 分位，是評估計畫訂的判準區間。**basic 區間**：偏差校正版（2 × 點估計 − 上、下界），只當檢查（附錄 A）。
 - **本來就會買**：不打電話也會買的人；用「分數同樣達門檻、但沒被打的對照組」的轉換率估計（業務④）。
 
@@ -2400,7 +2584,7 @@ MD['b_head'] = r'''
 
 MD['b_summary'] = r'''
 <a id="part-b-summary" name="part-b-summary"></a>
-## Part B 十條成功標準一覽（A2 表 4；②③⑤ 是上線硬門檻）
+## Part B 十條成功標準一覽（A2 表 4；業務②③⑤ 是上線硬門檻）
 
 | A2 表 4 標準 | A2 門檻 | A3 結果（RF 主模型） | 判定 | 是否達 A2 門檻 | XGB（表 7 勝出者） |
 |---|---|---|---|---|---|
@@ -2415,7 +2599,7 @@ MD['b_summary'] = r'''
 | ML④ 分群一致性 | 各群 AUC 差 ≤ 0.05 | 年齡 {{part_b.ml4.gaps.age_band.max_minus_min|.3f}}、婚姻 {{part_b.ml4.gaps.marital.max_minus_min|.3f}}、月份 {{part_b.ml4.gaps.month.max_minus_min|.3f}} | **{{part_b.kpi_judgement.ml4}}** | {{part_b.kpi_meets_a2.ml4}} | {{part_b.xgb_eval.judgement.ml4}} |
 | ML⑤ 增量排序模型 | 名單內平均增量 > 全體 | 未建（12 週後才有資料） | **{{part_b.kpi_judgement.ml5}}** | {{part_b.kpi_meets_a2.ml5}} | {{part_b.xgb_eval.judgement.ml5}} |
 
-ML ①–⑤ 是 A2 表 4 五個 ML 列的依序編號。①② 用同月配對名單，③④⑤ 用單一門檻名單。每條的 A2 草稿行號、完整區間與說明在 B-12 的總表。
+ML①–⑤ 是 A2 表 4 五個 ML 列的依序編號。業務①② 用同月配對名單，業務③④⑤ 用單一門檻名單。每條的 A2 草稿行號、完整區間與說明在 B-12 的總表。
 '''
 
 MD['b0'] = r'''
@@ -2440,7 +2624,7 @@ MD['b1'] = r'''
 - **基準與挑戰者**：LR 基準 CV {{part_b.models.lr_cv_auc}}，比 RF 低 {{part_b.models.rf_minus_lr_cv}}。XGBoost（scale_pos_weight = 實際負／正比 {{part_b.models.xgb_scale_pos_weight}}；4 組設定中最佳為 learning_rate {{part_b.models.xgb_params.learning_rate}}、max_depth {{part_b.models.xgb_params.max_depth}}）在選模用的同一批 5 折上 CV {{part_b.models.xgb_cv_auc}}，{{part_b.models.xgb_folds_better}} 折全部較高（逐折差 {{part_b.models.xgb_minus_rf_fold_min|+.4f}} 到 {{part_b.models.xgb_minus_rf_fold_max|+.4f}}）。＋contact 版 RF 的 CV {{part_b.models.contact_selected.cv_auc}}。
 - **A2 表 7 的替換規則（照字面執行）**：表 7 寫「與隨機森林用同一批驗證折、同一指標重比；勝出幅度大於不同隨機種子間的波動才替換」。用種子 123–127（每個種子同時改變 5 折的切法與模型的隨機種子）重比兩個選定設定：XGB − RF 的 CV AUC 差介於 {{part_b.models.table7_rule.margin_min|+.4f}} 到 {{part_b.models.table7_rule.margin_max|+.4f}}；RF 自己在 5 個種子間的 CV AUC 最大差距只有 {{part_b.models.table7_rule.rf_seed_range|.4f}}（標準差 {{part_b.models.table7_rule.rf_seed_sd|.4f}}）→ 依表 7 應替換。
 - **為什麼仍以 RF 為主呈現**：RF 是 A3 評估計畫在比較挑戰者之前就指定的主模型，也是 Part A 官方流程的模型；看到挑戰者的結果之後才換主角，容易變成挑結果。所以兩個模型都完整評估：十條判定完全相同（B-11），「停在階段 0」不受模型選擇影響。日後補資料重建、通過階段 0 時，依表 7 應以 XGB 進入影子模式。
-- **注意**：葉節點至少 20 位客戶，分數不會因個別客戶而跳動；class_weight = 'balanced' 與 scale_pos_weight 的分數只用來排序，不能當機率。年齡、婚姻能否用於評分要法遵確認（A2 表 9 階段 0），拿掉它們重訓的代價在 B-10。
+- **注意**：葉節點至少 20 位客戶，分數不會因個別客戶而跳動；class_weight = 'balanced' 與 scale_pos_weight 的分數只用來排序，不能當機率。年齡、婚姻能否用於評分要法遵確認（A2 表 9 階段 0），拿掉它們重訓的代價在 B-10。撥號前模型的獨熱編碼設 `handle_unknown='ignore'`：評分時遇到訓練沒見過的類別會靜默編成全 0、照常評分（官方 pipeline 的 `OrdinalEncoder` 則會中斷），上線前一樣要先做 schema 檢查（A2 表 10）。
 '''
 
 MD['b2'] = r'''
@@ -2452,13 +2636,14 @@ MD['b2'] = r'''
 - **ML② 撥號前**（≥ 0.75，且 ② 勝過同期手機規則組）：測試集目標組 AUC {{part_b.ml.ml2_test_auc}}、CV {{part_b.ml.ml2_cv_auc}}，兩者一致 → AUC 這半條達標，但 ② 未通過（B-3），所以 ML② 整條是未證實；LR 基準 {{part_b.ml.ml2_lr_test_auc}} 未達 0.75；XGB {{part_b.ml.xgb_test_auc}}（訓練 − 測試 {{part_b.ml.xgb_gap}}）。
 - **時期**：月內 AUC {{part_b.ml.ml2_within_month_auc}}；但資料跨年，每個月份內有 {{part_b.ml.periods_per_month_min}}–{{part_b.ml.periods_per_month_max}} 個時期（測試集目標組共 {{part_b.ml.n_periods_test_target}} 個），cpi、cci 只在同一時期內才是常數，所以月內 AUC 仍含跨年的時期訊號。同一時期內的加權 AUC 只有 {{part_b.ml.ml2_within_period_auc}}（比全體低 {{part_b.ml.ml2_minus_within_period}}；XGB {{part_b.ml.xgb_within_period_auc}}）。外撥日的候選人都在同一時期，這才是名單排序實際能用的能力。
 - **ML③ 過擬合**（≤ 0.05）：概念驗證 {{part_b.ml.ml1_poc_gap}}、撥號前 {{part_b.ml.ml3_precall_gap}} → 達標；撥號前的 CV − 測試只有 {{part_b.ml.ml3_precall_cv_minus_test}}。
-- **商業意義**：A2 階段 1 的影子模式只有 3 週，大約落在一個時期內，在那裡量到的 AUC 會比較接近時期內的數字，很可能低於 0.75；AUC 過門檻也還不代表名單比手機規則好（下一格）。
+- **商業意義**：A2 階段 1 的影子模式只有 3 週，大約落在一個時期內，在那裡量到的 AUC 會比較接近時期內的數字，很可能低於 0.75；AUC 過門檻也還不代表名單比手機規則好（B-3）。
+- **圖 9**（下一格）把概念驗證、撥號前、月內、時期內四個 AUC 畫在一起。
 '''
 
 MD['b3'] = r'''
 ### B-3 解讀：業務② 名單轉換率 vs 同期手機規則（上線硬門檻）
 
-**結論：與手機規則同通數、同月份比，RF 名單只高 {{part_b.b2.diff_pp|.2f}} 個百分點，95% 區間 [{{part_b.b2.ci_low_pp|+.2f}}, {{part_b.b2.ci_high_pp|+.2f}}] 含 0 → 未證實；改成同一時期比，名單反而低 {{part_b.b2.period.diff_pp|abs.2f}} 個百分點。XGB 名單高 {{part_b.b2.xgb.diff_pp|.2f}} 個百分點，但區間下限是 {{part_b.b2.xgb.ci_low_pp|+.2f}}，沒有大於 0，同樣未通過。② 離線不通過。**
+**結論：與手機規則同通數、同月份比，RF 名單只高 {{part_b.b2.diff_pp|.2f}} 個百分點，95% 區間 [{{part_b.b2.ci_low_pp|+.2f}}, {{part_b.b2.ci_high_pp|+.2f}}] 含 0 → 未證實；改成同一時期比，點估計為 {{part_b.b2.period.diff_pp|+.2f}} 個百分點，95% 區間 [{{part_b.b2.period.ci_low_pp|+.2f}}, {{part_b.b2.period.ci_high_pp|+.2f}}] 同樣含 0。XGB 名單高 {{part_b.b2.xgb.diff_pp|.2f}} 個百分點，但區間下限是 {{part_b.b2.xgb.ci_low_pp|+.2f}}，沒有大於 0，同樣未通過。業務② 離線不通過。**
 
 - **同月（主結果，計畫判準）**：手機 {{part_b.b2.K_mobile_calls}} 通、轉換率 {{part_b.b2.mobile_conv_pct}}%；每月取同樣通數、分數最高的人，RF 名單 {{part_b.b2.ml_conv_pct}}%，差 {{part_b.b2.diff_pp|+.2f}} pp；各月內 bootstrap（B = 1,000、種子 123）的 95% percentile 區間 [{{part_b.b2.ci_low_pp|+.2f}}, {{part_b.b2.ci_high_pp|+.2f}}]。逐月看名單勝 {{part_b.b2.months_ml_better}} 個月、輸 {{part_b.b2.months_ml_worse}} 個月。B = 5,000、basic 區間與另外 10 個種子都不改變判定（附錄 A）。
 - **同時期（穩健性）**：每個 (cpi, cci) 時期取同樣通數，RF 名單 {{part_b.b2.period.ml_conv_pct}}%，差 {{part_b.b2.period.diff_pp|+.2f}} pp，95% 區間 [{{part_b.b2.period.ci_low_pp|+.2f}}, {{part_b.b2.period.ci_high_pp|+.2f}}]。
@@ -2550,9 +2735,9 @@ MD['b_err'] = r'''
 **結論：以示例折扣額 D = A\$36，「打給本來就會買的人」每人約 A\${{part_b.errors.dedup.unit_cost_at_D36.0}}，合計也最大；但排序取決於 D —— D = A\$10 時，原始口徑下「打給不會買的人」的合計反而最大。「打了才會買」卻被漏掉的人，離線估不出來。**
 
 - **漏掉的是誰（A2 表 8 註）**：分數低於門檻、沒被選上的人裡，有被打的目標組轉換率 {{part_b.errors.dedup.below_target_conv_pct}}%、沒被打的對照組 {{part_b.errors.dedup.below_control_conv_pct}}%：去重口徑差 {{part_b.errors.dedup.below_uplift_pp|+.2f}} pp，95% 區間 [{{part_b.errors.dedup.below_uplift_ci_low_pp|+.2f}}, {{part_b.errors.dedup.below_uplift_ci_high_pp|+.2f}}]，整個區間都在 0 以下 —— 被打的反而比沒被打的低。打電話不太可能讓人更不想買，比較合理的解釋是兩組不可比：去重只刪了對照組的列（不對稱），對照組的組成因此和目標組不同。所以這不是「名單外的成交者本來就會買」的證據。原始口徑 {{part_b.errors.raw.below_target_conv_pct}}% 對 {{part_b.errors.raw.below_control_conv_pct}}%，差 {{part_b.errors.raw.below_uplift_pp|+.2f}} pp（區間 [{{part_b.errors.raw.below_uplift_ci_low_pp|+.2f}}, {{part_b.errors.raw.below_uplift_ci_high_pp|+.2f}}]），才接近 A2 規則說的「相近」。
-- **三種錯誤（測試集目標組規模，D = A\$36）**：① 打給本來就會買的人 每人 A\${{part_b.errors.dedup.unit_cost_at_D36.0}}，約 {{part_b.errors.dedup.n_wouldbuy_on_list|,}} 人、A\${{part_b.errors.dedup.total_at_D36.0|,}}（原始 {{part_b.errors.raw.n_wouldbuy_on_list|,}} 人、A\${{part_b.errors.raw.total_at_D36.0|,}}）。② 漏掉打了才會買的人 每人 A\${{part_b.errors.dedup.unit_cost_at_D36.1}}：去重口徑的增量為負，人數估計不出來（區間上限換算也是 {{part_b.errors.dedup.n_missed_upper}} 人）；原始口徑約 {{part_b.errors.raw.n_missed_incremental}} 人、A\${{part_b.errors.raw.total_at_D36.1|,}}（區間上限 {{part_b.errors.raw.n_missed_upper}} 人、A\${{part_b.errors.raw.by_D.36.total_2_upper|,}}）。這些都是用不可比的對照組估的（去重口徑的對照組轉換率反而較高，可能低估），只作示算。③ 打給不會買的人 每人 A\${{part_b.errors.dedup.unit_cost_at_D36.2}}，約 {{part_b.errors.dedup.n_fp|,}} 人、A\${{part_b.errors.dedup.total_at_D36.2|,}}。
-- **排序取決於 D（示例折扣額，A2 未定）**：每人代價 ① 永遠比 ② 高 2 × A\$6.90；② 只有在 D 高於約 A\${{part_b.errors.D_where_2_exceeds_3}} 時才比 ③ 貴。合計金額：D = A\$36 或 A\$100 時兩個口徑都是 ① 最大；D = A\$10 時，去重口徑仍是 ①（A\${{part_b.errors.dedup.by_D.10.total.0|,}} 對 ③ A\${{part_b.errors.dedup.by_D.10.total.2|,}}），原始口徑則是 ③（A\${{part_b.errors.raw.by_D.10.total.2|,}}）大於 ①（A\${{part_b.errors.raw.by_D.10.total.0|,}}）。A2「最貴的錯誤是打給本來就會買的人」在 D 不太小時成立；D 要由財務提供。
-- **對門檻的含意**：調低門檻是為了少漏 ②，但離線看不到 ②，多打的人主要會落在 ① 與 ③；接受機率模型分不出 ① 與 ②，所以 A2 的第二步改排增量。這些人數假設兩組可比（B-6 已說明它們並非完全可比），只作示算。
+- **三種錯誤（測試集目標組規模，D = A\$36）**：錯誤 A 打給本來就會買的人 每人 A\${{part_b.errors.dedup.unit_cost_at_D36.0}}，約 {{part_b.errors.dedup.n_wouldbuy_on_list|,}} 人、A\${{part_b.errors.dedup.total_at_D36.0|,}}（原始 {{part_b.errors.raw.n_wouldbuy_on_list|,}} 人、A\${{part_b.errors.raw.total_at_D36.0|,}}）。錯誤 B 漏掉打了才會買的人 每人 A\${{part_b.errors.dedup.unit_cost_at_D36.1}}：去重口徑的增量為負，人數估計不出來（區間上限換算也是 {{part_b.errors.dedup.n_missed_upper}} 人）；原始口徑約 {{part_b.errors.raw.n_missed_incremental}} 人、A\${{part_b.errors.raw.total_at_D36.1|,}}（區間上限 {{part_b.errors.raw.n_missed_upper}} 人、A\${{part_b.errors.raw.by_D.36.total_2_upper|,}}）。這些都是用不可比的對照組估的（去重口徑的對照組轉換率反而較高，可能低估），只作示算。錯誤 C 打給不會買的人 每人 A\${{part_b.errors.dedup.unit_cost_at_D36.2}}，約 {{part_b.errors.dedup.n_fp|,}} 人、A\${{part_b.errors.dedup.total_at_D36.2|,}}。
+- **排序取決於 D（示例折扣額，A2 未定）**：每人代價：錯誤 A 永遠比錯誤 B 高 2 × A\$6.90；錯誤 B 只有在 D 高於約 A\${{part_b.errors.D_where_2_exceeds_3}} 時才比錯誤 C 貴。合計金額：D = A\$36 或 A\$100 時兩個口徑都是錯誤 A 最大；D = A\$10 時，去重口徑仍是錯誤 A（A\${{part_b.errors.dedup.by_D.10.total.0|,}} 對錯誤 C 的 A\${{part_b.errors.dedup.by_D.10.total.2|,}}），原始口徑則是錯誤 C（A\${{part_b.errors.raw.by_D.10.total.2|,}}）大於錯誤 A（A\${{part_b.errors.raw.by_D.10.total.0|,}}）。A2「最貴的錯誤是打給本來就會買的人」在 D 不太小時成立；D 要由財務提供。
+- **對門檻的含意**：調低門檻是為了減少錯誤 B，但離線看不到錯誤 B，多打的人主要會落在錯誤 A 與錯誤 C；接受機率模型分不出錯誤 A 與錯誤 B，所以 A2 的第二步改排增量。這些人數假設兩組可比（B-6 已說明它們並非完全可比），只作示算。
 '''
 
 MD['b8'] = r'''
@@ -2615,20 +2800,21 @@ MD['xgb'] = r'''
 MD['b11'] = r'''
 ### B-12 解讀：A2 表 4 十條標準的總表
 
-**結論：兩條「達標」都是 ML 指標，業務指標沒有一條達標；三條上線硬門檻（②③⑤）沒有一條能離線判定為通過。**
+**結論：兩條「達標」都是 ML 指標，業務指標沒有一條達標；三條上線硬門檻（業務②③⑤）沒有一條能離線判定為通過。**
 
-- 10 條中：達標 {{part_b.kpi_counts.達標}}（ML①、ML③）、未證實 {{part_b.kpi_counts.未證實}}（②、③、ML②）、未達 {{part_b.kpi_counts.未達}}（①、④、ML④）、示算 {{part_b.kpi_counts.示算}}（⑤）、不可離線驗 {{part_b.kpi_counts.不可離線驗}}（ML⑤）。XGB 欄的判定逐條相同。
-- ②：同月配對名單看不出比手機規則好（差的 95% 區間 [{{part_b.b2.ci_low_pp|+.2f}}, {{part_b.b2.ci_high_pp|+.2f}}]，未做等效性檢定），同時期為負；③：方向取決於資料版本與是否控制時期；④：兩個口徑都高於 50% 兩平參考；⑤：只能示算，而且為負。
+- 10 條中：達標 {{part_b.kpi_counts.達標}}（ML①、ML③）、未證實 {{part_b.kpi_counts.未證實}}（業務②、業務③、ML②）、未達 {{part_b.kpi_counts.未達}}（業務①、業務④、ML④）、示算 {{part_b.kpi_counts.示算}}（業務⑤）、不可離線驗 {{part_b.kpi_counts.不可離線驗}}（ML⑤）。XGB 欄的判定逐條相同。業務①④ 是 A2 的列報項（不作關卡），仍依門檻標達／未達。
+- 業務②：同月配對名單看不出比手機規則好（差的 95% 區間 [{{part_b.b2.ci_low_pp|+.2f}}, {{part_b.b2.ci_high_pp|+.2f}}]，未做等效性檢定），同時期點估計為負、區間同樣含 0；業務③：方向取決於資料版本與是否控制時期；業務④：兩個口徑都高於 50% 兩平參考；業務⑤：只能示算，而且為負。
 '''
 
 MD['goals'] = r'''
-### B-13 解讀：A2 表 1 的商業目標（上表與圖 7）
+### B-13 解讀：A2 表 1 的商業目標（上面兩張表與圖 7）
 
-**結論：以 A2 表 1 的目標看，離線結果沒有一項達標；對決策最有用的一個數字是 —— 相對現行手機規則，名單每輪只省約 A\${{part_b.goals.saving_ml_vs_mobile_aud|,}}（圖 7）。**
+**結論：以 A2 表 1 的目標看，離線結果沒有一項達標。相對現行手機規則，名單每輪只省約 A\${{part_b.goals.saving_ml_vs_mobile_aud|,}}；控制月份組成後，相對隨機外撥也只省 A\${{part_b.goals.saving_ml_vs_random_mm_aud|,}}，是 A2 目標節省的 {{part_b.goals.saving_ml_vs_random_mm_share_of_target_pct|.0f}}%（圖 7）。**
 
-- **每輪通話成本**：A2 目標是每輪省約 A\${{part_b.goals.saving_target_aud|,}}；同月配對名單外推可省 A\${{part_b.goals.saving_ml_vs_pilot_aud|,}}（目標的 {{part_b.goals.saving_ml_share_of_target_pct|.0f}}%），但這幾乎全是手機規則本來就能省的；同時期配對的名單只省 A\${{part_b.goals.saving_ml_period_vs_pilot_aud|,}}。外撥量少 {{part_b.goals.fewer_calls_ml_pct}}%（手機規則 {{part_b.goals.fewer_calls_mobile_pct}}%，目標約 {{part_b.goals.fewer_calls_target_pct|.0f}}%）。
-- **收益倍數（不依 2:1）**：A2 試點每張卡收益至少要是折扣的 {{part_b.goals.multiple_pilot}} 倍才不虧；名單在原始口徑要 {{part_b.goals.multiple_ml_raw}} 倍、去重口徑要 {{part_b.goals.multiple_ml_dedup}} 倍 —— 第一步名單沒有讓這個門檻變低，反而更高。
-- **增量與外溢**：增量為正與外溢比例都要等 A/B 的常設對照組才量得到（B-6、B-8）。
+- **每輪通話成本**：A2 目標是每輪省約 A\${{part_b.goals.saving_target_aud|,}}。同月配對名單外推比現況省 A\${{part_b.goals.saving_ml_vs_pilot_aud|,}}（目標的 {{part_b.goals.saving_ml_share_of_target_pct|.0f}}%），但現況是全體隨機外撥、沒有控制月份：依手機規則的月份組成隨機外撥（{{part_b.b2.random_month_matched_conv_pct}}%）外推，就已比現況省 A\${{part_b.goals.saving_random_mm_vs_pilot_aud|,}}；名單相對它只省 A\${{part_b.goals.saving_ml_vs_random_mm_aud|,}}（手機規則 A\${{part_b.goals.saving_mobile_vs_random_mm_aud|,}}）。同時期配對的名單只比現況省 A\${{part_b.goals.saving_ml_period_vs_pilot_aud|,}}。外撥量少 {{part_b.goals.fewer_calls_ml_pct}}%（手機規則 {{part_b.goals.fewer_calls_mobile_pct}}%，目標約 {{part_b.goals.fewer_calls_target_pct|.0f}}%）。
+- **模型最多能動到多少通話費**：名單就算達到 A2 目標（轉換率 18%），每輪也只比手機規則多省 A\${{part_b.goals.saving_target_vs_mobile_aud|,}}；目前實際多省 A\${{part_b.goals.saving_ml_vs_mobile_aud|,}}。
+- **收益倍數（不依 2:1）**：A2 試點每張卡收益至少要是折扣的 {{part_b.goals.multiple_pilot}} 倍才不虧；名單在原始口徑要 {{part_b.goals.multiple_ml_raw}} 倍（與試點相近）、去重口徑要 {{part_b.goals.multiple_ml_dedup}} 倍（增量區間含 0，倍數不穩）—— 第一步名單沒有讓這個門檻降低。
+- **增量與外溢**：增量為正與外溢比例都要等 A/B 的常設對照組才量得到（B-6、B-8）；外溢的金額量級見圖 8。
 - **商業意義**：A2 寫的「每輪省約 A\$14,900」是以名單轉換率 18% 推得的；離線證據顯示，在與手機規則同通數下達不到 18%，而節省的大部分不需要 ML 也拿得到。圖 7 的金額都是用測試集轉換率外推的，不是測得的。
 '''
 
@@ -2636,11 +2822,57 @@ MD['concl'] = r'''
 <a id="conclusion" name="conclusion"></a>
 ## 結論
 
-1. **AUC 達標 ≠ 商業達標。** 撥號前 AUC {{part_b.ml.ml2_test_auc}} 過了 0.75，但同一時期內只有 {{part_b.ml.ml2_within_period_auc}}；業務指標 {{part_b.kpi_business_pass}}／5 達標（B-2、B-12）。
-2. **② 可以離線判定：未通過。** 同月只比手機規則高 {{part_b.b2.diff_pp|.2f}} pp，區間 [{{part_b.b2.ci_low_pp|+.2f}}, {{part_b.b2.ci_high_pp|+.2f}}] 含 0；同時期 {{part_b.b2.period.diff_pp|+.2f}} pp（B-3）。
-3. **③⑤ 離線無法判定，要等 A/B。** ③ 控制時期後 {{part_b.b3b4.dedup.period_stratified_uplift_pp|+.2f}}／{{part_b.b3b4.raw.period_stratified_uplift_pp|+.2f}} pp，區間都含 0；⑤ 缺手機規則組的增量，2:1 示算為負（B-6、B-7）。
-4. **換模型不是解方。** 依 A2 表 7 勝出的 XGB，十條判定與 RF 相同；名單每輪只比手機規則省約 A\${{part_b.goals.saving_ml_vs_mobile_aud|,}}（B-11、B-13）。
-5. **建議：照 A2 的 12 週計畫，停在第 1–4 週。** 階段 0 未過，不進第 5–7 週影子模式；先補撥號前客戶特徵、外撥日期與客戶編號，用新的時間段重測（年齡、婚姻先交法遵，拿掉它們 AUC 幾乎不變）。
+1. **AUC 達標 ≠ 商業達標。** 撥號前 AUC {{part_b.ml.ml2_test_auc}} 過了 0.75，但同一時期內只有 {{part_b.ml.ml2_within_period_auc}}（圖 9）；業務指標 {{part_b.kpi_business_pass}}／5 達標（B-2、B-12）。
+2. **業務② 可以離線判定：未通過。** 同月只比手機規則高 {{part_b.b2.diff_pp|.2f}} pp，區間 [{{part_b.b2.ci_low_pp|+.2f}}, {{part_b.b2.ci_high_pp|+.2f}}] 含 0；同時期點估計 {{part_b.b2.period.diff_pp|+.2f}} pp，區間同樣含 0（B-3）。
+3. **業務③⑤ 離線無法判定，要等 A/B。** 業務③ 控制時期後 {{part_b.b3b4.dedup.period_stratified_uplift_pp|+.2f}}／{{part_b.b3b4.raw.period_stratified_uplift_pp|+.2f}} pp，區間都含 0；業務⑤ 缺手機規則組的增量，2:1 示算為負（B-6、B-7）。
+4. **換模型不是解方。** 依 A2 表 7 勝出的 XGB，十條判定與 RF 相同（B-11）。
+5. **錢的缺口主要在優惠設計，不在名單（示算）。** 名單相對手機規則每輪只多省 A\${{part_b.goals.saving_ml_vs_mobile_aud|,}}，即使達到 A2 目標也最多多省 A\${{part_b.goals.saving_target_vs_mobile_aud|,}}；每張折扣只要高於約 A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.raw|.2f}}（原始）／A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.dedup|.2f}}（去重），每輪白送給本來就會買者的折扣就超過這個數，名單也沒有讓這筆變少（以示例折扣 D = A\$36 算約 A\${{part_b.goals.spillover_discount_per_round_D36_aud.raw|,}}–{{part_b.goals.spillover_discount_per_round_D36_aud.dedup|,}}；B-13、圖 7、圖 8）。
+6. **建議：照 A2 的 12 週計畫，停在第 1–4 週。** 階段 0 未過，不進第 5–7 週影子模式；先補撥號前客戶特徵、外撥日期與客戶編號，用新的時間段重測（年齡、婚姻先交法遵，拿掉它們 AUC 幾乎不變）。下一輪即可先做、不需模型的準備：照現行做法外撥時記錄外撥日期與客戶編號（A2 請求 ②），並請財務提供每張卡的收益與折扣金額。
+'''
+
+MD['f9'] = r'''
+### B-2 圖 9 解讀：撥號前 AUC 從哪來
+
+**結論：AUC 從 {{part_b.ml.ml1_poc_test_auc}}（概念驗證，含通話後才知道的 duration）降到 {{part_b.ml.ml2_test_auc}}（撥號前）、{{part_b.ml.ml2_within_month_auc}}（月內）、{{part_b.ml.ml2_within_period_auc}}（同一 (cpi, cci) 時期內）；只有前兩條在 A2 門檻 0.75 的右邊，時期內接近亂猜的 0.5。**
+
+- **第一段落差是 duration**（事後資訊）：同樣的撥號前 RF 只多加 duration，AUC 就升到 {{part_b.ml.ml2_with_duration_auc}}（B-2 的受控比較）。
+- **後兩段落差是時期**：外撥日的候選人都在同一時期，名單排序實際能用的是最下面那條。
+- **讀法**：長條越往右排序越準；虛線 0.75 是 A2 的 ML② 門檻，點線 0.5 是亂猜。
+- **注意**：概念驗證是在全部 {{meta.rows.test|,}} 筆測試列上算的（含對照組），其餘三條只在測試集目標組 {{part_b.ml.test_target_rows|,}} 人上算；在同一批目標組上，概念驗證的 AUC 是 {{part_b.ml.ml1_poc_target_only_auc}}。
+'''
+
+MD['f8'] = r'''
+### B-13 圖 8 解讀：每輪的錢花在哪（示算）
+
+**結論：錢的缺口主要在優惠設計（白送給本來就會買的人），不在名單。以收益：折扣 = 2:1、示例折扣 D = A\$36 示算，同樣 2,300 筆成交，每輪送給本來就會買者的折扣：試點約 A\${{part_b.goals.spillover_discount_per_round_D36_aud.pilot|,}}，名單 A\${{part_b.goals.spillover_discount_per_round_D36_aud.raw|,}}（原始口徑）到 A\${{part_b.goals.spillover_discount_per_round_D36_aud.dedup|,}}（去重口徑），與整輪通話成本同一量級或更大；名單即使達到 A2 目標，相對手機規則每輪最多也只多省 A\${{part_b.goals.saving_target_vs_mobile_aud|,}} 通話費。**
+
+- **三段**：未成交電話（每通約 A\${{part_b.a2_recomputed.call_cost_no}}）、成交電話（每通約 A\${{part_b.a2_recomputed.call_cost_yes|.2f}}）、送給本來就會買者的折扣（2,300 × 本來就會買的比例 × D）。名單把未成交電話從 A\${{part_b.goals.round_spend_D36.pilot.unconverted_calls_aud|,}} 降到 A\${{part_b.goals.round_spend_D36.ml_list_raw_share.unconverted_calls_aud|,}}；折扣那一段在原始口徑幾乎不動，在去重口徑反而更高。
+- **損益平衡的 D**：每張卡折扣只要高於約 A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.raw|.2f}}（原始）／A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.dedup|.2f}}（去重），每輪白送的折扣就超過名單最多能多省的通話費（A\${{part_b.goals.saving_target_vs_mobile_aud|,}}）。
+- **讀法與限制**：D = A\$36 是 A2 附錄 A 的兩平折扣額（試點整輪通話費 ÷ 本來就會買的人數），不是實際折扣（金額由財務提供），所以試點那一列的折扣段約等於試點通話費是定義使然；判斷用的是上一點的門檻，與 D 取多少無關；本來就會買的比例取自單一門檻名單對同門檻對照組（B-6，兩組不完全可比）；名單的通話段用同月配對名單（同圖 7）。這張圖只說明量級：要省錢，下一步要處理的是「誰該拿到優惠」（A2 第二步、「打電話不給優惠」組），而不只是把名單排得更準。
+'''
+
+MD['lat'] = r'''
+### B-14 解讀：批次評分耗時（A2 表 8 可擴展性／延遲；硬體相依）
+
+**結論：撥號前模型替整個測試集 {{part_b.scoring_latency.rows|,}} 人單執行緒批次評分，中位數 RF 約 {{part_b.scoring_latency.rf_median_s|.3f}} 秒、XGB 約 {{part_b.scoring_latency.xgb_median_s|.3f}} 秒。名單只需在外撥日前批次產生，不需即時評分，延遲不是瓶頸。**
+
+- 這是建置本檔的電腦上量到的時間，換硬體就會不同，只當量級；不進十條判定，也不列入跨次執行的一致性比對。
+- 正式的可擴展性要在 A2 表 9 階段 1（影子評分）以實際名單量測。
+'''
+
+MD['b34'] = r'''
+<a id="b3-b4-summary" name="b3-b4-summary"></a>
+## B3、B4 摘要（完整版見 PDF 報告第 3、4 節）
+
+**B3｜未來改進、新增功能與新產品構想（只列優先序 1）**
+- **改進**：補撥號前客戶特徵與外撥日期後重建，依 A2 表 7 以 XGB 進影子模式；分群公平修正（60 歲以上另設切點或分群校準）。
+- **新增功能**：每位入選客戶附前三項入選原因（reason codes），給話務員與法遵，兌現 A2 表 8 的可解釋性承諾。
+- **新產品**：「打電話不給優惠」組 —— 不依賴模型、下一輪即可做，量出優惠本身的效果；之後再發展成個人化折扣額度。
+
+**B4｜放寬信用卡資格後，模型能否原封不動套用？**
+- **(a) 不能**：訓練資料只含舊資格內被隨機外撥的客戶，新客戶落在訓練範圍外，分數、切點與評估證據都不能沿用，只能先影子評分（只記錄、不決定外撥）；何況模型連舊客群的階段 0 都未通過。
+- **(b) 為什麼要調整**：資料漂移（輸入分布改變）、概念漂移（「特徵 → 接受」的關係改變）、評估證據斷層、分數未校準、商業前提改變（新客群的違約風險與用卡收益可能不同，接受不等於獲利）。
+- **(b) 怎麼調整**：比對分布 → 影子評分 → 隨機抽樣外撥取得新標籤 → 分群驗證 → 重訓、校準、重選切點 → A/B 與核准後上線 → 監控；新版未勝出或上線後變差即回退舊版。
 '''
 
 MD['appendix_a'] = r'''
@@ -2698,6 +2930,7 @@ def build():
              code(B_SETUP, 'b0-setup'), md(MD['b0'], 'b0-read'),
              code(B_TRAIN, 'b1-train'), md(MD['b1'], 'b1-read'),
              code(B_SCORE, 'b2-ml-auc'), md(MD['b2'], 'b2-read'),
+             code(B_FIG9, 'fig9', fig='fig9_auc_decomposition'), md(MD['f9'], 'fig9-read'),
              code(B_B2, 'b3-mobile-rule'), md(MD['b3'], 'b3-read'),
              code(B_FIG1, 'fig1', fig='fig1_gains'), md(MD['f1'], 'fig1-read'),
              code(B_B1, 'b4-cost'), md(MD['b4'], 'b4-read'),
@@ -2715,7 +2948,10 @@ def build():
              code(B_XGB, 'b11-xgb'), md(MD['xgb'], 'b11-read'),
              code(B_KPI, 'b12-kpi-table'), md(MD['b11'], 'b12-read'),
              code(B_GOALS, 'b13-goals'), code(B_FIG7, 'fig7', fig='fig7_round_cost'), md(MD['goals'], 'b13-read'),
+             code(B_FIG8, 'fig8', fig='fig8_round_spend'), md(MD['f8'], 'fig8-read'),
+             code(B_LAT, 'b14-latency'), md(MD['lat'], 'b14-read'),
              md(MD['concl'], 'b-conclusion'),
+             md(MD['b34'], 'b3-b4-summary'),
              md(MD['appendix_a'], 'appendix-a'),
              md(MD['appendix'], 'appendix-head'), code(B_JSON, 'appendix-kpi-json')],
     }
@@ -2932,6 +3168,7 @@ def check_claims(kpi):
     d34, r34 = b34['dedup'], b34['raw']
     sc = A['scoring']
     ps = B['a2_recomputed']['prev_success_share_pct']
+    sp, rs, rnd = go['spillover_discount_per_round_D36_aud'], go['round_spend_D36'], B['b1']['one_round_extrapolation']
 
     def inc0(lo, hi):
         return lo <= 0 <= hi
@@ -3123,6 +3360,28 @@ def check_claims(kpi):
             go['multiple_ml_raw'] is not None and go['multiple_ml_dedup'] is not None
             and go['multiple_pilot'] < go['multiple_ml_raw'] < go['multiple_ml_dedup'],
         'goals: no objective reached': all(v != '達標' for v in go['judgement'].values()),
+        # hd revision (B-13 money view, Fig 8, Fig 9, B-14)
+        'goals: raw revenue multiple close to the pilot (within 1)': abs(go['multiple_ml_raw'] - go['multiple_pilot']) < 1,
+        'goals: month mix alone saves vs the pilot; list vs month-mix random below list vs pilot and < 60% of target; mobile vs month-mix random below the list':
+            go['saving_random_mm_vs_pilot_aud'] > 0 and go['saving_ml_vs_random_mm_aud'] < go['saving_ml_vs_pilot_aud']
+            and go['saving_ml_vs_random_mm_share_of_target_pct'] < 60
+            and 0 < go['saving_mobile_vs_random_mm_aud'] < go['saving_ml_vs_random_mm_aud'],
+        'goals: even at the A2 target the extra saving vs the mobile rule is small (A$480 < x < A$5,000)':
+            go['saving_ml_vs_mobile_aud'] < go['saving_target_vs_mobile_aud'] < 5000,
+        'Fig8: would-buy discount per round >= 90% of the round call cost (pilot, list); raw within 5% of the pilot; dedup above raw':
+            sp['pilot'] >= 0.9 * go['pilot_call_cost_aud'] and sp['raw'] >= 0.9 * rnd['ml_list']['call_cost']
+            and abs(sp['raw'] - sp['pilot']) <= 0.05 * sp['pilot'] and sp['dedup'] > sp['raw'],
+        'Fig8: D at which the would-buy discount exceeds the most the list could save is small (< A$5)':
+            all(v < 5 for v in go['D_spill_exceeds_target_vs_mobile_saving_aud'].values()),
+        'Fig8: list cuts the unconverted-call part; call parts add up to the round call cost (within A$2)':
+            rs['ml_list_raw_share']['unconverted_calls_aud'] < rs['pilot']['unconverted_calls_aud']
+            and abs(rs['ml_list_raw_share']['unconverted_calls_aud'] + rs['ml_list_raw_share']['converted_calls_aud'] - rnd['ml_list']['call_cost']) <= 2
+            and abs(rs['pilot']['unconverted_calls_aud'] + rs['pilot']['converted_calls_aud'] - go['pilot_call_cost_aud']) <= 2,
+        'Fig9: PoC > pre-call > within month > within period; only the first two >= 0.75; within period < 0.6':
+            ml['ml1_poc_test_auc'] > ml['ml2_test_auc'] > ml['ml2_within_month_auc'] > ml['ml2_within_period_auc']
+            and ml['ml2_test_auc'] >= 0.75 > ml['ml2_within_month_auc'] and ml['ml2_within_period_auc'] < 0.6,
+        'B14: batch scoring of the whole test set well under 5 s (RF and XGB)':
+            B['scoring_latency']['rf_median_s'] < 5 and B['scoring_latency']['xgb_median_s'] < 5,
     }
     if C:
         prof, ov = C['profile'], C['overall']
@@ -3174,8 +3433,10 @@ def diff_paths(a, b, path=''):
 
 
 def strip_clustering(k):
+    # clustering: KMeans has no random_state in the official cells; scoring_latency: wall-clock time (hardware-dependent)
     k = copy.deepcopy(k)
     k.pop('clustering', None)
+    k.get('part_b', {}).pop('scoring_latency', None)
     return k
 
 

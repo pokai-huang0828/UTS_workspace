@@ -27,11 +27,16 @@ SRC = HERE / "A3_報告.md"
 OUT = HERE / "Huang_26254793_321513_A3.docx"
 FIGDIR = HERE / "figs"
 # 報告圖號 → Notebook 輸出的圖檔（圖說中另註 Notebook Fig 編號）
-FIGS = {"1": FIGDIR / "fig1_gains.png", "2": FIGDIR / "fig7_round_cost.png",
-        "3": FIGDIR / "fig3_uplift.png", "4": FIGDIR / "fig4_segment_auc.png",
+# HD 修訂（2026-10-09）：圖 1＝Nb Fig 8（每輪的錢）、圖 2＝Nb Fig 9（AUC 拆解）、圖 3＝Nb Fig 1、圖 4＝Nb Fig 7、
+# 圖 5＝Nb Fig 3、圖 6＝Nb Fig 4。圖寬以「圖內 9 pt 字嵌入後約 ≥ 7.5 pt」與版面為準（原圖 150 dpi，寬 14.6–17.8 cm）。
+FIGS = {"1": FIGDIR / "fig8_round_spend.png", "2": FIGDIR / "fig9_auc_decomposition.png",
+        "3": FIGDIR / "fig1_gains.png", "4": FIGDIR / "fig7_round_cost.png",
+        "5": FIGDIR / "fig3_uplift.png", "6": FIGDIR / "fig4_segment_auc.png",
         "B1": FIGDIR / "fig2_cost_vs_depth.png", "B2": FIGDIR / "fig6_confusion_matrix.png",
         "B3": FIGDIR / "fig5_perm_importance.png"}
-FIG_W = {"1": 12.0, "2": 12.5, "3": 12.6, "4": 13.6, "B1": 13.6, "B2": 13.4, "B3": 13.6}  # cm
+# hd-fix（2026-10-09）：依 render 審查放寬圖寬（版心 15.9 cm），讓圖內 9 pt 字嵌入後約 ≥ 8 pt；圖 3 較高，略窄以免整頁留白
+FIG_W = {"1": 15.9, "2": 15.9, "3": 14.6, "4": 15.9, "5": 14.6, "6": 14.8,
+         "B1": 14.9, "B2": 15.6, "B3": 15.9}  # cm
 FIG_AFTER_HEADING = set()
 
 LATIN = "Times New Roman"
@@ -205,11 +210,11 @@ def parse(md):
             blocks.append(("boxcap", m.group(1)))
             i += 1
             continue
-        if re.match(r"\*\*表 [0-9A]+｜", ln):
+        if re.match(r"\*\*表 R?[0-9A]+｜", ln):
             blocks.append(("tcap", ln))
             i += 1
             continue
-        if (ln.startswith("註：") or ln.startswith("註 ") or re.match(r"^\**表 [0-9A]+ 註", ln)
+        if (ln.startswith("註：") or ln.startswith("註 ") or re.match(r"^\**表 R?[0-9A]+ 註", ln)
                 or (re.match(r"^[①②③④⑤]", ln) and blocks and blocks[-1][0] == "note")):
             blocks.append(("note", ln))
             i += 1
@@ -226,15 +231,17 @@ def parse(md):
 
 # ---------------------------------------------------------------- 產生文件
 # 各表欄寬（cm，合計約 15.9）
-WIDTHS = {"1": [3.1, 4.9, 4.3, 3.6],
-          "2": [2.8, 2.8, 5.1, 2.5, 2.7],
-          "3": [2.4, 3.0, 2.0, 2.6, 2.6, 3.3],
-          "4": [2.3, 6.1, 1.6, 5.9],
-          "5": [2.6, 1.3, 3.4, 3.0, 3.2, 2.4],
-          "6": [1.7, 3.2, 2.9, 4.3, 1.9, 1.9],
-          "A": [2.8, 3.2, 2.8, 3.3, 3.8]}
-VERDICT_SHADE = [("達標", "E2EEDD"), ("未達", "F5DCD8"), ("未證實", "FAEED2"),
-                 ("示算", "ECEBE8"), ("列報", "ECEBE8"), ("不可離線驗", "ECEBE8")]
+# hd-fix：表號改為 R1–R7、RA（與 A2 表號區隔）；表 R7 刪「A2 節」欄
+WIDTHS = {"R1": [2.9, 5.1, 4.4, 3.5],            # Notebook 補全、選模、發現
+          "R2": [2.3, 6.1, 1.6, 5.9],            # 三個商業目標
+          "R3": [2.8, 2.8, 5.1, 2.5, 2.7],       # 十條成功標準
+          "R4": [2.1, 8.0, 2.0, 3.8],            # A2 表 8 其餘面向
+          "R5": [2.4, 3.0, 2.0, 2.6, 2.6, 3.3],  # 三種錯誤
+          "R6": [2.6, 1.7, 3.4, 2.9, 2.9, 2.4],  # 改進、新增功能、新產品
+          "R7": [1.5, 5.4, 3.1, 4.1, 1.8],       # 後續問題步驟
+          "RA": [2.8, 3.2, 2.8, 3.3, 3.8]}
+VERDICT_SHADE = [("達標", "E2EEDD"), ("未達", "F5DCD8"), ("未證實", "FAEED2"), ("部分", "FAEED2"),
+                 ("示算", "ECEBE8"), ("列報", "ECEBE8"), ("不可離線驗", "ECEBE8"), ("量級足夠", "ECEBE8")]
 NOTE_PT = 10
 CAP_PT = 11
 BOX_W = [3.4, 12.5]
@@ -274,8 +281,9 @@ def set_col_widths(t, widths):
                 row.cells[ci].width = Cm(w)
 
 
-def add_box(doc, title, rows, spacer=True):
-    """「框」＝兩欄表格：合併的標題列（深底）＋每列「項目｜內容」（略過 md 表頭列）。"""
+def add_box(doc, title, rows, spacer=True, keep=True):
+    """「框」＝兩欄表格：合併的標題列（深底）＋每列「項目｜內容」（略過 md 表頭列）。
+    keep=True：整框不跨頁（決策摘要）；False：列不拆開、但框可跨頁（標題列重複），避免整框推到下一頁留白。"""
     t = doc.add_table(rows=0, cols=2)
     t.style = doc.styles["Table Grid"]
     t.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -297,11 +305,11 @@ def add_box(doc, title, rows, spacer=True):
     for r in t.rows[1:]:
         for ci, w in enumerate(BOX_W):
             r.cells[ci].width = Cm(w)
-    for ri, r in enumerate(t.rows):  # 整框不跨頁
+    for ri, r in enumerate(t.rows):  # 列不拆開；keep 時整框不跨頁，否則只把標題列綁住第一列
         no_split(r)
         for c in r.cells:
             for p in c.paragraphs:
-                p.paragraph_format.keep_with_next = ri < len(t.rows) - 1
+                p.paragraph_format.keep_with_next = (ri < len(t.rows) - 1) if keep else ri == 0
     repeat_header(t.rows[0])
     if not spacer:  # 下一個是標題：不加間隔段，避免框剛好填滿一頁時多出一頁空白
         return
@@ -416,7 +424,7 @@ def build():
             para_format(p, 1.5, before=4, after=4, align=WD_ALIGN_PARAGRAPH.CENTER)
             add_inline(p, v)
         elif k == "tcap":
-            m = re.match(r"(\*\*表 ([0-9A]+)｜[^*]+\*\*)(.*)$", v)
+            m = re.match(r"(\*\*表 (R?[0-9A]+)｜[^*]+\*\*)(.*)$", v)
             cur_table = m.group(2) if m else None
             title, rest = (m.group(1), m.group(3).strip()) if m else (v, "")
             if rest.startswith("（") and rest.endswith("）"):
@@ -434,7 +442,7 @@ def build():
         elif k == "boxcap":
             pending_box = v
         elif k == "table" and pending_box:
-            add_box(doc, pending_box, v[1:], spacer=(nxt != "h"))
+            add_box(doc, pending_box, v[1:], spacer=(nxt != "h"), keep=pending_box.startswith("決策摘要"))
             pending_box = None
         elif k == "table":
             ncol = len(v[0])
@@ -479,6 +487,7 @@ def build():
             p.add_run().add_picture(fig_stream(FIGS[num]), width=Cm(FIG_W[num]))
             c = doc.add_paragraph()
             para_format(c, 1.2, after=10)
+            c.paragraph_format.keep_together = True  # hd-fix：圖說不跨頁（圖段已 keep_with_next）
             add_inline(c, cap.replace(f"圖 {num}｜", f"**圖 {num}｜**", 1), size=CAP_PT)
     doc.save(OUT)
     return OUT, blocks
