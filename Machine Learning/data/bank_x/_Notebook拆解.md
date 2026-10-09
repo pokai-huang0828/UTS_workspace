@@ -237,7 +237,7 @@ ml_pipe = pipe.fit(X=train_data, y=train_data['y'])
 auc_score['rf'] = roc_auc_score(test_data['response'], model_rf.best_estimator_.predict(test_data[selected_faeture]))
 auc_score['gb'] = roc_auc_score(test_data['response'], model_gb.best_estimator_.predict(test_data[selected_faeture]))
 
-# cell 53（markdown）：从上面可以看出, RF 的表现优于 XGB. 因此我们在最终流程中采用 RF 模型
+# cell 53（markdown）：從上面可以看出, RF 的表現優於 XGB. 因此我們在最終流程中採用 RF 模型
 
 # cell 56：同樣 test_size=0.4、同一個 random_state 重切 → 還是同一批測試資料
 train_data, test_data = train_test_split(df_data, test_size=0.4, random_state=RANDOM_SATE)

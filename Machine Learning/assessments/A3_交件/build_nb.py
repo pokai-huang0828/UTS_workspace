@@ -50,6 +50,7 @@ import time
 from pathlib import Path
 
 import nbformat
+import opencc                       # 官方 markdown 簡體 → 繁體（只在 venv 執行產生器時用；notebook 本身不需要）
 from nbclient import NotebookClient
 
 HERE = Path(__file__).resolve().parent                      # .../assessments/A3_交件
@@ -98,7 +99,7 @@ def code(src, cid, fig=None):
 
 
 # ----------------------------------------------------------------------------------------------------------------
-# 1) edits to OFFICIAL cells (only these; official markdown untouched)
+# 1) edits to OFFICIAL cells (only these; official markdown is only converted from Simplified to Traditional script in build())
 # ----------------------------------------------------------------------------------------------------------------
 def edit_official(cells):
     # cell-2: install into the running kernel's environment
@@ -2420,7 +2421,7 @@ MD['intro'] = r'''
 - [Part A｜官方流程與解讀](#part-a)：官方 cell 依原順序執行，每段輸出後插一格「解讀」。
 - [Part B｜商業評估：對照 A2 成功標準](#part-b)：開頭先給答案 → [十條標準一覽](#part-b-summary) → B-0～B-14 逐條證據 → [結論](#conclusion) → [B3、B4 摘要](#b3-b4-summary) → 附錄 A（業務② 區間的穩健性）與數字總表。
 
-本 notebook 以官方 `AT3_TeleMarketing.ipynb` 為底：官方 cell 依原順序全部保留，官方 markdown（簡體中文）一字未動；只在下表的地方修改官方程式碼，每處都以 `# [A3 修正]` 註明（四格 Tech Focus Only 只加一行 `# [A3]` 說明註解）。我新增的 cell 以 `[A3 新增]`（Part A）或 `[Part B-n]`、`[Fig n]`（Part B）開頭，說明用繁體中文；圖內文字用英文（Colab 沒有中文字型）。文中「官方 cell-N」指官方原檔的第 N 格（從 0 起算）；Colab 不顯示格號，所以引用時都會附上那一格在做什麼。
+本 notebook 以官方 `AT3_TeleMarketing.ipynb` 為底：官方 cell 依原順序全部保留，官方 markdown 原為簡體中文，只用 OpenCC 轉成繁體字（只轉字形，用語維持官方原文）；只在下表的地方修改官方程式碼，每處都以 `# [A3 修正]` 註明（四格 Tech Focus Only 只加一行 `# [A3]` 說明註解）。我新增的 cell 以 `[A3 新增]`（Part A）或 `[Part B-n]`、`[Fig n]`（Part B）開頭，說明用繁體中文；圖內文字用英文（Colab 沒有中文字型）。文中「官方 cell-N」指官方原檔的第 N 格（從 0 起算）；Colab 不顯示格號，所以引用時都會附上那一格在做什麼。
 
 **官方 cell 的修改（全部）**
 
@@ -2911,6 +2912,11 @@ def build():
             c.outputs = []
             c.execution_count = None
     edit_official(cells)
+    # 官方 markdown 是簡體中文：只做字形轉換（OpenCC s2tw，台灣繁體），文字內容不改
+    s2tw = opencc.OpenCC('s2tw')
+    for c in cells:
+        if c.cell_type == 'markdown':
+            c['source'] = src_lines(s2tw.convert(''.join(c['source'])).replace('併為', '並為'))   # OpenCC 把連接詞「并為」誤轉成「併為」
 
     after = {
         0: [md(MD['intro'], 'a3-intro'), md(MD['part_a'], 'a3-part-a')],
