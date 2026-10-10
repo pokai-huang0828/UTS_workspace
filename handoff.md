@@ -2329,3 +2329,5 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - **執行**(computer-use,VS Code 只限點擊):選 kernel「Python 3 (a3venv)」→ Restart → Run All → File › Save。結果:**90 格全部執行、0 錯誤、0 本機路徑**、KPI 與先前一致(只計時值變)。存檔後關分頁,把 kernelspec 改回 `python3`(Colab 相容),`a3_kpi_results.json` 改為這次 VS Code 執行印出的區塊
 - 執行副產品(EDA.html、ml_pipe.joblib、test.png、cluster_data.csv)已加 .gitignore
 - 🔴 仍待 Kenny:Canvas 核 UTS 2026a 英文模組名;只上傳 pdf＋ipynb;上傳時留言「本作業選擇商業重點」
+
+- 2026-10-10:封面「授課教師」依 Kenny 要求改為兩位上課老師 Dr Li Guan、Chunping Li(線上學習講師)(原為課程負責人 Dr Vahid Behbood);封面字數 1,640→1,645 與 count_chars 一致;PDF 重出 24 頁
