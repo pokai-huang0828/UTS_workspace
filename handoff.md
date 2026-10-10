@@ -2319,3 +2319,13 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - **獨立核對**(haiku 殘留掃描 ∥ sonnet 品質):抓到 OpenCC 誤轉「并為/并成→併」2 處 → 改「並」;「朴素→樸素」1 處;5 處「Canvas 原樣」註記補說明。**未採納**:檢查員要改的「分布→分佈、台→臺、占→佔」—— 三者在台灣都是正確繁體,不是簡體
 - **驗收**:A3 ipynb(原始碼＋輸出)、PDF、docx 簡體字 0;Notebook 重跑 0 錯誤、KPI 只有計時值變(報告已寫「約」);正文 1,645 字
 - subagent ≈ 0.48M tokens
+
+---
+
+## 2026-10-10 · A3 Notebook 改在 VS Code 執行(Kenny:「Colab 跑不起來,我用 VS Code」)
+
+- **Colab 觀察**(Chrome 已登入,只讀＋執行前兩格):Colab 現為 **Python 3.13.15**、numpy 2.1.3、pandas 2.2.3、sklearn 1.6.1、xgboost 3.4.1、seaborn 0.13.2、matplotlib 3.10.0;`%pip install ydata-profiling` 不需降版、不需重啟,匯入格正常。Kenny 遇到的錯誤畫面沒看到(runtime 已重置),之後改走 VS Code
+- **VS Code 準備**:CSV 複製到 `A3_交件/TeleMarketing.csv`(gitignored,正本在 data/bank_x);用 ipykernel 在使用者層登記 kernel「Python (A3 venv)」(`%APPDATA%\jupyter\kernels\a3venv`);產生器改 `%pip install -q`、說明格補 VS Code 執行方式、cell-3 匯入 ydata 時隱藏所有警告(VS Code 會印出含本機路徑的 tqdm 提示)
+- **執行**(computer-use,VS Code 只限點擊):選 kernel「Python 3 (a3venv)」→ Restart → Run All → File › Save。結果:**90 格全部執行、0 錯誤、0 本機路徑**、KPI 與先前一致(只計時值變)。存檔後關分頁,把 kernelspec 改回 `python3`(Colab 相容),`a3_kpi_results.json` 改為這次 VS Code 執行印出的區塊
+- 執行副產品(EDA.html、ml_pipe.joblib、test.png、cluster_data.csv)已加 .gitignore
+- 🔴 仍待 Kenny:Canvas 核 UTS 2026a 英文模組名;只上傳 pdf＋ipynb;上傳時留言「本作業選擇商業重點」

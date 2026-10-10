@@ -243,3 +243,11 @@ client_secret*.json
 # --- 321513 Machine Learning:大型資料集(超過 GitHub 100MB 單檔上限,不進版控) ---
 Machine Learning/data/real_estate/*.zip
 Machine Learning/data/real_estate/property_images*/
+
+# A3：VS Code 執行用的資料副本（正本在 Machine Learning/data/bank_x/TeleMarketing.csv）
+Machine Learning/assessments/A3_交件/TeleMarketing.csv
+# A3：在 VS Code 執行 Notebook 時產生的副產品
+Machine Learning/assessments/A3_交件/EDA.html
+Machine Learning/assessments/A3_交件/ml_pipe.joblib
+Machine Learning/assessments/A3_交件/test.png
+Machine Learning/assessments/A3_交件/cluster_data.csv
