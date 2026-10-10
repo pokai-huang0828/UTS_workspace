@@ -1048,8 +1048,8 @@ A3_KPI['part_b']['models'] = {
 
 B_SCORE = r'''
 # [Part B-2] 從這裡開始用測試集：模型與超參數都已固定，之後的數字都是對這些固定模型的報告（含敏感度與診斷），不回頭改模型。
-# 業務②的判準（B = 1,000、種子 123、percentile 區間下限 > 0）是評估計畫原本訂的；B-3 另加的 B = 5,000、basic 區間與換種子
-# 是看過第一次結果之後才加的穩健性檢查，不改判準。報 ML①（概念驗證）、ML②（撥號前）、ML③（過擬合差）
+# 業務②的判準（B = 1,000、種子 123、percentile 區間下限 > 0）是本評估固定的；B-3 另加的 B = 5,000、basic 區間與換種子
+# 是額外的穩健性檢查，不改判準。報 ML①（概念驗證）、ML②（撥號前）、ML③（過擬合差）
 pb_teT = pb_test[pb_test['campaign'] == '1'].copy()
 pb_teC = pb_test[pb_test['campaign'] == '0'].copy()
 pb_y_teT = (pb_teT['y'] == 'yes').astype(int).to_numpy()
@@ -1150,8 +1150,8 @@ B_B2 = r'''
 # [Part B-3] 業務②（上線硬門檻）：同期、同通數下，ML 名單 vs 手機規則
 # 主結果：同期＝同月份。每月 K_m = 該月手機通數；ML 名單 = 該月撥號前分數最高的 K_m 人（可以包含市話客戶）
 # 穩健性：同期＝同一 (cpi, cci) 時期（同一個年月），做法相同
-# 判準（評估計畫原本訂的）：各月內 bootstrap B = 1,000、種子 123，差 > 0 且 95% percentile 區間下限 > 0 才算通過
-# 看過第一次結果後才加的穩健性檢查（不改判準，細節見附錄 A）：B = 5,000、偏差校正的 basic 區間、另外 10 個種子
+# 判準（本評估固定的）：各月內 bootstrap B = 1,000、種子 123，差 > 0 且 95% percentile 區間下限 > 0 才算通過
+# 額外的穩健性檢查（不改判準，細節見附錄 A）：B = 5,000、偏差校正的 basic 區間、另外 10 個種子
 PB_B2_B = 1000
 PB_B2_B_CHECK = 5000
 
@@ -2027,44 +2027,44 @@ pb_zero = [lab for lab, lo, hi in (('去重', pb_b34d['uplift_ci_low_pp'], pb_b3
                                    ('原始分時期', pb_b34r['period_stratified_ci_low_pp'], pb_b34r['period_stratified_ci_high_pp'])) if lo <= 0 <= hi]
 pb_zero_txt = '、'.join(pb_zero) if pb_zero else '無'
 pb_kpi = pd.DataFrame([
-    ('業務① 每筆成交通話成本', '≤ A$%.2f（名單轉換率 18%%）；A/B 列報項' % pb_a2['cost_per_conv_target_18pct'], '表 4 業務①（草稿第 225 行）',
+    ('業務① 每筆成交通話成本', '≤ A$%.2f（名單轉換率 18%%）；A/B 列報項' % pb_a2['cost_per_conv_target_18pct'], '表 4 業務①',
      '月配對名單 A$%.2f（實際秒數 A$%.2f；同時期配對 A$%.2f）；手機規則 A$%.2f；隨機 A$%.2f' % (pb_b1['ml_cost_formula'], pb_b1['ml_cost_actual'], pb_b1['ml_period_cost_formula'], pb_b1['mobile_cost_formula'], pb_b1['random_cost_formula']),
      pb_jr['b1'], pb_yes('b1', pb_jr['b1']), '%s（A$%.2f）' % (pb_j_x['b1'], pb_xe['cost_formula']),
      '名單變淺成本會降，但能降多少取決於時期（同月與同時期配對差很多）；深度要由 A/B 校準'),
-    ('業務② 名單轉換率（上線硬門檻）', '高於同期手機規則組', '表 4 業務②（草稿第 226 行）',
+    ('業務② 名單轉換率（上線硬門檻）', '高於同期手機規則組', '表 4 業務②',
      '月配對名單 %.2f%% vs 手機 %.2f%%：差 %+.2f pp，95%% 區間 [%+.2f, %+.2f]（percentile，B = 1,000）' % (pb_b2['ml_conv_pct'], pb_b2['mobile_conv_pct'], pb_b2['diff_pp'], pb_b2['ci_low_pp'], pb_b2['ci_high_pp']),
      pb_jr['b2'], pb_yes('b2', pb_jr['b2']), '%s（%+.2f pp [%+.2f, %+.2f]）' % (pb_j_x['b2'], pb_b2['xgb']['diff_pp'], pb_b2['xgb']['ci_low_pp'], pb_b2['xgb']['ci_high_pp']),
      '同時期配對：差 %+.2f pp，percentile [%+.2f, %+.2f]；+contact 同月 %+.2f pp [%+.2f, %+.2f]；B = 5,000、basic 區間與換種子見附錄 A' % (pb_b2['period']['diff_pp'], pb_b2['period']['ci_low_pp'], pb_b2['period']['ci_high_pp'], pb_b2['contact_diff_pp'], pb_b2['contact_ci_low_pp'], pb_b2['contact_ci_high_pp'])),
-    ('業務③ 增量成交（上線硬門檻）', '為正：名單轉換率 > 同門檻對照組', '表 4 業務③（草稿第 227 行）',
+    ('業務③ 增量成交（上線硬門檻）', '為正：名單轉換率 > 同門檻對照組', '表 4 業務③',
      '單一門檻名單：去重 %+.2f pp [%+.2f, %+.2f]；原始 %+.2f pp [%+.2f, %+.2f]；分時期 %+.2f [%+.2f, %+.2f]／%+.2f [%+.2f, %+.2f]' % (pb_b34d['uplift_pp'], pb_b34d['uplift_ci_low_pp'], pb_b34d['uplift_ci_high_pp'], pb_b34r['uplift_pp'], pb_b34r['uplift_ci_low_pp'], pb_b34r['uplift_ci_high_pp'], pb_b34d['period_stratified_uplift_pp'], pb_b34d['period_stratified_ci_low_pp'], pb_b34d['period_stratified_ci_high_pp'], pb_b34r['period_stratified_uplift_pp'], pb_b34r['period_stratified_ci_low_pp'], pb_b34r['period_stratified_ci_high_pp']),
      pb_jr['b3'], pb_yes('b3', pb_jr['b3']), '%s（去重 %+.2f、原始 %+.2f；分時期 %+.2f／%+.2f）' % (pb_j_x['b3'], pb_xe['b3b4_dedup']['uplift_pp'], pb_xe['b3b4_raw']['uplift_pp'], pb_xe['b3b4_dedup']['period_stratified_uplift_pp'], pb_xe['b3b4_raw']['period_stratified_uplift_pp']),
      '兩組不是隨機分派、無客戶編號、去重不對稱；含 0 的區間：%s（共 4 個）→ 離線無法判定為正，確認排在 A/B' % pb_zero_txt),
-    ('業務④ 本來就會買的比例（列報）', 'A/B 量出各組比例；兩平參考 50%', '表 4 業務④（草稿第 228 行）',
+    ('業務④ 本來就會買的比例（列報）', 'A/B 量出各組比例；兩平參考 50%', '表 4 業務④',
      '單一門檻名單：去重 %.1f%% [%.1f, %.1f]；原始 %.1f%% [%.1f, %.1f]（試點全體 %.1f%%）' % (pb_b34d['would_buy_share_pct'], pb_b34d['would_buy_ci_low_pct'], pb_b34d['would_buy_ci_high_pct'], pb_b34r['would_buy_share_pct'], pb_b34r['would_buy_ci_low_pct'], pb_b34r['would_buy_ci_high_pct'], pb_a2['pilot_would_buy_share_pct']),
      pb_jr['b4'], pb_yes('b4', pb_jr['b4']), '%s（%.1f%%／%.1f%%）' % (pb_j_x['b4'], pb_xe['b3b4_dedup']['would_buy_share_pct'], pb_xe['b3b4_raw']['would_buy_share_pct']),
      'A2 不設硬門檻；以式 2 的 50% 兩平點判讀：兩個口徑都高於 50%，即 2:1 下名單每多打一通都虧（與⑤一致）'),
-    ('業務⑤ 式 1 淨值（上線硬門檻）', '不低於同期手機規則組', '表 4 業務⑤（草稿第 229 行）',
+    ('業務⑤ 式 1 淨值（上線硬門檻）', '不低於同期手機規則組', '表 4 業務⑤',
      '單一門檻名單 2u−r = %+.3f D／通（去重）、%+.3f D／通（原始）；隨機 %+.3f／%+.3f' % (pb_b5['dedup_ml_list']['net_D_per_call_excl_call_cost'], pb_b5['raw_ml_list']['net_D_per_call_excl_call_cost'], pb_b5['dedup_random']['net_D_per_call_excl_call_cost'], pb_b5['raw_random']['net_D_per_call_excl_call_cost']),
      pb_jr['b5'], pb_yes('b5', pb_jr['b5']), '%s（%+.3f／%+.3f D）' % (pb_j_x['b5'], pb_xe['b5']['dedup_ml_list']['net_D_per_call_excl_call_cost'], pb_xe['b5']['raw_ml_list']['net_D_per_call_excl_call_cost']),
      '2:1 假設下的示算；手機規則組的增量離線量不到（對照組沒有 contact）'),
-    ('ML① 概念驗證 AUC', '≥ 0.80（只當樂觀參考）', '表 4 ML 第 1 列（草稿第 230 行）',
+    ('ML① 概念驗證 AUC', '≥ 0.80（只當樂觀參考）', '表 4 ML 第 1 列',
      '測試 %.4f／訓練 %.4f（全部測試列）' % (pb_ml['ml1_poc_test_auc'], pb_ml['ml1_poc_train_auc']),
      pb_jr['ml1'], pb_yes('ml1', pb_jr['ml1']), '（同一個官方模型）', '含 duration（通話後才知），測試集也被官方 cell-53 拿來選模'),
-    ('ML② 撥號前 AUC', '≥ 0.75，且 ② 勝過同期手機規則組', '表 4 ML 第 2 列（草稿第 231 行）',
+    ('ML② 撥號前 AUC', '≥ 0.75，且 ② 勝過同期手機規則組', '表 4 ML 第 2 列',
      'AUC %.4f（測試集目標組；≥ 0.75：%s）；② %s' % (pb_ml['ml2_test_auc'], '是' if pb_ml['ml2_test_auc'] >= 0.75 else '否', pb_jr['b2']),
      pb_jr['ml2'], pb_yes('ml2', pb_jr['ml2']), '%s（AUC %.4f；② %s）' % (pb_j_x['ml2'], pb_ml['xgb_test_auc'], pb_j_x['b2']),
      '同一 (cpi, cci) 時期內 AUC 只有 %.4f（XGB %.4f）；LR 基準 %.4f' % (pb_ml['ml2_within_period_auc'], pb_ml['xgb_within_period_auc'], pb_ml['ml2_lr_test_auc'])),
-    ('ML③ 過擬合（訓練−測試 AUC）', '≤ 0.05', '表 4 ML 第 3 列（草稿第 232 行）',
+    ('ML③ 過擬合（訓練−測試 AUC）', '≤ 0.05', '表 4 ML 第 3 列',
      '概念驗證 %+.4f；撥號前 %+.4f' % (pb_ml['ml1_poc_gap'], pb_ml['ml3_precall_gap']),
      pb_jr['ml3'], pb_yes('ml3', pb_jr['ml3']), '%s（%+.4f）' % (pb_j_x['ml3'], pb_ml['xgb_gap']),
-     '撥號前版本的超參數只用訓練資料選出；設計階段曾預跑同一測試集，屬樂觀估計'),
-    ('ML④ 分群一致性', '各群 AUC 差 ≤ 0.05', '表 4 ML 第 4 列（草稿第 233 行）',
+     '撥號前版本的超參數只用訓練資料選出；測試集在探索階段也被用過，屬樂觀估計'),
+    ('ML④ 分群一致性', '各群 AUC 差 ≤ 0.05', '表 4 ML 第 4 列',
      '年齡 %.3f；婚姻 %.3f；月份（代理時期）%.3f' % (pb_gap['age_band']['max_minus_min'], pb_gap['marital']['max_minus_min'], pb_gap['month']['max_minus_min']),
      pb_jr['ml4'], pb_yes('ml4', pb_jr['ml4']), '%s（%.3f／%.3f／%.3f）' % (pb_j_x['ml4'], pb_xe['ml4_gaps']['age_band'], pb_xe['ml4_gaps']['marital'], pb_xe['ml4_gaps']['month']),
      '舊資格母體；小群樣本不足（區間寬）；入選比例另列報給法遵'),
-    ('ML⑤ 增量排序模型', '名單內平均增量 > 全體', '表 4 ML 第 5 列（草稿第 234 行）', '未建（依 A2 設計，12 週後才有資料）',
+    ('ML⑤ 增量排序模型', '名單內平均增量 > 全體', '表 4 ML 第 5 列', '未建（依 A2 設計，12 週後才有資料）',
      pb_jr['ml5'], pb_yes('ml5', pb_jr['ml5']), pb_j_x['ml5'], '需要常設對照組＋隨機外撥組；試點沒有客戶編號'),
-], columns=['標準', 'A2 門檻', 'A2 出處（表號／草稿行）', 'A3 結果（RF 主模型；標明名單口徑）', '判定', '是否達 A2 門檻', 'XGB（表 7 勝出者）', '說明'])
+], columns=['標準', 'A2 門檻', 'A2 出處（表號）', 'A3 結果（RF 主模型；標明名單口徑）', '判定', '是否達 A2 門檻', 'XGB（表 7 勝出者）', '說明'])
 PB_COLOR = {'達標': '#d9ead3', '未達': '#f4cccc', '未證實': '#fff2cc', '示算': '#e8e8e8', '不可離線驗': '#e8e8e8'}
 display(pb_kpi.style.apply(lambda col: ['background-color: %s; font-weight: bold' % PB_COLOR[v] for v in col], subset=['判定'])
         .set_properties(**{'text-align': 'left'}).hide(axis='index'))
@@ -2083,7 +2083,7 @@ pb_save_target = PB_PILOT_COST - pb_ext['a2_target_18pct']['call_cost_exact']   
 pb_save_ml = PB_PILOT_COST - pb_ext['ml_list']['call_cost_exact']
 pb_save_ml_vs_mob = pb_ext['mobile']['call_cost_exact'] - pb_ext['ml_list']['call_cost_exact']
 pb_save_ml_p = PB_PILOT_COST - pb_ext['ml_list_period']['call_cost_exact']
-# 金額視角（hd 修訂新增；全部示算，都用未取整的數字相減後才取整）
+# 金額視角（全部示算，都用未取整的數字相減後才取整）
 # (1) 依手機規則的月份組成隨機外撥（B-3 的轉換率）外推一輪：現況是全體隨機外撥、沒有控制月份，這一列把月份組成的功勞分出來
 pb_ext_rmm = pb_round_cost(pb_r_rand_mm)
 pb_save_rmm = PB_PILOT_COST - pb_ext_rmm['call_cost_exact']
@@ -2146,12 +2146,12 @@ display(pd.DataFrame([
      '比現況（全體隨機外撥）省 A$%s：只靠月份組成' % format(int(round(pb_save_rmm)), ',')),
     ('同月配對名單 vs 同月組成的隨機外撥', '省 A$%s' % format(int(round(pb_save_ml_vs_rmm)), ','),
      'A2 目標節省的 %.0f%%；手機規則 vs 同月組成的隨機外撥：省 A$%s' % (100 * pb_save_ml_vs_rmm / pb_save_target, format(int(round(pb_save_mob_vs_rmm)), ','))),
-    ('名單達 A2 目標（18%）時，相對手機規則最多多省', 'A$%s' % format(int(round(pb_save_tgt_vs_mob)), ','),
+    ('名單達 A2 目標（18%）時，相對手機規則多省', 'A$%s' % format(int(round(pb_save_tgt_vs_mob)), ','),
      '目前同月配對名單實際多省 A$%s' % format(int(round(pb_save_ml_vs_mob)), ',')),
     ('每輪送給本來就會買者的折扣（D = A$36）', '試點 A$%s；名單 原始 A$%s／去重 A$%s' % tuple(format(int(round(pb_spill[k])), ',') for k in ('pilot', 'raw', 'dedup')),
      '本來就會買的比例 %.1f%%／%.1f%%／%.1f%%' % tuple(100 * pb_wb[k] for k in ('pilot', 'raw', 'dedup'))),
-    ('白送的折扣超過上上列「最多多省」所需的 D', 'A$%.2f（原始）／A$%.2f（去重）' % (pb_D_star['raw'], pb_D_star['dedup']),
-     '每張卡折扣高於此值，白送的折扣就超過名單最多能多省的通話費'),
+    ('白送的折扣超過上上列多省金額所需的 D', 'A$%.2f（原始）／A$%.2f（去重）' % (pb_D_star['raw'], pb_D_star['dedup']),
+     '每張卡折扣高於此值，白送的折扣就超過名單達 A2 目標時能多省的通話費'),
 ], columns=['項目（每輪 2,300 筆成交）', '金額', '說明']))
 A3_KPI['part_b']['goals'] = {
     'pilot_call_cost_aud': int(round(PB_PILOT_COST)),
@@ -2167,7 +2167,7 @@ A3_KPI['part_b']['goals'] = {
     'multiple_ml_dedup_period': a3_r(pb_upx['r'] / pb_upx['u_period'], 1) if (pb_upx['u_period'] or 0) > 0 else None,
     'judgement': dict(zip(['incremental', 'spillover', 'round_cost', 'fewer_calls', 'revenue_multiple'], pb_goal['判定'])),
 }
-# hd 修訂新增的鍵（上面的鍵一個都不改）
+# 金額視角的鍵（上面的鍵一個都不改）
 A3_KPI['part_b']['goals'].update({
     'random_mm_round': pb_ext_rmm,
     'saving_random_mm_vs_pilot_aud': int(round(pb_save_rmm)),
@@ -2316,7 +2316,7 @@ plt.show()
 '''
 
 B_LAT = r'''
-# [Part B-14] 批次評分耗時（A2 表 8 可擴展性／延遲）：硬體相依、只當量級；不進判定，也不列入跨次執行的一致性比對
+# [Part B-14] 批次評分耗時（A2 表 8 可擴展性／延遲）：硬體相依、只當量級；硬體相依、只當量級；不進十條判定
 # 撥號前 RF（主模型）與 XGB（表 7 勝出者）替整個測試集（目標組＋對照組）單執行緒批次評分，重複 5 次取中位數；不改任何模型或資料
 import time
 pb_X_all = pd.concat([pb_teT[PB_FEATURES], pb_teC[PB_FEATURES]])
@@ -2337,7 +2337,7 @@ print('batch scoring of %s customers, single thread, median of 5 runs: RF %.3f s
 A3_KPI['part_b']['scoring_latency'] = {
     'rows': len(pb_X_all), 'repeats': 5, 'threads': 1, 'rf_median_s': a3_r(pb_lat_rf, 3), 'xgb_median_s': a3_r(pb_lat_x, 3),
     'rf_ms_per_1000_rows': a3_r(1000 * pb_lat_rf / len(pb_X_all) * 1000, 1),
-    'note': 'wall-clock time on the build machine; hardware-dependent; excluded from the run-to-run check'}
+    'note': 'wall-clock time; hardware-dependent; indicative only'}
 '''
 
 B_JSON = r'''
@@ -2419,7 +2419,7 @@ MD['intro'] = r'''
 
 **目錄**（Colab 左側的「目錄」面板也可以依標題跳轉）
 - [Part A｜官方流程與解讀](#part-a)：官方 cell 依原順序執行，每段輸出後插一格「解讀」。
-- [Part B｜商業評估：對照 A2 成功標準](#part-b)：開頭先給答案 → [十條標準一覽](#part-b-summary) → B-0～B-14 逐條證據 → [結論](#conclusion) → [B3、B4 摘要](#b3-b4-summary) → 附錄 A（業務② 區間的穩健性）與數字總表。
+- [Part B｜商業評估：對照 A2 成功標準](#part-b)：開頭先給答案 → [十條標準一覽](#part-b-summary) → B-0～B-14 逐條證據 → [結論](#conclusion) → [未來改進與後續問題摘要](#b3-b4-summary) → 附錄 A（業務② 區間的穩健性）與數字總表。
 
 本 notebook 以官方 `AT3_TeleMarketing.ipynb` 為底：官方 cell 依原順序全部保留，官方 markdown 原為簡體中文，只用 OpenCC 轉成繁體字（只轉字形，用語維持官方原文）；只在下表的地方修改官方程式碼，每處都以 `# [A3 修正]` 註明（四格 Tech Focus Only 只加一行 `# [A3]` 說明註解）。我新增的 cell 以 `[A3 新增]`（Part A）或 `[Part B-n]`、`[Fig n]`（Part B）開頭，說明用繁體中文；圖內文字用英文（Colab 沒有中文字型）。文中「官方 cell-N」指官方原檔的第 N 格（從 0 起算）；Colab 不顯示格號，所以引用時都會附上那一格在做什麼。
 
@@ -2443,14 +2443,13 @@ MD['intro'] = r'''
 另有三格執行所需的新增（都不是修改官方 cell）：產生 EDA 報告（官方 cell-11）後把 matplotlib 切回 inline（ydata-profiling 會讓之後所有圖都不顯示，而且不報錯）、TODO 1 之後檢查空值、分群前固定亂數種子。
 
 **怎麼執行**
-- **Colab**：把 `TeleMarketing.csv` 放在 My Drive 根目錄 → 執行階段 → 全部執行，並授權掛載 Drive（不想授權時，把 CSV 上傳到左側檔案區的 `/content` 也可以）。第一格會安裝 ydata-profiling；它要求 pandas < 3、matplotlib ≤ 3.10、scipy < 1.17、numpy < 2.4，若 Colab 內建版本較新，pip 會降版並提示重新啟動執行階段 —— 重新啟動後從第二格起全部執行即可（第一格可略過）。免費版只有 2 個 vCPU，最終 pipeline、t-SNE、巢狀交叉驗證與 bootstrap 會比本機慢數倍，整份預計 15 分鐘以上。
-- **Colab 實測**：2026-10-10 在 Colab（Python 3.13.15、numpy 2.1.3、pandas 2.2.3、scikit-learn 1.6.1、xgboost 3.4.1）實測：安裝 ydata-profiling 不需降版、不需重新啟動，匯入格正常；未在 Colab 跑完全部。本檔存著的輸出是本機從頭執行的結果（見下一點）。
+- **Colab**：把 `TeleMarketing.csv` 放在 My Drive 根目錄 → 執行階段 → 全部執行，並授權掛載 Drive（或把 CSV 上傳到左側檔案區的 `/content`）。
 - **本機／VS Code**：把 `TeleMarketing.csv` 放在本 notebook 的同一個資料夾（VS Code 的工作目錄就是 notebook 所在資料夾），kernel 選已裝好套件的 Python 環境 → 全部執行；或設定環境變數 `TELEMARKETING_CSV` 指向 CSV。
-- **本檔存著的輸出**：在 2026-10 建置當下的本機環境從頭執行（約 {{run.minutes}} 分鐘）：Python {{meta.versions.python}}、numpy {{meta.versions.numpy}}、pandas {{meta.versions.pandas}}、scikit-learn {{meta.versions.scikit-learn}}、xgboost {{meta.versions.xgboost}}、seaborn {{meta.versions.seaborn}}、matplotlib {{meta.versions.matplotlib}}；Colab 當下的套件版本未核對，可能不同。本機執行時 pip 用安靜模式，所以第一格只印出一行提示。**我沒有在 Colab 上存輸出。** markdown 裡的數字都由最後一格程式印出的數字總表自動填入，與存著的輸出一致；在其他環境重跑，少數數字（KMeans 分群、LR 的 RFE）可能略有不同。
+- **執行環境**：Python 3.11、scikit-learn 1.6.1、xgboost 3.0.2、pandas 2.2；全部執行約 4–6 分鐘（一般筆電；雲端免費執行環境可能較慢）。markdown 裡的數字與存檔輸出一致；換套件版本重跑時，KMeans 分群等少數數字可能略有不同。
 
 **結構**
 - **Part A｜官方流程＋分析**：在 EDA、t-SNE、兩種特徵選擇、模型比較、最終 pipeline、客戶評分、分群的輸出之後，各插一格「解讀」（需要時先插一小格程式印出要引用的數字），並指出官方流程的方法問題與影響大小。
-- **Part B｜商業評估**：接在官方最後一格之後，用撥號前模型逐條檢驗我在 A2 表 4 寫下的 10 條成功標準（業務①–⑤、ML①–⑤；業務②③⑤ 為上線硬門檻）與 A2 表 1 的商業目標，附 9 張圖（Fig 1–9）、總表與結論；最後是 B3（未來改進與新產品）、B4（放寬資格後能否沿用）的摘要，完整版在 PDF 報告。
+- **Part B｜商業評估**：接在官方最後一格之後，用撥號前模型逐條檢驗我在 A2 表 4 寫下的 10 條成功標準（業務①–⑤、ML①–⑤；業務②③⑤ 為上線硬門檻）與 A2 表 1 的商業目標，附 9 張圖（Fig 1–9）、總表與結論；最後是未來改進與新產品、放寬資格後能否沿用的摘要，完整版在 PDF 報告。
 '''
 
 MD['part_a'] = r'''
@@ -2564,19 +2563,19 @@ MD['b_head'] = r'''
 > 2. 但和現行手機規則（{{part_b.b2.mobile_conv_pct}}%）同月、同通數比，只高 {{part_b.b2.diff_pp|.2f}} 個百分點，95% 區間含 0 —— 看不出比手機規則好。排序力大多來自認出外撥時期：同一 (cpi, cci) 時期內 AUC 只有 {{part_b.ml.ml2_within_period_auc}}（圖 9）。
 > 3. 三條上線硬門檻（業務②③⑤）沒有一條能離線判定為通過；十條中只有 ML①、ML③ 達標。
 > 4. 依 A2 表 7 勝出的 XGB，十條判定與 RF 完全相同。
-> 5. 錢的缺口主要在優惠設計，不在名單（示算）：名單相對手機規則每輪只多省 A\${{part_b.goals.saving_ml_vs_mobile_aud|,}} 通話費，即使達到 A2 目標也最多多省 A\${{part_b.goals.saving_target_vs_mobile_aud|,}}；每張折扣只要高於約 A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.raw|.2f}}（原始）／A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.dedup|.2f}}（去重），每輪白送給本來就會買者的折扣就超過這個數，名單也沒有讓這筆變少。以示例折扣 D = A\$36 算，這筆約 A\${{part_b.goals.spillover_discount_per_round_D36_aud.raw|,}}–{{part_b.goals.spillover_discount_per_round_D36_aud.dedup|,}}（B-13、圖 8）。
+> 5. 錢的缺口主要在優惠設計，名單幫助有限（示算）：名單相對手機規則每輪只多省 A\${{part_b.goals.saving_ml_vs_mobile_aud|,}} 通話費，即使達到 A2 目標也只多省 A\${{part_b.goals.saving_target_vs_mobile_aud|,}}；每張折扣只要高於約 A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.raw|.2f}}（原始）／A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.dedup|.2f}}（去重），每輪白送給本來就會買者的折扣就超過這個數，名單也沒有讓這筆變少。以示例折扣 D = A\$36 算，這筆約 A\${{part_b.goals.spillover_discount_per_round_D36_aud.raw|,}}–{{part_b.goals.spillover_discount_per_round_D36_aud.dedup|,}}（B-13、圖 8）。
 > 6. 建議：依 A2 表 9 階段 0，**不進影子模式**；先補撥號前的客戶特徵與有日期、客戶編號的資料，再用新的時間段重測。
 
 **名詞**（Part B 反覆用到）
 - **時期**：一組 (cpi, cci) 值。這兩個指標每月公布一次，同一組值大致是同一個年月；資料跨年，所以一個「月份」裡混有 2–3 個時期。
 - **同月配對名單**：每個月打的通數與手機規則相同、取該月分數最高的人 —— 外撥日不能換月份，這是實際做得到的名單（業務①②與混淆矩陣用它）。**單一門檻名單**：全體分數 ≥ 門檻 t 的人；對照組沒有月份，業務③④⑤ 只能用它。
-- **percentile 區間**：bootstrap 重抽結果的 2.5%–97.5% 分位，是評估計畫訂的判準區間。**basic 區間**：偏差校正版（2 × 點估計 − 上、下界），只當檢查（附錄 A）。
+- **percentile 區間**：bootstrap 重抽結果的 2.5%–97.5% 分位，是本評估固定的判準區間。**basic 區間**：偏差校正版（2 × 點估計 − 上、下界），只當檢查（附錄 A）。
 - **本來就會買**：不打電話也會買的人；用「分數同樣達門檻、但沒被打的對照組」的轉換率估計（業務④）。
 
 **做法**
 1. **資料**：notebook 去重後的 `campaign_data`，切分與官方最終流程（cell-56）相同（test_size = 0.4、random_state = 123；訓練 21,262 列、測試 14,176 列）。A2 正文用的是原始 41,188 列，兩個口徑在 B-0 並列。
-2. **模型**：只用 A2 表 5 標「可」的 11 欄、只用訓練集的目標組（campaign = '1'）訓練，前處理包在 Pipeline 內。RF 是評估計畫事先指定的主模型，超參數用一條只看訓練資料、A3 自訂的規則選（in-sample AUC − CV AUC ≤ 0.05 的設定中取 CV 最高者，代理 A2 的 ML③）。XGBoost 依 A2 表 7 當挑戰者，同樣只在訓練資料上比（B-1）；它勝出，所以 B-11 對它做完整的十條評估。
-3. **測試集**：模型與超參數在評分前固定，之後不回頭改。業務②的判準（B = 1,000、種子 123、95% percentile 區間下限 > 0）是計畫原本訂的；B = 5,000、basic 區間與換種子是看過第一次結果之後才加的檢查，不改判準（附錄 A）。設計階段我曾用同一份測試集預跑過，所以測試數字仍屬樂觀估計；乾淨的做法是保留一段較晚的時間當全新的驗證集（資料沒有日期，做不到；A2 已請求補日期）。
+2. **模型**：只用 A2 表 5 標「可」的 11 欄、只用訓練集的目標組（campaign = '1'）訓練，前處理包在 Pipeline 內。RF 沿用官方流程的模型、先定為主模型，超參數用一條只看訓練資料、A3 自訂的規則選（in-sample AUC − CV AUC ≤ 0.05 的設定中取 CV 最高者，代理 A2 的 ML③）。XGBoost 依 A2 表 7 當挑戰者，同樣只在訓練資料上比（B-1）；它勝出，所以 B-11 對它做完整的十條評估。
+3. **測試集**：模型與超參數在評分前固定，之後不回頭改。業務②的判準（B = 1,000、種子 123、95% percentile 區間下限 > 0）是本評估固定的；B = 5,000、basic 區間與換種子是額外的穩健性檢查，不改判準（附錄 A）。測試集在探索階段也被用過，所以測試數字仍屬樂觀估計；乾淨的做法是保留一段較晚的時間當全新的驗證集（資料沒有日期，做不到；A2 已請求補日期）。
 4. **同期**：A2 表 9 定義為「同一段期間、同樣通數」。主結果以同月份操作化，另以同時期做穩健性檢查。增量只和對照組中分數同樣達門檻的客戶比（A2 表 4 ③）。
 5. **假設**（沿用 A2 表 1 下方假設框與附錄 A）：時薪 A\$50、只計通話時間、成交 496.8 秒／未成交 220.7 秒；收益：折扣 = 2:1。
 
@@ -2600,7 +2599,7 @@ MD['b_summary'] = r'''
 | ML④ 分群一致性 | 各群 AUC 差 ≤ 0.05 | 年齡 {{part_b.ml4.gaps.age_band.max_minus_min|.3f}}、婚姻 {{part_b.ml4.gaps.marital.max_minus_min|.3f}}、月份 {{part_b.ml4.gaps.month.max_minus_min|.3f}} | **{{part_b.kpi_judgement.ml4}}** | {{part_b.kpi_meets_a2.ml4}} | {{part_b.xgb_eval.judgement.ml4}} |
 | ML⑤ 增量排序模型 | 名單內平均增量 > 全體 | 未建（12 週後才有資料） | **{{part_b.kpi_judgement.ml5}}** | {{part_b.kpi_meets_a2.ml5}} | {{part_b.xgb_eval.judgement.ml5}} |
 
-ML①–⑤ 是 A2 表 4 五個 ML 列的依序編號。業務①② 用同月配對名單，業務③④⑤ 用單一門檻名單。每條的 A2 草稿行號、完整區間與說明在 B-12 的總表。
+ML①–⑤ 是 A2 表 4 五個 ML 列的依序編號。業務①② 用同月配對名單，業務③④⑤ 用單一門檻名單。每條的 A2 出處、完整區間與說明在 B-12 的總表。
 '''
 
 MD['b0'] = r'''
@@ -2624,7 +2623,7 @@ MD['b1'] = r'''
 - **選模（A3 代理規則）**：6 組 RF 設定中，深度 {{part_b.models.main_rejected_by_gap.0.max_depth}}、葉節點 {{part_b.models.main_rejected_by_gap.0.min_samples_leaf}} 的「in-sample − CV」差 {{part_b.models.main_rejected_by_gap.0.train_minus_cv}} 超過 0.05 而被排除；選中者的差為 {{part_b.models.main_selected.train_minus_cv}}，它同時也是 CV 最高的設定。這條規則是 A3 自訂的訓練端代理，不能保證 ML③，ML③ 仍要看 B-2 的測試結果。
 - **基準與挑戰者**：LR 基準 CV {{part_b.models.lr_cv_auc}}，比 RF 低 {{part_b.models.rf_minus_lr_cv}}。XGBoost（scale_pos_weight = 實際負／正比 {{part_b.models.xgb_scale_pos_weight}}；4 組設定中最佳為 learning_rate {{part_b.models.xgb_params.learning_rate}}、max_depth {{part_b.models.xgb_params.max_depth}}）在選模用的同一批 5 折上 CV {{part_b.models.xgb_cv_auc}}，{{part_b.models.xgb_folds_better}} 折全部較高（逐折差 {{part_b.models.xgb_minus_rf_fold_min|+.4f}} 到 {{part_b.models.xgb_minus_rf_fold_max|+.4f}}）。＋contact 版 RF 的 CV {{part_b.models.contact_selected.cv_auc}}。
 - **A2 表 7 的替換規則（照字面執行）**：表 7 寫「與隨機森林用同一批驗證折、同一指標重比；勝出幅度大於不同隨機種子間的波動才替換」。用種子 123–127（每個種子同時改變 5 折的切法與模型的隨機種子）重比兩個選定設定：XGB − RF 的 CV AUC 差介於 {{part_b.models.table7_rule.margin_min|+.4f}} 到 {{part_b.models.table7_rule.margin_max|+.4f}}；RF 自己在 5 個種子間的 CV AUC 最大差距只有 {{part_b.models.table7_rule.rf_seed_range|.4f}}（標準差 {{part_b.models.table7_rule.rf_seed_sd|.4f}}）→ 依表 7 應替換。
-- **為什麼仍以 RF 為主呈現**：RF 是 A3 評估計畫在比較挑戰者之前就指定的主模型，也是 Part A 官方流程的模型；看到挑戰者的結果之後才換主角，容易變成挑結果。所以兩個模型都完整評估：十條判定完全相同（B-11），「停在階段 0」不受模型選擇影響。日後補資料重建、通過階段 0 時，依表 7 應以 XGB 進入影子模式。
+- **為什麼仍以 RF 為主呈現**：RF 是 Part A 官方流程的模型，先定為主模型；XGB 是依 A2 表 7 比較的挑戰者。兩個模型都完整評估：十條判定完全相同（B-11），「停在階段 0」不受模型選擇影響。日後補資料重建、通過階段 0 時，依表 7 應以 XGB 進入影子模式。
 - **注意**：葉節點至少 20 位客戶，分數不會因個別客戶而跳動；class_weight = 'balanced' 與 scale_pos_weight 的分數只用來排序，不能當機率。年齡、婚姻能否用於評分要法遵確認（A2 表 9 階段 0），拿掉它們重訓的代價在 B-10。撥號前模型的獨熱編碼設 `handle_unknown='ignore'`：評分時遇到訓練沒見過的類別會靜默編成全 0、照常評分（官方 pipeline 的 `OrdinalEncoder` 則會中斷），上線前一樣要先做 schema 檢查（A2 表 10）。
 '''
 
@@ -2813,7 +2812,7 @@ MD['goals'] = r'''
 **結論：以 A2 表 1 的目標看，離線結果沒有一項達標。相對現行手機規則，名單每輪只省約 A\${{part_b.goals.saving_ml_vs_mobile_aud|,}}；控制月份組成後，相對隨機外撥也只省 A\${{part_b.goals.saving_ml_vs_random_mm_aud|,}}，是 A2 目標節省的 {{part_b.goals.saving_ml_vs_random_mm_share_of_target_pct|.0f}}%（圖 7）。**
 
 - **每輪通話成本**：A2 目標是每輪省約 A\${{part_b.goals.saving_target_aud|,}}。同月配對名單外推比現況省 A\${{part_b.goals.saving_ml_vs_pilot_aud|,}}（目標的 {{part_b.goals.saving_ml_share_of_target_pct|.0f}}%），但現況是全體隨機外撥、沒有控制月份：依手機規則的月份組成隨機外撥（{{part_b.b2.random_month_matched_conv_pct}}%）外推，就已比現況省 A\${{part_b.goals.saving_random_mm_vs_pilot_aud|,}}；名單相對它只省 A\${{part_b.goals.saving_ml_vs_random_mm_aud|,}}（手機規則 A\${{part_b.goals.saving_mobile_vs_random_mm_aud|,}}）。同時期配對的名單只比現況省 A\${{part_b.goals.saving_ml_period_vs_pilot_aud|,}}。外撥量少 {{part_b.goals.fewer_calls_ml_pct}}%（手機規則 {{part_b.goals.fewer_calls_mobile_pct}}%，目標約 {{part_b.goals.fewer_calls_target_pct|.0f}}%）。
-- **模型最多能動到多少通話費**：名單就算達到 A2 目標（轉換率 18%），每輪也只比手機規則多省 A\${{part_b.goals.saving_target_vs_mobile_aud|,}}；目前實際多省 A\${{part_b.goals.saving_ml_vs_mobile_aud|,}}。
+- **名單達 A2 目標時能動到多少通話費**：名單就算達到 A2 目標（轉換率 18%），每輪也只比手機規則多省 A\${{part_b.goals.saving_target_vs_mobile_aud|,}}；目前實際多省 A\${{part_b.goals.saving_ml_vs_mobile_aud|,}}。
 - **收益倍數（不依 2:1）**：A2 試點每張卡收益至少要是折扣的 {{part_b.goals.multiple_pilot}} 倍才不虧；名單在原始口徑要 {{part_b.goals.multiple_ml_raw}} 倍（與試點相近）、去重口徑要 {{part_b.goals.multiple_ml_dedup}} 倍（增量區間含 0，倍數不穩）—— 第一步名單沒有讓這個門檻降低。
 - **增量與外溢**：增量為正與外溢比例都要等 A/B 的常設對照組才量得到（B-6、B-8）；外溢的金額量級見圖 8。
 - **商業意義**：A2 寫的「每輪省約 A\$14,900」是以名單轉換率 18% 推得的；離線證據顯示，在與手機規則同通數下達不到 18%，而節省的大部分不需要 ML 也拿得到。圖 7 的金額都是用測試集轉換率外推的，不是測得的。
@@ -2827,7 +2826,7 @@ MD['concl'] = r'''
 2. **業務② 可以離線判定：未通過。** 同月只比手機規則高 {{part_b.b2.diff_pp|.2f}} pp，區間 [{{part_b.b2.ci_low_pp|+.2f}}, {{part_b.b2.ci_high_pp|+.2f}}] 含 0；同時期點估計 {{part_b.b2.period.diff_pp|+.2f}} pp，區間同樣含 0（B-3）。
 3. **業務③⑤ 離線無法判定，要等 A/B。** 業務③ 控制時期後 {{part_b.b3b4.dedup.period_stratified_uplift_pp|+.2f}}／{{part_b.b3b4.raw.period_stratified_uplift_pp|+.2f}} pp，區間都含 0；業務⑤ 缺手機規則組的增量，2:1 示算為負（B-6、B-7）。
 4. **換模型不是解方。** 依 A2 表 7 勝出的 XGB，十條判定與 RF 相同（B-11）。
-5. **錢的缺口主要在優惠設計，不在名單（示算）。** 名單相對手機規則每輪只多省 A\${{part_b.goals.saving_ml_vs_mobile_aud|,}}，即使達到 A2 目標也最多多省 A\${{part_b.goals.saving_target_vs_mobile_aud|,}}；每張折扣只要高於約 A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.raw|.2f}}（原始）／A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.dedup|.2f}}（去重），每輪白送給本來就會買者的折扣就超過這個數，名單也沒有讓這筆變少（以示例折扣 D = A\$36 算約 A\${{part_b.goals.spillover_discount_per_round_D36_aud.raw|,}}–{{part_b.goals.spillover_discount_per_round_D36_aud.dedup|,}}；B-13、圖 7、圖 8）。
+5. **錢的缺口主要在優惠設計，名單幫助有限（示算）。** 名單相對手機規則每輪只多省 A\${{part_b.goals.saving_ml_vs_mobile_aud|,}}，即使達到 A2 目標也只多省 A\${{part_b.goals.saving_target_vs_mobile_aud|,}}；每張折扣只要高於約 A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.raw|.2f}}（原始）／A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.dedup|.2f}}（去重），每輪白送給本來就會買者的折扣就超過這個數，名單也沒有讓這筆變少（以示例折扣 D = A\$36 算約 A\${{part_b.goals.spillover_discount_per_round_D36_aud.raw|,}}–{{part_b.goals.spillover_discount_per_round_D36_aud.dedup|,}}；B-13、圖 7、圖 8）。
 6. **建議：照 A2 的 12 週計畫，停在第 1–4 週。** 階段 0 未過，不進第 5–7 週影子模式；先補撥號前客戶特徵、外撥日期與客戶編號，用新的時間段重測（年齡、婚姻先交法遵，拿掉它們 AUC 幾乎不變）。下一輪即可先做、不需模型的準備：照現行做法外撥時記錄外撥日期與客戶編號（A2 請求 ②），並請財務提供每張卡的收益與折扣金額。
 '''
 
@@ -2845,10 +2844,10 @@ MD['f9'] = r'''
 MD['f8'] = r'''
 ### B-13 圖 8 解讀：每輪的錢花在哪（示算）
 
-**結論：錢的缺口主要在優惠設計（白送給本來就會買的人），不在名單。以收益：折扣 = 2:1、示例折扣 D = A\$36 示算，同樣 2,300 筆成交，每輪送給本來就會買者的折扣：試點約 A\${{part_b.goals.spillover_discount_per_round_D36_aud.pilot|,}}，名單 A\${{part_b.goals.spillover_discount_per_round_D36_aud.raw|,}}（原始口徑）到 A\${{part_b.goals.spillover_discount_per_round_D36_aud.dedup|,}}（去重口徑），與整輪通話成本同一量級或更大；名單即使達到 A2 目標，相對手機規則每輪最多也只多省 A\${{part_b.goals.saving_target_vs_mobile_aud|,}} 通話費。**
+**結論：錢的缺口主要在優惠設計（白送給本來就會買的人），名單幫助有限。以收益：折扣 = 2:1、示例折扣 D = A\$36 示算，同樣 2,300 筆成交，每輪送給本來就會買者的折扣：試點約 A\${{part_b.goals.spillover_discount_per_round_D36_aud.pilot|,}}，名單 A\${{part_b.goals.spillover_discount_per_round_D36_aud.raw|,}}（原始口徑）到 A\${{part_b.goals.spillover_discount_per_round_D36_aud.dedup|,}}（去重口徑），與整輪通話成本同一量級或更大；名單即使達到 A2 目標，相對手機規則每輪也只多省 A\${{part_b.goals.saving_target_vs_mobile_aud|,}} 通話費。**
 
-- **三段**：未成交電話（每通約 A\${{part_b.a2_recomputed.call_cost_no}}）、成交電話（每通約 A\${{part_b.a2_recomputed.call_cost_yes|.2f}}）、送給本來就會買者的折扣（2,300 × 本來就會買的比例 × D）。名單把未成交電話從 A\${{part_b.goals.round_spend_D36.pilot.unconverted_calls_aud|,}} 降到 A\${{part_b.goals.round_spend_D36.ml_list_raw_share.unconverted_calls_aud|,}}；折扣那一段在原始口徑幾乎不動，在去重口徑反而更高。
-- **損益平衡的 D**：每張卡折扣只要高於約 A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.raw|.2f}}（原始）／A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.dedup|.2f}}（去重），每輪白送的折扣就超過名單最多能多省的通話費（A\${{part_b.goals.saving_target_vs_mobile_aud|,}}）。
+- **三段**：未成交電話（每通約 A\${{part_b.a2_recomputed.call_cost_no}}）、成交電話（每通約 A\${{part_b.a2_recomputed.call_cost_yes|.2f}}）、送給本來就會買者的折扣（2,300 × 本來就會買的比例 × D）。名單把未成交電話從 A\${{part_b.goals.round_spend_D36.pilot.unconverted_calls_aud|,}} 降到 A\${{part_b.goals.round_spend_D36.ml_list_raw_share.unconverted_calls_aud|,}}；折扣那一段在原始口徑幾乎不動；去重口徑較高是因為去重刪掉對照組的重複列（同為去重口徑，全體目標組也有 99.1%），不是名單讓折扣外溢變多。
+- **損益平衡的 D**：每張卡折扣只要高於約 A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.raw|.2f}}（原始）／A\${{part_b.goals.D_spill_exceeds_target_vs_mobile_saving_aud.dedup|.2f}}（去重），每輪白送的折扣就超過名單達 A2 目標時能多省的通話費（A\${{part_b.goals.saving_target_vs_mobile_aud|,}}）。
 - **讀法與限制**：D = A\$36 是 A2 附錄 A 的兩平折扣額（試點整輪通話費 ÷ 本來就會買的人數），不是實際折扣（金額由財務提供），所以試點那一列的折扣段約等於試點通話費是定義使然；判斷用的是上一點的門檻，與 D 取多少無關；本來就會買的比例取自單一門檻名單對同門檻對照組（B-6，兩組不完全可比）；名單的通話段用同月配對名單（同圖 7）。這張圖只說明量級：要省錢，下一步要處理的是「誰該拿到優惠」（A2 第二步、「打電話不給優惠」組），而不只是把名單排得更準。
 '''
 
@@ -2857,29 +2856,29 @@ MD['lat'] = r'''
 
 **結論：撥號前模型替整個測試集 {{part_b.scoring_latency.rows|,}} 人單執行緒批次評分，中位數 RF 約 {{part_b.scoring_latency.rf_median_s|.3f}} 秒、XGB 約 {{part_b.scoring_latency.xgb_median_s|.3f}} 秒。名單只需在外撥日前批次產生，不需即時評分，延遲不是瓶頸。**
 
-- 這是建置本檔的電腦上量到的時間，換硬體就會不同，只當量級；不進十條判定，也不列入跨次執行的一致性比對。
+- 這是一般筆電上量到的時間，換硬體就會不同，只當量級；不進十條判定。
 - 正式的可擴展性要在 A2 表 9 階段 1（影子評分）以實際名單量測。
 '''
 
 MD['b34'] = r'''
 <a id="b3-b4-summary" name="b3-b4-summary"></a>
-## B3、B4 摘要（完整版見 PDF 報告第 3、4 節）
+## 未來改進與後續問題摘要（完整版見 PDF 報告第 3、4 節）
 
-**B3｜未來改進、新增功能與新產品構想（只列優先序 1）**
-- **改進**：補撥號前客戶特徵與外撥日期後重建，依 A2 表 7 以 XGB 進影子模式；分群公平修正（60 歲以上另設切點或分群校準）。
+**未來改進、新增功能與新產品構想（只列優先序 1）**
+- **改進**：下一輪起記錄撥號前客戶特徵與外撥日期，收齊後重建，依 A2 表 7 以 XGB 進影子模式；分群公平修正（60 歲以上另設切點或分群校準）。
 - **新增功能**：每位入選客戶附前三項入選原因（reason codes），給話務員與法遵，兌現 A2 表 8 的可解釋性承諾。
 - **新產品**：「打電話不給優惠」組 —— 不依賴模型、下一輪即可做，量出優惠本身的效果；之後再發展成個人化折扣額度。
 
-**B4｜放寬信用卡資格後，模型能否原封不動套用？**
-- **(a) 不能**：訓練資料只含舊資格內被隨機外撥的客戶，新客戶落在訓練範圍外，分數、切點與評估證據都不能沿用，只能先影子評分（只記錄、不決定外撥）；何況模型連舊客群的階段 0 都未通過。
+**後續問題：放寬信用卡資格後，模型能否原封不動套用？**
+- **(a) 不能**：訓練資料只含舊資格內被隨機外撥的客戶，部分新客戶可能落在訓練範圍外；分布可事先比對，但新客戶買不買的規律要有新標籤才驗得出，故分數、切點與評估證據都不能沿用；待模型先通過舊客群的階段 0，也只能先影子評分（只記錄、不決定外撥）；何況模型連舊客群的階段 0 都未通過。
 - **(b) 為什麼要調整**：資料漂移（輸入分布改變）、概念漂移（「特徵 → 接受」的關係改變）、評估證據斷層、分數未校準、商業前提改變（新客群的違約風險與用卡收益可能不同，接受不等於獲利）。
 - **(b) 怎麼調整**：比對分布 → 影子評分 → 隨機抽樣外撥取得新標籤 → 分群驗證 → 重訓、校準、重選切點 → A/B 與核准後上線 → 監控；新版未勝出或上線後變差即回退舊版。
 '''
 
 MD['appendix_a'] = r'''
-## 附錄 A：業務② 區間的穩健性檢查（看過第一次結果之後才加，不改判準）
+## 附錄 A：業務② 區間的穩健性檢查（額外的穩健性檢查，不改判準）
 
-判準是評估計畫原本訂的：同月配對名單 − 手機規則的差 > 0，且各月內 bootstrap（B = 1,000、種子 123）的 95% percentile 區間下限 > 0。下表的其他欄位都是看過第一次結果後才加的，只用來確認判定不是抽樣運氣；任何一欄都不改判準。數字與 B-3 第二張表相同。
+判準是本評估固定的：同月配對名單 − 手機規則的差 > 0，且各月內 bootstrap（B = 1,000、種子 123）的 95% percentile 區間下限 > 0。下表的其他欄位是額外的檢查，只用來確認判定不是抽樣運氣；任何一欄都不改判準。數字與 B-3 第二張表相同。
 
 | 名單（同月、{{part_b.b2.K_mobile_calls}} 通） | 差（pp） | 判準：percentile，B = 1,000 | basic，B = 1,000 | percentile，B = 5,000 | basic，B = 5,000 | 另外 10 個種子的 percentile 下限（B = 1,000） |
 |---|---|---|---|---|---|---|
