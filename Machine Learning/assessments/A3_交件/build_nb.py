@@ -773,7 +773,7 @@ a3_elbow_cols = [a3_decode(a3_names[i]) for i in (1, 2, 3, 5, 6, 7, 8, 9)]
 a3_elbow_out = [a3_decode(a3_names[i]) for i in (0, 4)]
 print('elbow uses 8 columns; left out:', a3_elbow_out)
 print('inertia by k:', {k: round(v) for k, v in rss.items()})
-A3_KPI['clustering'] = {   # KMeans 無 random_state：此區不列入跨次執行一致性比對
+A3_KPI['clustering'] = {   # KMeans 無 random_state：換套件版本重跑時，分群數字可能略有不同
     'profile': {i: {k: a3_r(v, 2) for k, v in r.items()} for i, r in a3_cl.iterrows()},
     'overall': {k: a3_r(v, 2) for k, v in a3_overall.items()},
     'elbow_inertia': {int(k): int(round(v)) for k, v in rss.items()},
@@ -1277,9 +1277,9 @@ display(pd.DataFrame([
     pb_row('RF list, same calls per period, +contact', pb_r_Lpct, None, pb_diff_pct, pb_ci_pct, pb_b2_pct_pass),
     pb_row('XGB list, same calls per period', pb_conv(pb_Lpx), None, pb_diff_px, pb_ci_px, pb_b2_px_pass),
     pb_row('Counter-example: pooled top-K, no matching', pb_r_pooled),
-], columns=['list', 'calls', 'conversion %', 'list - mobile (pp)', '95% CI, B = 1,000 (plan)', 'gate passed (plan rule)',
+], columns=['list', 'calls', 'conversion %', 'list - mobile (pp)', '95% CI, B = 1,000 (gate)', 'gate passed (gate rule)',
             'basic CI, B = 1,000 (check)', '95% CI, B = 5,000 (check)']).round(2))
-print('plan rule: difference > 0 and lower bound of the 95% percentile CI (B = 1,000, seed 123) > 0')
+print('gate rule: difference > 0 and lower bound of the 95% percentile CI (B = 1,000, seed 123) > 0')
 print('bootstrap mean vs point estimate (RF month): %+.3f vs %+.3f pp' % (100 * pb_ci_m['boot_mean'], 100 * pb_diff))
 for c_, lab_ in (('s', 'RF'), ('s_ct', 'RF +contact'), ('s_x', 'XGB')):
     print('%-12s percentile lower bound, seed 123: %+.3f pp; 10 other seeds: [%+.3f, %+.3f] pp, %d of 10 above 0'
@@ -1396,7 +1396,7 @@ pb_pts = [('Random, all customers', pb_r_rand, None, PB_LIGHT),
           ('RF list, same calls per month (main)', pb_r_L, pb_ci_m, PB_ACCENT),
           ('XGB list, same calls per month', pb_conv(pb_Lx), pb_ci_x, PB_ACCENT)]
 for i, (lab, r, ci, colr) in enumerate(pb_pts):
-    if ci is not None:   # 誤差線 = 手機規則轉換率 + (ML − 手機) 的 95% percentile 區間（B = 1,000，計畫判準用的區間）
+    if ci is not None:   # 誤差線 = 手機規則轉換率 + (ML − 手機) 的 95% percentile 區間（B = 1,000，判準用的區間）
         ax2.plot([100 * (pb_r_mob + ci['pct_lo']), 100 * (pb_r_mob + ci['pct_hi'])], [i, i], color=PB_ACCENT, lw=1.2, alpha=0.5)
     ax2.scatter([100 * r], [i], s=40, color=colr, zorder=3, edgecolor='white')
     ax2.text(100 * r + 0.12, i + 0.2, '%.2f%%' % (100 * r), fontsize=9, color='black')
@@ -1716,7 +1716,7 @@ B_ERR = r'''
 # 錯誤 B 漏掉打了才會買的人：少一份淨收益（收益 − 折扣 = D），扣掉省下的一通成交電話；人數 ≈ 未入選目標組人數 × 未入選者的增量
 #    （增量的點估計 ≤ 0 時「估計不出」，不截成 0；另用 95% 區間上限換算人數上限）
 # 錯誤 C 打給不會買的人：每通約 A$3.07；人數 = 名單中未成交者（FP）
-# （KPI JSON 的 'largest' 仍記 '1' / '2' / '3' ＝ 錯誤 A / B / C）
+# （KPI JSON 的 'largest' 以 '1' / '2' / '3' 代表錯誤 A / B / C）
 # D 是示例折扣額（A2 未定，由財務提供）：A$36 是 A2 附錄 A 的兩平示例，另列 A$10、A$100 看排序是否改變
 PB_D_LIST = (10.0, 36.0, 100.0)
 
@@ -2038,7 +2038,7 @@ pb_kpi = pd.DataFrame([
     ('業務③ 增量成交（上線硬門檻）', '為正：名單轉換率 > 同門檻對照組', '表 4 業務③',
      '單一門檻名單：去重 %+.2f pp [%+.2f, %+.2f]；原始 %+.2f pp [%+.2f, %+.2f]；分時期 %+.2f [%+.2f, %+.2f]／%+.2f [%+.2f, %+.2f]' % (pb_b34d['uplift_pp'], pb_b34d['uplift_ci_low_pp'], pb_b34d['uplift_ci_high_pp'], pb_b34r['uplift_pp'], pb_b34r['uplift_ci_low_pp'], pb_b34r['uplift_ci_high_pp'], pb_b34d['period_stratified_uplift_pp'], pb_b34d['period_stratified_ci_low_pp'], pb_b34d['period_stratified_ci_high_pp'], pb_b34r['period_stratified_uplift_pp'], pb_b34r['period_stratified_ci_low_pp'], pb_b34r['period_stratified_ci_high_pp']),
      pb_jr['b3'], pb_yes('b3', pb_jr['b3']), '%s（去重 %+.2f、原始 %+.2f；分時期 %+.2f／%+.2f）' % (pb_j_x['b3'], pb_xe['b3b4_dedup']['uplift_pp'], pb_xe['b3b4_raw']['uplift_pp'], pb_xe['b3b4_dedup']['period_stratified_uplift_pp'], pb_xe['b3b4_raw']['period_stratified_uplift_pp']),
-     '兩組不是隨機分派、無客戶編號、去重不對稱；含 0 的區間：%s（共 4 個）→ 離線無法判定為正，確認排在 A/B' % pb_zero_txt),
+     '兩組不是隨機分派、無客戶編號、去重不對稱；含 0 的區間：%s（4 個區間中有 %d 個）→ 離線無法判定為正，確認排在 A/B' % (pb_zero_txt, pb_zero_txt.count('、') + 1)),
     ('業務④ 本來就會買的比例（列報）', 'A/B 量出各組比例；兩平參考 50%', '表 4 業務④',
      '單一門檻名單：去重 %.1f%% [%.1f, %.1f]；原始 %.1f%% [%.1f, %.1f]（試點全體 %.1f%%）' % (pb_b34d['would_buy_share_pct'], pb_b34d['would_buy_ci_low_pct'], pb_b34d['would_buy_ci_high_pct'], pb_b34r['would_buy_share_pct'], pb_b34r['would_buy_ci_low_pct'], pb_b34r['would_buy_ci_high_pct'], pb_a2['pilot_would_buy_share_pct']),
      pb_jr['b4'], pb_yes('b4', pb_jr['b4']), '%s（%.1f%%／%.1f%%）' % (pb_j_x['b4'], pb_xe['b3b4_dedup']['would_buy_share_pct'], pb_xe['b3b4_raw']['would_buy_share_pct']),
@@ -2316,7 +2316,7 @@ plt.show()
 '''
 
 B_LAT = r'''
-# [Part B-14] 批次評分耗時（A2 表 8 可擴展性／延遲）：硬體相依、只當量級；硬體相依、只當量級；不進十條判定
+# [Part B-14] 批次評分耗時（A2 表 8 可擴展性／延遲）：硬體相依、只當量級；不進十條判定
 # 撥號前 RF（主模型）與 XGB（表 7 勝出者）替整個測試集（目標組＋對照組）單執行緒批次評分，重複 5 次取中位數；不改任何模型或資料
 import time
 pb_X_all = pd.concat([pb_teT[PB_FEATURES], pb_teC[PB_FEATURES]])
@@ -2341,7 +2341,7 @@ A3_KPI['part_b']['scoring_latency'] = {
 '''
 
 B_JSON = r'''
-# [附錄] 本次執行的數字總表（JSON）。markdown 中的數字都由它填入；第一、二層每個鍵各佔一行，以免輸出過長
+# [附錄] 本次執行的數字總表（JSON），markdown 與報告中的數字皆與它一致；第一、二層每個鍵各佔一行，以免輸出過長
 A3_KPI['meta'] = {
     'student': 'Po-Kai Huang 26254793', 'subject': '321513 Machine Learning AT3 (business focus)',
     'versions': {'python': sys.version.split()[0], 'numpy': np.__version__, 'pandas': pd.__version__,
@@ -2645,7 +2645,7 @@ MD['b3'] = r'''
 
 **結論：與手機規則同通數、同月份比，RF 名單只高 {{part_b.b2.diff_pp|.2f}} 個百分點，95% 區間 [{{part_b.b2.ci_low_pp|+.2f}}, {{part_b.b2.ci_high_pp|+.2f}}] 含 0 → 未證實；改成同一時期比，點估計為 {{part_b.b2.period.diff_pp|+.2f}} 個百分點，95% 區間 [{{part_b.b2.period.ci_low_pp|+.2f}}, {{part_b.b2.period.ci_high_pp|+.2f}}] 同樣含 0。XGB 名單高 {{part_b.b2.xgb.diff_pp|.2f}} 個百分點，但區間下限是 {{part_b.b2.xgb.ci_low_pp|+.2f}}，沒有大於 0，同樣未通過。業務② 離線不通過。**
 
-- **同月（主結果，計畫判準）**：手機 {{part_b.b2.K_mobile_calls}} 通、轉換率 {{part_b.b2.mobile_conv_pct}}%；每月取同樣通數、分數最高的人，RF 名單 {{part_b.b2.ml_conv_pct}}%，差 {{part_b.b2.diff_pp|+.2f}} pp；各月內 bootstrap（B = 1,000、種子 123）的 95% percentile 區間 [{{part_b.b2.ci_low_pp|+.2f}}, {{part_b.b2.ci_high_pp|+.2f}}]。逐月看名單勝 {{part_b.b2.months_ml_better}} 個月、輸 {{part_b.b2.months_ml_worse}} 個月。B = 5,000、basic 區間與另外 10 個種子都不改變判定（附錄 A）。
+- **同月（主結果，本評估判準）**：手機 {{part_b.b2.K_mobile_calls}} 通、轉換率 {{part_b.b2.mobile_conv_pct}}%；每月取同樣通數、分數最高的人，RF 名單 {{part_b.b2.ml_conv_pct}}%，差 {{part_b.b2.diff_pp|+.2f}} pp；各月內 bootstrap（B = 1,000、種子 123）的 95% percentile 區間 [{{part_b.b2.ci_low_pp|+.2f}}, {{part_b.b2.ci_high_pp|+.2f}}]。逐月看名單勝 {{part_b.b2.months_ml_better}} 個月、輸 {{part_b.b2.months_ml_worse}} 個月。B = 5,000、basic 區間與另外 10 個種子都不改變判定（附錄 A）。
 - **同時期（穩健性）**：每個 (cpi, cci) 時期取同樣通數，RF 名單 {{part_b.b2.period.ml_conv_pct}}%，差 {{part_b.b2.period.diff_pp|+.2f}} pp，95% 區間 [{{part_b.b2.period.ci_low_pp|+.2f}}, {{part_b.b2.period.ci_high_pp|+.2f}}]。
 - **手機規則的優勢從哪來**：隨機外撥 {{part_b.b2.random_conv_pct}}% → 依手機規則的月份組成隨機抽 {{part_b.b2.random_month_matched_conv_pct}}% → 依時期組成 {{part_b.b2.random_period_matched_conv_pct}}% → 手機規則 {{part_b.b2.mobile_conv_pct}}%：同一時期內只剩 {{part_b.b2.within_period_mobile_advantage_pp|+.2f}} pp，手機規則的優勢大半也是時期組成。反例：不配對、直接取全體分數前 {{part_b.b2.K_mobile_calls}} 名是 {{part_b.b2.pooled_topK_conv_pct}}%，看起來「贏」{{part_b.b2.pooled_minus_mobile_pp}} pp —— 那是挑到轉換率高的月份，外撥日不能換月份。
 - **敏感度**：(a) ＋contact（假設撥號前已知有無手機，A2 表 2、附錄 A）：同月 {{part_b.b2.ml_contact_conv_pct}}%，差 {{part_b.b2.contact_diff_pp|+.2f}} pp，區間 [{{part_b.b2.contact_ci_low_pp|+.2f}}, {{part_b.b2.contact_ci_high_pp|+.2f}}] → 未通過；換種子時下限在 0 上下（另外 10 個種子中 {{part_b.b2.contact_seed_n_above0}} 個 > 0），處在統計邊界；同時期比 {{part_b.b2.period.contact_diff_pp|+.2f}} pp。(b) XGB（表 7 勝出者）：同月 {{part_b.b2.xgb.diff_pp|+.2f}} pp，區間 [{{part_b.b2.xgb.ci_low_pp|+.2f}}, {{part_b.b2.xgb.ci_high_pp|+.2f}}]，下限沒有大於 0；另外 10 個種子的下限介於 {{part_b.b2.xgb.seed_low_min_pp|+.2f}} 到 {{part_b.b2.xgb.seed_low_max_pp|+.2f}}，沒有一個 > 0；同時期 {{part_b.b2.xgb.period_diff_pp|+.2f}} pp。主版本名單有 {{part_b.b2.ml_cellular_share_pct}}% 本來就是手機客戶，兩份名單大量重疊。
@@ -2758,7 +2758,7 @@ MD['f4'] = r'''
 **結論：婚姻三群都落在 0.05 的容許帶內；年齡的兩端與月份散得最開。**
 
 - 淺色帶是從各維度最低 AUC 起算 0.05 的寬度，實心點全落在帶內，該維度才算達標。
-- 小群（3 月、10 月、60 歲以上）的區間寬度都超過 0.05，單輪資料本來就量不準 —— A2 表 10 用「連續 2 輪」才觸發重驗，就是這個原因。
+- 小群（3 月、10 月、60 歲以上）的區間寬度都超過 0.05，單輪資料本來就量不準；因此建議比照 A2 表 10 對增量訊號的「連續 2 輪」規則，分群 AUC 差連續 2 輪超過 0.05 才觸發重驗。
 '''
 
 MD['b9'] = r'''
@@ -2870,7 +2870,7 @@ MD['b34'] = r'''
 - **新產品**：「打電話不給優惠」組 —— 不依賴模型、下一輪即可做，量出優惠本身的效果；之後再發展成個人化折扣額度。
 
 **後續問題：放寬信用卡資格後，模型能否原封不動套用？**
-- **(a) 不能**：訓練資料只含舊資格內被隨機外撥的客戶，部分新客戶可能落在訓練範圍外；分布可事先比對，但新客戶買不買的規律要有新標籤才驗得出，故分數、切點與評估證據都不能沿用；待模型先通過舊客群的階段 0，也只能先影子評分（只記錄、不決定外撥）；何況模型連舊客群的階段 0 都未通過。
+- **(a) 不能**：訓練資料只含舊資格內被隨機外撥的客戶，部分新客戶可能落在訓練範圍外；分布可事先比對，但新客戶買不買的規律要有新標籤才驗得出，故分數、切點與評估證據都不能沿用；即使模型先通過舊客群的階段 0，也只能先影子評分（只記錄、不決定外撥）；何況模型連舊客群的階段 0 都未通過。
 - **(b) 為什麼要調整**：資料漂移（輸入分布改變）、概念漂移（「特徵 → 接受」的關係改變）、評估證據斷層、分數未校準、商業前提改變（新客群的違約風險與用卡收益可能不同，接受不等於獲利）。
 - **(b) 怎麼調整**：比對分布 → 影子評分 → 隨機抽樣外撥取得新標籤 → 分群驗證 → 重訓、校準、重選切點 → A/B 與核准後上線 → 監控；新版未勝出或上線後變差即回退舊版。
 '''
@@ -2893,7 +2893,7 @@ MD['appendix_a'] = r'''
 MD['appendix'] = r'''
 ## 附錄：數字總表（KPI JSON）
 
-下一格把本次執行中報告會引用的數字印成一個 JSON：上面 markdown 中的數字都由它填入，報告也引用它。`clustering` 一節因 KMeans 沒有 random_state，不列入跨次執行的一致性比對；`meta` 記錄套件版本、列數、選定的超參數、bootstrap 次數與兩條判準（業務②、A2 表 7）。
+下一格把本次執行中報告會引用的數字印成一個 JSON：上面 markdown 與 PDF 報告中的數字都與它一致。`clustering` 一節因 KMeans 沒有 random_state，換套件版本重跑時數字可能略有不同；`meta` 記錄套件版本、列數、選定的超參數、bootstrap 次數與兩條判準（業務②、A2 表 7）。
 '''
 
 
