@@ -2360,3 +2360,15 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - **產出**:`Innovation Studio/README.md`(課程總整理骨架:開課 10/26、第一次 Zoom 10/29 台灣 19:30、三個評估任務,權重／截止日標 ❓)、`Innovation Studio/notes/00_開課公告_2026-10-22.md`(公告轉繁體全文)
 - **同步**:TODO 加 Innovation Studio 區塊(開課前 3 件事＋待抓 Canvas);根 README 目錄表補 Innovation Studio 與 Machine Learning 兩列
 - Canvas 其他頁面尚未抓
+
+---
+
+## 2026-10-22(晚)· Innovation Studio:Canvas 全文落檔＋團隊組建調查擬答
+
+- **Canvas 落檔**(Chrome 已登入,Canvas API 只讀):主頁、課程導學 10 項、6 個作業說明＋評分標準、單元一 25 項、單元二 22 項 → `notes/raw/*.txt`(簡體逐字)＋OpenCC s2tw 繁體筆記(`notes/00/01/02_*.md`、`assessments/_Canvas原文_AT1-AT4_2026-10-22.md`)。單元三～六 Canvas 尚未開放
+- **關鍵事實**:4 個評估 AT1 週報 10%、AT2 計畫 30%(報告 15＋簡報 15)、AT3 成果 40%(報告 25＋展示 15)、AT4 反思 20%;自主組隊 10/30(五)台灣 20:59 截止;AT2 12/11、AT3/AT4 2027/2/19 台灣 20:59(Python zoneinfo 換算)
+- **獨立核對**(workflow,43 代理,3.58M):3 組檢查員核 271 個事實 → 宣稱 40 個問題 → 每個派反方 → 21 個成立全修(README 9:及格條件可能是每項都要過、3 人隊申請管道矛盾、第 5 週團隊專案介紹、工作坊編號差一號等;轉換 12:OpenCC 詞組誤轉 8 種、2 個表格欄數)
+- **另一個 session 的 patch_raw.py**(讀過再跑):補有序清單編號 79 項、表格標題 6 個、格內 | 跳脫;0 漏;轉換程式改成跳過 raw 檔頭
+- **團隊組建調查擬答**(workflow,13 代理,1.99M):LinkedIn(Kenny 提供)＋repo 23 筆作業證據 → 3 角度草稿 → 評審(44/43/38)→ 3 檢查員 32 問題 → 採 18 駁 6 → `notes/團隊組建調查_擬答.md`。0 簡體、0 語助詞;232 萬封包與 +0.19pp 主迴圈親自對過
+- 🔴 **待 Kenny**:貼文前確認有沒有學士學位(LinkedIn 沒列)、「最愉快的經歷」是否換;自己貼到討論區(10/29 19:30 前);「認識你的同學」4 題還沒擬
+- subagent tokens:本 entry ≈ 5.6M
