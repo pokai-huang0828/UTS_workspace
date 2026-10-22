@@ -2351,3 +2351,12 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - **直接修掉的小問題**(依 memory「錯誤直接修、不問」):報告 13 處(ML①–⑤ 編號定義、A$1.89 標口徑、圖 1 圖內 Fig 7 對應、構想 2 去掉未驗證說法、(a) 措辭、(b-2) 補特徵重選、「本版」→「本報告」、單一門檻名單用途、同經濟期定義、表頭「實測」→「量測結果」);Notebook 16 處(plan rule→gate rule、計畫判準、仍記、重複註解、「共 4 個」→「4 個區間中有 3 個」、跨次執行／由它填入等過程用語、t-SNE 影響正負號、連續 2 輪的出處)— 只改文字與印出的輸出,不重跑
 - **最終狀態**:PDF 25 頁、正文 1,752 字(封面一致)、目錄＝索引＝實際頁碼(p.5/7/16/18/20)、每頁填滿 ≥79%;PDF 與 Notebook 無簡體、無過程註記;Notebook 90/90、0 錯誤、末格 KPI＝a3_kpi_results.json
 - Kenny 今天(10/10)交
+
+---
+
+## 2026-10-22 · 新課程 421048 Innovation Studio 開資料夾
+
+- **輸入**:Kenny 貼 Li Guan 開課公告(Canvas course 42610,原文簡體)
+- **產出**:`Innovation Studio/README.md`(課程總整理骨架:開課 10/26、第一次 Zoom 10/29 台灣 19:30、三個評估任務,權重／截止日標 ❓)、`Innovation Studio/notes/00_開課公告_2026-10-22.md`(公告轉繁體全文)
+- **同步**:TODO 加 Innovation Studio 區塊(開課前 3 件事＋待抓 Canvas);根 README 目錄表補 Innovation Studio 與 Machine Learning 兩列
+- Canvas 其他頁面尚未抓

@@ -23,6 +23,8 @@
 
 | 資料夾 | 課程 | 狀態 |
 |--------|------|------|
+| `Innovation Studio/` | 421048 創新工作室 | **進行中** — 10/26 開課、10/29 第一次 Zoom |
+| `Machine Learning/` | 321513 機器學習(Session 5 2026) | A3 10/12 截止,等成績 |
 | `Artificial Intelligence for Enterprises/` | 421104 企業 AI(Session 4 2026) | **進行中** — A2a 7/26、A2b 8/2、A3 8/17 |
 | `Foundation Studio/` | 231708 Foundation Studio | 已結束 |
 | `Data Visualisation and Visual Analytics/` | 321146 DVVA | 已結束 |
