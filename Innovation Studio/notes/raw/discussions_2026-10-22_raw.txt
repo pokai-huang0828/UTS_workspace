@@ -1,0 +1,19 @@
+來源:Canvas API(course 42610)· 2026-10-22 抓取 · discussion_topics 清單 + 831604 說明 · 逐字未改(簡體原文)
+(831608 Rebecca Macpherson 講座逐字稿已在 unit2_canvas_raw.txt ITEM 13;公告 835380 見 notes/00_開課公告_2026-10-22.md)
+
+==== DISCUSSION TOPICS ====
+- 831596 | Zoom 会议 | posted 2026-10-21T03:48:44Z | delayed null | lock null | group_cat null | replies 0
+- 831598 | 认识你的同学 | posted null | delayed null | lock null | group_cat null | replies 2
+- 831604 | 在线会议 4：研讨会 4 — 嘉宾讲座：创新生态系统（Dilek Cetindamar 教授） | posted null | delayed null | lock null | group_cat null | replies 0
+- 831608 | 特邀讲座：金融服务领域的数据分析与人工智能（Rebecca Macpherson） | posted null | delayed null | lock null | group_cat null | replies 0
+- 831612 | 每周进度报告 | posted null | delayed 2026-10-25T13:00:00Z | lock 2027-02-19T12:59:00Z | group_cat 26117 | replies 0
+- 831616 | 1.12 第二周目标设定活动 | posted null | delayed null | lock null | group_cat 26117 | replies 0
+- 831618 | 社区与帮助论坛 | posted null | delayed null | lock null | group_cat null | replies 0
+- 831620 | 团队组建调查 | posted null | delayed null | lock null | group_cat null | replies 15
+
+==== GROUPS ====
+- /courses/42610/groups 與 /users/self/groups:學生端回傳空清單(Kenny 尚未加入小組;小組名額要在 人員 → 小組 頁面看)
+
+==== TOPIC 831604 在线会议 4：研讨会 4 — 嘉宾讲座：创新生态系统（Dilek Cetindamar 教授） ====
+单元三 | 分析系统架构与方法选择 本次 Zoom 会议为嘉宾讲座。 主题：创新生态系统 主讲人：Dilek Cetindamar 教授 Dilek 是悉尼科技大学（UTS）计算机科学学院的当代技术管理教授。她的主要研究兴趣和研究主题包括数字化转型、创业以及技术与创新管理。 她在土耳其博阿齐奇大学（BU）工业工程系获得理学学士学位，在该校经济学系获得文学硕士学位，并在伊斯坦布尔理工大学管理系获得博士学位。她还获得了哈佛商学院颁发的“创业证书”，以及麻省理工学院（MIT）颁发的“区域创业加速计划证书”。 她曾任职于美国凯斯西储大学、美国波特兰州立大学、瑞典查尔姆斯理工大学以及土耳其萨班哲大学。她曾于 2008 年和 2024 年担任英国剑桥大学的访问教授，并于 2014 年担任美国麻省理工学院的访问教授。她参与过众多国际项目，包括联合国（UN）和欧洲联盟（EU）的项目。 她发表了 220 余项出版成果，其中包括十本著作。她于 2003 年获得土耳其科学院颁发的“鼓励奖”，于 2012 年获得国际技术管理协会颁发的最佳图书奖，并于 2019 年获得 PICMET 会士奖。 她曾担任多项行政管理职务。2008 年至 2011 年担任竞争力中心主任后，她于 2012 年至 2017 年担任萨班哲大学 SUCOOL 加速器的创始主任。2017 年，她加入悉尼科技大学工程与信息技术学院，担任商业与技术硕士项目主任。2021 年至 2024 年，她担任 Techcelerator 主任。 准备工作：请确保你已完成第 6 周及此前各周的所有页面内容和学习活动，以便在参加会议时，对数据分析项目形成系统性认识，其中包括相关技术、系统解决方案、沟通技能和管理技能。 在线会议详情 会议链接: 可通过 Zoom 访问 幻灯片 有问题吗？ 你是否有希望在 Zoom 会议中得到解答的问题？为了帮助我做好准备，并确保我们能够充分利用会议时间，请在参加 Zoom 会议之前，在下方发布你的问题。
+ATTACH:(無附件;「幻灯片」連結指向 file 14041277「Accelerating NSW_August2025.pptx」14,508,091 B,未下載)

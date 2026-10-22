@@ -2380,3 +2380,16 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - 2026-10-22:團隊組建調查擬答改第 3 版短版(157 漢字)。Kenny:「我讓你看就是想告訴你我不想寫太直接,你有看到大家都寫得比較簡單嗎」→ 前兩版太長太直接是我誤讀;已記 memory(class-posts-short-and-low-key)
 
 - 2026-10-22:團隊組建調查改存 Kenny 自己改寫的定稿(第 4 版,158 漢字;IT 自評 4 分、第 1 題寫「本科電腦軟體」),檔案 `Innovation Studio/notes/團隊組建調查_擬答.md`;仍待 Kenny 自己貼 Canvas(10/29 19:30 前)
+
+- 2026-10-22:設定 `.claude/settings.json` 拿掉整個 `permissions.ask` 清單(git push/reset/checkout/rebase/filter-repo)— Kenny:「一律允許、不要再問」。ask 規則比 bypassPermissions 優先,是一直跳確認框的原因
+
+---
+
+## 2026-10-22(晚)· Innovation Studio「要注意的事」研究(Kenny:「繼續研究這門課要注意的」)
+
+- **新抓的一手資料**:官方 Subject Outline PDF(「課程信息」外部工具 → Download PDF;`refs/421048_Subject_Information_2026S6.pdf/.txt`,7 頁)、4 份範本 .docx(大小與 Canvas API 一致;`assessments/templates/`,另轉含表格的 .txt)、討論區清單＋第 6 週嘉賓講座說明(`notes/raw/discussions_2026-10-22_raw.txt`)
+- **Outline 有、Canvas 沒寫的**:AT4 有 interactive oral viva;AT3 報告用 Spark+ 互評個別調整;及格只看總分 ≥50%(README §5 #6 改為已解決);字數上限較少(AT2 ≤3,000、AT3 ≤4,000 words,不含參考文獻);300 小時。AT4 範本:同伴評價每人 200–375 漢字、自我反思 600–1,250 漢字;範本漏「個人發展」(評分標準 25 分)
+- **沒拿到**:Reading List(Leganto,LTI 只能開新視窗,4 種方法都失敗;Kenny 的 Chrome 留有一個 Leganto 分頁)、主頁影片、嘉賓講座 pptx(14.5 MB)
+- **workflow**(8 agent,1.58M):4 個分析視角(規則衝突/AT2 高分/個人分數保護/Kenny 專屬)→ 整合寫 `notes/03_注意事項.md` → 事實核對＋完整性批評(31 條修正)→ 修正 31/31 採用。agent 另用 WebFetch 讀 5 個 UTS 公開網頁(遲交每天扣 5%、72 小時短期延期、Spark+ 算法、口試規定),文件標〔外部〕
+- **README** 更新:及格條件、份量、可用中文、§2.2–2.4 字數/口試/Spark+、§5 新增 #8–#10、§6 檔案表;**TODO** 區塊改寫(10 個週報提醒、11/1 保險週報、11/15 資料到手)
+- 本 session subagent 累計 ≈ 0.26M(抄單元)＋0.71M(第一次核對)＋1.58M(本次)≈ 2.55M

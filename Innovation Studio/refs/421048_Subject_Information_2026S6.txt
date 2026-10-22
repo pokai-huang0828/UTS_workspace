@@ -1,0 +1,339 @@
+                           UTS Subject Information
+                           421048 Innovation Studio
+
+Delivery:                  Session 6 2026
+
+Total Workload Hours: 300 hours
+
+Credit Points:             12
+
+Result Type:               Grade and marks
+
+Subject Description
+
+The Innovation Studio centres on a self-directed industry project where you will work as part of
+a multidisciplinary team to independently tackle business problems, crafting innovative solutions
+through data analytics that align with stakeholder requirements. You'll critically assess your
+approach, reflect on the process, and clearly present your innovative results.
+
+Subject Learning Outcomes (SLOs)
+
+      1. Clearly define an industry problem with appropriate set of objectives (C.1)
+
+      2. Assess, adapt, and recommend the most suitable methodology to guide the industry
+          project and plan to achieve defined objectives (C.1)
+
+      3. Synthesize a range of tools and techniques in order to design and develop creative
+          and innovative solution to the identified industry problem (D.1)
+
+      4. Construct written, spoken, and visual communication with accuracy and clarity to
+          effectively communicate innovative outcomes (E.1)
+
+      5. Critically evaluate, peer-review, reflect and communicate the learning process (F.1)
+
+      6. TBC (B.1)
+
+Teaching and Learning Strategies
+
+In this online subject, all students will conduct data analytics projects through teamwork. Each
+team will cover team responsibilities from three categories, including prominent responsibilities
+(e.g., methodology and project management), supportive responsibilities (e.g., code review and
+testing), and additional responsibilities (e.g., marketing). The allocation of these responsibilities
+needs to match the knowledge background of team members, such as IT, financial analytics,
+banking analytics, government analytics, risk analytics, and service analytics.
+This subject offers a series of weekly online-learning topics and 1-hour workshops to help
+students self-develop their skillsets in facilitating data analytics/machine learning technologies to
+produce solutions for enterprise problems and innovations.The weekly online-learning topics will
+be hosted on Canvas for student, with concepts, methodologies, techniques, and examples for
+enterprise projects. The workshops will include guest seminars (including industry experience,
+
+Generated 22 October 2026      © University of Technology Sydney  Page 1 / 7
+specific strategies for technical developments and project management, etc.) and consultation
+(e.g., feedback, suggestions, and Q/A). Students are expected to be active in the workshops to
+enhance their skillsets in developing analytical projects.
+Each team will offline define a specific analytical problem as a use case, and collaboratively
+develop an analytical project plan and design, and an analytical project report. Each member
+will report their individual performance and peer review other team members. Team members
+are requested to post their contributions to the project on the Group Discussion Forum, which
+will be used as the evidence for their individual performance and peer review reports.
+
+Content (Topics)
+
+        · Introduction to data analytics projects
+        · Overview of data analytics/machine learning techniques
+        · Analytics system architecture and method selection
+        · Analytical solution development
+        · Evaluation and deployment of actionable analytical results
+        · Communication of analytical results to stakeholders
+
+Required and Recommended Texts
+
+All required and recommended texts for this subject are contained in the Reading List which you
+can access from the Canvas site menu.
+
+Other Required Resources
+
+If you have concerns about affording the course-related costs for this subject, UTS Financial
+Assistance can help you plan ahead or apply for grants or interest-free loans.
+
+Minimum Requirements
+
+To pass this subject, students must achieve an overall mark of 50% or greater.
+
+Assessment task 1: Team Progress Report
+
+Generated 22 October 2026  © University of Technology Sydney  Page 2 / 7
+Description:               This assessment is to provide opportunities for students to
+                           communicate with team members and coordinate individual
+Learning Outcomes:         progresses in a team basis, reflecting the team's learning experience,
+Type:                      project development, teamwork, and individual contributions.
+Groupwork:                 Team Progress Reports are required to be submitted weekly, from
+Weight:                    Week 2 to Week 11.
+Length:                    Team progress reports will be an important worklog for a
+                           team, recording the progresses of team construction and
+                           development, including allocating team responsibilities, learning and
+                           problem-solving experiences, project logs, teamwork and individual
+                           contributions, etc.
+                           Importantly, team progress reports will be the evidence of teamwork
+                           and individual contributions for AT4.
+
+                                   · SLO4 Construct written, spoken, and visual communication
+                                     with accuracy and clarity to effectively communicate
+                                     innovative outcomes (E.1)
+
+                           Written submission
+
+                           Individual
+
+                           10%
+
+                           >100 words for each report
+
+Assessment task 2: Product 1: Analytics project plan and design
+
+Description:               This assessment is to train students to integrate domain-specific
+                           knowledge and business problems, and related data and resources
+                           with analytics/machine learning methods and processes to design
+                           desirable solutions. Through this task, students will develop skills of
+                           critical thinking and analysis of appropriate state-of-the-art analytics
+                           technologies to address challenging real-world business problems
+                           and objectives.
+                           Part 1 of Product 1 (15%): An Analytics Project Plan and Design
+                           report
+                           The report is required to follow a professional template of project
+                           reports, and address the following items:
+
+                                   · Background
+
+                                   · Business objectives
+
+                                   · Analytical goals and tasks
+
+                                   · Data and resources
+
+                                   · Analytical system architecture
+
+                                   · Analytical methods
+
+                                   · Experiments and evaluation methods
+
+                                   · Implementation design
+
+                                   · Expected outcomes
+
+                                   · Timetable with milestones
+
+                                   · Risk management
+
+Generated 22 October 2026  © University of Technology Sydney  Page 3 / 7
+Learning Outcomes:                 · References
+                           Part 1 of Product 1 is group work, and all team members are expected
+Type:                      to work as a team and will receive the same marks reflected by the
+Groupwork:                 Analytics Project Plan and Design report.
+Weight:                    Part 2 of Product 1 (15%): Project Plan Presentation
+Length:                    A presentation to present the team's analytics project plan and design,
+Feedback:                  including the major contents of your report (Part 1 of Product 1).
+                           The Part 2 will be scheduled before the due date of Part 1, and please
+                           appropriately elaborate Part 2's feedback given by the audiences to
+                           Part 1.
+                           Each team member is required to deliver a part of this presentation,
+                           reflecting their contribution to the project. We will individually assess
+                           each team member, according to their presentation performance and
+                           team contributions.
+
+                                   · SLO1 Clearly define an industry problem with appropriate
+                                     set of objectives (C.1)
+
+                                   · SLO2 Assess, adapt, and recommend the most suitable
+                                     methodology to guide the industry project and plan to
+                                     achieve defined objectives (C.1)
+
+                                   · SLO3 Synthesize a range of tools and techniques in order
+                                     to design and develop creative and innovative solution to
+                                     the identified industry problem (D.1)
+
+                                   · SLO4 Construct written, spoken, and visual communication
+                                     with accuracy and clarity to effectively communicate
+                                     innovative outcomes (E.1)
+
+                                   · SLO6 TBC (B.1)
+
+                           Written submission
+
+                           Group, group and individually assessed
+
+                           30%
+
+                           Part 1: 1,000-3000 words, excluding references
+
+                           Part 2 of Product 1 will be assessed by lecturers within 2-3 weeks and
+                           the feedback will be provided later.
+
+Assessment task 3: Product 2: Project analytical report
+
+Description:               This assessment is to train students with enterprise all-round and
+                           hands-on thinking, ability to effectively synergize cross-disciplinary
+                           knowledge, processes, skills, and experience to implement a project
+                           plan and design (Product 1) into analytical solutions to address
+                           enterprise challenges and innovations. Students are expected to
+                           make sense of enterprise data, evaluate results, improve the
+                           analytical design and strategies, deploy actionable analytical results,
+                           and communicate with stakeholders. Students will learn to develop
+                           industry-standard analytical systems, solutions, documentation, and
+                           communications.
+                           Part 1 of Product 2 (25%): A Project Analytics Report
+
+Generated 22 October 2026  © University of Technology Sydney  Page 4 / 7
+Learning Outcomes:         This report is required to summarize the activities, results, and
+                           findings in the analytical report with a professional template of industry
+Type:                      project reports. The content of the report includes:
+Groupwork:
+Weight:                            · Background including confirmed business objectives and
+Length:                              analytical goals
+Feedback:
+                                   · System Architecture and Models including implemented
+                                     analytics/machine learning methods
+
+                                   · Experiments (for method selection, testing, and
+                                     development)
+
+                                   · System Interface including data, user interface, results, and
+                                     recommendations
+
+                                   · Deployment Plan
+
+                                   · Business Impacts
+
+                                   · References
+                           Part 1 of Product 2 is group work, but we will individually assess each
+                           team member's contribution through a Spark+-based peer evaluation.
+                           Part 2 of Product 2 (15%): Project Showcase
+                           A showcase with all team members to present the team's analytics
+                           project report, particularly the implementation of the developed data
+                           analytical tool/system (Part 1 of Product 2).
+                           The Part 2 will be scheduled before the due date of Part 1, and please
+                           appropriately elaborate Part 2's feedback given by the audiences to
+                           Part 1.
+                           Each team member is required to deliver a part of this presentation,
+                           reflecting their contribution to the project. We will individually assess
+                           each team member, according to their presentation performance and
+                           team contributions.
+
+                                   · SLO1 Clearly define an industry problem with appropriate
+                                     set of objectives (C.1)
+
+                                   · SLO2 Assess, adapt, and recommend the most suitable
+                                     methodology to guide the industry project and plan to
+                                     achieve defined objectives (C.1)
+
+                                   · SLO3 Synthesize a range of tools and techniques in order
+                                     to design and develop creative and innovative solution to
+                                     the identified industry problem (D.1)
+
+                                   · SLO4 Construct written, spoken, and visual communication
+                                     with accuracy and clarity to effectively communicate
+                                     innovative outcomes (E.1)
+
+                                   · SLO5 Critically evaluate, peer-review, reflect and
+                                     communicate the learning process (F.1)
+
+                                   · SLO6 TBC (B.1)
+
+                           Project
+
+                           Individual
+
+                           40%
+
+                           Part 1: 2,000-4000 words, excluding references.
+
+                           Part 2 of Product 1 will be assessed by lecturers within 2-3 weeks and
+                           the feedback will be provided later.
+
+Generated 22 October 2026  © University of Technology Sydney  Page 5 / 7
+Assessment task 4: Self-Reflection and Peer Review
+
+Description:               This assessment is to provide opportunities for students to report and
+Learning Outcomes:         justify their individual contributions to the team, with self-reflections
+                           of their learning experience, self-development, and teamwork
+                           experience, and peer review the contributions of other team members.
+                           The Self-Reflection and Peer Review is to an online assessment,
+                           including two parts:
+                           1. Self-Reflection on the own experience of students, including
+
+                                   · Completion of team responsibility (highlighting challenges,
+                                     efforts to handle the challenges, the lessons learned from
+                                     the efforts, and future improvements)
+
+                                   · Team collaboration experience (enjoyable moments,
+                                     barriers, resolutions, etc.)
+
+                                   · Self-development and learning experiences
+                           2. Peer Review other team member's commitment and performance
+                           in the team from the following aspects:
+
+                                   · Commitment to team responsibility
+
+                                   · Team collaboration (attitudes, manners, communication
+                                     styles, etc.)
+
+                           Evidence quoted/cited must be from AT1 Team Progress Reports.
+                           This assessment will include an interactive oral viva component.
+
+                                   · SLO4 Construct written, spoken, and visual communication
+                                     with accuracy and clarity to effectively communicate
+                                     innovative outcomes (E.1)
+
+                                   · SLO5 Critically evaluate, peer-review, reflect and
+                                     communicate the learning process (F.1)
+
+                                   · SLO6 TBC (B.1)
+
+Type:                      Reflection
+Groupwork:                 Individual
+Weight:                    20%
+Length:                    1,000-2,000 words
+
+Academic Integrity
+
+Academic integrity is about demonstrating honesty, trust, fairness, respect, responsibility and
+courage in your studies and assessments. Studying at UTS and being part of our community
+means maintaining these values and acting with academic integrity at all times. Find out
+everything you need to know about academic integrity at UTS.
+
+Assessment Procedures
+
+All staff and students involved in the assessment of coursework subjects at UTS are subject to
+the Coursework Assessments Policy. The policy applies to the assessment of all coursework
+
+Generated 22 October 2026  © University of Technology Sydney  Page 6 / 7
+subjects. This policy does not apply to thesis subjects that are taken by students enrolled in
+research degrees but does apply to any coursework subjects undertaken by research degree
+students. It does not describe policy that relates to academic progression through a course of
+study. The policy should be read with the Coursework Assessments Procedure and the Student
+Rules.
+
+Information last updated 22 October 2026.
+
+Generated 22 October 2026  © University of Technology Sydney  Page 7 / 7
+

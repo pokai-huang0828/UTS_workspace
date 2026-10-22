@@ -1,0 +1,84 @@
+來源檔:421048_AT3_数据分析项目报告模板.docx
+421048 评估任务三 数据分析项目报告UTS CRICOS 00099F421048 评估任务三 数据分析项目报告UTS CRICOS 00099F   〔style: Body Text〕
+项目组编号：123作者：（填写姓名和学号）提交日期：（填写评估任务三的提交日期）学期：（填写学期）年份：（填写年份）University of Technology Sydney项目组编号：123作者：（填写姓名和学号）提交日期：（填写评估任务三的提交日期）学期：（填写学期）年份：（填写年份）University of Technology Sydney
+(Table of Contents: List all the major sections of the report with page numbers (commencing page for each section). You can use your word processor to do this automatically for you.)
+（目录：列出报告所有主要章节及其页码（每章的起始页码）。可以使用文字处理软件自动完成此操作。）
+目录   〔style: TOC Heading〕
+Table of Contents	2   〔style: toc 1〕
+管理层摘要 Summary or Executive Summary	3   〔style: toc 2〕
+引言 Introduction	4   〔style: toc 2〕
+业务背景 Business context	4   〔style: toc 3〕
+项目实施 Project Implementation	5   〔style: toc 2〕
+项目目的和目标 Project aims and Objectives	5   〔style: toc 3〕
+数据 Data	5   〔style: toc 3〕
+解决方案实施 Solution implementation	5   〔style: toc 3〕
+项目成果 Project outcomes	6   〔style: toc 2〕
+项目可交付成果 Project deliverables	6   〔style: toc 3〕
+部署计划 Deployment plan	6   〔style: toc 3〕
+业务影响 Business impacts	6   〔style: toc 3〕
+建议 Recommendations	6   〔style: toc 3〕
+参考文献 List of References	7   〔style: toc 2〕
+附录 Appendices	8   〔style: toc 2〕
+
+## 管理层摘要 Summary or Executive Summary
+This section briefly summarises the purpose of the project, major findings and conclusions. It is designed for those who do not have the time to read the entire report and as a means of refreshing a reader's mind at some later time. It is probably the most important section of the report, because it is almost certain to be read. The summary can be up to one page.
+本部分简要概述项目目的、主要研究发现和结论。管理层摘要面向没有时间阅读完整报告的读者，也便于读者日后快速回顾报告内容。这一部分很可能会被阅读，因此是报告中最重要的部分之一。管理层摘要最多一页。
+
+## 引言 Introduction
+The Introduction is an extremely important part of any report. It should not include too much detail, but it should give the reader a good idea of where the report is going (including a brief description of the contents of the report).
+The Introduction should address the following issues:
+- what was the problem and its context,
+- why was it a problem, and
+- Why was the project necessary and
+- How was the problem solved (briefly).
+引言是所有报告中的重要组成部分。引言不应包含过多细节，但应让读者清楚了解报告的整体方向，并简要介绍报告所涵盖的内容。引言应回答以下问题：
+- 业务问题是什么？该问题所处的背景是什么？
+- 为什么这是一个需要解决的问题？
+- 为什么有必要开展本项目？
+- 本项目如何解决该问题？作简要说明。
+
+### 业务背景 Business context
+The part presents a logical and informative background and clear-defined business objectives.
+本部分应提供合乎逻辑且信息充分的背景说明，并清晰说明已经确认的业务目标。
+
+## 项目实施 Project Implementation
+
+### 项目目的和目标 Project aims and Objectives
+This part presents the project aims and project objectives that have been achieved in the project.
+本部分说明项目已经实现的总体目的和具体目标。
+
+### 数据 Data
+This part presents the information on the data used in the project. Provide the details of the data attributes,  volume and quality and the approach to collect the data.
+本部分说明项目所使用的数据。请详细说明数据属性、数据量和数据质量，以及用于收集数据的方法。
+
+### 解决方案实施 Solution implementation
+This part presents how the planed tasks were carried out and how the proposed solution is implemented,  including what resources were used, what system architecture is built, how data analytics techniques were applied, what and how machine learning models was developed, what experiments are carried out for evaluation.
+本部分说明如何执行计划中的各项任务，以及如何实施拟议的解决方案。内容应包括：使用了哪些资源；构建了何种系统架构；如何应用数据分析技术；开发了哪些机器学习模型，以及如何开发这些模型；开展了哪些实验来评估解决方案。
+
+## 项目成果 Project outcomes
+
+### 项目可交付成果Project deliverables
+This part presents what this project has delivered upon its completion, such as analytical results, machine learning models, evaluation results, analytics systems and user interfaces.
+本部分说明项目完成后交付的成果，例如分析结果、机器学习模型、评估结果、数据分析系统和用户界面。
+
+### 部署计划 Deployment plan
+This part presents the plan to deploy the analytical results or models into the enterprise operations and systems.
+本部分说明如何将分析结果或模型部署至企业运营和系统。
+
+### 业务影响 Business impacts
+This part presents the benefits from this project, significance of the outcomes and impoact on the business.
+本部分说明项目带来的效益、项目成果的重要性，以及项目对业务的影响。
+
+### 建议 Recommendations
+This part makes recommendations for next steps.
+本部分针对后续工作提出建议。
+
+## 参考文献 List of References
+When you use material from other reports or books, you must properly acknowledge it, by citing the report or book in a list of references, and referring to the list at the places in the text where the material is used. Please use The APA (American Psychological Association) referencing style in this report.
+Citations and References are important parts of writing in an academic environment.
+使用其他报告、书籍或资料中的内容时，必须妥善注明来源。请在参考文献列表中列出相关资料，并在正文使用这些资料的位置添加文内引用。本报告须采用 UTS APA 引用格式。文内引用和参考文献是学术写作的重要组成部分。
+
+## 附录 Appendices
+Detailed material that is not essential to, but supports the information contained in the body of the report, should be placed in an appendix. Appropriate appendix materials include supporting data, detailed explanations of methodologies or procedures, derivation of formulas, conversion factors, and data collection formats, protocols, and checklists. Appendices are a powerful means of fully documenting and supporting the results of the study without cluttering the body of the report.
+不属于报告正文的必要内容、但能够支持正文信息的详细材料，应放入附录。适合放入附录的材料包括：支持性数据；方法或程序的详细说明；公式推导；换算系数；数据收集格式；规程；检查清单。附录可以在不影响正文可读性的情况下，完整记录并支持项目结果。
+〔頁尾 word/footer2.xml〕11University of Technology Sydney 1 1 Student Number:

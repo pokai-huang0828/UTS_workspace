@@ -1,0 +1,67 @@
+來源檔:420048_AT3 Analytics_project_report_Template.docx
+420048 AT3 Analytics Project ReportUTS CRICOS 00099F420048 AT3 Analytics Project ReportUTS CRICOS 00099F   〔style: Body Text〕
+Project Group Number: #Authors: (add your names and student IDs)Date: (add date submitted for Assessment Task 3)Semester: (add semester)Year: (add year)University of Technology SydneyProject Group Number: #Authors: (add your names and student IDs)Date: (add date submitted for Assessment Task 3)Semester: (add semester)Year: (add year)University of Technology Sydney
+(Table of Contents: List all the major sections of the report with page numbers (commencing page for each section). You can use your word processor to do this automatically for you.)
+Table of Contents   〔style: TOC Heading〕
+Table of Contents	2   〔style: toc 1〕
+Summary or Executive Summary	3   〔style: toc 2〕
+Introduction	4   〔style: toc 2〕
+Business context	4   〔style: toc 3〕
+Project Implementation	5   〔style: toc 2〕
+Project aims and Objectives	5   〔style: toc 3〕
+Data	5   〔style: toc 3〕
+Solution implementation	5   〔style: toc 3〕
+Project outcomes	6   〔style: toc 2〕
+Project deliverables	6   〔style: toc 3〕
+Deployment plan	6   〔style: toc 3〕
+Business impacts	6   〔style: toc 3〕
+Recommendations	6   〔style: toc 3〕
+List of References	7   〔style: toc 2〕
+Appendices	8   〔style: toc 2〕
+
+## Summary or Executive Summary
+This section briefly summarises the purpose of the project, major findings and conclusions. It is designed for those who do not have the time to read the entire report and as a means of refreshing a reader's mind at some later time. It is probably the most important section of the report, because it is almost certain to be read. The summary can be up to one page.
+
+## Introduction
+The Introduction is an extremely important part of any report. It should not include too much detail, but it should give the reader a good idea of where the report is going (including a brief description of the contents of the report).
+The Introduction should address the following issues:
+- what was the problem and its context,
+- why was it a problem, and
+- Why was the project necessary and
+- How was the problem solved (briefly).
+
+### Business context
+The part presents a logical and informative background and clear-defined business objectives.
+
+## Project Implementation
+
+### Project aims and Objectives
+This part presents the project aims and project objectives that have been achieved in the project.
+
+### Data
+This part presents the information on the data used in the project.Provide the details of the data attributes,  volume and quality and the approach to collect the data.
+
+### Solution implementation
+This part presents how the planed tasks were carried out and how the proposed solution is implemented,  including what resources were used, what system architecture is built, how data analytics techniques were applied, what and how machine learning models was developed, what experiments are carried out for evaluation.
+
+## Project outcomes
+
+### Project deliverables
+This part presents what this project has delivered upon its completion, such as analytical results, machine learning models, evaluation results, analytics systems and user interfaces.
+
+### Deployment plan
+This part presents the plan to deploy the analytical results or models into the enterprise operations and systems.
+
+### Business impacts
+This part presents the benefits from this project, significance of the outcomes and impoact on the business.
+
+### Recommendations
+This part makes recommendations for next steps.
+
+## List of References
+When you use material from other reports or books, you must properly acknowledge it, by citing the report or book in a list of references, and referring to the list at the places in the text where the material is used. Please use The APA (American Psychological Association) referencing style in this report.
+Citations and References are important parts of writing in an academic environment.
+
+## Appendices
+Detailed material that is not essential to, but supports the information contained in the body of the report, should be placed in an appendix. Appropriate appendix materials include supporting data, detailed explanations of methodologies or procedures, derivation of formulas, conversion factors, and data collection formats, protocols, and checklists. Appendices are a powerful means of fully documenting and supporting the results of the study without cluttering the body of the report.
+〔頁尾 word/footer2.xml〕11University of Technology Sydney 1 1 Student Number:
