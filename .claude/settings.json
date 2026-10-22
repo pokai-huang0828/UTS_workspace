@@ -39,12 +39,10 @@
       "PowerShell(Get-Command *)"
     ],
     "ask": [
-      "PowerShell(git push *)",
       "PowerShell(git reset *)",
       "PowerShell(git checkout *)",
       "PowerShell(git rebase *)",
       "PowerShell(git filter-repo *)",
-      "Bash(git push *)",
       "Bash(git reset *)",
       "Bash(git filter-repo *)"
     ]
