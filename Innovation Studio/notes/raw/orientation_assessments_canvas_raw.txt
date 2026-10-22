@@ -1,4 +1,4 @@
-來源:Canvas API(course 42610)· 2026-10-22 抓取 · 主頁 front_page + assignment_groups + assignments + module 352280(课程导学)· 逐字未改(簡體原文)
+來源:Canvas API(course 42610)· 2026-10-22 抓取 · 主頁 front_page + assignment_groups + assignments + module 352280(课程导学)· 逐字未改(簡體原文) · 2026-10-22 補:有序清單編號、表格標題(caption)、表格內 | 跳脫為 \|
 
 ==== FRONT PAGE (欢迎, updated 2026-10-15T23:51:09Z) ====
 
@@ -8,11 +8,11 @@
 
 成功完成本课程后，你应该能够：:
 
-- 清晰界定行业问题，并制定一套适当的项目目标。
-- 评估、调整并推荐最适合的方法论，来指导行业项目并规划实现既定目标的路径。
-- 综合运用各种工具与技术，设计和开发具有创造性和创新性的解决方案，以应对所识别的行业问题。
-- 以准确、清晰的书面、口头及视觉沟通方式，有效传达创新成果。
-- 批判性地进行评估、同伴评审、反思，并沟通学习过程。
+1. 清晰界定行业问题，并制定一套适当的项目目标。
+2. 评估、调整并推荐最适合的方法论，来指导行业项目并规划实现既定目标的路径。
+3. 综合运用各种工具与技术，设计和开发具有创造性和创新性的解决方案，以应对所识别的行业问题。
+4. 以准确、清晰的书面、口头及视觉沟通方式，有效传达创新成果。
+5. 批判性地进行评估、同伴评审、反思，并沟通学习过程。
 
 进入单元 (https://canvas.uts.edu.au/courses/42610/modules)
 
@@ -186,11 +186,11 @@
 
 所有团队成员均须参与团队数据分析项目的展示，并遵循以下要求：
 
-- 所有团队成员均须根据各自在团队中的职责参与讲解，说明这些职责在《项目分析报告》（成果 2 第 1 部分）中的体现，并重点展示所开发分析工具或系统的实施成果。
-- 本次展示不一定需要重复评估任务二成果 1 第 2 部分“项目计划演讲”中已经介绍的内容。建议采用项目展示情境（exhibition scenario），假设团队正在向利益相关者，例如委托方和客户，展示项目成果。
-- 评分人员，例如讲师或导师，将提出 1 至 2 个问题，以评估团队回答问题的能力。问题可能指定由某位团队成员回答，也可能面向整个团队提出。在后一种情况下，任何团队成员均可回答。
-- 展示的设计与呈现应符合企业情境（enterprise scenarios），并假设受众不仅包括技术专家，也包括具备或不具备数据分析／机器学习背景的广大利益相关者。
-- 每个团队最多有 15 分钟进行展示，问答环节不计入展示时间。
+1. 所有团队成员均须根据各自在团队中的职责参与讲解，说明这些职责在《项目分析报告》（成果 2 第 1 部分）中的体现，并重点展示所开发分析工具或系统的实施成果。
+2. 本次展示不一定需要重复评估任务二成果 1 第 2 部分“项目计划演讲”中已经介绍的内容。建议采用项目展示情境（exhibition scenario），假设团队正在向利益相关者，例如委托方和客户，展示项目成果。
+3. 评分人员，例如讲师或导师，将提出 1 至 2 个问题，以评估团队回答问题的能力。问题可能指定由某位团队成员回答，也可能面向整个团队提出。在后一种情况下，任何团队成员均可回答。
+4. 展示的设计与呈现应符合企业情境（enterprise scenarios），并假设受众不仅包括技术专家，也包括具备或不具备数据分析／机器学习背景的广大利益相关者。
+5. 每个团队最多有 15 分钟进行展示，问答环节不计入展示时间。
 
 成果 2 第 2 部分将安排在第 1 部分的截止日期之前进行。在提交第 1 部分的报告时，你需要适当说明并回应成果 2 第 2 部分项目展示中收到的反馈。
 
@@ -294,8 +294,10 @@
 
 课程导学
 
-| [圖:Photo of Yi Zhang] | #### 副教授 Yi Zhang | 课程负责人 张毅博士是悉尼科技大学（UTS）澳大利亚人工智能研究院（Australian Artificial Intelligence Institute）及计算机科学学院（School of Computer Science）的副教授。他曾获澳大利亚研究委员会（ARC）DECRA Fellow资助，并荣获《澳大利亚人报》（The Australian）2023年研究奖（Research Award 2023），该奖项认可他为澳大利亚图书馆与信息科学领域（Library and Information Science）的研究领域领军人物。 张毅致力于开发计算模型，运用人工智能和数据科学技术开展广泛的科学、技术与创新研究。围绕这一研究方向，他已在信息科学、管理科学以及计算机科学领域发表130余篇学术论文。 他现任《Technological Forecasting and Social Change》执行编辑、《Frontiers in Research Metrics and Analytics》专题主编（Specialty Chief Editor），以及《IEEE Transactions on Engineering Management》《Scientometrics》和《International Journal of Computational Intelligent Systems》的副编辑（Associate Editor）。 他已获得约200万澳元的科研经费资助，资金来源包括澳大利亚研究委员会（ARC）、澳大利亚联邦科学与工业研究组织（CSIRO）、行业机构以及国际非营利组织。 邮件: Yi.Zhang@uts.edu.au (mailto:Yi.Zhang@uts.edu.au) |
-| [圖:Photo of Li Guan] | #### 博士 Li Guan | 讲师 管理博士是悉尼科技大学（UTS）工程与信息技术学部计算机科学学院（School of Computer Science）的研究人员，于新南威尔士大学（UNSW）获得项目管理博士学位。在加入悉尼科技大学之前，她曾在新南威尔士大学工程与信息技术学院的决策支持与分析研究组（Decision Support & Analytics Research Group）担任研究助理。 管理的研究兴趣主要包括数据与模型驱动的风险管理、人工智能（AI）赋能的决策、计算智能，以及复杂系统中的应用运筹学，同时还涉及计算机科学、商业与管理、土木工程、工业工程等领域的文献计量研究。她在国际顶级期刊（ABDC A*/A、Q1、Basket-of-11 期刊）发表多篇高质量、高影响力的研究论文，包括《Decision Support Systems》《Computers & Industrial Engineering》《Computers & Operations Research》《Journal of Cleaner Production》《Journal of Risk Research》《Journal of Civil Engineering and Management》等，并多次在国际及澳大利亚国内的学术会议、研讨会和专题研习会中展示其研究成果。 邮件: Li.Guan@uts.edu.au (mailto:Li.Guan@uts.edu.au) |
+### 教学团队
+
+| [圖:Photo of Yi Zhang] | #### 副教授 Yi Zhang \| 课程负责人 张毅博士是悉尼科技大学（UTS）澳大利亚人工智能研究院（Australian Artificial Intelligence Institute）及计算机科学学院（School of Computer Science）的副教授。他曾获澳大利亚研究委员会（ARC）DECRA Fellow资助，并荣获《澳大利亚人报》（The Australian）2023年研究奖（Research Award 2023），该奖项认可他为澳大利亚图书馆与信息科学领域（Library and Information Science）的研究领域领军人物。 张毅致力于开发计算模型，运用人工智能和数据科学技术开展广泛的科学、技术与创新研究。围绕这一研究方向，他已在信息科学、管理科学以及计算机科学领域发表130余篇学术论文。 他现任《Technological Forecasting and Social Change》执行编辑、《Frontiers in Research Metrics and Analytics》专题主编（Specialty Chief Editor），以及《IEEE Transactions on Engineering Management》《Scientometrics》和《International Journal of Computational Intelligent Systems》的副编辑（Associate Editor）。 他已获得约200万澳元的科研经费资助，资金来源包括澳大利亚研究委员会（ARC）、澳大利亚联邦科学与工业研究组织（CSIRO）、行业机构以及国际非营利组织。 邮件: Yi.Zhang@uts.edu.au (mailto:Yi.Zhang@uts.edu.au) |
+| [圖:Photo of Li Guan] | #### 博士 Li Guan \| 讲师 管理博士是悉尼科技大学（UTS）工程与信息技术学部计算机科学学院（School of Computer Science）的研究人员，于新南威尔士大学（UNSW）获得项目管理博士学位。在加入悉尼科技大学之前，她曾在新南威尔士大学工程与信息技术学院的决策支持与分析研究组（Decision Support & Analytics Research Group）担任研究助理。 管理的研究兴趣主要包括数据与模型驱动的风险管理、人工智能（AI）赋能的决策、计算智能，以及复杂系统中的应用运筹学，同时还涉及计算机科学、商业与管理、土木工程、工业工程等领域的文献计量研究。她在国际顶级期刊（ABDC A*/A、Q1、Basket-of-11 期刊）发表多篇高质量、高影响力的研究论文，包括《Decision Support Systems》《Computers & Industrial Engineering》《Computers & Operations Research》《Journal of Cleaner Production》《Journal of Risk Research》《Journal of Civil Engineering and Management》等，并多次在国际及澳大利亚国内的学术会议、研讨会和专题研习会中展示其研究成果。 邮件: Li.Guan@uts.edu.au (mailto:Li.Guan@uts.edu.au) |
 
 有任何疑问吗？
 
@@ -321,18 +323,20 @@
 
 这是本学期的课程进度安排。请利用它来规划你的学期学习计划和学习工作量。
 
+### 教学与学习安排
+
 | 周次 | 开始时间 | 主题 | Zoom 工作坊 | 评估任务 / 注意事项 |
 | 迎新周 | 10月19日 | (/courses/42610/pages/di-zhou-|shu-ju-ke-xue-slash-fen-xi-si-wei)浏览阅读课程导学, 查看 课程信息 (https://canvas.uts.edu.au/courses/42610/external_tools/6740) | | (https://canvas.uts.edu.au/courses/42610/external_tools/6740) 团队组建 (https://canvas.uts.edu.au/courses/42610/pages/tuan-dui-zu-jian) (包括 团队组建调查 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831620)) |
 | 第一周 | 10月26日 | 单元一：数据分析项目简介 (https://canvas.uts.edu.au/courses/42610/modules/352282) 第一周｜数据科学／分析思维 (/courses/42610/pages/di-zhou-|shu-ju-ke-xue-slash-fen-xi-si-wei) | Zoom 工作坊 1 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | |
 | 第二周 | 11月2日 | 单元一：数据分析项目简介 (https://canvas.uts.edu.au/courses/42610/modules/352282) 第二周｜企业分析项目规划与管理 (/courses/42610/pages/di-er-zhou-|qi-ye-fen-xi-xiang-mu-gui-hua-yu-guan-li) | Zoom 工作坊 2 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | 退课截止日期为第二周的星期四。 |
 | 第三周 | 11月9日 | 单元一：数据分析项目简介 (https://canvas.uts.edu.au/courses/42610/modules/352282) 第三周｜企业数据科学／分析方法论 (/courses/42610/pages/di-san-zhou-|qi-ye-shu-ju-ke-xue-slash-fen-xi-fang-fa-lun) | Zoom 工作坊 3 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | |
-| 第四周 | 11月16日 | 单元二：数据分析与机器学习技术概述 (https://canvas.uts.edu.au/courses/42610/modules/352284) 第四周 | 数据分析与机器学习技术概述（第一部分） (/courses/42610/pages/di-si-zhou-|-shu-ju-fen-xi-yu-ji-qi-xue-xi-ji-zhu-gai-shu-di-bu-fen) | Zoom 工作坊 4 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | |
+| 第四周 | 11月16日 | 单元二：数据分析与机器学习技术概述 (https://canvas.uts.edu.au/courses/42610/modules/352284) 第四周 \| 数据分析与机器学习技术概述（第一部分） (/courses/42610/pages/di-si-zhou-|-shu-ju-fen-xi-yu-ji-qi-xue-xi-ji-zhu-gai-shu-di-bu-fen) | Zoom 工作坊 4 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | |
 | 第五周 | 11月23日 | 单元二：数据分析与机器学习技术概述 (https://canvas.uts.edu.au/courses/42610/modules/352284) 第五周｜数据分析与机器学习技术概述（二） (/courses/42610/pages/di-wu-zhou-|shu-ju-fen-xi-yu-ji-qi-xue-xi-ji-zhu-gai-shu-er) | Zoom 工作坊 5 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | |
-| 第六周 | 11月30日 | 单元三：分析系统架构与方法选择 (https://canvas.uts.edu.au/courses/42610/modules/352286) 第 6 周 | 分析系统架构 (/courses/42610/pages/di-6-zhou-|-fen-xi-xi-tong-jia-gou) | Zoom 工作坊 6 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | |
+| 第六周 | 11月30日 | 单元三：分析系统架构与方法选择 (https://canvas.uts.edu.au/courses/42610/modules/352286) 第 6 周 \| 分析系统架构 (/courses/42610/pages/di-6-zhou-|-fen-xi-xi-tong-jia-gou) | Zoom 工作坊 6 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | |
 | 第七周 | 12月7日 | 单元四：向利益相关者传达分析结果 (https://canvas.uts.edu.au/courses/42610/modules/352288) 第七周｜沟通形式 (/courses/42610/pages/di-qi-zhou-|gou-tong-xing-shi) | Zoom 工作坊 7 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | 评估任务二成果 1：数据分析项目计划与设计（第 1 部分：报告）［小组任务］ (https://canvas.uts.edu.au/courses/42610/assignments/297273) 评估任务二成果 1：数据分析项目计划与设计（第 2 部分：演示文稿）［小组任务，个人评分］ (https://canvas.uts.edu.au/courses/42610/assignments/297275) |
 | 期中假期 | 12月14日 | | | |
-| 第八周 | 2027 年 1月18日 | 单元五：分析解决方案开发 (https://canvas.uts.edu.au/courses/42610/modules/352290) 第 8 周 | 特征工程 (/courses/42610/pages/di-8-zhou-|-te-zheng-gong-cheng) | Zoom 工作坊 8 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | |
-| 第九周 | 2027 年 1月25日 | 单元五：分析解决方案开发 (https://canvas.uts.edu.au/courses/42610/modules/352290) 第 9 周 | 超参数调优 (/courses/42610/pages/di-9-zhou-|-chao-can-shu-diao-you) | Zoom 工作坊 9 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | |
+| 第八周 | 2027 年 1月18日 | 单元五：分析解决方案开发 (https://canvas.uts.edu.au/courses/42610/modules/352290) 第 8 周 \| 特征工程 (/courses/42610/pages/di-8-zhou-|-te-zheng-gong-cheng) | Zoom 工作坊 8 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | |
+| 第九周 | 2027 年 1月25日 | 单元五：分析解决方案开发 (https://canvas.uts.edu.au/courses/42610/modules/352290) 第 9 周 \| 超参数调优 (/courses/42610/pages/di-9-zhou-|-chao-can-shu-diao-you) | Zoom 工作坊 9 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | |
 | 第十周 | 2027 年 2月1日 | 单元六：可操作分析结果的评估与部署 (https://canvas.uts.edu.au/courses/42610/modules/352292) 第10周｜行动性分析结果的评估 (/courses/42610/pages/di-10zhou-|xing-dong-xing-fen-xi-jie-guo-de-ping-gu) | Zoom 工作坊 10 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | |
 | 第十一周 | 2027 年 2月8日 | 单元六：可操作分析结果的评估与部署 (https://canvas.uts.edu.au/courses/42610/modules/352292) 第 11 周｜分析项目部署 (/courses/42610/pages/di-11-zhou-|fen-xi-xiang-mu-bu-shu) | Zoom 工作坊 11 (https://canvas.uts.edu.au/courses/42610/discussion_topics/831596) | 评估任务一：团队进度报告［个人任务］ (https://canvas.uts.edu.au/courses/42610/assignments/297267) |
 | 第十二周 | 2027 年 2月15日 | 项目展示 | | 评估任务三成果 2：项目分析报告（第 1 部分：报告）［小组任务］ (https://canvas.uts.edu.au/courses/42610/assignments/297269) 评估任务三成果 2：项目分析报告（第 2 部分：项目展示幻灯片／材料）［小组任务，个人评分］ (https://canvas.uts.edu.au/courses/42610/assignments/297271) 评估任务四反思：自我反思与同伴评价［个人任务］ (https://canvas.uts.edu.au/courses/42610/assignments/297277) |
@@ -480,6 +484,8 @@ Zoom 会议是在线网络研讨会（webinar），你可以在家通过电脑�
 
 (https://canvas.uts.edu.au/courses/42160/external_tools/3695)
 
+### Zoom 课程时间表
+
 | 周次 | 日期和时间 | 会议概览 | 会议录像 |
 | 第一周 | 10 月 29 日，星期四， 北京时间，19:30 | 本次会议安排在第一周，旨在介绍课程内容并协助学生组建团队。 | 录制视频：点击此处观看 访问密码： |
 | 第二周 | 11 月 5 日，星期四， 北京时间，19:30 | 本次会议安排在第二周，将以项目咨询的形式开展。课程中将展示一个数据分析项目提案示例。你的在线学习导师将解答有关项目构想、数据收集、方法选择及其他相关主题的问题。 课前准备：请确保你已经完成第一至第二周的所有页面和学习活动，并掌握数据分析项目的一般定义和基础知识。我们特别建议各团队在本次线上研讨会前安排团队会议，收集或明确与项目有关的具体问题。 | 录制视频：点击此处观看 访问密码： |
@@ -545,10 +551,10 @@ Zoom 会议是在线网络研讨会（webinar），你可以在家通过电脑�
 
 在下方的讨论区告诉我们一些关于你自己的信息。
 
-- 你的名字？
-- 你在哪里工作，目前担任什么角色？
-- 你的职业抱负是什么？你认为自己在五年后会做什么？
-- 这门课程将如何帮助你实现这个目标？
+1. 你的名字？
+2. 你在哪里工作，目前担任什么角色？
+3. 你的职业抱负是什么？你认为自己在五年后会做什么？
+4. 这门课程将如何帮助你实现这个目标？
 
 ---- ITEM 10 [Discussion] 社区与帮助论坛
 > ref: 831618 | posted null
