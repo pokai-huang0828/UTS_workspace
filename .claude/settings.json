@@ -37,14 +37,6 @@
       "PowerShell(Measure-Object *)",
       "PowerShell(Write-Output *)",
       "PowerShell(Get-Command *)"
-    ],
-    "ask": [
-      "PowerShell(git reset *)",
-      "PowerShell(git checkout *)",
-      "PowerShell(git rebase *)",
-      "PowerShell(git filter-repo *)",
-      "Bash(git reset *)",
-      "Bash(git filter-repo *)"
     ]
   }
 }
