@@ -2393,3 +2393,16 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - **workflow**(8 agent,1.58M):4 個分析視角(規則衝突/AT2 高分/個人分數保護/Kenny 專屬)→ 整合寫 `notes/03_注意事項.md` → 事實核對＋完整性批評(31 條修正)→ 修正 31/31 採用。agent 另用 WebFetch 讀 5 個 UTS 公開網頁(遲交每天扣 5%、72 小時短期延期、Spark+ 算法、口試規定),文件標〔外部〕
 - **README** 更新:及格條件、份量、可用中文、§2.2–2.4 字數/口試/Spark+、§5 新增 #8–#10、§6 檔案表;**TODO** 區塊改寫(10 個週報提醒、11/1 保險週報、11/15 資料到手)
 - 本 session subagent 累計 ≈ 0.26M(抄單元)＋0.71M(第一次核對)＋1.58M(本次)≈ 2.55M
+
+---
+
+## 2026-10-24 · Innovation Studio 全部上課素材採集與整理(Kenny:「先將所有本門課程上課素材都讀完,分派分工採集並整理好」)
+
+- **盤點**:Canvas API 掃 3 個可見模組 47 項 + 主頁 + 作業頁的 HTML → 269 筆連結/嵌入/圖 → 去重後 175 列,存 `notes/raw/inventory_2026-10-24.tsv`。單元三到六仍 404;pages 清單 404、files 清單 403
+- **workflow**(15 agent,4.23M,約 76 分鐘):9 個採集線(files、canvas_embeds、bilibili、interactive、readings×2、images×2、classmates)→ 3 個整合(11 單元一、12 單元二、00 素材總覽＋90 名詞表)→ 完整性＋忠實度 2 個檢查(16 條)→ 修正 11 採用、5 條超出權限由指揮官處理
+- **結果**:175 列 ✅126 🟡10 ❌1 ⚪(裝飾)其餘。內嵌 22 個 in_rce 中 20 個是 H5P(文字與正確答案從 H5PIntegration 讀出)、2 支 Kaltura;歡迎影片中英字幕全文;bilibili 10 支(yt-dlp 被 412 風控擋,改用內建瀏覽器看畫面,8 支無口白逐字稿標 🟡);Atomic 活動 8 個全不計分;CRISP-DM PDF 是 Smart Vision 41 頁英文投影片;兩份檢查清單是圖片 PDF(人工轉錄);嘉賓 pptx 33 張(26 張圖逐張轉錄)
+- **發現**:Kenny 團隊組建調查 10/22 21:45 已貼(和第 4 版一字不差)→ 擬答/03/README/TODO 改為已貼;課程導學「CinLearn 重要指引」頁其實有寫延期 72h 與遲交扣分 → 03 §1、§2.6 改正;單元二 2.2 頁把 KNN 列為無監督(影片與教科書都是監督式)
+- **私人**:同學貼文整理(候選隊友排序)在 `Innovation Studio/private/classmates_2026-10-24.md`,已加 .gitignore,不進版控
+- **指揮官另修**:02 檔 ## 12 標題方括號跳脫;README 加素材總覽入口;嘉賓 pptx 原檔 14.5MB 加 .gitignore(文字已轉錄)
+- **副作用**:agent 下載到 Downloads 的 4 份課程檔＋1 張橫幅圖留在原處;readings 線在內建瀏覽器開 PDF 時跳過一次存檔對話框(未存檔)
+- 本 session subagent 累計 ≈ 6.8M

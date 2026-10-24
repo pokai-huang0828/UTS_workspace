@@ -1,0 +1,178 @@
+# 421048 素材盤點(Canvas API,2026-10-24)。可見模組只有 3 個:352280 課程導學(10 項)、352282 單元一(25 項)、352284 單元二(22 項);單元三到六(352286/352288/352290/352292)學生端 404,尚未開放。pages 清單 404、files 清單 403(學生無權)。
+# 欄位:type<TAB>出現位置(M模組id#項目序號,序號對應 notes/00、01、02 檔的「## N.」;FRONT=主頁;ASG=作業頁)<TAB>連結文字/alt<TAB>url
+# 內部頁面連結(internal)已省略;作業範本 4 份已下載到 assessments/templates/。
+file	M352282#10	CRISP-DM 简介.pdf	https://canvas.uts.edu.au/courses/42610/files/14041255?wrap=1
+file	M352282#21	研究问题检查清单.pdf	https://canvas.uts.edu.au/courses/42610/files/14041257?wrap=1
+file	M352282#21	技术目标检查清单.pdf	https://canvas.uts.edu.au/courses/42610/files/14041077?wrap=1
+file	discussion 831604(第 6 週嘉賓講座)	Accelerating NSW_August2025.pptx(14,508,091 B)	https://canvas.uts.edu.au/courses/42610/files/14041277?wrap=1
+iframe	FRONT	[cinlearn]feit_420048_welcome_v1	https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=b50e4c7d-e3b6-4fb3-aa25-38dde78916c0
+iframe	M352280#3		https://www.lib.uts.edu.au/node/5303?iframe=true
+iframe	M352280#5	(主要職責互動元件,已讀,見 README §3)	https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=645c8343-68b0-469a-86c9-0d42cc491771
+iframe	M352280#5		https://player.bilibili.com/player.html?isOutside=true&aid=113612068821893&bvid=BV1mqqLYWEj5&cid=27229291973&p=1
+iframe	M352282#10		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=e8611893-b822-4ccf-a0e0-0553f18e25c9
+iframe	M352282#10	(Atomic Discussions)	https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=borderless&url=https%3A%2F%2Fdiscussions.atomicjoltappsau.com%2Flti_launches%2FJyJx6Yi3evkwmTqhE4FBsBT9
+iframe	M352282#12	(Atomic Social Quizzing)	https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=borderless&url=https%3A%2F%2Fsocialquizzing.atomicjoltappsau.com%2Flti_launches%2FwPFZ5PM28PNvdwKyu5cyneYD
+iframe	M352282#13		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=48cec3e8-8d57-44cb-8890-92b608e19742
+iframe	M352282#14		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=4809b77b-429b-4873-94f0-1a306be61ba6
+iframe	M352282#18		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=b80a6757-e8f4-421d-94fd-c2acb8b40682
+iframe	M352282#19		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=d4880c3d-4775-4655-a410-bd6e3d43d639
+iframe	M352282#20	(Atomic Discussions)	https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=borderless&url=https%3A%2F%2Fdiscussions.atomicjoltappsau.com%2Flti_launches%2FZWhqe8Hufwg1MfVQH8YtaBQG
+iframe	M352282#21		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=b3ac85a5-c44f-4614-a9a1-76d315d1baba
+iframe	M352282#21		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=ffd0aa1d-794b-4664-9d68-6f4014f137d1
+iframe	M352282#22		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=ea2d91ec-3d62-4d6a-98e5-b4965b042db9
+iframe	M352282#22		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=14469d2a-36b2-4683-b38d-4d77cc111ca6
+iframe	M352282#25	(Atomic Discussions)	https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=borderless&url=https%3A%2F%2Fdiscussions.atomicjoltappsau.com%2Flti_launches%2FhL1iCNqmv262xRd8Ynjc6nqs
+iframe	M352282#4		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=b2488f4f-1569-4a01-bdbd-2d84910b6ba4
+iframe	M352282#4		https://player.bilibili.com/player.html?isOutside=true&aid=1901296241&bvid=BV1KU411F76G&cid=1460236950&p=1
+iframe	M352282#5		https://player.bilibili.com/player.html?isOutside=true&aid=116786754293098&bvid=BV1Fqjb6bEuT&cid=39276708286&p=1
+iframe	M352282#5		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=a9a49e20-bc31-4633-93ab-30edceda175d
+iframe	M352282#5	(Atomic Discussions)	https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=borderless&url=https%3A%2F%2Fdiscussions.atomicjoltappsau.com%2Flti_launches%2Fw7za23H3SC834LCcJkNywrYC
+iframe	M352282#7	(Atomic Social Quizzing / H5P)	https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=borderless&url=https%3A%2F%2Fsocialquizzing.atomicjoltappsau.com%2Flti_launches%2FH5P9T3qtqnzD4Gr6xjHk541a
+iframe	M352284#11		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=77c6af90-1865-4104-bb80-52192cf732f6
+iframe	M352284#11	(genial.ly)	https://view.genial.ly/62035383cdefe9001429da44
+iframe	M352284#11	(genial.ly)	https://view.genial.ly/6203538b6cd99d0013a352fc
+iframe	M352284#11	(genial.ly)	https://view.genial.ly/6203539125d93d00159f1d9a
+iframe	M352284#11		https://player.bilibili.com/player.html?isOutside=true&aid=76255895&bvid=BV1fJ411m7ZZ&cid=130437427&p=1
+iframe	M352284#11		https://player.bilibili.com/player.html?isOutside=true&aid=968148219&bvid=BV17p4y1Q719&cid=192343503&p=1
+iframe	M352284#12	(genial.ly)	https://view.genial.ly/62217da315825c00179d8f53
+iframe	M352284#13	421048 [CinLearn] Online seminar Rebecca Macpherson(逐字稿已在單元二 ITEM 13)	https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=725398cb-417a-41e0-b727-40950b30ea29
+iframe	M352284#16		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=691ce2b2-7b55-4851-a9ea-b7c11222f447
+iframe	M352284#17		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=e5bab474-5e36-4119-9b3c-3f0565bbebce
+iframe	M352284#18		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=7dd2ffd0-7923-482e-acfd-d54bfd395f4e
+iframe	M352284#19		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=9e74a958-9549-4db4-a46e-a2651bb949a2
+iframe	M352284#22	(Atomic Discussions)	https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=borderless&url=https%3A%2F%2Fdiscussions.atomicjoltappsau.com%2Flti_launches%2FjZBsxSPuPpTycWpuFYexbyKQ
+iframe	M352284#3		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=3b62de8f-9b37-473b-9859-eee2344fa7a5
+iframe	M352284#4		https://player.bilibili.com/player.html?isOutside=true&aid=498898427&bvid=BV1HK411J7Zq&cid=213725064&p=1
+iframe	M352284#6		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=48dc9837-1804-4255-9ac2-9f694aec512f
+iframe	M352284#6		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=314628e6-1f8b-4dde-b759-2c68c504e00d
+iframe	M352284#6	(Atomic Discussions)	https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=borderless&url=https%3A%2F%2Fdiscussions.atomicjoltappsau.com%2Flti_launches%2FFNKZSXRnJx2Z6MU8EHGMgSKs
+iframe	M352284#8		https://canvas.uts.edu.au/courses/42610/external_tools/retrieve?display=in_rce&resource_link_lookup_uuid=dc274e5f-3fc3-475b-9027-6a8837dbcfd5
+iframe	M352284#8		https://player.bilibili.com/player.html?isOutside=true&aid=372188729&bvid=BV1dZ4y1N7jw&cid=237224376&p=7&t=1706
+link-video	M352282#23	我们行径中的谬误 The Error of our Ways	https://www.bilibili.com/video/BV1f54y1w7tz/
+link-video	M352282#23	许多程序员的七种低效编程习惯	https://www.bilibili.com/video/BV1vj411P7cT/
+link-video	M352284#18	VIDEO: Bagging and random forests - Bloomberg	https://www.bilibili.com/video/BV1zE411D7w2/
+img	M352280#1		https://canvas.uts.edu.au/courses/42610/files/14041101/download?wrap=1
+img	M352280#10		https://canvas.uts.edu.au/courses/42610/files/14041143/preview
+img	M352280#4		https://canvas.uts.edu.au/courses/42610/files/14041081/preview
+img	M352280#5		https://canvas.uts.edu.au/courses/42610/files/14041179/preview
+img	M352280#9		https://canvas.uts.edu.au/courses/42610/files/14041195/preview
+img	M352282#1,M352282#25	(重複出現,可能是橫幅)	https://canvas.uts.edu.au/courses/42610/files/14041157/preview
+img	M352282#10		https://canvas.uts.edu.au/courses/42610/files/14041113/preview
+img	M352282#10		https://canvas.uts.edu.au/courses/42610/files/14041111/preview
+img	M352282#11		https://canvas.uts.edu.au/courses/42610/files/14041155/preview
+img	M352282#11,#13,#14,#24	(重複出現,可能是圖示)	https://canvas.uts.edu.au/courses/42610/files/14041327/preview
+img	M352282#12		https://canvas.uts.edu.au/courses/42610/files/14041173/preview
+img	M352282#13	以“项目团队”为中心的利益相关者关系图	https://canvas.uts.edu.au/courses/42610/files/14041279/preview
+img	M352282#13		https://canvas.uts.edu.au/courses/42610/files/14041121/preview
+img	M352282#13		https://canvas.uts.edu.au/courses/42610/files/14041137/preview
+img	M352282#13		https://canvas.uts.edu.au/courses/42610/files/14041135/preview
+img	M352282#13		https://canvas.uts.edu.au/courses/42610/files/14041123/preview
+img	M352282#15		https://canvas.uts.edu.au/courses/42610/files/14041169/preview
+img	M352282#17		https://canvas.uts.edu.au/courses/42610/files/14041107/preview
+img	M352282#19		https://canvas.uts.edu.au/courses/42610/files/14041181/preview
+img	M352282#2		https://canvas.uts.edu.au/courses/42610/files/14041339/preview
+img	M352282#20	研发目标层次图	https://canvas.uts.edu.au/courses/42610/files/14041029/preview
+img	M352282#22	用于生成科学知识的科学方法	https://canvas.uts.edu.au/courses/42610/files/14041037/preview
+img	M352282#23		https://canvas.uts.edu.au/courses/42610/files/14041187/preview
+img	M352282#24,M352284#12		https://canvas.uts.edu.au/courses/42610/files/14041275/preview
+img	M352282#24	Project timeline showing six milestones across 24 weeks	https://canvas.uts.edu.au/courses/42610/files/14041031/preview
+img	M352282#25,M352284#22	(重複出現)	https://canvas.uts.edu.au/courses/42610/files/14041329/preview
+img	M352282#3		https://canvas.uts.edu.au/courses/42610/files/14041079/preview
+img	M352282#4		https://canvas.uts.edu.au/courses/42610/files/14041109/preview
+img	M352282#4	Data Velocity / Volume / Variety	https://canvas.uts.edu.au/courses/42610/files/14041119/preview
+img	M352282#5	结构化与非结构化数据对比	https://canvas.uts.edu.au/courses/42610/files/14041193/preview
+img	M352282#5 等 14 處	(重複 14 次,應是活動圖示)	https://canvas.uts.edu.au/courses/42610/files/14041299/preview
+img	M352282#6		https://canvas.uts.edu.au/courses/42610/files/14041149/preview
+img	M352282#7		https://canvas.uts.edu.au/courses/42610/files/14041093/preview
+img	M352282#9		https://canvas.uts.edu.au/courses/42610/files/14041185/preview
+img	M352284#1,M352284#22	(重複出現)	https://canvas.uts.edu.au/courses/42610/files/14041225/preview
+img	M352284#10	blockchain flowchart example	https://canvas.uts.edu.au/courses/42610/files/14041321/preview
+img	M352284#10	UML sequence diagram of a Face Detection System	https://canvas.uts.edu.au/courses/42610/files/14041219/preview
+img	M352284#11		https://canvas.uts.edu.au/courses/42610/files/14041239/preview
+img	M352284#11		https://canvas.uts.edu.au/courses/42610/files/14041245/preview
+img	M352284#12		https://canvas.uts.edu.au/courses/42610/files/14041097/preview
+img	M352284#13		https://canvas.uts.edu.au/courses/42610/files/14041265/preview
+img	M352284#15		https://canvas.uts.edu.au/courses/42610/files/14041209/preview
+img	M352284#17		https://canvas.uts.edu.au/courses/42610/files/14041207/preview
+img	M352284#18	Bagging and boosting	https://canvas.uts.edu.au/courses/42610/files/14041223/preview
+img	M352284#19	A simple neural network	https://canvas.uts.edu.au/courses/42610/files/14041211/preview
+img	M352284#2,M352284#14	(重複出現)	https://canvas.uts.edu.au/courses/42610/files/14041221/preview
+img	M352284#3		https://canvas.uts.edu.au/courses/42610/files/14041115/preview
+img	M352284#4		https://canvas.uts.edu.au/courses/42610/files/14041229/preview
+img	M352284#5		https://canvas.uts.edu.au/courses/42610/files/14041167/preview
+img	M352284#6	(來自別的 Canvas 站)	https://canvas.open.uts.edu.au/courses/1570/files/86419/preview
+img	M352284#6		https://canvas.uts.edu.au/courses/42610/files/14041247/preview
+img	M352284#7	Data visualisation cycle	https://canvas.uts.edu.au/courses/42610/files/14041227/preview
+img	M352284#8	bar chart	https://canvas.uts.edu.au/courses/42610/files/14041233/preview
+img	M352284#8	line chart	https://canvas.uts.edu.au/courses/42610/files/14041237/preview
+img	M352284#8	histogram	https://canvas.uts.edu.au/courses/42610/files/14041215/preview
+img	M352284#8	pie chart	https://canvas.uts.edu.au/courses/42610/files/14041235/preview
+img	M352284#8	scatter plot	https://canvas.uts.edu.au/courses/42610/files/14041241/preview
+img	M352284#8	heat map	https://canvas.uts.edu.au/courses/42610/files/14041243/preview
+img	M352284#9		https://canvas.uts.edu.au/courses/42610/files/14041231/preview
+img	M352284#9	World Happiness Report table	https://canvas.uts.edu.au/courses/42610/files/14041163/preview
+link	M352280#2	ask-librarian	https://www.lib.uts.edu.au/help/ask-librarian
+link	M352280#5	Tuckman's Stages of Group Development - West Chester University	https://www.wcupa.edu/coral/tuckmanStagesGroupDelvelopment.aspx
+link	M352280#5	Canvas Inbox	https://community.canvaslms.com/t5/Student-Guide/How-do-I-use-the-Inbox-as-a-student/ta-p/532
+link	M352282#10	范围蔓延	https://baike.baidu.com/item/%E9%A1%B9%E7%9B%AE%E8%8C%83%E5%9B%B4%E8%94%93%E5%BB%B6/6937255
+link	M352282#10	《人工智能项目的敏捷框架》	https://medium.com/data-science/an-agile-framework-for-ai-projects-6b5a1bb41ce4
+link	M352282#10	《使用 CRISP-DM 时的四个问题及其解决方法》	https://www.kdnuggets.com/2017/01/four-problems-crisp-dm-fix.html
+link	M352282#10	重新发现数据科学流程	https://www.kdnuggets.com/2016/03/data-science-process-rediscovered.html
+link	M352282#10	为什么敏捷方法无法满足人工智能与机器学习项目的需求	https://cognitiveworld.com/articles/2020/5/16/why-agile-methodologies-miss-the-mark-for-ai-amp-ml-projects
+link	M352282#10	新方法：机器学习专家讲解数据科学中的敏捷方法	https://www.iunera.com/kraken/big-data-science-strategy/the-agile-approach-in-data-science-explained-by-an-ml-expert
+link	M352282#10	什么是 TDSP？	https://www.datascience-pm.com/tdsp
+link	M352282#12	15 个数据与 AI 项目需求收集的技巧与问题	https://www.aiconsultinggroup.com.au/15-tips-questions-for-requirements-gathering-on-data-ai-projects/
+link	M352282#12	如何将业务问题转化为数据问题？一份成功数据科学领导者的指南	https://www.analyticsvidhya.com/blog/2019/08/data-science-leader-how-effectively-transition-business-requirements-data-driven-solutions/
+link	M352282#13	MLOps	https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%BF%90%E8%90%A5/57691368
+link	M352282#13	利益相关者分析：为你的项目赢得支持	https://www.mindtools.com/pages/article/newPPM_07.htm
+link	M352282#13	利益相关者参与的 10 项关键原则	https://www.apm.org.uk/resources/find-a-resource/stakeholder-engagement/key-principles
+link	M352282#15	项目计划在敏捷开发中发挥什么作用？	https://www.wrike.com/project-management-guide/faq/what-role-does-the-project-plan-play-in-agile-development
+link	M352282#18	Oxford Languages	https://languages.oup.com/google-dictionary-en/
+link	M352282#18	澳大利亚卓越研究 Excellence in Research for Australia (ERA)	https://www.arc.gov.au/evaluating-research/new-approach-research-evaluation
+link	M352282#4	《澳大利亚数据战略》	https://ausdatastrategy.pmc.gov.au/
+link	M352282#4	数据质量	https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F
+link	M352284#10	工具	http://sequencediagram.org/
+link	M352284#10	在流程图内使用一致设计元素的重要性	https://corp.yonyx.com/customer-service/importance-using-consistent-design-elements-within-flowchart/
+link	M352284#10	流程图的定义	https://techterms.com/zh/definition/flowchart
+link	M352284#10	流程图（Flowchart）	https://baike.baidu.com/item/%E6%B5%81%E7%A8%8B%E5%9B%BE/206961
+link	M352284#10	什么是数据流图？	https://www.visual-paradigm.com/cn/guide/data-flow-diagram/what-is-data-flow-diagram/
+link	M352284#10	数据流图（Data Flow Diagram）	https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BE/4136477
+link	M352284#10	实体关系图（Entity relationship diagram）	https://beginnersbook.com/2015/04/e-r-model-in-dbms
+link	M352284#10	设计师的色彩理论：如何创建你自己的配色方案	https://www.smashingmagazine.com/2010/02/color-theory-for-designer-part-3-creating-your-own-color-palettes
+link	M352284#11	D3.js	https://d3js.org/
+link	M352284#11	Gephi	https://gephi.org/
+link	M352284#11	Matplotlib	https://matplotlib.org/
+link	M352284#11	Seaborn	https://seaborn.pydata.org
+link	M352284#11	Plotly Python	https://plotly.com/python
+link	M352284#11	Tableau	https://www.tableau.com/
+link	M352284#11	nyctaxi	https://chriswhong.github.io/nyctaxi/
+link	M352284#11	best-data-visualizations	https://visme.co/blog/best-data-visualizations/
+link	M352284#12	shapefile	https://doc.esri.com/zh-cn/arcgis-pro/latest/tool-reference/appendices/geoprocessing-considerations-for-shapefile-output.html
+link	M352284#17	图解机器学习 | R2D3.us	https://r2d3.us/%E5%9B%BE%E8%A7%A3%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/
+link	M352284#17	机器学习可视化演示 | 腾讯云	https://cloud.tencent.com/developer/article/1072706
+link	M352284#18	Bagging and Boosting | Medium	https://medium.com/@saitejaposam9/bagging-and-boosting-2b6cd4a6bda1
+link	M352284#20	60分钟快速入门PyTorch — 训练分类器	https://cloud.tencent.com/developer/article/1631768
+link	M352284#20	时间序列预测	https://tensorflow.google.cn/tutorials/structured_data/time_series?hl=zh-cn
+link	M352284#20	PyTorch / TensorFlow China / Keras / MXNet / JAX(框架首頁)	https://pytorch.org/ ; https://tensorflowcn.cn/ ; https://keras.io/ ; https://mxnet.apache.org/ ; https://jax.readthedocs.io/
+link	M352284#21	这篇文章(prompt engineering best practices)	https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api
+link	M352284#21	LoRA微调技术的应用与优化	https://cloud.tencent.com/developer/article/2672597
+link	M352284#21	大模型微调实战：从原理到落地的完整指南	https://developer.volcengine.com/articles/7605549043544965158
+link	M352284#21	OpenAI quickstart	https://developers.openai.com/api/docs/quickstart
+link	M352284#21	Gemini quickstart	https://ai.google.dev/gemini-api/docs/quickstart?lang=python
+link	M352284#21	Alibaba Cloud Model Studio (Qwen API)	https://www.alibabacloud.com/help/en/model-studio/first-api-call-to-qwen
+link	M352284#21	Classification using embeddings	https://cookbook.openai.com/examples/classification_using_embeddings
+link	M352284#21	Context Summarization with Realtime API	https://cookbook.openai.com/examples/context_summarization_with_realtime_api
+link	M352284#21	Data Extraction and Transformation in ELT Workflows using GPT	https://cookbook.openai.com/examples/data_extraction_transformation
+link	M352284#21	Doing RAG on PDFs using File Search in the Responses API	https://cookbook.openai.com/examples/file_search_responses
+link	M352284#21	How to parse PDF docs for RAG	https://cookbook.openai.com/examples/parse_pdf_docs_for_rag
+link	M352284#21	Introduction to deep research in the OpenAI API	https://cookbook.openai.com/examples/deep_research_api/introduction_to_deep_research_api
+link	M352284#21	Marketing Campaign (Gemini cookbook)	https://cdn.jsdelivr.net/gh/google-gemini/cookbook@main/examples/Market_a_Jet_Backpack.ipynb
+link	M352284#21	Generation for Story Writing (Gemini cookbook mirror)	https://sourceforge.net/projects/cookbook-google-gemini.mirror/
+link	M352284#21	Video Analysis - Event Recognition	https://nbviewer.org/urls/cdn.jsdelivr.net/gh/google-gemini/cookbook/examples/Analyze_a_Video_Historic_Event_Recognition.ipynb
+link	M352284#21	3D Spatial understanding	https://nbviewer.org/github/google-gemini/cookbook/blob/main/examples/Spatial_understanding_3d.ipynb
+link	M352284#7	30% 的大脑皮层	https://www.discovermagazine.com/mind/the-vision-thing-mainly-in-the-brain
+link	M352284#7	Driven by Data	https://driven-by-data.net/
+link	M352284#7	运动员出生国家的堆叠面积图	https://driven-by-data.net/2017/12/29/sports-i18n
+link	M352284#7	NYC Open Data visualisation tool	https://data.cityofnewyork.us/d/h9gi-nx95/visualization
+link	M352284#7	New York City vehicle collisions dataset	https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95
+link	M352284#8	from Data to Viz	https://www.data-to-viz.com/

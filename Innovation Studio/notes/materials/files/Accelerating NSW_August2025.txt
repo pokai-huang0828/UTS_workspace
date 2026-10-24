@@ -1,0 +1,572 @@
+來源:Canvas file 14041277「Accelerating NSW_August2025.pptx」(14,508,091 B,33 張投影片),第 6 週嘉賓講座(discussion 831604)的「幻灯片」連結
+抽取:解壓 pptx,用 stdlib 依 presentation.xml 的 sldIdLst 順序解析 ppt/slides/slideN.xml(a:t 文字、a:tbl/a:tc 表格、圖片 descr、ppt/notesSlides 講者備註)。結果:無表格、無講者備註、無隱藏投影片;大部分內容在圖片裡,見最後附錄。
+================================================================
+
+===== Slide 1 (slide1.xml) =====
+[shape: Title 4]
+  Innovation EcosystemsFocus on: The Impact of Co-working Spaces, Accelerators, Incubators, and Start-up Hubs (CAISH)
+[shape: Subtitle 5]
+  Prof. Dilek Cetindamar
+  School of Computer Science, FEIT, UTS
+[shape: TextBox 6]
+  Presentation for the Innovation Studio, 8 Aug 2025
+  (layout: ['../slideLayouts/slideLayout1.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 2 (slide2.xml) =====
+[shape: Title 1]
+  Granstrand, O. & Holgersson, M. (2020). Innovation ecosystems: A conceptual review and a new definition. Technovation, 90-91, 1–12
+[picture: Picture 4 media=../media/image2.png descr='Diagram\n\nDescription automatically generated']
+[shape: TextBox 4]
+  “a set of components and the causal relations influencing the
+   generation and utilization of innovations and the innovative 
+  performance,” comprising an “evolving set of actors, activities, and 
+  artifacts, and the institutions and relations”
+  (layout: ['../slideLayouts/slideLayout6.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 3 (slide3.xml) =====
+[shape: Title 1]
+  Russell, M.G.; Smorodinskaya, N.V. Leveraging complexity for ecosystemic innovation. Technol. Forecast. Soc. Change 2018, 136, 114–131.
+[picture: Picture 3 media=../media/image3.png descr='Diagram, schematic\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout6.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 4 (slide4.xml) =====
+[shape: Title 1]
+  National Measures (Source: Global Innovation Index -GII)
+[picture: Picture 3 media=../media/image4.png descr='']
+  (layout: ['../slideLayouts/slideLayout6.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 5 (slide5.xml) =====
+[shape: Title 1]
+  City-based measures (GII 2022 top 100 science and technology clusters
+[picture: Picture 3 media=../media/image5.png descr='Table\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout6.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 6 (slide6.xml) =====
+[shape: Title 1]
+  Field of AI publications in Sydney                                                        Number of AI related publications/patents/startup formations                                                                                                                 AI, artificial intelligence
+[picture: Picture 2 media=../media/image8.emf descr='']
+[shape: TextBox 3]
+  Exploring the knowledge spillovers of a technology in an entrepreneurial ecosystem—The case of artificial
+  intelligence in Sydney (Source: Cetindamar, Lammers, and Zhang, 2020)
+[picture: Picture 4 media=../media/image9.emf descr='']
+  (layout: ['../slideLayouts/slideLayout6.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 7 (slide7.xml) =====
+[shape: Slide Number Placeholder 1]
+  7
+[shape: TextBox 1]
+  Defining CAISH entities
+  Source: Ormiston, J., Bliemel, M., Ashton, L., Gonzalez Lago, M., Cetindamar Kozanoglu, D., Schweitzer, J., and  Renando, C. (2024). Accelerating NSW: Insights from startups and startup support organisations. NSW Innovation and Productivity Council.  https://www.investment.nsw.gov.au/innovation/nsw-innovation-and-productivity-council/our-publications/accelerating-nsw-insights-report/
+  (layout: ['../slideLayouts/slideLayout12.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 8 (slide8.xml) =====
+[shape: Slide Number Placeholder 5]
+  8
+[picture: Content Placeholder 4 media=../media/image10.png descr='A group of people in a building\n\nDescription automatically generated with medium confidence']
+[shape: TextBox 10]
+  Coworking space
+  A flexible, shared office space
+  Minimal business development services
+[shape: TextBox 11]
+  Accelerator
+  Support program
+  Cohort-based
+  Fixed duration
+  Selective admission
+[shape: TextBox 12]
+  Incubator
+  Physical space
+  Growth-related services
+  Provision of services as differentiator from coworking space
+[shape: TextBox 13]
+  Startup Hub
+  Innovation Hub
+  Physical space (building, campus)
+  Colocation of startup support initiatives
+  (layout: ['../slideLayouts/slideLayout7.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 9 (slide9.xml) =====
+[picture: Content Placeholder 8 media=../media/image11.jpg descr='A diagram of different types of objects\n\nDescription automatically generated']
+[shape: Slide Number Placeholder 3]
+  9
+  (layout: ['../slideLayouts/slideLayout7.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 10 (slide10.xml) =====
+[shape: Slide Number Placeholder 1]
+  10
+[shape: TextBox 1]
+  Mapping CAISH entities
+  (layout: ['../slideLayouts/slideLayout12.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 11 (slide11.xml) =====
+[shape: Slide Number Placeholder 3]
+  11
+[shape: Title 5]
+  Building on previous mapping efforts
+[picture: Picture 8 media=../media/image12.jpg descr='A screenshot of a table\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout13.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 12 (slide12.xml) =====
+[shape: Slide Number Placeholder 1]
+  12
+[picture: Picture 3 media=../media/image13.jpg descr='A map of australia with blue squares\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout7.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 13 (slide13.xml) =====
+[shape: Title 2]
+  Growth of CAISH entities in NSW since 2010
+[shape: Slide Number Placeholder 1]
+  13
+[picture: Picture 5 media=../media/image14.jpg descr='A graph of growth in years\n\nDescription automatically generated with medium confidence']
+[picture: Picture 6 media=../media/image15.jpg descr='A blue rectangular sign with white text\n\nDescription automatically generated']
+[picture: Picture 7 media=../media/image15.jpg descr='A blue rectangular sign with white text\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout14.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 14 (slide14.xml) =====
+[shape: Slide Number Placeholder 1]
+  14
+[shape: TextBox 1]
+  CAISH interviews & cases
+  (layout: ['../slideLayouts/slideLayout12.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 15 (slide15.xml) =====
+[shape: Title 1]
+  CAISH entity case studies
+[shape: Content Placeholder 11]
+  Research approach
+  64 in-depth interviews
+  - 46 CAISH entities
+  - 18 entrepreneurs
+  27 cases studies
+[shape: Slide Number Placeholder 3]
+  15
+[picture: Picture 7 media=../media/image16.jpg descr='A screenshot of a computer\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout15.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 16 (slide16.xml) =====
+[shape: Slide Number Placeholder 1]
+  16
+[shape: TextBox 1]
+  Regional spread of CAISH entities
+  (layout: ['../slideLayouts/slideLayout12.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 17 (slide17.xml) =====
+[shape: Slide Number Placeholder 1]
+  17
+[shape: Title 6]
+  Regional density of CAISH entities by population
+[picture: Picture 5 media=../media/image17.jpg descr='A map of the state of australia\n\nDescription automatically generated']
+[picture: Picture 8 media=../media/image18.jpg descr='A blue and white card with white text\n\nDescription automatically generated']
+[picture: Picture 9 media=../media/image18.jpg descr='A blue and white card with white text\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout13.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 18 (slide18.xml) =====
+[shape: Slide Number Placeholder 1]
+  18
+[shape: TextBox 1]
+  Specialisation and diversity
+  (layout: ['../slideLayouts/slideLayout12.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 19 (slide19.xml) =====
+[shape: Slide Number Placeholder 1]
+  19
+[picture: Picture 3 media=../media/image19.png descr='A screenshot of a computer\n\nDescription automatically generated']
+[picture: Picture 4 media=../media/image20.png descr='']
+[picture: Picture 7 media=../media/image21.png descr='A screen shot of a computer\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout7.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 20 (slide20.xml) =====
+[shape: Slide Number Placeholder 1]
+  20
+[shape: TextBox 1]
+  Impact metrics
+  (layout: ['../slideLayouts/slideLayout12.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 21 (slide21.xml) =====
+[shape: Slide Number Placeholder 1]
+  21
+[picture: Picture 2 media=../media/image22.jpg descr='A graphic of a few icons\n\nDescription automatically generated with medium confidence']
+  (layout: ['../slideLayouts/slideLayout7.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 22 (slide22.xml) =====
+[shape: Slide Number Placeholder 1]
+  22
+[shape: Title 6]
+  1. Individual entrepreneurs
+[picture: Picture 2 media=../media/image23.jpg descr="A close-up of a person's profile\n\nDescription automatically generated"]
+[shape: TextBox 4]
+  ‘To be in a position to even get recognised as a female founder, when we’re working in an industry that a lot of people don’t resonate with, especially when it’s only for women… to be recognised, and to be given that opportunity just gave us so much confidence about what we were doing.’
+  (layout: ['../slideLayouts/slideLayout13.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 23 (slide23.xml) =====
+[shape: Slide Number Placeholder 1]
+  23
+[shape: Title 6]
+  2. Startups
+[picture: Picture 3 media=../media/image24.jpg descr='A screenshot of a computer\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout13.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 24 (slide24.xml) =====
+[shape: Slide Number Placeholder 1]
+  24
+[shape: Title 6]
+  3. The CAISH entity
+[picture: Picture 2 media=../media/image25.jpg descr='A screenshot of a document\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout13.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 25 (slide25.xml) =====
+[shape: Slide Number Placeholder 1]
+  25
+[shape: Title 6]
+  4. The system
+[picture: Picture 3 media=../media/image26.jpg descr='A table with text on it\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout13.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 26 (slide26.xml) =====
+[shape: Title 1]
+  Measurement insights
+[shape: Content Placeholder 2]
+  Mixed evidence
+  Most academic studies focus on the first three categories
+  Limited data on the system level. 
+  CAISH entities impact the ability of startups to obtain funding
+  Mixed and inconclusive evidence for other metrics
+[shape: Content Placeholder 3]
+  Measurement challenges
+  Accuracy of self-reported data
+  Difficulties in benchmarking
+  Impact measurement as resource-intensive
+  Lack of standardised approaches
+  Attribution challenges
+  (layout: ['../slideLayouts/slideLayout16.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 27 (slide27.xml) =====
+[shape: Slide Number Placeholder 1]
+  27
+[shape: TextBox 1]
+  Recommendations
+  (layout: ['../slideLayouts/slideLayout12.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 28 (slide28.xml) =====
+[shape: Title 2]
+  Recommendation 1Build a more collaborative community of startup support
+[shape: Content Placeholder 6]
+  High level of competition between CAISH entities.
+  Support collaboration among CAISH by:
+  Clearly differentiating services and functions
+  Supporting more co-branded events
+  Establishing more collaborative CAISH initiatives, such as the Boosting Business Innovation Program (BBIP)
+  Funding community building activities
+[shape: Slide Number Placeholder 1]
+  28
+[picture: Picture Placeholder 9 media=../media/image27.jpg descr='A isometric illustration of a network\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout15.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 29 (slide29.xml) =====
+[shape: Title 2]
+  Recommendation 2Encourage connections within and between regional ecosystems
+[shape: Content Placeholder 6]
+  Regional NSW is relatively underserved by CAISH entities compared to Greater Sydney.
+  Need for localised CAISH support driven by local entrepreneurship support entities.
+  Encourage greater connectivity between regional CAISH entities, and broader entrepreneurship support initiatives in regional NSW.
+  Ensure more CAISH support is attached to special activation precincts around the state.
+[shape: Slide Number Placeholder 1]
+  29
+[picture: Picture Placeholder 7 media=../media/image28.jpg descr='A diagram of a farm\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout15.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 30 (slide30.xml) =====
+[shape: Title 2]
+  Recommendation 3Co-design tailored support with and for underserved groups
+[shape: Content Placeholder 6]
+  EDI-focused CAISH entities important for building confidence and overcoming exclusion.
+  Opportunity to support targeted CAISH initiatives focused on diversity and inclusion that co-designed with, and operated by, the community.
+  Limited CAISH entities in NSW explicitly focused on First Nations entrepreneurs. 
+  Need to engage Indigenous-led organisations in the broader entrepreneurship support ecosystem in co-design.
+[shape: Slide Number Placeholder 1]
+  30
+[picture: Picture Placeholder 8 media=../media/image29.jpg descr='A group of people around a table\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout15.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 31 (slide31.xml) =====
+[shape: Title 2]
+  Recommendation 4Develop an evidence base for government interventions in the CAISH sector
+[shape: Content Placeholder 6]
+  Dearth of system-level data on CAISH entities and their impact.
+  Limited publicly available data on the impact of individual CAISH entities.
+  Multi-level framework to guide data collection from government-funded CAISH entities.
+  ‘Tragedy of the commons’ - majority of CAISH entities interested sector-level metrics but limited incentives to contribute own data.
+  Working with Startup Muster to provide initial sector level insights.
+[shape: Slide Number Placeholder 1]
+  31
+[picture: Picture Placeholder 7 media=../media/image30.jpg descr='A graphic of a graph and a magnifying glass\n\nDescription automatically generated']
+  (layout: ['../slideLayouts/slideLayout15.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 32 (slide32.xml) =====
+[shape: Title 2]
+  Recommendation 5Invest in CAISH support for later-stage startups, scaleups and internationalisation
+[shape: Content Placeholder 6]
+  Current focus on earlier-stage startups
+  Limited CAISH entities in NSW focused on later-stage startups, scaleups and enterprises looking to internationalise.
+  Opportunity for government and CAISH entities to provide a clear roadmap of support for enterprise as they scale.
+  Startups could be directed to the NSW Government’s Going Global program. 
+  NSW could also develop other support programs targeted at scaleups.
+[shape: Slide Number Placeholder 1]
+  32
+[picture: Picture 11 media=../media/image31.jpg descr='A crane and blue cubes with a white ball\n\nDescription automatically generated with medium confidence']
+  (layout: ['../slideLayouts/slideLayout15.xml'])
+  [SPEAKER NOTES] (none)
+
+===== Slide 33 (slide33.xml) =====
+[shape: Slide Number Placeholder 1]
+  33
+[shape: TextBox 1]
+  Q & A
+  (layout: ['../slideLayouts/slideLayout12.xml'])
+  [SPEAKER NOTES] (none)
+
+################################################################
+附錄:圖片內容轉錄(看 ppt/media 圖檔逐一轉錄;此 deck 沒有 a:tbl 表格、沒有講者備註,主要內容都在圖片裡)
+################################################################
+
+--- Slide 2 / image2.png(Granstrand & Holgersson 2020 創新生態系概念圖)---
+外框標「Institutions」;內有三個方塊 Actors、Activities、Artifacts,三者之間雙向箭頭相連,每個方塊內有自我循環箭頭(各自也會演變)。
+
+--- Slide 3 / image3.png(Russell & Smorodinskaya 2018)---
+中心:Value co-creation(價值共創)雲狀區;中間橢圓「Cluster organization (triple helix network)」。
+六個節點:Incumbent firms、Innovative startup firms、Service organizations、Universities, academia、Venture capital, sponsors、Local authorities,彼此以虛線箭頭互動。
+四個角的箭頭框:左上與右下「Inputs from local and global markets: commodities, capital, talents」;右上與左下「Transfer of new co-created value to local and global markets: goods, services, knowledge, etc.」
+
+--- Slide 4 / image4.png「Innovation Metrics Scorecard」(投影片標題寫 National Measures (Source: GII),但圖本身標題是 Innovation Metrics Scorecard)---
+欄位:Innovation metrics | Australia's latest score | trend | Average for top 5 | Australia's ranking
+Business activities — Inputs
+ 1. Total expenditure on innovation by businesses, % of GDP (2017) | 1.93 | 3.73 | 15 of 30
+ 2. Business expenditure on R&D (BERD), % of GDP (2017) | 0.94 | 2.96 | 20 of 35
+ 3. Investment in knowledge-based capital (ICT, R&D and other IP products), % of GDP (2017) | 3.27 | 7.34 | 20 of 28
+ 4. Diffusion of selected ICT tools and activities in enterprises (cloud computing), % of all businesses with 10+ employees (2018) | 60.1 | 57.8 | 2 of 26
+ 5. Businesses collaborating on innovation, % of all businesses with 10+ employees (2017) | 12.6 | 31.4 | 23 of 35
+Business activities — Outputs
+ 6. Proportion of businesses with more than 25% of revenue from sales due to innovation, % of all businesses with 10+ employees (2017) | 5.82 | n/a | n/a
+ 7. High-growth enterprise rate based on sales growth, % of all businesses with 10+ employees (2016) | 9.57 | 15.0 | 4 of 6
+ 8. Intellectual property rights filed overseas per billion GDP (constant 2010 US$) (2017) | 37.1 | 140 | 26 of 37
+Business environment — Inputs
+ 9. Level of regulatory barriers to firm entry and competition — OECD Product Market Regulation (2018) | 1.21 | 1.04 | 8 of 33
+ 10. Venture capital investment (funds invested in businesses), % of GDP (2018) | 0.030 | 0.19 | 17 of 29
+ 11. Permanent migrants and non-student temporary entrants with higher education qualifications, % of the labour force (2016) | 8.70 | n/a | n/a
+Business environment — Outputs
+ 12. Birth rate of employing enterprises, % of business economy (2016) | 11.8 | 17.4 | 10 of 27
+National environment — Inputs
+ 13. Total expenditure on educational institutions (primary to tertiary), % of GDP (2016) | 5.82 | 6.23 | 8 of 36
+ 14. Gross expenditure on R&D (GERD), % of GDP (2017) | 1.79 | 3.82 | 18 of 34
+ 15. Fixed broadband subscriptions per 100 inhabitants, by speed faster than 100 Mbps (2018) | 1.88 | 25.5 | 30 of 34
+National environment — Outputs
+ 16. Scores of students in mathematics — OECD PISA (2018) | 491 | 522 | 24 of 35
+ 17. Quality-adjusted labour input (qualifications and experience), five year compound annual growth rate, % of total economy (2018) | 0.65 | 0.88 | 5 of 36
+ 18. Proportion of population aged 25–34 with higher education, % (2018) | 40.6 | 51.6 | 16 of 34
+Impacts
+ 19. Multifactor productivity change, five year compound annual growth rate, % (2017) | 0.69 | 0.91 | 7 of 19
+排名色塊:綠 = 第一四分位(#4, #9, #13, #17);黃 = 第二四分位(#1, #12, #18, #19);紅 = 第三或第四四分位(#2, #3, #5, #7, #8, #10, #14, #15, #16);#6、#11 無排名。
+
+--- Slide 5 / image5.png「Appendix Table 3 Top 100 S&T clusters, 2022」(只顯示第 1–50 名;另有 ink 手寫標註 image6/7.emf,內容是筆畫)---
+欄位:Cluster rank | Cluster name | Economy | PCT applications | Scientific publications | Share total PCT filings (%) | Share of total publications (%) | Total | Rank 2015–19 | Rank change
+ 1 Tokyo–Yokohama | JP | 122,526 | 112,890 | 10.7 | 1.6 | 12.3 | 1 | 0
+ 2 Shenzhen–Hong Kong–Guangzhou | CN/HK | 94,340 | 133,327 | 8.2 | 1.9 | 10.1 | 2 | 0
+ 3 Beijing | CN | 32,016 | 260,937 | 2.8 | 3.7 | 6.5 | 3 | 0
+ 4 Seoul | KR | 46,273 | 124,530 | 4.0 | 1.8 | 5.8 | 4 | 0
+ 5 San Jose–San Francisco, CA | US | 42,884 | 58,087 | 3.7 | 0.8 | 4.6 | 5 | 0
+ 6 Shanghai–Suzhou | CN | 22,869 | 148,203 | 2.0 | 2.1 | 4.1 | 7 | 1
+ 7 Osaka–Kobe–Kyoto | JP | 34,738 | 50,605 | 3.0 | 0.7 | 3.8 | 6 | −1
+ 8 Boston–Cambridge, MA | US | 16,172 | 73,457 | 1.4 | 1.0 | 2.4 | 8 | 0
+ 9 New York City, NY | US | 13,020 | 73,623 | 1.1 | 1.0 | 2.2 | 9 | 0
+ 10 Paris | FR | 14,147 | 62,793 | 1.2 | 0.9 | 2.1 | 10 | 0
+ 11 San Diego, CA | US | 19,363 | 20,688 | 1.7 | 0.3 | 2.0 | 11 | 0
+ 12 Nagoya | JP | 18,623 | 17,261 | 1.6 | 0.2 | 1.9 | 12 | 0
+ 13 Nanjing | CN | 3,620 | 103,260 | 0.3 | 1.5 | 1.8 | 15 | 2
+ 14 Hangzhou | CN | 8,568 | 55,312 | 0.7 | 0.8 | 1.5 | 18 | 4
+ 15 Los Angeles, CA | US | 10,515 | 43,172 | 0.9 | 0.6 | 1.5 | 14 | −1
+ 16 Wuhan | CN | 4,126 | 80,002 | 0.4 | 1.1 | 1.5 | 20 | 4
+ 17 Washington, DC–Baltimore, MD | US | 4,727 | 75,104 | 0.4 | 1.1 | 1.5 | 13 | −4
+ 18 Seattle, WA | US | 11,943 | 20,396 | 1.0 | 0.3 | 1.3 | 16 | −2
+ 19 London | GB | 4,936 | 56,911 | 0.4 | 0.8 | 1.2 | 19 | 0
+ 20 Daejeon | KR | 10,286 | 23,812 | 0.9 | 0.3 | 1.2 | 22 | 2
+ 21 Houston, TX | US | 9,785 | 24,529 | 0.9 | 0.3 | 1.2 | 17 | −4
+ 22 Xi'an | CN | 1,114 | 76,727 | 0.1 | 1.1 | 1.2 | 25 | 3
+ 23 Cologne | DE | 7,829 | 33,454 | 0.7 | 0.5 | 1.2 | 21 | −2
+ 24 Munich | DE | 9,166 | 24,018 | 0.8 | 0.3 | 1.1 | 24 | 0
+ 25 Amsterdam–Rotterdam | NL | 4,304 | 52,561 | 0.4 | 0.7 | 1.1 | 23 | −2
+ 26 Taipei–Hsinchu | TW* | 3,439 | 51,666 | 0.3 | 0.7 | 1.0 | 26 | 0
+ 27 Chicago, IL | US | 6,433 | 32,183 | 0.6 | 0.5 | 1.0 | 29 | 2
+ 28 Stuttgart | DE | 9,086 | 14,604 | 0.8 | 0.2 | 1.0 | 27 | −1
+ 29 Chengdu | CN | 1,701 | 58,696 | 0.1 | 0.8 | 1.0 | 33 | 4
+ 30 Tel Aviv–Jerusalem | IL | 7,238 | 23,378 | 0.6 | 0.3 | 1.0 | 28 | −2
+ 31 Moscow | RU | 1,927 | 53,109 | 0.2 | 0.7 | 0.9 | 30 | −1
+ 32 Tehran | IR | 273 | 61,807 | 0.0 | 0.9 | 0.9 | 32 | 0
+ 33 Singapore | SG | 4,370 | 35,483 | 0.4 | 0.5 | 0.9 | 31 | −2
+ 34 Qingdao | CN | 4,010 | 33,745 | 0.3 | 0.5 | 0.8 | 46 | 12
+ 35 Stockholm | SE | 5,978 | 20,040 | 0.5 | 0.3 | 0.8 | 35 | 0
+ 36 Eindhoven | BE/NL | 8,162 | 5,245 | 0.7 | 0.1 | 0.8 | 34 | −2
+ 37 Tianjin | CN | 1,018 | 48,619 | 0.1 | 0.7 | 0.8 | 39 | 2
+ 38 Minneapolis, MN | US | 6,382 | 15,438 | 0.6 | 0.2 | 0.8 | 36 | −2
+ 39 Melbourne | AU | 2,071 | 39,314 | 0.2 | 0.6 | 0.7 | 37 | −2
+ 40 Berlin | DE | 3,518 | 30,355 | 0.3 | 0.4 | 0.7 | 44 | 4
+ 41 Changsha | CN | 831 | 46,712 | 0.1 | 0.7 | 0.7 | 51 | 10
+ 42 Frankfurt am Main | DE | 5,234 | 18,355 | 0.5 | 0.3 | 0.7 | 38 | −4
+ 43 Sydney | AU | 2,586 | 33,203 | 0.2 | 0.5 | 0.7 | 40 | −3
+ 44 Philadelphia, PA | US | 3,437 | 27,592 | 0.3 | 0.4 | 0.7 | 41 | −3
+ 45 Raleigh, NC | US | 2,888 | 30,006 | 0.3 | 0.4 | 0.7 | 42 | −3
+ 46 Istanbul | TR | 3,419 | 25,640 | 0.3 | 0.4 | 0.7 | 50 | 4
+ 47 Brussels | BE | 3,094 | 27,429 | 0.3 | 0.4 | 0.7 | 43 | −4
+ 48 Madrid | ES | 1,498 | 37,284 | 0.1 | 0.5 | 0.7 | 47 | −1
+ 49 Chongqing | CN | 1,390 | 36,776 | 0.1 | 0.5 | 0.6 | 58 | 9
+ 50 Barcelona | ES | 2,468 | 29,692 | 0.2 | 0.4 | 0.6 | 48 | −2
+(原圖解析度 529×626,數字以放大 2.5 倍判讀)
+
+--- Slide 6 / image8.emf(折線圖:Sydney AI 相關出版品/專利/新創數,2000–2018)---
+左軸 Publications(0–800),右軸 Patents and Startups(0–40)。以下為讀圖約略值:
+ Publications:2000 ≈160、2001 ≈175、2002 ≈195、2003 ≈275、2004 ≈370、2005 ≈440(高點)、2006 ≈400、2007 ≈190(驟降)、2008 ≈195、2009 ≈220、2010 ≈210、2011 ≈310、2012 ≈345、2013 ≈425、2014 ≈455、2015 ≈575、2016 ≈580、2017 ≈650、2018 ≈765。
+ Patents:多數年份 <10;2010 起上升,2013 ≈25、2015 ≈23 為高點,之後回落到 2018 ≈5。
+ Startups:2015 前很少;2016 ≈19、2017 ≈38(高點)、2018 ≈18。
+--- Slide 6 / image9.emf(關鍵詞共現網絡圖)---
+最大節點:Machine learning、artificial intelligence、Big Data;其他節點:Blockchain、financial decision making、Data mining、recruitment industry、accountancy firms、behavioral software、automated AI recruitment platform、cloud based solution、law firms、advanced reporting capabilities、advertising impact、major clients、supply chain、automated reports、prediction maintenance、inventory management、facility managers、property managers、predictive analytics platform、AI engine、AI applications、AI-based provider、Cellar Force、qualified leads、Social Media、analytic solution、software solution、data science、company claims、Machine learning technologies、automated business performance、1 Search 等。
+文字框出處:Exploring the knowledge spillovers of a technology in an entrepreneurial ecosystem—The case of artificial intelligence in Sydney (Cetindamar, Lammers, and Zhang, 2020)
+
+--- Slide 8 / image10.png(四類 CAISH 定義,出自 Accelerating NSW 報告)---
+Coworking space:A coworking space is a flexible, shared office space. These are usually available on short-term contracts. Unlike incubators and hackerspaces, coworking spaces usually provide minimal business development services and no technical facilities.
+Accelerator:An accelerator is a support program that is cohort-based and of fixed duration. Accelerators provide mentoring, peer-to-peer interaction and business skills training, as well as investment readiness training and connections to investors. Such programs are typically selective, based on criteria such as sectoral focus and growth potential.
+Incubator:An incubator is a startup support organisation that provides physical space to startups, along with additional growth-related services. It is neither cohort-based nor fixed-term, though it may impose a maximum residence duration. The provision of services is an important distinction between incubators and coworking spaces: most incubators also provide services such as investment readiness training, connections to investors, intellectual property advice (directly or via third-party service organisations), technical support, and peer-to-peer interaction.
+Startup hub and innovation hub:Startup hubs and innovation hubs are physical spaces (buildings, campuses) where startup support organisations/initiatives (such as accelerators, incubators and coworking spaces) are co-located. Hubs involve some form of intentional coordination between the entities/initiatives.
+
+--- Slide 9 / image11.jpg(四類 CAISH × 五項特徵,哈維球 Harvey balls,以 0–4 格表示)---
+特徵 | Coworking space | Accelerator | Incubator | Startup hub
+Shared physical space | 4/4 | 1/4 | 4/4 | 2/4
+Cohort/fixed-length | 0/4 | 4/4 | 1/4 | 0/4
+Growth-related services | 1/4 | 4/4 | 3/4 | 2/4
+Networking/events | 1/4 | 4/4 | 3/4 | 4/4
+Investment readiness | 0/4 | 4/4 | 4/4 | 2/4
+
+--- Slide 11 / image12.jpg「Table 3 CAISH entity mapping sources」---
+Source | Description of data | Geographic focus
+Startup Status | Searchable listing of CAISH Australia wide | Australia
+Business.gov | List of government funded incubators | Australia
+Airtree | List of venture capital funding (including accelerators) | Australia
+GEMaker | List of accelerators and incubators | Australia
+Universities Australia | List of university startup hubs | Australia
+Simone Eyles | Google map of regional and rural coworking spaces | Australia
+DFAT | Mapping 2017 | Australia
+Martin Bliemel | Ongoing mapping 2015–2019 | Australia
+XYZ Lab | List of top 84 startup accelerators and incubators in Australia | Australia
+Spark Festival | Accelerators and incubators: currently open | Australia
+North Sydney Innovation Network | Ecosystem mapping | Australia
+Bryon Shire Council | 2018 Sector Snapshot Byron Shire | Byron Shire
+NewiHub | Newcastle searchable listing on Ramenlife platform | Newcastle
+Sydney Startup Hub | Community listing pages | NSW
+Failory | List of 32 top accelerators and incubators in NSW | NSW
+Jobs for NSW | CAISH regional clusters | Regional NSW
+Blue Chilli | 2015 StartRail Sydney startup network map | Sydney
+TechSydney | Searchable listing on Ramenlife platform | Sydney
+
+--- Slide 12 / image13.jpg(澳洲各州 CAISH 數量地圖)---
+州 | Coworking spaces | Accelerators, incubators and hubs | Total CAISH
+Northern Territory | 0 | 7 | 7
+Queensland | 73 | 99 | 172
+New South Wales | 127 | 149 | 276
+Western Australia | 41 | 40 | 81
+South Australia | 22 | 32 | 54
+Australian Capital Territory | 9 | 14 | 23
+Victoria | 161 | 100 | 261
+Tasmania | 5 | 10 | 15
+Total | 438 | 451 | 889
+(色階 0–50 / 50–100 / 100–150 / 150–200 / 200–250 / 250+;各州加總與 Total 相符)
+
+--- Slide 13 / image14.jpg(NSW CAISH 數量,2010–2023,Number of entities)---
+2010 32 | 2011 44 | 2012 55 | 2013 65 | 2014 76 | 2015 99 | 2016 142 | 2017 179 | 2018 204 | 2019 219 | 2020 236 | 2021 249 | 2022 263 | 2023 276
+--- Slide 13 / image15.jpg(兩張卡片)---
+CAISH entities in Australia:2013 120 → 2023 889
+CAISH entities in NSW:2013 65 → 2023 276
+
+--- Slide 15 / image16.jpg「Table 1 27 CAISH entity case studies」---
+Sydney-based Hubs:East Sydney — UNSW Founders;North-West Sydney — MQ Incubator;South Sydney — nandin Innovation Centre (ANSTO);Sydney City — Sydney Startup Hub;West Sydney — Western Sydney University Launch Pad
+Regional Ecosystem Builders:Central West — Charles Sturt University Innovation Hub;New England — UNE SMART Region Incubator;Newcastle — I2N Hub Honeysuckle;North Coast — The Innovation Hub Coffs Coast;Northern Rivers — Sourdough Innovation Hub;South Coast — Bega Valley Innovation Hub;Wollongong — iAccelerate
+Sector/industry Focus:Biotech — UTS Green Light accelerator;Climate Tech — EnergyLab;Creative industries — The Roost;Defence — UNSW Founders — Defence 10x;Fintech — Stone & Chalk;Health Tech — UNSW Founders — Health 10x;Med Tech — Cicada Innovations — NSW Health Commercialisation Training Program;Social enterprise — SEFA/Paul Ramsay Foundation Growth Incubator;Space Tech — Cicada National Space Industry Hub;Sustainability — Boomerang Labs;Synthetic Biology — UNSW Founders — SynBio 10x
+EDI Focus:Migrant/refugee — Catalysr;Women — Tech Ready Women;Women Researchers — CSIRO's Lindfield Collaboration Hub;Youth — Young Change Agents
+(5 + 7 + 11 + 4 = 27)
+
+--- Slide 17 / image17.jpg(NSW 各規劃區:2023 推估人口 | CAISH 數 | 每 10 萬人 CAISH 數)---
+Far West Region | 41,992 | 0 | 0.0
+New England North West Region | 186,747 | 8 | 4.3
+North Coast Region | 540,329 | 9 | 1.7
+Hunter Region | 777,890 | 31 | 4.0
+Central Coast Region | 351,527 | 4 | 1.1
+Greater Sydney Region | 5,004,012 | 197 | 3.9
+Illawarra-Shoalhaven Region | 436,645 | 10 | 2.3
+South East and Tablelands Region | 291,635 | 5 | 1.7
+Riverina Murray Region | 283,539 | 6 | 2.1
+Central West and Orana Region | 293,619 | 6 | 2.0
+NSW Total | 8,207,936 | 276 | 3.4
+--- Slide 17 / image18.jpg(兩張卡片,NSW DPE planning regions)---
+Greater Sydney Region:5 million 2023 projected population;197 CAISH entities;3.9 CAISH entities per 100,000 people
+Regional and Rural NSW:3 million 2023 projected population;79 CAISH entities;2.5 CAISH entities per 100,000 people
+
+--- Slide 19 / image19.png「Table 6 Sector/industry Focus case studies」(同 Table 1 的 Sector/industry Focus 11 項)---
+--- Slide 19 / image20.png:文字「Increasing specialisation of CAISH entities」(配一個分支圖示)---
+--- Slide 19 / image21.png(EDI 個案表)---
+Migrants and refugees — Catalysr;Women — Tech Ready Women;Women researchers in STEM — CSIRO — Lindfield Collaboration Hub;Youth — Young Change Agents
+
+--- Slide 21 / image22.jpg(影響衡量的四個層次)---
+1. Individual entrepreneurs  2. Startups  3. The CAISH entity itself  4. The wider ecosystem or environment in contact with the CAISH
+
+--- Slide 22 / image23.jpg「Table 10.1 Individual entrepreneur」(Categories | Impact metrics (with examples))---
+Human capital:Entrepreneurial intentions and action (scale — intentions, actions);Self-efficacy and persistence (scale — confidence in entrepreneurial abilities, scale — motivation and commitment to entrepreneurial action);Learning (scale — skill and knowledge development)
+Social capital:Expansion of networks, connections and network density (number);Access and use of program (number, percentage)
+
+--- Slide 23 / image24.jpg「Table 10.2 Startup」---
+Enterprise growth:Jobs created/employment (number, percentage staff growth, jobs created/sustained);Investment raised/financed (number, value of funds/grants/loans raised by resident firms);Revenue generation (value of sales revenue, profit);Business/product/service growth (number of new products/services, improved products/services, customer traction measured by web traffic);Innovation outputs (value of R&D budget, number of patents/copyrights);High-growth enterprises (percentage of program participants on above measures);Comparative growth measures (percentage growth compared to non-CAISH supported enterprises, and compared to startups in the same or similar regions)
+Enterprise survival:Graduation (number of resident firms that successfully left the CAISH entity);Survival (number of resident firms that are still operating after one and five years)
+
+--- Slide 24 / image25.jpg「Table 10.3 CAISH entity」---
+Program attractiveness:In-region applications (number, number/spot);Out-of-region applications (number, number/spot);Sponsorship/funding attraction (value)
+Engagement metrics:Startups supported (number, number/year);Service/resource usage at the entity (such as usage of physical space);Net promoter score (percentage)
+Diversity metrics:Female founders (percentage);Diversity in founders supported (percentage);Gender distribution (percentage)
+Network metrics:Coaching & mentoring hours (number);Partners (number);Events (number);Alumni engagement (number, percentage);Research collaborations (number)
+
+--- Slide 25 / image26.jpg「Table 10.4 System」---
+Diversity metrics:Gender distribution in employment by supported startups (number, percentage);Coverage of CAISH programs based on population (value/population)
+Market development:Industries/technologies in which CAISH-supported startups are operating (number, percentage)
+Network engagement:Partners involved with supported startups (number, percentage);Supporters of CAISH entities as mentors and consultants (number, percentage)
+Growth of local entrepreneurial ecosystem:Sense belonging/ownership (scale);Attendance at collaborative events/programs (number, percentage);Attraction of actors into ecosystem such as venture capitalists (number, percentage)
+Spillover effects:Technology transfer from research institutes (number);Repeat startup following failures (number, percentage)
+Quality and depth of collaboration:Resource recycling effects (number, percentage — founders become mentors for the next generation of startups, invest as angels or VCs, or share resources like underutilised office space);Cultural change (scale, number — lower rates of fear of failure and greater acceptance of entrepreneurship as a career path)
+
+--- 裝飾圖(無資訊內容)---
+image27–31.jpg:Recommendation 1–5 頁的等距插圖(社群網絡、農場與區域建築、圍桌討論的多元人群、放大鏡與長條圖、起重機與方塊);image1.png:slideLayout16 用的 NSW 政府標誌(局部);image6/7.emf:Slide 5 上的手寫 ink 筆畫。

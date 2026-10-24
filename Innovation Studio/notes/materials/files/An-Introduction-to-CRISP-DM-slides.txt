@@ -1,0 +1,577 @@
+來源:Canvas file 14041255(單元一 1.6 連結文字「CRISP-DM 简介.pdf」),實際檔名 An-Introduction-to-CRISP-DM-slides.pdf,1,032,477 B,41 頁
+抽取:pdftotext -layout -enc UTF-8(2026-10-24)。圖表/截圖裡的文字抽不到,已在 An-Introduction-to-CRISP-DM-slides_重點.md 依頁面截圖補上。頁碼數字出現在每頁結尾。
+================================================================
+
+An Introduction to the CRISP DM methodology
+
+John McConnell – Services and Implementation  A SELECT INTERNATIONAL COMPANY
+Rachel Clinton – Business Development
+
+www.sv-europe.com
+                                    FAQ’s
+• Is this session being recorded? Yes, you will get a link to re
+
+   watch and share the session
+• Can I get a copy of the slides? You can access a link so you can
+
+   download them after the event
+• Can we arrange a re-run for colleagues? Yes, just ask us.
+• How can I ask questions? All lines are muted so please use the
+
+   chat facility – if we run out of time we will follow up with you.
+
+                                                                                                                                          2
+• Premium, accredited partner to IBM & SAS specialising in the SPSS & SAS
+    Advanced Analytics suites.
+
+• Team each has 20+ years of experience working in the predictive analytic
+    space - specifically as senior members of the heritage SPSS team
+
+                                                                                                                                         3
+3 Pillars (high level areas for prediction/data mining)
+
+         This is the IBM taxonomy which is a good reference for most (if not all)
+         data mining projects
+         Generally speaking – in each area – we have a process/lifecycle and a
+         series of events that we look to predict and profile
+The CRISP-DM process
+
+                        1.Business
+                      Understanding
+
+6.Deployment                              2.Data
+                                     Understanding
+
+5.Evaluation                            3.Data
+                                     Preparation
+
+                      4.Modelling
+                                                                                                5
+KDnuggets 2014 poll
+
+       http://www.kdnuggets.com/2014/10/crisp-dm-top-methodology-analytics-data-mining-data-science-projects.html
+People and Roles
+
+                    Business          Analytical       Includes the “Data
+                                                       Scientist” role
+                    • Domain          • Methodologies
+                    • Subject Matter  • What to use
+                    • Commercial
+                                       when
+
+Includes the “Data  Data              Technology
+Engineer” role
+                    • Management      • Integration
+                    • Structure       • Building apps
+                    • Meaning         • Supporting
+
+                                       deployment
+Roles and Steps in the CRISP process
+
+                                1.Business   1. Business &
+                              Understanding  Analysis
+
+6.              6.Deployment                      2.Data    2. Analysis &
+Tech/Analysis/                               Understanding  Data
+Business/Data
+
+5. Business &   5.Evaluation                    3.Data      3. Analysis &
+Analysis                                     Preparation    Data
+
+                               4.Modelling                                 8
+
+                              4. Analysis
+The CRISP-DM process
+
+                   1.Business
+                 Understanding
+
+6.Deployment       2.Data
+              Understanding
+
+5.Evaluation     3.Data
+              Preparation
+
+              4.Modelling
+                                                                                       9
+1. Business understanding
+
+ • Get a clear understanding of the business objectives
+      – To reduce churn rates
+      – To acquire valuable customers
+      – To cross-sell/up-sell
+      – To prevent fraud
+
+ • Agree success criteria
+      – To reduce out annual churn rate from 5% to 3%
+
+ • Assess the situation
+ • Translate to analytical objectives (if possible)
+ • Evaluate the cost/benefit
+ • Clearly understand how action can be taken based on the
+
+     likely outcomes
+      – How to deploy
+ • Document relevant resources, constraints, systems
+
+                                                                                                                                      10
+   A selection of example business objectives
+
+• A water company wants to reduce pollution
+• An on-line gaming company want to identify fraudulent bets
+• A charity wants to increase supporter lifetime value
+• A multi-channel subscription-based magazine want to improve renewal
+
+   rates
+• Local government planners want to know how likely a ward is to sustain
+
+   next year
+• A shipping company wants to identify containers that are likely to contain
+
+   smuggled items
+• A coffee retailer wants to understand what effect price changes will have
+
+   on demand
+• A hospital wants to know how many A&E staff to deploy on each shift
+• An on-line retailer wants to increase their repurchase rates
+
+                                                                                                                                            11
+  1. Business understanding – Worked Example
+
+• A Retailer wants to
+     – Increase revenue and profit
+     – By increasing average/total customer Lifetime Value (LTV)
+     – They believe they are below their competitive set
+
+• Part of the strategy to achieve this is to increase repurchasing
+     – They believe they have an issue with repurchase rates for digital
+        customers
+
+• Success Criteria:
+     – They have a cost constraint – when looking to incentivise repurchase
+          • They need to identify at least 40% of customers most likely to
+             repurchase within 20% of all customers
+
+• Analytically speaking they want to:
+     – Score each first purchase customer with a propensity to repurchase
+     – Identify the b of repurchase (or single purchase)
+
+                                                                                                                                          12
+    1. Business Understanding - Hypotheses
+
+• The retailer - Business and Analysis teams – develop a set of
+   hypothesised drivers of repurchase. These include:
+    – Channel experience
+    – Products bought (in first purchase)
+    – Value of first purchase
+    – Whether the first purchase was a promotion
+    – Whether subsequent promotions were made
+         • And when (timing)
+    – Customer life stage
+    – Timing of first purchase; month, day of week, time of day
+    – Delivery method
+         • Reserve and collect, express, etc.
+
+                                                                                                                                             13
+Predictive Analytics for CRM
+
+                    Attract  Grow        Retain
+                                 Profit
+Revenue
+
+Less Loss                     Time
+Loss
+
+We can model to predict and profile any event across the customer
+lifecycle…
+Modelling Data Window – Churn
+
+               a) Use Data we have on the
+               customer to the time before
+               the last period (e.g. month)
+
+Revenue             Profit                   b) To model against
+                                             known behaviour
+                                             (churn or stay) in the
+                                             last period
+
+         Less Loss  Time
+         Loss
+Modelling Data Window – Repurchase
+
+              a) Use Data we have on the
+              customer at the point of first
+              purchase
+
+Revenue             Profit
+
+         Less Loss                          Time
+         Loss
+                    b) To model against known
+                    behaviour after that point
+                    (repurchase or not)
+The CRISP-DM process
+
+                                                             1.Business
+                                                           Understanding
+
+6.Deployment                                                                   2.Data
+                                                                          Understanding
+
+5.Evaluation                                                                 3.Data
+                                                                          Preparation
+
+              4.Modelling
+                                                                                       17
+   2. Data understanding – High Level
+
+• Identify the data sources and fields which may have a bearing on the
+    business/analytical objectives
+
+• Review data schemas and any other data documentation
+• What looks relevant?
+• What are the formats?
+
+     – Databases, text files, excel, etc.
+• What are the fieldnames?
+
+     – Metadata
+• Crucially … what is the likely target field that maps to the business objective
+
+    e.g.
+     – Customers purchasing
+     – Machinery failing
+     – Revenue/Profit/ROI
+     – Visits to the web site
+     – Denial of service attacks detected
+     – Customers churning
+
+                                                                                                                                           18
+ 2. Data understanding – Low level
+
+• Explore the data
+• Typically looking for patterns between fields
+• Using uni- and bi-variate analyses
+
+       – Examine fields one-by-one or in pairs
+       – Often using visualisation tools
+
+• Test hypotheses
+
+       – E.g. Age of donor is a predictor of value
+
+• Validate data
+
+       – Identifies any issues involving anomalies
+
+• Develops understanding and informs modelling
+
+                                                                                                                                         19
+    2. Data understanding – Worked Example
+
+We will use IBM/SPSS Modeler to demonstrate the software-related steps in the CRISP process
+Modeler maps to that process
+
+We can build a Modeler “stream” to map to that process. Starting with our Target field
+
+Base: 225,793 customers  ~20% of customers
+                         repurchase
+
+                                                                                  20
+2. Data understanding – Audit to Validate
+
+It is important to check the fields we will use for modelling particularly looking
+for
+• Missing values
+• Unusual values
+• Invalid values
+
+Base: 225,793 customers                                                             21
+  2. Data understanding – Visually exploring relationships
+
+A stacked bar confirms our
+hypotheses that some channels
+are more likely to lead to (/drive)
+repurchase
+
+Base: 225,793 customers  A web plot also shows that some delivery
+                         types and promotions also lead to a higher
+                         repurchase %
+
+                                                                                               22
+The CRISP-DM process
+
+                1.Business
+              Understanding
+
+6.Deployment                      2.Data
+                             Understanding
+
+5.Evaluation                    3.Data
+                             Preparation
+
+              4.Modelling
+                                                                                       23
+ 3. Data Preparation
+
+• Data Understanding helps design this step
+• Together with Data Understanding this can be more time
+
+   consuming than expected
+    – Sometimes 80% of a project
+    – Especially for newer projects
+• Typically integrates data from different sources
+• Aggregates data
+• Create composite measures
+    – E.g. band variables
+    – Apply formulae e.g. compute annualised figures and other
+
+       ratios
+• Comparable to ETL (Extract Transform Load)
+
+                                                                                                                                         24
+ 3. Data Preparation – Repurchase example
+
+• In our example we received an extract from the Customer Data
+   Warehouse in a single file
+    – Often we can liaise with the DBA and the DBA will do some or all
+        of the data prep
+
+• Most often we need to integrate data from multiple files / database
+   tables
+
+• We didn’t get all the fields we hypothesised about but we can create
+   one of the missing ones (day of week) using a Derive node
+
+                                                                                                                                         25
+The CRISP-DM process
+
+                        1.Business
+                      Understanding
+
+6.Deployment                              2.Data
+                                     Understanding
+
+5.Evaluation                            3.Data
+                                     Preparation
+
+                      4.Modelling
+                                                                                                 26
+ 4.Modelling
+
+• Apply a variety of modelling techniques
+• Candidate list identified during understanding phase
+
+    – Driven by data types (see later)
+    – Constrained by available tools
+• 2 broad styles:
+   a) Hypothesis led. Add the fields/predictors that we believe
+
+      are driving the outcome
+   b) Data led. Add more fields at the beginning and
+
+      incrementally reduce (and/or let the algorithms do that)
+• The best performing modelling algorithm is a function of the
+
+   specific data/problem
+
+                                                                                                                                         27
+4.Modelling – Repurchase rates
+
+The Partition node       The Type node is where    The modelling node (in
+creates the 70:30 split  we choose Inputs          this case we chose a
+                         (predictors/drivers) and  CHAID node) builds the
+                         the Target                model
+
+                                                                           28
+ 5.Evaluation
+
+• Essential that the models are tested against unseen data
+• Typically the data is partitioned into 2 (or 3) sets at random
+
+   e.g. 70%:30%
+   1. Training (modelling) set
+   2. Test (holdout) set
+   3. Evaluation set
+• Evaluate against the success criteria agreed in the
+   understanding phase
+• Often it is about how well the model performs against a given
+   value criteria e.g. revenue
+    – Defined in Data Understanding phase
+
+                                                                                                                                         29
+5. Evaluation – Worked Example
+
+           The “nugget” is the built model.
+           When we edit it we see more detail of the model including:
+
+Predictor Importance  Rules/repurchase profiles
+
+                                                                       30
+ 5. Evaluation – Predictive Accuracy
+
+    56%
+
+                                                                                               20%
+
+Recall our success criteria (in Business Understanding) was to be able to predict
+40% of re-purchasers among 20% of customers
+This model beats that as it gains (predicts) 56% of re-purchasers in the top 20%
+
+                                                                                                                                         31
+The CRISP-DM process
+
+                1.Business
+              Understanding
+
+6.Deployment                      2.Data
+                             Understanding
+
+5.Evaluation                    3.Data
+                             Preparation
+
+              4.Modelling
+                                                                                           32
+6.Deployment (1)
+
+• Could be as simple as a list of names and predictions/scores
+
+      – E.g. a mailing list
+
+• Could be as complex as a model encapsulated as a computer program and
+    embedded in an operational system to predict in real time and automate
+    decisions
+
+      – E.g. a model embedded in a system which sends alerts and triggers
+
+• Could be embedded in a What-if? simulator
+• Important to distinguish between a model in the modelling and
+
+    deployment phases
+• Typically…
+
+      – In the modelling phase many different models and modelling options are built
+         and evaluated
+
+      – In the deployment phase the winning model(s) are fixed
+            • E.g. we deploy a decision tree with a fixed shape
+
+                                                                                                                                      33
+Modelling Data Window – Repurchase
+
+                    a) Use Data we have on the
+                    customer to the time before
+                    the last period (e.g. month)
+
+Revenue                                           Profit
+
+         Less Loss                          Time
+         Loss
+                    b) To model against
+                    known behaviour
+                    (repurchase or not)
+Modelling Data Window – Scoring new customers
+
+             a) Use Data on single purchase customers up to the current point in time
+
+Revenue             b) To predictPhroofitw likely they are to re-purchase
+
+         Less Loss  Time
+         Loss
+6. Deployment – Repurchase example
+
+      In one form or other – and there are many ways we can do this – we plug the
+      winning model into a deployment process. Here as another modeller stream
+      The predictions are often sent to a database or file …
+      or directly into an operational system
+
+                                                                                                                                      36
+ 6.Deployment (2) (Monitoring)
+
+• If we did our job properly then the deployed model should
+   correspond to what we saw in evaluation
+
+       – Other factors may intervene
+
+• Ongoing evaluation (“monitoring”) still needs to happen if
+   models are to be used over time
+
+       – Some models have a longer shelf life than others
+
+• More recently there has been some development of models
+   which adapt/correct themselves to changing circumstances
+
+       – Some level of re-modelling to improve accuracy
+
+                • “Self adapting”
+
+       – More commonly this is achieved through the concept of champion/challenger modelling or
+           model refresh approaches
+
+                                                                                                                                         37
+The CRISP-DM process reprised
+
+ The process is       Business
+usually iterative  Understanding
+
+Deployment                              Data
+                                  Understanding
+
+Evaluation                            Data
+                                  Preparation
+
+                   Modelling
+                                                                                               38
+  Executing a predictive project - summary
+
+• A Predictive Analytics project can be more like a Research &
+   Development project
+    – Can we build a successful model?
+    – Has anyone done this before?
+    – What is the risk that we cannot achieve the objectives?
+
+• Hence projects can fail
+• It isn’t just about the analyst
+
+    – Larger projects usually need a larger (multi-disciplined)
+       team
+
+• Each stage in the CRISP-DM process has detailed tasks and
+   outputs
+    – More detail at:
+    http://www.sv-europe.com/crisp-dm-methodology/
+
+                                                                                                                                          39
+             Working with Smart Vision Europe Ltd
+
+• As a premier partner we resell software to you directly
+
+      – We’re agile, responsive and generally easier to deal with
+
+• As experts in SPSS / SAS / Analytics / Predictive Analytics we
+   will
+
+      – deliver classroom training courses
+      – offer side by side training support
+      – offer “skills transfer” consulting
+      – run booster and refresher sessions to get more from your SPSS licences
+      – Give no strings attached advice
+
+• We’re approachable, friendly and pride ourselves on our no-
+   nonsense approach
+
+      – If you have questions please do email us info@sv-europe.com
+      – If you’d like advice, do get in touch and we’ll help if we can!
+
+                                                                                                                                         40
+                                                            Contact us:
+                                                            +44 (0)207 786 3568
+                                                            info@sv-europe.com
+                                                            Twitter: @sveurope
+                                                            Follow us on Linked In
+                                                            Sign up for our Newsletter
+
+                    Thank you
+
+www.sv-europe.com
+
