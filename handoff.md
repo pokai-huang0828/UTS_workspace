@@ -2406,3 +2406,5 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - **指揮官另修**:02 檔 ## 12 標題方括號跳脫;README 加素材總覽入口;嘉賓 pptx 原檔 14.5MB 加 .gitignore(文字已轉錄)
 - **副作用**:agent 下載到 Downloads 的 4 份課程檔＋1 張橫幅圖留在原處;readings 線在內建瀏覽器開 PDF 時跳過一次存檔對話框(未存檔)
 - 本 session subagent 累計 ≈ 6.8M
+
+- 2026-10-29:Zoom 1 投影片「課程安排」落檔 `Innovation Studio/notes/91_上課紀錄.md`(新建)＋截圖 `notes/zoom/`;新資訊:課程跨 Session 6 2026(第 1–7 週)與 Session 1 2027(第 8–12 週),其餘日期與 Canvas 一致
