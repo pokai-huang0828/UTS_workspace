@@ -192,6 +192,7 @@
 | `notes/raw/*.txt` | 以上全部的簡體逐字原文(一手來源) |
 | [`notes/團隊組建調查_擬答.md`](notes/團隊組建調查_擬答.md) | 團隊組建調查 5 題定稿(繁體,Kenny 自己貼) |
 | [`notes/03_注意事項.md`](notes/03_注意事項.md) | 這門課要注意的事(規則陷阱、個人分數保護、AT2 高分做法、倒推時間表、Zoom 要問的問題) |
+| [`notes/04_題目建議.md`](notes/04_題目建議.md) | 專題題目建議:8 個候選題(資料都實際核對過)、3 位評審打分、前 6 名比較、首選 T1 車輛缺陷早期預警／次選 T3 自駕事故測試場景、每題分工與招人文字、7 天行動 |
 | [`refs/421048_Subject_Information_2026S6.pdf`](refs/421048_Subject_Information_2026S6.pdf) | 官方 Subject Outline(英文,7 頁);同名 `.txt` 是文字版 |
 | [`assessments/templates/`](assessments/templates/) | 4 份官方範本 .docx(AT2、AT3 中英各一、AT4),同名 `.txt` 是含表格的文字版 |
 | `notes/raw/discussions_2026-10-22_raw.txt` | 討論區清單、第 6 週嘉賓講座(Dilek Cetindamar)說明 |
