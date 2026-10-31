@@ -61,6 +61,15 @@ Node v24.18.1 · Codex 0.146.0 · ffmpeg 8.1.2-full · yt-dlp 2026.07.04
 
 ---
 
+## ☁️ 雲端 session(claude.ai/code 容器,2026-10-31 實查)
+
+- **Canvas 進不去**:`canvas.uts.edu.au` 網頁 302 → `/login`,API 回 401;要 UTS SSO 登入,agent 不代填帳密。要讓雲端 session 讀 Canvas,只能 ①在 Mac 本機 session 用 claude-in-chrome 抓(7/26 用過),或 ②Kenny 自己在雲端環境設定加 Canvas API token 環境變數(`CANVAS_API_TOKEN`,不要貼在對話裡;Canvas 個人 token 權限等同帳號,要設到期日)
+- **沒有 claude-in-chrome**:雲端容器沒有 Chrome 擴充;有內建 Chromium＋Playwright(無登入狀態,只能看公開網頁)
+- **沒有 Codex**:`which codex` 找不到 → 獨立驗證改派 fresh Claude agent(非產出者)
+- **Remote Control**:`list_computer_folders` 是空的(Kenny 的電腦沒有分享資料夾)
+- **網路**:公開網站大多連得到;`curl github.com` 會 403(改用 raw.githubusercontent.com / Zenodo);維基百科 API 回 429
+- `Innovation Studio/private/` 不進版控 → 雲端 clone 裡沒有(同學名單只在 Mac)
+
 ## 跨機器都成立的坑
 
 - **持久化 PATH 是對的,但「行程過期」不是 PATH 沒設** ——

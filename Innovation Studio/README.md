@@ -195,6 +195,7 @@
 | [`notes/03_注意事項.md`](notes/03_注意事項.md) | 這門課要注意的事(規則陷阱、個人分數保護、AT2 高分做法、倒推時間表、Zoom 要問的問題) |
 | [`notes/04_題目建議.md`](notes/04_題目建議.md) | 專題題目建議(10/29,組隊前):8 個候選題(資料都實際核對過)、3 位評審打分、前 6 名比較、首選 T1 車輛缺陷早期預警／次選 T3 自駕事故測試場景、每題分工與招人文字、7 天行動 |
 | [`notes/05_題目建議_團隊版.md`](notes/05_題目建議_團隊版.md) | **團隊版**(10/30,組隊後):新增運維/雲端 5 題(O1–O5)＋旅遊/賽事/跨域 5 題(V1–V5),連同 04 的 8 題共 18 題;評比改成 4 人各自適配＋分工順;2 位評審平均前 10 名;隊伍結構風險;隊會用的 3 題與兩個決定問題。原始研究與評分在 `notes/raw/topics_2026-10-30_*.md`、`notes/raw/scores_2026-10-30_judge*.md` |
+| [`notes/06_第2週準備與AT1週報.md`](notes/06_第2週準備與AT1週報.md) | 10/31 進度對照課程(第 1–7 週)、接下來能做的(依日期)、AT1 週報規則與準備、草稿:第 1 週週報(選做)、第 2 週週報骨架、給隊友的週報說明(簡體)、1.12 aim/objectives(O1/V3/T3 各一版);要回 Canvas 確認的事 |
 | [`refs/421048_Subject_Information_2026S6.pdf`](refs/421048_Subject_Information_2026S6.pdf) | 官方 Subject Outline(英文,7 頁);同名 `.txt` 是文字版 |
 | [`assessments/templates/`](assessments/templates/) | 4 份官方範本 .docx(AT2、AT3 中英各一、AT4),同名 `.txt` 是含表格的文字版 |
 | `notes/raw/discussions_2026-10-22_raw.txt` | 討論區清單、第 6 週嘉賓講座(Dilek Cetindamar)說明 |
