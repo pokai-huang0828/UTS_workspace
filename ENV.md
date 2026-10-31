@@ -67,6 +67,7 @@ Node v24.18.1 · Codex 0.146.0 · ffmpeg 8.1.2-full · yt-dlp 2026.07.04
 - **沒有 claude-in-chrome**:雲端容器沒有 Chrome 擴充;有內建 Chromium＋Playwright(無登入狀態,只能看公開網頁)
 - **沒有 Codex**:`which codex` 找不到 → 獨立驗證改派 fresh Claude agent(非產出者)
 - **Remote Control**:`list_computer_folders` 是空的(Kenny 的電腦沒有分享資料夾)
+- **Desktop Commander 外掛**:看起來像「連到使用者電腦」,但 10/31 `get_config` 實查是跑在**同一台雲端 Linux VM**(node 在 /opt/node22、containerName vm、allowedDirectories 空)→ 不能拿來讀 Kenny 電腦或 Chrome
 - **網路**:公開網站大多連得到;`curl github.com` 會 403(改用 raw.githubusercontent.com / Zenodo);維基百科 API 回 429
 - `Innovation Studio/private/` 不進版控 → 雲端 clone 裡沒有(同學名單只在 Mac)
 
