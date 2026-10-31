@@ -71,6 +71,13 @@ Node v24.18.1 · Codex 0.146.0 · ffmpeg 8.1.2-full · yt-dlp 2026.07.04
 - **網路**:公開網站大多連得到;`curl github.com` 會 403(改用 raw.githubusercontent.com / Zenodo);維基百科 API 回 429
 - `Innovation Studio/private/` 不進版控 → 雲端 clone 裡沒有(同學名單只在 Mac)
 
+## 🔑 訂閱 vs API key(2026-10-31 查官方文件)
+
+- 雲端(claude.ai/code)、桌面 app、本機 CLI 用訂閱登入時**共用同一池額度**(5 小時＋每週上限);換地方跑不會省額度。
+- 本機 CLI 設了 `ANTHROPIC_API_KEY` 就改按 token 計到 Console,而且 **Claude in Chrome、Remote Control、雲端 session 都會失效**;桌面 app 和雲端不讀 API key。檢查生效的登入:`/status`。
+- Max/Ultra 方案附的每月 API credits **不能付 Claude Code**(會顯示 "Credit balance too low"),只能用在 API / Managed Agents / Agent SDK / Playground,當期沒用完就作廢 → 適合拿來付專題系統自己的 LLM 呼叫。
+- 自建 app 依官方規定要用 Console API key(不能用 claude.ai 登入);key 放 `.env`(已在 .gitignore),不貼對話、不 commit。
+
 ## 跨機器都成立的坑
 
 - **持久化 PATH 是對的,但「行程過期」不是 PATH 沒設** ——
