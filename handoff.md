@@ -2445,3 +2445,5 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - 2026-11-04:Kenny 嫌 12 題「看起來就不好做」→ 改出好做版(一個乾淨檔、答案欄現成、課上教過的模型、AI 只寫文字):2 個 sonnet 核對 8 個資料(刪 Google Play;指揮官自查共享單車 0 空值、NAB 17 檔組成)→ 07 改成好做版 8 題(1 酒店訂單取消 Hotel Booking Demand、2 共享單車 UCI 275、3 TripAdvisor 評論、4 航空滿意度、5 IT 工單 CC0、6 NAB 雲監控異常、7 UCI Online Retail II、8 自帶不涉密資料),原 12 題移附錄;重新發布同一個 artifact(v2 1793797013-f2c4);核對表 `notes/raw/datasets_easy_2026-11-04.md`
 
 - 2026-11-04:分工確定(Kenny 告知):項目負責、開發、Kenny = 數據分析＋開發、報告呈現/業務理解/利害關係人 → 5 個主要職責都有人、開發 2 人;06 骨架 B2 改成 Kenny 的職責一「數據分析」、職責二「開發」;README §3、TODO 同步;姓名只進 private/
+
+- 2026-11-04:隊友提「公交服務可靠性預警系統」→ 即時資料來源核對(1 個 sonnet,實際呼叫):香港九巴/城巴 ETA 不用金鑰、200、約 1 分鐘、DATA.GOV.HK 可商用註明來源;交通署 GTFS(pt-headway-en/gtfs.zip,13.7 MB,含 frequencies)可當規定班距;任何地方都沒有實際到站紀錄 → 用輪詢推算班距;新加坡 LTA 要金鑰、20 秒、有擁擠度;Xotelo 無條款;TfNSW/OpenAQ 要金鑰 → `notes/raw/realtime_sources_2026-11-04.md`;題目初評＋1.12 aim/objectives 初稿(繁＋簡)→ `notes/09_公交可靠性預警_初評.md`
