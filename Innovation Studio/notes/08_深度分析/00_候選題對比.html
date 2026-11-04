@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>候选题深度对比</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* 布局:结论(两个选项 + 对比表)→ 6 个题目逐一展开(数字 → 图 → 好处/风险 → 1.12 草稿)→ 数据来源。配色沿用第一次组会选题清单 */
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --ink: #1b2733;
+  --muted: #5b6875;
+  --line: #d9e0e6;
+  --accent: #0e6b74;
+  --accent-soft: #e3f1f2;
+  --on-accent: #ffffff;
+  --good: #2f6b2f;
+  --good-soft: #e8f3e6;
+  --warn: #9a5a00;
+  --warn-soft: #fbf1e1;
+  --chart-bg: #fcfcfa;
+  --font-display: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11181f; --surface: #18222c; --ink: #e4eaef; --muted: #9aa8b4; --line: #2b3a47;
+    --accent: #5cc3cb; --accent-soft: #173a3e; --on-accent: #0b1d20; --good: #8fd18a; --good-soft: #1d3320;
+    --warn: #f0b35a; --warn-soft: #3a2c16; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11181f; --surface: #18222c; --ink: #e4eaef; --muted: #9aa8b4; --line: #2b3a47;
+  --accent: #5cc3cb; --accent-soft: #173a3e; --on-accent: #0b1d20; --good: #8fd18a; --good-soft: #1d3320;
+  --warn: #f0b35a; --warn-soft: #3a2c16; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.7; }
+.wrap { max-width: 1060px; margin: 0 auto; padding: 32px 20px 64px; display: grid; gap: 36px; }
+header { display: grid; gap: 10px; }
+.kicker { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: .04em; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.35; }
+h1 { font-size: clamp(26px, 4vw, 34px); }
+h2 { font-size: 22px; }
+h3 { font-size: 17px; }
+p { margin: 0; }
+ul, ol { margin: 0; }
+.lede { color: var(--muted); max-width: 70ch; }
+.meta { color: var(--muted); font-size: 14px; }
+.note { color: var(--muted); font-size: 14px; max-width: 80ch; }
+section { display: grid; gap: 14px; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+.pill { display: inline-block; font-size: 13px; font-weight: 700; padding: 1px 10px; border-radius: 999px; white-space: nowrap; line-height: 1.7; }
+.pill.first { background: var(--accent); color: var(--on-accent); }
+.pill.backup { background: var(--good-soft); color: var(--good); }
+.pill.ok { background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
+.pill.no { background: var(--warn-soft); color: var(--warn); }
+
+.options { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 16px; }
+.option { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; display: grid; gap: 10px; align-content: start; }
+.option.first { border: 2px solid var(--accent); }
+.option-top { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.option ul, .topic ul { padding-left: 1.2em; display: grid; gap: 4px; }
+.cond { font-size: 15px; background: var(--accent-soft); border-radius: 8px; padding: 8px 12px; }
+.option.backup .cond { background: var(--good-soft); }
+.cond b { display: block; font-size: 13px; color: var(--accent); }
+.option.backup .cond b { color: var(--good); }
+
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 860px; font-size: 14.5px; }
+.tablewrap.small table { min-width: 560px; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 500; font-size: 13px; background: var(--bg); }
+tr:last-child td { border-bottom: none; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+td small { color: var(--muted); font-size: 13px; }
+td:first-child { font-weight: 500; }
+
+.toc { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.toc span { color: var(--muted); font-size: 14px; margin-right: 4px; }
+.toc a { font-size: 14.5px; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 3px 14px; color: var(--ink); }
+.toc a:hover { border-color: var(--accent); color: var(--accent); }
+
+.topic { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 24px; gap: 18px; scroll-margin-top: 16px; }
+.topic.first { border: 2px solid var(--accent); }
+.topic-top { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.one { font-weight: 500; max-width: 78ch; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 10px; }
+.stat { background: var(--bg); border-radius: 8px; padding: 10px 14px; display: grid; gap: 2px; align-content: start; }
+.stat b { font-family: var(--font-display); font-size: 21px; font-variant-numeric: tabular-nums; line-height: 1.3; }
+.stat span { font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+
+figure { margin: 0; display: grid; gap: 8px; }
+.frame { background: var(--chart-bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
+.frame img { display: block; width: 100%; max-width: 100%; height: auto; }
+figcaption { font-size: 14.5px; color: var(--muted); max-width: 86ch; }
+figcaption b { color: var(--ink); }
+
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 18px 28px; }
+.two > div { display: grid; gap: 8px; align-content: start; }
+.label { font-family: var(--font-body); font-size: 14px; font-weight: 700; letter-spacing: .03em; }
+.label.good { color: var(--good); }
+.label.warn { color: var(--warn); }
+ul.risks { list-style: none; padding: 0; gap: 10px; }
+ul.risks li { border-left: 3px solid var(--warn); padding: 2px 0 2px 12px; display: grid; gap: 2px; }
+ul.risks li span { color: var(--muted); font-size: 15px; }
+ul.risks li span::before { content: "对策:"; color: var(--good); font-weight: 700; }
+
+.method { display: grid; gap: 10px; }
+ol.steps { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; counter-reset: step; }
+ol.steps li { counter-increment: step; background: var(--accent-soft); border-radius: 8px; padding: 10px 14px; font-size: 15px; display: grid; gap: 2px; align-content: start; }
+ol.steps li b { color: var(--accent); }
+ol.steps li b::before { content: counter(step) ". "; }
+
+.draft { border: 1px dashed var(--accent); border-radius: 10px; padding: 14px 16px; display: grid; gap: 10px; background: var(--bg); }
+.draft-head { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.draft-head b { font-size: 14px; color: var(--accent); }
+.draft-head .hint { font-size: 13px; color: var(--muted); }
+button.copy { margin-left: auto; font: inherit; font-size: 14px; font-weight: 500; color: var(--on-accent); background: var(--accent); border: 0; border-radius: 8px; padding: 5px 16px; cursor: pointer; }
+button.copy:hover { filter: brightness(1.08); }
+pre.draft-text { margin: 0; font-family: var(--font-body); font-size: 15px; line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+footer { color: var(--muted); font-size: 13.5px; display: grid; gap: 8px; max-width: 86ch; }
+footer b { color: var(--ink); }
+footer ul { padding-left: 1.2em; display: grid; gap: 2px; }
+
+@media (max-width: 420px) {
+  .wrap { padding: 24px 16px 48px; }
+  .topic { padding: 16px; }
+  .option { padding: 16px; }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<header>
+  <div class="kicker">项目团队 #5 · 421048 Innovation Studio</div>
+  <h1>6 个候选题的数据实测对比</h1>
+  <p class="lede">前 5 题都真的下载了数据、跑了基准模型。第 6 题“公交服务可靠性预警”是组里同学提的,实时接口和官方时刻表也都实际调用、下载核对过。每题最后附一份 1.12「项目目标 / 具体目标」草稿,可以直接复制。</p>
+  <p class="meta">整理:Kenny · 2026-11-04 · 数据规模和比例类的 20 个数字已用另一套程序独立重算,全部一致</p>
+</header>
+
+<section id="summary" aria-labelledby="summary-h">
+  <h2 id="summary-h">先看结论</h2>
+  <div class="options">
+    <article class="option first">
+      <div class="option-top"><span class="pill first">首选</span><h3>公交服务可靠性预警(香港)</h3></div>
+      <ul>
+        <li>业务问题最具体:哪些线路、哪些时段容易出问题,能不能提前 15–30 分钟预警。</li>
+        <li>天生就是一个实时系统,最适合 AT3 的系统展示。</li>
+        <li>数据免费、不用申请,允许商业和非商业使用(注明来源)。</li>
+      </ul>
+      <p class="cond"><b>条件</b>这周内(最晚 11/10)开始每分钟自动收集数据;先只做 5–10 条线路。</p>
+    </article>
+    <article class="option backup">
+      <div class="option-top"><span class="pill backup">备案</span><h3>酒店订单取消预测</h3></div>
+      <ul>
+        <li>数据现成:119,390 笔真实订单,马上能用。</li>
+        <li>基准模型已经跑通:ROC-AUC 0.872,经验规则只有 0.748。</li>
+        <li>坑都找到了(重复行、泄漏字段),也都有对策。</li>
+      </ul>
+      <p class="cond"><b>什么时候换</b>如果到 11/17 还收不到稳定的 1 周公交数据,就换这题;已经做好的分析可以直接用。</p>
+    </article>
+  </div>
+  <p class="note">其他 4 题也做得出来,但各有明显短板,见下表。这是建议,最后由组会决定。</p>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>题目</th><th>数据</th><th>实测基准</th><th>AI 用在哪</th><th>最大风险</th><th>建议</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="#bus">公交可靠性预警</a></td>
+          <td>实时接口免费、不用密钥;没有历史数据,要自己每分钟抓</td>
+          <td>还没有<br><small>先收集 ≥ 4 周</small></td>
+          <td>把预警写成调度建议和乘客通知草稿</td>
+          <td>接口只有“预计”到站,没有“实际”到站,要自己推算发车间隔</td>
+          <td><span class="pill first">首选</span></td>
+        </tr>
+        <tr>
+          <td><a href="#hotel-cancel">酒店订单取消</a></td>
+          <td>119,390 笔订单 × 32 个字段</td>
+          <td class="num">ROC-AUC 0.872<br><small>经验规则 0.748</small></td>
+          <td>为高风险订单写原因和挽留建议</td>
+          <td>26.8% 是重复行;“不退款”单 99.4% 取消</td>
+          <td><span class="pill backup">备案</span></td>
+        </tr>
+        <tr>
+          <td><a href="#reviews">酒店评论抱怨雷达</a></td>
+          <td>20,491 条评论 + 星级</td>
+          <td class="num">抓差评 macro-F1 0.882</td>
+          <td>分主题、附原文依据、排出先改哪里</td>
+          <td>没有酒店名和日期;要人工标 300 条当考卷</td>
+          <td><span class="pill ok">可以</span></td>
+        </tr>
+        <tr>
+          <td><a href="#it-tickets">IT 工单自动分派</a></td>
+          <td>47,837 张工单、8 个支持组</td>
+          <td class="num">macro-F1 0.869<br><small>有把握时自动分 75.6%</small></td>
+          <td>处理没把握的工单、写第一封回复</td>
+          <td>文字被重度清理;8 个类别名称的来源不明</td>
+          <td><span class="pill ok">可以</span></td>
+        </tr>
+        <tr>
+          <td><a href="#bike">共享单车需求预测</a></td>
+          <td>17,379 小时,很干净</td>
+          <td class="num">WAPE 19.4%<br><small>经验做法 25.5%</small></td>
+          <td>把预测写成调度日报</td>
+          <td>只有全系统总量;和课程的出租车案例很像</td>
+          <td><span class="pill ok">可以,不突出</span></td>
+        </tr>
+        <tr>
+          <td><a href="#airline">航空满意度</a></td>
+          <td>129,880 份问卷</td>
+          <td class="num">准确率 96.4%<br><small>高得不正常</small></td>
+          <td>写服务改善建议</td>
+          <td>数据像规则生成,来源和授权查不到</td>
+          <td><span class="pill no">不建议</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">怎么看分数:ROC-AUC 和 macro-F1 越接近 1 越好;WAPE 是误差占平均需求的比例,越低越好。“基准”是没调参的简单模型,也就是项目要超过的起点。</p>
+</section>
+
+<nav class="toc" aria-label="题目导航">
+  <span>跳到:</span>
+  <a href="#bus">公交预警</a>
+  <a href="#hotel-cancel">酒店取消</a>
+  <a href="#reviews">酒店评论</a>
+  <a href="#it-tickets">IT 工单</a>
+  <a href="#bike">共享单车</a>
+  <a href="#airline">航空满意度</a>
+</nav>
+<p class="note">每题最后的 1.12 草稿:括号里的数字是目标值。想写得低调一点,可以先删掉括号,定稿时再补。</p>
+
+<!-- 1. 公交 -->
+<section class="topic first" id="bus" aria-labelledby="bus-h">
+  <div class="topic-top"><h2 id="bus-h">公交服务可靠性预警(香港)</h2><span class="pill first">首选</span></div>
+  <p class="one">用香港巴士的实时到站数据,找出哪些线路、哪些时段最容易“等很久”或“串车”,提前 15–30 分钟提醒调度员加车,并用 AI 写好给乘客的通知。</p>
+  <div class="stats">
+    <div class="stat"><b>不用密钥</b><span>九巴、城巴的到站接口,11/4 实测可以直接用</span></div>
+    <div class="stat"><b>约 1 分钟</b><span>预计到站时间更新一次</span></div>
+    <div class="stat"><b>396 条</b><span>九巴线路有官方规定的发车间隔(按路线号算,九巴共 578 条)</span></div>
+    <div class="stat"><b>没有</b><span>现成的历史数据,要自己定时收集</span></div>
+  </div>
+
+  <div class="method">
+    <h3>“延误”怎么算</h3>
+    <ol class="steps">
+      <li><b>每分钟抓</b>选定车站的“预计到站时间”,一次就拿到该站所有线路。</li>
+      <li><b>推定到站</b>某班车的预计时间到了、下一轮就消失,就记成“这班车到站了”。</li>
+      <li><b>算实际发车间隔</b>同一站同一线路,相邻两班的推定到站时间相减。</li>
+      <li><b>和规定发车间隔比</b>超过 1.5 倍算长时间等车,小于 0.3 倍算串车(门槛之后按数据再调)。</li>
+    </ol>
+    <p class="note">已核对:交通署官方时刻表(GTFS,11/4 下载)的 frequencies.txt 里,九巴 578 条线路(按路线号算)有 396 条有按时段的规定发车间隔,例如 1A 线 7–20 分钟一班,选线路就从这 396 条里挑。这套算法和伦敦交通局考核高频公交(每小时 5 班以上)用的“额外等车时间”(Excess Wait Time,乘客平均比按时刻表应等的时间多等了多久)是同一个思路,报告里可以直接引用(<a href="https://tfl.gov.uk/corporate/publications-and-reports/bus-operator-league-tables">TfL 说明页</a>)。</p>
+  </div>
+
+  <div class="two">
+    <div>
+      <h3 class="label good">为什么好</h3>
+      <ul>
+        <li>业务问题具体,正好接上 AT2 要的“业务目标 → 分析目标 → 任务”三层。</li>
+        <li>数据接口 + 分析 + 互动看板,刚好对上 AT3 要的三种界面。</li>
+        <li>AI 用得自然:模型预测风险,大语言模型写调度建议和乘客通知草稿,人确认后才发。</li>
+        <li>没有个人信息,条款写明可以商用,伦理和授权风险最低。</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="label warn">风险和对策</h3>
+      <ul class="risks">
+        <li>历史数据要自己累积<span>最晚 11/10 开始定时抓,到 12/6 写 AT2 时约有 4 周数据。</span></li>
+        <li>抓数据的电脑要 24 小时开着<span>租一台云服务器,或用组员的服务器,数据每天备份。</span></li>
+        <li>接口可能改版或中断<span>记录每次抓取的成功率;展示时准备录好的备用数据。</span></li>
+        <li>“提前 15–30 分钟”能准到什么程度还不知道<span>成功标准先写保守,一定要和“历史同时段平均”比。</span></li>
+        <li>范围太大<span>只挑 5–10 条线路、30–50 个重点车站。</span></li>
+        <li>北京能不能打开 data.gov.hk 还没测<span>收集程序放在一台机器上跑,其他人看数据库或看板;开会时请北京的同学试开一次接口网址。</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tablewrap small">
+    <table>
+      <thead><tr><th></th><th>香港(建议)</th><th>新加坡</th></tr></thead>
+      <tbody>
+        <tr><td>密钥</td><td>不用,现在就能抓</td><td>要申请 AccountKey</td></tr>
+        <tr><td>更新</td><td>约 1 分钟</td><td>20 秒</td></tr>
+        <tr><td>额外信息</td><td>官方规定发车间隔、天文台天气</td><td>车厢拥挤度、每月各站上下车人数、规定班次频率</td></tr>
+        <tr><td>条款</td><td>可以商用,注明来源</td><td>可以商用,醒目注明来源</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">新加坡的拥挤度和上下车人数很有价值,可以写成报告里的“延伸方向”。</p>
+
+  <div class="draft">
+    <div class="draft-head"><b>1.12 草稿</b><span class="hint">可以直接贴到讨论区</span><button type="button" class="copy" data-target="d-bus">复制</button></div>
+<pre class="draft-text" id="d-bus">项目目标(Project aim)
+帮助香港巴士公司的调度中心提前发现可能出现的长时间等车或串车,让调度员能提前 15–30 分钟加派车辆或发布乘客通知,改善乘客的候车体验。
+
+项目具体目标(Project objectives)
+1. 从 11 月起,每分钟收集 5–10 条选定线路的实时到站数据,连同官方计划发车间隔(GTFS)和天气数据,建立至少 4 周的历史数据集。
+2. 定义并计算服务可靠性指标(参考伦敦交通局的“额外等车时间”EWT、串车比例),找出最容易出问题的线路和时段。
+3. 建立预测模型,提前 15–30 分钟预警长间隔或串车,并与“历史同时段平均”基准比较(初步目标:召回率 ≥ 70%、精确率 ≥ 60%,数据累积后再调整)。
+4. 用大语言模型把预警写成给调度员的处理建议和给乘客的通知草稿,由人确认后才发出。
+5. 2027 年 2 月前完成可实时运行的预警仪表板原型,并请队友扮演调度员做使用测试。</pre>
+  </div>
+</section>
+
+<!-- 2. 酒店订单取消 -->
+<section class="topic" id="hotel-cancel" aria-labelledby="hc-h">
+  <div class="topic-top"><h2 id="hc-h">酒店订单取消预测</h2><span class="pill backup">备案</span></div>
+  <p class="one">在客人下订时就算出“会不会取消”,把最可能取消、损失最大的订单排在前面让前台优先联系,并用 AI 写好原因和挽留建议。</p>
+  <div class="stats">
+    <div class="stat"><b>119,390 笔</b><span>订单 × 32 个字段,葡萄牙 2 家酒店,2015-07 到 2017-08</span></div>
+    <div class="stat"><b>37.0%</b><span>取消率(城市酒店 41.7%、度假酒店 27.8%)</span></div>
+    <div class="stat"><b>0.872</b><span>ROC-AUC,用 2016 年以前训练、2017 年测试(经验规则 0.748)</span></div>
+    <div class="stat"><b>68.5%</b><span>只看可挽留的个人订单,联系风险最高的 20%,名单里真的会取消的比例</span></div>
+  </div>
+  <figure>
+    <div class="frame"><img src="img/T1_b_lead_time.png" width="1000" height="459" alt="左图:取消和未取消订单的提前天数分布;右图:按提前天数分组的取消率,从当天订的 7% 升到提前一年以上的 68%"></div>
+    <figcaption><b>订得越早越容易取消。</b>当天订的只有 7% 取消,提前一年以上订的有 68% 取消。提前天数是最强的数字信号。</figcaption>
+  </figure>
+  <figure>
+    <div class="frame"><img src="img/T1_a_cancel_rate_by_segment.png" width="1000" height="740" alt="按酒店、订金类型、市场区隔分组的取消率;不退款订单取消率 99.4%,团体订单 61.1%"></div>
+    <figcaption><b>坑在这里:</b>“不退款”订单有 99.4% 取消,其中 93% 是一模一样的重复行。这比较像旅行社整批保留、再整批取消,打电话挽留不了。</figcaption>
+  </figure>
+  <div class="two">
+    <div>
+      <h3 class="label good">为什么好</h3>
+      <ul>
+        <li>数据量大、字段多,AT2 要的“特征、分布、相关性”都写得出来。</li>
+        <li>用时间切分也有 0.87,证明做得出来;逻辑回归和梯度提升几乎一样好(0.871 vs 0.872),复杂模型要拿数字证明值得。</li>
+        <li>商业意义清楚:被取消的房费占全部预订房费的 39%。按“取消概率 × 订单金额”排名单,联系 20% 的个人订单就涵盖 59.5% 的取消房费(随机挑只有 20%)。</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="label warn">风险和对策</h3>
+      <ul class="risks">
+        <li>26.8% 的行是重复行<span>用时间切分(重复行不会同时出现在训练和测试两边),去重前后的分数都报。</span></li>
+        <li>模型最有把握的一段是“不退款”团体单,其实救不回来<span>另外报“只看可挽留的个人订单”的分数(ROC-AUC 0.813)。</span></li>
+        <li>有字段会泄漏答案(reservation_status 等)<span>一定要删;国籍、订金类型这类灰色字段做消融实验(一次拿掉一个,看分数掉多少)。</span></li>
+        <li>随机切分会把 AUC 灌水到 0.944<span>一律用时间切分,AT2 直接引用这组数字说明原因。</span></li>
+        <li>21% 的取消在下订后 1 天内就发生<span>下订当下就评分,不能等到入住前才处理。</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="draft">
+    <div class="draft-head"><b>1.12 草稿</b><span class="hint">可以直接贴到讨论区</span><button type="button" class="copy" data-target="d-hc">复制</button></div>
+<pre class="draft-text" id="d-hc">项目目标(Project aim)
+针对酒店打算在客人入住前主动联系、挽留订单的做法,提前找出取消风险高、损失大的订单,并用 AI 给出原因说明和建议动作,减少取消造成的空房收入损失。
+
+项目具体目标(Project objectives)
+1. 开发单笔订单的取消风险预测器,只用下单时就能知道的信息(在 2017 年保留测试数据上 AUC ≥ 0.88)。
+2. 评估预测器在“人力只够联系 20% 订单”时是否好用,城市酒店和度假酒店分开评估(在可挽留的个人订单上,名单中真正会取消的比例 ≥ 70%)。
+3. 做定量的成本效益分析:比较按模型、按简单规则、随机挑选三种联系名单能挽回多少收入,并做敏感度分析。
+4. 用大语言模型为高风险订单生成简短的原因说明和建议动作,抽样检查不能出现事实错误。
+5. 做一个可操作的原型界面,让非技术人员也能查看风险排名、原因和 AI 说明。</pre>
+  </div>
+</section>
+
+<!-- 3. 酒店评论 -->
+<section class="topic" id="reviews" aria-labelledby="rv-h">
+  <div class="topic-top"><h2 id="rv-h">酒店评论抱怨雷达</h2><span class="pill ok">可以</span></div>
+  <p class="one">让 AI 读大量住客评论,找出差评最常抱怨、最影响评分的问题,附上原文依据,排出先改哪里。</p>
+  <div class="stats">
+    <div class="stat"><b>20,491 条</b><span>TripAdvisor 酒店评论,每条附 1–5 星</span></div>
+    <div class="stat"><b>15.7%</b><span>差评(1–2 星,共 3,214 条)</span></div>
+    <div class="stat"><b>0.882</b><span>macro-F1,最简单的模型(TF-IDF + 逻辑回归)抓差评</span></div>
+    <div class="stat"><b>约 2/3</b><span>关键词法分主题的准确度(抽查 48 句对 32 句)</span></div>
+  </div>
+  <figure>
+    <div class="frame"><img src="img/T3_complaint_topics.png" width="1000" height="560" alt="差评和好评里各抱怨主题出现的比例;差评最常见的是服务与前台 62%、房间与浴室 59%、价格 48%、清洁 45%"></div>
+    <figcaption><b>差评最常抱怨</b>服务/前台(62%)、房间设备(59%)、价格(48%)、清洁(45%)。这是关键词法的结果,只对约 2/3,这正是 AI 要补的地方。</figcaption>
+  </figure>
+  <div class="two">
+    <div>
+      <h3 class="label good">为什么好</h3>
+      <ul>
+        <li>AI 是主角:分主题、找原文依据、写建议,都是大语言模型擅长的;传统模型当基准也很容易。</li>
+        <li>“读得懂好坏”已经不难(0.88),真正的技术挑战是分主题、说清原因、排先后,报告很好写。</li>
+        <li>授权清楚(CC BY-NC 4.0,学术用途可以),要引用原论文。</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="label warn">风险和对策</h3>
+      <ul class="risks">
+        <li>只有“评论 + 星级”2 个字段,没有酒店名称和日期<span>原型定位成“一批评论(例如一个酒店集团)的抱怨雷达”;AT2 的分布与相关性用自己从文字算出的变量。</span></li>
+        <li>文字已经被预处理(全小写、虚词删掉)<span>报告里写清楚;评估时人工对照原文意思。</span></li>
+        <li>AI 准不准要有标准答案<span>组员人工标注 300 条评论当考卷。</span></li>
+        <li>好评占 73.7%,很不平均<span>评估一律看 macro-F1,不只看准确率。</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="draft">
+    <div class="draft-head"><b>1.12 草稿</b><span class="hint">可以直接贴到讨论区</span><button type="button" class="copy" data-target="d-rv">复制</button></div>
+<pre class="draft-text" id="d-rv">项目目标(Project aim)
+帮酒店管理者从大量住客评论中,快速找出差评最常抱怨、最影响评分的问题,并排出先改哪里,让有限的改善预算先花在最能减少差评的地方。
+
+项目具体目标(Project objectives)
+1. 做一个 AI 工具:读每条评论,标出它在抱怨什么(清洁、服务、房间、噪音、位置、餐饮、价格、Wi-Fi),并附上原文依据。
+2. 检查 AI 准不准:用组员人工标注的 300 条评论来对,准确度要明显高于关键字方法(目标约八成);AI 判断的好坏也要和住客自己打的星级一致。
+3. 排出改进的先后顺序:按“抱怨有多常见 × 跟低分关系多大”排出前 3 名,AI 写的每句建议都能对回原评论。
+4. 做出能操作的网页原型,请不懂技术的同学试用,5 分钟内能说出最该先改的 3 件事;同时记录处理全部评论的时间和费用。
+
+时间:12/11 前完成计划和基准测试;2/19 前完成原型和评估。</pre>
+  </div>
+</section>
+
+<!-- 4. IT 工单 -->
+<section class="topic" id="it-tickets" aria-labelledby="it-h">
+  <div class="topic-top"><h2 id="it-h">IT 工单自动分派 + AI 回复草稿</h2><span class="pill ok">可以</span></div>
+  <p class="one">新工单进来时自动判断该交给哪个支持组;有把握才自动分,没把握的交给 AI 或人工,并草拟第一封回复。</p>
+  <div class="stats">
+    <div class="stat"><b>47,837 张</b><span>工单,8 个支持组(CC0 授权)</span></div>
+    <div class="stat"><b>0.869</b><span>macro-F1,TF-IDF + 逻辑回归,9,568 张测试工单</span></div>
+    <div class="stat"><b>75.6%</b><span>要求正确率 95% 时,可以自动分派的工单比例</span></div>
+    <div class="stat"><b>83.9%</b><span>训练集里没见过的新型工单,准确率</span></div>
+  </div>
+  <figure>
+    <div class="frame"><img src="img/T5_confusion_matrix.png" width="1000" height="819" alt="8 个支持组的混淆矩阵,每组 80% 到 91% 分对;Administrative rights 有 15% 被分到 Hardware"></div>
+    <figcaption><b>大部分工单分得对</b>(每组 80–91%)。最容易搞混的是 Hardware、HR Support、Miscellaneous 三组;Administrative rights 有 15% 被当成 Hardware。</figcaption>
+  </figure>
+  <div class="two">
+    <div>
+      <h3 class="label good">为什么好</h3>
+      <ul>
+        <li>组里有运维经验的同学,可以当领域专家和评审,需求和评估都更真实。</li>
+        <li>“有把握才自动分派”很好讲业务价值:每 1,000 张自动分 756 张,约 37 张送错,其余 244 张转人工。</li>
+        <li>大语言模型的位置很明确:处理没把握的 24.4%,以及写回复草稿。</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="label warn">风险和对策</h3>
+      <ul class="risks">
+        <li>文字被重度清理(全小写、没有标点和数字、人名和一些常用字被删)<span>回复草稿不用这份文字评,另做一份由运维同学盲评的测试集。</span></li>
+        <li>8 个类别名称的来源没写<span>请运维同学抽查 200 张,确认分类合理。</span></li>
+        <li>6.0% 的测试工单在训练集有几乎一样的“双胞胎”<span>另外报新型工单的准确率(83.9%)。</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="draft">
+    <div class="draft-head"><b>1.12 草稿</b><span class="hint">可以直接贴到讨论区</span><button type="button" class="copy" data-target="d-it">复制</button></div>
+<pre class="draft-text" id="d-it">项目目标(Project aim)
+针对企业 IT 服务台每天收到的新工单,自动判断该交给哪个支持组,并草拟第一封回复,服务台人员只需确认或小改,从而减少人工分派的工作量和转错组的来回,让用户更快收到有用的回复。
+
+项目具体目标(Project objectives)
+1. 用公开的 IT 工单数据(约 4.8 万张、8 个支持组)完成数据理解,并请组里的运维同学抽查 200 张工单的分类是否合理(12/11 前写进项目计划)。
+2. 开发工单分派模型,只在有把握时自动分派:自动分派的正确率 ≥ 95%,覆盖 ≥ 80% 的工单。
+3. 比较大语言模型(零样本、少样本)和传统方法的效果、成本和速度,决定 AI 用在哪一步最合适。
+4. 开发回复草稿功能,由运维同学盲评:≥ 70% 的草稿只需小改就能发出,且没有错误或危险的操作指示。
+5. 做一个可操作的原型,估算每 1,000 张工单能省下多少人工分派和处理时间(2–5 在 2/19 前完成)。</pre>
+  </div>
+</section>
+
+<!-- 5. 共享单车 -->
+<section class="topic" id="bike" aria-labelledby="bk-h">
+  <div class="topic-top"><h2 id="bk-h">共享单车需求预测 + AI 调度日报</h2><span class="pill ok">可以,不突出</span></div>
+  <p class="one">预测隔天每个小时的用车量,AI 自动写调度日报,让运营团队提前把车和人手排到高峰时段。</p>
+  <div class="stats">
+    <div class="stat"><b>17,379 小时</b><span>华盛顿 Capital Bikeshare,2011–2012(CC BY 4.0)</span></div>
+    <div class="stat"><b>19.4%</b><span>WAPE,梯度提升做隔天预测(经验做法 25.5%)</span></div>
+    <div class="stat"><b>5–9 个百分点</b><span>有没有天气数据,误差的差距</span></div>
+    <div class="stat"><b>165 小时</b><span>缺的小时数(官网却写“没有缺值”)</span></div>
+  </div>
+  <figure>
+    <div class="frame"><img src="img/T2_hourly_profile.png" width="1000" height="480" alt="每小时平均租借量:工作日在 8 点(477)和 17 点(525)有两个高峰,周末假日在 13 点(373)有一个高峰"></div>
+    <figcaption><b>两种完全不同的形状:</b>工作日是通勤双峰(8 点 477 次/小时、17 点 525 次/小时),周末假日是中午单峰(13 点 373 次/小时),要分开处理。</figcaption>
+  </figure>
+  <div class="two">
+    <div>
+      <h3 class="label good">为什么好</h3>
+      <ul>
+        <li>数据最干净、最小(一个表),上手最快。</li>
+        <li>模型比经验做法误差低约两成,结果好讲。</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="label warn">风险和对策</h3>
+      <ul class="risks">
+        <li>和课程的“出租车乘客需求”案例很像<span>做出不同:讲清楚决策时间点(前一天傍晚)、天气用预报、加节假日和活动日历、AI 日报里的数字由程序核对。</span></li>
+        <li>只有全系统总量,没有站点<span>只回答“什么时候、要准备多少”,不承诺“哪一站缺车”。</span></li>
+        <li>两份官方说明的温度换算公式不一样<span>报告里写明用哪一个、为什么。</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="draft">
+    <div class="draft-head"><b>1.12 草稿</b><span class="hint">可以直接贴到讨论区</span><button type="button" class="copy" data-target="d-bk">复制</button></div>
+<pre class="draft-text" id="d-bk">项目目标(Project aim)
+为共享单车运营团队预测次日每小时的用车需求,并由 AI 自动生成调度日报,帮助团队提前把车辆和人手安排到高峰时段,减少高峰时段的供需落差和临时调度。
+
+项目具体目标(Project objectives)
+1. 分析时段、工作日与节假日、季节和天气对用车量的影响,整理成运营团队看得懂的需求规律。
+2. 开发次日每小时用车需求预测模型,在保留的测试数据上,误差比现有的经验做法低约两成。
+3. 评估模型在高峰时段和特殊日子(节假日、恶劣天气)是否可靠,标出需要人工确认的情况。
+4. 用大语言模型把预测结果写成调度日报,并请有运维经验的组员评估日报能否直接使用。
+5. 估算使用预测和日报后,能减少多少调度误差和成本。</pre>
+  </div>
+</section>
+
+<!-- 6. 航空满意度 -->
+<section class="topic" id="airline" aria-labelledby="al-h">
+  <div class="topic-top"><h2 id="al-h">航空旅客满意度 + AI 服务改善建议</h2><span class="pill no">不建议</span></div>
+  <p class="one">从满意度问卷找出对不同旅客群最能提升满意度的服务,AI 写成改善建议。</p>
+  <div class="stats">
+    <div class="stat"><b>129,880 份</b><span>问卷,22 个字段 + 答案字段</span></div>
+    <div class="stat"><b>43.45%</b><span>满意的比例</span></div>
+    <div class="stat"><b>96.4%</b><span>梯度提升的准确率(ROC-AUC 0.995)</span></div>
+    <div class="stat"><b>88.6%</b><span>只用两条简单规则就能猜对的比例</span></div>
+  </div>
+  <figure>
+    <div class="frame"><img src="img/T4_service_ratings_vs_satisfaction.png" width="1000" height="720" alt="14 项服务按评分分组的满意比例热力图;机上 Wi-Fi 打 0 分的人 100% 满意、打 5 分的 99% 满意"></div>
+    <figcaption><b>不正常的地方:</b>机上 Wi-Fi 打 0 分的人 100% 满意、打 5 分的 99% 满意。真实问卷不会这么整齐,数据很可能是按规则生成的。</figcaption>
+  </figure>
+  <div class="two">
+    <div>
+      <h3 class="label good">为什么还列出来</h3>
+      <ul>
+        <li>模型很容易做,可以当“方法示范”:分客群找重点服务、模拟“某项服务 +1 分”会怎样。</li>
+        <li>差别主要在“谁”:商务旅行的人 58.4% 满意,私人旅行只有 10.1%。</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="label warn">风险和对策</h3>
+      <ul class="risks">
+        <li>来源和授权都查不到(Kaggle 只写“Other”)<span>如果硬要做,报告里写明只当方法示范,另找一份来源清楚的数据做主要分析。</span></li>
+        <li>模型学到的可能是数据的生成规则,不是旅客真实行为<span>结论不能写成“航空公司应该……”,只能写成“这个方法能找出……”。</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="draft">
+    <div class="draft-head"><b>1.12 草稿</b><span class="hint">可以直接贴到讨论区</span><button type="button" class="copy" data-target="d-al">复制</button></div>
+<pre class="draft-text" id="d-al">项目目标(Project aim)
+针对航空公司服务改善预算的分配,从旅客满意度问卷中找出对不同旅客群体最能提升满意度的服务项目,并整理成管理层可以直接讨论的改善建议,让同样的预算换来更多满意的旅客。
+
+项目具体目标(Project objectives)
+1. 按舱位和出行目的把旅客分组,找出每组最影响满意度的几项服务。
+2. 开发旅客满意度预测模型,并评估它的准确性。
+3. 开发“如果某项服务评分提高”的模拟功能,估计满意比例的变化。
+4. 用大语言模型根据分析结果撰写改善建议,并检查建议里的数字与分析结果一致。
+5. 结合成本假设,比较各项改善的性价比,列出优先顺序。</pre>
+  </div>
+</section>
+
+<footer>
+  <p><b>数字怎么来的</b>:前 5 题都用 Python 实际下载数据、实际计算;数据规模和比例类的 20 个数字由另一套程序独立重算,全部一致。模型分数是各题分析程序跑出来的,还没有第二个人重跑。公交题的接口和时刻表在 11/4 实际调用和下载核对。每题另有一份完整报告(繁体中文,含数据字典、质量问题和实验表)。</p>
+  <p><b>数据来源</b></p>
+  <ul>
+    <li>酒店订单:Antonio, Almeida &amp; Nunes (2019), <i>Data in Brief</i> 22: 41–49,<a href="https://doi.org/10.1016/j.dib.2018.11.126">doi.org/10.1016/j.dib.2018.11.126</a></li>
+    <li>酒店评论:<a href="https://www.kaggle.com/datasets/andrewmvd/trip-advisor-hotel-reviews">Kaggle Trip Advisor Hotel Reviews</a>(CC BY-NC 4.0;引用 Alam, Ryu &amp; Lee, 2016)</li>
+    <li>IT 工单:<a href="https://www.kaggle.com/datasets/adisongoh/it-service-ticket-classification-dataset">Kaggle IT Service Ticket Classification</a>(CC0)</li>
+    <li>共享单车:<a href="https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset">UCI Bike Sharing Dataset</a>(CC BY 4.0)</li>
+    <li>航空满意度:<a href="https://www.kaggle.com/datasets/teejmahal20/airline-passenger-satisfaction">Kaggle Airline Passenger Satisfaction</a>(授权写“Other”)</li>
+    <li>香港巴士到站与时刻表:<a href="https://data.gov.hk/">DATA.GOV.HK</a>;额外等车时间:<a href="https://tfl.gov.uk/corporate/publications-and-reports/bus-operator-league-tables">TfL Bus operator league tables</a></li>
+  </ul>
+  <p>图里的英文是原始字段名和图表说明,中文解读写在每张图下面。</p>
+</footer>
+
+</main>
+<script>
+document.querySelectorAll("button.copy").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    var el = document.getElementById(btn.getAttribute("data-target"));
+    if (!el) return;
+    var text = el.textContent.trim();
+    var show = function (msg) {
+      btn.textContent = msg;
+      setTimeout(function () { btn.textContent = "复制"; }, 2000);
+    };
+    var fallback = function () {
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      show("已选中,请按 Ctrl+C");
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { show("已复制"); }, fallback);
+      } else {
+        fallback();
+      }
+    } catch (e) {
+      fallback();
+    }
+  });
+});
+</script>
+</body>
+</html>

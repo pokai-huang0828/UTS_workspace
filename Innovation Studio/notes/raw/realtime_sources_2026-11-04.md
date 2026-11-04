@@ -5,7 +5,7 @@
 ## 結論先看
 
 - **香港巴士(九巴 KMB/LWB、城巴 Citybus)到站預計時間**:不用金鑰、現在就回 200、約每 1 分鐘更新;DATA.GOV.HK 條款「both commercial and non-commercial purposes on a free-of-charge basis」,要清楚註明來源、資料「AS IS」。**沒有歷史檔,要自己定時抓。**
-- **香港官方時刻表(GTFS)**:<https://static.data.gov.hk/td/pt-headway-en/gtfs.zip>(13.7 MB,檔案日期 2026-11-02,交通署「Regular/Specified schedule data of public transport services」,約每兩週更新),含 `frequencies.txt`、`stop_times.txt`、`trips`、`routes`、`stops`、`calendar`。可以當「規定班距」基準。⚠️ 還沒確認有沒有涵蓋九巴路線、`stop_times` 是逐班時刻還是班距制。
+- **香港官方時刻表(GTFS)**:<https://static.data.gov.hk/td/pt-headway-en/gtfs.zip>(13.7 MB,檔案日期 2026-11-02,交通署「Regular/Specified schedule data of public transport services」,約每兩週更新),含 `frequencies.txt`、`stop_times.txt`、`trips`、`routes`、`stops`、`calendar`。可以當「規定班距」基準。⚠️ 還沒確認有沒有涵蓋九巴路線、`stop_times` 是逐班時刻還是班距制。→ ✅ **同日指揮官下載確認**:`agency.txt` 有 KMB;九巴 578 個路線號中 396 個在 `frequencies.txt` 有分時段規定班距(`headway_secs`,例:1A 線 7–20 分鐘),也就是班距制(按 `route_id` 記錄算是 783 筆中 459 筆;同一路線號的變體會分成多筆)。
 - **哪裡都沒有「實際到站」紀錄**(九巴、城巴、交通署、新加坡都沒有)→「延誤/可靠度」要靠反覆抓預計到站時間自己推算:班距過大(長時間等車)、串車(兩班擠在一起)、預計時間突然跳動。
 - **新加坡 LTA DataMall**:要申請 AccountKey;Bus Arrival 每 20 秒更新,每班車有 `EstimatedArrival`、`Monitored`(1 = 依車輛定位、0 = 依時刻表)、`Load`(SEA/SDA/LSD 擁擠度)、`Type`、經緯度;Singapore Open Data Licence 可商業與非商業使用、要醒目註明來源;另有每月各站上下車人數、OD、`Bus Routes` 的規定班次頻率(例如 `AM_Peak_Freq` = 「14-17」分鐘)。免費額度沒寫明。
 
