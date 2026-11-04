@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第一次组会选题清单</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* 布局:窄栏正文 + 卡片网格;像一份开会时大家一起看的议程单,先议程、再选题方法、再 12 张题目卡 */
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --ink: #1b2733;
+  --muted: #5b6875;
+  --line: #d9e0e6;
+  --accent: #0e6b74;
+  --accent-soft: #e3f1f2;
+  --warn: #9a5a00;
+  --warn-soft: #fbf1e1;
+  --font-display: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11181f;
+    --surface: #18222c;
+    --ink: #e4eaef;
+    --muted: #9aa8b4;
+    --line: #2b3a47;
+    --accent: #5cc3cb;
+    --accent-soft: #173a3e;
+    --warn: #f0b35a;
+    --warn-soft: #3a2c16;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11181f;
+  --surface: #18222c;
+  --ink: #e4eaef;
+  --muted: #9aa8b4;
+  --line: #2b3a47;
+  --accent: #5cc3cb;
+  --accent-soft: #173a3e;
+  --warn: #f0b35a;
+  --warn-soft: #3a2c16;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+}
+.wrap { max-width: 1060px; margin: 0 auto; padding: 32px 20px 64px; display: grid; gap: 36px; }
+header { display: grid; gap: 10px; }
+.kicker { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: .04em; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.35; }
+h1 { font-size: clamp(26px, 4vw, 34px); }
+h2 { font-size: 22px; }
+h3 { font-size: 18px; }
+p { margin: 0; }
+.lede { color: var(--muted); max-width: 68ch; }
+.meta { color: var(--muted); font-size: 14px; }
+section { display: grid; gap: 14px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; }
+ol.agenda { margin: 0; padding-left: 1.4em; display: grid; gap: 10px; max-width: 72ch; }
+ol.agenda b { color: var(--ink); }
+.deadlines { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+.dl { border-left: 3px solid var(--accent); padding: 6px 12px; background: var(--accent-soft); border-radius: 0 8px 8px 0; font-size: 15px; }
+.dl strong { display: block; font-variant-numeric: tabular-nums; }
+.flow { display: grid; gap: 10px; max-width: 76ch; }
+.q { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
+.qn { font-family: var(--font-display); font-weight: 700; color: var(--accent); font-size: 18px; min-width: 2.2em; }
+.pick { display: inline-block; font-weight: 700; color: var(--accent); }
+.note { color: var(--muted); font-size: 14px; max-width: 76ch; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 14.5px; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 500; font-size: 13px; background: var(--bg); }
+tr:last-child td { border-bottom: none; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 470px), 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; display: grid; gap: 10px; align-content: start; }
+.card-top { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.rank { font-family: var(--font-display); font-weight: 700; color: var(--accent); font-size: 20px; font-variant-numeric: tabular-nums; }
+.code { font-size: 12.5px; color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 0 6px; }
+.score { margin-left: auto; font-variant-numeric: tabular-nums; font-size: 14px; color: var(--muted); white-space: nowrap; }
+.score b { color: var(--ink); font-size: 16px; }
+.one { color: var(--ink); font-weight: 500; }
+.label { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .03em; }
+.card ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 13px; background: var(--accent-soft); color: var(--ink); border-radius: 999px; padding: 1px 10px; }
+.data { font-size: 14px; color: var(--muted); }
+.caution { font-size: 14.5px; background: var(--warn-soft); border-radius: 8px; padding: 8px 12px; }
+.caution b { color: var(--warn); }
+.card.own { border-style: dashed; }
+footer { color: var(--muted); font-size: 13.5px; display: grid; gap: 6px; max-width: 80ch; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 420px) {
+  .wrap { padding: 24px 16px 48px; }
+  .panel, .card { padding: 16px; }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<header>
+  <div class="kicker">项目团队 #5 · 421048 Innovation Studio</div>
+  <h1>第一次组会选题清单</h1>
+  <p class="lede">12 个可以做的题目,每个都写了为什么值得做、谁最有发挥空间、数据在哪、要注意什么。建议开会前每人先挑 3 个喜欢的,会上先投票,再用下面两个问题收敛到 1 个题目加 1 个备案。</p>
+  <p class="meta">整理:Kenny · 题目的公开数据已于 2026-10-29~30 逐一打开核对 · 分数是两位评审(课程评分角度、技术负责人角度)的平均,满分 30</p>
+</header>
+
+<section>
+  <h2>这次会议要讨论的 6 件事</h2>
+  <div class="panel">
+    <ol class="agenda">
+      <li><b>互相了解</b>:每人的背景、每周能投入几小时、会不会写程序或处理数据(Python、SQL、shell 都算)、北京那边能不能连 GitHub / Kaggle / Hugging Face / AI 接口。</li>
+      <li><b>选题</b>:看下面的清单,每人投 3 票,再用两个问题选出 1 个题目和 1 个备案。</li>
+      <li><b>分工</b>:课程要求的 5 个主要职责(项目管理、利益相关者管理、方法论、业务理解、软件工程)各排一位主责和一位备援;支持职责(代码审查与测试、报告撰写、报告审阅)也排好。演讲时每人都要讲自己负责的部分。</li>
+      <li><b>时程</b>:到 12/11 的里程碑。建议:11/15 前拿到数据,11/29 前完成数据探索(EDA),12/6 报告初稿,第 7 周周三或周四演讲,12/11 交报告和 PPT。</li>
+      <li><b>工具和约定</b>:微信群、共享文件夹(北京能打开的)、每周固定开会时间、报告用简体还是繁体、AI 工具怎么用(课程还没公布规定,先约定都要自己看懂、改写)。</li>
+      <li><b>本周必交</b>:每人在小组讨论区发第 1 篇周报,写清楚自己负责什么(下面的截止时间)。</li>
+    </ol>
+  </div>
+  <div class="deadlines">
+    <div class="dl"><strong>11/5(四)19:30</strong>第 2 次 Zoom,老师会展示一份提案示例</div>
+    <div class="dl"><strong>11/8(日)20:59 北京时间</strong>第 1 篇周报(悉尼 23:59),每人自己发,不能延期</div>
+    <div class="dl"><strong>本周内</strong>每人在「1.12 第二周目标设定活动」贴自己的项目目标</div>
+    <div class="dl"><strong>12/11(五)20:59 北京时间</strong>AT2 报告 PDF 和演讲 PPT 一起交</div>
+  </div>
+</section>
+
+<section>
+  <h2>用两个问题快速收敛</h2>
+  <div class="panel flow">
+    <div class="q"><span class="qn">问 1</span><p>两位运维背景的同学,愿不愿意自己动手处理数据(写 shell/SQL、切日志、跑脚本)?<br>愿意 → <span class="pick">O1 运维日志异常 + AI 根因说明</span>(两位运维当主角)。</p></div>
+    <div class="q"><span class="qn">问 2</span><p>如果不愿意:旅游赛事背景的同学想不想要一个自己的主场?<br>想 → <span class="pick">V3 航班延误 → 旅客通知与改签</span>(最平均);都不想、只求稳 → <span class="pick">T3 自驾事故 → 测试场景</span>(最不会做不完)。</p></div>
+    <p class="note">另一个选项:老师 10/29 在 Zoom 说,工作中<b>不涉密</b>的实际项目数据也可以用(第 12 张卡)。如果谁能拿到脱敏后的工单、告警或监控数据,题目会比任何公开数据都真实。</p>
+  </div>
+</section>
+
+<section>
+  <h2>12 个题目一览</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>#</th><th>题目</th><th>一句话</th><th>谁最有主场</th><th>做得完(5 分制)</th><th>团队适配(5 分制)</th><th>总分 / 30</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>T3 自驾事故 → 测试场景生成器</td><td>把真实自驾事故变成测试用例,找出测试计划的漏洞</td><td>Kenny</td><td class="num">5</td><td class="num">2.38</td><td class="num"><b>22.38</b></td></tr>
+        <tr><td class="num">2</td><td>O1 运维日志异常 + AI 根因说明</td><td>从几百万行日志找出异常时段,AI 引用原始日志写白话根因</td><td>两位运维</td><td class="num">3.5</td><td class="num">3.50</td><td class="num"><b>22.00</b></td></tr>
+        <tr><td class="num">3</td><td>V3 航班延误 → 旅客通知与改签</td><td>预测取消和大延误,自动生成旅客通知和同日改签方案</td><td>旅游赛事,4 人都有活</td><td class="num">4</td><td class="num">3.13</td><td class="num"><b>21.63</b></td></tr>
+        <tr><td class="num">4</td><td>T1 车辆缺陷早期预警</td><td>从车主投诉里,比官方召回更早发现车辆问题</td><td>Kenny</td><td class="num">3</td><td class="num">2.50</td><td class="num"><b>20.50</b></td></tr>
+        <tr><td class="num">5</td><td>O4 IT 服务台工单助手</td><td>开单就预测会不会超时,建议分派组和相似旧案</td><td>两位运维</td><td class="num">4</td><td class="num">3.88</td><td class="num"><b>20.38</b></td></tr>
+        <tr><td class="num">6</td><td>V4 访澳客源预测 → 接待容量</td><td>预测各国来澳旅客量,换算成房量和人力缺口</td><td>旅游赛事</td><td class="num">5</td><td class="num">2.50</td><td class="num"><b>19.50</b></td></tr>
+        <tr><td class="num">7</td><td>T5 Bug 报告去重助手</td><td>新 bug 进来,自动找出可能重复的旧单</td><td>Kenny</td><td class="num">4</td><td class="num">2.50</td><td class="num"><b>19.50</b></td></tr>
+        <tr><td class="num">8</td><td>V5 活动售票高峰 → 系统扩容建议</td><td>预测开卖高峰流量,模拟不同扩容方案的成本和服务水平</td><td>4 人都有主场</td><td class="num">2.5</td><td class="num">4.25</td><td class="num"><b>18.75</b></td></tr>
+        <tr><td class="num">9</td><td>O2 机房硬盘故障预测 → 备件排程</td><td>用每日硬盘读数预测 30 天内会坏的硬盘,提前备件</td><td>IT 运维</td><td class="num">3</td><td class="num">3.13</td><td class="num"><b>18.63</b></td></tr>
+        <tr><td class="num">10</td><td>V1 悉尼短租 × 大型活动需求</td><td>估算跨年烟火、Vivid 等活动对各区短租需求的拉动</td><td>旅游赛事</td><td class="num">3</td><td class="num">2.75</td><td class="num"><b>18.25</b></td></tr>
+        <tr><td class="num">11</td><td>O5 云事故复盘风险雷达</td><td>AI 读事故复盘报告,整理根因类别、影响和改进项</td><td>两位运维</td><td class="num">—</td><td class="num">—</td><td class="num"><b>18.25</b></td></tr>
+        <tr><td class="num">12</td><td>自带题目:用不涉密的工作数据</td><td>用某位成员公司里脱敏后的真实数据做题目</td><td>数据提供者</td><td class="num">看数据</td><td class="num">—</td><td class="num">未评分</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">做得完 = 在时程内做出能运行的系统的把握;团队适配 = 4 个人各自能发挥多少的平均。两项都是 5 分制,数字越高越好。</p>
+</section>
+
+<section>
+  <h2>每个题目为什么值得做</h2>
+  <div class="cards">
+
+    <article class="card">
+      <div class="card-top"><span class="rank">1</span><h3>自驾事故 → 测试场景生成器</h3><span class="code">T3</span><span class="score"><b>22.38</b> / 30</span></div>
+      <p class="one">把真实的自动驾驶事故报告,变成测试用例和覆盖率缺口图,帮测试团队找出测试计划漏掉的场景。</p>
+      <div class="label">为什么是好题目</div>
+      <ul>
+        <li><b>最容易做完</b>:数据只有一个约 2.8 MB 的表格,笔记本电脑就能跑,AI 费用很低,展示时最不容易出错。</li>
+        <li><b>题目新、课上少见</b>:自动驾驶 + 真实事故 + 大语言模型,有近年的研究可以当前沿参考。</li>
+        <li><b>正好对上 AT3 的高分要求</b>:AI 读事故叙述 → 生成场景卡和测试用例 → 显示覆盖率缺口,本身就是「把 AI 做成可行动的功能」。</li>
+        <li>Kenny 的测试验证本业最能发挥,方法和开发有人扛。</li>
+      </ul>
+      <div class="chips"><span class="chip">Kenny:方法、开发</span><span class="chip">IT 运维:数据管道、部署</span><span class="chip">运维总监:项目管理</span><span class="chip">旅游赛事:访谈与用户测试</span></div>
+      <p class="data">数据:美国交通部 NHTSA 自动驾驶事故报告(约 2.8 MB、116 栏、1,595 份报告),免账号,每月更新。</p>
+      <p class="caution"><b>要注意</b>:数据量小又偏(约八成来自同一家公司);其他三位的本业用得比较少。</p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="rank">2</span><h3>运维日志异常 + AI 根因说明</h3><span class="code">O1</span><span class="score"><b>22.00</b> / 30</span></div>
+      <p class="one">从几百万行系统日志里找出异常时段,再让 AI 引用原始日志,用白话写出可能的根因,帮值班人员更快判断。</p>
+      <div class="label">为什么是好题目</div>
+      <ul>
+        <li><b>两位运维同学是主角</b>:读日志、判断哪些告警值得处理,本来就是日常工作,业务痛点讲得最真实。</li>
+        <li><b>数据大、有标注</b>:474 万行日志,告警行都标好了,可以客观算准确度;AT2 要的数据分布和相关性分析好做。</li>
+        <li><b>AI 用得自然</b>:先用异常检测找可疑时段,再让大语言模型写根因说明,正好是 AT3 要的「可行动功能」。</li>
+        <li>场景接近真实企业(值班、工单、SLA),展示时非技术听众也容易懂。</li>
+      </ul>
+      <div class="chips"><span class="chip">运维总监:定义什么告警值得处理、审 AI 说明</span><span class="chip">IT 运维:值班流程、标注时间窗</span><span class="chip">Kenny:方法、开发</span><span class="chip">旅游赛事:项目管理、报告整合、社会影响</span></div>
+      <p class="data">数据:Loghub BGL 日志(Zenodo,压缩 57 MB、474 万行、告警行 7.34%);备选 HDFS、OpenStack 日志。授权写「研究或学术用途可免费使用」。</p>
+      <p class="caution"><b>要注意</b>:日志是 2005 年超级计算机的,说服力偏弱(有不涉密的工作日志可以替换);AI 写的根因没有标准答案,要请两位运维盲评。</p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="rank">3</span><h3>航班延误 → 旅客通知与改签助手</h3><span class="code">V3</span><span class="score"><b>21.63</b> / 30</span></div>
+      <p class="one">预测哪些航班会取消或大延误,自动生成给旅客的通知和同日改签方案,由客服确认后发出。</p>
+      <div class="label">为什么是好题目</div>
+      <ul>
+        <li><b>4 个人最平均都有活</b>:前 5 名里分工最顺的一题。旅游赛事同学管旅客视角、通知语气和改签政策;运维总监把事件管理、SLA、升级规则带进来;IT 运维负责服务、队列和监控。</li>
+        <li><b>数据大又干净</b>:美国 BTS 每月一个文件,单是 8 月就有 60.8 万个航班;澳洲 BITRE 月度数据可以补悉尼的情境。</li>
+        <li><b>业务价值好讲</b>:减少客服压力、提升旅客满意度,社会面(旅客权益、出行体验)也好写。</li>
+        <li>AI 有两个自然的用法:预测延误,再生成个人化通知和改签选项。</li>
+      </ul>
+      <div class="chips"><span class="chip">旅游赛事:利益相关者、改签政策</span><span class="chip">运维总监:项目管理、事件与 SLA</span><span class="chip">IT 运维:服务、监控、压测</span><span class="chip">Kenny:方法、开发</span></div>
+      <p class="data">数据:美国交通统计局 BTS 航班准点数据(2026-08 月档 60.8 万笔 × 110 栏);澳洲 BITRE 航线月度汇总(CC BY 3.0 AU)。</p>
+      <p class="caution"><b>要注意</b>:只有航班、没有旅客数据,旅客部分要模拟并说明;「延误预测」在 Kaggle 上很常见,创新点要放在通知和改签;主要数据是美国的。</p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="rank">4</span><h3>车辆缺陷早期预警雷达</h3><span class="code">T1</span><span class="score"><b>20.50</b> / 30</span></div>
+      <p class="one">用 AI 读车主投诉,每周找出异常升高的「车型 × 零件」组合,比官方召回更早提醒品质团队去查。</p>
+      <div class="label">为什么是好题目</div>
+      <ul>
+        <li><b>评分潜力最高</b>:「对到评分标准」两位评审都给满分。投诉数据有里程、车速、撞车/起火/受伤等栏位,分布和相关性分析很好做。</li>
+        <li><b>有标准答案可以验证</b>:真实的召回日期可以当答案,算出系统能提早几天亮灯。</li>
+        <li><b>社会价值强</b>:直接关系道路安全,影响可以量化。</li>
+        <li><b>展示好看</b>:「时光倒流」——把日期调回某次召回之前,看系统会不会提早亮灯。</li>
+      </ul>
+      <div class="chips"><span class="chip">Kenny:方法、开发、业务理解</span><span class="chip">IT 运维:数据管道</span><span class="chip">运维总监:项目管理</span><span class="chip">旅游赛事:利益相关者、报告</span></div>
+      <p class="data">数据:NHTSA 车主投诉 + 召回 + 调查档案,美国政府公开、免账号、每天更新。</p>
+      <p class="caution"><b>要注意</b>:范围很大,要砍到 2–3 个零件类别;开发几乎都压在 Kenny 身上,其他三位主场少。</p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="rank">5</span><h3>IT 服务台工单助手</h3><span class="code">O4</span><span class="score"><b>20.38</b> / 30</span></div>
+      <p class="one">工单一开就预测会不会超过 SLA,并建议分派给哪个组、附上相似的旧案,帮服务台少走弯路。</p>
+      <div class="label">为什么是好题目</div>
+      <ul>
+        <li><b>前 5 名里团队适配最高</b>:运维和 IT 背景都对口(SLA、ITIL 分类、分派规则)。</li>
+        <li><b>业务痛点清楚</b>:超时会被罚、分错组浪费人力,好算出节省多少。</li>
+        <li><b>数据授权清楚、量足</b>:约 2.5 万件事故、14 万笔状态变更,CC BY 4.0。</li>
+        <li>是 O1 的好备案:同样是运维主场,但更偏表格数据,做起来比较稳。</li>
+      </ul>
+      <div class="chips"><span class="chip">运维总监:SLA 与升级规则</span><span class="chip">IT 运维:分类分派</span><span class="chip">旅游赛事:项目管理、回复模板、用户测试</span><span class="chip">Kenny:方法、开发</span></div>
+      <p class="data">数据:UCI 事件日志 #498(24,918 件事故、36 栏,CC BY 4.0,全是匿名代号、没有文字栏);文字部分用 Hugging Face 工单数据(2,229 则)。</p>
+      <p class="caution"><b>要注意</b>:两份数据对不上,AI 亮点要靠一份小数据集;题目新意偏低。Hugging Face 在北京可能打不开。</p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="rank">6</span><h3>访澳客源预测 → 接待容量</h3><span class="code">V4</span><span class="score"><b>19.50</b> / 30</span></div>
+      <p class="one">预测各国来澳洲的旅客量,换算成酒店房量和人力缺口,给旅游业者提前准备。</p>
+      <div class="label">为什么是好题目</div>
+      <ul>
+        <li><b>最容易做完之一</b>:澳洲统计局官方接口,免密钥,月度数据从 2019 到 2026。</li>
+        <li><b>旅游赛事同学的主场最明显</b>:客源市场、接待能力、旅游规划都是本业。</li>
+        <li>和悉尼、澳洲直接相关,老师和同学容易有共鸣。</li>
+      </ul>
+      <div class="chips"><span class="chip">旅游赛事:业务理解、利益相关者</span><span class="chip">Kenny:方法、开发、项目管理</span><span class="chip">运维总监:审容量模型</span><span class="chip">IT 运维:预测服务化</span></div>
+      <p class="data">数据:澳洲统计局 ABS 入境旅客接口(12,846 笔月度数据、77 个国家/地区代码)。</p>
+      <p class="caution"><b>要注意</b>:数据比较薄;「接待容量」要用假设参数;AI 亮点要另外设计(例如自动生成情境简报);两位运维主场少。</p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="rank">7</span><h3>Bug 报告去重助手</h3><span class="code">T5</span><span class="score"><b>19.50</b> / 30</span></div>
+      <p class="one">新的 bug 报告一进来,自动找出最可能重复的 5 张旧单并说明理由,工程师按「是 / 不是」确认。</p>
+      <div class="label">为什么是好题目</div>
+      <ul>
+        <li><b>非常实用</b>:测试和开发团队每天都被重复单淹没,省下的时间很好量化。</li>
+        <li><b>数据真实、有标注</b>:Firefox 约 2.5 万、Thunderbird 约 1.5 万笔,而且 Mozilla 自己的去重工具可以当对照基准。</li>
+        <li><b>前沿 AI 用得自然</b>:向量检索找候选,大语言模型重新排序并写理由。</li>
+        <li>两位运维可以当「是不是重复」的盲评专家,和事件归类的日常很像。</li>
+      </ul>
+      <div class="chips"><span class="chip">Kenny:方法、开发</span><span class="chip">两位运维:盲评专家</span><span class="chip">旅游赛事:项目管理、报告</span></div>
+      <p class="data">数据:GitBugs 数据集(Firefox 24,824 笔、Thunderbird 15,192 笔,CC BY 4.0)+ Mozilla Bugzilla 接口。</p>
+      <p class="caution"><b>要注意</b>:旅游赛事同学没有主场;社会面偏弱;GitHub 在北京可能不稳。</p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="rank">8</span><h3>活动售票高峰 → 系统扩容建议</h3><span class="code">V5</span><span class="score"><b>18.75</b> / 30</span></div>
+      <p class="one">预测大型活动开卖瞬间的流量高峰,模拟不同扩容方案的成本和服务水平,帮主办方和技术团队提前准备。</p>
+      <div class="label">为什么是好题目</div>
+      <ul>
+        <li><b>唯一 4 个人都有主场的题目</b>(团队适配 4.25 最高):旅游赛事懂活动日程和开卖机制,运维总监懂容量和成本,IT 运维可以自己做一个模拟售票系统来压测和自动扩缩。</li>
+        <li><b>大家都有共鸣</b>:演唱会、赛事开卖时系统崩溃,是真实又常见的问题。</li>
+        <li>IT 运维能扛一部分开发,降低「只有一个人会写程序」的风险。</li>
+      </ul>
+      <div class="chips"><span class="chip">旅游赛事:利益相关者、活动日程</span><span class="chip">运维总监:业务理解、容量与成本</span><span class="chip">IT 运维:软件工程、压测</span><span class="chip">Kenny:项目管理、方法</span></div>
+      <p class="data">数据:维基百科浏览量(当作关注度)+ 自建压测数据 + Azure 公开负载数据。</p>
+      <p class="caution"><b>要注意</b>:没有真实售票流量,「关注度 → 流量」是假设,要定位成「决策支持模拟器」;维基百科接口会限流,北京可能连不上。</p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="rank">9</span><h3>机房硬盘故障预测 → 备件排程</h3><span class="code">O2</span><span class="score"><b>18.63</b> / 30</span></div>
+      <p class="one">用每天的硬盘健康读数(SMART),预测 30 天内会坏的硬盘,换算成备件采购和换盘排程。</p>
+      <div class="label">为什么是好题目</div>
+      <ul>
+        <li><b>IT 运维同学的本业</b>:换盘流程、备件成本最懂,业务理解有人扛。</li>
+        <li><b>数据真实又大</b>:Backblaze 公开约 35 万颗硬盘的每日读数,故障都有记录。</li>
+        <li><b>业务价值清楚</b>:减少宕机和库存积压;环境面也好写(减少浪费、延长设备寿命)。</li>
+      </ul>
+      <div class="chips"><span class="chip">IT 运维:业务理解</span><span class="chip">运维总监:利益相关者</span><span class="chip">Kenny:方法、开发</span><span class="chip">旅游赛事:项目管理</span></div>
+      <p class="data">数据:Backblaze Drive Stats(2026 第 2 季,压缩 2.09 GB、解压约 11.7 GB、197 栏),要注明来源、不可转卖数据本身。</p>
+      <p class="caution"><b>要注意</b>:故障很少、数据很大,笔记本处理吃力;主角是表格模型,AI 只在边角;旅游赛事同学没有主场。</p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="rank">10</span><h3>悉尼短租 × 大型活动需求雷达</h3><span class="code">V1</span><span class="score"><b>18.25</b> / 30</span></div>
+      <p class="one">估算跨年烟火、Vivid 灯光节等大型活动对悉尼各区短租需求的拉动,再让 AI 读住客评论,给房东和旅游业者行动建议。</p>
+      <div class="label">为什么是好题目</div>
+      <ul>
+        <li><b>旅游赛事同学的最大主场</b>:活动日程、判断建议可不可行,都是本业。</li>
+        <li><b>有趣、和悉尼直接相关</b>,展示时容易吸引听众。</li>
+        <li><b>AI 亮点自然</b>:让大语言模型读 80 多万则评论,整理出可以改进的地方。</li>
+      </ul>
+      <div class="chips"><span class="chip">旅游赛事:利益相关者、业务理解</span><span class="chip">Kenny:项目管理、方法、开发</span><span class="chip">两位运维:部署、风险</span></div>
+      <p class="data">数据:Inside Airbnb 悉尼 2026-09 快照(房源 20,833、评论约 82.9 万,CC BY 4.0,但禁止再发布原档)+ 手工整理活动日程。</p>
+      <p class="caution"><b>要注意</b>:没有真实订单和价格,「需求」只能用代理指标;活动日程要自己整理;两位运维主场少。</p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="rank">11</span><h3>云事故复盘风险雷达</h3><span class="code">O5</span><span class="score"><b>18.25</b> / 30</span></div>
+      <p class="one">让 AI 读公开的云服务事故复盘报告(postmortem),整理出根因类别、影响范围和改进项,做成一张风险雷达。</p>
+      <div class="label">为什么是好题目</div>
+      <ul>
+        <li><b>三位都有份</b>:两位运维熟悉事故复盘,旅游赛事同学可以负责利益相关者和报告。</li>
+        <li><b>大语言模型的典型用法</b>:从长篇文字里抽取结构化信息,再做统计和可视化。</li>
+        <li>对任何有线上服务的企业都有参考价值。</li>
+      </ul>
+      <div class="chips"><span class="chip">两位运维:业务理解、盲评</span><span class="chip">旅游赛事:利益相关者、报告</span><span class="chip">Kenny:方法、开发</span></div>
+      <p class="data">数据:约 240 则公开事故复盘摘要 + 8 则 Google Cloud 事故报告。</p>
+      <p class="caution"><b>要注意</b>:数据量少,而且多数授权还没确认,写报告前要先查清楚。</p>
+    </article>
+
+    <article class="card own">
+      <div class="card-top"><span class="rank">12</span><h3>自带题目:用不涉密的工作数据</h3><span class="code">自选</span><span class="score">未评分</span></div>
+      <p class="one">如果有成员能从公司拿到脱敏后的真实数据(例如工单、告警、监控、客诉),就围绕它做一个题目。</p>
+      <div class="label">为什么是好题目</div>
+      <ul>
+        <li><b>老师明确说可以</b>:10/29 Zoom 上说,工作中不涉密的实际项目数据可以用。</li>
+        <li><b>最真实</b>:业务背景、利益相关者、成功标准都来自真实工作,最容易写到高分。</li>
+        <li>展示时最有说服力,对成员自己的工作也有直接帮助。</li>
+      </ul>
+      <p class="caution"><b>要先确认</b>:公司同意;删掉姓名、IP、客户信息等;能不能放进报告和演讲。拿不到就回到 O1 或 O4,用公开数据做同样的题目。</p>
+    </article>
+
+  </div>
+</section>
+
+<footer>
+  <p>评分方式:两位独立评审各按 6 项打分(对到评分标准、做得完、数据风险低、团队适配、分工顺、与众不同),每项 5 分,取两人平均。第 11 名 O5 的分项分数没有列出。</p>
+  <p>所有题目的主要数据都已打开核对,但都有一些附带条件(授权、大小、地区);选定后请北京的同学先试着打开主要数据链接,确认能连上。</p>
+</footer>
+
+</main>
+</body>
+</html>
