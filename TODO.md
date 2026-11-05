@@ -32,7 +32,7 @@
 
 - [ ] 設 10 個週報提醒(11/8、11/15、11/22、11/29、12/6、12/13、1/24、1/31、2/7、2/14,週日 20:59 前)
 - [ ] **查下學期要不要重新註冊**(課程跨 Session 6 2026 與 Session 1 2027;老師 10/29 說她也不確定)
-- [ ] **選題(組會決定)**:最新 6 題比較頁 <https://claude.ai/artifact/L5LkdqQEUvgpCCwUqTyvHG>(原檔 `Innovation Studio/notes/08_深度分析/00_候選題對比.html`,簡體)→ 分享到微信群 → 組會從「**首選公交服務可靠性預警 / 備案酒店訂單取消**」定案
+- [ ] **選題(組會決定)**:最新 6 題比較頁 <https://claude.ai/artifact/L5LkdqQEUvgpCCwUqTyvHG>(原檔 `Innovation Studio/notes/08_深度分析/00_候選題對比.html`,簡體)→ 分享到微信群 → 組會從「**首選公交服務可靠性預警 / 備案酒店訂單取消**」定案(第 1 次組會 11/4:題目還沒定,先在 Zoom 2 問老師「題目一定要週日前定嗎」→ [`92`](Innovation%20Studio/notes/92_組會紀錄.md));老師怎麼回答,待 Kenny 補
   - 如果選公交:**最晚 11/10** 開始每分鐘自動收資料(開發負責;從 GTFS 有規定班距的 396 個九巴路線號挑 5–10 條);**11/17 檢查**有沒有穩定的 1 週資料,沒有就換酒店取消;請北京的隊友試開一次 data.gov.hk 接口網址
   - 每題都有 1.12 aim/objectives 簡體草稿(頁面上有複製鈕)→ 11/8 前貼到「1.12 #5」
   - 舊清單:好做版 8 題 <https://claude.ai/artifact/2cjKDrAcZNAfHkYs7FBvwt>(07,已加連結到比較頁)、團隊版 18 題 [`05`](Innovation%20Studio/notes/05_題目建議_團隊版.md)
