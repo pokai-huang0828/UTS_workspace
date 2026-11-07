@@ -1,0 +1,191 @@
+{
+  "source": "https://data.insideairbnb.com/australia/nsw/sydney/2026-09-16/data/listings.csv.gz",
+  "sha256": "06bbd629fbe93d9da1f2163e82d584a58738a53d7897d5c081f665aadc4e3c55",
+  "snapshot_directory": "2026-09-16",
+  "last_scraped": [
+    "2026-09-17"
+  ],
+  "rows": 20833,
+  "columns": 90,
+  "all": {
+    "n": 20833,
+    "priced_n": 17721,
+    "median_listed_price": 337.8
+  },
+  "room_types": {
+    "Entire home/apt": 16445,
+    "Private room": 4282,
+    "Hotel room": 58,
+    "Shared room": 48
+  },
+  "minimum_nights_missing": 13,
+  "minimum_nights_ge_90": 2846,
+  "price_pair_comparable_n": 17720,
+  "price_pair_equal_n": 17720,
+  "scope_definition": "Entire home/apt; bedrooms 1 or 2; accommodates 2–4; minimum_nights 1–7; missing scope fields excluded",
+  "scope": {
+    "n": 7565,
+    "priced_n": 6639,
+    "median_listed_price": 338.5
+  },
+  "scope_quote_groups": 873,
+  "top_scope_quote_groups": [
+    {
+      "checkin": "2026-09-17",
+      "checkout": "2026-09-18",
+      "nights": 1,
+      "n": 375,
+      "priced_n": 375,
+      "median_listed_price": 333.0
+    },
+    {
+      "checkin": "2026-09-17",
+      "checkout": "2026-09-19",
+      "nights": 2,
+      "n": 363,
+      "priced_n": 363,
+      "median_listed_price": 356.0
+    },
+    {
+      "checkin": "2026-09-20",
+      "checkout": "2026-09-22",
+      "nights": 2,
+      "n": 299,
+      "priced_n": 299,
+      "median_listed_price": 313.5
+    },
+    {
+      "checkin": "2026-09-21",
+      "checkout": "2026-09-23",
+      "nights": 2,
+      "n": 234,
+      "priced_n": 234,
+      "median_listed_price": 297.5
+    },
+    {
+      "checkin": "2026-09-20",
+      "checkout": "2026-09-21",
+      "nights": 1,
+      "n": 231,
+      "priced_n": 231,
+      "median_listed_price": 320.0
+    }
+  ],
+  "largest_quote_group_areas": {
+    "Auburn": {
+      "n": 26,
+      "priced_n": 26,
+      "median_listed_price": 331.5
+    },
+    "Leichhardt": {
+      "n": 15,
+      "priced_n": 15,
+      "median_listed_price": 135.0
+    },
+    "Manly": {
+      "n": 12,
+      "priced_n": 12,
+      "median_listed_price": 385.45
+    },
+    "North Sydney": {
+      "n": 16,
+      "priced_n": 16,
+      "median_listed_price": 390.2
+    },
+    "Pittwater": {
+      "n": 13,
+      "priced_n": 13,
+      "median_listed_price": 258.0
+    },
+    "Randwick": {
+      "n": 12,
+      "priced_n": 12,
+      "median_listed_price": 399.5
+    },
+    "Rockdale": {
+      "n": 10,
+      "priced_n": 10,
+      "median_listed_price": 239.51
+    },
+    "Ryde": {
+      "n": 13,
+      "priced_n": 13,
+      "median_listed_price": 414.0
+    },
+    "Sutherland Shire": {
+      "n": 16,
+      "priced_n": 16,
+      "median_listed_price": 326.5
+    },
+    "Sydney": {
+      "n": 93,
+      "priced_n": 93,
+      "median_listed_price": 364.0
+    },
+    "The Hills Shire": {
+      "n": 10,
+      "priced_n": 10,
+      "median_listed_price": 234.0
+    },
+    "Waverley": {
+      "n": 31,
+      "priced_n": 31,
+      "median_listed_price": 457.0
+    }
+  },
+  "scope_amenities_top": [
+    [
+      "Smoke alarm",
+      7303
+    ],
+    [
+      "Kitchen",
+      7103
+    ],
+    [
+      "Wifi",
+      6881
+    ],
+    [
+      "Hot water",
+      6749
+    ],
+    [
+      "Dishes and silverware",
+      6474
+    ],
+    [
+      "Bed linens",
+      6350
+    ],
+    [
+      "Hair dryer",
+      6299
+    ],
+    [
+      "Hangers",
+      6291
+    ],
+    [
+      "Microwave",
+      6073
+    ],
+    [
+      "Hot water kettle",
+      6050
+    ],
+    [
+      "Iron",
+      5987
+    ],
+    [
+      "Cooking basics",
+      5968
+    ]
+  ],
+  "caveats": [
+    "Listed/quoted prices, not completed bookings or revenue.",
+    "Common dates alone do not equalize bedroom, capacity, fees or guest count.",
+    "Areas with <10 listings omitted only from area aggregate, not from scope."
+  ]
+}
