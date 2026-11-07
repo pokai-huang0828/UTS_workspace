@@ -2481,3 +2481,15 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - §8 帳本(本 session):sonnet 5 個、合計 1,036,704 token(V1–V3 613,626、V4 152,338＋175,860、S13-V1 94,880);離 70% 線剩 13,296,不再派工。
 
 - 其他:repo 根目錄 `scratchpad/`(32 MB)是 573189d 那個 VS Code Codex session 留的,沒動、沒 commit。`notes/` 裡 `11_` 現在有 2 份(單元一整合筆記、Airbnb 與酒店),編號重複,未處理。
+
+## 2026-11-07 · Airbnb方向確認與雪梨新房東資料初探
+
+- Kenny確認團隊組建／分工及Airbnb資料方向；非同步問題回覆先用雪梨。更新README／TODO，候選題比較保留歷史，不再當待選清單。
+- 新工作稿 `Innovation Studio/notes/14_Airbnb新房東_資料範圍與業務方向.md`，建議競品定位＋改善清單＋營運情境；細分房型／業務目標仍為建議。可重現程式 `analysis/airbnb_entrant_eda.py`，小型彙總JSON與樣本篩選PNG已落檔，原始資料不進版控。
+- EDA：整套16,445；整套1–2房／2–4人／最低1–7晚7,565；有價6,639；有價且有入住／退房日期共873組，最大9/17–18組375、中位掛牌價AUD333（非建議售價）。17,720筆雙價格皆相同；最低晚數缺13、>=90晚2,846。程式含SHA／唯一ID／對賬assert，實跑通過；圖修正註腳重疊後目視通過。
+- 補充來源核對：本批calendar HTTP200表頭無價格；geojson HTTP200共38features。Xotelo Sydney list HTTP200 total628，指定酒店11/20–22、2成人1房AUD rates回3報價、tax均null，費用與每晚／總價仍待釐清；Open-Meteo預報HTTP200、免費非商用限制；Nager2026澳洲HTTP200共27列須按州篩選；Ticketmaster官方需key、每日5k／每秒5；TfNSW頁403、OSM小查詢406，未當作已取得資料。NSW官方假期／學校假期與STRA概述已讀；收益僅明示假設情境，不宣稱最優收益或裝修ROI。
+- 非產出者AIR-NOV07-REVIEW另用Decimal／csv獨立計算核心數字，全部吻合，並抽核來源；詳細邊界見`notes/raw/airbnb_entrant_review_2026-11-07.md`。沒有重訓模型或驗證真實商業效果。
+- 派工帳本：本Codex對話前段保守列帳540,000；本輪EDA／EXT兩個研究代理因用量限制未啟動，按各150,000列帳；另核對150,000，合計990,000（均沿用當前模型，工具未提供實耗，以保留額計，非實際用量）。不與另一聊天13檔的sonnet帳本混算；本對話不再派工。帳本在scratchpad。
+- 並行工作注意：另一聊天commit c34c017已包含當時本對話README／TODO更新；本次後續只提交自身新增研究／程式／彙總及最新狀態，保留該提交與既有13檔。
+
+- 補記:c34c017 用整檔暫存,順手帶上另一個 VS Code Codex session 尚未 commit 的 README、TODO 修改(方向已定 Airbnb、雪梨;連到還沒 commit 的 notes/14)。所以 13 的「首選酒店訂單」和 TODO 的「方向已確認 Airbnb」現在並存,要等 Kenny 確認;notes/14 commit 前,GitHub 上 README、TODO 的 14 連結打不開。
