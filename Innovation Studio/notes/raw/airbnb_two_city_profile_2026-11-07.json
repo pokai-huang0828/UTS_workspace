@@ -1,0 +1,96 @@
+{
+  "target_start": "2024-01-01",
+  "historical_snapshots_2024_acquired": false,
+  "cities": {
+    "sydney": {
+      "listings_url": "https://data.insideairbnb.com/australia/nsw/sydney/2026-09-16/data/listings.csv.gz",
+      "sha256": "06bbd629fbe93d9da1f2163e82d584a58738a53d7897d5c081f665aadc4e3c55",
+      "rows": 20833,
+      "columns": 90,
+      "last_scraped": [
+        "2026-09-17"
+      ],
+      "price_nonempty": 17721,
+      "scope_rows": 7565,
+      "scope_price_nonempty": 6639,
+      "calendar_fields": [
+        "listing_id",
+        "date",
+        "available",
+        "minimum_nights",
+        "maximum_nights"
+      ],
+      "reviews_summary_url": "https://data.insideairbnb.com/australia/nsw/sydney/2026-09-16/visualisations/reviews.csv",
+      "review_rows_with_date": 829163,
+      "review_date_min": "2009-12-05",
+      "review_date_max": "2026-09-17",
+      "reviews_by_year": {
+        "2009": 1,
+        "2010": 9,
+        "2011": 88,
+        "2012": 261,
+        "2013": 800,
+        "2014": 2247,
+        "2015": 5854,
+        "2016": 12923,
+        "2017": 22519,
+        "2018": 32476,
+        "2019": 44200,
+        "2020": 29317,
+        "2021": 33234,
+        "2022": 70256,
+        "2023": 100745,
+        "2024": 134978,
+        "2025": 182045,
+        "2026": 157210
+      },
+      "reviews_since_2024": 474233,
+      "history_warning": "Reviews attached to listings in this snapshot; not all historical listings or bookings."
+    },
+    "melbourne": {
+      "listings_url": "https://data.insideairbnb.com/australia/vic/melbourne/2026-09-16/data/listings.csv.gz",
+      "sha256": "7d09b7124bfc26bdb5c8a2a66efe0b9a48e4e1d7cc2e11242e9d52ee3f17985b",
+      "rows": 25715,
+      "columns": 90,
+      "last_scraped": [
+        "2026-09-17",
+        "2026-09-18"
+      ],
+      "price_nonempty": 19004,
+      "scope_rows": 10940,
+      "scope_price_nonempty": 8223,
+      "calendar_fields": [
+        "listing_id",
+        "date",
+        "available",
+        "minimum_nights",
+        "maximum_nights"
+      ],
+      "reviews_summary_url": "https://data.insideairbnb.com/australia/vic/melbourne/2026-09-16/visualisations/reviews.csv",
+      "review_rows_with_date": 1042226,
+      "review_date_min": "2010-08-04",
+      "review_date_max": "2026-09-18",
+      "reviews_by_year": {
+        "2010": 20,
+        "2011": 152,
+        "2012": 305,
+        "2013": 818,
+        "2014": 2678,
+        "2015": 8341,
+        "2016": 19680,
+        "2017": 33683,
+        "2018": 51528,
+        "2019": 67540,
+        "2020": 30162,
+        "2021": 42266,
+        "2022": 102053,
+        "2023": 136028,
+        "2024": 174079,
+        "2025": 205936,
+        "2026": 166957
+      },
+      "reviews_since_2024": 546972,
+      "history_warning": "Reviews attached to listings in this snapshot; not all historical listings or bookings."
+    }
+  }
+}
