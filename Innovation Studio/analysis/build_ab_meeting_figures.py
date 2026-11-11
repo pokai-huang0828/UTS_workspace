@@ -25,14 +25,13 @@ RANGES = [  # (名稱, 下限, 上限)  來源:notes/16 L33-L36
     ("只做 B②", 51, 65),  # L36
 ]
 
-# 新上架房源逐層篩出(雪梨, 墨爾本)
-FUNNEL = [  # 來源:notes/17_定題與三層目標_v1.md §3;鍵名在 notes/raw/airbnb_new_listing_definition_2026-11-11.json cities.<城>.*
-    ("同類且有價樣本", 6639, 8223),  # n_scope_price
-    ("新上架(首評 12 個月內)", 2028, 2056),  # windows.12m.n_new
-    ("且房東在本城只有這一間", 688, 713),  # windows.12m.n_new_single_host
-    ("且當房東 12 個月以內", 444, 514),  # windows.12m.n_new_single_and_tenure_le_window
+# 新手房東逐層篩出(雪梨, 墨爾本)。2026-11-12 更正(v1.1):改用年資欄定義的新手房東
+FUNNEL = [  # 來源:notes/raw/airbnb_new_host_definition_2026-11-12.json cities.<城>.*(analysis/airbnb_new_host_definition.py 產生)
+    ("同類且有價", 6639, 8223),  # n_rows.scope_price
+    ("新手房東(當房東不超過 12 個月)", 960, 1122),  # new_host_le12.scope_price(含剛好 12 個月)
+    ("其中名下只有一間(本城)", 569, 667),  # new_host_le12_and_single.scope_price;calculated_host_listings_count = 1
 ]
-FUNNEL_NOTE = "年資欄官方說明還沒查,加註使用"  # 17 §3 ⚠️;notes/raw/aim_review_2026-11-11.md L30
+FUNNEL_NOTE = "年資欄官方說明還沒查"  # 欄義是推論(notes/19 §5;raw/mel_review_2026-11-11.md)
 
 # ---------------- 樣式 ----------------
 BLUE, ORANGE, GRAY = "#1f5fa8", "#e07b1a", "#9aa0a6"
@@ -107,8 +106,8 @@ def fig_funnel():
     ax.legend(loc="lower right", frameon=False, fontsize=12)
     ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{int(x):,}"))
     style(ax)
-    fig.subplots_adjust(left=0.27, right=0.97, top=0.8, bottom=0.13)
-    title(fig, "「新上架房源」從有價樣本逐層篩出", "雪梨、墨爾本;每一層都是上一層的子集")
+    fig.subplots_adjust(left=0.33, right=0.97, top=0.8, bottom=0.13)
+    title(fig, "新手房東從同類有價房源逐層篩出", "雪梨、墨爾本(2026-09 期);每一層都是上一層的子集;新手 = 年資欄不超過 12 個月")
     fig.savefig(OUT / f"new_listing_funnel_{DATE}.png", facecolor="white")
 
 if __name__ == "__main__":

@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "scope_id": "IS-1112-FIX-NEWHOST",
+    "batch": "2026-09-16",
+    "definition": "真新手 = 房東開始月(last_scraped 月份 - 年資月數)>= 基準月 - 12;年資(月)= hosts_time_as_host_years*12 + hosts_time_as_host_months;基準月 = last_scraped 最大值的月份",
+    "scope_def": "篩選=整套/1-2房/2-4人/最低1-7晚;有價=篩選且 price 非空",
+    "field_caveat": "年資欄欄義由墨爾本 2025-12 期 host_since 排除法推論(notes/19 §5),官方欄位說明還沒查",
+    "sydney_caveat": "雪梨沒有 2025-12 那期可驗證欄義;雪梨的欄義沿用墨爾本的推論,未另外驗證",
+    "melbourne_check": "墨爾本結果已 assert 等於 mel_c_hosts_time_2026-11-11.json 的 c_new_host_definition(T 口徑)"
+  },
+  "cities": {
+    "sydney": {
+      "listings_file": "scratchpad\\airbnb_2026-11-07\\sydney_listings.csv.gz",
+      "batch_date": "2026-09-17",
+      "batch_month": "2026-09",
+      "first_review_cutoff_inclusive": "2025-09-17",
+      "n_rows": {
+        "all": 20833,
+        "scope": 7565,
+        "scope_price": 6639
+      },
+      "tenure_nonnull": {
+        "all": 20832,
+        "scope": 7565,
+        "scope_price": 6639
+      },
+      "new_host_le12": {
+        "all": 2610,
+        "scope": 1092,
+        "scope_price": 960
+      },
+      "new_host_le24": {
+        "all": 4924,
+        "scope": 1959,
+        "scope_price": 1714
+      },
+      "new_host_le12_and_single": {
+        "all": 1249,
+        "scope": 647,
+        "scope_price": 569
+      },
+      "crosstab_scope_price(列=舊代理首評分類,欄=真新手12個月)": {
+        "首評12個月內": {
+          "真新手": 723,
+          "非新手": 1305
+        },
+        "首評12個月前": {
+          "真新手": 10,
+          "非新手": 4013
+        },
+        "無評論": {
+          "真新手": 227,
+          "非新手": 361
+        }
+      },
+      "proxy_yes": 2028,
+      "real_yes": 960,
+      "both": 723,
+      "proxy_precision_pct(舊代理說新的裡面真新手)": 35.7,
+      "proxy_recall_pct(真新手裡被舊代理抓到)": 75.3
+    },
+    "melbourne": {
+      "listings_file": "scratchpad\\airbnb_2024_two_cities\\melbourne_listings.csv.gz",
+      "batch_date": "2026-09-18",
+      "batch_month": "2026-09",
+      "first_review_cutoff_inclusive": "2025-09-18",
+      "n_rows": {
+        "all": 25715,
+        "scope": 10940,
+        "scope_price": 8223
+      },
+      "tenure_nonnull": {
+        "all": 25715,
+        "scope": 10940,
+        "scope_price": 8223
+      },
+      "new_host_le12": {
+        "all": 3045,
+        "scope": 1216,
+        "scope_price": 1122
+      },
+      "new_host_le24": {
+        "all": 5405,
+        "scope": 2238,
+        "scope_price": 2013
+      },
+      "new_host_le12_and_single": {
+        "all": 1698,
+        "scope": 732,
+        "scope_price": 667
+      },
+      "crosstab_scope_price(列=舊代理首評分類,欄=真新手12個月)": {
+        "首評12個月內": {
+          "真新手": 857,
+          "非新手": 1199
+        },
+        "首評12個月前": {
+          "真新手": 23,
+          "非新手": 5328
+        },
+        "無評論": {
+          "真新手": 242,
+          "非新手": 574
+        }
+      },
+      "proxy_yes": 2056,
+      "real_yes": 1122,
+      "both": 857,
+      "proxy_precision_pct(舊代理說新的裡面真新手)": 41.7,
+      "proxy_recall_pct(真新手裡被舊代理抓到)": 76.4
+    }
+  }
+}
