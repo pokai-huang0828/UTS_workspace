@@ -2575,3 +2575,12 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
   - sydney 2026-06-16:20,573 列、90 欄、有價 17,786(86.5%),`last_scraped` 6/17–6/29;melbourne 2026-06-16:25,728 列、90 欄、有價 19,175(74.5%),`last_scraped` 6/17–7/01。
   - 六期都有 `hosts_time_as_host_years` 欄。
 - **含意(未深查)**:2025-12 那期沒有可用價格(沒分辨是欄位不存在還是全空;少的 5 欄是哪 5 欄也沒查)→ 有真實掛牌價的時間點是 2026-03、06、09 三期,不是四期。2026-03 那期列數明顯較少、幾乎全有價,可能抓取口徑不同,跨期比較前要先查清楚。以上只有主腦一次初查,沒有獨立核對。
+
+## 2026-11-11(深夜)· Innovation Studio:下載墨爾本官方 4 期 × 7 檔(Kenny:「把貼給你的連結全部下載」)
+
+- Kenny 貼官方 Get the Data 頁墨爾本展開後的完整清單(4 期各 7 檔),要求全部下載。從 `https://data.insideairbnb.com/australia/vic/melbourne/<期別>/{data|visualisations}/<檔名>` 下載 **28 個檔**到 `scratchpad/insideairbnb_melbourne/<期別>/…`(共 617 MB,未追蹤、不進版控;評論全文含 `reviewer_name` 與 `comments`)。28 個皆 HTTP 200,12 個 .gz 皆 `gzip -t` 通過;逐檔大小與完整 sha256 在同資料夾 `manifest.tsv`。四期 listings.csv.gz 的位元組數與稍早下載到 `scratchpad/airbnb_history_2026-11-11/` 的相同。只下載墨爾本(Kenny 貼的清單只有墨爾本),雪梨沒動。
+- 主腦初查(`python -I` + csv):
+  - **日曆檔四期都是 5 欄**(`listing_id`、`date`、`available`、`minimum_nights`、`maximum_nights`),**都沒有價格欄** —— 今天實讀表頭確認(補上分支八沒能確認的那一項)。
+  - **2025-12-12 的房源精簡版(`visualisations/listings.csv`)price 非空也是 0 / 26,203** → 這一期詳細版、精簡版都沒有價格。精簡版另三期有價比例:2026-09 19,004 / 25,715(73.9%)、2026-06 19,175 / 25,728(74.5%)、2026-03 16,460 / 16,674(98.7%)。
+  - 評論全文檔欄位:`listing_id`、`id`、`date`、`reviewer_id`、`reviewer_name`、`comments`。
+- 結論不變:墨爾本有真實掛牌價的時間點是 2026-03、06、09 三期;2026-03 那期列數少很多、幾乎全有價,跨期比較前要先查抓取口徑。跨期價格分析尚未做。以上只有主腦一次初查,沒有獨立核對。
