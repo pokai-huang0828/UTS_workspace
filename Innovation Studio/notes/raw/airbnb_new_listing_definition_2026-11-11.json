@@ -1,0 +1,120 @@
+{
+  "batch": "2026-09-16",
+  "scope_id": "IS-1111-BR-AIM",
+  "cities": {
+    "sydney": {
+      "listings_file": "scratchpad\\airbnb_2026-11-07\\sydney_listings.csv.gz",
+      "batch_date": "2026-09-17",
+      "n_scope_price": 6639,
+      "n_with_first_review": 6051,
+      "n_no_review": 588,
+      "n_scope_price_tenure_nonmissing": 6639,
+      "windows": {
+        "6m": {
+          "cutoff_inclusive": "2026-03-17",
+          "n_new": 994,
+          "n_new_single_host": 303,
+          "n_new_host_tenure_le_window": 282,
+          "n_new_single_and_tenure_le_window": 190,
+          "n_first_review_on_cutoff_day": 4
+        },
+        "12m": {
+          "cutoff_inclusive": "2025-09-17",
+          "n_new": 2028,
+          "n_new_single_host": 688,
+          "n_new_host_tenure_le_window": 723,
+          "n_new_single_and_tenure_le_window": 444,
+          "n_first_review_on_cutoff_day": 4
+        },
+        "18m": {
+          "cutoff_inclusive": "2025-03-17",
+          "n_new": 2535,
+          "n_new_single_host": 851,
+          "n_new_host_tenure_le_window": 1028,
+          "n_new_single_and_tenure_le_window": 562,
+          "n_first_review_on_cutoff_day": 1
+        }
+      },
+      "new12": {
+        "n_first_review_after_batch": 0,
+        "n_availability_365_eq_0": 0,
+        "n_reviews_ltm_eq_0": 0,
+        "host_listings_mix": {
+          "eq_1": 688,
+          "2_to_4": 371,
+          "ge_5": 969,
+          "missing": 0
+        },
+        "n_distinct_host_id": 1239
+      },
+      "no_review": {
+        "n_availability_365_eq_0": 0,
+        "host_listings_mix": {
+          "eq_1": 203,
+          "2_to_4": 85,
+          "ge_5": 300,
+          "missing": 0
+        },
+        "n_host_tenure_le_12": 227,
+        "n_single_and_tenure_le_12": 118
+      }
+    },
+    "melbourne": {
+      "listings_file": "scratchpad\\airbnb_2024_two_cities\\melbourne_listings.csv.gz",
+      "batch_date": "2026-09-18",
+      "n_scope_price": 8223,
+      "n_with_first_review": 7407,
+      "n_no_review": 816,
+      "n_scope_price_tenure_nonmissing": 8223,
+      "windows": {
+        "6m": {
+          "cutoff_inclusive": "2026-03-18",
+          "n_new": 975,
+          "n_new_single_host": 309,
+          "n_new_host_tenure_le_window": 354,
+          "n_new_single_and_tenure_le_window": 220,
+          "n_first_review_on_cutoff_day": 2
+        },
+        "12m": {
+          "cutoff_inclusive": "2025-09-18",
+          "n_new": 2056,
+          "n_new_single_host": 713,
+          "n_new_host_tenure_le_window": 857,
+          "n_new_single_and_tenure_le_window": 514,
+          "n_first_review_on_cutoff_day": 4
+        },
+        "18m": {
+          "cutoff_inclusive": "2025-03-18",
+          "n_new": 2681,
+          "n_new_single_host": 900,
+          "n_new_host_tenure_le_window": 1223,
+          "n_new_single_and_tenure_le_window": 664,
+          "n_first_review_on_cutoff_day": 7
+        }
+      },
+      "new12": {
+        "n_first_review_after_batch": 0,
+        "n_availability_365_eq_0": 0,
+        "n_reviews_ltm_eq_0": 0,
+        "host_listings_mix": {
+          "eq_1": 713,
+          "2_to_4": 375,
+          "ge_5": 968,
+          "missing": 0
+        },
+        "n_distinct_host_id": 1250
+      },
+      "no_review": {
+        "n_availability_365_eq_0": 0,
+        "host_listings_mix": {
+          "eq_1": 296,
+          "2_to_4": 156,
+          "ge_5": 364,
+          "missing": 0
+        },
+        "n_host_tenure_le_12": 242,
+        "n_single_and_tenure_le_12": 144
+      }
+    }
+  }
+}
