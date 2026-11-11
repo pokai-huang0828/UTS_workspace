@@ -2599,3 +2599,24 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
   - 四期都 ≈100%:`hosts_time_as_host_years`、`host_is_superhost`、`host_identity_verified`、`calculated_host_listings_count`、`amenities`、`description`(98–99%)、`estimated_occupancy_l365d`、位置與房型欄。
   - `first_review` / `review_scores_rating` / `reviews_per_month`:81/89/83/82%。
 - **含意(待做)**:①2025-12 那期有 `host_since`,可用 `host_id` 接到後面幾期,直接驗證 `hosts_time_as_host_years/_months` 是不是「當房東多久」,也能把「新手房東」定義從代理改成真的開戶日(僅限 2025-12 就存在的房東)。②16、17、18 寫的「`host_since` 整欄空」只對 2026-09 那期成立,三份筆記尚未更新這一點。③截圖寫的「約 75 個欄位」與實際 85/90 欄不符;「用 `host_since` 區分新房東」只在 2025-12 那期做得到;「`license` 做法規分析」墨爾本四期皆空。
+
+## 2026-11-11(深夜)· Innovation Studio:下載雪梨官方 4 期 × 7 檔、解壓縮、三支深度分析(A/B/C)+ 獨立驗算
+
+- Kenny 貼官方 Get the Data 頁雪梨展開後的清單(4 期各 7 檔),要求「下載 Sydney 解壓縮後深度分析」。從 `https://data.insideairbnb.com/australia/nsw/sydney/<期別>/{data|visualisations}/<檔名>` 下載 **28 個檔**到 `scratchpad/insideairbnb_sydney/<期別>/…`;28 個皆 HTTP 200,12 個 .gz 皆 `gzip -t` 通過並解壓(保留 .gz,解壓後的 .csv 在同資料夾);含解壓共 2.5 GB、40 個檔,逐檔大小與 sha256 在同資料夾 `manifest.tsv`。**未追蹤、不進版控**(含房東姓名與評論全文)。三期 listings.csv.gz 位元組數與稍早 `scratchpad/airbnb_history_2026-11-11/` 的相同。
+- 三支分析照墨爾本 A/B/C 的程式搬到雪梨(模型、特徵、定義不變,方便兩城比較),各自 `python -I` 從頭跑完 exit 0:
+  - A 市場:`Innovation Studio/analysis/sydney/syd_a_market.py` → `notes/raw/syd_a_market_2026-11-11.{json,md}`、`notes/figures/syd_a_*.png` 7 張。
+  - B 定位定價:`analysis/sydney/syd_b_positioning.py` → `notes/raw/syd_b_positioning_2026-11-11.{json,md}`、`notes/figures/syd_b_*.png` 4 張。
+  - C 新手房東與跨期:`analysis/sydney/syd_c_hosts_time.py` → `notes/raw/syd_c_hosts_time_2026-11-11.{json,md}`、`notes/figures/syd_c_*.png` 3 張。
+  - 三份 .md 最後都有「雪梨 vs 墨爾本」對照表(墨爾本數字取自 mel_* json,逐列寫 key)。
+- 雪梨重點數字(2026-09-16 期,除非另註):全體 20,833 列、篩選樣本 7,565、篩選且有價 6,639、全體有價 17,721(85.1%;墨爾本 73.9%)。四期列數/欄數 20,436/85、13,563/90、20,573/90、20,833/90;有價 0、13,484、17,786、17,721。`host_since` 只有 2025-12 那期有值(20,430/20,436),與墨爾本相同。
+  - 全體有價掛牌價中位數 $338(墨爾本 $263)。篩選且有價樣本 1 房 299、2 房 414(墨爾本 230、311);全體整套房(不限人數與晚數)1 房 293、2 房 408 —— 兩組數字母體不同,都沒算錯。2 房中位數最高的區 Manly 575、Waverley 522。
+  - Sydney 區 5,024 間占 24.1%。名下 5 間以上房東的**房源**占 45.3%(墨爾本 35.8%);以**房東**計只有約 6.2%。
+  - 日曆後 30 天不可訂:12 月 62.6%、3 月 55.0%、6 月 48.7%、9 月 58.5%。
+  - 價格預測 MAE(澳幣/晚,依房東分組 5 折,模型樣本 6,615,已排除每晚超過 2,000 的 24 間):全市中位數 122.5、區×房間數 101.7、Ridge 95.7、梯度提升樹 93.4(最好,低 24%);MdAPE 18.9%(墨爾本 19.2%)。特徵裡沒有由價格推出的欄位。
+  - 年資欄:`hosts_time_as_user_*` 對 `host_since` 精確吻合 98.46%;`hosts_time_as_host_*` 只有 37.3% 吻合(結論同墨爾本)。新手 960 間 vs 老手 5,679 間:掛牌價中位數 321 vs 342、超讚房東 28% vs 45%、近一年評論數中位數 5 vs 11。舊筆記的雪梨「新上架房源」2,028、無評論 588 重現(基準日 2026-09-17)。
+  - 3、6、9 月三期都有價的同一間房 10,513 間,3→9 月價格變化中位數 +0.53%(3→6 月 -3.62%、6→9 月 +3.84%)。
+- **獨立驗算(非產出者的 fresh 分身,自己寫程式從原始 csv.gz 重算)**:18 條宣稱 16 ✅、2 ⚠️、0 ❌。逐條在 `notes/raw/syd_verify_2026-11-11.md`,程式 `analysis/sydney/syd_verify.py`。兩條 ⚠️ 都是母體要講清楚,不是算錯:①評分中位數 4.84 是全體有評分 17,623 間;篩選且有價有評分 6,051 間是 4.86。②10,513 間的條件是「3、6、9 月三期都有價」且是全體房源;只要求 3、9 月有價是 10,698 間、+0.56%。隱私檢查:6 個 raw 檔沒有姓名、評論文字、個別 id。**Codex 沒有開**(中間產物,只做 Claude 這一軌)→ 這批數字只有 Claude 驗過。
+- 驗收者提的三個講法注意(未改檔,寫進報告前要處理):①45.3% 是房源占比,別講成「45% 的房東是大戶」→ 改講「近一半的房源掛在名下 5 間以上的房東手上」。②「新手」用的年資欄語意是推斷的(只有 37.3% 對得上開戶日)→ 改講「依平台年資欄推算的新手」。③+0.53% 混了季節 → 改講「同一間房 3 月到 9 月的掛牌價幾乎沒動,中間 6 月低一點」,別講成年漲幅。
+- 環境事實:這台 `python -I` 會略過 user site-packages,pandas 相依的 dateutil 在那裡 → 三支腳本開頭都補 `sys.path.append(site.getusersitepackages())`。B 分身另發現設施排序並列時順序會隨 hash 種子變(已在雪梨版補上依名稱排;**墨爾本版應該有同樣問題,沒動**)。
+- 墨爾本 A/B/C 的檔(`analysis/melbourne/`、`mel_*`)是別的 session 的產物,本 session 沒碰、沒 commit。
+- §8.3 帳本:**sonnet high 4 個共 527,827**(SYD-A 132,088/36 次、SYD-B 136,280/50 次 **超過上限 40**、SYD-C 131,942/44 次 **超過上限 40**、SYD-VERIFY 127,517/23 次)。opus 0、fable 分身 0。Codex 0 趟。未用 workflow。主腦 = Fable 5.2。
