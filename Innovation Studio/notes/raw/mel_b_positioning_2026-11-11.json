@@ -1,0 +1,1870 @@
+{
+ "scope_id": "IS-1111-MEL-B",
+ "batch": "2026-09-16",
+ "seed": 42,
+ "reconciliation": {
+  "rows_all": 25715,
+  "rows_scope": 10940,
+  "rows_scope_price": 8223,
+  "new12": 2056,
+  "baseline_day": "2026-09-18",
+  "new12_cutoff_inclusive": "2025-09-18",
+  "all_match_expected": true
+ },
+ "price_distribution": {
+  "p1": 118.8,
+  "p10": 170.0,
+  "p25": 209.0,
+  "p50": 264.0,
+  "p75": 334.5,
+  "p90": 429.3,
+  "p99": 936.5,
+  "min": 68.64,
+  "max": 90000.0,
+  "n_above_p99": 83,
+  "n_below_p1": 83,
+  "n_ge_1000": 69,
+  "n_lt_50": 0
+ },
+ "extreme_rule": {
+  "cap_aud": 2000,
+  "n_excluded": 14,
+  "n_model_sample": 8209,
+  "excluded_prices_sorted": [
+   2037.5,
+   2050.0,
+   2299.8,
+   2985.0,
+   3000.0,
+   3025.0,
+   3270.0,
+   3930.0,
+   5202.5,
+   7144.3,
+   7609.25,
+   8942.0,
+   9180.0,
+   90000.0
+  ],
+  "n_excluded_new12": 0,
+  "applies_to": "模型訓練、主要誤差、設施迴歸(c-ii);分組、定位表、同組設施比較(c-i)用全部 8,223(中位數/分位數不受影響)"
+ },
+ "a_grouping": {
+  "primary_group": "區(neighbourhood_cleansed)× 房間數(1/2)",
+  "n_groups": 60,
+  "n_possible": 60,
+  "group_size": {
+   "median": 41.5,
+   "min": 5,
+   "max": 1788
+  },
+  "n_groups_lt30": 24,
+  "listings_in_groups_lt30": 432,
+  "listings_in_groups_ge30": 7791,
+  "pct_listings_in_groups_ge30": 94.7,
+  "rule": [
+   "步驟 1:找同區、同房間數的房源;若有 30 間以上,就用這一組。",
+   "步驟 2:不足 30 間 → 改找全市同房間數、經緯度直線距離最近的 30 間(不限區)。",
+   "步驟 3:比較組固定記下用了哪一步(1 = 同區同房間數,2 = 最近 30 間)。"
+  ],
+  "comparison_size_after_rule": {
+   "median": 631.0,
+   "p10": 51.0
+  },
+  "fallback_radius_km_30th_neighbor": {
+   "p25": 6.3,
+   "p50": 8.3,
+   "p75": 11.9
+  },
+  "note": "組大小含房源自己;實際給新房東用時,新房源不在組內。"
+ },
+ "b_positioning": {
+  "rule": "區內篩選且有價房源 30 間以上才列;格內 n<30 標 small_lt30",
+  "n_districts": 27,
+  "districts_excluded_lt30": {
+   "Melton": 25,
+   "Greater Dandenong": 22,
+   "Casey": 22
+  },
+  "top10_districts": [
+   "Melbourne",
+   "Port Phillip",
+   "Yarra",
+   "Stonnington",
+   "Yarra Ranges",
+   "Moreland",
+   "Whitehorse",
+   "Boroondara",
+   "Darebin",
+   "Maribyrnong"
+  ],
+  "table": {
+   "Melbourne": {
+    "n": 3487,
+    "by_bedrooms": {
+     "1": {
+      "n": 1788,
+      "p10": 163.0,
+      "p25": 192.0,
+      "p50": 233.0,
+      "p75": 281.2,
+      "p90": 349.6,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 1699,
+      "p10": 219.8,
+      "p25": 260.0,
+      "p50": 310.0,
+      "p75": 369.2,
+      "p90": 466.1,
+      "small_lt30": false
+     }
+    }
+   },
+   "Port Phillip": {
+    "n": 1062,
+    "by_bedrooms": {
+     "1": {
+      "n": 631,
+      "p10": 162.0,
+      "p25": 187.3,
+      "p50": 228.4,
+      "p75": 294.9,
+      "p90": 361.0,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 431,
+      "p10": 216.0,
+      "p25": 264.8,
+      "p50": 330.5,
+      "p75": 438.5,
+      "p90": 650.0,
+      "small_lt30": false
+     }
+    }
+   },
+   "Yarra": {
+    "n": 674,
+    "by_bedrooms": {
+     "1": {
+      "n": 400,
+      "p10": 174.9,
+      "p25": 210.0,
+      "p50": 249.2,
+      "p75": 306.1,
+      "p90": 358.7,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 274,
+      "p10": 240.1,
+      "p25": 291.1,
+      "p50": 361.0,
+      "p75": 457.4,
+      "p90": 599.1,
+      "small_lt30": false
+     }
+    }
+   },
+   "Stonnington": {
+    "n": 478,
+    "by_bedrooms": {
+     "1": {
+      "n": 290,
+      "p10": 164.9,
+      "p25": 190.4,
+      "p50": 229.2,
+      "p75": 287.0,
+      "p90": 348.3,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 188,
+      "p10": 224.3,
+      "p25": 265.2,
+      "p50": 326.9,
+      "p75": 396.9,
+      "p90": 536.2,
+      "small_lt30": false
+     }
+    }
+   },
+   "Yarra Ranges": {
+    "n": 465,
+    "by_bedrooms": {
+     "1": {
+      "n": 323,
+      "p10": 184.2,
+      "p25": 225.5,
+      "p50": 280.0,
+      "p75": 373.0,
+      "p90": 460.0,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 142,
+      "p10": 236.4,
+      "p25": 292.0,
+      "p50": 352.8,
+      "p75": 440.4,
+      "p90": 527.1,
+      "small_lt30": false
+     }
+    }
+   },
+   "Moreland": {
+    "n": 228,
+    "by_bedrooms": {
+     "1": {
+      "n": 125,
+      "p10": 153.7,
+      "p25": 180.0,
+      "p50": 216.7,
+      "p75": 265.0,
+      "p90": 318.0,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 103,
+      "p10": 216.8,
+      "p25": 255.2,
+      "p50": 308.6,
+      "p75": 368.7,
+      "p90": 429.8,
+      "small_lt30": false
+     }
+    }
+   },
+   "Whitehorse": {
+    "n": 169,
+    "by_bedrooms": {
+     "1": {
+      "n": 79,
+      "p10": 142.4,
+      "p25": 181.0,
+      "p50": 211.2,
+      "p75": 241.7,
+      "p90": 280.3,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 90,
+      "p10": 195.6,
+      "p25": 221.3,
+      "p50": 272.2,
+      "p75": 334.2,
+      "p90": 406.5,
+      "small_lt30": false
+     }
+    }
+   },
+   "Boroondara": {
+    "n": 150,
+    "by_bedrooms": {
+     "1": {
+      "n": 70,
+      "p10": 154.8,
+      "p25": 180.0,
+      "p50": 231.7,
+      "p75": 280.0,
+      "p90": 352.4,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 80,
+      "p10": 203.6,
+      "p25": 245.6,
+      "p50": 289.7,
+      "p75": 364.8,
+      "p90": 433.1,
+      "small_lt30": false
+     }
+    }
+   },
+   "Darebin": {
+    "n": 137,
+    "by_bedrooms": {
+     "1": {
+      "n": 83,
+      "p10": 127.1,
+      "p25": 154.4,
+      "p50": 183.5,
+      "p75": 209.6,
+      "p90": 288.5,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 54,
+      "p10": 194.2,
+      "p25": 243.3,
+      "p50": 298.2,
+      "p75": 366.5,
+      "p90": 456.3,
+      "small_lt30": false
+     }
+    }
+   },
+   "Maribyrnong": {
+    "n": 136,
+    "by_bedrooms": {
+     "1": {
+      "n": 59,
+      "p10": 123.4,
+      "p25": 160.5,
+      "p50": 196.2,
+      "p75": 225.2,
+      "p90": 300.3,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 77,
+      "p10": 186.0,
+      "p25": 221.5,
+      "p50": 261.5,
+      "p75": 330.2,
+      "p90": 408.3,
+      "small_lt30": false
+     }
+    }
+   },
+   "Moonee Valley": {
+    "n": 132,
+    "by_bedrooms": {
+     "1": {
+      "n": 59,
+      "p10": 132.2,
+      "p25": 170.3,
+      "p50": 214.0,
+      "p75": 250.0,
+      "p90": 338.7,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 73,
+      "p10": 205.8,
+      "p25": 254.5,
+      "p50": 301.0,
+      "p75": 392.0,
+      "p90": 520.6,
+      "small_lt30": false
+     }
+    }
+   },
+   "Glen Eira": {
+    "n": 126,
+    "by_bedrooms": {
+     "1": {
+      "n": 62,
+      "p10": 150.4,
+      "p25": 166.3,
+      "p50": 211.3,
+      "p75": 266.1,
+      "p90": 320.6,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 64,
+      "p10": 201.5,
+      "p25": 249.6,
+      "p50": 277.1,
+      "p75": 325.7,
+      "p90": 380.1,
+      "small_lt30": false
+     }
+    }
+   },
+   "Bayside": {
+    "n": 125,
+    "by_bedrooms": {
+     "1": {
+      "n": 74,
+      "p10": 155.8,
+      "p25": 191.4,
+      "p50": 227.0,
+      "p75": 267.4,
+      "p90": 338.5,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 51,
+      "p10": 235.0,
+      "p25": 282.5,
+      "p50": 337.0,
+      "p75": 397.5,
+      "p90": 462.5,
+      "small_lt30": false
+     }
+    }
+   },
+   "Monash": {
+    "n": 104,
+    "by_bedrooms": {
+     "1": {
+      "n": 41,
+      "p10": 135.0,
+      "p25": 165.5,
+      "p50": 187.2,
+      "p75": 231.0,
+      "p90": 250.0,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 63,
+      "p10": 199.7,
+      "p25": 233.0,
+      "p50": 289.5,
+      "p75": 327.2,
+      "p90": 361.9,
+      "small_lt30": false
+     }
+    }
+   },
+   "Hobsons Bay": {
+    "n": 89,
+    "by_bedrooms": {
+     "1": {
+      "n": 51,
+      "p10": 141.7,
+      "p25": 164.2,
+      "p50": 206.4,
+      "p75": 277.0,
+      "p90": 316.1,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 38,
+      "p10": 196.2,
+      "p25": 209.6,
+      "p50": 258.5,
+      "p75": 345.8,
+      "p90": 375.5,
+      "small_lt30": false
+     }
+    }
+   },
+   "Kingston": {
+    "n": 84,
+    "by_bedrooms": {
+     "1": {
+      "n": 37,
+      "p10": 138.0,
+      "p25": 157.0,
+      "p50": 199.0,
+      "p75": 265.7,
+      "p90": 319.4,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 47,
+      "p10": 182.7,
+      "p25": 216.8,
+      "p50": 268.5,
+      "p75": 362.3,
+      "p90": 496.1,
+      "small_lt30": false
+     }
+    }
+   },
+   "Frankston": {
+    "n": 71,
+    "by_bedrooms": {
+     "1": {
+      "n": 42,
+      "p10": 136.0,
+      "p25": 158.5,
+      "p50": 203.6,
+      "p75": 246.9,
+      "p90": 280.4,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 29,
+      "p10": 196.0,
+      "p25": 229.3,
+      "p50": 286.0,
+      "p75": 360.0,
+      "p90": 403.2,
+      "small_lt30": true
+     }
+    }
+   },
+   "Banyule": {
+    "n": 70,
+    "by_bedrooms": {
+     "1": {
+      "n": 31,
+      "p10": 130.5,
+      "p25": 153.2,
+      "p50": 185.5,
+      "p75": 275.0,
+      "p90": 297.5,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 39,
+      "p10": 179.2,
+      "p25": 204.6,
+      "p50": 280.0,
+      "p75": 358.9,
+      "p90": 423.4,
+      "small_lt30": false
+     }
+    }
+   },
+   "Cardinia": {
+    "n": 51,
+    "by_bedrooms": {
+     "1": {
+      "n": 33,
+      "p10": 178.4,
+      "p25": 202.5,
+      "p50": 227.0,
+      "p75": 291.0,
+      "p90": 341.2,
+      "small_lt30": false
+     },
+     "2": {
+      "n": 18,
+      "p10": 191.9,
+      "p25": 201.0,
+      "p50": 280.5,
+      "p75": 312.5,
+      "p90": 340.5,
+      "small_lt30": true
+     }
+    }
+   },
+   "Brimbank": {
+    "n": 48,
+    "by_bedrooms": {
+     "1": {
+      "n": 27,
+      "p10": 116.0,
+      "p25": 143.0,
+      "p50": 165.0,
+      "p75": 196.0,
+      "p90": 255.2,
+      "small_lt30": true
+     },
+     "2": {
+      "n": 21,
+      "p10": 145.0,
+      "p25": 170.0,
+      "p50": 259.3,
+      "p75": 334.1,
+      "p90": 405.0,
+      "small_lt30": true
+     }
+    }
+   },
+   "Wyndham": {
+    "n": 48,
+    "by_bedrooms": {
+     "1": {
+      "n": 25,
+      "p10": 98.2,
+      "p25": 128.0,
+      "p50": 157.5,
+      "p75": 220.0,
+      "p90": 251.0,
+      "small_lt30": true
+     },
+     "2": {
+      "n": 23,
+      "p10": 177.2,
+      "p25": 199.1,
+      "p50": 239.7,
+      "p75": 260.8,
+      "p90": 365.0,
+      "small_lt30": true
+     }
+    }
+   },
+   "Hume": {
+    "n": 43,
+    "by_bedrooms": {
+     "1": {
+      "n": 18,
+      "p10": 124.8,
+      "p25": 135.6,
+      "p50": 169.1,
+      "p75": 265.8,
+      "p90": 506.0,
+      "small_lt30": true
+     },
+     "2": {
+      "n": 25,
+      "p10": 185.8,
+      "p25": 226.5,
+      "p50": 245.3,
+      "p75": 286.0,
+      "p90": 518.9,
+      "small_lt30": true
+     }
+    }
+   },
+   "Manningham": {
+    "n": 40,
+    "by_bedrooms": {
+     "1": {
+      "n": 21,
+      "p10": 111.3,
+      "p25": 192.0,
+      "p50": 225.0,
+      "p75": 262.0,
+      "p90": 320.0,
+      "small_lt30": true
+     },
+     "2": {
+      "n": 19,
+      "p10": 200.2,
+      "p25": 223.5,
+      "p50": 248.0,
+      "p75": 305.9,
+      "p90": 396.6,
+      "small_lt30": true
+     }
+    }
+   },
+   "Knox": {
+    "n": 36,
+    "by_bedrooms": {
+     "1": {
+      "n": 23,
+      "p10": 127.2,
+      "p25": 140.8,
+      "p50": 162.0,
+      "p75": 209.4,
+      "p90": 260.4,
+      "small_lt30": true
+     },
+     "2": {
+      "n": 13,
+      "p10": 148.1,
+      "p25": 168.5,
+      "p50": 204.7,
+      "p75": 245.5,
+      "p90": 299.6,
+      "small_lt30": true
+     }
+    }
+   },
+   "Nillumbik": {
+    "n": 35,
+    "by_bedrooms": {
+     "1": {
+      "n": 28,
+      "p10": 175.2,
+      "p25": 194.8,
+      "p50": 236.4,
+      "p75": 274.2,
+      "p90": 401.5,
+      "small_lt30": true
+     },
+     "2": {
+      "n": 7,
+      "p10": 174.2,
+      "p25": 227.5,
+      "p50": 286.7,
+      "p75": 319.5,
+      "p90": 348.4,
+      "small_lt30": true
+     }
+    }
+   },
+   "Maroondah": {
+    "n": 34,
+    "by_bedrooms": {
+     "1": {
+      "n": 19,
+      "p10": 128.7,
+      "p25": 144.8,
+      "p50": 165.0,
+      "p75": 201.5,
+      "p90": 239.9,
+      "small_lt30": true
+     },
+     "2": {
+      "n": 15,
+      "p10": 186.5,
+      "p25": 270.9,
+      "p50": 287.2,
+      "p75": 328.2,
+      "p90": 346.4,
+      "small_lt30": true
+     }
+    }
+   },
+   "Whittlesea": {
+    "n": 32,
+    "by_bedrooms": {
+     "1": {
+      "n": 17,
+      "p10": 135.1,
+      "p25": 163.6,
+      "p50": 173.3,
+      "p75": 199.0,
+      "p90": 342.6,
+      "small_lt30": true
+     },
+     "2": {
+      "n": 15,
+      "p10": 185.6,
+      "p25": 198.0,
+      "p50": 299.5,
+      "p75": 323.0,
+      "p90": 377.1,
+      "small_lt30": true
+     }
+    }
+   }
+  },
+  "city_by_bedrooms": {
+   "1": {
+    "n": 4499,
+    "p10": 155.0,
+    "p25": 187.3,
+    "p50": 230.0,
+    "p75": 286.0,
+    "p90": 357.6
+   },
+   "2": {
+    "n": 3724,
+    "p10": 210.0,
+    "p25": 255.2,
+    "p50": 310.8,
+    "p75": 381.5,
+    "p90": 493.0
+   }
+  }
+ },
+ "c_amenities": {
+  "n_distinct_amenities": 2640,
+  "top30_prevalence_pct": {
+   "Smoke alarm": 95.7,
+   "Kitchen": 93.9,
+   "Wifi": 90.4,
+   "Hot water": 88.4,
+   "Hair dryer": 85.3,
+   "Dishes and silverware": 84.7,
+   "Hangers": 83.0,
+   "Iron": 82.2,
+   "Bed linens": 82.0,
+   "Cooking basics": 81.2,
+   "Microwave": 80.4,
+   "Shampoo": 77.3,
+   "Hot water kettle": 77.0,
+   "Refrigerator": 77.0,
+   "TV": 75.5,
+   "Toaster": 72.9,
+   "Essentials": 72.5,
+   "Air conditioning": 69.4,
+   "Wine glasses": 68.4,
+   "Shower gel": 68.1,
+   "Dining table": 66.8,
+   "Dishwasher": 65.5,
+   "Washer": 62.3,
+   "Self check-in": 61.0,
+   "Long term stays allowed": 59.7,
+   "Freezer": 58.5,
+   "Conditioner": 58.1,
+   "Body soap": 57.2,
+   "Oven": 56.1,
+   "Heating": 55.5
+  },
+  "amenity_count_distribution": {
+   "p10": 20.0,
+   "p25": 32.0,
+   "p50": 41.0,
+   "p75": 49.0,
+   "p90": 55.0,
+   "min": 0,
+   "max": 88,
+   "mean": 39.7,
+   "n_zero": 2,
+   "hist_bins_of_10": {
+    "0-9": 229,
+    "10-19": 540,
+    "20-29": 930,
+    "30-39": 1877,
+    "40-49": 2803,
+    "50-59": 1402,
+    "60-69": 390,
+    "70-79": 50,
+    "80-89": 2
+   }
+  },
+  "association": {
+   "method_i": "同組(區×房間數,只用 30 間以上的組,涵蓋 7791 間)內:每間價格先除以自己組的中位數,再比有/沒有該設施兩邊的中位數",
+   "method_ii": "log(價格) ~ 區 + 房間數 + 可住人數 + 床數 + 浴室數 + 該設施(每項設施各跑一次 OLS);報 exp(係數)-1(排除極端值後 8,209 間)",
+   "eligible_rule": "同組比較樣本中有、沒有兩邊各 30 間以上",
+   "n_eligible": 264,
+   "top10_positive": [
+    {
+     "amenity": "BBQ grill: gas",
+     "n_with": 66,
+     "n_without": 7725,
+     "n_with_full": 67,
+     "within_group_pct": 24.3,
+     "regression_pct": 20.8,
+     "regression_ci95_pct": [
+      11.3,
+      31.1
+     ]
+    },
+    {
+     "amenity": "Stainless steel double oven",
+     "n_with": 38,
+     "n_without": 7753,
+     "n_with_full": 44,
+     "within_group_pct": 21.1,
+     "regression_pct": 9.8,
+     "regression_ci95_pct": [
+      -0.7,
+      21.4
+     ]
+    },
+    {
+     "amenity": "Indoor fireplace: gas",
+     "n_with": 50,
+     "n_without": 7741,
+     "n_with_full": 52,
+     "within_group_pct": 19.5,
+     "regression_pct": 20.0,
+     "regression_ci95_pct": [
+      9.2,
+      31.7
+     ]
+    },
+    {
+     "amenity": "Resort access",
+     "n_with": 107,
+     "n_without": 7684,
+     "n_with_full": 113,
+     "within_group_pct": 18.1,
+     "regression_pct": 17.2,
+     "regression_ci95_pct": [
+      10.0,
+      24.8
+     ]
+    },
+    {
+     "amenity": "Coffee maker: espresso machine, Nespresso",
+     "n_with": 37,
+     "n_without": 7754,
+     "n_with_full": 39,
+     "within_group_pct": 17.3,
+     "regression_pct": 11.3,
+     "regression_ci95_pct": [
+      0.0,
+      23.8
+     ]
+    },
+    {
+     "amenity": "Noise decibel monitors on property",
+     "n_with": 235,
+     "n_without": 7556,
+     "n_with_full": 241,
+     "within_group_pct": 16.6,
+     "regression_pct": 13.8,
+     "regression_ci95_pct": [
+      8.9,
+      18.9
+     ]
+    },
+    {
+     "amenity": "Valley view",
+     "n_with": 78,
+     "n_without": 7713,
+     "n_with_full": 88,
+     "within_group_pct": 16.5,
+     "regression_pct": 14.3,
+     "regression_ci95_pct": [
+      5.9,
+      23.3
+     ]
+    },
+    {
+     "amenity": "Standalone high chair - always at the listing",
+     "n_with": 70,
+     "n_without": 7721,
+     "n_with_full": 73,
+     "within_group_pct": 16.4,
+     "regression_pct": 9.0,
+     "regression_ci95_pct": [
+      0.8,
+      17.9
+     ]
+    },
+    {
+     "amenity": "Private hot tub",
+     "n_with": 66,
+     "n_without": 7725,
+     "n_with_full": 74,
+     "within_group_pct": 16.3,
+     "regression_pct": 18.3,
+     "regression_ci95_pct": [
+      9.2,
+      28.1
+     ]
+    },
+    {
+     "amenity": "Outdoor kitchen",
+     "n_with": 62,
+     "n_without": 7729,
+     "n_with_full": 65,
+     "within_group_pct": 15.9,
+     "regression_pct": 11.7,
+     "regression_ci95_pct": [
+      2.8,
+      21.3
+     ]
+    }
+   ],
+   "top5_negative": [
+    {
+     "amenity": "Paid dryer – In building",
+     "n_with": 218,
+     "n_without": 7573,
+     "n_with_full": 225,
+     "within_group_pct": -18.7,
+     "regression_pct": -18.6,
+     "regression_ci95_pct": [
+      -22.2,
+      -14.8
+     ]
+    },
+    {
+     "amenity": "Building staff",
+     "n_with": 319,
+     "n_without": 7472,
+     "n_with_full": 340,
+     "within_group_pct": -17.9,
+     "regression_pct": -12.4,
+     "regression_ci95_pct": [
+      -15.7,
+      -9.1
+     ]
+    },
+    {
+     "amenity": "EV charger",
+     "n_with": 204,
+     "n_without": 7587,
+     "n_with_full": 209,
+     "within_group_pct": -17.8,
+     "regression_pct": -16.8,
+     "regression_ci95_pct": [
+      -20.6,
+      -12.8
+     ]
+    },
+    {
+     "amenity": "Kitchenette",
+     "n_with": 196,
+     "n_without": 7595,
+     "n_with_full": 221,
+     "within_group_pct": -15.6,
+     "regression_pct": -14.4,
+     "regression_ci95_pct": [
+      -18.3,
+      -10.4
+     ]
+    },
+    {
+     "amenity": "Paid washer – In building",
+     "n_with": 198,
+     "n_without": 7593,
+     "n_with_full": 204,
+     "within_group_pct": -14.3,
+     "regression_pct": -15.7,
+     "regression_ci95_pct": [
+      -19.6,
+      -11.7
+     ]
+    }
+   ],
+   "sign_agree_pct_all_eligible": 87.1,
+   "wording": "有這項設施的同類房源掛牌價中位數高 X%(關聯,不是因果)"
+  }
+ },
+ "d_experiment": {
+  "target": "log(price) 訓練,exp 回澳幣報誤差(B0/B1 直接用澳幣中位數)",
+  "features_allowed": [
+   "neighbourhood_cleansed(區)",
+   "latitude/longitude",
+   "property_type(房型細類)",
+   "bedrooms",
+   "accommodates",
+   "beds",
+   "bathrooms_text(解析成浴室數)",
+   "amenities(設施數 + 前 40 項旗標)",
+   "minimum_nights"
+  ],
+  "features_banned_and_why": {
+   "number_of_reviews*, review_scores_*, first_review, last_review, reviews_per_month": "新房東上架前沒有評論",
+   "estimated_occupancy_l365d, estimated_revenue_l365d": "revenue = price × occupancy,直接洩漏答案;occupancy 由評論推算",
+   "availability_*": "是上架後的行事曆結果,新房東沒有",
+   "price_quote_*": "跟價格直接相關(報價本身)",
+   "host_is_superhost, host_listings_count 等房東經營資料": "新房東沒有;房東名下房源數只放在對照版本"
+  },
+  "M1": "Ridge(alpha=1,先標準化);特徵 = 區 one-hot + 房間數 + 可住人數 + 床數(+缺值旗標)+ 浴室數 + 設施數 + 前 40 項設施旗標",
+  "M2": "sklearn 1.4.2 HistGradientBoostingRegressor(400 輪, lr 0.05, 31 葉, 每葉至少 20);特徵 = 區、房型細類(類別)+ 經緯度 + 房間數 + 可住人數 + 床數 + 浴室數 + 最少入住晚數 + 設施數 + 前 40 項設施旗標",
+  "host_variant": "M1/M2 再加 calculated_host_listings_count(線性版取 log1p),只當對照,新房東上架前雖知道自己有幾間但樣本裡多房東主導",
+  "top_amenities_used": [
+   "Smoke alarm",
+   "Kitchen",
+   "Wifi",
+   "Hot water",
+   "Hair dryer",
+   "Dishes and silverware",
+   "Hangers",
+   "Iron",
+   "Bed linens",
+   "Cooking basics",
+   "Microwave",
+   "Shampoo",
+   "Hot water kettle",
+   "Refrigerator",
+   "TV",
+   "Toaster",
+   "Essentials",
+   "Air conditioning",
+   "Wine glasses",
+   "Shower gel",
+   "Dining table",
+   "Dishwasher",
+   "Washer",
+   "Self check-in",
+   "Long term stays allowed",
+   "Freezer",
+   "Conditioner",
+   "Body soap",
+   "Oven",
+   "Heating",
+   "Cleaning products",
+   "Coffee",
+   "Dedicated workspace",
+   "Stove",
+   "Room-darkening shades",
+   "Extra pillows and blankets",
+   "Lockbox",
+   "Elevator",
+   "Drying rack for clothing",
+   "Fire extinguisher"
+  ],
+  "property_type_levels": [
+   "Entire cabin",
+   "Entire condo",
+   "Entire cottage",
+   "Entire guest suite",
+   "Entire guesthouse",
+   "Entire home",
+   "Entire loft",
+   "Entire rental unit",
+   "Entire serviced apartment",
+   "Entire townhouse",
+   "Farm stay",
+   "Tiny home",
+   "Other"
+  ],
+  "split_main": "GroupKFold(5),group = host_id(同房東全在同一折)",
+  "split_contrast": "KFold(5, shuffle, seed=42),不分房東",
+  "top5_districts": [
+   "Melbourne",
+   "Port Phillip",
+   "Yarra",
+   "Stonnington",
+   "Yarra Ranges"
+  ],
+  "results_group_cv": {
+   "B0": {
+    "all": {
+     "n": 8209,
+     "MAE_aud": 87.4,
+     "MdAPE_pct": 23.3,
+     "within20_pct": 43.7
+    },
+    "bed1": {
+     "n": 4493,
+     "MAE_aud": 73.9,
+     "MdAPE_pct": 25.1,
+     "within20_pct": 42.0
+    },
+    "bed2": {
+     "n": 3716,
+     "MAE_aud": 103.8,
+     "MdAPE_pct": 21.8,
+     "within20_pct": 45.7
+    },
+    "top5_district": {
+     "n": 6153,
+     "MAE_aud": 89.6,
+     "MdAPE_pct": 22.5,
+     "within20_pct": 45.1
+    },
+    "other_district": {
+     "n": 2056,
+     "MAE_aud": 80.9,
+     "MdAPE_pct": 26.8,
+     "within20_pct": 39.3
+    },
+    "new12": {
+     "n": 2056,
+     "MAE_aud": 77.4,
+     "MdAPE_pct": 21.1,
+     "within20_pct": 47.7
+    },
+    "not_new12": {
+     "n": 6153,
+     "MAE_aud": 90.7,
+     "MdAPE_pct": 24.0,
+     "within20_pct": 42.3
+    }
+   },
+   "B1": {
+    "all": {
+     "n": 8209,
+     "MAE_aud": 78.4,
+     "MdAPE_pct": 20.5,
+     "within20_pct": 49.0
+    },
+    "bed1": {
+     "n": 4493,
+     "MAE_aud": 66.5,
+     "MdAPE_pct": 20.8,
+     "within20_pct": 48.1
+    },
+    "bed2": {
+     "n": 3716,
+     "MAE_aud": 92.7,
+     "MdAPE_pct": 19.9,
+     "within20_pct": 50.2
+    },
+    "top5_district": {
+     "n": 6153,
+     "MAE_aud": 80.8,
+     "MdAPE_pct": 20.2,
+     "within20_pct": 49.7
+    },
+    "other_district": {
+     "n": 2056,
+     "MAE_aud": 71.2,
+     "MdAPE_pct": 21.8,
+     "within20_pct": 47.0
+    },
+    "new12": {
+     "n": 2056,
+     "MAE_aud": 68.9,
+     "MdAPE_pct": 19.0,
+     "within20_pct": 52.3
+    },
+    "not_new12": {
+     "n": 6153,
+     "MAE_aud": 81.6,
+     "MdAPE_pct": 21.0,
+     "within20_pct": 47.9
+    }
+   },
+   "M1": {
+    "all": {
+     "n": 8209,
+     "MAE_aud": 75.2,
+     "MdAPE_pct": 19.7,
+     "within20_pct": 50.5
+    },
+    "bed1": {
+     "n": 4493,
+     "MAE_aud": 62.7,
+     "MdAPE_pct": 19.6,
+     "within20_pct": 50.9
+    },
+    "bed2": {
+     "n": 3716,
+     "MAE_aud": 90.4,
+     "MdAPE_pct": 20.0,
+     "within20_pct": 50.0
+    },
+    "top5_district": {
+     "n": 6153,
+     "MAE_aud": 78.0,
+     "MdAPE_pct": 19.6,
+     "within20_pct": 50.6
+    },
+    "other_district": {
+     "n": 2056,
+     "MAE_aud": 66.8,
+     "MdAPE_pct": 20.0,
+     "within20_pct": 50.1
+    },
+    "new12": {
+     "n": 2056,
+     "MAE_aud": 67.3,
+     "MdAPE_pct": 18.6,
+     "within20_pct": 52.3
+    },
+    "not_new12": {
+     "n": 6153,
+     "MAE_aud": 77.8,
+     "MdAPE_pct": 20.0,
+     "within20_pct": 49.9
+    }
+   },
+   "M2": {
+    "all": {
+     "n": 8209,
+     "MAE_aud": 75.1,
+     "MdAPE_pct": 19.2,
+     "within20_pct": 51.9
+    },
+    "bed1": {
+     "n": 4493,
+     "MAE_aud": 62.5,
+     "MdAPE_pct": 19.1,
+     "within20_pct": 52.4
+    },
+    "bed2": {
+     "n": 3716,
+     "MAE_aud": 90.3,
+     "MdAPE_pct": 19.3,
+     "within20_pct": 51.4
+    },
+    "top5_district": {
+     "n": 6153,
+     "MAE_aud": 77.6,
+     "MdAPE_pct": 18.9,
+     "within20_pct": 52.5
+    },
+    "other_district": {
+     "n": 2056,
+     "MAE_aud": 67.5,
+     "MdAPE_pct": 19.9,
+     "within20_pct": 50.2
+    },
+    "new12": {
+     "n": 2056,
+     "MAE_aud": 67.6,
+     "MdAPE_pct": 18.4,
+     "within20_pct": 53.7
+    },
+    "not_new12": {
+     "n": 6153,
+     "MAE_aud": 77.6,
+     "MdAPE_pct": 19.4,
+     "within20_pct": 51.4
+    }
+   },
+   "M1_host": {
+    "all": {
+     "n": 8209,
+     "MAE_aud": 75.2,
+     "MdAPE_pct": 19.6,
+     "within20_pct": 50.7
+    },
+    "bed1": {
+     "n": 4493,
+     "MAE_aud": 62.6,
+     "MdAPE_pct": 19.3,
+     "within20_pct": 51.2
+    },
+    "bed2": {
+     "n": 3716,
+     "MAE_aud": 90.4,
+     "MdAPE_pct": 19.9,
+     "within20_pct": 50.1
+    },
+    "top5_district": {
+     "n": 6153,
+     "MAE_aud": 78.1,
+     "MdAPE_pct": 19.5,
+     "within20_pct": 50.8
+    },
+    "other_district": {
+     "n": 2056,
+     "MAE_aud": 66.5,
+     "MdAPE_pct": 19.8,
+     "within20_pct": 50.4
+    },
+    "new12": {
+     "n": 2056,
+     "MAE_aud": 67.3,
+     "MdAPE_pct": 18.6,
+     "within20_pct": 52.7
+    },
+    "not_new12": {
+     "n": 6153,
+     "MAE_aud": 77.8,
+     "MdAPE_pct": 19.9,
+     "within20_pct": 50.1
+    }
+   },
+   "M2_host": {
+    "all": {
+     "n": 8209,
+     "MAE_aud": 75.2,
+     "MdAPE_pct": 19.3,
+     "within20_pct": 51.3
+    },
+    "bed1": {
+     "n": 4493,
+     "MAE_aud": 62.7,
+     "MdAPE_pct": 19.3,
+     "within20_pct": 51.6
+    },
+    "bed2": {
+     "n": 3716,
+     "MAE_aud": 90.3,
+     "MdAPE_pct": 19.4,
+     "within20_pct": 50.9
+    },
+    "top5_district": {
+     "n": 6153,
+     "MAE_aud": 78.1,
+     "MdAPE_pct": 19.3,
+     "within20_pct": 51.4
+    },
+    "other_district": {
+     "n": 2056,
+     "MAE_aud": 66.6,
+     "MdAPE_pct": 19.4,
+     "within20_pct": 51.0
+    },
+    "new12": {
+     "n": 2056,
+     "MAE_aud": 67.8,
+     "MdAPE_pct": 18.6,
+     "within20_pct": 53.3
+    },
+    "not_new12": {
+     "n": 6153,
+     "MAE_aud": 77.6,
+     "MdAPE_pct": 19.6,
+     "within20_pct": 50.6
+    }
+   }
+  },
+  "results_random_cv": {
+   "B0": {
+    "all": {
+     "n": 8209,
+     "MAE_aud": 87.3,
+     "MdAPE_pct": 23.3,
+     "within20_pct": 43.8
+    },
+    "bed1": {
+     "n": 4493,
+     "MAE_aud": 73.7,
+     "MdAPE_pct": 25.0,
+     "within20_pct": 42.0
+    },
+    "bed2": {
+     "n": 3716,
+     "MAE_aud": 103.7,
+     "MdAPE_pct": 21.9,
+     "within20_pct": 46.0
+    },
+    "top5_district": {
+     "n": 6153,
+     "MAE_aud": 89.4,
+     "MdAPE_pct": 22.4,
+     "within20_pct": 45.2
+    },
+    "other_district": {
+     "n": 2056,
+     "MAE_aud": 81.0,
+     "MdAPE_pct": 26.6,
+     "within20_pct": 39.6
+    },
+    "new12": {
+     "n": 2056,
+     "MAE_aud": 77.3,
+     "MdAPE_pct": 21.1,
+     "within20_pct": 48.0
+    },
+    "not_new12": {
+     "n": 6153,
+     "MAE_aud": 90.6,
+     "MdAPE_pct": 24.1,
+     "within20_pct": 42.4
+    }
+   },
+   "B1": {
+    "all": {
+     "n": 8209,
+     "MAE_aud": 77.8,
+     "MdAPE_pct": 20.2,
+     "within20_pct": 49.6
+    },
+    "bed1": {
+     "n": 4493,
+     "MAE_aud": 65.9,
+     "MdAPE_pct": 20.6,
+     "within20_pct": 48.8
+    },
+    "bed2": {
+     "n": 3716,
+     "MAE_aud": 92.2,
+     "MdAPE_pct": 19.7,
+     "within20_pct": 50.6
+    },
+    "top5_district": {
+     "n": 6153,
+     "MAE_aud": 80.2,
+     "MdAPE_pct": 19.9,
+     "within20_pct": 50.4
+    },
+    "other_district": {
+     "n": 2056,
+     "MAE_aud": 70.7,
+     "MdAPE_pct": 21.5,
+     "within20_pct": 47.5
+    },
+    "new12": {
+     "n": 2056,
+     "MAE_aud": 68.5,
+     "MdAPE_pct": 18.7,
+     "within20_pct": 53.1
+    },
+    "not_new12": {
+     "n": 6153,
+     "MAE_aud": 80.9,
+     "MdAPE_pct": 20.8,
+     "within20_pct": 48.5
+    }
+   },
+   "M1": {
+    "all": {
+     "n": 8209,
+     "MAE_aud": 74.4,
+     "MdAPE_pct": 19.3,
+     "within20_pct": 51.4
+    },
+    "bed1": {
+     "n": 4493,
+     "MAE_aud": 61.8,
+     "MdAPE_pct": 19.2,
+     "within20_pct": 52.0
+    },
+    "bed2": {
+     "n": 3716,
+     "MAE_aud": 89.5,
+     "MdAPE_pct": 19.6,
+     "within20_pct": 50.7
+    },
+    "top5_district": {
+     "n": 6153,
+     "MAE_aud": 77.2,
+     "MdAPE_pct": 19.2,
+     "within20_pct": 51.6
+    },
+    "other_district": {
+     "n": 2056,
+     "MAE_aud": 66.0,
+     "MdAPE_pct": 19.7,
+     "within20_pct": 50.8
+    },
+    "new12": {
+     "n": 2056,
+     "MAE_aud": 66.5,
+     "MdAPE_pct": 18.4,
+     "within20_pct": 53.2
+    },
+    "not_new12": {
+     "n": 6153,
+     "MAE_aud": 77.0,
+     "MdAPE_pct": 19.7,
+     "within20_pct": 50.9
+    }
+   },
+   "M2": {
+    "all": {
+     "n": 8209,
+     "MAE_aud": 71.5,
+     "MdAPE_pct": 17.8,
+     "within20_pct": 54.3
+    },
+    "bed1": {
+     "n": 4493,
+     "MAE_aud": 59.3,
+     "MdAPE_pct": 17.4,
+     "within20_pct": 55.4
+    },
+    "bed2": {
+     "n": 3716,
+     "MAE_aud": 86.3,
+     "MdAPE_pct": 18.3,
+     "within20_pct": 53.1
+    },
+    "top5_district": {
+     "n": 6153,
+     "MAE_aud": 73.9,
+     "MdAPE_pct": 17.6,
+     "within20_pct": 54.8
+    },
+    "other_district": {
+     "n": 2056,
+     "MAE_aud": 64.2,
+     "MdAPE_pct": 18.8,
+     "within20_pct": 52.8
+    },
+    "new12": {
+     "n": 2056,
+     "MAE_aud": 65.2,
+     "MdAPE_pct": 17.9,
+     "within20_pct": 54.5
+    },
+    "not_new12": {
+     "n": 6153,
+     "MAE_aud": 73.6,
+     "MdAPE_pct": 17.8,
+     "within20_pct": 54.3
+    }
+   },
+   "M1_host": {
+    "all": {
+     "n": 8209,
+     "MAE_aud": 74.3,
+     "MdAPE_pct": 19.2,
+     "within20_pct": 51.6
+    },
+    "bed1": {
+     "n": 4493,
+     "MAE_aud": 61.7,
+     "MdAPE_pct": 19.0,
+     "within20_pct": 52.2
+    },
+    "bed2": {
+     "n": 3716,
+     "MAE_aud": 89.4,
+     "MdAPE_pct": 19.7,
+     "within20_pct": 50.8
+    },
+    "top5_district": {
+     "n": 6153,
+     "MAE_aud": 77.1,
+     "MdAPE_pct": 19.1,
+     "within20_pct": 51.6
+    },
+    "other_district": {
+     "n": 2056,
+     "MAE_aud": 65.7,
+     "MdAPE_pct": 19.4,
+     "within20_pct": 51.6
+    },
+    "new12": {
+     "n": 2056,
+     "MAE_aud": 66.4,
+     "MdAPE_pct": 18.3,
+     "within20_pct": 53.5
+    },
+    "not_new12": {
+     "n": 6153,
+     "MAE_aud": 76.9,
+     "MdAPE_pct": 19.6,
+     "within20_pct": 51.0
+    }
+   },
+   "M2_host": {
+    "all": {
+     "n": 8209,
+     "MAE_aud": 70.0,
+     "MdAPE_pct": 17.3,
+     "within20_pct": 55.5
+    },
+    "bed1": {
+     "n": 4493,
+     "MAE_aud": 58.1,
+     "MdAPE_pct": 16.9,
+     "within20_pct": 56.9
+    },
+    "bed2": {
+     "n": 3716,
+     "MAE_aud": 84.4,
+     "MdAPE_pct": 17.8,
+     "within20_pct": 54.0
+    },
+    "top5_district": {
+     "n": 6153,
+     "MAE_aud": 72.4,
+     "MdAPE_pct": 17.1,
+     "within20_pct": 55.9
+    },
+    "other_district": {
+     "n": 2056,
+     "MAE_aud": 62.9,
+     "MdAPE_pct": 18.0,
+     "within20_pct": 54.4
+    },
+    "new12": {
+     "n": 2056,
+     "MAE_aud": 64.0,
+     "MdAPE_pct": 17.1,
+     "within20_pct": 56.5
+    },
+    "not_new12": {
+     "n": 6153,
+     "MAE_aud": 72.1,
+     "MdAPE_pct": 17.4,
+     "within20_pct": 55.2
+    }
+   }
+  },
+  "random_minus_group_MAE_aud": {
+   "B0": -0.1,
+   "B1": -0.6,
+   "M1": -0.8,
+   "M2": -3.6,
+   "M1_host": -0.9,
+   "M2_host": -5.2
+  },
+  "best_model": "M2",
+  "best_model_log_residual_quantiles": {
+   "q10": -0.3736,
+   "q25": -0.2047,
+   "q50": -0.0231,
+   "q75": 0.1731,
+   "q90": 0.3888
+  },
+  "M2_log_residual_quantiles": {
+   "q10": -0.3736,
+   "q25": -0.2047,
+   "q50": -0.0231,
+   "q75": 0.1731,
+   "q90": 0.3888
+  },
+  "extreme_sensitivity_excluding_actual_above_p99": {
+   "B0": {
+    "n": 8140,
+    "MAE_aud": 80.0,
+    "MdAPE_pct": 23.1,
+    "within20_pct": 44.0
+   },
+   "B1": {
+    "n": 8140,
+    "MAE_aud": 71.2,
+    "MdAPE_pct": 20.3,
+    "within20_pct": 49.4
+   },
+   "M1": {
+    "n": 8140,
+    "MAE_aud": 68.1,
+    "MdAPE_pct": 19.5,
+    "within20_pct": 50.9
+   },
+   "M2": {
+    "n": 8140,
+    "MAE_aud": 68.2,
+    "MdAPE_pct": 19.0,
+    "within20_pct": 52.4
+   }
+  },
+  "extreme_sensitivity_including_excluded_extremes": {
+   "B0": {
+    "n": 8223,
+    "MAE_aud": 105.1,
+    "MdAPE_pct": 23.4,
+    "within20_pct": 43.6
+   },
+   "B1": {
+    "n": 8223,
+    "MAE_aud": 96.1,
+    "MdAPE_pct": 20.5,
+    "within20_pct": 48.9
+   },
+   "M1": {
+    "n": 8223,
+    "MAE_aud": 92.9,
+    "MdAPE_pct": 19.8,
+    "within20_pct": 50.4
+   },
+   "M2": {
+    "n": 8223,
+    "MAE_aud": 92.6,
+    "MdAPE_pct": 19.2,
+    "within20_pct": 51.9
+   }
+  },
+  "permutation_importance_M2_fold1": {
+   "how": "依房東分組第 1 折:訓練後把測試集某一欄隨機打亂 5 次,看 MAE(澳幣)平均變大多少",
+   "base_MAE_aud": 75.0,
+   "n_test": 1642,
+   "top10": [
+    {
+     "feature": "區",
+     "MAE_increase_aud": 5.37
+    },
+    {
+     "feature": "設施數",
+     "MAE_increase_aud": 3.99
+    },
+    {
+     "feature": "經度",
+     "MAE_increase_aud": 3.66
+    },
+    {
+     "feature": "房間數",
+     "MAE_increase_aud": 3.57
+    },
+    {
+     "feature": "房型細類",
+     "MAE_increase_aud": 2.21
+    },
+    {
+     "feature": "設施:Dishwasher",
+     "MAE_increase_aud": 1.43
+    },
+    {
+     "feature": "最少入住晚數",
+     "MAE_increase_aud": 1.42
+    },
+    {
+     "feature": "浴室數",
+     "MAE_increase_aud": 1.38
+    },
+    {
+     "feature": "可住人數",
+     "MAE_increase_aud": 0.9
+    },
+    {
+     "feature": "設施:Self check-in",
+     "MAE_increase_aud": 0.73
+    }
+   ]
+  }
+ },
+ "d_temporal_check": {
+  "done": true,
+  "train": "2026-06-16 篩選且有價 8,255 間",
+  "test": "2026-09-16 篩選且有價、id 不在 2026-06-16 整期 listings 裡的 820 間",
+  "n_train": 8255,
+  "n_test": 820,
+  "n_train_excluded_extreme": 26,
+  "n_test_before_extreme_rule": 823,
+  "n_test_new12": 395,
+  "results": {
+   "B0": {
+    "n": 820,
+    "MAE_aud": 85.3,
+    "MdAPE_pct": 22.2,
+    "within20_pct": 46.2
+   },
+   "B1": {
+    "n": 820,
+    "MAE_aud": 77.8,
+    "MdAPE_pct": 20.3,
+    "within20_pct": 49.5
+   },
+   "M1": {
+    "n": 820,
+    "MAE_aud": 72.6,
+    "MdAPE_pct": 18.7,
+    "within20_pct": 53.2
+   },
+   "M2": {
+    "n": 820,
+    "MAE_aud": 70.9,
+    "MdAPE_pct": 17.7,
+    "within20_pct": 55.1
+   }
+  },
+  "same_rows_in_period_group_cv": {
+   "B0": {
+    "n": 820,
+    "MAE_aud": 84.4,
+    "MdAPE_pct": 21.8,
+    "within20_pct": 46.1
+   },
+   "B1": {
+    "n": 820,
+    "MAE_aud": 78.8,
+    "MdAPE_pct": 21.0,
+    "within20_pct": 48.0
+   },
+   "M1": {
+    "n": 820,
+    "MAE_aud": 74.7,
+    "MdAPE_pct": 21.1,
+    "within20_pct": 47.7
+   },
+   "M2": {
+    "n": 820,
+    "MAE_aud": 77.3,
+    "MdAPE_pct": 20.8,
+    "within20_pct": 47.6
+   }
+  }
+ },
+ "e_demo_case": {
+  "input": "Melbourne 區、整套(Entire rental unit)、1 房、2 人、1 床、1 浴、有 Kitchen + Washer + Wifi",
+  "comparison_group": {
+   "rule_step": 1,
+   "n": 1788,
+   "p25": 192.0,
+   "p50": 233.0,
+   "p75": 281.2,
+   "subset_accommodates_2": {
+    "n": 1121,
+    "p25": 187.0,
+    "p50": 227.8,
+    "p75": 277.5
+   }
+  },
+  "group_median_amenity_count": 40,
+  "model_literal_input_3_amenities": {
+   "point_aud": 222.0,
+   "ref_range_aud": [
+    181.0,
+    264.0
+   ],
+   "amenity_count": 3
+  },
+  "model_if_amenities_filled_to_group_median": {
+   "point_aud": 248.0,
+   "ref_range_aud": [
+    202.0,
+    295.0
+   ],
+   "amenity_count": 40
+  },
+  "model_note": "M2 用模型樣本 8,209 間重訓;參考區間 = 點估 × exp(交叉驗證對數誤差 q25..q75),即樣本外約一半房源落在此區間;經緯度、最少入住晚數取該組中位數",
+  "missing_top3_common_in_group": [
+   {
+    "amenity": "Smoke alarm",
+    "group_prevalence_pct": 96.6
+   },
+   {
+    "amenity": "Hot water",
+    "group_prevalence_pct": 90.0
+   },
+   {
+    "amenity": "Hair dryer",
+    "group_prevalence_pct": 89.8
+   }
+  ],
+  "missing_top3_common_ge50pct_and_positive_within_group": [
+   {
+    "amenity": "Dishwasher",
+    "group_prevalence_pct": 69.0,
+    "within_group_pct": 13.2
+   },
+   {
+    "amenity": "Cooking basics",
+    "group_prevalence_pct": 81.2,
+    "within_group_pct": 6.9
+   },
+   {
+    "amenity": "Toaster",
+    "group_prevalence_pct": 71.2,
+    "within_group_pct": 5.8
+   }
+  ],
+  "disclaimer": "這是示範輸出,不是定價建議;價格是別人的掛牌價,不是成交價。"
+ },
+ "figures": [
+  "mel_b_positioning_top10.png",
+  "mel_b_amenity_price.png",
+  "mel_b_mae_compare.png",
+  "mel_b_pred_vs_actual.png"
+ ]
+}

@@ -1,0 +1,843 @@
+{
+  "meta": {
+    "scope_id": "IS-1111-MEL-C",
+    "periods": [
+      "2025-12-12",
+      "2026-03-21",
+      "2026-06-16",
+      "2026-09-16"
+    ],
+    "batch_date_2026-09": "2026-09-18",
+    "scope_def": "整套/1-2房/2-4人/最低1-7晚;有價=price 非空",
+    "caveat": "掛牌價(price 欄)不是成交價;年資欄官方說明未查,欄義由資料行為推斷"
+  },
+  "recheck_initial": {
+    "2025-12": {
+      "rows": 26203,
+      "cols": 85,
+      "host_since_nonnull_pct": 100.0,
+      "hosts_time_as_host_years_nonnull_pct": 100.0,
+      "price_nonnull_pct": 0.0
+    },
+    "2026-03": {
+      "rows": 16674,
+      "cols": 90,
+      "host_since_nonnull_pct": 0.0,
+      "hosts_time_as_host_years_nonnull_pct": 100.0,
+      "price_nonnull_pct": 98.7
+    },
+    "2026-06": {
+      "rows": 25728,
+      "cols": 90,
+      "host_since_nonnull_pct": 0.0,
+      "hosts_time_as_host_years_nonnull_pct": 100.0,
+      "price_nonnull_pct": 74.5
+    },
+    "2026-09": {
+      "rows": 25715,
+      "cols": 90,
+      "host_since_nonnull_pct": 0.0,
+      "hosts_time_as_host_years_nonnull_pct": 100.0,
+      "price_nonnull_pct": 73.9
+    },
+    "2026-09_counts": {
+      "scope": 10940,
+      "scope_with_price": 8223,
+      "first_review_12m_proxy": 2056,
+      "proxy_and_single": 713,
+      "proxy_single_host_months_le_12": 514
+    },
+    "dates_last_scraped": {
+      "2025-12": [
+        "2025-12-12",
+        "2025-12-13"
+      ],
+      "2026-03": [
+        "2026-03-21",
+        "2026-03-21"
+      ],
+      "2026-06": [
+        "2026-06-17",
+        "2026-07-01"
+      ],
+      "2026-09": [
+        "2026-09-17",
+        "2026-09-18"
+      ]
+    }
+  },
+  "a_validate_tenure_fields": {
+    "n_2025-12_rows_with_host_since": 26199,
+    "vs_host_since_host": {
+      "exact_pct": 31.94,
+      "within_1m_pct": 40.45,
+      "more_than_1m_pct": 59.55,
+      "field_shorter_than_1m_pct": 59.55,
+      "field_longer_than_1m_pct": 0.0,
+      "diff_months_p5_p50_p95": [
+        -101.0,
+        -6.0,
+        0.0
+      ],
+      "diff_months_min": -190.0,
+      "years_exact_pct": 48.51,
+      "months_exact_pct": 36.04
+    },
+    "vs_host_since_user": {
+      "exact_pct": 98.5,
+      "within_1m_pct": 100.0,
+      "more_than_1m_pct": 0.0,
+      "field_shorter_than_1m_pct": 0.0,
+      "field_longer_than_1m_pct": 0.0,
+      "diff_months_p5_p50_p95": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "diff_months_min": -1.0,
+      "years_exact_pct": 99.92,
+      "months_exact_pct": 98.49
+    },
+    "host_vs_user_2025-12": {
+      "host_le_user_pct": 99.98,
+      "host_eq_user_pct": 32.67,
+      "host_eq_0_pct": 1.32,
+      "gap_user_minus_host_months": {
+        "n": 26199,
+        "p10": 0.0,
+        "p25": 0.0,
+        "p50": 6.0,
+        "p75": 38.0,
+        "p90": 82.0
+      }
+    },
+    "cross_period": {
+      "hosts_2026-09": 13999,
+      "found_in_2025-12": 11745,
+      "found_pct": 83.9,
+      "listing_level_found_pct": 88.08,
+      "host_fields_start_month_minus_host_since_month": {
+        "exact_pct": 13.45,
+        "within_1m_pct": 29.54,
+        "more_than_1m_pct": 70.44,
+        "p5_p50_p95": [
+          0.0,
+          17.0,
+          109.0
+        ]
+      },
+      "user_fields_start_month_minus_host_since_month": {
+        "exact_pct": 58.5,
+        "within_1m_pct": 99.98,
+        "more_than_1m_pct": 0.0,
+        "p5_p50_p95": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "host_field_change_2025-12_to_2026-09_months(實隔約9個月)": {
+        "9": 9720,
+        "10": 2023
+      }
+    },
+    "conclusion": "是別的意思:host_since 對得上 hosts_time_as_user_*(帳號年資),hosts_time_as_host_* 比 host_since 算出的年資短、且跨期隨時間同步增加,最可能是「開始當房東以來」的時間;官方說明未查,屬資料行為推斷"
+  },
+  "b_start_date_source_H": {
+    "note": "H 口徑=任務單版本。年資欄回推用 hosts_time_as_user_*(因 a 證明它才對得上 host_since)",
+    "all": {
+      "host_since(2025-12)": 22647,
+      "年資欄回推(約±1個月)": 3068
+    },
+    "scope": {
+      "host_since(2025-12)": 9736,
+      "年資欄回推(約±1個月)": 1204
+    },
+    "scope_with_price": {
+      "host_since(2025-12)": 7127,
+      "年資欄回推(約±1個月)": 1096
+    },
+    "T_definition": "T 口徑=hosts_time_as_host_*(當房東起算),四期 100% 有值,全部 25,715 間都用年資欄回推(約±1個月)"
+  },
+  "c_new_host_definition": {
+    "window": "房東開始月 >= 2026-09 往前 12 個月(月粒度);24 個月版同理",
+    "definitions": {
+      "T_當房東起算(hosts_time_as_host,主口徑)": {
+        "counts": {
+          "all": {
+            "new12": 3045,
+            "new24": 5405,
+            "new12_and_single": 1698,
+            "new24_and_single": 2778,
+            "base": 25715
+          },
+          "scope": {
+            "new12": 1216,
+            "new24": 2238,
+            "new12_and_single": 732,
+            "new24_and_single": 1240,
+            "base": 10940
+          },
+          "scope_with_price": {
+            "new12": 1122,
+            "new24": 2013,
+            "new12_and_single": 667,
+            "new24_and_single": 1082,
+            "base": 8223
+          }
+        },
+        "crosstab_scope_price(列=首評分類,欄=真新手12個月)": {
+          "12個月內": {
+            "真新手": 857,
+            "非新手": 1199
+          },
+          "12個月前": {
+            "真新手": 23,
+            "非新手": 5328
+          },
+          "無評論": {
+            "真新手": 242,
+            "非新手": 574
+          }
+        },
+        "proxy_precision_pct(代理說新的裡面真新手)": 41.7,
+        "proxy_recall_pct(真新手裡被代理抓到)": 76.4,
+        "proxy_yes": 2056,
+        "real_yes": 1122,
+        "both": 857
+      },
+      "H_host_since優先(任務單口徑)": {
+        "counts": {
+          "all": {
+            "new12": 1198,
+            "new24": 2483,
+            "new12_and_single": 529,
+            "new24_and_single": 941,
+            "base": 25715
+          },
+          "scope": {
+            "new12": 511,
+            "new24": 1035,
+            "new12_and_single": 217,
+            "new24_and_single": 382,
+            "base": 10940
+          },
+          "scope_with_price": {
+            "new12": 480,
+            "new24": 952,
+            "new12_and_single": 203,
+            "new24_and_single": 347,
+            "base": 8223
+          }
+        },
+        "crosstab_scope_price(列=首評分類,欄=真新手12個月)": {
+          "12個月內": {
+            "真新手": 359,
+            "非新手": 1697
+          },
+          "12個月前": {
+            "真新手": 14,
+            "非新手": 5337
+          },
+          "無評論": {
+            "真新手": 107,
+            "非新手": 709
+          }
+        },
+        "proxy_precision_pct(代理說新的裡面真新手)": 17.5,
+        "proxy_recall_pct(真新手裡被代理抓到)": 74.8,
+        "proxy_yes": 2056,
+        "real_yes": 480,
+        "both": 359
+      }
+    }
+  },
+  "d_new_vs_veteran": {
+    "sample": {
+      "new": 1122,
+      "old": 7101,
+      "group_min_size": 20,
+      "in_group_n_listings": 8013,
+      "groups_ge_20": 45
+    },
+    "metrics": {
+      "price": {
+        "label": "掛牌價中位數(澳幣/晚)",
+        "new": {
+          "n": 1122,
+          "median": 264.75,
+          "p25": 206.0,
+          "p75": 332.15
+        },
+        "old": {
+          "n": 7101,
+          "median": 264.0,
+          "p25": 209.0,
+          "p75": 335.0
+        }
+      },
+      "prank": {
+        "label": "同組價格百分位中位數",
+        "new": {
+          "n": 1083,
+          "median": 48.19,
+          "p25": 22.04,
+          "p75": 74.13
+        },
+        "old": {
+          "n": 6930,
+          "median": 50.76,
+          "p25": 25.81,
+          "p75": 75.42
+        }
+      },
+      "rating": {
+        "label": "評分中位數(有評分者)",
+        "new": {
+          "n": 880,
+          "median": 4.95,
+          "p25": 4.81,
+          "p75": 5.0
+        },
+        "old": {
+          "n": 6527,
+          "median": 4.84,
+          "p25": 4.69,
+          "p75": 4.95
+        }
+      },
+      "rated_share": {
+        "label": "有評分比例",
+        "new": {
+          "n": 1122,
+          "median": 1.0,
+          "p25": 1.0,
+          "p75": 1.0,
+          "share_pct": 78.4
+        },
+        "old": {
+          "n": 7101,
+          "median": 1.0,
+          "p25": 1.0,
+          "p75": 1.0,
+          "share_pct": 91.9
+        }
+      },
+      "amenities": {
+        "label": "設施數中位數",
+        "new": {
+          "n": 1122,
+          "median": 41.0,
+          "p25": 28.0,
+          "p75": 50.0
+        },
+        "old": {
+          "n": 7101,
+          "median": 41.0,
+          "p25": 32.0,
+          "p75": 48.0
+        }
+      },
+      "reviews_ltm": {
+        "label": "近一年評論數中位數",
+        "new": {
+          "n": 1122,
+          "median": 5.0,
+          "p25": 1.0,
+          "p75": 15.0
+        },
+        "old": {
+          "n": 7101,
+          "median": 10.0,
+          "p25": 2.0,
+          "p75": 23.0
+        }
+      },
+      "min_nights": {
+        "label": "最少入住晚數中位數",
+        "new": {
+          "n": 1122,
+          "median": 1.0,
+          "p25": 1.0,
+          "p75": 2.0
+        },
+        "old": {
+          "n": 7101,
+          "median": 2.0,
+          "p25": 1.0,
+          "p75": 2.0
+        }
+      },
+      "superhost_share": {
+        "label": "超讚房東比例",
+        "new": {
+          "n": 1122,
+          "median": 0.0,
+          "p25": 0.0,
+          "p75": 1.0,
+          "share_pct": 33.3
+        },
+        "old": {
+          "n": 7101,
+          "median": 0.0,
+          "p25": 0.0,
+          "p75": 1.0,
+          "share_pct": 45.9
+        }
+      }
+    },
+    "sensitivity_H": {
+      "new_n": 480,
+      "price_median_new": 270.3,
+      "price_median_old": 263.7,
+      "prank_median_new": 50.5,
+      "prank_median_old": 50.2
+    }
+  },
+  "e_flows_and_march": {
+    "flows": {
+      "2025-12到2026-03": {
+        "stay": 14502,
+        "gone": 11701,
+        "new": 2172
+      },
+      "2026-03到2026-06": {
+        "stay": 15238,
+        "gone": 1436,
+        "new": 10490
+      },
+      "2026-06到2026-09": {
+        "stay": 23526,
+        "gone": 2202,
+        "new": 2189
+      }
+    },
+    "march_absent_but_in_12_and_06": {
+      "n": 8006,
+      "in_06": {
+        "n": 8006,
+        "price_nonnull_pct": 26.7,
+        "has_availability": {
+          "t": 99.1,
+          "nan": 0.9
+        },
+        "availability_365_eq_0_pct": 70.8,
+        "source": {
+          "previous scrape": 6102,
+          "city scrape": 1904
+        },
+        "reviews_ltm_eq_0_pct": 76.9
+      },
+      "in_12": {
+        "n": 8006,
+        "availability_365_eq_0_pct": 66.3,
+        "has_availability": {
+          "t": 98.8,
+          "nan": 1.2
+        },
+        "reviews_ltm_eq_0_pct": 73.6
+      }
+    },
+    "march_present_and_in_12_and_06": {
+      "n": 13441,
+      "in_06": {
+        "n": 13441,
+        "price_nonnull_pct": 96.6,
+        "has_availability": {
+          "t": 99.6,
+          "nan": 0.4
+        },
+        "availability_365_eq_0_pct": 2.2,
+        "source": {
+          "city scrape": 12949,
+          "previous scrape": 492
+        },
+        "reviews_ltm_eq_0_pct": 16.0
+      },
+      "in_12": {
+        "n": 13441,
+        "availability_365_eq_0_pct": 1.1,
+        "has_availability": {
+          "t": 99.4,
+          "nan": 0.6
+        },
+        "reviews_ltm_eq_0_pct": 19.2
+      }
+    },
+    "gone_in_03_returned_in_06_pct": 68.4,
+    "gone_in_03_n": 11701,
+    "source_distribution_all_rows": {
+      "2026-03": {
+        "city scrape": 16674
+      },
+      "2026-06": {
+        "city scrape": 18885,
+        "previous scrape": 6843
+      },
+      "2026-09": {
+        "(空白)": 18872,
+        "previous scrape": 6843
+      }
+    },
+    "price_nonnull_pct_all": {
+      "2026-03": 98.7,
+      "2026-06": 74.5,
+      "2026-09": 73.9
+    }
+  },
+  "f_price_change": {
+    "n_common_priced_in_03_06_09": 13056,
+    "change_pct": {
+      "3到6": {
+        "n": 13056,
+        "p10": -19.81,
+        "p25": -8.26,
+        "p50": 0.0,
+        "p75": 5.32,
+        "p90": 19.88,
+        "unchanged_pct": 21.9,
+        "up_pct": 35.5,
+        "down_pct": 42.6
+      },
+      "6到9": {
+        "n": 13056,
+        "p10": -13.98,
+        "p25": -7.03,
+        "p50": 2.04,
+        "p75": 16.81,
+        "p90": 40.15,
+        "unchanged_pct": 2.8,
+        "up_pct": 60.2,
+        "down_pct": 37.0
+      },
+      "3到9": {
+        "n": 13056,
+        "p10": -16.88,
+        "p25": -9.45,
+        "p50": 1.47,
+        "p75": 15.68,
+        "p90": 39.55,
+        "unchanged_pct": 1.9,
+        "up_pct": 57.2,
+        "down_pct": 40.9
+      }
+    },
+    "quote_dates": {
+      "2026-03": {
+        "checkin_top5": {
+          "2026-03-22": 3372,
+          "2026-03-23": 1725,
+          "2026-03-24": 846,
+          "2026-03-21": 683,
+          "2026-03-29": 646
+        },
+        "checkin_distinct": 228,
+        "checkin_missing": 0,
+        "nights": {
+          "2": 5023,
+          "1": 4846,
+          "3": 1586,
+          "5": 569,
+          "4": 469
+        },
+        "checkin_weekday_of_mode": "Sunday",
+        "distinct_all_priced_rows": 267,
+        "price_equals_quote_per_night_pct": 100.0
+      },
+      "2026-06": {
+        "checkin_top5": {
+          "2026-06-18": 2806,
+          "2026-06-17": 1737,
+          "2026-06-19": 1184,
+          "2026-06-21": 1003,
+          "2026-06-22": 712
+        },
+        "checkin_distinct": 249,
+        "checkin_missing": 0,
+        "nights": {
+          "2": 5087,
+          "1": 4773,
+          "3": 1716,
+          "4": 473,
+          "5": 423
+        },
+        "checkin_weekday_of_mode": "Thursday",
+        "distinct_all_priced_rows": 310,
+        "price_equals_quote_per_night_pct": 100.0
+      },
+      "2026-09": {
+        "checkin_top5": {
+          "2026-09-18": 2794,
+          "2026-09-20": 1649,
+          "2026-09-19": 1575,
+          "2026-09-21": 1000,
+          "2026-09-27": 469
+        },
+        "checkin_distinct": 247,
+        "checkin_missing": 0,
+        "nights": {
+          "2": 5059,
+          "1": 4874,
+          "3": 1589,
+          "4": 462,
+          "5": 447
+        },
+        "checkin_weekday_of_mode": "Friday",
+        "distinct_all_priced_rows": 297,
+        "price_equals_quote_per_night_pct": 100.0
+      }
+    },
+    "same_weekday_and_nights_subset": {
+      "3到6": {
+        "n": 1466,
+        "p10": -15.35,
+        "p25": -6.34,
+        "p50": 0.0,
+        "p75": 1.08,
+        "p90": 10.86,
+        "unchanged_pct": 30.4,
+        "share_of_common_pct": 11.2
+      },
+      "6到9": {
+        "n": 1538,
+        "p10": -13.36,
+        "p25": -4.41,
+        "p50": 1.44,
+        "p75": 11.69,
+        "p90": 27.73,
+        "unchanged_pct": 5.5,
+        "share_of_common_pct": 11.8
+      },
+      "3到9": {
+        "n": 1692,
+        "p10": -14.51,
+        "p25": -6.82,
+        "p50": 1.2,
+        "p75": 11.16,
+        "p90": 27.53,
+        "unchanged_pct": 3.9,
+        "share_of_common_pct": 13.0
+      }
+    },
+    "quote_weekday_dist_pct": {
+      "2026-03": {
+        "Sunday": 34.3,
+        "Monday": 21.7,
+        "Tuesday": 11.9,
+        "Saturday": 10.9,
+        "Wednesday": 8.7,
+        "Friday": 6.7,
+        "Thursday": 5.8
+      },
+      "2026-06": {
+        "Thursday": 25.9,
+        "Wednesday": 19.3,
+        "Friday": 13.6,
+        "Sunday": 12.9,
+        "Monday": 10.7,
+        "Saturday": 10.2,
+        "Tuesday": 7.2
+      },
+      "2026-09": {
+        "Friday": 26.6,
+        "Sunday": 21.5,
+        "Monday": 16.5,
+        "Saturday": 16.4,
+        "Tuesday": 8.6,
+        "Wednesday": 6.1,
+        "Thursday": 4.3
+      }
+    },
+    "district_3_to_9_median_pct(n>=30)": {
+      "Whittlesea": {
+        "n": 123,
+        "median_pct": -5.45
+      },
+      "Hume": {
+        "n": 196,
+        "median_pct": -3.27
+      },
+      "Wyndham": {
+        "n": 340,
+        "median_pct": -1.79
+      },
+      "Melton": {
+        "n": 178,
+        "median_pct": -1.71
+      },
+      "Casey": {
+        "n": 223,
+        "median_pct": -0.89
+      },
+      "Darebin": {
+        "n": 243,
+        "median_pct": 0.0
+      },
+      "Greater Dandenong": {
+        "n": 110,
+        "median_pct": 0.0
+      },
+      "Knox": {
+        "n": 107,
+        "median_pct": 0.0
+      },
+      "Maribyrnong": {
+        "n": 340,
+        "median_pct": 0.04
+      },
+      "Glen Eira": {
+        "n": 236,
+        "median_pct": 0.17
+      },
+      "Frankston": {
+        "n": 153,
+        "median_pct": 0.35
+      },
+      "Banyule": {
+        "n": 122,
+        "median_pct": 0.45
+      },
+      "Maroondah": {
+        "n": 92,
+        "median_pct": 0.83
+      },
+      "Manningham": {
+        "n": 135,
+        "median_pct": 0.84
+      },
+      "Hobsons Bay": {
+        "n": 176,
+        "median_pct": 0.92
+      },
+      "Whitehorse": {
+        "n": 331,
+        "median_pct": 0.96
+      },
+      "Bayside": {
+        "n": 214,
+        "median_pct": 0.97
+      },
+      "Boroondara": {
+        "n": 287,
+        "median_pct": 1.0
+      },
+      "Cardinia": {
+        "n": 126,
+        "median_pct": 1.01
+      },
+      "Monash": {
+        "n": 282,
+        "median_pct": 1.02
+      },
+      "Brimbank": {
+        "n": 230,
+        "median_pct": 1.03
+      },
+      "Kingston": {
+        "n": 188,
+        "median_pct": 1.08
+      },
+      "Yarra": {
+        "n": 790,
+        "median_pct": 1.18
+      },
+      "Port Phillip": {
+        "n": 1209,
+        "median_pct": 1.21
+      },
+      "Moonee Valley": {
+        "n": 237,
+        "median_pct": 1.29
+      },
+      "Yarra Ranges": {
+        "n": 797,
+        "median_pct": 1.38
+      },
+      "Moreland": {
+        "n": 403,
+        "median_pct": 2.02
+      },
+      "Nillumbik": {
+        "n": 69,
+        "median_pct": 2.06
+      },
+      "Stonnington": {
+        "n": 551,
+        "median_pct": 2.45
+      },
+      "Melbourne": {
+        "n": 4568,
+        "median_pct": 5.73
+      }
+    },
+    "districts_total_in_common": 30,
+    "districts_n_ge_30": 30
+  },
+  "g_first_year_price_path": {
+    "T_當房東起算(主口徑)": {
+      "新手(2025-12 時開始未滿12個月)": {
+        "n": 1402,
+        "median_price_03_06_09": [
+          259.5,
+          252.0,
+          267.3
+        ],
+        "median_change_vs_03_pct": {
+          "03到06": 0.0,
+          "03到09": 1.05,
+          "06到09": 1.86
+        },
+        "unchanged_03_to_09_pct": 1.1,
+        "enough_n_ge_30": true
+      },
+      "老手": {
+        "n": 10293,
+        "median_price_03_06_09": [
+          253.5,
+          250.5,
+          268.7
+        ],
+        "median_change_vs_03_pct": {
+          "03到06": 0.0,
+          "03到09": 1.57,
+          "06到09": 2.03
+        },
+        "unchanged_03_to_09_pct": 2.1,
+        "enough_n_ge_30": true
+      }
+    },
+    "H_host_since(任務單口徑)": {
+      "新手(2025-12 時開始未滿12個月)": {
+        "n": 574,
+        "median_price_03_06_09": [
+          265.1,
+          261.6,
+          274.2
+        ],
+        "median_change_vs_03_pct": {
+          "03到06": 0.0,
+          "03到09": 0.47,
+          "06到09": 1.82
+        },
+        "unchanged_03_to_09_pct": 1.6,
+        "enough_n_ge_30": true
+      },
+      "老手": {
+        "n": 11121,
+        "median_price_03_06_09": [
+          253.5,
+          250.0,
+          268.0
+        ],
+        "median_change_vs_03_pct": {
+          "03到06": 0.0,
+          "03到09": 1.5,
+          "06到09": 2.02
+        },
+        "unchanged_03_to_09_pct": 2.0,
+        "enough_n_ge_30": true
+      }
+    },
+    "n_common_also_in_2025-12": 11695
+  }
+}

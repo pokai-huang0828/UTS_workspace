@@ -1,0 +1,953 @@
+{
+  "meta": {
+    "scope_id": "IS-1111-MEL-A",
+    "main_period": "2026-09-16",
+    "periods": [
+      "2025-12-12",
+      "2026-03-21",
+      "2026-06-16",
+      "2026-09-16"
+    ],
+    "recon": {
+      "listings_rows": 25715,
+      "scope_rows": 10940,
+      "scope_with_price_rows": 8223,
+      "passed": true
+    },
+    "scope_definition": "整套房(Entire home/apt)、bedrooms 1-2、accommodates 2-4、minimum_nights 1-7;有價 = price 非空",
+    "price_note": "掛牌價(每晚),不是成交價;單位為資料原值($)",
+    "percentile_method": "numpy percentile(線性內插)",
+    "font": "Microsoft JhengHei"
+  },
+  "a_supply": {
+    "n_listings": 25715,
+    "room_type": {
+      "Entire home/apt": {
+        "n": 18959,
+        "share": 0.7373
+      },
+      "Private room": {
+        "n": 6475,
+        "share": 0.2518
+      },
+      "Shared room": {
+        "n": 227,
+        "share": 0.0088
+      },
+      "Hotel room": {
+        "n": 54,
+        "share": 0.0021
+      }
+    },
+    "entire_home_n": 18959,
+    "entire_home_bedrooms": {
+      "1": {
+        "n": 6454,
+        "share": 0.3404
+      },
+      "2": {
+        "n": 7327,
+        "share": 0.3865
+      },
+      "3": {
+        "n": 2853,
+        "share": 0.1505
+      },
+      "4": {
+        "n": 1341,
+        "share": 0.0707
+      },
+      "5以上": {
+        "n": 967,
+        "share": 0.051
+      },
+      "缺值": {
+        "n": 17,
+        "share": 0.0009
+      }
+    },
+    "entire_home_accommodates": {
+      "1": {
+        "n": 96,
+        "share": 0.0051
+      },
+      "2": {
+        "n": 5141,
+        "share": 0.2712
+      },
+      "3": {
+        "n": 1182,
+        "share": 0.0623
+      },
+      "4": {
+        "n": 5780,
+        "share": 0.3049
+      },
+      "5": {
+        "n": 1274,
+        "share": 0.0672
+      },
+      "6": {
+        "n": 2851,
+        "share": 0.1504
+      },
+      "7": {
+        "n": 412,
+        "share": 0.0217
+      },
+      "8": {
+        "n": 1149,
+        "share": 0.0606
+      },
+      "9以上": {
+        "n": 1074,
+        "share": 0.0566
+      }
+    },
+    "property_type_top8": [
+      {
+        "name": "Entire rental unit",
+        "n": 11331,
+        "share": 0.4406
+      },
+      {
+        "name": "Entire home",
+        "n": 4592,
+        "share": 0.1786
+      },
+      {
+        "name": "Private room in home",
+        "n": 3480,
+        "share": 0.1353
+      },
+      {
+        "name": "Private room in rental unit",
+        "n": 1688,
+        "share": 0.0656
+      },
+      {
+        "name": "Entire condo",
+        "n": 626,
+        "share": 0.0243
+      },
+      {
+        "name": "Entire townhouse",
+        "n": 534,
+        "share": 0.0208
+      },
+      {
+        "name": "Entire serviced apartment",
+        "n": 427,
+        "share": 0.0166
+      },
+      {
+        "name": "Entire guesthouse",
+        "n": 393,
+        "share": 0.0153
+      }
+    ],
+    "host_concentration": {
+      "1": {
+        "listings": 11225,
+        "share": 0.4365
+      },
+      "2_4": {
+        "listings": 5276,
+        "share": 0.2052
+      },
+      "5_plus": {
+        "listings": 9214,
+        "share": 0.3583
+      },
+      "missing": {
+        "listings": 0,
+        "share": 0.0
+      }
+    },
+    "host_concentration_note": "calculated_host_listings_count;以房源為分母(不是以房東為分母)"
+  },
+  "b_price": {
+    "n_priced_all": 19004,
+    "all_priced": {
+      "n": 19004,
+      "p10": 96.5,
+      "p25": 172.0,
+      "p50": 263.21,
+      "p75": 375.0,
+      "p90": 550.04
+    },
+    "by_room_type": {
+      "Entire home/apt": {
+        "n": 14504,
+        "p10": 180.63,
+        "p25": 229.5,
+        "p50": 301.68,
+        "p75": 412.68,
+        "p90": 600.7
+      },
+      "Hotel room": {
+        "n": 44,
+        "p10": 239.0,
+        "p25": 296.0,
+        "p50": 355.5,
+        "p75": 460.25,
+        "p90": 615.47
+      },
+      "Private room": {
+        "n": 4253,
+        "p10": 64.0,
+        "p25": 82.0,
+        "p50": 109.0,
+        "p75": 151.0,
+        "p90": 231.0
+      },
+      "Shared room": {
+        "n": 203,
+        "p10": 31.26,
+        "p25": 37.47,
+        "p50": 48.86,
+        "p75": 65.15,
+        "p90": 99.61
+      }
+    },
+    "entire_by_bedrooms": {
+      "1": {
+        "n": 4749,
+        "p10": 152.0,
+        "p25": 186.5,
+        "p50": 229.0,
+        "p75": 285.0,
+        "p90": 358.07
+      },
+      "2": {
+        "n": 5592,
+        "p10": 210.0,
+        "p25": 256.2,
+        "p50": 309.0,
+        "p75": 380.0,
+        "p90": 487.45
+      },
+      "3": {
+        "n": 2267,
+        "p10": 265.15,
+        "p25": 337.64,
+        "p50": 430.0,
+        "p75": 575.75,
+        "p90": 801.2
+      },
+      "4": {
+        "n": 1089,
+        "p10": 279.56,
+        "p25": 360.0,
+        "p50": 480.0,
+        "p75": 699.0,
+        "p90": 1021.38
+      },
+      "5以上": {
+        "n": 791,
+        "p10": 162.5,
+        "p25": 212.5,
+        "p50": 435.5,
+        "p75": 728.25,
+        "p90": 1270.0
+      },
+      "缺值": {
+        "n": 16,
+        "p10": 97.5,
+        "p25": 166.5,
+        "p50": 216.5,
+        "p75": 313.33,
+        "p90": 464.75
+      }
+    },
+    "p99_value": 1552.91,
+    "n_above_p99": 191,
+    "max_price": 109084.5,
+    "hist_note": "直方圖只畫到 p99 = $1,553;更貴的不畫"
+  },
+  "c_districts": {
+    "min_n_for_median": 10,
+    "rating_note": "評分中位數 = 該區所有有評分房源",
+    "districts": {
+      "Banyule": {
+        "n_listings": 226,
+        "n_scope_priced": 70,
+        "scope_price_median": 243.5,
+        "scope_price_note": null,
+        "rating_median": 4.86,
+        "n_rated": 173,
+        "entire_share": 0.6681
+      },
+      "Bayside": {
+        "n_listings": 427,
+        "n_scope_priced": 125,
+        "scope_price_median": 264.0,
+        "scope_price_note": null,
+        "rating_median": 4.92,
+        "n_rated": 335,
+        "entire_share": 0.8361
+      },
+      "Boroondara": {
+        "n_listings": 603,
+        "n_scope_priced": 150,
+        "scope_price_median": 263.25,
+        "scope_price_note": null,
+        "rating_median": 4.88,
+        "n_rated": 457,
+        "entire_share": 0.66
+      },
+      "Brimbank": {
+        "n_listings": 384,
+        "n_scope_priced": 48,
+        "scope_price_median": 190.2,
+        "scope_price_note": null,
+        "rating_median": 4.83,
+        "n_rated": 298,
+        "entire_share": 0.474
+      },
+      "Cardinia": {
+        "n_listings": 224,
+        "n_scope_priced": 51,
+        "scope_price_median": 236.67,
+        "scope_price_note": null,
+        "rating_median": 4.91,
+        "n_rated": 182,
+        "entire_share": 0.7098
+      },
+      "Casey": {
+        "n_listings": 395,
+        "n_scope_priced": 22,
+        "scope_price_median": 193.67,
+        "scope_price_note": null,
+        "rating_median": 4.88,
+        "n_rated": 289,
+        "entire_share": 0.5063
+      },
+      "Darebin": {
+        "n_listings": 594,
+        "n_scope_priced": 137,
+        "scope_price_median": 207.46,
+        "scope_price_note": null,
+        "rating_median": 4.9,
+        "n_rated": 472,
+        "entire_share": 0.6582
+      },
+      "Frankston": {
+        "n_listings": 266,
+        "n_scope_priced": 71,
+        "scope_price_median": 230.0,
+        "scope_price_note": null,
+        "rating_median": 4.89,
+        "n_rated": 217,
+        "entire_share": 0.7744
+      },
+      "Glen Eira": {
+        "n_listings": 513,
+        "n_scope_priced": 126,
+        "scope_price_median": 256.89,
+        "scope_price_note": null,
+        "rating_median": 4.9,
+        "n_rated": 391,
+        "entire_share": 0.6647
+      },
+      "Greater Dandenong": {
+        "n_listings": 195,
+        "n_scope_priced": 22,
+        "scope_price_median": 199.86,
+        "scope_price_note": null,
+        "rating_median": 4.84,
+        "n_rated": 148,
+        "entire_share": 0.3949
+      },
+      "Hobsons Bay": {
+        "n_listings": 328,
+        "n_scope_priced": 89,
+        "scope_price_median": 237.0,
+        "scope_price_note": null,
+        "rating_median": 4.895,
+        "n_rated": 266,
+        "entire_share": 0.6982
+      },
+      "Hume": {
+        "n_listings": 390,
+        "n_scope_priced": 43,
+        "scope_price_median": 244.5,
+        "scope_price_note": null,
+        "rating_median": 4.88,
+        "n_rated": 300,
+        "entire_share": 0.5641
+      },
+      "Kingston": {
+        "n_listings": 373,
+        "n_scope_priced": 84,
+        "scope_price_median": 246.75,
+        "scope_price_note": null,
+        "rating_median": 4.87,
+        "n_rated": 295,
+        "entire_share": 0.7426
+      },
+      "Knox": {
+        "n_listings": 197,
+        "n_scope_priced": 36,
+        "scope_price_median": 176.67,
+        "scope_price_note": null,
+        "rating_median": 4.83,
+        "n_rated": 162,
+        "entire_share": 0.5584
+      },
+      "Manningham": {
+        "n_listings": 236,
+        "n_scope_priced": 40,
+        "scope_price_median": 235.1,
+        "scope_price_note": null,
+        "rating_median": 4.85,
+        "n_rated": 175,
+        "entire_share": 0.6483
+      },
+      "Maribyrnong": {
+        "n_listings": 651,
+        "n_scope_priced": 136,
+        "scope_price_median": 229.25,
+        "scope_price_note": null,
+        "rating_median": 4.85,
+        "n_rated": 549,
+        "entire_share": 0.5853
+      },
+      "Maroondah": {
+        "n_listings": 141,
+        "n_scope_priced": 34,
+        "scope_price_median": 207.5,
+        "scope_price_note": null,
+        "rating_median": 4.86,
+        "n_rated": 119,
+        "entire_share": 0.7234
+      },
+      "Melbourne": {
+        "n_listings": 8422,
+        "n_scope_priced": 3487,
+        "scope_price_median": 269.0,
+        "scope_price_note": null,
+        "rating_median": 4.82,
+        "n_rated": 7257,
+        "entire_share": 0.8299
+      },
+      "Melton": {
+        "n_listings": 321,
+        "n_scope_priced": 25,
+        "scope_price_median": 210.0,
+        "scope_price_note": null,
+        "rating_median": 4.87,
+        "n_rated": 230,
+        "entire_share": 0.4642
+      },
+      "Monash": {
+        "n_listings": 627,
+        "n_scope_priced": 104,
+        "scope_price_median": 245.0,
+        "scope_price_note": null,
+        "rating_median": 4.82,
+        "n_rated": 492,
+        "entire_share": 0.5598
+      },
+      "Moonee Valley": {
+        "n_listings": 463,
+        "n_scope_priced": 132,
+        "scope_price_median": 258.5,
+        "scope_price_note": null,
+        "rating_median": 4.88,
+        "n_rated": 331,
+        "entire_share": 0.5896
+      },
+      "Moreland": {
+        "n_listings": 959,
+        "n_scope_priced": 228,
+        "scope_price_median": 251.75,
+        "scope_price_note": null,
+        "rating_median": 4.86,
+        "n_rated": 795,
+        "entire_share": 0.5892
+      },
+      "Nillumbik": {
+        "n_listings": 113,
+        "n_scope_priced": 35,
+        "scope_price_median": 246.0,
+        "scope_price_note": null,
+        "rating_median": 4.94,
+        "n_rated": 101,
+        "entire_share": 0.8496
+      },
+      "Port Phillip": {
+        "n_listings": 2761,
+        "n_scope_priced": 1062,
+        "scope_price_median": 267.75,
+        "scope_price_note": null,
+        "rating_median": 4.9,
+        "n_rated": 2188,
+        "entire_share": 0.8182
+      },
+      "Stonnington": {
+        "n_listings": 1308,
+        "n_scope_priced": 478,
+        "scope_price_median": 261.75,
+        "scope_price_note": null,
+        "rating_median": 4.89,
+        "n_rated": 1064,
+        "entire_share": 0.8066
+      },
+      "Whitehorse": {
+        "n_listings": 651,
+        "n_scope_priced": 169,
+        "scope_price_median": 238.0,
+        "scope_price_note": null,
+        "rating_median": 4.82,
+        "n_rated": 527,
+        "entire_share": 0.6406
+      },
+      "Whittlesea": {
+        "n_listings": 258,
+        "n_scope_priced": 32,
+        "scope_price_median": 197.0,
+        "scope_price_note": null,
+        "rating_median": 4.92,
+        "n_rated": 190,
+        "entire_share": 0.5
+      },
+      "Wyndham": {
+        "n_listings": 823,
+        "n_scope_priced": 48,
+        "scope_price_median": 207.5,
+        "scope_price_note": null,
+        "rating_median": 4.83,
+        "n_rated": 589,
+        "entire_share": 0.4192
+      },
+      "Yarra": {
+        "n_listings": 1785,
+        "n_scope_priced": 674,
+        "scope_price_median": 286.5,
+        "scope_price_note": null,
+        "rating_median": 4.91,
+        "n_rated": 1545,
+        "entire_share": 0.8017
+      },
+      "Yarra Ranges": {
+        "n_listings": 1081,
+        "n_scope_priced": 465,
+        "scope_price_median": 310.0,
+        "scope_price_note": null,
+        "rating_median": 4.92,
+        "n_rated": 993,
+        "entire_share": 0.8936
+      }
+    }
+  },
+  "d_maps": {
+    "files": [
+      "mel_a_map_price_median.png",
+      "mel_a_map_listing_count.png"
+    ],
+    "top8_by_listings": [
+      {
+        "name": "Melbourne",
+        "n_listings": 8422
+      },
+      {
+        "name": "Port Phillip",
+        "n_listings": 2761
+      },
+      {
+        "name": "Yarra",
+        "n_listings": 1785
+      },
+      {
+        "name": "Stonnington",
+        "n_listings": 1308
+      },
+      {
+        "name": "Yarra Ranges",
+        "n_listings": 1081
+      },
+      {
+        "name": "Moreland",
+        "n_listings": 959
+      },
+      {
+        "name": "Wyndham",
+        "n_listings": 823
+      },
+      {
+        "name": "Maribyrnong",
+        "n_listings": 651
+      }
+    ],
+    "low_sample_districts": [],
+    "n_low_sample_districts": 0
+  },
+  "e_demand": {
+    "proxy_note": "estimated_occupancy_l365d 由評論數推算,不是真實入住;availability 是日曆可訂天數;兩者都是代理",
+    "occupancy_proxy": {
+      "sample": "篩選且有價",
+      "n": 8223,
+      "n_missing": 0,
+      "max_value": 255.0,
+      "share_zero": 0.1627,
+      "share_at_cap": 0.0722,
+      "median": 60.0,
+      "mean": 82.25,
+      "bins": {
+        "0": 1338,
+        "1-50": 2548,
+        "51-100": 1535,
+        "101-150": 1104,
+        "151-200": 660,
+        "201-254": 444,
+        "255(上限)": 594
+      }
+    },
+    "availability_proxy": {
+      "sample": "篩選且有價",
+      "by_window": {
+        "30": {
+          "n": 8223,
+          "p10": 0.0,
+          "p25": 5.0,
+          "p50": 12.0,
+          "p75": 19.0,
+          "p90": 25.0,
+          "mean": 12.5,
+          "share_zero": 0.1227,
+          "share_full": 0.0173,
+          "pct_of_window": {
+            "p10": 0.0,
+            "p25": 0.1667,
+            "p50": 0.4,
+            "p75": 0.6333,
+            "p90": 0.8333
+          }
+        },
+        "90": {
+          "n": 8223,
+          "p10": 11.0,
+          "p25": 32.0,
+          "p50": 55.0,
+          "p75": 73.0,
+          "p90": 83.8,
+          "mean": 51.25,
+          "share_zero": 0.0433,
+          "share_full": 0.0154,
+          "pct_of_window": {
+            "p10": 0.1222,
+            "p25": 0.3556,
+            "p50": 0.6111,
+            "p75": 0.8111,
+            "p90": 0.9311
+          }
+        },
+        "365": {
+          "n": 8223,
+          "p10": 49.0,
+          "p25": 101.0,
+          "p50": 219.0,
+          "p75": 312.0,
+          "p90": 349.0,
+          "mean": 205.35,
+          "share_zero": 0.0,
+          "share_full": 0.0067,
+          "pct_of_window": {
+            "p10": 0.1342,
+            "p25": 0.2767,
+            "p50": 0.6,
+            "p75": 0.8548,
+            "p90": 0.9562
+          }
+        }
+      }
+    },
+    "calendar_blocked": {
+      "definition": "窗口 = calendar 最早日期(約等於抓取日,與 listings 的 calendar_last_scraped 差 0-2 天)起算 N 天 [base, base+N);不可訂(available=f)= 被訂走或房東自己關閉,分不出來;分母 = 窗口內所有房源日;all = calendar 內全部房源,scope = 篩選樣本",
+      "periods": {
+        "2025-12-12": {
+          "base_date": "2025-12-12",
+          "calendar_rows_total": 9564099,
+          "calendar_min_date": "2025-12-12",
+          "calendar_max_date": "2026-12-12",
+          "n_listings_in_calendar": 26203,
+          "seconds": 3.1,
+          "all": {
+            "30": {
+              "listing_days": 771871,
+              "blocked_days": 506390,
+              "blocked_share": 0.6561,
+              "window_days": 30
+            },
+            "60": {
+              "listing_days": 1557961,
+              "blocked_days": 928478,
+              "blocked_share": 0.596,
+              "window_days": 60
+            },
+            "90": {
+              "listing_days": 2344051,
+              "blocked_days": 1327427,
+              "blocked_share": 0.5663,
+              "window_days": 90
+            }
+          },
+          "scope": {
+            "30": {
+              "listing_days": 328742,
+              "blocked_days": 222771,
+              "blocked_share": 0.6776,
+              "window_days": 30
+            },
+            "60": {
+              "listing_days": 664022,
+              "blocked_days": 412299,
+              "blocked_share": 0.6209,
+              "window_days": 60
+            },
+            "90": {
+              "listing_days": 999302,
+              "blocked_days": 589553,
+              "blocked_share": 0.59,
+              "window_days": 90
+            }
+          },
+          "n_listings_file": 26203,
+          "n_scope_file": 11176,
+          "folder_period": "2025-12-12",
+          "season": "12月(夏)",
+          "listings_calendar_last_scraped_mode": "2025-12-13",
+          "listings_calendar_last_scraped_min": "2025-12-12",
+          "listings_calendar_last_scraped_max": "2025-12-13"
+        },
+        "2026-03-21": {
+          "base_date": "2026-03-21",
+          "calendar_rows_total": 6086010,
+          "calendar_min_date": "2026-03-21",
+          "calendar_max_date": "2027-03-20",
+          "n_listings_in_calendar": 16674,
+          "seconds": 1.8,
+          "all": {
+            "30": {
+              "listing_days": 500220,
+              "blocked_days": 237697,
+              "blocked_share": 0.4752,
+              "window_days": 30
+            },
+            "60": {
+              "listing_days": 1000440,
+              "blocked_days": 367706,
+              "blocked_share": 0.3675,
+              "window_days": 60
+            },
+            "90": {
+              "listing_days": 1500660,
+              "blocked_days": 469611,
+              "blocked_share": 0.3129,
+              "window_days": 90
+            }
+          },
+          "scope": {
+            "30": {
+              "listing_days": 239010,
+              "blocked_days": 124930,
+              "blocked_share": 0.5227,
+              "window_days": 30
+            },
+            "60": {
+              "listing_days": 478020,
+              "blocked_days": 196016,
+              "blocked_share": 0.4101,
+              "window_days": 60
+            },
+            "90": {
+              "listing_days": 717030,
+              "blocked_days": 250132,
+              "blocked_share": 0.3488,
+              "window_days": 90
+            }
+          },
+          "n_listings_file": 16674,
+          "n_scope_file": 7967,
+          "folder_period": "2026-03-21",
+          "season": "3月(秋)",
+          "listings_calendar_last_scraped_mode": "2026-03-21",
+          "listings_calendar_last_scraped_min": "2026-03-21",
+          "listings_calendar_last_scraped_max": "2026-03-21"
+        },
+        "2026-06-16": {
+          "base_date": "2026-06-17",
+          "calendar_rows_total": 9390720,
+          "calendar_min_date": "2026-06-17",
+          "calendar_max_date": "2027-06-30",
+          "n_listings_in_calendar": 25728,
+          "seconds": 2.8,
+          "all": {
+            "30": {
+              "listing_days": 690380,
+              "blocked_days": 358154,
+              "blocked_share": 0.5188,
+              "window_days": 30
+            },
+            "60": {
+              "listing_days": 1462220,
+              "blocked_days": 713654,
+              "blocked_share": 0.4881,
+              "window_days": 60
+            },
+            "90": {
+              "listing_days": 2234060,
+              "blocked_days": 1034790,
+              "blocked_share": 0.4632,
+              "window_days": 90
+            }
+          },
+          "scope": {
+            "30": {
+              "listing_days": 296144,
+              "blocked_days": 166351,
+              "blocked_share": 0.5617,
+              "window_days": 30
+            },
+            "60": {
+              "listing_days": 625094,
+              "blocked_days": 325137,
+              "blocked_share": 0.5201,
+              "window_days": 60
+            },
+            "90": {
+              "listing_days": 954044,
+              "blocked_days": 467920,
+              "blocked_share": 0.4905,
+              "window_days": 90
+            }
+          },
+          "n_listings_file": 25728,
+          "n_scope_file": 10965,
+          "folder_period": "2026-06-16",
+          "season": "6月(冬)",
+          "listings_calendar_last_scraped_mode": "2026-06-17",
+          "listings_calendar_last_scraped_min": "2026-06-17",
+          "listings_calendar_last_scraped_max": "2026-07-01"
+        },
+        "2026-09-16": {
+          "base_date": "2026-09-17",
+          "calendar_rows_total": 9385976,
+          "calendar_min_date": "2026-09-17",
+          "calendar_max_date": "2027-09-17",
+          "n_listings_in_calendar": 25715,
+          "seconds": 2.8,
+          "all": {
+            "30": {
+              "listing_days": 750090,
+              "blocked_days": 471225,
+              "blocked_share": 0.6282,
+              "window_days": 30
+            },
+            "60": {
+              "listing_days": 1521540,
+              "blocked_days": 845853,
+              "blocked_share": 0.5559,
+              "window_days": 60
+            },
+            "90": {
+              "listing_days": 2292990,
+              "blocked_days": 1204215,
+              "blocked_share": 0.5252,
+              "window_days": 90
+            }
+          },
+          "scope": {
+            "30": {
+              "listing_days": 318405,
+              "blocked_days": 217245,
+              "blocked_share": 0.6823,
+              "window_days": 30
+            },
+            "60": {
+              "listing_days": 646605,
+              "blocked_days": 388067,
+              "blocked_share": 0.6002,
+              "window_days": 60
+            },
+            "90": {
+              "listing_days": 974805,
+              "blocked_days": 552379,
+              "blocked_share": 0.5667,
+              "window_days": 90
+            }
+          },
+          "n_listings_file": 25715,
+          "n_scope_file": 10940,
+          "folder_period": "2026-09-16",
+          "season": "9月(春)",
+          "listings_calendar_last_scraped_mode": "2026-09-18",
+          "listings_calendar_last_scraped_min": "2026-09-17",
+          "listings_calendar_last_scraped_max": "2026-09-18"
+        }
+      }
+    }
+  },
+  "f_rating": {
+    "all_rated": {
+      "n_rated": 21130,
+      "n_listings": 25715,
+      "share_rated": 0.8217,
+      "n": 21130,
+      "p10": 4.38,
+      "p25": 4.67,
+      "p50": 4.86,
+      "p75": 5.0,
+      "p90": 5.0,
+      "share_5_0": 0.2571,
+      "share_ge_4_5": 0.8743,
+      "share_below_4": 0.0294
+    },
+    "scope_priced_price_quartile_cuts": [
+      208.965,
+      264.0,
+      334.5
+    ],
+    "scope_priced_by_price_quartile": {
+      "Q1(最便宜 25%)": {
+        "n_priced": 2056,
+        "n_rated": 1834,
+        "price_min": 68.64,
+        "price_max": 208.93,
+        "rating_median": 4.83
+      },
+      "Q2": {
+        "n_priced": 2058,
+        "n_rated": 1885,
+        "price_min": 209.0,
+        "price_max": 264.0,
+        "rating_median": 4.84
+      },
+      "Q3": {
+        "n_priced": 2054,
+        "n_rated": 1898,
+        "price_min": 264.03,
+        "price_max": 334.5,
+        "rating_median": 4.86
+      },
+      "Q4(最貴 25%)": {
+        "n_priced": 2055,
+        "n_rated": 1790,
+        "price_min": 334.6,
+        "price_max": 90000.0,
+        "rating_median": 4.9
+      }
+    },
+    "quartile_note": "Q1 = 價格小於等於 p25;Q2 = p25 到 p50;依此類推;評分中位數只算有評分者"
+  },
+  "figures": [
+    "mel_a_calendar_blocked.png",
+    "mel_a_demand_proxy.png",
+    "mel_a_map_listing_count.png",
+    "mel_a_map_price_median.png",
+    "mel_a_price_hist.png",
+    "mel_a_rating.png",
+    "mel_a_supply.png"
+  ]
+}
