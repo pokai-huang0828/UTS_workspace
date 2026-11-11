@@ -2584,3 +2584,18 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
   - **2025-12-12 的房源精簡版(`visualisations/listings.csv`)price 非空也是 0 / 26,203** → 這一期詳細版、精簡版都沒有價格。精簡版另三期有價比例:2026-09 19,004 / 25,715(73.9%)、2026-06 19,175 / 25,728(74.5%)、2026-03 16,460 / 16,674(98.7%)。
   - 評論全文檔欄位:`listing_id`、`id`、`date`、`reviewer_id`、`reviewer_name`、`comments`。
 - 結論不變:墨爾本有真實掛牌價的時間點是 2026-03、06、09 三期;2026-03 那期列數少很多、幾乎全有價,跨期比較前要先查抓取口徑。跨期價格分析尚未做。以上只有主腦一次初查,沒有獨立核對。
+
+## 2026-11-11(深夜)· Innovation Studio:墨爾本四期欄位填寫率對照(Kenny 貼同學的欄位說明截圖)
+
+- Kenny 貼一張同學整理的「7 個檔 / listings 欄位與用途」截圖(依官方資料字典 v4.3)。主腦用 `python -I` + csv 對 `scratchpad/insideairbnb_melbourne/` 四期 listings.csv.gz 算截圖所列欄位的非空比例(空字串與 `N/A` 算空;欄數不符的列略過)。**只有主腦一次計算,沒有獨立核對。**
+- **重要發現:欄位填寫情況每一期不一樣。**
+  - `host_since`:2025-12-12 = **100%**;2026-03、06、09 = 0%。
+  - `host_response_rate` / `host_acceptance_rate`:2025-12 = 70% / 74%;之後三期 0%。
+  - `instant_bookable`:2025-12 = 100%;之後三期 0%。
+  - `price` 與 `estimated_revenue_l365d`:2025-12 = 0%;2026-03 = 99%;2026-06 = 75%;2026-09 = 74%。2025-12 少的 5 欄正是 `price_quote_*` 五欄(85 對 90 欄)。
+  - `bathrooms`:2025-12 72%、2026-03 100%、2026-06 68%、2026-09 0%;`bathrooms_text` 四期皆 100%。
+  - `bedrooms` 91/100/82/100%;`beds` 72/100/73/99%。
+  - 四期都是 0%:`neighborhood_overview`、`license`(墨爾本)。
+  - 四期都 ≈100%:`hosts_time_as_host_years`、`host_is_superhost`、`host_identity_verified`、`calculated_host_listings_count`、`amenities`、`description`(98–99%)、`estimated_occupancy_l365d`、位置與房型欄。
+  - `first_review` / `review_scores_rating` / `reviews_per_month`:81/89/83/82%。
+- **含意(待做)**:①2025-12 那期有 `host_since`,可用 `host_id` 接到後面幾期,直接驗證 `hosts_time_as_host_years/_months` 是不是「當房東多久」,也能把「新手房東」定義從代理改成真的開戶日(僅限 2025-12 就存在的房東)。②16、17、18 寫的「`host_since` 整欄空」只對 2026-09 那期成立,三份筆記尚未更新這一點。③截圖寫的「約 75 個欄位」與實際 85/90 欄不符;「用 `host_since` 區分新房東」只在 2025-12 那期做得到;「`license` 做法規分析」墨爾本四期皆空。
