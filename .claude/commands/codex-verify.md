@@ -1,5 +1,5 @@
 ---
-description: 用 Codex(gpt-5.6-sol 異家族)對抗審查指定產物,強制它提出替代方案
+description: 用 Codex(異家族;型號看 ~/.codex/config.toml)對抗審查指定產物,強制它提出替代方案
 argument-hint: "<檔案路徑或要審查的主題> [round1|round2|round3]"
 ---
 

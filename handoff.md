@@ -2512,3 +2512,22 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - 2026-11-08:Kenny 貼 2 位隊友的週報要我照著寫 → B4 重寫成短版(本週完成／下週計畫／下次會議,約 180 字,不列數字);13 加註小組已確定 Airbnb 方向,11/11 投票選方案 A 或 B。週報由 Kenny 自己貼。
 
 - 2026-11-08:Kenny 定稿第 2 週週報(06 草稿 B4:標題加英文名、拿掉 AI 使用說明行),說要用這份去回;是否已貼上沒有查證。
+
+## 2026-11-11 · 派工手冊 uts-dispatch 第二次改版(跟上 zm-dispatch 的新邏輯)
+
+**輸入**:Kenny `/uts-dispatch 更新最新任務分派邏輯架構,確認後修改`。主腦 = Fable 5.2。
+
+- **先實查再問**:對照工具 schema、`~/.codex/config.toml`、`codex --version`、`claude-api` skill 價目、`~/.claude/skills/zm-dispatch/SKILL.md`(11/8、11/11 版),列出過期處後問 Kenny 兩題。
+- **Kenny 選定**:① 整本跟上新架構 ② 最低層 = sonnet low,不用 haiku。
+- **改了什麼**(`.claude/skills/uts-dispatch/SKILL.md` 全文改寫):
+  - §0 重查:Agent tool 有 `effort` 參數、`run_in_background` 已不存在(一律背景)、`fork` 一定跟主腦同模型;Codex config = `gpt-6.1-sol` / effort `high`,npm 版 0.162.1 預設設定 smoke EXIT=0(9/15「npm 版打不動」解除),桌面版 CLI 0.167.0-alpha.3.2;主腦當日 = Fable 5.2。
+  - §0.1 價目:Fable 5.2 8/40、Opus 5.5 4/20、Sonnet 5.5 2/10、Haiku 5.5 0.1/0.5(不在編制)。
+  - §1 改成七條鐵則:主腦只想/拆/寫工單/驗收(5 個工具呼叫內才自己做,Fable 時 3 個);現成腳本與 skill 優先;預設 sonnet high、核心 opus high、最低 sonnet low;工單六欄;model 與 effort 一定寫。
+  - §2 層級表 + 派工表(每列有上限與回報行數)+ §2.3「主腦是 Fable 時」+ §2.4 工單模板。舊 §2.1「Fable 5 退出常規編制」作廢。
+  - §3 升級路徑改成 sonnet low → sonnet high → opus high 新單 →(Fable 主腦)fable high 短單。
+  - §8 成本:**1.5M 總預算與預先扣額度作廢**(Kenny 8/5~8/7 已否決);改成每張工單自己帶上限、第 9 個分身前先問、帳本記實耗。
+  - A3 影音閘門三段(原 §2 三列、§6 R-A3、§7.1)原文搬到 `references/a3-pitch-gates.md` 存檔。
+- **連帶修改**:`references/codex-collab.md`(現況標頭、架構圖、觸發判準指回 SKILL §5、Fallbacks、新增 §8 環境漂移紀錄 —— 原本擠在 SKILL §0 表格裡的歷次踩坑搬來);`.claude/commands/codex-verify.md`(說明不再寫死型號)。
+- **驗證**:只有產出者自檢(舊字眼掃描、節號與 CLAUDE.md 引用相符、references 連結 10 個都存在)。原本開了一趟 Codex 唯讀審查,**Kenny 說「不用了,都由你來負責」→ 中途停掉、無產出。這一版沒有獨立核對**,已在 SKILL「本版核對紀錄」寫明。
+- **未做**:沒有用新手冊實際派過一張單;§2.2 的上限數字是起始值,要靠之後 handoff 的實耗校準。`references/01`、`03` 是 VMX 原檔,裡面的 haiku 階梯沒改(清單已註明以 SKILL §2 為準)。
+- **用量**:subagent 0 個。Codex 2 趟(1 趟 smoke;1 趟審查中途停掉,token 未回報)。

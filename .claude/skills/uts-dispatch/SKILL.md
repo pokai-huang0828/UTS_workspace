@@ -1,140 +1,186 @@
 ---
 name: uts-dispatch
-description: 指揮官派工守則(UTS_workspace)— 主模型當指揮官,派工給 Claude subagents 生產、Codex(gpt-5.6 異家族)對抗驗證。多步驟任務、批次讀檔、事實類交付、需要第二意見時使用。
+description: 指揮官派工守則(UTS_workspace)— 主腦只想、拆、寫工單、驗收;照工單做的派 sonnet high、核心派 opus high;Codex(異家族)對抗驗證。多步驟任務、批次讀檔、事實類交付、需要第二意見、開分身之前使用。派工 分工 開分身 省額度 model effort opus sonnet fable subagent.
 ---
 
 # 指揮官手冊(UTS_workspace 版)
 
-> 前身 = `frugal-fable`(移植自 MiTAC-VMX,Fable 撰寫 v2 2026-07-09)。
-> **2026-07-25 改版**:Opus 5 上線,經 Fable 5 立場書 + Codex gpt-5.6-sol 四輪對抗(最終 READY)後改寫 §0/§2/§3/§5/§6/§7,新增 §8。
+> 前身 = `frugal-fable`(移植自 MiTAC-VMX,2026-07-09)。2026-07-25 第一次改版(Opus 5 上線)。
+> **2026-11-11 第二次改版**(Kenny 確認):整本跟上 `zm-dispatch`(Kenny 2026-11-08、11-11)的派工邏輯 ——
+> 主腦只想不做、層級改成「模型 × effort」、不用 haiku、工單六欄、每張工單自己帶上限;同日重查 §0 全部事實。
+> 這一版的獨立核對狀態寫在最下面「本版核對紀錄」。
 > 原始 6 檔 + VMX Codex 配方逐字保存在 [references/](references/)。
 > 讀者 = 任何等級的主模型;規則可執行、有判準,不確定時照字面做。
 
-## 0. 本環境實查表
+## 0. 本環境實查表(2026-11-11 Win 機重查)
 
 **派工報 model/參數/閘門錯誤時,第一動作 = 重查該工具 schema 並更新本表(附日期),禁止瞎猜繞過**(R-漂移,見 [02](references/02-judgment-rubrics.md))。
 
 | 通道 | 可用值 | 備註 |
 |------|--------|------|
-| Agent tool `model` | `haiku` / `sonnet` / `opus` / `fable` | 無 effort 參數。**2026-07-25 實查:`opus` = `claude-opus-5`,與主迴圈同型號**,派它不是「比較強」,是 context 乾淨 / 可平行 / 可 worktree 隔離 |
-| Agent tool `subagent_type` | `Explore`(只讀)/ `Plan` / `general-purpose`(全工具) | 未指定 = general-purpose |
-| Agent 執行模式 | 預設背景執行;`run_in_background: false` 同步 | **2026-07-25 實測**:要收結論才能繼續的派工用同步,比背景+通知少一次往返 |
-| Workflow 腳本 | `agent()` 支援 model + effort(low→max) | ⚠️ 需明確授權:Kenny 說「ultracode」或明確要求「用 workflow」才可呼叫;曖昧說法 → 改同一則訊息平行發多個 Agent |
-| Codex CLI | ⚠️ **2026-09-15 Win 實查:預設模型已改 `gpt-6-astra`**(`~/.codex/config.toml` 現有 `model = "gpt-6-astra"`、`model_reasoning_effort = "xhigh"`、`service_tier = "priority"`)。舊紀錄:gpt-5.6-sol(Win codex-cli 0.146.0,2026-08-02 實查 / Mac 0.144.6) | ⚠️ **2026-09-15 Win 實查**:PATH 上的 npm 版 `codex` = **0.147.0**,打 `gpt-6-astra` 回 **400「requires a newer version of Codex」→ 背景兩趟全損**。**解法(不安裝、不改設定)**:改叫 **Codex 桌面 App 內建 CLI** —— 路徑讀 `config.toml` 的 `CODEX_CLI_PATH`(當日為 `C:\Users\kenny\AppData\Local\OpenAI\Codex\bin\12219cbfbcbddde7\codex.exe`,版本 0.154.0-alpha.6.2,smoke EXIT=0),驅動寫法 `$prompt \| & $cli exec ...`。`<hash>` 目錄會隨 App 更新改變,**每次先讀 `CODEX_CLI_PATH`,不要寫死**。npm 最新版當日為 0.154.0;要不要升級 npm 版 = Kenny 決定。prompt 要純 ASCII,來源檔名含中文時先複製成 ASCII 檔名到 scratchpad(附 sha256 對賬)再交給 Codex。⚠️ **同日撞用量上限**:xhigh 共 4 趟(R1 兩趟完成,各 82,875 / 90,320 token;R2、R3 平行跑到 45,498 / 32,086 token 時中斷),回「You've hit your usage limit」,重置時間 2026-09-16 02:41 —— **大件多輪審查別一次平行開太多趟,R1 失敗重跑的趟數也要算進去**。**2026-09-16 再撞一次**:額度恢復後平行重跑 R2/R3,兩趟跑到 70,454 / 92,948 token 又滿(重置 9/17 00:40)→ **Codex 不可用時,依鐵則 6「事實類文件 → fresh agent 或 Codex」改派 fresh Claude agent(非產出者)當驗收者**,並在交付時標明哪些部分只有 Codex 驗過、哪些只有 Claude agent 驗過。 `--sandbox danger-full-access`(2026-07-22 起,Kenny 指示)。⚠️ **2026-08-02 實查:預設 `reasoning effort: none`,不是 xhigh** —— `~/.codex/config.toml` 只有 sandbox 與 trust_level,沒設 effort。**每趟必須自己加 `-c model_reasoning_effort="xhigh"`**(已實測生效,EXIT=0);漏加 = 對抗驗證強度靜默降級。**2026-07-26 Mac 實測:一趟吃 6 個複合 CLAIM + 讀 3 個檔(744 行),EXIT=0 未 timeout** —— 舊表「每趟 2–3 claims」是 gpt-5.5 時代的數字,已放寬。配方見 [codex-collab.md](references/codex-collab.md) |
-| **Codex 驅動方式(依平台)** | **Mac = Bash heredoc**;Win = PowerShell | **2026-08-02 Win 實查(經獨立稽核更正)**:codex 裝在 `%APPDATA%\npm\codex.cmd`,而該路徑**本來就在持久化的 User PATH 裡** —— **全新開的 shell 直接叫得到,不需要補 PATH**。⚠️ 真正的坑是**安裝之前就已啟動的行程**(Claude Code session 本身、已開著的終端機 / VS Code)拿的是舊環境區塊。在那種 session 裡要用 `$env:Path = [Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')` **重讀 registry**,而不是再 append 一次 —— 這是「行程過期」不是「PATH 沒設」,診斷方向搞反會一直加重複路徑。純 ASCII prompt 直接當引數傳 → EXIT=0。**2026-07-26 Mac 實查**:`/opt/homebrew/bin/codex`,`cat prompt.txt \| codex exec --sandbox danger-full-access -o out.md`,**中文 prompt 無亂碼**。codex-collab.md §3 的「必須 PowerShell / 純 ASCII」是**Win 機專屬限制,Mac 不適用**。跑完照樣 `git status` 對賬 |
-| **Canvas 抓取(Mac,2026-07-26 實測)** | claude-in-chrome + Canvas API | 頁面內容:同源 `fetch('/api/v1/courses/<c>/pages/<slug>')` → `DOMParser().parseFromString(j.body).body.innerText`。檔案下載:`/api/v1/files/<id>/public_url` 取 inst-fs 簽章網址 → `curl -o` 直接落到指定路徑。⚠️ `javascript_tool` **單次回傳約 1000 字元上限**,長內容分批或走 DOM 注入 `<pre>` + `get_page_text` |
-| Codex 能力邊界 | **播不了影片/音訊** | A3 影音驗收不可外包給 Codex,見 §6 R-A3 |
-| 主迴圈 | session 當下模型(不可自選) | 2026-07-25 起 = Claude Opus 5 |
+| Agent tool `model` | `haiku` / `sonnet` / `opus` / `fable` | **不寫 = 跟主腦同型號**(主腦是 Fable 時就是最貴那個)→ **model 一定要寫**。別名對到當代型號(Opus 5.5 / Sonnet 5.5 / Haiku 5.5)[⚠️假設:依 session 環境說明,沒有逐一實測] |
+| Agent tool `effort` | `low` / `medium` / `high` / `xhigh` / `max` | **2026-11-11 schema 實查:有這個參數**(舊表寫「無 effort 參數」已過時)。工具說明要求「有明確指示才設」—— **本手冊就是那個明確指示:每次派工都照 §2 的表寫 effort** |
+| Agent tool `subagent_type` | `Explore`(只讀)/ `Plan` / `general-purpose`(全工具)/ `fork` | 未指定 = general-purpose。**`fork` 一定跟主腦同模型,寫 model 也沒用** → 主腦是 Fable 時不用 fork |
+| Agent 執行模式 | **一律背景**,做完才通知 | **2026-11-11 schema 實查:`run_in_background` 參數已不存在**,沒有「同步」開關。派出去就等通知:不輪詢、不自己重做同一件事、不預測結果 |
+| Workflow 腳本 | `agent()` 支援 model + effort | ⚠️ 需明確授權:Kenny 說「ultracode」或明確要求「用 workflow」才可呼叫;曖昧說法 → 改同一則訊息平行發多個 Agent。每個 agent 都寫 model 與 effort,**opus 最多 1 個** |
+| Codex CLI | `~/.codex/config.toml`:`model = "gpt-6.1-sol"`、`model_reasoning_effort = "high"`、`service_tier = "priority"` | **2026-11-11 實查**:PATH 上的 npm 版 `codex` = **0.162.1**,用預設設定 smoke **EXIT=0**(9/15 那次「npm 版太舊打不動」已解除)。備援 = Codex 桌面 App 內建 CLI(當日 0.167.0-alpha.3.2),路徑讀 config 的 `CODEX_CLI_PATH`,`<hash>` 會變,**每次先讀、不要寫死**。旗標 `--sandbox danger-full-access`(Kenny 2026-07-22 指示)。要更深就自己加 `-c model_reasoning_effort="xhigh"`[⚠️假設:xhigh 在 gpt-6.1-sol 上未重測]。配方與歷次踩坑見 [codex-collab.md](references/codex-collab.md) |
+| Codex 三條老教訓 | (照做就好) | ① **打不動先對版本**:config 的 model 換了、CLI 沒跟上會回 400 → 改叫桌面版 CLI,不要瞎重試。② **有用量上限**:大件多輪審查別一次平行開多趟,失敗重跑的趟數也算;撞到就改派 fresh Claude agent(非產出者),交付時標明哪部分是誰驗的。③ **Win 機 prompt 用純 ASCII**;來源檔名含中文 → 先複製成 ASCII 檔名到 scratchpad(附 sha256 對賬) |
+| Codex 驅動方式(依平台) | **Win = PowerShell**;Mac = Bash heredoc | Win:prompt 走 stdin、答案 `-o` 落檔。Mac(2026-07-26 實查):`cat prompt.txt \| codex exec --sandbox danger-full-access -o out.md`,中文 prompt 沒亂碼。跑完一律 `git status` 對賬。「叫不到 codex」多半是**開著的舊行程拿到舊 PATH**,不是 PATH 沒設 —— 解法見 codex-collab.md §8 |
+| Canvas 抓取 | `/canvas-sync`(claude-in-chrome + Canvas API) | 頁面:同源 `fetch('/api/v1/courses/<c>/pages/<slug>')`;檔案:`/api/v1/files/<id>/public_url` → `curl -o`。⚠️ `javascript_tool` 單次回傳約 1000 字元,長內容分批(2026-07-26 Mac 實測) |
+| Codex 能力邊界 | **播不了影片/音訊** | 影音驗收走 `/watch`,最後人耳留 Kenny(見 [a3-pitch-gates.md](references/a3-pitch-gates.md)) |
+| 主腦(主迴圈) | Kenny 開對話時選的模型,中途不換 | **2026-11-11 = Fable 5.2**(試用,見 §2.3)。平常 = Opus |
 
 ### 0.1 費率表(排相對貴度用,不用來算錢)
 
+來源:`claude-api` skill 內建價目(快取日 2026-11-03),與 `zm-dispatch` 2026-11-11 所記一致。
+
 | 模型 | input / output(每百萬 token) | 相對 |
 |------|------|------|
-| Fable 5 | $10 / $50 | Opus 5 的 **2 倍** |
-| Opus 5 | $5 / $25 | 基準 |
-| Sonnet 5 | $3 / $15 | 0.6× |
-| Haiku 4.5 | $1 / $5 | 0.2× |
+| Fable 5.2 | $8 / $40 | Opus 的 **2 倍**、Sonnet 的 **4 倍** |
+| Opus 5.5 | $4 / $20 | 基準 |
+| Sonnet 5.5 | $2 / $10 | 0.5× |
+| Haiku 5.5 | $0.10 / $0.50 | **不在編制**(Kenny 2026-11-11:最低用 sonnet low) |
 
-**⚠️ 換不成錢**:Agent tool 只回一個 `subagent_tokens` 總數,拆不出 input / output / cache-read / cache-write。因此 §8 預算一律**以總 token 計價**,費率表只用來排「誰比較貴」——Fable 對 Opus 是雙向兩倍,這個排序不受拆分方式影響。
+讀快取:Fable、Opus 都是 $0.20,Sonnet $0.10。**快取每個模型各一份** —— 中途換模型,整段要用新模型的價錢重寫。
 
-## 1. 六條鐵則
+**⚠️ 換不成錢**:Agent tool 只回一個 `subagent_tokens` 總數,拆不出 input / output / 快取(2026-07-25 實查,11-11 未重查)。所以帳本**以總 token 記**,費率表只用來排「誰比較貴」。
 
-1. **指揮官不下場**:大量讀取(>2 個長檔)、掃 repo、查網頁、批次改檔 → 派 subagent,主對話只收結論。判準:正要連續 Read 第 3 個 >200 行的檔案 = 停,改派工。
-2. **機械工作用最便宜的模型**:格式盤點/路徑清查/逐字抽取 → `haiku`(Explore)或 `sonnet`(要寫檔)。判準:「有沒有標準答案?」有 → 便宜模型;要權衡 → 高階。
-3. **派工三件套**,缺一不派:①目標與動機 ②驗收條件(可檢查) ③回報格式。**再加 §8 的 scope 上限。** 模板照抄 [03](references/03-prompt-templates.md)。
-4. **回報合約**:subagent 第一行 = 一句話 TL;DR;之後只有「結論 + 檔案:行號」;長產物(>50 行)落檔回傳路徑,不回貼全文。
-5. **先試跑再放量**:新型任務先派 1 個最小樣本,驗收格式與耗時 OK 才批次。
-6. **驗證不自驗**:產出者不當驗收者。**自檢可以提供客觀完成證據(命令輸出、檔案 read-back、對賬數字),但永遠不滿足「需要獨立驗證」的要求 —— 這是兩件事**(見 §6 R-獨立)。事實類文件 → fresh agent 或 **Codex 異家族**核對;高風險判斷 → 第二意見。
+## 1. 七條鐵則
 
-## 2. 派工對照表
+1. **主腦只做四件事:想清楚、拆工作、寫工單、驗收。** 不做長執行。主對話「**5 個工具呼叫內,而且輸出很小**」才自己做(主腦是 Fable 時改 **3 個**)。讀長檔、掃 repo、查網頁、批次改檔一律派分身 —— 網頁全文和長檔留在主對話裡,之後每一回合都要再算一次錢。
+2. **現成的腳本和 skill 做得到,就不派模型。** `/canvas-sync`、`/handoff`、`/codex-verify`、`/watch`、repo 裡的 `build_*.py`、`analysis/*.py` 先用。
+3. **預設 sonnet high;核心用 opus high;最低 sonnet low。** 不用 haiku,不用 opus low(只少想一點,價錢沒少多少)。**拿不準就升一級** —— 便宜的做錯重來更貴,而且抄漏的內容下游會當成「不存在」。
+4. **工單六欄缺一不派**(§2.4):單/範圍/先讀/禁止/上限/回報。**model 和 effort 一定要寫。**
+5. **回報合約**:分身第一行 = 一句話 TL;DR;之後只有「結論 + 檔案:行號」;長產物(>50 行)落檔回傳路徑,不回貼全文。
+6. **先試跑再放量**:新型任務先派 1 個最小樣本,驗收格式與耗時 OK 才批次。
+7. **驗證不自驗**:產出者不當驗收者。**自檢可以提供客觀完成證據(命令輸出、檔案 read-back、對賬數字),但永遠不滿足「需要獨立驗證」的要求 —— 這是兩件事**(§6 R-獨立)。事實類文件 → fresh agent 或 **Codex 異家族**核對;高風險判斷 → 第二意見。
 
-| 任務型態 | 派給 |
-|----------|------|
-| 找檔案/盤點/路徑清查 | Agent(Explore, haiku) |
-| 消化長檔/逐字稿成摘要 | Agent(Explore, haiku;要取捨判斷 sonnet) |
-| 逐字抽取/初稿轉換 | Agent(general-purpose, sonnet) |
-| 跨檔重構/批次改檔 | Agent(general-purpose, sonnet;高風險 opus —— 理由是 context 乾淨可隔離,不是比較強) |
-| 開放式研究/多來源彙整 | Agent(general-purpose, sonnet 起步)+ **必附 §8 scope 上限**(這類是本框架最大燒錢點) |
-| 語意/rubric 覆蓋審查 | fresh Agent(sonnet,非產出者)—— 驗證軌 ① |
-| 數字再推導/跨文件矛盾/引用實在性/方法論 | **Codex(read-only)** —— 驗證軌 ②,與軌 ① 同一則訊息並行發 |
-| 需要獨立第二腦的判斷題 | 換家族(Codex)優先;家族內要乾淨 context → Agent(opus)。**「往上派」概念已廢除** |
-| **A3 投影片視覺設計 / rubric 覆蓋** | sonnet 生產;fresh sonnet **或 Codex** 只看**渲染後的 PDF/逐頁圖**驗收,不得以原始投影片檔自驗 |
-| **A3 影片 / 音訊 / 字幕 QA** | `/watch` skill(yt-dlp + ffmpeg + 逐字稿)可查:片長、逐頁可讀性、旁白↔投影片同步、逐字稿→主張追溯、字幕數字一致;ffmpeg `volumedetect` 可查爆音/削波。**只有「口說清晰度與聽感」留給 Kenny 本人** |
-| **A3 5 分鐘 Zoom 對抗演練** | fresh Agent(sonnet)扮演 senior technical marker,嚴格計時 5 分鐘,追問決策、替代方案、風險、KPI、資源 |
-| 對外定稿/不可逆動作/裁決 | 主迴圈 + Kenny(唯一該下場的事) |
+## 2. 層級與派工表
 
-### 2.1 Fable 5 已退出常規編制(2026-07-25)
+### 2.1 層級(Kenny 2026-11-08 定,2026-11-11 套用到 UTS)
 
-**證據**:知識工作 GDPval-AA Opus 5 = 1861 vs Fable 5 ≈1761;Frontier-Bench agentic coding 43.3% vs 33.7%;綜合智力指數 61 vs 60(平手);價格 2 倍;Fable 安全分類器約 5% 對話誤擋。Fable 唯一領先項是 SWE-bench Pro(80.0 vs 79.2,差 0.8),**不是本 repo 的工作型態**。官方建議亦為「先用 Opus 5,需要最高能力上限才用 Fable」。
+| 層級 | 什麼時候 |
+|---|---|
+| **opus high**(核心,短單) | 會直接被評分的東西的**論證和數字**:交件報告、notebook、投影片的內容;方法論或統計設計;跨文件數字要對賬的改寫;評分預估;兩個定案互相衝突時出裁決草稿 |
+| **主腦**(Opus medium;Fable 見 §2.3) | 想清楚、拆工作、寫工單、驗收、跟 Kenny 定方向。在主對話做,不派分身 |
+| **sonnet high**(預設) | 照工單做:逐字稿和 Canvas 內容落檔、摘要、筆記、初稿轉換、查證、盤點、獨立核對(語意面)。**邏輯由主腦先想好寫進工單** |
+| **sonnet low**(最低) | 三條**都**符合才用:①主腦已把確切內容寫進工單(照抄、照表)②完全不用判斷 ③做完驗得出對錯。例:照清單批次改字、跑指令回報結果、關鍵字和格式都寫死的盤點 |
 
-⚠️ 以上全為**外部評測**,本 repo 無本地 A/B(Kenny 2026-07-25 裁定不做,直接轉移)。
+**選的順序**:現成腳本/skill 做得到 → 不派模型。否則對照上表**由上往下**,第一個符合的就用。
 
-**回鍋只有兩個具名觸發條件**,不是判斷題:
-- (a) Opus 5 **同一子任務連錯 2 次**,且已記錄完整失敗軌跡
-- (b) Codex 不可用 **且** 不可逆送出前需要獨立第二意見 —— 此時 Fable 的角色是**同家族、乾淨 context、非產出者的 fallback**,不等同 Codex
+### 2.2 派工表(上限 = 工具呼叫次數／讀進來的量)
 
-## 3. 升降級路徑
+上限是**起始值**(由 zm-dispatch 換算,加上本 repo 歷次實耗),每次照 handoff 記的實耗往回修。
 
-- **垂直升級(能力不足型錯)**:haiku 錯 1 次 → sonnet;sonnet 同一子任務連錯 2 次 → 帶完整失敗軌跡升 opus;不第三次原樣重派。
-- **水平換家族(視角/盲點型錯)**:升級解決不了盲點。沿用舊 context、跨文件矛盾、數字沿用自己算過的、自驗盲點 → **不升級,開 Codex**。
-- opus 也錯 → 收回主迴圈;主迴圈仍無解 → 照 R-問人 交 Kenny。**不存在「再往上」。**
-- **降級**:高階解出模式 → 整理成可照抄步驟 → 批次改派 sonnet/haiku。
-- 同一件事最多重試 2 輪;第 3 輪 = 換方法或升級(R-換路)。
+| 工作 | 做法 | model · effort | 分身 | 上限 | 回報行數 |
+|---|---|---|---|---|---|
+| 跟 Kenny 定方向、裁決 | 主對話自己做:一次一題、最多 2 個選項、推薦的放 A | 主腦 | — | — | ≤ 5 |
+| 抓 Canvas 新內容 | skill `/canvas-sync` | — | — | — | 5 |
+| 補交接紀錄 | skill `/handoff` | — | — | — | 3 |
+| 影片/音訊 QA | skill `/watch` + ffmpeg;人耳最後確認留 Kenny | — | — | — | 5 |
+| 找檔、盤點、路徑清查 | Agent | sonnet low(關鍵字和格式都寫死);否則 sonnet high | Explore | 10／8 萬 | 10 |
+| 逐字稿、長檔 → 落檔與摘要 | Agent | sonnet high | general-purpose | 25／12 萬 | 8 |
+| 筆記、初稿轉換、資料整理 | Agent | sonnet high | general-purpose | 30／12 萬 | 8 |
+| 交件檔本體(報告、notebook、投影片內容) | Agent,一項一單 | **opus high** | general-purpose | 40／15 萬 | 8 |
+| 方法論、統計設計、評分預估 | Agent,短單,只出設計不做長實作 | **opus high** | general-purpose | 20／8 萬 | 10 |
+| 開放式研究、多來源、查網路 | Agent,**工單一定寫搜尋次數上限**(這類最燒錢,見 §8.4) | sonnet high | general-purpose | 25／12 萬,搜尋 ≤ 8 次 | 10 |
+| 批次改字(同一個字多處) | 先 grep 列位置;同一個字用一支腳本取代。只有要看上下文的幾處才派 | sonnet low | general-purpose | 10／8 萬 | 5 |
+| 語意/rubric 覆蓋審查(驗證軌 ①) | fresh Agent,**非產出者** | sonnet high | general-purpose | 20／10 萬 | 10 |
+| 數字再推導、跨文件矛盾、引用實在性、方法論(驗證軌 ②) | **Codex(read-only)**,`/codex-verify`;與軌 ① 同一則訊息發 | Codex | — | 單趟 < 8 分鐘 | 逐條 verdict |
+| 口試、答辯對抗演練 | fresh Agent 扮評分者,嚴格計時,追問決策/替代方案/風險 | sonnet high | general-purpose | 20／10 萬 | 10 |
+| workflow、大型分析 | **先問 Kenny**;每個 agent 寫 model 與 effort;opus 最多 1 個 | — | — | — | 30 |
+| 對外定稿、不可逆動作、裁決 | 主腦 + Kenny(唯一該下場的事) | — | — | — | — |
+
+影片/投影片/口試型作業的專用閘門(渲染稽核、片長、音訊)已存檔在 [a3-pitch-gates.md](references/a3-pitch-gates.md),再遇到時拿來用。
+
+### 2.3 主腦是 Fable 時(Kenny 2026-11-11 試用;主腦是 Opus 時整段不看)
+
+Fable 寫字比 Opus 貴一倍、比 Sonnet 貴四倍,所以:
+
+- 主對話「**3 個工具呼叫內,而且輸出很小**」才自己做(取代 §1 的 5 個)。主腦只想、拆、寫工單、驗收。
+- **effort**:派工、驗收用 medium;定方向、難題才 high;不用 xhigh、max。
+- **升級多一層**:opus high 新單還是沒好 → `fable` high **短單**,≤ 20 回／8 萬,只出原因和做法,不做長實作;實作再派回 sonnet high 或 opus high。**這是唯一可以用 fable 分身的地方。**
+- 其他分身照 §2.2 不變。**model 一定要寫**(沒寫會跟著主腦用 Fable);**不用 `fork`**(一定跟主腦同模型)。
+- 要用 Fable 就**開新對話、一開始就選 Fable**。中途換模型,整段快取要用新模型的價錢重寫;隔太久回來重寫也貴 → 用 `/handoff` 收尾,換新對話。
+- 這是試用:做完一個大題目,跟平常比額度,**留不留由 Kenny 決定**。
+- 舊版 §2.1「Fable 5 退出常規編制」的依據是 2026-07 的 Fable 5 對 Opus 5 外部評測,型號已換兩代、價格也變了 → **那段結論作廢,不再引用**。現行規則就是本節。
+
+### 2.4 工單(照抄填空;六欄缺一不派)
+
+呼叫:`Agent(subagent_type, model, effort, description, prompt)`。
+
+```
+【單】一件事。做完的樣子:…(可檢查的驗收條件)
+【範圍】只改:…　不碰:…
+【先讀】最多 5 項,寫明檔名和節名或行段
+【禁止】整檔讀任何超過 20 KB 的檔(handoff.md、TODO.md、各課 README、91_上課紀錄 都是;用 grep + offset);
+       改交件檔(*_交件/、已上傳的 docx/pdf/ipynb);對外送出任何東西;等超過 5 分鐘的事(交回主對話)
+【上限】工具呼叫 N 次(查網路另寫搜尋 ≤ M 次),到了就停,回報進度和沒涵蓋的部分。scope ID:…
+【回報】≤ K 行繁體中文:第一行一句話結論/做了什麼(檔案:行號)/沒做的。不貼全文、不貼 log
+```
+
+舊的六型派工模板(搜尋/實作/審查…)仍在 [03](references/03-prompt-templates.md),要長一點的寫法時參考;欄位以這一份為準。
+
+## 3. 升級與降級
+
+- **sonnet low 錯 1 次** → sonnet high。
+- **sonnet high 同一張單被打回 2 次** → opus high **新單**,只帶失敗摘要(不把整段對話丟過去)。
+- **opus high 還是沒好** → 主腦是 Fable:照 §2.3 開 fable high 短單。主腦是 Opus:收回主對話;仍無解 → 照 R-問人 交 Kenny。
+- **水平換家族(盲點型錯)**:沿用舊 context、跨文件矛盾、數字抄自己算過的、自驗盲點 → **不是升級,是開 Codex**。升級解決不了盲點。
+- **到上限**:分身停下回報進度;主腦問 Kenny「**A 繼續(推薦)/ B 停**」。
+- **降級**:高階解出模式 → 整理成可照抄的步驟 → 批次改派 sonnet high 或 sonnet low。
+- 同一件事最多重試 2 輪;第 3 輪 = 換方法或升級(R-換路)。不第三次原樣重派。
 - Codex timeout = 拆小任務,不是換模型。
 - 「錯」的定義:驗收未過、缺必答欄位、引用不存在的路徑/ID、或驗收者打回。格式醜但內容對 ≠ 錯。
 
 ## 4. 並行紀律
 
 - 互不依賴的派工在**同一則訊息**一起發;有依賴的等結果再派。
-- 已委派的搜尋,主迴圈不自己再做一次(雙倍燒 token)。
-- 同時在跑的 background agent ≤3。
-- 兩個 agent 不碰同一批檔案;會碰 → 串行或 `isolation: "worktree"`。
-- 要收結論才能往下走的派工 → `run_in_background: false`(同步),省一次往返。
+- 已委派的事,主腦不自己再做一次(雙倍燒 token)。
+- 同時在跑的分身 ≤ 3。
+- 兩個分身不碰同一批檔案;會碰 → 串行,或 `isolation: "worktree"`。
+- 分身一律背景跑(§0):派完就做不依賴它的事,或等通知;**不輪詢、不猜結果**。
 
 ## 5. Agent × Codex 兩腦協作架構
 
 核心:**Claude 生產、Codex(異家族)驗證** —— Codex 抓到的錯多是「Claude 沿用自己舊筆記」型,自驗有共同盲點。完整配方見 [references/codex-collab.md](references/codex-collab.md)。
 
 ```text
-指揮官(主迴圈 = Opus 5)
- ├─ 生產線:Explore(haiku)搜 → general-purpose(sonnet)寫 → opus(乾淨 context)判斷題
+主腦(Opus medium;試用期 Fable medium)— 想、拆、寫工單、驗收
+ ├─ 生產線:sonnet high 照工單做 → opus high 做核心(論證、數字、方法)
  ├─ 驗證線【並行,同一則訊息發出,不排隊】
- │   ├─ 軌①語意面:fresh Claude(sonnet)— 有沒有漏講、rubric 有沒有蓋到、論證缺口
+ │   ├─ 軌①語意面:fresh Claude(sonnet high,非產出者)— 有沒有漏講、rubric 有沒有蓋到、論證缺口
  │   └─ 軌②事實面:Codex(read-only)— 數字、跨文件矛盾、引用實在性、方法論
- └─ 裁決:主迴圈整合 → 對外/不可逆 → Kenny
+ └─ 裁決:主腦整合 → 對外/不可逆 → Kenny
 ```
 
-**兩軌查的維度不重疊,所以並行不犧牲覆蓋 —— 省的是 wall-clock。**
+**兩軌查的維度不重疊,所以並行不犧牲覆蓋 —— 省的是等待時間。**
 
-**觸發判準改為「風險 × 獨立性」,不是 claim 數:**
+**什麼時候一定要開 Codex(看「風險 × 獨立性」,不是看有幾條 claim):**
 - 這個錯若存在,是**能力型**(方法錯、論證漏)還是**慣性型**(抄自己舊數字、跨檔矛盾、引用不存在)?慣性型 → 必 Codex。
 - 交付**直接面對評分者或不可逆**?是 → Codex 終審閘門不可省。中間產物 → 抽查即可。
+- **Codex 不可用**(額度滿、打不動)→ 改派 fresh Claude agent(非產出者),交付時**寫明哪部分只有 Claude 驗過**。
 
-**多輪稽核的範圍(2026-07-25 修訂):**
+**多輪稽核的範圍:**
 - R1 全件
 - R2 = 缺陷清單 + 改動鄰域 + **凡涉數字的修正一律三邊對賬**(notebook ↔ 報告 ↔ results.json)。理由:表四 759→767 那次是跨產物傳遞依賴,只看鄰域會漏。
 - R3 全件兜底,終審
 
-**自檢指令三分法:**
+**自檢指令:**
 | 對象 | 做法 |
 |---|---|
-| Opus subagent | **刪掉**多餘的「再檢查一次 / 回答前再驗一遍」—— Opus 5 本來就會自檢,叫它檢查反而過度 |
-| Fable 長任務(若回鍋) | **保留** read-back + 明確的獨立 fresh-context verifier 指令(官方對 Fable 長跑的建議) |
-| haiku / sonnet | **完全不動**,派工三件套照原樣 |
+| opus / fable 分身 | **刪掉**多餘的「再檢查一次 / 回答前再驗一遍」—— 它本來就會自檢。要獨立驗證就另派 fresh verifier |
+| sonnet 分身 | 工單照 §2.4 原樣寫,不加不減 |
 
 ## 6. 判準速查(完整版見 [02](references/02-judgment-rubrics.md))
 
 - **R-完成**:交付必附證據四選一(命令輸出/read-back/對賬數字/第二意見),沒有證據不得說「完成」。
-- **R-獨立**(2026-07-25 新增):**產出者的自檢可以提供 R-完成 的客觀證據,但永遠不滿足「需要獨立驗證」的要求。** 兩者是不同的東西 —— 主迴圈覺得自己查過了,不算查過。
-- **R-A3 影音交付閘門**(2026-07-25 新增):A3 不得只憑投影片原檔或講稿宣稱完成,以下四項證據任一未過即不得交付:
-  1. **渲染稽核** —— 投影片匯出 PDF/逐頁圖,按實際播放尺寸逐頁檢查裁切、字級、對比、圖例、引用、可讀性;建立 rubric(25/30/30/15)→ 頁碼/時間戳對照表。兩個 30 分項各須有一個可判讀的專業視覺化。
-  2. **逐字稿 → 主張追溯** —— 每個外部數字、日期、benchmark、比較、因果主張都要對到來源;估計值標明假設與算法;無來源者刪除或降格表述。
-  3. **完整計時播放** —— 從實際要提交的檔案播一次;**片長 ≤ 10:00**;確認權限、畫面、聲音、投影片與旁白同步。
-  4. **音訊/可及性** —— ffmpeg 讀峰值查爆音削波;圖表不得只靠顏色傳意;文字須在一般筆電尺寸可讀;字幕與旁白的專有名詞/數字/姓名一致。**最後一次人耳確認由 Kenny 本人做。**
-- **R-問人**:只有四類該問 —— 花錢/對外/不可逆、架構級分歧、指示互相矛盾、憑證只有 Kenny 有;其餘選預設+標「⚠️假設」。
+- **R-獨立**:**產出者的自檢可以提供 R-完成 的客觀證據,但永遠不滿足「需要獨立驗證」的要求。** 主腦覺得自己查過了,不算查過。
+- **R-問人**:只有四類該問 —— 花錢/對外/不可逆、架構級分歧、指示互相矛盾、憑證只有 Kenny 有;其餘選預設 + 標「⚠️假設」。問的時候:一次一題、最多 2 個選項、推薦的放 A。
 - **R-換路**:被打斷 ≥2 次且是重定向、同一錯誤重現 2 次、第 3 個 edge case 補丁、驗證過但不是要的 → 停手換路。
 - **R-回讀**:用 Kenny 給的日期/ID/數字前,第一句先回讀關鍵值。
 - **R-漂移**:工具與規則打架 → 實查 schema、更新 §0、附日期,才繼續。
+- **R-A3(影音交付閘門)**:已存檔 → [a3-pitch-gates.md](references/a3-pitch-gates.md)。
 
 ## 7. 交付前 60 秒 checklist
 
@@ -144,69 +190,50 @@ description: 指揮官派工守則(UTS_workspace)— 主模型當指揮官,派�
 □ 完成宣稱:有 R-完成 四種證據之一?
 □ 需要「獨立驗證」的項目,證據來自非產出者?(R-獨立)
 □ 每個新檔 read-back 過?
-□ 對外內容:個資已 strip?語言 = 繁體中文(Kenny 偏好)?
-□ §8 帳本已更新?本 session 總 token 已記入 handoff?
+□ 對外內容:個資已 strip?語言 = 繁體中文(台灣用語)?
+□ 每張工單的 model、effort、上限都有寫?
+□ handoff 已記:本 session 按模型分列的 subagent token?(§8.3)
 ```
 
-### 7.1 A3 pitch preflight(2026-08-17 截止)
+## 8. 成本管控(2026-11-11 改寫)
 
-```text
-□ A3:截止 2026-08-17 23:59 Sydney、規定檔名、上傳候選檔與影片權限已逐項回讀?
-□ A3:約 10 張投影片?若不是,每張都能對到官方五段或 rubric,且差異有一句理由?
-□ A3:25/30/30/15 四項皆有頁碼/時間戳對照?兩個 30 分項各有一個通過渲染稽核的視覺化?
-□ A3:最終影片已從提交候選檔完整播放並實測 ≤10:00?音訊、同步、字幕、對比、筆電尺寸可讀性皆過?
-□ A3 交付形式(2026-08-02 老師來信定案):10 分鐘是**錄製影片非現場**,為主要評分項;投影片約 10 頁僅輔助;支持文件僅輔助
-□ A3 Zoom:Canvas 預約、Sydney↔Taipei 時區、Canvas 內建 Zoom 進入、**鏡頭必開(老師明訂,身分確認用)**、麥克風、備援網路、耳機、本機投影片副本皆確認?
-□ A3 Zoom:問答預約時段通知是**事後另發**,收到即約?(現場 5 分鐘同樣計分,不是形式)
-□ A3 Q&A:8 題有來源的 defence bank —— 選案/戰略契合、可行性、ROI/成本、風險緩解、倫理、KPI、計畫資源、替代方案;每答 20–40 秒,含證據+限制+決策理由(記骨架不背逐字)?
-□ A3 Q&A:已由 fresh reviewer 完成一次嚴格計時 5 分鐘對抗演練,未答出的問題已補回 defence bank?
-```
+### 8.1 每張工單自己帶上限
 
-## 8. 成本管控(2026-07-25 新增,經 Codex 四輪對抗定案)
+上限寫在工單【上限】欄(§2.4):工具呼叫次數、查網路的搜尋次數、回報行數、一個不重複的 scope ID。
+**到上限的分身必須停下來回報「做到哪、哪些沒涵蓋」,不得自己續跑。** 主腦再問 Kenny「A 繼續(推薦)/ B 停」。
 
-**背景實測**:本框架最大燒錢點不是模型選擇,是**沒設界線的研究型 agent**。2026-07-25 session 實測:Fable 立場書 agent = 86,499 tokens;兩個查網路 agent = 440,503 / 427,108 tokens(各約 5 倍)。
+### 8.2 沒有 session 總預算
 
-### 8.1 派工必附 scope 上限
+舊版的「預設 1.5M、70% 停派、預先扣額度」**已作廢**。Kenny 在 2026-08-05~07 那次 session 明確否決:那是手冊自己寫的數字,不是任何系統額度,**不得再拿它擋派工**。
+取代它的只有兩道閘:
 
-派工三件套之外,**每次派工都要宣告**:
-- 讀檔上限(N 個檔)或搜尋上限(N 次查詢)
-- 輸出長度上限
-- 一個不重複的 scope ID
+- **第 9 個分身之前**:先報一次本 session 累計 subagent token,問 Kenny「A 繼續(推薦)/ B 停」。
+- **workflow 和大型分析**:開跑前先問 Kenny(§2.2)。
 
-**超出上限的 agent 必須停下來回報「哪些沒涵蓋」,不得自行續跑。**
+其餘 spawn 上限照舊:同時在跑 ≤ 3;每個開放問題 ≤ 2 個研究 agent;每個產物每輪 ≤ 1 個驗證 agent。
 
-### 8.2 預先扣額度(不是事後記帳)
+### 8.3 帳本(記實耗,用來校準 §2.2 的上限)
 
-**派工前**必須算:
+- 派工時記:scope ID、model、effort、上限。
+- 回來後記:實耗 token、工具呼叫次數、有沒有超上限。
+- **沒回報用量的分身,寫「未回報」,不得當成 0。**
+- 每個 session 的 handoff entry 記**按模型分列的 subagent 總 token**;Codex 另記趟數。
 
-```
-已花掉 + 在途保留 + 這次宣告的硬上限  ≤  70% × session 預算
-```
+### 8.4 錢最容易燒在哪(本 repo 實測)
 
-- 超過 → **不准發**。自己在主迴圈做完,或問 Kenny 要不要加額度。
-- 每次派工的 scope ID + 硬上限,**開跑前先寫進帳本**。
-- agent 回來後,保留額度釋放為實際值。
-- **沒回來或沒記錄的 agent,按宣告上限全額計,不得按零計。**
-- spawn 上限對照**帳本**,不對照計數器。
+- **沒設界線的研究型 agent**:2026-07-25,兩個查網路的 agent 各約 44 萬 token,是同場立場書 agent(8.6 萬)的 5 倍。
+- **workflow**:單次 200 萬到 700 萬 token(2026-09-23、10-08 實測)。
+- **主腦是 Fable 時的主對話本身**:長讀取、長輸出都在最貴的模型上 → 所以門檻降到 3 個工具呼叫。
 
-> 為什麼不能事後記帳:錢已經花完了才知道超支。這是 Codex R2/R3 兩次打回的原因。
+### 8.5 殘餘風險(直接告知,不假裝解決)
 
-### 8.3 spawn 上限
+**寫在工單裡的上限擋不住真的失控的分身**,除非執行環境會強制終止它。本框架只能在**派工前**攔,攔不住已經開跑的。
 
-- 同時在跑 ≤3(§4 原規則)
-- 每個開放問題 ≤2 個研究 agent
-- 每個產物每輪 ≤1 個驗證 agent
-- 每 session ≤8 個 subagent,超過必須停下來向 Kenny 報告
+## 本版核對紀錄(2026-11-11)
 
-### 8.4 預算單位與記錄
-
-- 預算**以總 token 計**,session 開始由 Kenny 宣告,預設 **1.5M subagent tokens**(依 8.0 實測校準)。
-- 70% 停止派工、100% 硬停,不經明確同意不得再派。
-- 每個 session 的 handoff entry 記錄**按模型分列的 subagent 總 token**,讓預設值能用真實數據重新校準。
-
-### 8.5 殘餘風險(直接告知,不工程化)
-
-**宣告的上限擋不住真的失控的 agent**,除非執行環境會強制終止它。本框架只能在**派工前**攔,攔不住已經開跑的。Codex 明確要求把這一點揭露而不是假裝解決了。
+- §0 的事實來自當日命令輸出與工具 schema(R-完成 證據);標 [⚠️假設] 的沒有實測。
+- 派工邏輯移植自 `~/.claude/skills/zm-dispatch/SKILL.md`(2026-11-08、11-11 版),「改多大」與「最低層模型」兩項由 Kenny 當日選定。
+- **沒有獨立核對。** 原本開了一趟 Codex 唯讀審查,Kenny 當場說「不用了,都由你來負責」,已中途停掉、沒有產出。所以這一版只有產出者(主腦)自檢:舊字眼掃描、節號與 CLAUDE.md 的引用對得上、references 連結 10 個全部存在、A3 三段原文搬進存檔檔。**照 R-獨立,這不算獨立驗證** —— 之後用起來發現規則互相打架,照 R-漂移 當場修並記日期。
 
 ## references/ 清單
 
@@ -214,10 +241,11 @@ description: 指揮官派工守則(UTS_workspace)— 主模型當指揮官,派�
 |------|------|
 | [README.md](references/README.md) | 移植來源與適用性 |
 | [00-diagnosis.md](references/00-diagnosis.md) | VMX 原檔:harness 漏 token/失焦/出錯 前三名診斷 |
-| [01-model-dispatch.md](references/01-model-dispatch.md) | VMX 原檔:模型調度守則(本 SKILL §0–§4 的母本) |
+| [01-model-dispatch.md](references/01-model-dispatch.md) | VMX 原檔:模型調度守則(舊版 §0–§4 的母本;**haiku 階梯已不適用**,以本檔 §2 為準) |
 | [02-judgment-rubrics.md](references/02-judgment-rubrics.md) | VMX 原檔:R-升級/完成/問人/換路/回讀/新開/漂移 全文 |
-| [03-prompt-templates.md](references/03-prompt-templates.md) | VMX 原檔:六型派工模板 |
+| [03-prompt-templates.md](references/03-prompt-templates.md) | VMX 原檔:六型派工模板(欄位以本檔 §2.4 為準) |
 | [04-maintenance-protocol.md](references/04-maintenance-protocol.md) | VMX 原檔:治理檔維護權限與教訓登記簿 |
 | [05-letter-to-future-sessions.md](references/05-letter-to-future-sessions.md) | VMX 原檔:給未來 session 的信 |
-| [codex-collab.md](references/codex-collab.md) | **本機版** Agent×Codex 協作架構 + 駕駛配方 + 輸出合約 |
+| [codex-collab.md](references/codex-collab.md) | **本機版** Agent×Codex 協作架構 + 駕駛配方 + 輸出合約 + 環境漂移紀錄(§8) |
 | [codex-driving-vmx-machine.md](references/codex-driving-vmx-machine.md) | VMX 公司機原版配方(本機不適用,留作對照) |
+| [a3-pitch-gates.md](references/a3-pitch-gates.md) | 存檔:影片 pitch / 投影片 / 口試型作業的交付閘門與 preflight(原 §2、§6 R-A3、§7.1) |
