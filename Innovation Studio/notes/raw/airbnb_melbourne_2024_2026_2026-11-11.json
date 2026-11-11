@@ -1,0 +1,454 @@
+{
+  "batch": "2026-09-16",
+  "scope_id": "IS-1111-BR-MEL",
+  "city": "melbourne",
+  "definitions": {
+    "sample_filter": "整套(Entire home/apt)/1-2 房/可住 2-4 人/最低 1-7 晚;定義見 airbnb_ab_field_inventory.is_scope",
+    "n_listings": 25715,
+    "n_scope": 10940,
+    "n_scope_price": 8223,
+    "reviews_file": "visualisations/reviews.csv(評論摘要:listing_id + date)",
+    "review_date_max": "2026-09-18",
+    "last_month_complete": false,
+    "first_review_def": "該房源在評論摘要檔裡最早的一則評論日期(只算 2026-09 還在架上的房源)"
+  },
+  "recon": {
+    "profile_reviews_2024": 174079,
+    "mine_reviews_2024": 174079,
+    "diff_2024": 0,
+    "profile_since_2024": 546972,
+    "mine_since_2024": 546972,
+    "diff_since_2024": 0,
+    "profile_review_rows_with_date": 1042226,
+    "mine_review_rows_with_date": 1042226,
+    "profile_review_date_max": "2026-09-18",
+    "review_file_rows": 1042226,
+    "reviews_of_listings_not_in_listings_file": 0
+  },
+  "yearly": {
+    "2024": {
+      "reviews_all": 174079,
+      "reviews_scope": 95581,
+      "active_listings_all": 10005,
+      "active_listings_scope": 4831,
+      "first_review_listings_all": 3089,
+      "first_review_listings_scope": 1413
+    },
+    "2025": {
+      "reviews_all": 205936,
+      "reviews_scope": 111933,
+      "active_listings_all": 12806,
+      "active_listings_scope": 6229,
+      "first_review_listings_all": 3751,
+      "first_review_listings_scope": 1751
+    },
+    "2026": {
+      "reviews_all": 166957,
+      "reviews_scope": 89511,
+      "active_listings_all": 14869,
+      "active_listings_scope": 7233,
+      "first_review_listings_all": 3494,
+      "first_review_listings_scope": 1551
+    }
+  },
+  "since_2024": {
+    "reviews_all": 546972,
+    "reviews_scope": 297025
+  },
+  "growth": {
+    "y2025_vs_y2024_pct": 18.3,
+    "jan_aug_2026_vs_2025_pct": 24.2,
+    "jan_aug_2025": 128645,
+    "jan_aug_2026": 159737
+  },
+  "monthly": {
+    "2024-01": {
+      "reviews_all": 14942,
+      "reviews_scope": 8202,
+      "new_listings_all": 291,
+      "new_listings_scope": 144,
+      "complete": true
+    },
+    "2024-02": {
+      "reviews_all": 14882,
+      "reviews_scope": 8197,
+      "new_listings_all": 258,
+      "new_listings_scope": 131,
+      "complete": true
+    },
+    "2024-03": {
+      "reviews_all": 16320,
+      "reviews_scope": 8885,
+      "new_listings_all": 306,
+      "new_listings_scope": 152,
+      "complete": true
+    },
+    "2024-04": {
+      "reviews_all": 13581,
+      "reviews_scope": 7459,
+      "new_listings_all": 231,
+      "new_listings_scope": 108,
+      "complete": true
+    },
+    "2024-05": {
+      "reviews_all": 11793,
+      "reviews_scope": 6531,
+      "new_listings_all": 157,
+      "new_listings_scope": 72,
+      "complete": true
+    },
+    "2024-06": {
+      "reviews_all": 12628,
+      "reviews_scope": 7003,
+      "new_listings_all": 230,
+      "new_listings_scope": 105,
+      "complete": true
+    },
+    "2024-07": {
+      "reviews_all": 13304,
+      "reviews_scope": 7344,
+      "new_listings_all": 214,
+      "new_listings_scope": 99,
+      "complete": true
+    },
+    "2024-08": {
+      "reviews_all": 12643,
+      "reviews_scope": 6954,
+      "new_listings_all": 201,
+      "new_listings_scope": 87,
+      "complete": true
+    },
+    "2024-09": {
+      "reviews_all": 13741,
+      "reviews_scope": 7503,
+      "new_listings_all": 293,
+      "new_listings_scope": 127,
+      "complete": true
+    },
+    "2024-10": {
+      "reviews_all": 16275,
+      "reviews_scope": 9011,
+      "new_listings_all": 267,
+      "new_listings_scope": 115,
+      "complete": true
+    },
+    "2024-11": {
+      "reviews_all": 17578,
+      "reviews_scope": 9737,
+      "new_listings_all": 284,
+      "new_listings_scope": 134,
+      "complete": true
+    },
+    "2024-12": {
+      "reviews_all": 16392,
+      "reviews_scope": 8755,
+      "new_listings_all": 357,
+      "new_listings_scope": 139,
+      "complete": true
+    },
+    "2025-01": {
+      "reviews_all": 18974,
+      "reviews_scope": 10117,
+      "new_listings_all": 390,
+      "new_listings_scope": 181,
+      "complete": true
+    },
+    "2025-02": {
+      "reviews_all": 14670,
+      "reviews_scope": 7848,
+      "new_listings_all": 182,
+      "new_listings_scope": 75,
+      "complete": true
+    },
+    "2025-03": {
+      "reviews_all": 19257,
+      "reviews_scope": 10392,
+      "new_listings_all": 345,
+      "new_listings_scope": 152,
+      "complete": true
+    },
+    "2025-04": {
+      "reviews_all": 15874,
+      "reviews_scope": 8621,
+      "new_listings_all": 242,
+      "new_listings_scope": 113,
+      "complete": true
+    },
+    "2025-05": {
+      "reviews_all": 13210,
+      "reviews_scope": 7248,
+      "new_listings_all": 179,
+      "new_listings_scope": 87,
+      "complete": true
+    },
+    "2025-06": {
+      "reviews_all": 14263,
+      "reviews_scope": 7787,
+      "new_listings_all": 246,
+      "new_listings_scope": 131,
+      "complete": true
+    },
+    "2025-07": {
+      "reviews_all": 16628,
+      "reviews_scope": 9137,
+      "new_listings_all": 316,
+      "new_listings_scope": 144,
+      "complete": true
+    },
+    "2025-08": {
+      "reviews_all": 15769,
+      "reviews_scope": 8599,
+      "new_listings_all": 253,
+      "new_listings_scope": 129,
+      "complete": true
+    },
+    "2025-09": {
+      "reviews_all": 15158,
+      "reviews_scope": 8319,
+      "new_listings_all": 283,
+      "new_listings_scope": 143,
+      "complete": true
+    },
+    "2025-10": {
+      "reviews_all": 18985,
+      "reviews_scope": 10402,
+      "new_listings_all": 318,
+      "new_listings_scope": 150,
+      "complete": true
+    },
+    "2025-11": {
+      "reviews_all": 21582,
+      "reviews_scope": 11817,
+      "new_listings_all": 376,
+      "new_listings_scope": 168,
+      "complete": true
+    },
+    "2025-12": {
+      "reviews_all": 21566,
+      "reviews_scope": 11646,
+      "new_listings_all": 621,
+      "new_listings_scope": 278,
+      "complete": true
+    },
+    "2026-01": {
+      "reviews_all": 23188,
+      "reviews_scope": 12319,
+      "new_listings_all": 484,
+      "new_listings_scope": 200,
+      "complete": true
+    },
+    "2026-02": {
+      "reviews_all": 19115,
+      "reviews_scope": 10235,
+      "new_listings_all": 332,
+      "new_listings_scope": 159,
+      "complete": true
+    },
+    "2026-03": {
+      "reviews_all": 22955,
+      "reviews_scope": 12518,
+      "new_listings_all": 519,
+      "new_listings_scope": 228,
+      "complete": true
+    },
+    "2026-04": {
+      "reviews_all": 18974,
+      "reviews_scope": 10140,
+      "new_listings_all": 322,
+      "new_listings_scope": 136,
+      "complete": true
+    },
+    "2026-05": {
+      "reviews_all": 17527,
+      "reviews_scope": 9562,
+      "new_listings_all": 351,
+      "new_listings_scope": 161,
+      "complete": true
+    },
+    "2026-06": {
+      "reviews_all": 17317,
+      "reviews_scope": 9234,
+      "new_listings_all": 401,
+      "new_listings_scope": 189,
+      "complete": true
+    },
+    "2026-07": {
+      "reviews_all": 20123,
+      "reviews_scope": 10674,
+      "new_listings_all": 437,
+      "new_listings_scope": 187,
+      "complete": true
+    },
+    "2026-08": {
+      "reviews_all": 20538,
+      "reviews_scope": 10938,
+      "new_listings_all": 442,
+      "new_listings_scope": 192,
+      "complete": true
+    },
+    "2026-09": {
+      "reviews_all": 7220,
+      "reviews_scope": 3891,
+      "new_listings_all": 206,
+      "new_listings_scope": 99,
+      "complete": false
+    }
+  },
+  "top3_months": [
+    {
+      "month": "2026-01",
+      "reviews_all": 23188
+    },
+    {
+      "month": "2026-03",
+      "reviews_all": 22955
+    },
+    {
+      "month": "2025-11",
+      "reviews_all": 21582
+    }
+  ],
+  "bottom3_months": [
+    {
+      "month": "2024-05",
+      "reviews_all": 11793
+    },
+    {
+      "month": "2024-06",
+      "reviews_all": 12628
+    },
+    {
+      "month": "2024-08",
+      "reviews_all": 12643
+    }
+  ],
+  "seasonality": {
+    "index_2024": {
+      "1": 103.0,
+      "2": 102.6,
+      "3": 112.5,
+      "4": 93.6,
+      "5": 81.3,
+      "6": 87.1,
+      "7": 91.7,
+      "8": 87.2,
+      "9": 94.7,
+      "10": 112.2,
+      "11": 121.2,
+      "12": 113.0
+    },
+    "index_2025": {
+      "1": 110.6,
+      "2": 85.5,
+      "3": 112.2,
+      "4": 92.5,
+      "5": 77.0,
+      "6": 83.1,
+      "7": 96.9,
+      "8": 91.9,
+      "9": 88.3,
+      "10": 110.6,
+      "11": 125.8,
+      "12": 125.7
+    },
+    "avg_index": {
+      "1": 106.8,
+      "2": 94.0,
+      "3": 112.3,
+      "4": 93.0,
+      "5": 79.2,
+      "6": 85.1,
+      "7": 94.3,
+      "8": 89.6,
+      "9": 91.5,
+      "10": 111.4,
+      "11": 123.5,
+      "12": 119.3
+    },
+    "corr_2024_2025": 0.892,
+    "high3_months": [
+      11,
+      12,
+      3
+    ],
+    "low3_months": [
+      5,
+      6,
+      8
+    ]
+  },
+  "new_12m": {
+    "cutoff_inclusive": "2025-09-18",
+    "all_listings_summary_first": 4975,
+    "scope_summary_first": 2231,
+    "scope_price_summary_first": 2056,
+    "scope_price_listings_field": 2056,
+    "expected_known": 2056,
+    "scope_price_no_review_in_summary": 816,
+    "scope_price_no_first_review_field": 816,
+    "scope_price_field_vs_summary_mismatch": 0
+  },
+  "price": {
+    "sample": "篩選且有價",
+    "n": 8223,
+    "n_unparsed": 0,
+    "p25": 209.0,
+    "median": 264.0,
+    "p75": 334.5,
+    "percentile_method": "numpy linear",
+    "unit": "掛牌價/晚,當地幣別,2026-09 一期",
+    "n_neighbourhoods": 30,
+    "top10_neighbourhoods": [
+      {
+        "neighbourhood": "Melbourne",
+        "n": 3487,
+        "median": 269.0
+      },
+      {
+        "neighbourhood": "Port Phillip",
+        "n": 1062,
+        "median": 267.75
+      },
+      {
+        "neighbourhood": "Yarra",
+        "n": 674,
+        "median": 286.5
+      },
+      {
+        "neighbourhood": "Stonnington",
+        "n": 478,
+        "median": 261.75
+      },
+      {
+        "neighbourhood": "Yarra Ranges",
+        "n": 465,
+        "median": 310.0
+      },
+      {
+        "neighbourhood": "Moreland",
+        "n": 228,
+        "median": 251.75
+      },
+      {
+        "neighbourhood": "Whitehorse",
+        "n": 169,
+        "median": 238.0
+      },
+      {
+        "neighbourhood": "Boroondara",
+        "n": 150,
+        "median": 263.25
+      },
+      {
+        "neighbourhood": "Darebin",
+        "n": 137,
+        "median": 207.46
+      },
+      {
+        "neighbourhood": "Maribyrnong",
+        "n": 136,
+        "median": 229.25
+      }
+    ]
+  }
+}
