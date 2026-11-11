@@ -1,0 +1,2112 @@
+{
+  "batch": "2026-09-16",
+  "scope_id": "IS-1111-INV",
+  "cities": {
+    "sydney": {
+      "listings_file": "scratchpad\\airbnb_2026-11-07\\sydney_listings.csv.gz",
+      "rows_all": 20833,
+      "rows_scope": 7565,
+      "rows_scope_with_price": 6639,
+      "missing_def": "空字串或 'N/A' 視為缺值;scope=整套/1-2房/2-4人/最低1-7晚;scope_with_price=scope 且 price 非空",
+      "recon_vs_profile_2026-11-07": {
+        "rows": 20833,
+        "scope_rows": 7565,
+        "scope_price_nonempty": 6639,
+        "all_match": true
+      },
+      "fields": {
+        "common": {
+          "id": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "price": {
+            "exists": true,
+            "all": {
+              "nonempty": 17721,
+              "missing": 3112,
+              "missing_pct": 14.94
+            },
+            "scope": {
+              "nonempty": 6639,
+              "missing": 926,
+              "missing_pct": 12.24
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "room_type": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "property_type": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "accommodates": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "bedrooms": {
+            "exists": true,
+            "all": {
+              "nonempty": 20811,
+              "missing": 22,
+              "missing_pct": 0.11
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "beds": {
+            "exists": true,
+            "all": {
+              "nonempty": 20525,
+              "missing": 308,
+              "missing_pct": 1.48
+            },
+            "scope": {
+              "nonempty": 7454,
+              "missing": 111,
+              "missing_pct": 1.47
+            },
+            "scope_with_price": {
+              "nonempty": 6542,
+              "missing": 97,
+              "missing_pct": 1.46
+            }
+          },
+          "bathrooms": {
+            "exists": true,
+            "all": {
+              "nonempty": 0,
+              "missing": 20833,
+              "missing_pct": 100.0
+            },
+            "scope": {
+              "nonempty": 0,
+              "missing": 7565,
+              "missing_pct": 100.0
+            },
+            "scope_with_price": {
+              "nonempty": 0,
+              "missing": 6639,
+              "missing_pct": 100.0
+            }
+          },
+          "bathrooms_text": {
+            "exists": true,
+            "all": {
+              "nonempty": 20809,
+              "missing": 24,
+              "missing_pct": 0.12
+            },
+            "scope": {
+              "nonempty": 7564,
+              "missing": 1,
+              "missing_pct": 0.01
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "neighbourhood_cleansed": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "latitude": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "longitude": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "minimum_nights": {
+            "exists": true,
+            "all": {
+              "nonempty": 20820,
+              "missing": 13,
+              "missing_pct": 0.06
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "maximum_nights": {
+            "exists": true,
+            "all": {
+              "nonempty": 20820,
+              "missing": 13,
+              "missing_pct": 0.06
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "last_scraped": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          }
+        },
+        "plan_a": {
+          "amenities": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "review_scores_rating": {
+            "exists": true,
+            "all": {
+              "nonempty": 17623,
+              "missing": 3210,
+              "missing_pct": 15.41
+            },
+            "scope": {
+              "nonempty": 6850,
+              "missing": 715,
+              "missing_pct": 9.45
+            },
+            "scope_with_price": {
+              "nonempty": 6051,
+              "missing": 588,
+              "missing_pct": 8.86
+            }
+          },
+          "review_scores_accuracy": {
+            "exists": true,
+            "all": {
+              "nonempty": 17622,
+              "missing": 3211,
+              "missing_pct": 15.41
+            },
+            "scope": {
+              "nonempty": 6850,
+              "missing": 715,
+              "missing_pct": 9.45
+            },
+            "scope_with_price": {
+              "nonempty": 6051,
+              "missing": 588,
+              "missing_pct": 8.86
+            }
+          },
+          "review_scores_cleanliness": {
+            "exists": true,
+            "all": {
+              "nonempty": 17622,
+              "missing": 3211,
+              "missing_pct": 15.41
+            },
+            "scope": {
+              "nonempty": 6850,
+              "missing": 715,
+              "missing_pct": 9.45
+            },
+            "scope_with_price": {
+              "nonempty": 6051,
+              "missing": 588,
+              "missing_pct": 8.86
+            }
+          },
+          "review_scores_checkin": {
+            "exists": true,
+            "all": {
+              "nonempty": 17622,
+              "missing": 3211,
+              "missing_pct": 15.41
+            },
+            "scope": {
+              "nonempty": 6850,
+              "missing": 715,
+              "missing_pct": 9.45
+            },
+            "scope_with_price": {
+              "nonempty": 6051,
+              "missing": 588,
+              "missing_pct": 8.86
+            }
+          },
+          "review_scores_communication": {
+            "exists": true,
+            "all": {
+              "nonempty": 17622,
+              "missing": 3211,
+              "missing_pct": 15.41
+            },
+            "scope": {
+              "nonempty": 6850,
+              "missing": 715,
+              "missing_pct": 9.45
+            },
+            "scope_with_price": {
+              "nonempty": 6051,
+              "missing": 588,
+              "missing_pct": 8.86
+            }
+          },
+          "review_scores_location": {
+            "exists": true,
+            "all": {
+              "nonempty": 17622,
+              "missing": 3211,
+              "missing_pct": 15.41
+            },
+            "scope": {
+              "nonempty": 6850,
+              "missing": 715,
+              "missing_pct": 9.45
+            },
+            "scope_with_price": {
+              "nonempty": 6051,
+              "missing": 588,
+              "missing_pct": 8.86
+            }
+          },
+          "review_scores_value": {
+            "exists": true,
+            "all": {
+              "nonempty": 17622,
+              "missing": 3211,
+              "missing_pct": 15.41
+            },
+            "scope": {
+              "nonempty": 6850,
+              "missing": 715,
+              "missing_pct": 9.45
+            },
+            "scope_with_price": {
+              "nonempty": 6051,
+              "missing": 588,
+              "missing_pct": 8.86
+            }
+          },
+          "number_of_reviews": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "number_of_reviews_ltm": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "reviews_per_month": {
+            "exists": true,
+            "all": {
+              "nonempty": 17623,
+              "missing": 3210,
+              "missing_pct": 15.41
+            },
+            "scope": {
+              "nonempty": 6850,
+              "missing": 715,
+              "missing_pct": 9.45
+            },
+            "scope_with_price": {
+              "nonempty": 6051,
+              "missing": 588,
+              "missing_pct": 8.86
+            }
+          },
+          "first_review": {
+            "exists": true,
+            "all": {
+              "nonempty": 17623,
+              "missing": 3210,
+              "missing_pct": 15.41
+            },
+            "scope": {
+              "nonempty": 6850,
+              "missing": 715,
+              "missing_pct": 9.45
+            },
+            "scope_with_price": {
+              "nonempty": 6051,
+              "missing": 588,
+              "missing_pct": 8.86
+            }
+          },
+          "last_review": {
+            "exists": true,
+            "all": {
+              "nonempty": 17623,
+              "missing": 3210,
+              "missing_pct": 15.41
+            },
+            "scope": {
+              "nonempty": 6850,
+              "missing": 715,
+              "missing_pct": 9.45
+            },
+            "scope_with_price": {
+              "nonempty": 6051,
+              "missing": 588,
+              "missing_pct": 8.86
+            }
+          },
+          "host_since": {
+            "exists": true,
+            "all": {
+              "nonempty": 0,
+              "missing": 20833,
+              "missing_pct": 100.0
+            },
+            "scope": {
+              "nonempty": 0,
+              "missing": 7565,
+              "missing_pct": 100.0
+            },
+            "scope_with_price": {
+              "nonempty": 0,
+              "missing": 6639,
+              "missing_pct": 100.0
+            }
+          },
+          "host_is_superhost": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "host_response_rate": {
+            "exists": true,
+            "all": {
+              "nonempty": 0,
+              "missing": 20833,
+              "missing_pct": 100.0
+            },
+            "scope": {
+              "nonempty": 0,
+              "missing": 7565,
+              "missing_pct": 100.0
+            },
+            "scope_with_price": {
+              "nonempty": 0,
+              "missing": 6639,
+              "missing_pct": 100.0
+            }
+          },
+          "host_acceptance_rate": {
+            "exists": true,
+            "all": {
+              "nonempty": 0,
+              "missing": 20833,
+              "missing_pct": 100.0
+            },
+            "scope": {
+              "nonempty": 0,
+              "missing": 7565,
+              "missing_pct": 100.0
+            },
+            "scope_with_price": {
+              "nonempty": 0,
+              "missing": 6639,
+              "missing_pct": 100.0
+            }
+          },
+          "host_listings_count": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "calculated_host_listings_count": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "instant_bookable": {
+            "exists": true,
+            "all": {
+              "nonempty": 0,
+              "missing": 20833,
+              "missing_pct": 100.0
+            },
+            "scope": {
+              "nonempty": 0,
+              "missing": 7565,
+              "missing_pct": 100.0
+            },
+            "scope_with_price": {
+              "nonempty": 0,
+              "missing": 6639,
+              "missing_pct": 100.0
+            }
+          },
+          "license": {
+            "exists": true,
+            "all": {
+              "nonempty": 19603,
+              "missing": 1230,
+              "missing_pct": 5.9
+            },
+            "scope": {
+              "nonempty": 7555,
+              "missing": 10,
+              "missing_pct": 0.13
+            },
+            "scope_with_price": {
+              "nonempty": 6636,
+              "missing": 3,
+              "missing_pct": 0.05
+            }
+          },
+          "description": {
+            "exists": true,
+            "all": {
+              "nonempty": 20747,
+              "missing": 86,
+              "missing_pct": 0.41
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "name": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          }
+        },
+        "plan_b": {
+          "availability_30": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "availability_60": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "availability_90": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "availability_365": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "estimated_occupancy_l365d": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "estimated_revenue_l365d": {
+            "exists": true,
+            "all": {
+              "nonempty": 17721,
+              "missing": 3112,
+              "missing_pct": 14.94
+            },
+            "scope": {
+              "nonempty": 6639,
+              "missing": 926,
+              "missing_pct": 12.24
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "number_of_reviews_ltm": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "number_of_reviews_l30d": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "reviews_per_month": {
+            "exists": true,
+            "all": {
+              "nonempty": 17623,
+              "missing": 3210,
+              "missing_pct": 15.41
+            },
+            "scope": {
+              "nonempty": 6850,
+              "missing": 715,
+              "missing_pct": 9.45
+            },
+            "scope_with_price": {
+              "nonempty": 6051,
+              "missing": 588,
+              "missing_pct": 8.86
+            }
+          },
+          "has_availability": {
+            "exists": true,
+            "all": {
+              "nonempty": 20751,
+              "missing": 82,
+              "missing_pct": 0.39
+            },
+            "scope": {
+              "nonempty": 7554,
+              "missing": 11,
+              "missing_pct": 0.15
+            },
+            "scope_with_price": {
+              "nonempty": 6638,
+              "missing": 1,
+              "missing_pct": 0.02
+            }
+          },
+          "calendar_last_scraped": {
+            "exists": true,
+            "all": {
+              "nonempty": 20833,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 7565,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 6639,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          }
+        }
+      },
+      "absent_fields": [],
+      "keyword_scan": {
+        "清潔費": "沒有",
+        "服務費": "沒有",
+        "押金": "沒有",
+        "週月折扣": "沒有",
+        "房屋買價或租金": "沒有"
+      },
+      "scope_stats_price_parsed": {
+        "estimated_occupancy_l365d": {
+          "exists": true,
+          "n_numeric": 7565,
+          "min": 0.0,
+          "median": 54.0,
+          "max": 255.0
+        },
+        "estimated_revenue_l365d": {
+          "exists": true,
+          "n_numeric": 6639,
+          "min": 0.0,
+          "median": 20700.0,
+          "max": 1054590.0
+        },
+        "availability_365": {
+          "exists": true,
+          "n_numeric": 7565,
+          "min": 0.0,
+          "median": 142.0,
+          "max": 365.0
+        },
+        "number_of_reviews_ltm": {
+          "exists": true,
+          "n_numeric": 7565,
+          "min": 0.0,
+          "median": 9.0,
+          "max": 529.0
+        },
+        "price": {
+          "exists": true,
+          "n_numeric": 6639,
+          "min": 79.0,
+          "median": 338.5,
+          "max": 18848.0
+        }
+      },
+      "listings_columns": [
+        "id",
+        "listing_url",
+        "scrape_id",
+        "last_scraped",
+        "source",
+        "name",
+        "description",
+        "neighborhood_overview",
+        "picture_url",
+        "host_id",
+        "host_url",
+        "host_profile_id",
+        "host_profile_url",
+        "host_name",
+        "host_since",
+        "hosts_time_as_user_years",
+        "hosts_time_as_user_months",
+        "hosts_time_as_host_years",
+        "hosts_time_as_host_months",
+        "host_location",
+        "host_about",
+        "host_response_time",
+        "host_response_rate",
+        "host_acceptance_rate",
+        "host_is_superhost",
+        "host_thumbnail_url",
+        "host_picture_url",
+        "host_neighbourhood",
+        "host_listings_count",
+        "host_total_listings_count",
+        "host_verifications",
+        "host_has_profile_pic",
+        "host_identity_verified",
+        "neighbourhood",
+        "neighbourhood_cleansed",
+        "neighbourhood_group_cleansed",
+        "latitude",
+        "longitude",
+        "property_type",
+        "room_type",
+        "accommodates",
+        "bathrooms",
+        "bathrooms_text",
+        "bedrooms",
+        "beds",
+        "amenities",
+        "price",
+        "price_quote_checkin_date",
+        "price_quote_checkout_date",
+        "price_quote_total_price",
+        "price_quote_price_per_night",
+        "price_quote_raw",
+        "minimum_nights",
+        "maximum_nights",
+        "minimum_minimum_nights",
+        "maximum_minimum_nights",
+        "minimum_maximum_nights",
+        "maximum_maximum_nights",
+        "minimum_nights_avg_ntm",
+        "maximum_nights_avg_ntm",
+        "calendar_updated",
+        "has_availability",
+        "availability_30",
+        "availability_60",
+        "availability_90",
+        "availability_365",
+        "calendar_last_scraped",
+        "number_of_reviews",
+        "number_of_reviews_ltm",
+        "number_of_reviews_l30d",
+        "availability_eoy",
+        "number_of_reviews_ly",
+        "estimated_occupancy_l365d",
+        "estimated_revenue_l365d",
+        "first_review",
+        "last_review",
+        "review_scores_rating",
+        "review_scores_accuracy",
+        "review_scores_cleanliness",
+        "review_scores_checkin",
+        "review_scores_communication",
+        "review_scores_location",
+        "review_scores_value",
+        "license",
+        "instant_bookable",
+        "calculated_host_listings_count",
+        "calculated_host_listings_count_entire_homes",
+        "calculated_host_listings_count_private_rooms",
+        "calculated_host_listings_count_shared_rooms",
+        "reviews_per_month"
+      ],
+      "calendar_columns": [
+        "listing_id",
+        "date",
+        "available",
+        "minimum_nights",
+        "maximum_nights"
+      ],
+      "calendar_columns_source": "airbnb_two_city_profile_2026-11-07.json(未重新連網;本機無 calendar 檔)",
+      "reviews_columns": [
+        "listing_id",
+        "date"
+      ],
+      "reviews_columns_source": "sydney_reviews_summary.csv 表頭(visualisations/reviews.csv,非完整 reviews.csv.gz)"
+    },
+    "melbourne": {
+      "listings_file": "scratchpad\\airbnb_2024_two_cities\\melbourne_listings.csv.gz",
+      "rows_all": 25715,
+      "rows_scope": 10940,
+      "rows_scope_with_price": 8223,
+      "missing_def": "空字串或 'N/A' 視為缺值;scope=整套/1-2房/2-4人/最低1-7晚;scope_with_price=scope 且 price 非空",
+      "recon_vs_profile_2026-11-07": {
+        "rows": 25715,
+        "scope_rows": 10940,
+        "scope_price_nonempty": 8223,
+        "all_match": true
+      },
+      "fields": {
+        "common": {
+          "id": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "price": {
+            "exists": true,
+            "all": {
+              "nonempty": 19004,
+              "missing": 6711,
+              "missing_pct": 26.1
+            },
+            "scope": {
+              "nonempty": 8223,
+              "missing": 2717,
+              "missing_pct": 24.84
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "room_type": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "property_type": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "accommodates": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "bedrooms": {
+            "exists": true,
+            "all": {
+              "nonempty": 25694,
+              "missing": 21,
+              "missing_pct": 0.08
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "beds": {
+            "exists": true,
+            "all": {
+              "nonempty": 25444,
+              "missing": 271,
+              "missing_pct": 1.05
+            },
+            "scope": {
+              "nonempty": 10836,
+              "missing": 104,
+              "missing_pct": 0.95
+            },
+            "scope_with_price": {
+              "nonempty": 8150,
+              "missing": 73,
+              "missing_pct": 0.89
+            }
+          },
+          "bathrooms": {
+            "exists": true,
+            "all": {
+              "nonempty": 0,
+              "missing": 25715,
+              "missing_pct": 100.0
+            },
+            "scope": {
+              "nonempty": 0,
+              "missing": 10940,
+              "missing_pct": 100.0
+            },
+            "scope_with_price": {
+              "nonempty": 0,
+              "missing": 8223,
+              "missing_pct": 100.0
+            }
+          },
+          "bathrooms_text": {
+            "exists": true,
+            "all": {
+              "nonempty": 25691,
+              "missing": 24,
+              "missing_pct": 0.09
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "neighbourhood_cleansed": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "latitude": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "longitude": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "minimum_nights": {
+            "exists": true,
+            "all": {
+              "nonempty": 25703,
+              "missing": 12,
+              "missing_pct": 0.05
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "maximum_nights": {
+            "exists": true,
+            "all": {
+              "nonempty": 25703,
+              "missing": 12,
+              "missing_pct": 0.05
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "last_scraped": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          }
+        },
+        "plan_a": {
+          "amenities": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "review_scores_rating": {
+            "exists": true,
+            "all": {
+              "nonempty": 21130,
+              "missing": 4585,
+              "missing_pct": 17.83
+            },
+            "scope": {
+              "nonempty": 9654,
+              "missing": 1286,
+              "missing_pct": 11.76
+            },
+            "scope_with_price": {
+              "nonempty": 7407,
+              "missing": 816,
+              "missing_pct": 9.92
+            }
+          },
+          "review_scores_accuracy": {
+            "exists": true,
+            "all": {
+              "nonempty": 21126,
+              "missing": 4589,
+              "missing_pct": 17.85
+            },
+            "scope": {
+              "nonempty": 9651,
+              "missing": 1289,
+              "missing_pct": 11.78
+            },
+            "scope_with_price": {
+              "nonempty": 7407,
+              "missing": 816,
+              "missing_pct": 9.92
+            }
+          },
+          "review_scores_cleanliness": {
+            "exists": true,
+            "all": {
+              "nonempty": 21129,
+              "missing": 4586,
+              "missing_pct": 17.83
+            },
+            "scope": {
+              "nonempty": 9653,
+              "missing": 1287,
+              "missing_pct": 11.76
+            },
+            "scope_with_price": {
+              "nonempty": 7407,
+              "missing": 816,
+              "missing_pct": 9.92
+            }
+          },
+          "review_scores_checkin": {
+            "exists": true,
+            "all": {
+              "nonempty": 21123,
+              "missing": 4592,
+              "missing_pct": 17.86
+            },
+            "scope": {
+              "nonempty": 9651,
+              "missing": 1289,
+              "missing_pct": 11.78
+            },
+            "scope_with_price": {
+              "nonempty": 7407,
+              "missing": 816,
+              "missing_pct": 9.92
+            }
+          },
+          "review_scores_communication": {
+            "exists": true,
+            "all": {
+              "nonempty": 21126,
+              "missing": 4589,
+              "missing_pct": 17.85
+            },
+            "scope": {
+              "nonempty": 9652,
+              "missing": 1288,
+              "missing_pct": 11.77
+            },
+            "scope_with_price": {
+              "nonempty": 7407,
+              "missing": 816,
+              "missing_pct": 9.92
+            }
+          },
+          "review_scores_location": {
+            "exists": true,
+            "all": {
+              "nonempty": 21123,
+              "missing": 4592,
+              "missing_pct": 17.86
+            },
+            "scope": {
+              "nonempty": 9652,
+              "missing": 1288,
+              "missing_pct": 11.77
+            },
+            "scope_with_price": {
+              "nonempty": 7407,
+              "missing": 816,
+              "missing_pct": 9.92
+            }
+          },
+          "review_scores_value": {
+            "exists": true,
+            "all": {
+              "nonempty": 21123,
+              "missing": 4592,
+              "missing_pct": 17.86
+            },
+            "scope": {
+              "nonempty": 9652,
+              "missing": 1288,
+              "missing_pct": 11.77
+            },
+            "scope_with_price": {
+              "nonempty": 7407,
+              "missing": 816,
+              "missing_pct": 9.92
+            }
+          },
+          "number_of_reviews": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "number_of_reviews_ltm": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "reviews_per_month": {
+            "exists": true,
+            "all": {
+              "nonempty": 21130,
+              "missing": 4585,
+              "missing_pct": 17.83
+            },
+            "scope": {
+              "nonempty": 9654,
+              "missing": 1286,
+              "missing_pct": 11.76
+            },
+            "scope_with_price": {
+              "nonempty": 7407,
+              "missing": 816,
+              "missing_pct": 9.92
+            }
+          },
+          "first_review": {
+            "exists": true,
+            "all": {
+              "nonempty": 21130,
+              "missing": 4585,
+              "missing_pct": 17.83
+            },
+            "scope": {
+              "nonempty": 9654,
+              "missing": 1286,
+              "missing_pct": 11.76
+            },
+            "scope_with_price": {
+              "nonempty": 7407,
+              "missing": 816,
+              "missing_pct": 9.92
+            }
+          },
+          "last_review": {
+            "exists": true,
+            "all": {
+              "nonempty": 21130,
+              "missing": 4585,
+              "missing_pct": 17.83
+            },
+            "scope": {
+              "nonempty": 9654,
+              "missing": 1286,
+              "missing_pct": 11.76
+            },
+            "scope_with_price": {
+              "nonempty": 7407,
+              "missing": 816,
+              "missing_pct": 9.92
+            }
+          },
+          "host_since": {
+            "exists": true,
+            "all": {
+              "nonempty": 0,
+              "missing": 25715,
+              "missing_pct": 100.0
+            },
+            "scope": {
+              "nonempty": 0,
+              "missing": 10940,
+              "missing_pct": 100.0
+            },
+            "scope_with_price": {
+              "nonempty": 0,
+              "missing": 8223,
+              "missing_pct": 100.0
+            }
+          },
+          "host_is_superhost": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "host_response_rate": {
+            "exists": true,
+            "all": {
+              "nonempty": 0,
+              "missing": 25715,
+              "missing_pct": 100.0
+            },
+            "scope": {
+              "nonempty": 0,
+              "missing": 10940,
+              "missing_pct": 100.0
+            },
+            "scope_with_price": {
+              "nonempty": 0,
+              "missing": 8223,
+              "missing_pct": 100.0
+            }
+          },
+          "host_acceptance_rate": {
+            "exists": true,
+            "all": {
+              "nonempty": 0,
+              "missing": 25715,
+              "missing_pct": 100.0
+            },
+            "scope": {
+              "nonempty": 0,
+              "missing": 10940,
+              "missing_pct": 100.0
+            },
+            "scope_with_price": {
+              "nonempty": 0,
+              "missing": 8223,
+              "missing_pct": 100.0
+            }
+          },
+          "host_listings_count": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "calculated_host_listings_count": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "instant_bookable": {
+            "exists": true,
+            "all": {
+              "nonempty": 0,
+              "missing": 25715,
+              "missing_pct": 100.0
+            },
+            "scope": {
+              "nonempty": 0,
+              "missing": 10940,
+              "missing_pct": 100.0
+            },
+            "scope_with_price": {
+              "nonempty": 0,
+              "missing": 8223,
+              "missing_pct": 100.0
+            }
+          },
+          "license": {
+            "exists": true,
+            "all": {
+              "nonempty": 0,
+              "missing": 25715,
+              "missing_pct": 100.0
+            },
+            "scope": {
+              "nonempty": 0,
+              "missing": 10940,
+              "missing_pct": 100.0
+            },
+            "scope_with_price": {
+              "nonempty": 0,
+              "missing": 8223,
+              "missing_pct": 100.0
+            }
+          },
+          "description": {
+            "exists": true,
+            "all": {
+              "nonempty": 25490,
+              "missing": 225,
+              "missing_pct": 0.87
+            },
+            "scope": {
+              "nonempty": 10887,
+              "missing": 53,
+              "missing_pct": 0.48
+            },
+            "scope_with_price": {
+              "nonempty": 8202,
+              "missing": 21,
+              "missing_pct": 0.26
+            }
+          },
+          "name": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          }
+        },
+        "plan_b": {
+          "availability_30": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "availability_60": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "availability_90": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "availability_365": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "estimated_occupancy_l365d": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "estimated_revenue_l365d": {
+            "exists": true,
+            "all": {
+              "nonempty": 19004,
+              "missing": 6711,
+              "missing_pct": 26.1
+            },
+            "scope": {
+              "nonempty": 8223,
+              "missing": 2717,
+              "missing_pct": 24.84
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "number_of_reviews_ltm": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "number_of_reviews_l30d": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          },
+          "reviews_per_month": {
+            "exists": true,
+            "all": {
+              "nonempty": 21130,
+              "missing": 4585,
+              "missing_pct": 17.83
+            },
+            "scope": {
+              "nonempty": 9654,
+              "missing": 1286,
+              "missing_pct": 11.76
+            },
+            "scope_with_price": {
+              "nonempty": 7407,
+              "missing": 816,
+              "missing_pct": 9.92
+            }
+          },
+          "has_availability": {
+            "exists": true,
+            "all": {
+              "nonempty": 25569,
+              "missing": 146,
+              "missing_pct": 0.57
+            },
+            "scope": {
+              "nonempty": 10893,
+              "missing": 47,
+              "missing_pct": 0.43
+            },
+            "scope_with_price": {
+              "nonempty": 8222,
+              "missing": 1,
+              "missing_pct": 0.01
+            }
+          },
+          "calendar_last_scraped": {
+            "exists": true,
+            "all": {
+              "nonempty": 25715,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope": {
+              "nonempty": 10940,
+              "missing": 0,
+              "missing_pct": 0.0
+            },
+            "scope_with_price": {
+              "nonempty": 8223,
+              "missing": 0,
+              "missing_pct": 0.0
+            }
+          }
+        }
+      },
+      "absent_fields": [],
+      "keyword_scan": {
+        "清潔費": "沒有",
+        "服務費": "沒有",
+        "押金": "沒有",
+        "週月折扣": "沒有",
+        "房屋買價或租金": "沒有"
+      },
+      "scope_stats_price_parsed": {
+        "estimated_occupancy_l365d": {
+          "exists": true,
+          "n_numeric": 10940,
+          "min": 0.0,
+          "median": 30.0,
+          "max": 255.0
+        },
+        "estimated_revenue_l365d": {
+          "exists": true,
+          "n_numeric": 8223,
+          "min": 0.0,
+          "median": 14898.0,
+          "max": 324000.0
+        },
+        "availability_365": {
+          "exists": true,
+          "n_numeric": 10940,
+          "min": 0.0,
+          "median": 142.0,
+          "max": 365.0
+        },
+        "number_of_reviews_ltm": {
+          "exists": true,
+          "n_numeric": 10940,
+          "min": 0.0,
+          "median": 5.0,
+          "max": 523.0
+        },
+        "price": {
+          "exists": true,
+          "n_numeric": 8223,
+          "min": 68.64,
+          "median": 264.0,
+          "max": 90000.0
+        }
+      },
+      "listings_columns": [
+        "id",
+        "listing_url",
+        "scrape_id",
+        "last_scraped",
+        "source",
+        "name",
+        "description",
+        "neighborhood_overview",
+        "picture_url",
+        "host_id",
+        "host_url",
+        "host_profile_id",
+        "host_profile_url",
+        "host_name",
+        "host_since",
+        "hosts_time_as_user_years",
+        "hosts_time_as_user_months",
+        "hosts_time_as_host_years",
+        "hosts_time_as_host_months",
+        "host_location",
+        "host_about",
+        "host_response_time",
+        "host_response_rate",
+        "host_acceptance_rate",
+        "host_is_superhost",
+        "host_thumbnail_url",
+        "host_picture_url",
+        "host_neighbourhood",
+        "host_listings_count",
+        "host_total_listings_count",
+        "host_verifications",
+        "host_has_profile_pic",
+        "host_identity_verified",
+        "neighbourhood",
+        "neighbourhood_cleansed",
+        "neighbourhood_group_cleansed",
+        "latitude",
+        "longitude",
+        "property_type",
+        "room_type",
+        "accommodates",
+        "bathrooms",
+        "bathrooms_text",
+        "bedrooms",
+        "beds",
+        "amenities",
+        "price",
+        "price_quote_checkin_date",
+        "price_quote_checkout_date",
+        "price_quote_total_price",
+        "price_quote_price_per_night",
+        "price_quote_raw",
+        "minimum_nights",
+        "maximum_nights",
+        "minimum_minimum_nights",
+        "maximum_minimum_nights",
+        "minimum_maximum_nights",
+        "maximum_maximum_nights",
+        "minimum_nights_avg_ntm",
+        "maximum_nights_avg_ntm",
+        "calendar_updated",
+        "has_availability",
+        "availability_30",
+        "availability_60",
+        "availability_90",
+        "availability_365",
+        "calendar_last_scraped",
+        "number_of_reviews",
+        "number_of_reviews_ltm",
+        "number_of_reviews_l30d",
+        "availability_eoy",
+        "number_of_reviews_ly",
+        "estimated_occupancy_l365d",
+        "estimated_revenue_l365d",
+        "first_review",
+        "last_review",
+        "review_scores_rating",
+        "review_scores_accuracy",
+        "review_scores_cleanliness",
+        "review_scores_checkin",
+        "review_scores_communication",
+        "review_scores_location",
+        "review_scores_value",
+        "license",
+        "instant_bookable",
+        "calculated_host_listings_count",
+        "calculated_host_listings_count_entire_homes",
+        "calculated_host_listings_count_private_rooms",
+        "calculated_host_listings_count_shared_rooms",
+        "reviews_per_month"
+      ],
+      "calendar_columns": [
+        "listing_id",
+        "date",
+        "available",
+        "minimum_nights",
+        "maximum_nights"
+      ],
+      "calendar_columns_source": "airbnb_two_city_profile_2026-11-07.json(未重新連網;本機無 calendar 檔)",
+      "reviews_columns": [
+        "listing_id",
+        "date"
+      ],
+      "reviews_columns_source": "melbourne_reviews_summary.csv 表頭(visualisations/reviews.csv,非完整 reviews.csv.gz)"
+    }
+  }
+}

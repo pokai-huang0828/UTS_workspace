@@ -195,6 +195,8 @@
 
 目前主線：[`15 2024年起雙城與ROI`](notes/15_Airbnb_2024起雙城與ROI_研究範圍.md)；前輪[`14 雪梨初探`](notes/14_Airbnb新房東_資料範圍與業務方向.md)；可重現EDA在`analysis/airbnb_entrant_eda.py`，彙總在`notes/raw/airbnb_entrant_eda_2026-11-07.json`。
 
+11/11組會用：[`16 方案A/B深度分析`](notes/16_方案AB_深度分析.md)：方案 A/B 深度分析＋最高分推薦（可執行性、難度、資料完整度三面向，五份分支整合）。
+
 | 檔案 | 內容 |
 |---|---|
 | [`notes/00_開課公告_2026-10-22.md`](notes/00_開課公告_2026-10-22.md) | Li Guan 開課公告(繁體) |

@@ -2531,3 +2531,14 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - **驗證**:只有產出者自檢(舊字眼掃描、節號與 CLAUDE.md 引用相符、references 連結 10 個都存在)。原本開了一趟 Codex 唯讀審查,**Kenny 說「不用了,都由你來負責」→ 中途停掉、無產出。這一版沒有獨立核對**,已在 SKILL「本版核對紀錄」寫明。
 - **未做**:沒有用新手冊實際派過一張單;§2.2 的上限數字是起始值,要靠之後 handoff 的實耗校準。`references/01`、`03` 是 VMX 原檔,裡面的 haiku 階梯沒改(清單已註明以 SKILL §2 為準)。
 - **用量**:subagent 0 個。Codex 2 趟(1 趟 smoke;1 趟審查中途停掉,token 未回報)。
+
+## 2026-11-11(晚)· Innovation Studio:方案 A/B 深度分析 + 最高分推薦(給 21:00 組會投票用)
+
+- Kenny 三個要求:①依 A(新房東競品分析)、B(投資報酬測算)做深度分析,看可執行性/難度/資料完整度;②用多個分支各自獨立分析再整合;③照每週進度和成員配置給最高分推薦(原訊息打「美洲進度」,判讀為「每週進度」⚠️假設,Kenny 未更正)。
+- 產物:`Innovation Studio/notes/16_方案AB_深度分析.md`(505 行,一頁結論 15 行)。結論:想拿最高分選 **A+B①**(A 當主線,B① 只做成系統裡的情境試算功能)。三面向分數 A 4/4/3、B①(已有房算營運回報)3/3/2、B②(買房投資報酬)2/2/2;B① 分數是整合時推的,沒有分支獨立評過。照評分表推估(不是老師給的分數,共 80 個百分點):A+B① 約 63–74、A 約 62–74、B① 約 57–69、B② 約 51–65;A+B① 只比 A 高約 0.7 個百分點,全靠 AT3 準則 4 那一格。
+- 新資料事實(可重跑程式 `analysis/airbnb_ab_field_inventory.py`、`analysis/airbnb_ab_quality_checks.py`,彙總在 `notes/raw/airbnb_ab_*_2026-11-11.json`):兩城 listings 各 90 欄;`bathrooms`、`host_since`、`host_response_rate`、`host_acceptance_rate`、`instant_bookable` 兩城整欄空,墨爾本 `license` 也空;沒有清潔費/買價/租金欄。`estimated_revenue_l365d` = `price` × `estimated_occupancy_l365d`(吻合率 100%),入住晚數約 = 近一年評論數 × 6、上限 255 → 收入是推算不是觀察。「新房東」只能用首評在最近 12 個月內代理(篩選且有價樣本:雪梨 2,028、墨爾本 2,056)→ 資料端改叫「新上架房源」。墨爾本篩選樣本無價 2,717 筆,多為日曆全關。
+- 分支報告(`notes/raw/`):`ab_branch_data`、`ab_branch_difficulty`、`ab_branch_feasibility`、`ab_branch_redteam`、`ab_branch_score`(皆 `_2026-11-11.md`)。反方結論「有條件站得住」。難度分支的外部來源有幾項今天沒打開成功(VIC DFFH 租金頁逾時、NSW bulk 下載頁 403、清潔成本無官方來源),表內照實標未確認。
+- 核對:未參與撰寫的 Claude 分身(sonnet high)兩輪,紀錄 `notes/raw/ab_review_2026-11-11.md`。R1 NOT READY(5 條必改:2 處缺「改這樣說」、「68 分」單位相加錯、等第未解釋、B① 難度三處打架;資料類數字約 130 個全吻合)→ 修 13 條 → R2 READY(必改 0)。**沒有異家族核對**:Codex R1 已啟動,Kenny 中途說「codex 不用再審查了,全改 claude code」,當場停掉、無產出。R2 之後的 8 處小修(17.9 補權重條件、來源改引 README 原始行等)只有產出者回讀 + 主腦讀檔頭 72 行,未再獨立核對。
+- 仍待確認(已進 TODO):今晚投的 B 是 B① 還是 B②;AT2 權重 15% 或 20%、專案介紹 11/19 或 11/26(repo 內不一致);題目 11/15 前定案;成員背景與職責的對應是推論。
+- 同步:README §6 加 16 入口;TODO 加組會後回填項。
+- §8.3 帳本(工具回報的 subagent token;續派的分身是累計值):**sonnet high 6 個共 737,829**(INV 79,755/7 次、DATA 102,152/9、DIFF 97,913/23、FEAS 115,261/19、RED 122,040/11、REVIEW R1+R2 220,708/22);**opus high 2 個共 389,781**(AB 產出者含整合與三次修正 255,649/56、SCORE 134,132/22);合計 1,127,610。無人超過工單上限。新開分身 8 個(未到第 9 個閘);整合、修正、R2 都用續派同一分身。Codex 0 趟完成(1 趟中止)。未用 workflow。主腦 = Fable 5.2。

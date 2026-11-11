@@ -1,0 +1,1478 @@
+{
+  "batch": "2026-09-16",
+  "scope_id": "IS-1111-BR-DATA",
+  "cities": {
+    "sydney": {
+      "listings_file": "scratchpad\\airbnb_2026-11-07\\sydney_listings.csv.gz",
+      "rows_all": 20833,
+      "rows_scope": 7565,
+      "rows_scope_with_price": 6639,
+      "last_scraped_min_max": [
+        "2026-09-17",
+        "2026-09-17"
+      ],
+      "sample_defs": {
+        "all": "全體 listings",
+        "scope": "整套/1-2房/2-4人/最低1-7晚",
+        "scope_price": "scope 且 price 非空(競品分析/報酬測算實際可用)"
+      },
+      "all": {
+        "a_price": {
+          "n_rows": 20833,
+          "n_price": 17721,
+          "price_missing": 3112,
+          "price_missing_pct": 14.94,
+          "n_price_le_0": 0,
+          "price_missing_and_availability_365_eq_0": 2239,
+          "price_missing_and_reviews_ltm_eq_0": 1590,
+          "price_missing_and_has_availability_not_t": 74,
+          "p1": 55.678,
+          "p5": 87.0,
+          "p25": 209.0,
+          "p50": 337.8,
+          "p75": 514.0,
+          "p95": 1346.33,
+          "p99": 3481.688,
+          "min": 16.87,
+          "max": 96887.58,
+          "n_above_p99": 178,
+          "n_ge_1000": 1429,
+          "n_ge_5000": 87,
+          "max_over_median": 286.8
+        },
+        "b_revenue_vs_price_x_occ": {
+          "n_rows": 20833,
+          "n_revenue_numeric": 17721,
+          "n_occupancy_numeric": 20833,
+          "n_price_occ_rev_all_present": 17721,
+          "n_with_occ_gt0_price_gt0": 13512,
+          "n_ratio_within_0.99_1.01": 13512,
+          "ratio_within_0.99_1.01_pct": 100.0,
+          "ratio_p1": 0.9999,
+          "ratio_p5": 1.0,
+          "ratio_p50": 1.0,
+          "ratio_p95": 1.0,
+          "ratio_p99": 1.0001,
+          "n_occ_eq_0": 4209,
+          "n_occ_eq_0_and_revenue_eq_0": 4209,
+          "n_revenue_gt0_with_occ_eq_0": 0
+        },
+        "c_occupancy": {
+          "n_rows": 20833,
+          "n_numeric": 20833,
+          "missing_pct": 0.0,
+          "max": 255.0,
+          "n_eq_0": 5799,
+          "eq_0_pct": 27.84,
+          "n_at_max": 1229,
+          "at_max_pct": 5.9,
+          "p50": 30.0,
+          "p95": 255.0,
+          "n_pairs_with_reviews_ltm": 20833,
+          "spearman_vs_reviews_ltm": 0.9612,
+          "occ_per_review_ltm_p5": 5.6667,
+          "occ_per_review_ltm_p50": 6.0,
+          "occ_per_review_ltm_p95": 14.0,
+          "n_reviews_ltm_eq_0_and_occ_gt0": 0,
+          "n_reviews_ltm_gt0_and_occ_eq_0": 0
+        },
+        "d_activity": {
+          "n_rows": 20833,
+          "reviews_ltm_numeric": 20833,
+          "reviews_ltm_eq_0": 5799,
+          "reviews_ltm_eq_0_pct": 27.84,
+          "last_review_present": 17623,
+          "last_review_missing": 3210,
+          "last_review_before_2024_01_01": 949,
+          "last_review_before_2024_pct_of_present": 5.39,
+          "last_review_before_2024_pct_of_rows": 4.56,
+          "no_review_first_and_last_missing": 3210,
+          "no_review_pct": 15.41,
+          "number_of_reviews_eq_0": 3210,
+          "number_of_reviews_eq_0_pct": 15.41,
+          "last_review_min": "2012-04-15",
+          "last_review_max": "2026-09-17"
+        },
+        "e_first_review_years": {
+          "n_rows": 20833,
+          "bins": {
+            "2022_and_before": 5017,
+            "2023": 2043,
+            "2024": 2740,
+            "2025": 3805,
+            "2026": 4018,
+            "no_review": 3210
+          },
+          "all_years": {
+            "2009": 1,
+            "2010": 2,
+            "2011": 10,
+            "2012": 27,
+            "2013": 83,
+            "2014": 156,
+            "2015": 286,
+            "2016": 424,
+            "2017": 520,
+            "2018": 566,
+            "2019": 758,
+            "2020": 505,
+            "2021": 525,
+            "2022": 1154,
+            "2023": 2043,
+            "2024": 2740,
+            "2025": 3805,
+            "2026": 4018,
+            "none": 3210
+          },
+          "first_review_within_12m_before_batch": 5642,
+          "cutoff_date": "2025-09-17",
+          "within_12m_pct_of_rows": 27.08
+        },
+        "f_neighbourhoods": {
+          "sample_all_rows": {
+            "n_neighbourhoods": 38,
+            "n_rows": 20833,
+            "min": 24,
+            "median": 324.5,
+            "max": 5024,
+            "n_ge_30": 37,
+            "n_lt_30": 1,
+            "rows_in_ge_30": 20809,
+            "rows_in_lt_30": 24
+          },
+          "sample_priced": {
+            "n_neighbourhoods": 38,
+            "n_rows": 17721,
+            "min": 16,
+            "median": 283.5,
+            "max": 4274,
+            "n_ge_30": 37,
+            "n_lt_30": 1,
+            "rows_in_ge_30": 17705,
+            "rows_in_lt_30": 16
+          },
+          "sample_priced_and_reviews_ltm_gt0": {
+            "n_neighbourhoods": 38,
+            "n_rows": 13512,
+            "min": 14,
+            "median": 224.5,
+            "max": 3531,
+            "n_ge_30": 37,
+            "n_lt_30": 1,
+            "rows_in_ge_30": 13498,
+            "rows_in_lt_30": 14
+          }
+        },
+        "g_amenities": {
+          "n_rows": 20833,
+          "n_nonmissing": 20833,
+          "parse_ok": 20833,
+          "parse_ok_pct_of_nonmissing": 100.0,
+          "parse_ok_pct_of_rows": 100.0,
+          "n_amenities_median": 39,
+          "n_amenities_p5": 10.0,
+          "n_amenities_p95": 62.0,
+          "n_empty_list": 24,
+          "distinct_amenity_names": 4613,
+          "top10": [
+            {
+              "name": "Smoke alarm",
+              "share_pct": 95.05
+            },
+            {
+              "name": "Kitchen",
+              "share_pct": 92.57
+            },
+            {
+              "name": "Wifi",
+              "share_pct": 92.2
+            },
+            {
+              "name": "Hot water",
+              "share_pct": 83.88
+            },
+            {
+              "name": "Hangers",
+              "share_pct": 79.57
+            },
+            {
+              "name": "Hair dryer",
+              "share_pct": 78.66
+            },
+            {
+              "name": "Dishes and silverware",
+              "share_pct": 78.19
+            },
+            {
+              "name": "Bed linens",
+              "share_pct": 77.95
+            },
+            {
+              "name": "Iron",
+              "share_pct": 76.06
+            },
+            {
+              "name": "Microwave",
+              "share_pct": 74.91
+            }
+          ]
+        },
+        "h_host": {
+          "n_rows": 20833,
+          "superhost_values": {
+            "t": 6978,
+            "f": 13855
+          },
+          "superhost_missing_pct": 0.0,
+          "superhost_t_pct_of_nonmissing": 33.49,
+          "host_listings_count_missing_pct": 0.0,
+          "calculated_host_listings_count_missing_pct": 0.0,
+          "host_since_missing_pct": 100.0,
+          "calculated_host_listings_ge2": 13199,
+          "calculated_host_listings_ge2_pct": 63.36,
+          "calculated_host_listings_ge5_pct": 45.29,
+          "host_listings_count_ge2_pct": 67.11
+        },
+        "i_availability": {
+          "n_rows": 20833,
+          "availability_365_numeric": 20833,
+          "eq_0": 2251,
+          "eq_0_pct": 10.8,
+          "eq_365": 587,
+          "eq_365_pct": 2.82,
+          "has_availability_values": {
+            "t": 20747,
+            "missing": 82,
+            "f": 4
+          }
+        },
+        "j_bathrooms_text": {
+          "n_rows": 20833,
+          "bathrooms_text_missing": 24,
+          "bathrooms_text_missing_pct": 0.12,
+          "parse_digit_ok": 20710,
+          "parse_digit_ok_pct_of_rows": 99.41,
+          "parse_digit_ok_pct_of_nonmissing": 99.52,
+          "half_bath_no_digit": 98,
+          "parse_ok_incl_half_pct_of_rows": 99.88,
+          "bathrooms_numeric_missing_pct": 100.0
+        }
+      },
+      "scope": {
+        "a_price": {
+          "n_rows": 7565,
+          "n_price": 6639,
+          "price_missing": 926,
+          "price_missing_pct": 12.24,
+          "n_price_le_0": 0,
+          "price_missing_and_availability_365_eq_0": 791,
+          "price_missing_and_reviews_ltm_eq_0": 276,
+          "price_missing_and_has_availability_not_t": 10,
+          "p1": 133.1938,
+          "p5": 176.967,
+          "p25": 260.33,
+          "p50": 338.5,
+          "p75": 442.395,
+          "p95": 724.1,
+          "p99": 1198.3626,
+          "min": 79.0,
+          "max": 18848.0,
+          "n_above_p99": 67,
+          "n_ge_1000": 116,
+          "n_ge_5000": 11,
+          "max_over_median": 55.7
+        },
+        "b_revenue_vs_price_x_occ": {
+          "n_rows": 7565,
+          "n_revenue_numeric": 6639,
+          "n_occupancy_numeric": 7565,
+          "n_price_occ_rev_all_present": 6639,
+          "n_with_occ_gt0_price_gt0": 5815,
+          "n_ratio_within_0.99_1.01": 5815,
+          "ratio_within_0.99_1.01_pct": 100.0,
+          "ratio_p1": 1.0,
+          "ratio_p5": 1.0,
+          "ratio_p50": 1.0,
+          "ratio_p95": 1.0,
+          "ratio_p99": 1.0001,
+          "n_occ_eq_0": 824,
+          "n_occ_eq_0_and_revenue_eq_0": 824,
+          "n_revenue_gt0_with_occ_eq_0": 0
+        },
+        "c_occupancy": {
+          "n_rows": 7565,
+          "n_numeric": 7565,
+          "missing_pct": 0.0,
+          "max": 255.0,
+          "n_eq_0": 1100,
+          "eq_0_pct": 14.54,
+          "n_at_max": 429,
+          "at_max_pct": 5.67,
+          "p50": 54.0,
+          "p95": 255.0,
+          "n_pairs_with_reviews_ltm": 7565,
+          "spearman_vs_reviews_ltm": 0.9941,
+          "occ_per_review_ltm_p5": 5.4255,
+          "occ_per_review_ltm_p50": 6.0,
+          "occ_per_review_ltm_p95": 10.0,
+          "n_reviews_ltm_eq_0_and_occ_gt0": 0,
+          "n_reviews_ltm_gt0_and_occ_eq_0": 0
+        },
+        "d_activity": {
+          "n_rows": 7565,
+          "reviews_ltm_numeric": 7565,
+          "reviews_ltm_eq_0": 1100,
+          "reviews_ltm_eq_0_pct": 14.54,
+          "last_review_present": 6850,
+          "last_review_missing": 715,
+          "last_review_before_2024_01_01": 64,
+          "last_review_before_2024_pct_of_present": 0.93,
+          "last_review_before_2024_pct_of_rows": 0.85,
+          "no_review_first_and_last_missing": 715,
+          "no_review_pct": 9.45,
+          "number_of_reviews_eq_0": 715,
+          "number_of_reviews_eq_0_pct": 9.45,
+          "last_review_min": "2016-02-27",
+          "last_review_max": "2026-09-17"
+        },
+        "e_first_review_years": {
+          "n_rows": 7565,
+          "bins": {
+            "2022_and_before": 1827,
+            "2023": 810,
+            "2024": 1064,
+            "2025": 1529,
+            "2026": 1620,
+            "no_review": 715
+          },
+          "all_years": {
+            "2010": 2,
+            "2011": 3,
+            "2012": 15,
+            "2013": 34,
+            "2014": 61,
+            "2015": 98,
+            "2016": 153,
+            "2017": 173,
+            "2018": 194,
+            "2019": 221,
+            "2020": 185,
+            "2021": 209,
+            "2022": 479,
+            "2023": 810,
+            "2024": 1064,
+            "2025": 1529,
+            "2026": 1620,
+            "none": 715
+          },
+          "first_review_within_12m_before_batch": 2324,
+          "cutoff_date": "2025-09-17",
+          "within_12m_pct_of_rows": 30.72
+        },
+        "f_neighbourhoods": {
+          "sample_all_rows": {
+            "n_neighbourhoods": 38,
+            "n_rows": 7565,
+            "min": 9,
+            "median": 93.5,
+            "max": 2160,
+            "n_ge_30": 33,
+            "n_lt_30": 5,
+            "rows_in_ge_30": 7484,
+            "rows_in_lt_30": 81
+          },
+          "sample_priced": {
+            "n_neighbourhoods": 38,
+            "n_rows": 6639,
+            "min": 6,
+            "median": 80.0,
+            "max": 1855,
+            "n_ge_30": 33,
+            "n_lt_30": 5,
+            "rows_in_ge_30": 6564,
+            "rows_in_lt_30": 75
+          },
+          "sample_priced_and_reviews_ltm_gt0": {
+            "n_neighbourhoods": 38,
+            "n_rows": 5815,
+            "min": 5,
+            "median": 67.5,
+            "max": 1668,
+            "n_ge_30": 29,
+            "n_lt_30": 9,
+            "rows_in_ge_30": 5640,
+            "rows_in_lt_30": 175
+          }
+        },
+        "g_amenities": {
+          "n_rows": 7565,
+          "n_nonmissing": 7565,
+          "parse_ok": 7565,
+          "parse_ok_pct_of_nonmissing": 100.0,
+          "parse_ok_pct_of_rows": 100.0,
+          "n_amenities_median": 41,
+          "n_amenities_p5": 13.0,
+          "n_amenities_p95": 60.0,
+          "n_empty_list": 2,
+          "distinct_amenity_names": 2595,
+          "top10": [
+            {
+              "name": "Smoke alarm",
+              "share_pct": 96.54
+            },
+            {
+              "name": "Kitchen",
+              "share_pct": 93.89
+            },
+            {
+              "name": "Wifi",
+              "share_pct": 90.96
+            },
+            {
+              "name": "Hot water",
+              "share_pct": 89.21
+            },
+            {
+              "name": "Dishes and silverware",
+              "share_pct": 85.58
+            },
+            {
+              "name": "Bed linens",
+              "share_pct": 83.94
+            },
+            {
+              "name": "Hair dryer",
+              "share_pct": 83.27
+            },
+            {
+              "name": "Hangers",
+              "share_pct": 83.16
+            },
+            {
+              "name": "Microwave",
+              "share_pct": 80.28
+            },
+            {
+              "name": "Hot water kettle",
+              "share_pct": 79.97
+            }
+          ]
+        },
+        "h_host": {
+          "n_rows": 7565,
+          "superhost_values": {
+            "t": 3040,
+            "f": 4525
+          },
+          "superhost_missing_pct": 0.0,
+          "superhost_t_pct_of_nonmissing": 40.19,
+          "host_listings_count_missing_pct": 0.0,
+          "calculated_host_listings_count_missing_pct": 0.0,
+          "host_since_missing_pct": 100.0,
+          "calculated_host_listings_ge2": 4543,
+          "calculated_host_listings_ge2_pct": 60.05,
+          "calculated_host_listings_ge5_pct": 43.38,
+          "host_listings_count_ge2_pct": 64.57
+        },
+        "i_availability": {
+          "n_rows": 7565,
+          "availability_365_numeric": 7565,
+          "eq_0": 791,
+          "eq_0_pct": 10.46,
+          "eq_365": 20,
+          "eq_365_pct": 0.26,
+          "has_availability_values": {
+            "t": 7554,
+            "missing": 11
+          }
+        },
+        "j_bathrooms_text": {
+          "n_rows": 7565,
+          "bathrooms_text_missing": 1,
+          "bathrooms_text_missing_pct": 0.01,
+          "parse_digit_ok": 7552,
+          "parse_digit_ok_pct_of_rows": 99.83,
+          "parse_digit_ok_pct_of_nonmissing": 99.84,
+          "half_bath_no_digit": 12,
+          "parse_ok_incl_half_pct_of_rows": 99.99,
+          "bathrooms_numeric_missing_pct": 100.0
+        }
+      },
+      "scope_price": {
+        "a_price": {
+          "n_rows": 6639,
+          "n_price": 6639,
+          "price_missing": 0,
+          "price_missing_pct": 0.0,
+          "n_price_le_0": 0,
+          "price_missing_and_availability_365_eq_0": 0,
+          "price_missing_and_reviews_ltm_eq_0": 0,
+          "price_missing_and_has_availability_not_t": 0,
+          "p1": 133.1938,
+          "p5": 176.967,
+          "p25": 260.33,
+          "p50": 338.5,
+          "p75": 442.395,
+          "p95": 724.1,
+          "p99": 1198.3626,
+          "min": 79.0,
+          "max": 18848.0,
+          "n_above_p99": 67,
+          "n_ge_1000": 116,
+          "n_ge_5000": 11,
+          "max_over_median": 55.7
+        },
+        "b_revenue_vs_price_x_occ": {
+          "n_rows": 6639,
+          "n_revenue_numeric": 6639,
+          "n_occupancy_numeric": 6639,
+          "n_price_occ_rev_all_present": 6639,
+          "n_with_occ_gt0_price_gt0": 5815,
+          "n_ratio_within_0.99_1.01": 5815,
+          "ratio_within_0.99_1.01_pct": 100.0,
+          "ratio_p1": 1.0,
+          "ratio_p5": 1.0,
+          "ratio_p50": 1.0,
+          "ratio_p95": 1.0,
+          "ratio_p99": 1.0001,
+          "n_occ_eq_0": 824,
+          "n_occ_eq_0_and_revenue_eq_0": 824,
+          "n_revenue_gt0_with_occ_eq_0": 0
+        },
+        "c_occupancy": {
+          "n_rows": 6639,
+          "n_numeric": 6639,
+          "missing_pct": 0.0,
+          "max": 255.0,
+          "n_eq_0": 824,
+          "eq_0_pct": 12.41,
+          "n_at_max": 423,
+          "at_max_pct": 6.37,
+          "p50": 60.0,
+          "p95": 255.0,
+          "n_pairs_with_reviews_ltm": 6639,
+          "spearman_vs_reviews_ltm": 0.9938,
+          "occ_per_review_ltm_p5": 5.3125,
+          "occ_per_review_ltm_p50": 6.0,
+          "occ_per_review_ltm_p95": 10.0,
+          "n_reviews_ltm_eq_0_and_occ_gt0": 0,
+          "n_reviews_ltm_gt0_and_occ_eq_0": 0
+        },
+        "d_activity": {
+          "n_rows": 6639,
+          "reviews_ltm_numeric": 6639,
+          "reviews_ltm_eq_0": 824,
+          "reviews_ltm_eq_0_pct": 12.41,
+          "last_review_present": 6051,
+          "last_review_missing": 588,
+          "last_review_before_2024_01_01": 50,
+          "last_review_before_2024_pct_of_present": 0.83,
+          "last_review_before_2024_pct_of_rows": 0.75,
+          "no_review_first_and_last_missing": 588,
+          "no_review_pct": 8.86,
+          "number_of_reviews_eq_0": 588,
+          "number_of_reviews_eq_0_pct": 8.86,
+          "last_review_min": "2016-02-27",
+          "last_review_max": "2026-09-17"
+        },
+        "e_first_review_years": {
+          "n_rows": 6639,
+          "bins": {
+            "2022_and_before": 1638,
+            "2023": 718,
+            "2024": 943,
+            "2025": 1324,
+            "2026": 1428,
+            "no_review": 588
+          },
+          "all_years": {
+            "2010": 1,
+            "2011": 3,
+            "2012": 15,
+            "2013": 32,
+            "2014": 57,
+            "2015": 83,
+            "2016": 137,
+            "2017": 156,
+            "2018": 166,
+            "2019": 192,
+            "2020": 175,
+            "2021": 187,
+            "2022": 434,
+            "2023": 718,
+            "2024": 943,
+            "2025": 1324,
+            "2026": 1428,
+            "none": 588
+          },
+          "first_review_within_12m_before_batch": 2028,
+          "cutoff_date": "2025-09-17",
+          "within_12m_pct_of_rows": 30.55
+        },
+        "f_neighbourhoods": {
+          "sample_all_rows": {
+            "n_neighbourhoods": 38,
+            "n_rows": 6639,
+            "min": 6,
+            "median": 80.0,
+            "max": 1855,
+            "n_ge_30": 33,
+            "n_lt_30": 5,
+            "rows_in_ge_30": 6564,
+            "rows_in_lt_30": 75
+          },
+          "sample_priced": {
+            "n_neighbourhoods": 38,
+            "n_rows": 6639,
+            "min": 6,
+            "median": 80.0,
+            "max": 1855,
+            "n_ge_30": 33,
+            "n_lt_30": 5,
+            "rows_in_ge_30": 6564,
+            "rows_in_lt_30": 75
+          },
+          "sample_priced_and_reviews_ltm_gt0": {
+            "n_neighbourhoods": 38,
+            "n_rows": 5815,
+            "min": 5,
+            "median": 67.5,
+            "max": 1668,
+            "n_ge_30": 29,
+            "n_lt_30": 9,
+            "rows_in_ge_30": 5640,
+            "rows_in_lt_30": 175
+          }
+        },
+        "g_amenities": {
+          "n_rows": 6639,
+          "n_nonmissing": 6639,
+          "parse_ok": 6639,
+          "parse_ok_pct_of_nonmissing": 100.0,
+          "parse_ok_pct_of_rows": 100.0,
+          "n_amenities_median": 41,
+          "n_amenities_p5": 14.0,
+          "n_amenities_p95": 60.0,
+          "n_empty_list": 2,
+          "distinct_amenity_names": 2445,
+          "top10": [
+            {
+              "name": "Smoke alarm",
+              "share_pct": 96.84
+            },
+            {
+              "name": "Kitchen",
+              "share_pct": 93.63
+            },
+            {
+              "name": "Wifi",
+              "share_pct": 91.91
+            },
+            {
+              "name": "Hot water",
+              "share_pct": 90.24
+            },
+            {
+              "name": "Dishes and silverware",
+              "share_pct": 86.78
+            },
+            {
+              "name": "Bed linens",
+              "share_pct": 84.92
+            },
+            {
+              "name": "Hair dryer",
+              "share_pct": 84.79
+            },
+            {
+              "name": "Hangers",
+              "share_pct": 84.59
+            },
+            {
+              "name": "Microwave",
+              "share_pct": 82.24
+            },
+            {
+              "name": "Iron",
+              "share_pct": 81.76
+            }
+          ]
+        },
+        "h_host": {
+          "n_rows": 6639,
+          "superhost_values": {
+            "t": 2832,
+            "f": 3807
+          },
+          "superhost_missing_pct": 0.0,
+          "superhost_t_pct_of_nonmissing": 42.66,
+          "host_listings_count_missing_pct": 0.0,
+          "calculated_host_listings_count_missing_pct": 0.0,
+          "host_since_missing_pct": 100.0,
+          "calculated_host_listings_ge2": 4092,
+          "calculated_host_listings_ge2_pct": 61.64,
+          "calculated_host_listings_ge5_pct": 44.21,
+          "host_listings_count_ge2_pct": 65.99
+        },
+        "i_availability": {
+          "n_rows": 6639,
+          "availability_365_numeric": 6639,
+          "eq_0": 0,
+          "eq_0_pct": 0.0,
+          "eq_365": 16,
+          "eq_365_pct": 0.24,
+          "has_availability_values": {
+            "t": 6638,
+            "missing": 1
+          }
+        },
+        "j_bathrooms_text": {
+          "n_rows": 6639,
+          "bathrooms_text_missing": 0,
+          "bathrooms_text_missing_pct": 0.0,
+          "parse_digit_ok": 6628,
+          "parse_digit_ok_pct_of_rows": 99.83,
+          "parse_digit_ok_pct_of_nonmissing": 99.83,
+          "half_bath_no_digit": 11,
+          "parse_ok_incl_half_pct_of_rows": 100.0,
+          "bathrooms_numeric_missing_pct": 100.0
+        }
+      }
+    },
+    "melbourne": {
+      "listings_file": "scratchpad\\airbnb_2024_two_cities\\melbourne_listings.csv.gz",
+      "rows_all": 25715,
+      "rows_scope": 10940,
+      "rows_scope_with_price": 8223,
+      "last_scraped_min_max": [
+        "2026-09-17",
+        "2026-09-18"
+      ],
+      "sample_defs": {
+        "all": "全體 listings",
+        "scope": "整套/1-2房/2-4人/最低1-7晚",
+        "scope_price": "scope 且 price 非空(競品分析/報酬測算實際可用)"
+      },
+      "all": {
+        "a_price": {
+          "n_rows": 25715,
+          "n_price": 19004,
+          "price_missing": 6711,
+          "price_missing_pct": 26.1,
+          "n_price_le_0": 0,
+          "price_missing_and_availability_365_eq_0": 6171,
+          "price_missing_and_reviews_ltm_eq_0": 5484,
+          "price_missing_and_has_availability_not_t": 145,
+          "p1": 49.2551,
+          "p5": 75.0,
+          "p25": 172.0,
+          "p50": 263.21,
+          "p75": 375.0,
+          "p95": 743.5895,
+          "p99": 1552.91,
+          "min": 15.0,
+          "max": 109084.5,
+          "n_above_p99": 191,
+          "n_ge_1000": 489,
+          "n_ge_5000": 33,
+          "max_over_median": 414.4
+        },
+        "b_revenue_vs_price_x_occ": {
+          "n_rows": 25715,
+          "n_revenue_numeric": 19004,
+          "n_occupancy_numeric": 25715,
+          "n_price_occ_rev_all_present": 19004,
+          "n_with_occ_gt0_price_gt0": 14368,
+          "n_ratio_within_0.99_1.01": 14368,
+          "ratio_within_0.99_1.01_pct": 100.0,
+          "ratio_p1": 0.9999,
+          "ratio_p5": 1.0,
+          "ratio_p50": 1.0,
+          "ratio_p95": 1.0,
+          "ratio_p99": 1.0001,
+          "n_occ_eq_0": 4636,
+          "n_occ_eq_0_and_revenue_eq_0": 4636,
+          "n_revenue_gt0_with_occ_eq_0": 0
+        },
+        "c_occupancy": {
+          "n_rows": 25715,
+          "n_numeric": 25715,
+          "missing_pct": 0.0,
+          "max": 255.0,
+          "n_eq_0": 10120,
+          "eq_0_pct": 39.35,
+          "n_at_max": 1136,
+          "at_max_pct": 4.42,
+          "p50": 18.0,
+          "p95": 240.0,
+          "n_pairs_with_reviews_ltm": 25715,
+          "spearman_vs_reviews_ltm": 0.9924,
+          "occ_per_review_ltm_p5": 5.3125,
+          "occ_per_review_ltm_p50": 6.0,
+          "occ_per_review_ltm_p95": 10.0,
+          "n_reviews_ltm_eq_0_and_occ_gt0": 0,
+          "n_reviews_ltm_gt0_and_occ_eq_0": 0
+        },
+        "d_activity": {
+          "n_rows": 25715,
+          "reviews_ltm_numeric": 25715,
+          "reviews_ltm_eq_0": 10120,
+          "reviews_ltm_eq_0_pct": 39.35,
+          "last_review_present": 21130,
+          "last_review_missing": 4585,
+          "last_review_before_2024_01_01": 3425,
+          "last_review_before_2024_pct_of_present": 16.21,
+          "last_review_before_2024_pct_of_rows": 13.32,
+          "no_review_first_and_last_missing": 4585,
+          "no_review_pct": 17.83,
+          "number_of_reviews_eq_0": 4585,
+          "number_of_reviews_eq_0_pct": 17.83,
+          "last_review_min": "2013-11-30",
+          "last_review_max": "2026-09-18"
+        },
+        "e_first_review_years": {
+          "n_rows": 25715,
+          "bins": {
+            "2022_and_before": 8063,
+            "2023": 2733,
+            "2024": 3089,
+            "2025": 3751,
+            "2026": 3494,
+            "no_review": 4585
+          },
+          "all_years": {
+            "2010": 5,
+            "2011": 16,
+            "2012": 24,
+            "2013": 68,
+            "2014": 180,
+            "2015": 504,
+            "2016": 839,
+            "2017": 958,
+            "2018": 1124,
+            "2019": 1228,
+            "2020": 606,
+            "2021": 735,
+            "2022": 1776,
+            "2023": 2733,
+            "2024": 3089,
+            "2025": 3751,
+            "2026": 3494,
+            "none": 4585
+          },
+          "first_review_within_12m_before_batch": 4975,
+          "cutoff_date": "2025-09-18",
+          "within_12m_pct_of_rows": 19.35
+        },
+        "f_neighbourhoods": {
+          "sample_all_rows": {
+            "n_neighbourhoods": 30,
+            "n_rows": 25715,
+            "min": 113,
+            "median": 411.0,
+            "max": 8422,
+            "n_ge_30": 30,
+            "n_lt_30": 0,
+            "rows_in_ge_30": 25715,
+            "rows_in_lt_30": 0
+          },
+          "sample_priced": {
+            "n_neighbourhoods": 30,
+            "n_rows": 19004,
+            "min": 85,
+            "median": 343.0,
+            "max": 6544,
+            "n_ge_30": 30,
+            "n_lt_30": 0,
+            "rows_in_ge_30": 19004,
+            "rows_in_lt_30": 0
+          },
+          "sample_priced_and_reviews_ltm_gt0": {
+            "n_neighbourhoods": 30,
+            "n_rows": 14368,
+            "min": 72,
+            "median": 223.0,
+            "max": 5287,
+            "n_ge_30": 30,
+            "n_lt_30": 0,
+            "rows_in_ge_30": 14368,
+            "rows_in_lt_30": 0
+          }
+        },
+        "g_amenities": {
+          "n_rows": 25715,
+          "n_nonmissing": 25715,
+          "parse_ok": 25715,
+          "parse_ok_pct_of_nonmissing": 100.0,
+          "parse_ok_pct_of_rows": 100.0,
+          "n_amenities_median": 37,
+          "n_amenities_p5": 9.0,
+          "n_amenities_p95": 62.0,
+          "n_empty_list": 27,
+          "distinct_amenity_names": 4902,
+          "top10": [
+            {
+              "name": "Smoke alarm",
+              "share_pct": 93.8
+            },
+            {
+              "name": "Kitchen",
+              "share_pct": 93.77
+            },
+            {
+              "name": "Wifi",
+              "share_pct": 90.39
+            },
+            {
+              "name": "Hot water",
+              "share_pct": 77.75
+            },
+            {
+              "name": "Hangers",
+              "share_pct": 76.8
+            },
+            {
+              "name": "Hair dryer",
+              "share_pct": 74.66
+            },
+            {
+              "name": "Iron",
+              "share_pct": 73.85
+            },
+            {
+              "name": "Dishes and silverware",
+              "share_pct": 71.05
+            },
+            {
+              "name": "TV",
+              "share_pct": 70.71
+            },
+            {
+              "name": "Washer",
+              "share_pct": 70.61
+            }
+          ]
+        },
+        "h_host": {
+          "n_rows": 25715,
+          "superhost_values": {
+            "f": 17668,
+            "t": 8047
+          },
+          "superhost_missing_pct": 0.0,
+          "superhost_t_pct_of_nonmissing": 31.29,
+          "host_listings_count_missing_pct": 0.0,
+          "calculated_host_listings_count_missing_pct": 0.0,
+          "host_since_missing_pct": 100.0,
+          "calculated_host_listings_ge2": 14490,
+          "calculated_host_listings_ge2_pct": 56.35,
+          "calculated_host_listings_ge5_pct": 35.83,
+          "host_listings_count_ge2_pct": 60.34
+        },
+        "i_availability": {
+          "n_rows": 25715,
+          "availability_365_numeric": 25715,
+          "eq_0": 6183,
+          "eq_0_pct": 24.04,
+          "eq_365": 609,
+          "eq_365_pct": 2.37,
+          "has_availability_values": {
+            "t": 25569,
+            "missing": 146
+          }
+        },
+        "j_bathrooms_text": {
+          "n_rows": 25715,
+          "bathrooms_text_missing": 24,
+          "bathrooms_text_missing_pct": 0.09,
+          "parse_digit_ok": 25479,
+          "parse_digit_ok_pct_of_rows": 99.08,
+          "parse_digit_ok_pct_of_nonmissing": 99.17,
+          "half_bath_no_digit": 210,
+          "parse_ok_incl_half_pct_of_rows": 99.9,
+          "bathrooms_numeric_missing_pct": 100.0
+        }
+      },
+      "scope": {
+        "a_price": {
+          "n_rows": 10940,
+          "n_price": 8223,
+          "price_missing": 2717,
+          "price_missing_pct": 24.84,
+          "n_price_le_0": 0,
+          "price_missing_and_availability_365_eq_0": 2532,
+          "price_missing_and_reviews_ltm_eq_0": 2101,
+          "price_missing_and_has_availability_not_t": 46,
+          "p1": 118.7676,
+          "p5": 149.0,
+          "p25": 208.965,
+          "p50": 264.0,
+          "p75": 334.5,
+          "p95": 512.984,
+          "p99": 936.5226,
+          "min": 68.64,
+          "max": 90000.0,
+          "n_above_p99": 83,
+          "n_ge_1000": 69,
+          "n_ge_5000": 6,
+          "max_over_median": 340.9
+        },
+        "b_revenue_vs_price_x_occ": {
+          "n_rows": 10940,
+          "n_revenue_numeric": 8223,
+          "n_occupancy_numeric": 10940,
+          "n_price_occ_rev_all_present": 8223,
+          "n_with_occ_gt0_price_gt0": 6885,
+          "n_ratio_within_0.99_1.01": 6885,
+          "ratio_within_0.99_1.01_pct": 100.0,
+          "ratio_p1": 0.9999,
+          "ratio_p5": 1.0,
+          "ratio_p50": 1.0,
+          "ratio_p95": 1.0,
+          "ratio_p99": 1.0001,
+          "n_occ_eq_0": 1338,
+          "n_occ_eq_0_and_revenue_eq_0": 1338,
+          "n_revenue_gt0_with_occ_eq_0": 0
+        },
+        "c_occupancy": {
+          "n_rows": 10940,
+          "n_numeric": 10940,
+          "missing_pct": 0.0,
+          "max": 255.0,
+          "n_eq_0": 3439,
+          "eq_0_pct": 31.44,
+          "n_at_max": 605,
+          "at_max_pct": 5.53,
+          "p50": 30.0,
+          "p95": 255.0,
+          "n_pairs_with_reviews_ltm": 10940,
+          "spearman_vs_reviews_ltm": 0.9982,
+          "occ_per_review_ltm_p5": 5.2041,
+          "occ_per_review_ltm_p50": 6.0,
+          "occ_per_review_ltm_p95": 8.0,
+          "n_reviews_ltm_eq_0_and_occ_gt0": 0,
+          "n_reviews_ltm_gt0_and_occ_eq_0": 0
+        },
+        "d_activity": {
+          "n_rows": 10940,
+          "reviews_ltm_numeric": 10940,
+          "reviews_ltm_eq_0": 3439,
+          "reviews_ltm_eq_0_pct": 31.44,
+          "last_review_present": 9654,
+          "last_review_missing": 1286,
+          "last_review_before_2024_01_01": 1334,
+          "last_review_before_2024_pct_of_present": 13.82,
+          "last_review_before_2024_pct_of_rows": 12.19,
+          "no_review_first_and_last_missing": 1286,
+          "no_review_pct": 11.76,
+          "number_of_reviews_eq_0": 1286,
+          "number_of_reviews_eq_0_pct": 11.76,
+          "last_review_min": "2013-11-30",
+          "last_review_max": "2026-09-17"
+        },
+        "e_first_review_years": {
+          "n_rows": 10940,
+          "bins": {
+            "2022_and_before": 3639,
+            "2023": 1300,
+            "2024": 1413,
+            "2025": 1751,
+            "2026": 1551,
+            "no_review": 1286
+          },
+          "all_years": {
+            "2010": 3,
+            "2011": 12,
+            "2012": 10,
+            "2013": 32,
+            "2014": 78,
+            "2015": 225,
+            "2016": 369,
+            "2017": 420,
+            "2018": 477,
+            "2019": 519,
+            "2020": 275,
+            "2021": 364,
+            "2022": 855,
+            "2023": 1300,
+            "2024": 1413,
+            "2025": 1751,
+            "2026": 1551,
+            "none": 1286
+          },
+          "first_review_within_12m_before_batch": 2231,
+          "cutoff_date": "2025-09-18",
+          "within_12m_pct_of_rows": 20.39
+        },
+        "f_neighbourhoods": {
+          "sample_all_rows": {
+            "n_neighbourhoods": 30,
+            "n_rows": 10940,
+            "min": 25,
+            "median": 110.5,
+            "max": 4347,
+            "n_ge_30": 27,
+            "n_lt_30": 3,
+            "rows_in_ge_30": 10863,
+            "rows_in_lt_30": 77
+          },
+          "sample_priced": {
+            "n_neighbourhoods": 30,
+            "n_rows": 8223,
+            "min": 22,
+            "median": 86.5,
+            "max": 3487,
+            "n_ge_30": 27,
+            "n_lt_30": 3,
+            "rows_in_ge_30": 8154,
+            "rows_in_lt_30": 69
+          },
+          "sample_priced_and_reviews_ltm_gt0": {
+            "n_neighbourhoods": 30,
+            "n_rows": 6885,
+            "min": 17,
+            "median": 71.0,
+            "max": 2948,
+            "n_ge_30": 25,
+            "n_lt_30": 5,
+            "rows_in_ge_30": 6777,
+            "rows_in_lt_30": 108
+          }
+        },
+        "g_amenities": {
+          "n_rows": 10940,
+          "n_nonmissing": 10940,
+          "parse_ok": 10940,
+          "parse_ok_pct_of_nonmissing": 100.0,
+          "parse_ok_pct_of_rows": 100.0,
+          "n_amenities_median": 39.0,
+          "n_amenities_p5": 10.0,
+          "n_amenities_p95": 59.0,
+          "n_empty_list": 3,
+          "distinct_amenity_names": 2905,
+          "top10": [
+            {
+              "name": "Smoke alarm",
+              "share_pct": 95.61
+            },
+            {
+              "name": "Kitchen",
+              "share_pct": 94.76
+            },
+            {
+              "name": "Wifi",
+              "share_pct": 89.83
+            },
+            {
+              "name": "Hot water",
+              "share_pct": 82.94
+            },
+            {
+              "name": "Hair dryer",
+              "share_pct": 81.05
+            },
+            {
+              "name": "Hangers",
+              "share_pct": 80.84
+            },
+            {
+              "name": "Dishes and silverware",
+              "share_pct": 79.54
+            },
+            {
+              "name": "Iron",
+              "share_pct": 79.17
+            },
+            {
+              "name": "Cooking basics",
+              "share_pct": 75.53
+            },
+            {
+              "name": "Bed linens",
+              "share_pct": 75.19
+            }
+          ]
+        },
+        "h_host": {
+          "n_rows": 10940,
+          "superhost_values": {
+            "t": 3936,
+            "f": 7004
+          },
+          "superhost_missing_pct": 0.0,
+          "superhost_t_pct_of_nonmissing": 35.98,
+          "host_listings_count_missing_pct": 0.0,
+          "calculated_host_listings_count_missing_pct": 0.0,
+          "host_since_missing_pct": 100.0,
+          "calculated_host_listings_ge2": 5969,
+          "calculated_host_listings_ge2_pct": 54.56,
+          "calculated_host_listings_ge5_pct": 37.63,
+          "host_listings_count_ge2_pct": 58.81
+        },
+        "i_availability": {
+          "n_rows": 10940,
+          "availability_365_numeric": 10940,
+          "eq_0": 2532,
+          "eq_0_pct": 23.14,
+          "eq_365": 62,
+          "eq_365_pct": 0.57,
+          "has_availability_values": {
+            "t": 10893,
+            "missing": 47
+          }
+        },
+        "j_bathrooms_text": {
+          "n_rows": 10940,
+          "bathrooms_text_missing": 0,
+          "bathrooms_text_missing_pct": 0.0,
+          "parse_digit_ok": 10919,
+          "parse_digit_ok_pct_of_rows": 99.81,
+          "parse_digit_ok_pct_of_nonmissing": 99.81,
+          "half_bath_no_digit": 21,
+          "parse_ok_incl_half_pct_of_rows": 100.0,
+          "bathrooms_numeric_missing_pct": 100.0
+        }
+      },
+      "scope_price": {
+        "a_price": {
+          "n_rows": 8223,
+          "n_price": 8223,
+          "price_missing": 0,
+          "price_missing_pct": 0.0,
+          "n_price_le_0": 0,
+          "price_missing_and_availability_365_eq_0": 0,
+          "price_missing_and_reviews_ltm_eq_0": 0,
+          "price_missing_and_has_availability_not_t": 0,
+          "p1": 118.7676,
+          "p5": 149.0,
+          "p25": 208.965,
+          "p50": 264.0,
+          "p75": 334.5,
+          "p95": 512.984,
+          "p99": 936.5226,
+          "min": 68.64,
+          "max": 90000.0,
+          "n_above_p99": 83,
+          "n_ge_1000": 69,
+          "n_ge_5000": 6,
+          "max_over_median": 340.9
+        },
+        "b_revenue_vs_price_x_occ": {
+          "n_rows": 8223,
+          "n_revenue_numeric": 8223,
+          "n_occupancy_numeric": 8223,
+          "n_price_occ_rev_all_present": 8223,
+          "n_with_occ_gt0_price_gt0": 6885,
+          "n_ratio_within_0.99_1.01": 6885,
+          "ratio_within_0.99_1.01_pct": 100.0,
+          "ratio_p1": 0.9999,
+          "ratio_p5": 1.0,
+          "ratio_p50": 1.0,
+          "ratio_p95": 1.0,
+          "ratio_p99": 1.0001,
+          "n_occ_eq_0": 1338,
+          "n_occ_eq_0_and_revenue_eq_0": 1338,
+          "n_revenue_gt0_with_occ_eq_0": 0
+        },
+        "c_occupancy": {
+          "n_rows": 8223,
+          "n_numeric": 8223,
+          "missing_pct": 0.0,
+          "max": 255.0,
+          "n_eq_0": 1338,
+          "eq_0_pct": 16.27,
+          "n_at_max": 594,
+          "at_max_pct": 7.22,
+          "p50": 60.0,
+          "p95": 255.0,
+          "n_pairs_with_reviews_ltm": 8223,
+          "spearman_vs_reviews_ltm": 0.9969,
+          "occ_per_review_ltm_p5": 5.1,
+          "occ_per_review_ltm_p50": 6.0,
+          "occ_per_review_ltm_p95": 6.0,
+          "n_reviews_ltm_eq_0_and_occ_gt0": 0,
+          "n_reviews_ltm_gt0_and_occ_eq_0": 0
+        },
+        "d_activity": {
+          "n_rows": 8223,
+          "reviews_ltm_numeric": 8223,
+          "reviews_ltm_eq_0": 1338,
+          "reviews_ltm_eq_0_pct": 16.27,
+          "last_review_present": 7407,
+          "last_review_missing": 816,
+          "last_review_before_2024_01_01": 134,
+          "last_review_before_2024_pct_of_present": 1.81,
+          "last_review_before_2024_pct_of_rows": 1.63,
+          "no_review_first_and_last_missing": 816,
+          "no_review_pct": 9.92,
+          "number_of_reviews_eq_0": 816,
+          "number_of_reviews_eq_0_pct": 9.92,
+          "last_review_min": "2013-11-30",
+          "last_review_max": "2026-09-17"
+        },
+        "e_first_review_years": {
+          "n_rows": 8223,
+          "bins": {
+            "2022_and_before": 2200,
+            "2023": 1033,
+            "2024": 1192,
+            "2025": 1534,
+            "2026": 1448,
+            "no_review": 816
+          },
+          "all_years": {
+            "2010": 2,
+            "2011": 7,
+            "2012": 5,
+            "2013": 25,
+            "2014": 45,
+            "2015": 113,
+            "2016": 158,
+            "2017": 222,
+            "2018": 233,
+            "2019": 251,
+            "2020": 174,
+            "2021": 297,
+            "2022": 668,
+            "2023": 1033,
+            "2024": 1192,
+            "2025": 1534,
+            "2026": 1448,
+            "none": 816
+          },
+          "first_review_within_12m_before_batch": 2056,
+          "cutoff_date": "2025-09-18",
+          "within_12m_pct_of_rows": 25.0
+        },
+        "f_neighbourhoods": {
+          "sample_all_rows": {
+            "n_neighbourhoods": 30,
+            "n_rows": 8223,
+            "min": 22,
+            "median": 86.5,
+            "max": 3487,
+            "n_ge_30": 27,
+            "n_lt_30": 3,
+            "rows_in_ge_30": 8154,
+            "rows_in_lt_30": 69
+          },
+          "sample_priced": {
+            "n_neighbourhoods": 30,
+            "n_rows": 8223,
+            "min": 22,
+            "median": 86.5,
+            "max": 3487,
+            "n_ge_30": 27,
+            "n_lt_30": 3,
+            "rows_in_ge_30": 8154,
+            "rows_in_lt_30": 69
+          },
+          "sample_priced_and_reviews_ltm_gt0": {
+            "n_neighbourhoods": 30,
+            "n_rows": 6885,
+            "min": 17,
+            "median": 71.0,
+            "max": 2948,
+            "n_ge_30": 25,
+            "n_lt_30": 5,
+            "rows_in_ge_30": 6777,
+            "rows_in_lt_30": 108
+          }
+        },
+        "g_amenities": {
+          "n_rows": 8223,
+          "n_nonmissing": 8223,
+          "parse_ok": 8223,
+          "parse_ok_pct_of_nonmissing": 100.0,
+          "parse_ok_pct_of_rows": 100.0,
+          "n_amenities_median": 41,
+          "n_amenities_p5": 13.0,
+          "n_amenities_p95": 60.0,
+          "n_empty_list": 2,
+          "distinct_amenity_names": 2640,
+          "top10": [
+            {
+              "name": "Smoke alarm",
+              "share_pct": 95.74
+            },
+            {
+              "name": "Kitchen",
+              "share_pct": 93.92
+            },
+            {
+              "name": "Wifi",
+              "share_pct": 90.43
+            },
+            {
+              "name": "Hot water",
+              "share_pct": 88.39
+            },
+            {
+              "name": "Hair dryer",
+              "share_pct": 85.31
+            },
+            {
+              "name": "Dishes and silverware",
+              "share_pct": 84.69
+            },
+            {
+              "name": "Hangers",
+              "share_pct": 82.96
+            },
+            {
+              "name": "Iron",
+              "share_pct": 82.17
+            },
+            {
+              "name": "Bed linens",
+              "share_pct": 82.0
+            },
+            {
+              "name": "Cooking basics",
+              "share_pct": 81.17
+            }
+          ]
+        },
+        "h_host": {
+          "n_rows": 8223,
+          "superhost_values": {
+            "f": 4591,
+            "t": 3632
+          },
+          "superhost_missing_pct": 0.0,
+          "superhost_t_pct_of_nonmissing": 44.17,
+          "host_listings_count_missing_pct": 0.0,
+          "calculated_host_listings_count_missing_pct": 0.0,
+          "host_since_missing_pct": 100.0,
+          "calculated_host_listings_ge2": 5157,
+          "calculated_host_listings_ge2_pct": 62.71,
+          "calculated_host_listings_ge5_pct": 45.0,
+          "host_listings_count_ge2_pct": 66.91
+        },
+        "i_availability": {
+          "n_rows": 8223,
+          "availability_365_numeric": 8223,
+          "eq_0": 0,
+          "eq_0_pct": 0.0,
+          "eq_365": 55,
+          "eq_365_pct": 0.67,
+          "has_availability_values": {
+            "t": 8222,
+            "missing": 1
+          }
+        },
+        "j_bathrooms_text": {
+          "n_rows": 8223,
+          "bathrooms_text_missing": 0,
+          "bathrooms_text_missing_pct": 0.0,
+          "parse_digit_ok": 8209,
+          "parse_digit_ok_pct_of_rows": 99.83,
+          "parse_digit_ok_pct_of_nonmissing": 99.83,
+          "half_bath_no_digit": 14,
+          "parse_ok_incl_half_pct_of_rows": 100.0,
+          "bathrooms_numeric_missing_pct": 100.0
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+sydney rows 20833 scope 7565 scope_price 6639 cols 90
+  bathrooms: all 100.0% / scope 100.0%
+  host_since: all 100.0% / scope 100.0%
+  host_response_rate: all 100.0% / scope 100.0%
+  host_acceptance_rate: all 100.0% / scope 100.0%
+  instant_bookable: all 100.0% / scope 100.0%
+  review_scores_rating: all 15.41% / scope 9.45%
+  review_scores_accuracy: all 15.41% / scope 9.45%
+  review_scores_cleanliness: all 15.41% / scope 9.45%
+  absent: []
+  keyword: {'清潔費': '沒有', '服務費': '沒有', '押金': '沒有', '週月折扣': '沒有', '房屋買價或租金': '沒有'}
+melbourne rows 25715 scope 10940 scope_price 8223 cols 90
+  bathrooms: all 100.0% / scope 100.0%
+  host_since: all 100.0% / scope 100.0%
+  host_response_rate: all 100.0% / scope 100.0%
+  host_acceptance_rate: all 100.0% / scope 100.0%
+  instant_bookable: all 100.0% / scope 100.0%
+  license: all 100.0% / scope 100.0%
+  price: all 26.1% / scope 24.84%
+  estimated_revenue_l365d: all 26.1% / scope 24.84%
+  absent: []
+  keyword: {'清潔費': '沒有', '服務費': '沒有', '押金': '沒有', '週月折扣': '沒有', '房屋買價或租金': '沒有'}
+wrote Innovation Studio\notes\raw\airbnb_ab_field_inventory_2026-11-11.json
