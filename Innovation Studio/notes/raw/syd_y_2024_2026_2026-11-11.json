@@ -1,0 +1,463 @@
+{
+  "batch": "2026-09-16",
+  "scope_id": "IS-1111-SYD-Y",
+  "city": "sydney",
+  "definitions": {
+    "sample_filter": "整套(Entire home/apt)/1-2 房/可住 2-4 人/最低 1-7 晚;定義見 airbnb_ab_field_inventory.is_scope",
+    "n_listings": 20833,
+    "n_scope": 7565,
+    "n_scope_price": 6639,
+    "reviews_file": "data/reviews.csv.gz(含評論全文與評論者欄位;本分析只讀 listing_id、date 兩欄)",
+    "review_date_max": "2026-09-17",
+    "last_month_complete": false,
+    "first_review_def": "該房源在評論摘要檔裡最早的一則評論日期(只算 2026-09 還在架上的房源)"
+  },
+  "recon": {
+    "profile_reviews_2024": 134978,
+    "mine_reviews_2024": 134978,
+    "diff_2024": 0,
+    "profile_since_2024": 474233,
+    "mine_since_2024": 474233,
+    "diff_since_2024": 0,
+    "profile_review_rows_with_date": 829163,
+    "mine_review_rows_with_date": 829163,
+    "profile_review_date_max": "2026-09-17",
+    "review_file_rows": 829163,
+    "mine_review_date_max": "2026-09-17",
+    "reviews_of_listings_not_in_listings_file": 0
+  },
+  "yearly": {
+    "2024": {
+      "reviews_all": 134978,
+      "reviews_scope": 64111,
+      "active_listings_all": 8400,
+      "active_listings_scope": 3490,
+      "first_review_listings_all": 2740,
+      "first_review_listings_scope": 1064
+    },
+    "2025": {
+      "reviews_all": 182045,
+      "reviews_scope": 85939,
+      "active_listings_all": 11619,
+      "active_listings_scope": 4940,
+      "first_review_listings_all": 3805,
+      "first_review_listings_scope": 1529
+    },
+    "2026": {
+      "reviews_all": 157210,
+      "reviews_scope": 73076,
+      "active_listings_all": 14397,
+      "active_listings_scope": 6285,
+      "first_review_listings_all": 4018,
+      "first_review_listings_scope": 1620
+    }
+  },
+  "since_2024": {
+    "reviews_all": 474233,
+    "reviews_scope": 223126
+  },
+  "growth": {
+    "y2025_vs_y2024_pct": 34.9,
+    "jan_aug_2026_vs_2025_pct": 37.4,
+    "jan_aug_2025": 109738,
+    "jan_aug_2026": 150792,
+    "top_month_over_bottom_month": 2.6
+  },
+  "monthly": {
+    "2024-01": {
+      "reviews_all": 11129,
+      "reviews_scope": 5119,
+      "new_listings_all": 297,
+      "new_listings_scope": 82,
+      "complete": true
+    },
+    "2024-02": {
+      "reviews_all": 12416,
+      "reviews_scope": 5954,
+      "new_listings_all": 259,
+      "new_listings_scope": 103,
+      "complete": true
+    },
+    "2024-03": {
+      "reviews_all": 11782,
+      "reviews_scope": 5701,
+      "new_listings_all": 175,
+      "new_listings_scope": 63,
+      "complete": true
+    },
+    "2024-04": {
+      "reviews_all": 9831,
+      "reviews_scope": 4513,
+      "new_listings_all": 175,
+      "new_listings_scope": 47,
+      "complete": true
+    },
+    "2024-05": {
+      "reviews_all": 8466,
+      "reviews_scope": 3960,
+      "new_listings_all": 146,
+      "new_listings_scope": 58,
+      "complete": true
+    },
+    "2024-06": {
+      "reviews_all": 8786,
+      "reviews_scope": 4174,
+      "new_listings_all": 188,
+      "new_listings_scope": 86,
+      "complete": true
+    },
+    "2024-07": {
+      "reviews_all": 9377,
+      "reviews_scope": 4359,
+      "new_listings_all": 190,
+      "new_listings_scope": 82,
+      "complete": true
+    },
+    "2024-08": {
+      "reviews_all": 9796,
+      "reviews_scope": 4849,
+      "new_listings_all": 207,
+      "new_listings_scope": 97,
+      "complete": true
+    },
+    "2024-09": {
+      "reviews_all": 11197,
+      "reviews_scope": 5344,
+      "new_listings_all": 220,
+      "new_listings_scope": 90,
+      "complete": true
+    },
+    "2024-10": {
+      "reviews_all": 13688,
+      "reviews_scope": 6538,
+      "new_listings_all": 248,
+      "new_listings_scope": 90,
+      "complete": true
+    },
+    "2024-11": {
+      "reviews_all": 15061,
+      "reviews_scope": 7199,
+      "new_listings_all": 250,
+      "new_listings_scope": 110,
+      "complete": true
+    },
+    "2024-12": {
+      "reviews_all": 13449,
+      "reviews_scope": 6401,
+      "new_listings_all": 385,
+      "new_listings_scope": 156,
+      "complete": true
+    },
+    "2025-01": {
+      "reviews_all": 15448,
+      "reviews_scope": 7236,
+      "new_listings_all": 388,
+      "new_listings_scope": 151,
+      "complete": true
+    },
+    "2025-02": {
+      "reviews_all": 13644,
+      "reviews_scope": 6543,
+      "new_listings_all": 191,
+      "new_listings_scope": 66,
+      "complete": true
+    },
+    "2025-03": {
+      "reviews_all": 15276,
+      "reviews_scope": 7349,
+      "new_listings_all": 252,
+      "new_listings_scope": 90,
+      "complete": true
+    },
+    "2025-04": {
+      "reviews_all": 13718,
+      "reviews_scope": 6535,
+      "new_listings_all": 223,
+      "new_listings_scope": 90,
+      "complete": true
+    },
+    "2025-05": {
+      "reviews_all": 11421,
+      "reviews_scope": 5411,
+      "new_listings_all": 195,
+      "new_listings_scope": 69,
+      "complete": true
+    },
+    "2025-06": {
+      "reviews_all": 11562,
+      "reviews_scope": 5401,
+      "new_listings_all": 213,
+      "new_listings_scope": 80,
+      "complete": true
+    },
+    "2025-07": {
+      "reviews_all": 13300,
+      "reviews_scope": 6090,
+      "new_listings_all": 298,
+      "new_listings_scope": 111,
+      "complete": true
+    },
+    "2025-08": {
+      "reviews_all": 15369,
+      "reviews_scope": 7302,
+      "new_listings_all": 295,
+      "new_listings_scope": 120,
+      "complete": true
+    },
+    "2025-09": {
+      "reviews_all": 14216,
+      "reviews_scope": 6655,
+      "new_listings_all": 279,
+      "new_listings_scope": 98,
+      "complete": true
+    },
+    "2025-10": {
+      "reviews_all": 18303,
+      "reviews_scope": 8626,
+      "new_listings_all": 391,
+      "new_listings_scope": 167,
+      "complete": true
+    },
+    "2025-11": {
+      "reviews_all": 20802,
+      "reviews_scope": 9828,
+      "new_listings_all": 468,
+      "new_listings_scope": 184,
+      "complete": true
+    },
+    "2025-12": {
+      "reviews_all": 18986,
+      "reviews_scope": 8963,
+      "new_listings_all": 612,
+      "new_listings_scope": 303,
+      "complete": true
+    },
+    "2026-01": {
+      "reviews_all": 20940,
+      "reviews_scope": 9813,
+      "new_listings_all": 697,
+      "new_listings_scope": 313,
+      "complete": true
+    },
+    "2026-02": {
+      "reviews_all": 19830,
+      "reviews_scope": 9388,
+      "new_listings_all": 401,
+      "new_listings_scope": 147,
+      "complete": true
+    },
+    "2026-03": {
+      "reviews_all": 21266,
+      "reviews_scope": 10034,
+      "new_listings_all": 380,
+      "new_listings_scope": 146,
+      "complete": true
+    },
+    "2026-04": {
+      "reviews_all": 17318,
+      "reviews_scope": 7965,
+      "new_listings_all": 388,
+      "new_listings_scope": 164,
+      "complete": true
+    },
+    "2026-05": {
+      "reviews_all": 16565,
+      "reviews_scope": 7594,
+      "new_listings_all": 391,
+      "new_listings_scope": 151,
+      "complete": true
+    },
+    "2026-06": {
+      "reviews_all": 15018,
+      "reviews_scope": 6830,
+      "new_listings_all": 417,
+      "new_listings_scope": 165,
+      "complete": true
+    },
+    "2026-07": {
+      "reviews_all": 17884,
+      "reviews_scope": 8041,
+      "new_listings_all": 522,
+      "new_listings_scope": 202,
+      "complete": true
+    },
+    "2026-08": {
+      "reviews_all": 21971,
+      "reviews_scope": 10356,
+      "new_listings_all": 673,
+      "new_listings_scope": 280,
+      "complete": true
+    },
+    "2026-09": {
+      "reviews_all": 6418,
+      "reviews_scope": 3055,
+      "new_listings_all": 149,
+      "new_listings_scope": 52,
+      "complete": false
+    }
+  },
+  "top3_months": [
+    {
+      "month": "2026-08",
+      "reviews_all": 21971
+    },
+    {
+      "month": "2026-03",
+      "reviews_all": 21266
+    },
+    {
+      "month": "2026-01",
+      "reviews_all": 20940
+    }
+  ],
+  "bottom3_months": [
+    {
+      "month": "2024-05",
+      "reviews_all": 8466
+    },
+    {
+      "month": "2024-06",
+      "reviews_all": 8786
+    },
+    {
+      "month": "2024-07",
+      "reviews_all": 9377
+    }
+  ],
+  "seasonality": {
+    "index_2024": {
+      "1": 98.9,
+      "2": 110.4,
+      "3": 104.7,
+      "4": 87.4,
+      "5": 75.3,
+      "6": 78.1,
+      "7": 83.4,
+      "8": 87.1,
+      "9": 99.5,
+      "10": 121.7,
+      "11": 133.9,
+      "12": 119.6
+    },
+    "index_2025": {
+      "1": 101.8,
+      "2": 89.9,
+      "3": 100.7,
+      "4": 90.4,
+      "5": 75.3,
+      "6": 76.2,
+      "7": 87.7,
+      "8": 101.3,
+      "9": 93.7,
+      "10": 120.6,
+      "11": 137.1,
+      "12": 125.2
+    },
+    "avg_index": {
+      "1": 100.3,
+      "2": 100.2,
+      "3": 102.7,
+      "4": 88.9,
+      "5": 75.3,
+      "6": 77.2,
+      "7": 85.6,
+      "8": 94.2,
+      "9": 96.6,
+      "10": 121.2,
+      "11": 135.5,
+      "12": 122.4
+    },
+    "corr_2024_2025": 0.904,
+    "high3_months": [
+      11,
+      12,
+      10
+    ],
+    "low3_months": [
+      5,
+      6,
+      7
+    ],
+    "peak_trough": {
+      "max_month": 11,
+      "max_index": 135.5,
+      "min_month": 5,
+      "min_index": 75.3,
+      "ratio": 1.8
+    }
+  },
+  "new_12m": {
+    "cutoff_inclusive": "2025-09-17",
+    "all_listings_summary_first": 5642,
+    "scope_summary_first": 2324,
+    "scope_price_summary_first": 2028,
+    "scope_price_listings_field": 2028,
+    "expected_known": 2028,
+    "scope_price_no_review_in_summary": 588,
+    "scope_price_no_first_review_field": 588,
+    "scope_price_field_vs_summary_mismatch": 0
+  },
+  "price": {
+    "sample": "篩選且有價",
+    "n": 6639,
+    "n_unparsed": 0,
+    "p25": 260.3,
+    "median": 338.5,
+    "p75": 442.4,
+    "percentile_method": "numpy linear",
+    "unit": "掛牌價/晚,當地幣別,2026-09 一期",
+    "n_neighbourhoods": 38,
+    "top10_neighbourhoods": [
+      {
+        "neighbourhood": "Sydney",
+        "n": 1855,
+        "median": 355.0
+      },
+      {
+        "neighbourhood": "Waverley",
+        "n": 693,
+        "median": 407.3
+      },
+      {
+        "neighbourhood": "North Sydney",
+        "n": 378,
+        "median": 374.595
+      },
+      {
+        "neighbourhood": "Manly",
+        "n": 372,
+        "median": 414.35
+      },
+      {
+        "neighbourhood": "Randwick",
+        "n": 318,
+        "median": 372.775
+      },
+      {
+        "neighbourhood": "Auburn",
+        "n": 286,
+        "median": 350.345
+      },
+      {
+        "neighbourhood": "Warringah",
+        "n": 274,
+        "median": 315.0
+      },
+      {
+        "neighbourhood": "Pittwater",
+        "n": 214,
+        "median": 373.0
+      },
+      {
+        "neighbourhood": "Woollahra",
+        "n": 192,
+        "median": 404.475
+      },
+      {
+        "neighbourhood": "Sutherland Shire",
+        "n": 180,
+        "median": 286.8
+      }
+    ]
+  }
+}
