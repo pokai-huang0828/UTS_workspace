@@ -108,6 +108,7 @@ tr = TC["results"]
 SAME = TC["same_rows_in_period_group_cv"]
 assert (SAME["M1"]["MAE_aud"], SAME["M2"]["MAE_aud"]) == (74.7, 77.3)
 OWNER_SEEN = "45.0"  # 核對報告 L45(JSON 沒有)
+OWNER_SEEN_N = 369  # 19 §4:820 間裡有 369 間(45.0%)
 ONE_PCT = "1.14"  # 核對報告 L49(JSON 沒有)
 DEMO = B["e_demo_case"]
 dg, dm1, dm2 = DEMO["comparison_group"], DEMO["model_literal_input_3_amenities"], DEMO["model_if_amenities_filled_to_group_median"]
@@ -153,7 +154,7 @@ CARDS = [
     ("市場", pc(sh_entire), f"整套房為主;{pc(hc['5_plus']['share'])} 的房源屬於名下 5 間以上的房東。整套 1 房中位 {d0(eb['1']['p50'])}、2 房 {d0(eb['2']['p50'])}(掛牌價);房源數前 4 區占全體 {pc(top4)}。"),
     ("同類比較", f"{G['n_groups']} 組", "區 × 房間數分組;組小於 30 間就退回「全市同房間數、最近的 30 間」。同類比較才是工具的核心。"),
     ("價格模型", f"MAE {f1(R['M2']['all']['MAE_aud'])}", f"比基準好,但只好一點(MAE:B0 {f1(R['B0']['all']['MAE_aud'])}、B1 {f1(R['B1']['all']['MAE_aud'])}、M1 {f1(R['M1']['all']['MAE_aud'])}、M2 {f1(R['M2']['all']['MAE_aud'])},澳幣)。工具價值主要在同類定位,模型是輔助。"),
-    ("新手房東", f"{n(cn['scope_with_price']['new12'])} 間", f"找得到(用 `hosts_time_as_host_*`,不是 `host_since`)。定價跟老手差不多(同組百分位 {mv('prank','new'):.1f} 對 {mv('prank','old'):.1f}),差在評論少(近一年 {mv('reviews_ltm','new'):.0f} 對 {mv('reviews_ltm','old'):.0f})。"),
+    ("新手房東", f"{n(cn['scope_with_price']['new12'])} 間", f"找得到(用 `hosts_time_as_host_*`,不是 `host_since`)。原始掛牌價中位數幾乎持平({mv('price','new'):.2f} 對 {mv('price','old'):.0f}),同組百分位 {mv('prank','new'):.1f} 對 {mv('prank','old'):.1f}、差約 {rnd(mv('prank','old')-mv('prank','new'),1)} 個百分位點(單位是百分位點,不是 %),差很小但不是完全沒差;差在評論少(近一年 {mv('reviews_ltm','new'):.0f} 對 {mv('reviews_ltm','old'):.0f})。"),
     ("時間", f"旺 {months(SE['high3_months'])}", f"淡旺季看得到(評論、日曆);但三期掛牌價中位數差 {sg(c39['p50'])} 不能當漲跌,每期報價的入住日落在不同季節。"),
 ]
 
@@ -206,28 +207,28 @@ sec("model", "4 價格模型實驗",
     ("fig", "mel_b_mae_compare.png", "各方法 MAE 比較(越低越好)"),
     ("read", f"一般房源猜偏約 {m2['all']['MdAPE_pct']:.0f}%,大約一半猜在兩成內。加房東房源數沒幫助。誤差衡量「猜中別人掛多少」,不是「定多少訂得出去」。"),
     ("ul", [f"不分房東隨機切會高估:M2 MAE {f1(rm2)}(低 {-RD['M2']:.1f})、M2 + 房東數 {f1(rm2h)}(低 {-RD['M2_host']:.1f});B0 / B1 / M1 只差 {min(small):.1f}–{max(small):.1f}。樹模型會記住同房東的習慣,所以主結果用分組切。",
-            f"首評在 12 個月內的房源(新上架的代理){n(m2['new12']['n'])} 間(其中只有 {TD['proxy_precision_pct(代理說新的裡面真新手)']}% 是真的新手房東,見第 5 節):M2 MAE {f1(m2['new12']['MAE_aud'])}、誤差中位數 {m2['new12']['MdAPE_pct']:.1f}%、兩成內 {m2['new12']['within20_pct']:.1f}%;其他 {f1(m2['not_new12']['MAE_aud'])} / {m2['not_new12']['MdAPE_pct']:.1f}% / {m2['not_new12']['within20_pct']:.1f}%。這群沒有比較難猜;模型在真新手 {n(cn['scope_with_price']['new12'])} 間上的誤差未計算。",
-            f"時間外部檢查:用 2026-06 期 {n(TC['n_train'])} 間訓練,測 9 月新出現的 {n(TC['n_test'])} 間,模型仍比基準好(M2 {f1(tr['M2']['MAE_aud'])}、B1 {f1(tr['B1']['MAE_aud'])})。但這 {n(TC['n_test'])} 間裡有 {OWNER_SEEN}% 的房東在 6 月訓練集出現過,所以不是「完全沒看過的房東」的檢查。線性和樹模型誰比較好,兩種檢查不一致(9 月內分房東驗證時線性 {f1(SAME['M1']['MAE_aud'])}、樹 {f1(SAME['M2']['MAE_aud'])};時間檢查時樹 {f1(tr['M2']['MAE_aud'])}、線性 {f1(tr['M1']['MAE_aud'])}),所以只能說「兩個模型差不多」。",
+            f"首評在 12 個月內的房源(新上架的代理){n(m2['new12']['n'])} 間(其中只有 {TD['proxy_precision_pct(代理說新的裡面真新手)']}% 同時被年資欄推算為新手,見第 5 節):M2 MAE {f1(m2['new12']['MAE_aud'])}、誤差中位數 {m2['new12']['MdAPE_pct']:.1f}%、兩成內 {m2['new12']['within20_pct']:.1f}%;其他 {f1(m2['not_new12']['MAE_aud'])} / {m2['not_new12']['MdAPE_pct']:.1f}% / {m2['not_new12']['within20_pct']:.1f}%。這群沒有比較難猜;模型在年資欄推算的新手 {n(cn['scope_with_price']['new12'])} 間上的誤差未計算。",
+            f"時間外部檢查:用 2026-06 期 {n(TC['n_train'])} 間訓練,測 9 月新出現的 {n(TC['n_test'])} 間,模型仍比基準好(M2 {f1(tr['M2']['MAE_aud'])}、B1 {f1(tr['B1']['MAE_aud'])})。但這 {n(TC['n_test'])} 間裡有 {OWNER_SEEN_N} 間({OWNER_SEEN}%)的房東在 6 月訓練集出現過(以房源算,不是以房東人數算),所以不是「完全沒看過的房東」的檢查。線性和樹模型誰比較好,兩種檢查不一致(9 月內分房東驗證時線性 {f1(SAME['M1']['MAE_aud'])}、樹 {f1(SAME['M2']['MAE_aud'])};時間檢查時樹 {f1(tr['M2']['MAE_aud'])}、線性 {f1(tr['M1']['MAE_aud'])}),所以只能說「兩個模型差不多」。",
             f"極端高價:每晚 {n(EX['cap_aud'])} 澳幣以上 {EX['n_excluded']} 間(最高 {n(max(EX['excluded_prices_sorted']))})不進訓練與主要誤差。放回去,M2 MAE 由 {f1(m2['all']['MAE_aud'])} 變 {f1(INC['MAE_aud'])},誤差中位數仍是 {INC['MdAPE_pct']:.1f}%(幾乎不變)。"]),
     ("fig", "mel_b_pred_vs_actual.png", "預測對實際(500 以上被猜低)"),
     ("read", "點集中在 200–350;高價房(500 以上)系統性被猜低,模型把極端往中間拉。"),
     )
 
 sec("newbie", "5 新手房東",
-    ("lead", f"`host_since` 是註冊帳號的日子;當房東多久,最像是看 `hosts_time_as_host_*`。用它抓到真新手(≤ 12 個月)篩選且有價 {n(cn['scope_with_price']['new12'])} 間。"),
+    ("lead", f"`host_since` 是帳號註冊日(推斷);當房東多久,最像是看 `hosts_time_as_host_*`。用它推算的新手(開始當房東 ≤ 12 個月),篩選且有價 {n(cn['scope_with_price']['new12'])} 間。"),
     ("table", ["欄位", "實際意思", "證據(2025-12 期)"], [
-        ["`host_since`", "註冊帳號的日子", f"跟 `hosts_time_as_user_*` 完全相同 {vu['exact_pct']}%、差 1 個月內 {vu['within_1m_pct']:.0f}%({n(AV['n_2025-12_rows_with_host_since'])} 列)"],
+        ["`host_since`", "帳號註冊日(推斷)", f"跟 `hosts_time_as_user_*` 完全相同 {vu['exact_pct']}%、差 1 個月內 {vu['within_1m_pct']:.0f}%({n(AV['n_2025-12_rows_with_host_since'])} 列)"],
         ["`hosts_time_as_user_*`", "帳號年資", "同上;以抓取日為基準,所以不是「兩欄基準日不同」"],
         ["`hosts_time_as_host_*`", "開始當房東以來(推測)", f"對 `host_since` 完全相同只有 {f1(vh['exact_pct'])}%,{f1(vh['field_shorter_than_1m_pct'])}% 比它短;不大於帳號年資的比例 {hu['host_le_user_pct']}%;2025-12 到 2026-09 每位房東增加 9 或 10 個月"]]),
     ("note", f"`host_since` 對得上帳號年資,這一半證據夠;「年資欄 = 當房東多久」是靠排除法推的,沒有官方定義,證據勉強。核對者補了一個檢驗:首評比回推的開始月早超過 1 個月的只有 {ONE_PCT}%,跟這個解讀不矛盾。"),
-    ("table", ["真新手筆數", "全體", "篩選", "篩選且有價"], [
+    ("table", ["新手筆數(依年資欄)", "全體", "篩選", "篩選且有價"], [
         ["開始當房東 ≤ 12 個月"] + [n(cn[s]["new12"]) for s in ("all", "scope", "scope_with_price")],
         ["24 個月內"] + [n(cn[s]["new24"]) for s in ("all", "scope", "scope_with_price")],
         ["12 個月內且名下只有 1 間"] + [n(cn[s]["new12_and_single"]) for s in ("all", "scope", "scope_with_price")],
         ["24 個月內且名下只有 1 間"] + [n(cn[s]["new24_and_single"]) for s in ("all", "scope", "scope_with_price")]]),
-    ("read", f"舊代理(首評 12 個月內)有 {n(TD['proxy_yes'])} 間,其中只有 {n(TD['both'])} 間是真新手:命中率 {TD['proxy_precision_pct(代理說新的裡面真新手)']}%;真新手 {n(TD['real_yes'])} 間裡抓到 {n(TD['both'])} 間:抓到率 {TD['proxy_recall_pct(真新手裡被代理抓到)']}%(漏掉的 {n(ct['無評論']['真新手'])} 間還沒有評論)。"),
+    ("read", f"首評代理 =『新上架房源』指標(首評在近 12 個月內),不等於新手房東。首評代理(篩選且有價樣本裡)有 {n(TD['proxy_yes'])} 間,其中只有 {n(TD['both'])} 間同時被年資欄推算為新手:命中率 {TD['proxy_precision_pct(代理說新的裡面真新手)']}%;年資欄推算的新手 {n(TD['real_yes'])} 間裡抓到 {n(TD['both'])} 間:抓到率 {TD['proxy_recall_pct(真新手裡被代理抓到)']}%(漏掉的 {n(ct['無評論']['真新手'])} 間還沒有評論)。"),
     ("fig", "mel_c_newbie_vs_veteran.png", "新手 vs 老手(縱軸不從 0 起;5.0 為評分上限)"),
-    ("ul", [f"定價幾乎一樣:掛牌價中位數 {mv('price','new'):.2f} 對 {mv('price','old'):.0f};同組價格百分位 {mv('prank','new'):.1f} 對 {mv('prank','old'):.1f}。",
+    ("ul", [f"原始掛牌價中位數幾乎持平:{mv('price','new'):.2f} 對 {mv('price','old'):.0f}(這個比法沒控制房子組成);同組價格百分位 {mv('prank','new'):.1f} 對 {mv('prank','old'):.1f},差約 {rnd(mv('prank','old')-mv('prank','new'),1)} 個百分位點(單位是百分位點,不是 %),差很小但不是完全沒差。",
             f"差別 1,評論少:近一年評論數中位數 {mv('reviews_ltm','new'):.0f} 對 {mv('reviews_ltm','old'):.0f}。",
             f"差別 2,有評分的比例 {MET['rated_share']['new']['share_pct']}% 對 {MET['rated_share']['old']['share_pct']}%(評分中位 {mv('rating','new')} 對 {mv('rating','old')},是評論少,不代表品質較好)。",
             f"差別 3,超讚房東比例 {MET['superhost_share']['new']['share_pct']}% 對 {MET['superhost_share']['old']['share_pct']}%。"]),
@@ -236,7 +237,7 @@ sec("newbie", "5 新手房東",
 sec("time", "6 時間與淡旺季",
     ("lead", f"評論逐年墊高:2025 年比 2024 年 +{Y['growth']['y2025_vs_y2024_pct']}%;2026 年 1–8 月比 2025 年同期 +{Y['growth']['jan_aug_2026_vs_2025_pct']}%。"),
     ("fig", "melbourne_reviews_monthly_2026-11-11.png", "每月評論數(只含還在架上的房源)"),
-    ("read", f"最多:{top3[0]['month']}({n(top3[0]['reviews_all'])})、{top3[1]['month']}、{top3[2]['month']};最少:{bot3[0]['month']}({n(bot3[0]['reviews_all'])})。早年已下架的房源不在內,成長率偏高。"),
+    ("read", f"最多:{top3[0]['month']}({n(top3[0]['reviews_all'])})、{top3[1]['month']}、{top3[2]['month']};最少:{bot3[0]['month']}({n(bot3[0]['reviews_all'])})。早年已下架的房源不在內,早年的評論數偏低;成長率是偏高還是偏低無法確定。"),
     ("lead", f"兩年平均:偏旺的是 {months(SE['high3_months'])},偏淡的是 {months(SE['low3_months'])};2024 與 2025 各月指數的相關係數 {SE['corr_2024_2025']:.2f},形狀很像。"),
     ("fig", "melbourne_seasonality_2026-11-11.png", "評論淡旺季指數(100 = 平均)"),
     ("read", "這是「評論的」淡旺季,不等於入住的淡旺季:評論住完才寫,高峰比入住晚。"),
@@ -251,7 +252,7 @@ sec("time", "6 時間與淡旺季",
     ("read", f"單間 p10 到 p90:{sg(c39['p10'])} 到 {sg(c39['p90'])}。三期報價的入住日最常見分別是 3 月 {qtop['2026-03']}({qwd['2026-03']})、6 月 {qtop['2026-06']}({qwd['2026-06']})、9 月 {qtop['2026-09']}({qwd['2026-09']}),落在秋、冬、春。只比「同星期、同晚數」的 {n(same['n'])} 間(約 {same['share_of_common_pct']:.0f}%)中位數 {sg(same['p50'])},結論一樣,但季節仍沒排除。"),
     ("p", f"新手與老手同方向:3 到 9 月中位數新手 {sg(gnew['median_change_vs_03_pct']['03到09'])}(n={n(gnew['n'])})、老手 {sg(gold['median_change_vs_03_pct']['03到09'])}(n={n(gold['n'])}),差不到 1 個百分點,別讀成「新手較保守」。"),
     ("lead", f"3 月那期只有 {n(RC['2026-03']['rows'])} 間:最可能是沒收「休眠房源」(證據強度中高;官方為什麼這樣收,看不出)。"),
-    ("table", [f"2026-06 那期裡的房源", f"3 月缺席({n(mab['n'])} 間)", f"3 月在({n(mpr['n'])} 間)"], [
+    ("table", [f"2026-06 那期裡、12 月也在的房源", f"3 月缺席({n(mab['n'])} 間)", f"3 月在({n(mpr['n'])} 間)"], [
         ["有價比例", f"{mab['in_06']['price_nonnull_pct']}%", f"{mpr['in_06']['price_nonnull_pct']}%"],
         ["全年可訂天數 = 0", f"{mab['in_06']['availability_365_eq_0_pct']}%", f"{mpr['in_06']['availability_365_eq_0_pct']}%"],
         ["來源為「前次爬取」", f"{src_prev(mab):.1f}%", f"{src_prev(mpr):.1f}%"],
@@ -264,12 +265,12 @@ sec("demo", "7 示範:系統最後會長這樣",
     )
 
 sec("impact", "8 對專案的影響",
-    ("ul", [f"新手定義建議改用年資欄 `hosts_time_as_host_*`,並列新舊筆數:年資欄 {n(cn['scope_with_price']['new12'])} 間、舊代理(首評 12 個月內){n(TD['proxy_yes'])} 間(其中真新手 {n(TD['both'])})。欄義官方說明寫報告前先補查。",
+    ("ul", [f"新手定義建議改用年資欄 `hosts_time_as_host_*`,並列新舊筆數:年資欄 {n(cn['scope_with_price']['new12'])} 間、首評代理(首評 12 個月內){n(TD['proxy_yes'])} 間(其中 {n(TD['both'])} 間同時被年資欄推算為新手)。欄義官方說明寫報告前先補查。",
             "實驗主線可寫成「同類定位為主、模型為輔」:同類分組 → 設施關聯(註明不是因果)→ 模型只比基準好一點。",
             f"跨期比較:價格只有 3、6、9 月三期可用(2025-12 期 price 非空率 {RC['2025-12']['price_nonnull_pct']:.0f}%);三期報價入住日季節不同,不能當成房東調價;3 月那期只有 {n(RC['2026-03']['rows'])} 間。",
             f"舊筆記更正(只列出,不改 `notes/16`、`17`、`18`):「`host_since` 整欄空」只描述 2026-09 那期;2026-03、06 也是空的,但 2025-12 那期 {RC['2025-12']['host_since_nonnull_pct']:.0f}% 有值,而且它是帳號註冊日,不是開始當房東。",
-            f"舊筆記更正:`17` 的「新上架房源」(首評 12 個月內)代理,命中率只有 {TD['proxy_precision_pct(代理說新的裡面真新手)']}%(抓到率 {TD['proxy_recall_pct(真新手裡被代理抓到)']}%)。",
-            "後續要補:模型在真新手(年資欄 12 個月內)上的誤差,目前未計算。"]),
+            f"舊筆記更正:`17` 的「新上架房源」(首評 12 個月內)代理(即首評代理),命中率只有 {TD['proxy_precision_pct(代理說新的裡面真新手)']}%(抓到率 {TD['proxy_recall_pct(真新手裡被代理抓到)']}%)。",
+            "後續要補:模型在年資欄推算的新手(年資欄 12 個月內)上的誤差,目前未計算。"]),
     )
 
 sec("blind", "9 看不到的事",
@@ -277,12 +278,12 @@ sec("blind", "9 看不到的事",
         ["成交價:「墨爾本中位數 " + d0(P["all_priced"]["p50"]) + " 是房東賺的」", "「這是掛牌價中位數;成交價、清潔費、折扣看不到」"],
         ["真實入住:「推算入住 = 住了幾晚」「評論數 = 訂單數」", "「這是用評論推算的代理;0 晚也可能只是沒人留評論」"],
         [f"裝設施就漲:「裝 BBQ 能漲 {bbq['within_group_pct']:.0f}%」", f"「有 gas BBQ 的同類房源,掛牌價中位數高 {bbq['within_group_pct']:.1f}%({bbq['n_with']} 間;關聯不是因果)」"],
-        ["新手一定定低價:「新手定價比較低」", f"「新手同組價格百分位中位 {mv('prank','new'):.1f},老手 {mv('prank','old'):.1f},幾乎沒差」"],
+        ["新手一定定低價:「新手定價比較低」", f"「新手同組價格百分位中位 {mv('prank','new'):.1f},老手 {mv('prank','old'):.1f},差約 {rnd(mv('prank','old')-mv('prank','new'),1)} 個百分位點,差很小但不是完全沒差」"],
         [f"三期價格漲跌:「房東 3 月到 9 月漲價 {c39['p50']:.1f}%」", f"「同一間房 3 月與 9 月報價中位差 {sg(c39['p50'])},但入住日季節不同,不等於調價」"],
         ["模型誤差:「模型能預測房價」「準確率很高」", f"「模型猜別人的掛牌價,平均猜偏 {m2['all']['MAE_aud']:.0f} 澳幣,誤差中位數 {m2['all']['MdAPE_pct']:.0f}%,約一半猜在兩成內」"],
         ["不可訂:「30 天不可訂 = 被訂走」", "「不可訂 = 被訂走或房東自己關,分不出來」"],
-        ["新手:「首評 12 個月內 = 新手」", f"「首評代理只有 {TD['proxy_precision_pct(代理說新的裡面真新手)']}% 是真新手;要精確請用年資欄」"],
-        ["3 月:「3 月那批房源下架了」", f"「3 月缺席的 {n(mab['n'])} 間多半是休眠房源,6 月以前次爬取身分回來」"]]),
+        ["新手:「首評 12 個月內 = 新手」", f"「首評代理只有 {TD['proxy_precision_pct(代理說新的裡面真新手)']}% 同時被年資欄推算為新手;要精確請用年資欄」"],
+        ["3 月:「3 月那批房源下架了」", f"「3 月缺席的 {n(mab['n'])} 間可能多半是休眠房源(推測,證據強度中高),6 月以前次爬取身分回來」"]]),
     )
 
 SOURCES = [
@@ -296,7 +297,7 @@ SOURCES = [
     ["極端值、時間外部檢查", "B", "extreme_rule / d_experiment.extreme_sensitivity_* / d_temporal_check.results"],
     ["示範案例", "B", "e_demo_case"],
     ["欄位差在哪、欄位非空率", "C", "a_validate_tenure_fields / recheck_initial"],
-    ["真新手筆數、命中率與抓到率", "C", "c_new_host_definition.definitions.T_*"],
+    ["年資欄推算的新手筆數、命中率與抓到率", "C", "c_new_host_definition.definitions.T_*"],
     ["新手 vs 老手;3 月少一批", "C", "d_new_vs_veteran.metrics;e_flows_and_march"],
     ["同一間房價格變化、入住日、新手路徑", "C", "f_price_change / g_first_year_price_path"],
     ["時間檢查 M1 / M2(9 月內分房東 74.7 / 77.3;時間檢查 72.6 / 70.9)", "B", "d_temporal_check.same_rows_in_period_group_cv / results"],
@@ -311,6 +312,7 @@ sec("data", "10 資料與核對狀態",
             f"樣本:全體 {n(A['meta']['recon']['listings_rows'])} 間;篩選(整套、1–2 房、2–4 人、最低 1–7 晚){n(A['meta']['recon']['scope_rows'])} 間;篩選且有價 {n(A['meta']['recon']['scope_with_price_rows'])} 間。",
             "核對狀態:2026-11-11 由未參與撰寫的 Claude 分身獨立重算 37 項數字(A 15、C 13、B 9),全部吻合;重跑 B 的程式,模型誤差重現;B 的特徵沒有洩漏答案、分組切分正確。核對者指出的 3 處措辭已修。",
             "**沒有核對的**:A 的四期日曆占比、評分四分位、各區房源數;B 的設施關聯、特徵重要度、各分群誤差(只重跑重現,沒獨立重算);C 的新手對老手比較與分區變動;圖只抽看。沒有其他家族模型核對。修改後的措辭只有修改者回讀。",
+            "2026-11-12:用詞已與筆記 19、20 對賬同步。",
             "限制:價格都是掛牌價;沒有成交價與真實入住;下架房源不在內(存活者偏誤);經緯度有隨機偏移;年資欄欄義是推斷。",
             "來源檔(`notes/raw/`):A = `mel_a_market`、B = `mel_b_positioning`、C = `mel_c_hosts_time`、Y = `airbnb_melbourne_2024_2026`,皆為 `_2026-11-11.json`;分支短報告為同名 `.md`;R = `mel_review_2026-11-11.md`(獨立核對報告)。"]),
     ("h3", "數字來源對照(數字 → 來源檔 + 鍵名)"),
@@ -476,6 +478,8 @@ def render_html():
 
 
 if __name__ == "__main__":
-    lines = render_md()
+    # 2026-11-12:notes/19 對賬後已手改,預設不再覆寫它;要重產 md 請加 --md(會蓋掉手改內容)。
+    import sys
+    lines = render_md() if "--md" in sys.argv else "(略過,未加 --md)"
     render_html()
     print(f"md 行數 {lines};html {OUT_HTML.stat().st_size / 1024:.0f} KB;內嵌圖 {len(FIGS_USED)} 張")
