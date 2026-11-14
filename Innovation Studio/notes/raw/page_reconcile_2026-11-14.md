@@ -479,3 +479,72 @@
 - map_data.json 的 `place` 相關欄(地名)我只確認整欄空,沒有逐格重算。
 
 **總結論:可以上場。** 地圖、演算法與示範的數字全部對得上原始資料與筆記 20;沒有把方格講成官方街區,沒有印出任何房源編號或名稱;6 個低都是補半句就好的說明問題。
+
+
+---
+
+# R9 複查(街區名字)(2026-11-14,同一位對賬員;scope ID:IS-1114-reconcile-01 的第九輪)
+
+被查:index.html 的 `id="map"` 第二層新增的街區部分(第 434–450 行與 JS 第 1894–1990 行:街區界線與名字、「這一區裡的街區」表、選格子下拉選單、「這一格大多在」)、第 387 行(data 段時間線下面新增的「這裡說的『雪梨』是哪裡」)、第 410 行(map 最上面一句)、map_data.json(336,912 位元組)。
+原始資料:`D:\KennyCode\UTS_workspace\scratchpad\abs_sal_2026-11-14\sal_2021_page_00.geojson` 與 `sal_2021_page_01.geojson`(共 777 個街區多邊形;只當資料解析)、`SOURCE.txt`;房源經緯度:`scratchpad\insideairbnb_sydney\2026-09-16\data\listings.csv.gz`。重算腳本(不在 repo):`C:\Users\kenny\AppData\Local\Temp\claude\5b4398a8896ecc5b\b3604ab3-23d7-4552-86f8-4fef0b73c2cf\scratchpad\sal_recon.py`、`sal_cmp.py`。用標準函式庫(json、gzip、csv)讀,自己寫射線法判斷「點在多邊形內」,有洞的多邊形要先在外環內、再不在任何洞內,多塊的多邊形(MultiPolygon)逐塊判斷;沒有讀 map_data.py。沒有上網、沒有改被查的檔、沒有讀 private/。
+
+**R9 結論:可以上場。高 0 個、中 0 個、低 4 個。** 街區對應從原始資料重算,3,623 項比對全部一致;13 間對不到街區的說法需要補半句(它們其實離街區界線很近)。
+
+## 一、房源 → 街區 重算(對 map_data.json)
+
+| 比對項目 | 比了幾個 | 一致幾個 | 說明 |
+|---|---|---|---|
+| 對到街區的間數 / 對不到的間數 | 2 | 2 | 對到 20,820、對不到 13(做地圖的人說 13),相同 |
+| 有房源的街區數(不分區)與 json suburb_names | 2 | 2 | 580 個,名字不重複,與 json 相同 |
+| (區, 街區)組合列 | 648 列 | 648 | 每列的全部、整套、獨立房間、有價間數、有價中位數全對(中位數容許 0.01);鍵集合相同;json 不到 5 間有價的列中位數為 null、5 間以上的都有值,規則對 |
+| Sydney 區街區清單 | 32 個(全比) | 32 | 前 10:Sydney 718、Surry Hills 643、Darlinghurst 424、Haymarket 310、Pyrmont 241、Redfern 238、Potts Point 227、Glebe (NSW) 181、Waterloo (NSW) 177、Zetland 172,與 json 相同 |
+| Waverley 區街區清單 | 11 個(全比) | 11 | 前 5:Bondi Beach 713、Bondi 289、North Bondi 268、Bondi Junction 174、Bronte 136,與做地圖的人回報相同 |
+| 每區「街區加總 + 對不到」= 該區全部間數 | 38 區 | 38 | 全對 |
+| 小方格 suburb_top(這一格大多在哪個街區、有幾間) | 2,929 格 | 2,929 | 全部格子的街區與間數都一致,0 格不一致 |
+| Sydney 區房源最多的 5 格 | 5 | 5 | 第 1 格(261 間):Sydney 131、Haymarket 130,json 寫 Sydney 131,對;第 2 格(244 間):Darlinghurst 173;第 3 格(232 間):Sydney 111;第 4 格(204 間):Elizabeth Bay 103;第 5 格(190 間):Pyrmont 131,全對 |
+| 合計 | 3,623 項 | 3,623 | 差 0 |
+
+邊界上的點:我的結果與 json 完全相同,所以沒有「判斷不同」的間數。但我另外量了兩件事:
+- 13 間對不到的房源,離最近的街區邊界只有 0–41 公尺(11 間在 13 公尺以內、8 間在 3 公尺以內):Pittwater 5 間(Palm Beach (NSW)、Clareville、Church Point 邊上)、Liverpool 3 間(離 Liverpool 街區約 1 公尺)、Marrickville 1(Annandale (NSW) 邊上)、Woollahra 1、Randwick 1(Coogee (NSW) 13 公尺)、Sutherland Shire 1(Maianbar 37 公尺)、Ryde 1(East Ryde 41 公尺)。13 間全在 ABS 下載範圍的外框裡,不是因為沒下載到。見 R9-01。
+- 5 間房源同時落在兩個街區多邊形裡(簡化邊界在邊上重疊):Cremorne Point 與 Kurraba Point(North Sydney 區)、Moore Park 與 Paddington (NSW)、Waterloo (NSW) 與 Zetland、Barangaroo 與 Millers Point、Eveleigh 與 Redfern(都在 Sydney 區)。我取檔案裡先出現的那一個,結果與 json 全部相同(648 列沒差),但這 5 間換成另一個街區,各街區的間數會差 1。見 R9-02。
+
+## 二、頁面印出來的街區數字對 json
+
+- Sydney 區街區表:JS 第 1958–1966 行標題「(前 10 個,共 N 個)」用 json 的 suburbs 長度,Sydney 是 32、Waverley 是 11,與我重算相同;表中的欄位(街區、全部、整套、有開價、開價中間價,不到 5 間寫「太少,不列」)直接取 json 同一列,我已對過這些列全部一致。表下的備註「這一區另有 N 間的位置不在任何街區裡,沒有算進表裡」用 no_suburb_n,與我算的 Pittwater 5、Liverpool 3 等逐區一致。
+- 選格子下拉選單:每項寫「{街區名} 一帶 · {數字}」,同一街區有多格時加「(第 n 格)」;街區名取格子的 suburb_index,與我重算的「這一格大多在」一致(2,929/2,929);用「一帶」,沒有把格子叫成街區。
+- 點格子後「這一格大多在」:寫「{街區}(這一格 {n} 間裡有 {m} 間)」,Sydney 第 1 格是「Sydney(這一格 261 間裡有 131 間)」,與我重算相同。
+- 頁面內嵌的地圖資料與 map_data.json 逐值相同;json 沒有房源 id、房源名稱或房東名(鍵只有區名、街區名、數字、格子編號、邊界座標)。
+
+## 三、說明文字
+
+- 來源:第 450 行「澳洲統計局(ABS)的 Suburbs and Localities(ASGS 第三版,2021 年),授權是 CC BY 4.0;ABS 說明這是用統計小區拼出來的近似邊界,不是法定邊界」對 SOURCE.txt:ASGS Edition 3(2021)Suburbs and Localities、授權「Creative Commons Attribution 4.0 International(CC BY 4.0)」、服務說明「SALs are an ABS Mesh Block approximation of gazetted localities; do not match official legal or administrative boundaries; statistical purposes only」。「統計小區」是 Mesh Block 的白話,可以接受。SOURCE.txt 裡的所有網址網域只有 geo.abs.gov.au(`ASGS2021/SAL/MapServer`),全在 abs.gov.au 底下。「街區名字照官方原文,名字後面的『(NSW)』也是原文」對:geojson 裡的名字就是 Glebe (NSW)、Waterloo (NSW) 這種。
+- 「座標亦經模糊處理」出自筆記 14 第 29 行(「依 Data Assumptions,不可訂可能是房東封鎖;座標亦經模糊處理」),頁面註明是 Inside Airbnb 的說明,對。
+- 沒有把小方格講成官方街區:第 450 行寫「小方格是我們自己把經緯度切出來的,不是官方的街區邊界」;第 438 行「細虛線 = 官方街區的界線」只指街區界線,方格是另一層;下拉選單用「一帶」。對。
+- 第 410 行「這份資料說的『雪梨』是整個大雪梨地區,共 38 個區,不是只有市中心。有一個區的名字也叫 Sydney,就是市中心那一區。Sydney 區裡面,還有一個街區也叫 Sydney,是市中心最中間的那一塊」:38 個區對;Sydney 區 5,024 間、Sydney 街區 718 間(我重算)對;沒有問題。
+- 第 450 行最後「Sydney 區是 37 間和 14 間」(旅館房間與共用房間)是 R8-01 的修正,我重算 37、14,對。
+
+## 四、data 段新增的一句(第 387 行)
+
+「這裡說的『雪梨』是 Inside Airbnb 的雪梨資料,範圍是整個大雪梨地區,共 38 個區,20,833 間。其中一個區的名字也叫 Sydney,就是市中心那一區,有 5,024 間。我們目前的分析用的是全部 38 個區。」:38、20,833、5,024 都對。「分析用的是全部 38 個區」與筆記 20 的對照:n20:326 的樣本(20,833 → 7,565 → 6,639)是全部 38 個區,n20:103 說「列入定位表的區(≥30 間)共 33 個」。我用 map_data.json 重算:篩選且有價 ≥30 間的區剛好 33 個,不到 30 間的 5 個是 Campbelltown 29、Camden 18、Hurstville 9、City Of Kogarah 13、Hunters Hill 6。兩者不矛盾(樣本與模型用全部 38 個區,只是「同類價位表」只列房源夠多的 33 個區),但容易被問「分析用 38 個還是 33 個」。見 R9-03,建議補一句。
+
+## 五、技術
+
+節 id 30 個(原 27 + map、algo、demo)各出現 1 次,整頁沒有重複的 id;新元素 id 全部以 `map-` 開頭(map-cell、map-cinfo、map-data、map-dinfo、map-district、map-headline、map-l1、map-l2、map-l2title、map-legend1、map-legend2、map-notes、map-scope、map-subnote、map-subtbl、map-subtitle、map-top10);禁用項 15 項全 0;頁面與講稿 grep 人名 0 個;沒有房源編號或名稱;明細表機器對賬:總表 190 列、頁面 190 列、完全一致 184 列、不一致 6 列(同前幾輪)。map_data.json 336,912 位元組(約 329 KB,其中街區邊界 suburb_rings 約 91 KB);index.html 現 660,433 位元組(約 645 KB,第一輪是約 245 KB),整頁因內嵌地圖資料變大,手機開啟可能稍慢,不算缺陷。
+
+## R9 缺陷表
+
+| 編號 | 嚴重度 | 位置 | 現在寫的 | 應該是 | 出處 |
+|---|---|---|---|---|---|
+| R9-01 | 低 | index.html:450(「20,833 間裡有 13 間的位置不在任何官方街區裡面」);JS 第 1966 行(「位置不在任何街區裡」) | 13 間的位置不在任何官方街區裡面 | 判斷「不在多邊形內」是對的,但「不在街區裡」會被聽成在街區之外很遠。我量這 13 間離最近街區邊界 0–41 公尺(11 間 ≤ 13 公尺),是座標模糊、ABS 下載時簡化邊界(約 5 公尺)與海岸線造成的邊上的點,不是別的地方。改「13 間落在街區界線上或界線外一點點,程式判斷不到街區」 | sal_recon.py 重算;SOURCE.txt(maxAllowableOffset 0.00005 度) |
+| R9-02 | 低 | index.html:450(「在街區邊上的房子可能被算到隔壁街區」) | 說明邊上的房子可能被算到隔壁 | 方向對,可補實數:5 間房源同時落在兩個街區的簡化邊界裡(Cremorne Point/Kurraba Point、Moore Park/Paddington (NSW)、Waterloo (NSW)/Zetland、Barangaroo/Millers Point、Eveleigh/Redfern),程式取其中先出現的,各街區間數可能差 1 | sal_cmp.py 輸出 |
+| R9-03 | 低 | index.html:387(「我們目前的分析用的是全部 38 個區」) | 分析用全部 38 個區 | 不矛盾但易被問:樣本與模型用全部 38 區(n20:326),同類價位表只列房源夠多(篩選且有價 ≥30 間)的 33 個區(n20:103)。補「(同類價位表只列房源夠多的 33 個區)」。5 個不列的區:Campbelltown 29、Camden 18、Hurstville 9、City Of Kogarah 13、Hunters Hill 6 | n20:103、326;map_data.json scope_priced |
+| R9-04 | 低 | index.html:438(「細虛線 = 官方街區的界線」) | 細虛線是官方街區界線 | 畫出來的線是簡化後的:ABS 服務下載時簡化到約 5 公尺,頁面再簡化到約 78 公尺(map_data.json 的 suburb_geometry 與 SOURCE.txt 有寫),只拿來畫線;判斷房源在哪個街區用的是 5 公尺那一版。頁面沒寫簡化。補「(畫線經過簡化,誤差最多約 78 公尺)」 | map_data.json about.suburb_geometry;SOURCE.txt |
+
+## R9 沒查到的部分
+
+- 街區多邊形的版面(畫線、街區名字的位置與重疊避讓、手機寬度)沒開瀏覽器看;suburb_rings(畫線用的簡化邊界)沒有重新比對 geojson,只確認它是畫線用、對應房源用的是另一份。
+- ABS 服務端目前是否仍是同一版、授權文字是否仍相同,沒有上網確認;只對 SOURCE.txt 記錄。
+- 「街區」中文名稱「統計小區」是 Mesh Block 的白話,沒有對 ABS 中文資料。
+- 5 間重疊點的最佳歸屬沒有人工判斷(沒有「對」的標準答案)。
+
+**總結論:可以上場。** 房源對街區的對應從原始邊界資料自己重做,3,623 項比對 0 差異;4 個低都是補半句的說明問題,不擋上場。

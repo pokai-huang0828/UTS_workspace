@@ -9,7 +9,10 @@
 - 有價:同檔第 359 行(price 去空白後非空)
 - 區的中間價:同檔第 416 行(pandas median);1 房/2 房分組照 syd_b_positioning.py 第 98-117 行(篩選且有價,按 bedrooms 分)
 - 不到 30 間不給 1 房/2 房中間價:同 syd_b 的分組門檻(筆記 20 第 79-81 行)
-用法:python "Innovation Studio/meeting_1114/map_data.py"
+用法(兩步):
+  1. python -I "Innovation Studio/meeting_1114/map_data.py" --sal   (只用標準函式庫解析 ABS 街區邊界下載檔)
+  2. python "Innovation Studio/meeting_1114/map_data.py"
+街區邊界下載檔與來源紀錄:scratchpad/abs_sal_2026-11-14/(SOURCE.txt)
 不寫入任何房源編號、名稱、房東名;地名只取房東填的 neighbourhood 欄第一個逗號前的字,且同一格至少 3 間填同一個才給。
 """
 import json
@@ -18,12 +21,73 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-import pandas as pd
+try:
+    import pandas as pd
+except ImportError:  # --sal 模式用 python -I 跑,只用標準函式庫
+    pd = None
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 DATA = ROOT / 'scratchpad' / 'insideairbnb_sydney' / '2026-09-16'
 OUT = HERE / 'map_data.json'
+# 官方街區邊界:ABS ASGS Edition 3(2021)Suburbs and Localities(SAL),CC BY 4.0;下載紀錄見該資料夾 SOURCE.txt
+SAL_DIR = ROOT / 'scratchpad' / 'abs_sal_2026-11-14'
+SAL_CLEAN = SAL_DIR / 'derived' / 'sal_clean.json'
+JSON_BUDGET = 345 * 1024  # map_data.json 整個上限(350 KB 留一點空間)
+
+
+def prep_sal():
+    """第一步(python -I 跑,只用標準函式庫):把下載回來的 SAL GeoJSON 只當資料解析,
+    整理成 名字 + 多邊形座標,寫到 derived/sal_clean.json。不執行下載檔裡的任何東西。"""
+    feats = []
+    for p in sorted(SAL_DIR.glob('sal_2021_page_*.geojson')):
+        for f in json.loads(p.read_text(encoding='utf-8'))['features']:
+            g, pr = f.get('geometry'), f.get('properties') or {}
+            if not g or g.get('type') not in ('Polygon', 'MultiPolygon'):
+                continue
+            polys = g['coordinates'] if g['type'] == 'MultiPolygon' else [g['coordinates']]
+            clean = [[[[float(x), float(y)] for x, y, *_ in ring] for ring in poly] for poly in polys]
+            feats.append({'code': str(pr.get('sal_code_2021', '')), 'name': str(pr.get('sal_name_2021', '')), 'polys': clean})
+    codes = [f['code'] for f in feats]
+    assert len(codes) == len(set(codes)), 'SAL 代碼重複(分頁重疊?)'
+    SAL_CLEAN.parent.mkdir(exist_ok=True)
+    SAL_CLEAN.write_text(json.dumps(feats, ensure_ascii=False), encoding='utf-8')
+    print(f'SAL 街區 {len(feats)} 個 → {SAL_CLEAN}')
+
+
+def load_sal():
+    feats = json.loads(SAL_CLEAN.read_text(encoding='utf-8'))
+    grid = {}
+    for k, f in enumerate(feats):
+        xs = [x for poly in f['polys'] for ring in poly for x, _ in ring]
+        ys = [y for poly in f['polys'] for ring in poly for _, y in ring]
+        f['bb'] = (min(xs), min(ys), max(xs), max(ys))
+        for gx in range(math.floor(f['bb'][0] / 0.02), math.floor(f['bb'][2] / 0.02) + 1):
+            for gy in range(math.floor(f['bb'][1] / 0.02), math.floor(f['bb'][3] / 0.02) + 1):
+                grid.setdefault((gx, gy), []).append(k)
+    return feats, grid
+
+
+def in_poly(x, y, poly):
+    """點在多邊形內(射線法,外圈與洞一起算奇偶;洞裡的點算在外面)。"""
+    inside = False
+    for ring in poly:
+        n = len(ring)
+        x1, y1 = ring[-1]
+        for i in range(n):
+            x2, y2 = ring[i]
+            if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / (y2 - y1) + x1:
+                inside = not inside
+            x1, y1 = x2, y2
+    return inside
+
+
+def locate(x, y, feats, grid):
+    for k in grid.get((math.floor(x / 0.02), math.floor(y / 0.02)), []):
+        b = feats[k]['bb']
+        if b[0] <= x <= b[2] and b[1] <= y <= b[3] and any(in_poly(x, y, poly) for poly in feats[k]['polys']):
+            return feats[k]['name']
+    return ''
 
 CELL_LAT, CELL_LON = 0.005, 0.006
 MIN_CELL_PRICED = 5      # 一格有價不到 5 間 → 中間價空值
@@ -160,8 +224,16 @@ def main():
     L['cj'] = (L['lon'] / CELL_LON).apply(math.floor)
     L['place'] = L['neighbourhood'].str.split(',').str[0].str.strip().str.replace(r'\s+', ' ', regex=True)
     sp = L[L['scope'] & L['has_price']]
+    sal_feats, sal_grid = load_sal()
+    L['sal'] = [locate(x, y, sal_feats, sal_grid) for x, y in zip(L['lon'], L['lat'])]
+    snames, sidx = [], {}
 
-    geo = json.loads((DATA / 'visualisations' / 'neighbourhoods.geojson').read_text(encoding='utf-8'))
+    def si(nm):
+        if nm not in sidx:
+            sidx[nm] = len(snames); snames.append(nm)
+        return sidx[nm]
+
+    geo =json.loads((DATA / 'visualisations' / 'neighbourhoods.geojson').read_text(encoding='utf-8'))
     feats = [(f['properties']['neighbourhood'], f['geometry']) for f in geo['features']]
     assert set(n for n, _ in feats) == set(L['neighbourhood_cleansed']), '區名與 geojson 對不上'
 
@@ -204,7 +276,16 @@ def main():
             cells.append([int(ci), int(cj), len(c), int(c['ent'].sum()), int(c['priv'].sum()), int(c['has_price'].sum()),
                           med(c['pv'], MIN_CELL_PRICED), pidx[pl] if pl is not None else None,
                           int(pn) if pl is not None else 0, int(len(fill))])
+            stop = Counter(x for x in c['sal'] if x).most_common(1)
+            cells[-1] += [si(stop[0][0]), int(stop[0][1])] if stop else [None, 0]
+        subs = []
+        for snm, sg in g[g['sal'] != ''].groupby('sal'):
+            tc = sg.groupby(['ci', 'cj']).size().idxmax()  # 這個街區在這一區房源最多的那一格(放名字用)
+            subs.append([si(snm), len(sg), int(sg['ent'].sum()), int(sg['priv'].sum()), int(sg['has_price'].sum()),
+                         med(sg['pv'], MIN_CELL_PRICED), int(tc[0]), int(tc[1])])
+        subs.sort(key=lambda r: (-r[1], snames[r[0]]))
         districts.append({
+            'suburbs': subs, 'no_suburb_n': int((g['sal'] == '').sum()),
             'name': name, 'n': len(g), 'entire': int(g['ent'].sum()), 'private': int(g['priv'].sum()),
             'priced': len(gp), 'median_all': med(gp['price_v'], MIN_CELL_PRICED), 'scope_priced': len(gs),
             'b1_n': b['1'][0], 'b1_median': b['1'][1], 'b2_n': b['2'][0], 'b2_median': b['2'][1],
@@ -223,7 +304,15 @@ def main():
             'cell': f'小方格 = 緯度 {CELL_LAT} 度 × 經度 {CELL_LON} 度;在雪梨(南緯 33.87 度)約 {lat_m:.0f} 公尺(南北)× {lon_m:.0f} 公尺(東西)。'
                     f'格子編號 i = floor(緯度 / {CELL_LAT})、j = floor(經度 / {CELL_LON});格子西南角 = (i×{CELL_LAT}, j×{CELL_LON})。'
                     '格子是我們自己切的,不是官方街區邊界;一格跨兩區時照房源的 neighbourhood_cleansed 分開記。',
-            'cell_fields': ['i', 'j', 'n', 'entire', 'private', 'priced', 'median_priced', 'place_index', 'place_top_n', 'place_filled_n'],
+            'cell_fields': ['i', 'j', 'n', 'entire', 'private', 'priced', 'median_priced', 'place_index', 'place_top_n', 'place_filled_n',
+                            'suburb_index', 'suburb_top_n'],
+            'suburb': ('街區 = 澳洲統計局(ABS)ASGS 第三版(2021)Suburbs and Localities(SAL),授權 CC BY 4.0;'
+                       '名字照官方原文。ABS 說明 SAL 是用統計小區拼出來的近似邊界,不是法定邊界。'
+                       '每間房源用經緯度做點在多邊形內的判斷對到街區;對不到的記在各區 no_suburb_n。'
+                       'suburb_index / suburb_top_n = 這一格裡房源最多的街區與它在這一格的間數(這一格總共幾間 = n)。'
+                       'districts[].suburbs 每列 = [suburb_index, 全部, 整套, 獨立房間, 有價, 開價中間價(有價不到 5 間為 null), '
+                       '放名字的格子 i, j];一個街區跨兩區時各區各算(以 neighbourhood_cleansed 為準)。'
+                       'suburb_rings 與 suburb_names 同順序,是簡化後的街區邊界(只畫線用)。'),
             'cell_rules': f'median_priced:有價不到 {MIN_CELL_PRICED} 間為 null;place:房東填的 neighbourhood 欄第一個逗號前的字,同一格至少 {MIN_PLACE} 間填同一個才給,否則 null;place_filled_n = 這一格有幾間填了地名。',
             'district_rules': f'median_all = 區內全體有價的開價中間價;b1/b2 = 篩選且有價(整套、1-2 房、2-4 人、最低 1-7 晚)的 1 房/2 房,不到 {MIN_BED_N} 間中間價為 null。',
             'price_note': '開價是房東開的價(每晚、澳幣),不是實際訂到的價。',
@@ -236,8 +325,41 @@ def main():
         'totals': {'n': len(L), 'priced': int(L['has_price'].sum()), 'scope': int(L['scope'].sum()),
                    'scope_priced': len(sp), 'median_all': med(L['pv'], 1), 'cells': ncell, 'cells_with_place': nplace},
         'places': places,
+        'suburb_names': snames,
         'districts': districts,
     }
+    # 街區邊界(只存有房源的街區;每個多邊形各自簡化,只畫線)
+    by_sal = {f['name']: f for f in sal_feats}
+    base = len(json.dumps(out, ensure_ascii=False, separators=(',', ':')).encode('utf-8'))
+    for stol in (0.0001, 0.00015, 0.0002, 0.0003, 0.0004, 0.0005, 0.0007, 0.001, 0.0015):
+        srings = []
+        for nm in snames:
+            rr = []
+            for poly in by_sal[nm]['polys']:
+                for ring in poly:
+                    pts = [tuple(p) for p in ring]
+                    if pts[0] == pts[-1]:
+                        pts = pts[:-1]
+                    if len(pts) < 3:
+                        continue
+                    far = max(range(len(pts)), key=lambda k: (pts[k][0] - pts[0][0]) ** 2 + (pts[k][1] - pts[0][1]) ** 2)
+                    s4 = dp(pts[:far + 1], stol)[:-1] + dp(pts[far:] + pts[:1], stol)[:-1]
+                    q4 = []
+                    for x, y in s4:
+                        q = (round(x * 1e4), round(y * 1e4))
+                        if not q4 or q4[-1] != q:
+                            q4.append(q)
+                    if len(q4) >= 3:  # 存成 1/10000 度的整數:第一點是絕對值,後面每點是跟前一點的差
+                        flat = [q4[0][0], q4[0][1]]
+                        for (ax, ay), (bx, by) in zip(q4, q4[1:]):
+                            flat += [bx - ax, by - ay]
+                        rr.append(flat)
+            srings.append(rr)
+        rbytes = len(json.dumps(srings, separators=(',', ':')))
+        if rbytes <= 150 * 1024 and base + rbytes + 20 <= JSON_BUDGET:
+            break
+    out['suburb_rings'] = srings
+    out['about']['suburb_geometry'] = f'suburb_rings:每個環 = [x0, y0, dx1, dy1, ...],單位 1/10000 度(經度、緯度 × 10000 取整數),第一點是絕對值、之後是跟前一點的差;Douglas-Peucker 容許誤差 {stol} 度(約 {stol * 111000:.0f} 公尺),{rbytes / 1024:.1f} KB;只用來畫街區界線,房源對街區用的是下載回來的邊界(下載時已請 ABS 服務簡化到 0.00005 度,約 5 公尺)。'
     txt = json.dumps(out, ensure_ascii=False, separators=(',', ':'))
     OUT.write_text(txt, encoding='utf-8', newline='\n')
 
@@ -269,17 +391,31 @@ def main():
     bad = [d['name'] for d in districts
            if [sum(c[k] for c in d['cells']) for k in (2, 3, 4, 5)] != [d['n'], d['entire'], d['private'], d['priced']]]
     chk('每一區:方格的全部/整套/獨立/有價加總 = 區的數字(對不上的區)', bad, [])
+    bad2 = [d['name'] for d in districts if sum(r[1] for r in d['suburbs']) + d['no_suburb_n'] != d['n']]
+    chk('每一區:街區清單加總 + 對不到街區 = 區的全部間數(對不上的區)', bad2, [])
+    nomatch = sum(d['no_suburb_n'] for d in districts)
+    chk('全體:街區加總 + 對不到街區', sum(r[1] for d in districts for r in d['suburbs']) + nomatch, EXPECT['rows'])
+    bad3 = [d['name'] for d in districts
+            if sum(c[11] for c in d['cells']) != int(L.loc[L['neighbourhood_cleansed'] == d['name']].groupby(['ci', 'cj'])['sal'].agg(
+                lambda s: s[s != ''].value_counts().max() if (s != '').any() else 0).sum())]
+    chk('每一格的「最多街區間數」重算一致(對不上的區)', bad3, [])
+    print(f'街區:房源對到 {len(snames)} 個街區(下載 {len(sal_feats)} 個);對不到任何街區 {nomatch} 間({nomatch / len(L):.2%})')
+    for nm in ('Sydney', 'Waverley'):
+        print(f'  {nm} 前五大街區:' + '、'.join(f'{snames[r[0]]} {r[1]:,}' for r in D[nm]['suburbs'][:5]) + f';對不到 {D[nm]["no_suburb_n"]} 間')
     print(f'方格:{ncell:,} 個(區 × 格);有地名的 {nplace:,} 個,占 {nplace / ncell:.1%}'
           f'(房東填地名的列:{int((L["place"] != "").sum()):,} / {len(L):,})')
     print(f'方格大小:約 {lat_m:.0f} 公尺(南北)× {lon_m:.0f} 公尺(東西)')
     print(f'邊界:容許誤差 {tol} 度;共用點 {shared:,} / {nverts:,};簡化後 {npts:,} 點;座標 {gbytes / 1024:.1f} KB;各區面積最大變化 {area_diff:.2%}')
-    print(f'map_data.json:{OUT.stat().st_size / 1024:.1f} KB(上限 300 KB)')
+    print(f'map_data.json:{OUT.stat().st_size / 1024:.1f} KB(上限 350 KB)')
     top = districts[0]
     print(f'最多的區:{top["name"]} {top["n"]:,} 間,占 {top["n"] / len(L):.1%};第二 {districts[1]["name"]} {districts[1]["n"]:,}')
-    if not ok or OUT.stat().st_size > 300 * 1024:
+    if not ok or OUT.stat().st_size > 350 * 1024:
         sys.exit('對賬或大小不符,停下來回報')
     print('全部相符')
 
 
 if __name__ == '__main__':
-    main()
+    if '--sal' in sys.argv:
+        prep_sal()  # 第一步:python -I map_data.py --sal(只解析下載回來的街區邊界)
+    else:
+        main()      # 第二步:python map_data.py
