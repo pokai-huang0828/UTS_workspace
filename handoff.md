@@ -3062,3 +3062,19 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 ### 成本(§8.3,照通知原值)
 - opus 3 個:改名+大綱 111,855/46;清理 161,144/22,同一個分身續做網站清單 201,598/38;排版 158,880/67。
 - sonnet 1 個:對帳 v4 152,651/21。
+
+## 2026-11-14(晚,分享檔)· Innovation Studio:做給打不開 claude.ai 的同事看的 HTML 與 PDF
+
+- Kenny:大陸的同事不能用 Claude,問能不能分享;之後說「幫我做一個 HTML,然後一個 PDF」。
+- 產物(`Innovation Studio/meeting_1114/share/`):`雪梨Airbnb房東定位助手_1114組會.html`(index.html 的原樣複本,704,738 位元組,sha256 與原檔相同 01e7e3c2…a5941)、`雪梨Airbnb房東定位助手_1114組會.pdf`(2,316,099 位元組,38 頁,A4)。重做一行:`python "Innovation Studio/meeting_1114/make_share.py"`。
+- PDF 做法(sonnet 分身寫 `make_share.py`):在暫存資料夾做一份列印版(不動 index.html)——九個主段的收合全部展開、附錄只展開「每一段用了哪些網站和資料」、最上面加一行「這是 PDF 版」、強制淺色、表格不裁切;用本機 Chrome 無頭模式加獨立的 `--user-data-dir` 印(沒碰 Kenny 正在用的 Chrome)。
+- 檢查(主腦,非產出者):pypdf 數頁與每頁字數;用 Windows 內建的 `Windows.Data.Pdf`(PowerShell)把頁面轉成 PNG 來看——第 1、20、21、29、30、32、36 頁:淺色底、色塊有印、地圖有畫、收合有展開、附錄網站表與 (a) 清單有出來。第一版第 30 頁幾乎整頁空白(四張卡整排被推到下一頁),主腦在列印樣式加 `.grid{display:block}` 與 `.grid>*{break-inside:auto}` 後重印:39 頁 → 38 頁,字數少於 250 的只剩最後一頁。其他頁沒有逐頁看。
+- 兩個檔已用 SendUserFile 傳給 Kenny。
+
+### 教訓 / 環境註記
+- 這台機器看 PDF 畫面的三條路都不通:Read 工具(沒有 pdftoppm)、PDF_Tools 的 render(沒有 renderer,而且只准讀 Documents/Downloads/Desktop)、內建瀏覽器開 PDF 網址(會變成下載,還跳存檔視窗給使用者)。可行的是 PowerShell 呼叫 `Windows.Data.Pdf.PdfDocument` 轉 PNG 再用 Read 看圖。
+- Kenny 在那個存檔視窗按了存檔,存到的是第一版(39 頁、有空白頁)的 PDF;已請他改用 share 資料夾裡的新版。
+- 無頭 Chrome 對 PDF 網址做 `--screenshot` 只會得到空白圖,不能拿來看 PDF。
+
+### 成本(§8.3,照通知原值)
+- sonnet 1 個:做 HTML 與 PDF 105,867/28。
