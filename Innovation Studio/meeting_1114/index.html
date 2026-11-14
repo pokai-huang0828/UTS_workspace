@@ -302,6 +302,20 @@ ul.checks li { display: flex; align-items: flex-start; gap: 2px; }
 .mock-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); display: inline-block; }
 .mock-body { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.7fr); gap: 14px; padding: 12px; }
 @media (max-width: 640px) { .mock-body { grid-template-columns: 1fr; } }
+.subline { font-size: 15px; color: var(--ink-2); margin: -8px 0 14px; }
+.outline-list { list-style: none; margin: 0; padding: 2px 0; }
+.outline-list li { display: grid; grid-template-columns: 24px minmax(0, 9em) minmax(0, 1fr) auto; gap: 2px 10px; align-items: center; padding: 5px 12px; border-top: 1px solid var(--line); font-size: 13px; line-height: 1.35; }
+.outline-list li:first-child { border-top: 0; }
+.outline-list .oi { width: 24px; height: 18px; display: block; fill: none; stroke: var(--ink-2); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.outline-list .od { color: var(--ink-2); min-width: 0; }
+.outline-list .pill { justify-self: end; white-space: nowrap; }
+@media (max-width: 640px) {
+  .outline-list li { grid-template-columns: 24px minmax(0, 1fr) auto; }
+  .outline-list .oi { grid-row: 1; grid-column: 1; }
+  .outline-list .on { grid-row: 1; grid-column: 2; }
+  .outline-list .pill { grid-row: 1; grid-column: 3; }
+  .outline-list .od { grid-row: 2; grid-column: 2 / -1; }
+}
 .mock-in, .mock-out { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .mock-h { font-size: 13px; font-weight: 700; color: var(--accent); }
 .mock-field { border: 1px solid var(--line); border-radius: 8px; padding: 3px 8px; font-size: 14px; background: var(--bg); }
@@ -439,11 +453,12 @@ table.mtab td { font-size: 13.5px; }
 <section id="pitch" class="key slide">
   <div class="kno">1</div>
   <h2>我建議做什麼題目?</h2>
-  <p class="bigline">新房東上架定位助手:幫雪梨的新房東看懂,你的房子跟同類比,開價排在哪、缺什麼設施。</p>
+  <p class="bigline">雪梨 Airbnb 房東定位助手:幫雪梨的 Airbnb 房東看懂,你的房子跟同類比,開價排在哪、缺什麼設施。</p>
+  <p class="subline">剛要開始的新手最需要;已經在出租的房東也能用。</p>
   <figure class="chart">
     <div class="ctitle">圖 A:這個工具長什麼樣(示意畫面)</div>
     <div class="mock" role="img" aria-label="示意畫面:左邊輸入 Sydney 這一區、整套出租、1 個臥室、住 2 人、1 張床、1 間浴室、已經有廚房、洗衣機、Wifi,開價還沒填;右邊是結果:同類 1,291 間;同類開價 265.9、中間價 323.4、388.8 澳幣一晚;缺煙霧警報器、熱水、餐具">
-      <div class="mock-bar"><i></i><i></i><i></i><span>新房東上架定位助手</span></div>
+      <div class="mock-bar"><i></i><i></i><i></i><span>雪梨 Airbnb 房東定位助手</span></div>
       <div class="mock-body">
         <div class="mock-in">
           <div class="mock-h">① 輸入你的房子</div>
@@ -484,6 +499,23 @@ table.mtab td { font-size: 13.5px; }
   </figure>
 
   <figure class="chart">
+    <div class="ctitle">圖 A2:整個工具網頁的大綱(規劃中,還沒做;由上到下)</div>
+    <div class="mock">
+      <div class="mock-bar"><i></i><i></i><i></i><span>雪梨 Airbnb 房東定位助手</span></div>
+      <ol class="outline-list" aria-label="網頁大綱,由上到下 7 塊">
+        <li><svg class="oi" viewBox="0 0 24 18" aria-hidden="true"><rect x="2" y="4" width="20" height="10" rx="2"/><line x1="6" y1="7" x2="6" y2="11" class="s-acc"/></svg><b class="on">1 輸入你的房子</b><span class="od">哪一區、怎麼租、幾個臥室、住幾人、已經有的設施、打算開多少</span><span class="pill">輸入</span></li>
+        <li><svg class="oi" viewBox="0 0 24 18" aria-hidden="true"><rect x="2" y="2" width="20" height="14" rx="2"/><circle cx="7" cy="7" r="1.8" class="f-acc" stroke="none"/><circle cx="14" cy="11" r="1.8" class="f-acc" stroke="none"/><circle cx="18" cy="6" r="1.8" class="f-acc" stroke="none"/></svg><b class="on">2 同類的房子</b><span class="od">在地圖上標出來,告訴你有幾間</span><span class="pill main">主體</span></li>
+        <li><svg class="oi" viewBox="0 0 24 18" aria-hidden="true"><line x1="4" y1="16" x2="4" y2="12"/><line x1="9" y1="16" x2="9" y2="9"/><line x1="14" y1="16" x2="14" y2="6" class="s-acc" stroke-width="3"/><line x1="19" y1="16" x2="19" y2="3"/></svg><b class="on">3 你的開價排第幾</b><span class="od">同類的開價從便宜排到貴,你在哪裡</span><span class="pill main">主體</span></li>
+        <li><svg class="oi" viewBox="0 0 24 18" aria-hidden="true"><polyline points="2,5 4,7 7,3"/><line x1="10" y1="5" x2="22" y2="5"/><line x1="3" y1="11" x2="7" y2="15" class="s-acc"/><line x1="7" y1="11" x2="3" y2="15" class="s-acc"/><line x1="10" y1="13" x2="22" y2="13"/></svg><b class="on">4 你缺的設施</b><span class="od">同類多數都有、你還沒有的</span><span class="pill main">主體</span></li>
+        <li><svg class="oi" viewBox="0 0 24 18" aria-hidden="true"><rect x="5" y="1" width="14" height="16" rx="2"/><line x1="8" y1="5" x2="16" y2="5" class="s-acc"/><line x1="9" y1="10" x2="9" y2="14"/><line x1="7" y1="12" x2="11" y2="12"/><line x1="13" y1="11" x2="17" y2="11"/><line x1="13" y1="13" x2="17" y2="13"/></svg><b class="on">5 大概能收多少</b><span class="od">開價、住幾晚、成本你自己填,工具幫你算</span><span class="pill aux">延伸 1</span></li>
+        <li><svg class="oi" viewBox="0 0 24 18" aria-hidden="true"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="3" y1="7" x2="21" y2="7"/><line x1="8" y1="1" x2="8" y2="4"/><line x1="16" y1="1" x2="16" y2="4"/><circle cx="15" cy="12" r="2" class="f-acc" stroke="none"/></svg><b class="on">6 淡旺季和假期提醒</b><span class="od">哪幾個月比較滿、接下來的假期和大活動;只提醒,不說會漲多少</span><span class="pill ext">延伸 2</span></li>
+        <li><svg class="oi" viewBox="0 0 24 18" aria-hidden="true"><path d="M6 1h9l4 4v12H6z"/><line x1="9" y1="8" x2="16" y2="8"/><line x1="9" y1="11" x2="16" y2="11"/><line x1="9" y1="14" x2="13" y2="14"/></svg><b class="on">7 資料說明</b><span class="od">資料從哪來(Inside Airbnb,2026-09-16 那期);是房東開的價,不是成交價</span><span class="pill">頁尾</span></li>
+      </ol>
+    </div>
+    <figcaption>這是我規劃的網頁大綱,還沒開始做。第 2 到 4 塊是主體;第 5、6 塊是延伸,做不做看今晚第 1 個決定。<span class="sugg">我的規劃,大家可以改</span></figcaption>
+  </figure>
+
+  <figure class="chart">
     <div class="ctitle">圖 B:題目的三塊(我的建議,大家決定)</div>
     <div class="blocks3">
       <div class="blk main"><span class="pill main">主體 · 建議一定做</span><ul class="tight"><li>找同類</li><li>開價排第幾</li><li>缺的設施</li></ul></div>
@@ -499,10 +531,10 @@ table.mtab td { font-size: 13.5px; }
       <ol class="stairs">
         <li class="step s1"><div class="step-no">第 1 個決定</div><div class="step-q">做到哪裡?</div>
           <ul class="opts"><li class="pick">① 方案 A 當主體,加兩個小延伸 <span class="pick-tag">★ 我推薦</span></li><li>② 只做方案 A</li><li>③ 改做買房投資報酬</li></ul></li>
-        <li class="step s2"><div class="step-no">第 2 個決定</div><div class="step-q">新房東是誰?</div>
-          <ul class="opts"><li class="pick">準備上架、或已經有一間房想開始做短租的人 <span class="pick-tag">★ 我推薦</span></li><li>二房東</li><li>想買房的人</li></ul></li>
+        <li class="step s2"><div class="step-no">第 2 個決定</div><div class="step-q">給哪一種房東用?</div>
+          <ul class="opts"><li class="pick">有自己的房、準備上架或已經在出租的房東(主打剛開始的新手) <span class="pick-tag">★ 我推薦</span></li><li>二房東</li><li>想買房的人</li></ul></li>
         <li class="step s3"><div class="step-no">第 3 個決定</div><div class="step-q">題目叫什麼?</div>
-          <ul class="opts"><li class="pick">「新房東上架定位助手」 <span class="pick-tag">★ 提案</span></li><li>大家改</li></ul></li>
+          <ul class="opts"><li class="pick">「雪梨 Airbnb 房東定位助手」 <span class="pick-tag">★ 提案</span></li><li>「新房東上架定位助手」(只講新手)</li><li>大家改</li></ul></li>
       </ol>
       <aside class="judge"><div class="step-q">怎麼判斷?</div><ol><li>手上的資料做不做得出來?</li><li>照評分表估幾分?</li><li>時間來不來得及?</li></ol></aside>
     </div>
@@ -528,9 +560,9 @@ table.mtab td { font-size: 13.5px; }
       <li><span class="ic ok">✓</span><span>用新一季資料來驗證</span></li>
     </ul></div>
     <div class="no"><h3>還沒定</h3><ul class="checks">
-      <li><span class="ic q">?</span><span>題目名稱<br><span class="note">目前的提案是「新房東上架定位助手」;原本的提案寫雪梨和墨爾本</span></span></li>
+      <li><span class="ic q">?</span><span>題目名稱<br><span class="note">目前的提案是「雪梨 Airbnb 房東定位助手」;原本的提案寫雪梨和墨爾本</span></span></li>
       <li><span class="ic q">?</span><span>目標那一句</span></li>
-      <li><span class="ic q">?</span><span>「新房東」是誰</span></li>
+      <li><span class="ic q">?</span><span>給哪一種房東用</span></li>
       <li><span class="ic q">?</span><span>方案 B 是 B① 還是 B②</span></li>
       <li><span class="ic q">?</span><span>資料範圍怎麼講<br><span class="note">會議紀錄寫 2025 年 9 月到 2026 年 9 月,但免費的資料最早是 2025 年 12 月</span></span></li>
       <li><span class="ic q">?</span><span>「裝修」「最大收入」怎麼處理</span></li>
@@ -971,7 +1003,7 @@ table.mtab td { font-size: 13.5px; }
     <figcaption>實心點 = 日期確定;虛線點加「?」= 還沒確定;空心點 = 假期。另外每週日 20:59 每人交一份週報(AT1),不能延期、逾期 0 分;假期不用交。</figcaption>
   </figure>
   <div class="stages" aria-label="七個階段">
-    <div class="stage"><div class="sd">階段 1 · 11/14–11/15 定題</div><ul><li>定題目、目標句、新房東是誰</li><li>「裝修」「最大收入」改新說法</li><li>交週報</li></ul><div class="rl">職責:全組決定</div></div>
+    <div class="stage"><div class="sd">階段 1 · 11/14–11/15 定題</div><ul><li>定題目、目標句、給哪一種房東用</li><li>「裝修」「最大收入」改新說法</li><li>交週報</li></ul><div class="rl">職責:全組決定</div></div>
     <div class="stage"><div class="sd">階段 2 · 11/16–11/22 第 4 週</div><ul><li>整理資料,畫分布和相關性圖</li><li>寫 AT2「數據與資源」初稿</li><li>備好專案介紹、選簡報時段</li></ul><div class="rl">職責:數據分析(其他項原檔沒指定)</div></div>
     <div class="stage"><div class="sd">階段 3 · 11/23–12/6 第 5–6 週</div><ul><li>方法比較表、實驗設計</li><li>架構圖、實施設計、時程表</li><li>12/4 初稿 → 12/5 審閱 → 12/6 彩排</li></ul><div class="rl">職責:數據分析、開發</div></div>
     <div class="stage"><div class="sd">階段 4 · 12/7–12/11 第 7 週</div><ul><li>Zoom 簡報,每人都講</li><li>記下回饋,改進報告</li><li>12/11 交報告和簡報檔</li></ul><div class="rl">職責:每人</div></div>
@@ -1014,7 +1046,7 @@ table.mtab td { font-size: 13.5px; }
       <li>AT3 個人分數怎麼依同儕互評(SPARK+)調整?— 原檔沒寫。R:190;N03:53</li>
       <li>AT3 的「系統」要做到什麼程度?— 先照最嚴格準備。R:187</li>
       <li>12/11 的簡報檔要上傳什麼?— 第 5 週前問。N06:123</li>
-      <li>題目名稱、目標句、新房東是誰 — 今晚決定。T:41,43;N17:3,16</li>
+      <li>題目名稱、目標句、給哪一種房東用 — 今晚決定。T:41,43;N17:3,16</li>
       <li>B 做 B① 還是 B② — 今晚決定。N17:180;T:41</li>
       <li>「當房東多久」那一欄的官方說明 — 還沒查。N17:183;T:46</li>
       <li>模擬資料能不能當評估的依據?問到之前只用真實資料 — <b>要問老師</b>。N17:174,187;T:45</li>
@@ -1294,7 +1326,7 @@ table.mtab td { font-size: 13.5px; }
       </ol>
       <h4>六個建議(待大家決定)</h4>
       <ol class="how-list">
-        <li>新房東先鎖定「準備上架、或已經有一間房的人」。<a href="#decisions">Q1</a></li>
+        <li>給哪一種房東用:先鎖定「有自己的房、準備上架或已經在出租的房東」,主打剛開始的新手。<a href="#decisions">Q1</a></li>
         <li>資料範圍說「免費 4 期,有價格的是 2026 年 3、6、9 月三期」。<a href="#decisions">Q2</a></li>
         <li>方案 A 主要講同類比較;裝修改成讓使用者自己填預估值;「最大收入」改成「大概能收多少」。<a href="#decisions">Q3</a></li>
         <li>方案 B 選 B①,我們只給有來源、有年份的低/中/高預設值。<a href="#decisions">Q4</a></li>
@@ -1354,7 +1386,7 @@ table.mtab td { font-size: 13.5px; }
       <div class="stack-list">
         <article class="card">
           <h4>1 同類房源價格定位</h4>
-          <p class="mini"><b>做什麼</b>:同一區、同房間數的房源掛多少,新房東的價格排在哪;比較「同類中位數」和模型哪個估得準。</p>
+          <p class="mini"><b>做什麼</b>:同一區、同房間數的房源掛多少,房東(主打新手)的價格排在哪;比較「同類中位數」和模型哪個估得準。</p>
           <p class="mini"><b>為什麼放這裡</b>:這是工具的核心;基準 vs 模型是報告的實驗主線。</p>
           <p class="mini"><b>關鍵數字</b>:猜價模型 M2 只比「同區、同房間數的中位數」(B1)少猜錯 8%(精確 8.2%<a class="calc-ref" href="#calc-r20">算式</a>;平均猜偏 101.7 → 93.4 澳幣/晚;2026-09 模型樣本 6,615 間)。同類 1 房 299、2 房 414 澳幣/晚(篩選且有價 6,639 間)。</p>
           <p class="mini">⚠️ 同名不同母體:全體整套房(不限人數與晚數)是 1 房 293、2 房 408。</p>
@@ -1364,7 +1396,7 @@ table.mtab td { font-size: 13.5px; }
         <article class="card">
           <h4>2 設施缺口</h4>
           <p class="mini"><b>做什麼</b>:同類房源常見、但自己還沒有的設施。</p>
-          <p class="mini"><b>為什麼放這裡</b>:新房東最容易照著做的建議。</p>
+          <p class="mini"><b>為什麼放這裡</b>:房東(尤其是新手)最容易照著做的建議。</p>
           <p class="mini"><b>關鍵數字</b>:每間房設施數中位數 41 項(篩選且有價 6,639 間);設施欄缺值 0%(22 引 16,沒核);最常見 Smoke alarm 96.8%、Kitchen 93.6%、Wifi 91.9%。</p>
           <p class="mini"><b>做得到嗎</b>:做得到。</p>
           <p class="src"><b>來源</b> 22:45;20:108 ‖ <b>查核</b> 41 項一致;0% 沒核;前三項設施為 20 補充</p>
@@ -1578,10 +1610,10 @@ table.mtab td { font-size: 13.5px; }
   <p class="lead">每張卡:問題 → 外部數字說了什麼 → 我的建議。建議都是我的,大家決定。上半重點版只挑了三件。</p>
   <div class="stack-list">
     <article class="card rec">
-      <h3>Q1「新房東」是哪一種人?(已有房、二房東、想買房)</h3>
+      <h3>Q1 給哪一種房東用?(已有房、二房東、想買房)</h3>
       <div class="qa">
         <div><div class="lbl">外部行情說了什麼</div>三種人的成本結構差很多:已有房的只含電費 + 管理費約 356–701 AUD/月<a class="calc-ref" href="#calc-r11">算式</a>;二房東光租金就約 3,250–3,618 AUD/月<a class="calc-ref" href="#calc-r12">算式</a>;想買房要看房價與利率(第 5 節)。二房東要用租金、想買房要用房價與利率,而之前寫的公寓、獨棟分開的房價,晚上補查時那一頁上根本沒有,只有雪梨全部住宅的中間價 1,178,959(一年 −9.4%),所以那兩個分開的數字不要引用;我們的資料也沒有這些欄位。</div>
-        <div><div class="lbl">我的建議</div>先鎖定「準備上架、或已經有一間房想開始做短租的人」;資料上用「當房東不超過 12 個月」的房源當參考組。</div>
+        <div><div class="lbl">我的建議</div>先鎖定「有自己的房、準備上架或已經在出租的房東」,主打剛開始的新手;資料上用「當房東不超過 12 個月」的房源來對照新手。</div>
       </div>
       <div class="tag">我的建議,待大家決定</div>
     </article>
@@ -1597,7 +1629,7 @@ table.mtab td { font-size: 13.5px; }
       <h3>Q3 方案 A 的描述裡,「裝修」「最大收入」怎麼處理?</h3>
       <div class="qa">
         <div><div class="lbl">外部行情說了什麼</div>裝修只有商業報價、區間寬(浴室 8,000 到 63,250 AUD,跨來源的最低到最高,不是同一家的區間<a class="calc-ref" href="#calc-r22">算式</a>),我們的資料沒有裝修欄。非房東同住一年最多 180 天;各家每間年收入估計從 $40.8K(幣別未標)到 AUD 83,094,另有 Hometime 文章稱 $50,800–$97,700。</div>
-        <div><div class="lbl">我的建議</div>改說:「告訴新房東同類房源掛多少、他排在哪」。資料裡沒有裝修,只有設施,所以裝修不當分析主題,改成在收入試算裡讓使用者自己填預估值,我們給參考範圍。「最大收入」改成「大概能收多少」,放在收入試算裡算出低、中、高三個結果(11/14 中午更新)。</div>
+        <div><div class="lbl">我的建議</div>改說:「告訴房東(主打新手)同類房源掛多少、他排在哪」。資料裡沒有裝修,只有設施,所以裝修不當分析主題,改成在收入試算裡讓使用者自己填預估值,我們給參考範圍。「最大收入」改成「大概能收多少」,放在收入試算裡算出低、中、高三個結果(11/14 中午更新)。</div>
       </div>
       <div class="tag">我的建議,待大家決定</div>
     </article>
@@ -1809,9 +1841,9 @@ table.mtab td { font-size: 13.5px; }
   <div class="tbl-wrap"><table class="mid">
     <thead><tr><th style="width:38%">不要這樣說</th><th>改這樣說</th><th>出處</th></tr></thead>
     <tbody>
-      <tr><td>「新房東就是資料裡的新房東」</td><td>「我建議先鎖定『準備上架、或已經有一間房想開始做短租的人』;資料上用『當房東不超過 12 個月』的房源當參考組」</td><td>22:56</td></tr>
+      <tr><td>「新房東就是資料裡的新房東」</td><td>「我建議先鎖定『有自己的房、準備上架或已經在出租的房東』,主打剛開始的新手;資料上用『當房東不超過 12 個月』的房源來對照新手」</td><td>22:56</td></tr>
       <tr><td>「我們有一整年的價格資料」</td><td>「免費的有 4 期,最早是 2025 年 12 月;有價格的是 2026 年 3、6、9 月三期」</td><td>22:57</td></tr>
-      <tr><td>「幫新房東實現最大收入」</td><td>「告訴新房東同類房源掛多少、他排在哪;資料裡沒有裝修,只有設施」</td><td>22:58</td></tr>
+      <tr><td>「幫新房東實現最大收入」</td><td>「告訴房東(主打新手)同類房源掛多少、他排在哪;資料裡沒有裝修,只有設施」</td><td>22:58</td></tr>
       <tr><td>「雪梨中位數 $338 是房東賺的」</td><td>「這是掛牌價中位數;成交價、清潔費、折扣看不到」</td><td>20:303</td></tr>
       <tr><td>「模型能預測房價」「準確率很高」</td><td>「模型猜別人的掛牌價,平均猜偏 93.4 澳幣,誤差中位數 18.9%,約一半(51.9%)猜在兩成內」</td><td>20:305</td></tr>
       <tr><td>「30 天不可訂 = 被訂走」</td><td>「不可訂 = 被訂走或房東自己關,分不出來」</td><td>20:306</td></tr>
@@ -1948,7 +1980,7 @@ table.mtab td { font-size: 13.5px; }
   <div class="sub" id="ask">
     <h3>7c 選好提案之後,再請大家決定 3 件事</h3>
   <div class="grid">
-    <article class="card rec ask"><div class="tag">我的建議,大家決定</div><p class="q">1. 新房東是誰?</p><p><b>建議:</b>先鎖定「準備上架、或已經有一間房想開始做短租的人」。資料上,拿「當房東不超過 12 個月」的房子來對照。</p><p><b>因為:</b>二房東要用租金、想買房的人要用房價,這些我們的資料都沒有。</p></article>
+    <article class="card rec ask"><div class="tag">我的建議,大家決定</div><p class="q">1. 給哪一種房東用?</p><p><b>建議:</b>先鎖定「有自己的房、準備上架或已經在出租的房東」,主打剛開始的新手。資料上,拿「當房東不超過 12 個月」的房子來對照新手。</p><p><b>因為:</b>二房東要用租金、想買房的人要用房價,這些我們的資料都沒有。</p></article>
     <article class="card rec ask"><div class="tag">我的建議,大家決定</div><p class="q">2. 題目怎麼講?</p><p><b>建議:</b>主要講「同類的房子開多少錢、你排在哪」。裝修讓使用者自己填預估值,我們在旁邊給參考範圍。「最大收入」改成「大概能收多少」,放在算收入那一塊,算出低、中、高三個結果。</p><p><b>因為:</b>「最大收入」我的理解是:這間房最多能賺多少。要有訂單資料才算得出來,我們沒有。我們只有房東開的價,和用評論數推出來的「估計住幾晚」。另外一年最多 180 天。</p></article>
     <article class="card rec ask"><div class="tag">我的建議,大家決定</div><p class="q">3. 算收入那一塊(方案 B)怎麼做?</p><p><b>建議:</b>讓使用者自己填成本,我們只給參考範圍(省一點/一般/花多一點),旁邊標來源和年份。</p><p><b>因為:</b>外部數字每家差很多。</p></article>
   </div>
