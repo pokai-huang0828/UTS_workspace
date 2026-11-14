@@ -203,39 +203,88 @@ details.dsec { background: var(--bg); border: 1px solid var(--line); border-radi
 details.dsec > summary { cursor: pointer; padding: 12px 16px; font-weight: 600; color: var(--ink-2); font-size: 17px; }
 details.dsec[open] > summary { border-bottom: 1px solid var(--line); }
 details.dsec > section { border-top: 0; margin: 0; padding: 12px 16px 20px; }
+.sub { margin-top: 18px; padding-top: 6px; scroll-margin-top: 64px; }
+.sub > h3 { font-size: 18px; margin: 0 0 8px; }
+.bigline.sm { font-size: clamp(18px, 2.2vw, 22px); }
+.role { font-size: 13px; color: var(--muted); margin: 0 0 4px; }
+ol.flow4 { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+ol.flow4 li { position: relative; background: var(--surface); border: 1.5px solid var(--accent); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; font-size: 15px; }
+ol.flow4 li.f-ext { border-style: dashed; border-color: var(--pause); }
+ol.flow4 li + li::before { content: "→"; position: absolute; left: -24px; top: 50%; transform: translateY(-50%); color: var(--ink-2); font-size: 20px; font-weight: 700; }
+ol.flow4 .fno { color: var(--accent); font-weight: 700; }
+ol.flow4 .note { font-size: 13px; }
+@media (max-width: 760px) {
+  ol.flow4 { grid-template-columns: 1fr; gap: 26px; }
+  ol.flow4 li + li::before { content: "↓"; left: 50%; top: -24px; transform: translateX(-50%); }
+}
 </style>
 </head>
 <body>
 <nav class="toc" aria-label="章節">
   <ol>
     <li><a href="#guide">怎麼看</a></li>
+    <li><a href="#topic">題目</a></li>
+    <li><a href="#approach">怎麼做</a></li>
     <li><a href="#data">資料</a></li>
-    <li><a href="#plan">我想做什麼</a></li>
-    <li><a href="#outside">上網查到的</a></li>
-    <li><a href="#ask">請大家決定</a></li>
+    <li><a href="#next">接下來</a></li>
+    <li><a href="#looked">查了什麼</a></li>
+    <li><a href="#analysis">我的分析</a></li>
+    <li><a href="#advice">我的建議</a></li>
     <li><a href="#more">細節</a></li>
   </ol>
 </nav>
 <main>
 <header class="top">
-  <h1>11/14 組會:我們有什麼資料、我想做什麼、請大家決定</h1>
+  <h1>11/14 組會:題目、做法、資料,和我的分析與建議</h1>
 </header>
 
 <section id="guide" class="key">
   <h2>這一頁怎麼看</h2>
   <ol class="guide-list">
-    <li>由上往下,只有四件事。</li>
-    <li>每件事先看大字那一句,再看圖。</li>
-    <li>下面灰色的「細節」會議上不用講,有人問再打開。</li>
+    <li>照七個問題往下走:題目 → 怎麼做 → 有什麼資料 → 接下來 → 我查了什麼 → 我的分析 → 我的建議。</li>
+    <li>每一段先看大字那一句,再看圖。</li>
+    <li>最下面灰色的「細節」開會不用講,有人問再打開。</li>
   </ol>
   <div class="mini-legend" aria-label="再檢查結果的符號">
     <span class="vb v-ok">✓ 對得上</span><span class="vb v-warn">△ 大致對</span><span class="vb v-bad">✗ 錯的</span><span class="vb v-pause">? 沒對到</span>
   </div>
 </section>
 
-<section id="data" class="key">
+<section id="topic" class="key">
   <div class="kno">1</div>
-  <h2>我們的資料:有什麼、沒有什麼</h2>
+  <h2>我們的題目是什麼</h2>
+  <p class="bigline">目前的方向(題目名稱還沒定):幫雪梨的新房東看懂,同類的房子開多少錢、自己排在哪。</p>
+  <div class="grid">
+    <article class="card"><h3>已經決定的(11/11 組會)</h3><ul class="tight"><li>方案 A 當主體(同類價格定位)</li><li>方案 B 當延伸(算收入)</li><li>以雪梨為主</li></ul></article>
+    <article class="card"><h3>題目名稱(還是提案)</h3><p class="big">「新房東上架定位助手」</p><p class="note">原本的提案寫雪梨和墨爾本,11/11 已決定以雪梨為主。</p></article>
+    <article class="card"><h3>還沒定的</h3><ul class="tight"><li>題目名稱</li><li>目標那一句</li><li>「新房東」是誰</li></ul><p><b>11/15(日)前要定。</b></p></article>
+  </div>
+  <p class="tiny">出處:筆記 17 第 12、13、16、21、32 行;TODO.md 第 28 行。</p>
+</section>
+
+<section id="approach" class="key">
+  <div class="kno">2</div>
+  <h2>我們打算怎麼做</h2>
+  <p class="bigline">輸入一間房,找出同類,告訴他開價排第幾、缺什麼。</p>
+  <figure class="chart">
+    <ol class="flow4" aria-label="做法四步:輸入一間房,找出同類,告訴他排第幾和缺什麼設施,延伸功能算大概能收多少">
+      <li><span class="fno">①</span><b>使用者輸入一間房</b><span class="note">哪一區、幾個房間、能住幾人</span></li>
+      <li><span class="fno">②</span><b>找出同類的房子</b><span class="note">同一區、同樣房間數、能住的人數差不多</span></li>
+      <li><span class="fno">③</span><b>告訴他</b><span class="note">開價在同類裡排第幾;同類常有、他還沒有的設施</span></li>
+      <li class="f-ext"><span class="fno">④</span><b>延伸功能</b><span class="note">他自己填價格、住幾晚、成本,算出低、中、高三個「大概能收多少」</span></li>
+    </ol>
+    <figcaption>①到③是主體(方案 A);④是延伸(方案 B),用虛線框。同類怎麼分還可以調:這裡的提案是看區、房間數、能住幾人;第 6 段那張圖比的,是只看同一區、同樣房間數的中間價。</figcaption>
+  </figure>
+  <ul class="tight">
+    <li>要做的實驗只有一個:用模型去猜同類行情,跟「直接看同類的中間價」比,看誰比較準。</li>
+    <li>怎麼驗證:等新一季資料出來再檢查。備案是用 6 月的資料訓練,去猜 9 月才出現的 821 間新房子(已經試過一次)。</li>
+  </ul>
+  <p class="tiny">出處:筆記 17 第 15、22–25、66–74、78 行。</p>
+</section>
+
+<section id="data" class="key">
+  <div class="kno">3</div>
+  <h2>我們現在有哪些資料</h2>
   <p class="bigline">有 4 期,最早是 2025 年 12 月;有價格的只有 2026 年 3、6、9 月。</p>
   <figure class="chart">
     <div class="ctitle">2025 年 9 月到 2026 年 9 月,每一期資料(某一天抓下來的整份清單)</div>
@@ -272,40 +321,97 @@ details.dsec > section { border-top: 0; margin: 0; padding: 12px 16px 20px; }
   <p class="tiny">出處:internal_facts B 段(listings 4 期的列數和價格欄、calendar 沒有價格欄、reviews 829,163 列、地區邊界檔 38 個區、官方說明頁的歷史資料申請);D 段(20:303、306、309;22:56、57、58;handoff:2674);A 段方向 6(22:49,買房價、租金不在資料裡)。<a href="#sources">看資料清單</a></p>
 </section>
 
-<section id="plan" class="key">
-  <div class="kno">2</div>
-  <h2>所以我想做什麼</h2>
-  <p class="bigline">主要做兩件事:同一區、同樣房間數的房子開多少錢、你排在哪;還有你缺哪些設施。</p>
-  <div class="tri">
-    <div class="card"><div class="colhead"><span class="pill main">主要 2 個</span></div><ul class="tight"><li>同一區、同樣房間數的房子開多少錢,你排在哪</li><li>別人常有、你還沒有的設施</li></ul></div>
-    <div class="card"><div class="colhead"><span class="pill aux">輔助 3 個</span></div><ul class="tight"><li>新手和老手房東差在哪</li><li>哪幾個月比較旺、哪幾個月比較淡</li><li>各區有幾間房、開價多少的地圖</li></ul></div>
-    <div class="card"><div class="colhead"><span class="pill ext">擴展 2 個</span></div><ul class="tight"><li>收入試算(方案 B):自己填成本,算三種結果</li><li>新一期資料出來,再驗一次</li></ul></div>
-  </div>
+<section id="next" class="key">
+  <div class="kno">4</div>
+  <h2>我們接下來要做什麼</h2>
+  <p class="bigline">今晚先分出主要、輔助、擴展;題目 11/15 前定。</p>
   <figure class="chart">
+    <ol class="tl" aria-label="接下來的時間線:今晚分類,11/15 題目定案,11/22 前選簡報時段,12/11 交 AT2,2027/2/19 交 AT3">
+      <li class="tl-main"><span class="tl-dot"></span><div class="tl-d">今晚 11/14</div><div>每個人講自己的方向 → 合併重複的 → 排順序 → 分成主要、輔助、擴展</div></li>
+      <li><span class="tl-dot"></span><div class="tl-d">11/15(日)</div><div>題目定案;20:59 前交 AT1 週報</div></li>
+      <li><span class="tl-dot"></span><div class="tl-d">11/22(日)前</div><div>選 AT2 簡報時段</div></li>
+      <li><span class="tl-dot"></span><div class="tl-d">12/11(五)20:59</div><div>交 AT2 報告(3,000 字以內)和簡報</div></li>
+      <li><span class="tl-dot"></span><div class="tl-d">2027/2/19(五)20:59</div><div>交 AT3</div></li>
+    </ol>
+  </figure>
+  <p class="small">還要問老師的三件事:模擬資料能不能當評估的依據;AT2 占 20% 還是各 15%;專案介紹是 11/19 還是 11/26。</p>
+  <p class="tiny">出處:TODO.md 第 27–31、39、45 行(要問老師的三件事現在在第 45 行);筆記 17 第 18 行。</p>
+</section>
+
+<section id="looked" class="key">
+  <div class="kno">5</div>
+  <h2>我目前查了哪些資料</h2>
+  <p class="bigline">兩種:我們自己的雪梨資料,和網路上 48 個網站。</p>
+  <div class="grid two">
+    <article class="card">
+      <h3>我們自己的資料</h3>
+      <p>Inside Airbnb 雪梨 4 期(2025 年 12 月到 2026 年 9 月)。</p>
+      <p>我看了六件事:</p>
+      <ul class="tight"><li>各區有幾間房、開價多少</li><li>同類怎麼比</li><li>缺哪些設施</li><li>新手和老手</li><li>淡旺季</li><li>模型準不準</li></ul>
+      <p class="note">這些數字在 11/11 到 11/12 檢查過。紀錄有 11 列:有 1 列是做的人自己檢查,有 1 列(我這份方向草稿)還沒找人檢查。</p>
+      <p class="mini"><a href="#directions">看七個方向的細節</a> · <a href="#verification">看怎麼檢查的</a></p>
+    </article>
+    <article class="card">
+      <h3>網路上的資料</h3>
+      <p>48 個網站,分五類(有的網站跨兩類):短租市場、規定和平台費、裝修和佈置、每月成本、房市。</p>
+      <p>官方的有 NSW 政府、Sydney Water、澳洲央行、澳洲統計局;其他大多是商業網站。</p>
+      <p>204 個數字裡,184 個重新打開網頁對過(143 個對得上、36 個大致對、5 個錯的);2 個打不開、18 個沒去開。</p>
+      <p class="mini"><a href="#how">看這些網站是哪些</a> · <a href="#verification">看怎麼檢查的</a></p>
+    </article>
+  </div>
+  <p class="small">全部是 Claude 的分身互相檢查,沒有用別家的模型。</p>
+  <p class="tiny">出處:internal_facts B、C 段;六件事對到 A 段方向 5、1、2、3、4,模型準不準對到方向 1 和 7;外部行情總表第 0 段、web_verify_blocked8;網站數是本頁列數統計 <a class="calc-ref" href="#calc-r18">算式</a><a class="calc-ref" href="#calc-r19">算式</a></p>
+</section>
+
+<section id="analysis" class="key">
+  <div class="kno">6</div>
+  <h2>我的分析</h2>
+  <p class="role">我負責的是:數據分析(方法)和開發。</p>
+  <p class="bigline">跟同類比,做得到,而且我覺得最有用;收入只能算個大概。</p>
+  <div class="sub">
+    <h3>6a 用我們自己的資料看到的</h3>
+    <figure class="chart">
     <div class="ctitle">平均猜錯幾塊錢(澳幣/晚,越短越好)</div>
     <div id="ch-plan"></div>
     <figcaption>猜的是房東開的價(掛牌價),不是實際訂到的價。模型只少猜錯 8%,所以我建議主打跟同類比,模型當配角(大家決定)。</figcaption>
   </figure>
-  <p class="tiny">出處:筆記 22 第一、三節;筆記 20:127(2026-09 這一期,模型用的 6,615 間)。8% 的算式:<a class="calc-ref" href="#calc-r20">算式</a> <a href="#directions">看七個方向的細節</a></p>
-</section>
-
-<section id="outside" class="key">
-  <div class="kno">3</div>
-  <h2>沒有的資料,我上網查了</h2>
-  <p class="bigline">查得到,但每個網站數字差很多,只能當參考,不能當事實。</p>
+    <div class="grid">
+      <article class="card"><h4>缺哪些設施,算得出來</h4><p>設施那一欄沒有缺資料。一間房的設施數,中間值是 41 項。</p></article>
+      <article class="card"><h4>新手和老手的開價差很小</h4><p>新手 960 間。新手的開價看起來低約 6%,但放回同類裡比,排名只差 1.4 個百分位點。</p></article>
+      <article class="card"><h4>淡旺季看得出方向</h4><p>評論多的月份是 10、11、12 月,少的是 5、6、7 月。只能看方向,不能當成訂房量。</p></article>
+    </div>
+    <p class="tiny">出處:筆記 22 第 44–47 行;筆記 20 第 127 行;internal_facts A 段。算的是哪一群房子:長條圖是 2026-09 那一期、模型用的 6,615 間;41 項、960 間、約 6%、1.4 都是 2026-09「篩選且有價」的 6,639 間(960 間是依當房東年資推算的,約 6% 是沒扣房子差別的原始中間價);「設施欄沒有缺資料」是筆記 22 引筆記 16,沒有再核;評論月份是 2024、2025 兩年的平均。<a class="calc-ref" href="#calc-r20">算式</a> <a href="#directions">看細節</a></p>
+  </div>
+  <div class="sub" id="outside">
+    <h3>6b 沒有的資料,我上網查到的</h3>
+  <p class="bigline sm">查得到,但每個網站數字差很多,只能當參考。</p>
   <div class="grid">
     <article class="card"><h3>一晚多少錢、住滿幾成、一年收多少</h3><p>各網站差很多。</p><ul class="tight"><li>每晚:$193 到 AUD 399</li><li>住滿:49.5% 到 78.0% △</li><li>一年(還沒扣成本):$40.8K 到 AUD 83,094 △</li><li>△ = 那一家再檢查時只大致對</li></ul></article>
     <article class="card"><h3>裝修和佈置</h3><p>只有報價網站,範圍很寬。</p><ul class="tight"><li>浴室:8,000 到 63,250 澳幣</li><li>廚房:8,000 到 68,000 澳幣</li><li>上面是不同網站的最低到最高</li><li>1 房從空屋到能上架,三種估法:5,637/6,537/43,988 到 48,818 澳幣</li><li>這三個是很粗的估法,每一個都有問題,只當參考</li></ul></article>
     <article class="card"><h3>每個月固定要付的</h3><p>三種人差很多。</p><ul class="tight"><li>已經有房的:粗估約 641/797/1,101 澳幣/月(省一點/一般/花多一點)</li><li>裡面算了:電費、管理費、水、瓦斯、網路、保險。市政費還沒算</li><li>瓦斯、網路、保險是網路上的粗略數字,還沒再檢查 ?。只是抓個大概,使用者可以改</li><li>二房東:光租金就約 3,250(公寓,2025 年)到 3,618(獨棟,2026 年)澳幣/月</li></ul></article>
     <article class="card"><h3>規定</h3><ul class="tight"><li>房東不住在裡面的整套房,大雪梨一年最多租 180 天(一次連續住 21 天以上的不算;細節看官方頁)</li><li>Airbnb 向房東抽 15.5%</li></ul></article>
   </div>
-  <p class="small">這些數字我請另一組分身重新打開網頁對過:204 個裡有 184 個對到網頁(143 個對得上、36 個大致對、5 個錯的),另外 2 個網頁打不開、18 個沒去開。全部是 Claude 的分身互相檢查,沒有用別家的模型。<a href="#verification">看怎麼檢查的</a></p>
-  <p class="tiny">出處(外部行情總表):每晚 1.02、1.08;住滿 1.09、1.24;一年 1.04、1.19,另有一家寫 $50,800–$97,700 的範圍(1.27);只寫 $ 的沒標幣別。浴室、廚房 3.03、3.04、3.14、3.18 <a class="calc-ref" href="#calc-r22">算式</a>;1 房三種估法是補查後版本 6(i)-B <a class="calc-ref" href="#calc-r4">算式</a><a class="calc-ref" href="#calc-r5">算式</a><a class="calc-ref" href="#calc-r6">算式</a>;每月固定 6(ii) <a class="calc-ref" href="#calc-r11">算式</a><a class="calc-ref" href="#calc-r12">算式</a>,加上水、瓦斯、網路、保險(4.24、4.25、4.26、4.30)的粗估 <a class="calc-ref" href="#calc-r23">算式</a>;180 天 2.01(NSW 官方頁);15.5% 2.08(頁面寫是全球平均)。再檢查統計:總表第 0 段、web_verify_blocked8 <a class="calc-ref" href="#calc-r19">算式</a></p>
+  <p class="tiny">出處(外部行情總表):每晚 1.02、1.08;住滿 1.09、1.24;一年 1.04、1.19,另有一家寫 $50,800–$97,700 的範圍(1.27);只寫 $ 的沒標幣別。浴室、廚房 3.03、3.04、3.14、3.18 <a class="calc-ref" href="#calc-r22">算式</a>;1 房三種估法是補查後版本 6(i)-B <a class="calc-ref" href="#calc-r4">算式</a><a class="calc-ref" href="#calc-r5">算式</a><a class="calc-ref" href="#calc-r6">算式</a>;每月固定 6(ii) <a class="calc-ref" href="#calc-r11">算式</a><a class="calc-ref" href="#calc-r12">算式</a>,加上水、瓦斯、網路、保險(4.24、4.25、4.26、4.30)的粗估 <a class="calc-ref" href="#calc-r23">算式</a>;180 天 2.01(NSW 官方頁);15.5% 2.08(頁面寫是全球平均)。</p>
+
+  </div>
+  <p class="tiny">職責出處:Innovation Studio/README.md 第 145 行。</p>
 </section>
 
-<section id="ask" class="key">
-  <div class="kno">4</div>
-  <h2>請大家決定 3 件事</h2>
+<section id="advice" class="key">
+  <div class="kno">7</div>
+  <h2>我的建議</h2>
+  <p class="bigline">主要做同類比較和設施缺口;其他當輔助和延伸。</p>
+  <div class="sub" id="plan">
+    <h3>7a 方向怎麼分</h3>
+    <div class="tri">
+    <div class="card"><div class="colhead"><span class="pill main">主要 2 個</span></div><ul class="tight"><li>同一區、同樣房間數的房子開多少錢,你排在哪</li><li>別人常有、你還沒有的設施</li></ul></div>
+    <div class="card"><div class="colhead"><span class="pill aux">輔助 3 個</span></div><ul class="tight"><li>新手和老手房東差在哪</li><li>哪幾個月比較旺、哪幾個月比較淡</li><li>各區有幾間房、開價多少的地圖</li></ul></div>
+    <div class="card"><div class="colhead"><span class="pill ext">擴展 2 個</span></div><ul class="tight"><li>收入試算(方案 B):自己填成本,算三種結果</li><li>新一期資料出來,再驗一次</li></ul></div>
+  </div>
+    <p class="tiny">出處:筆記 22 第一、三節。</p>
+  </div>
+  <div class="sub" id="ask">
+    <h3>7b 請大家決定 3 件事</h3>
   <div class="grid">
     <article class="card rec ask"><div class="tag">我的建議,大家決定</div><p class="q">1. 新房東是誰?</p><p><b>建議:</b>先鎖定「準備上架、或已經有一間房想開始做短租的人」。資料上,拿「當房東不超過 12 個月」的房子來對照。</p><p><b>因為:</b>二房東要用租金、想買房的人要用房價,這些我們的資料都沒有。</p></article>
     <article class="card rec ask"><div class="tag">我的建議,大家決定</div><p class="q">2. 題目怎麼講?</p><p><b>建議:</b>主要講「同類的房子開多少錢、你排在哪」。裝修讓使用者自己填預估值,我們在旁邊給參考範圍。「最大收入」改成「大概能收多少」,放在算收入那一塊,算出低、中、高三個結果。</p><p><b>因為:</b>「最大收入」我的理解是:這間房最多能賺多少。要有訂單資料才算得出來,我們沒有。我們只有房東開的價,和用評論數推出來的「估計住幾晚」。另外一年最多 180 天。</p></article>
@@ -313,6 +419,8 @@ details.dsec > section { border-top: 0; margin: 0; padding: 12px 16px 20px; }
   </div>
   <p class="bigline2">期限:題目 11/15(日)前要定。</p>
   <p class="tiny">出處:筆記 22 第四節;筆記 16(B①:已經有房,自己填成本;第 336 行:沒有訂單資料,不說「最大化收入」);筆記 17 第 50 行(收入只有估計值:開價乘上用評論數推的住幾晚,沒有真的帳可以對);外部行情總表 2.01;期限見 TODO.md 第 28 行。<a href="#decisions">看完整版</a></p>
+
+  </div>
 </section>
 
 <div id="more" class="more">
@@ -718,7 +826,7 @@ details.dsec > section { border-top: 0; margin: 0; padding: 12px 16px 20px; }
       <div class="tag">我的建議,待大家決定</div>
     </article>
     <article class="card rec">
-      <h3>Q3 方案 A 的描述要不要拿掉「裝修」「最大收入」?</h3>
+      <h3>Q3 方案 A 的描述裡,「裝修」「最大收入」怎麼處理?</h3>
       <div class="qa">
         <div><div class="lbl">外部行情說了什麼</div>裝修只有商業報價、區間寬(浴室 8,000 到 63,250 AUD,跨來源的最低到最高,不是同一家的區間<a class="calc-ref" href="#calc-r22">算式</a>),我們的資料沒有裝修欄。非房東同住一年最多 180 天;各家每間年收入估計從 $40.8K(幣別未標)到 AUD 83,094,另有 Hometime 文章稱 $50,800–$97,700。</div>
         <div><div class="lbl">我的建議</div>改說:「告訴新房東同類房源掛多少、他排在哪」。資料裡沒有裝修,只有設施,所以裝修不當分析主題,改成在收入試算裡讓使用者自己填預估值,我們給參考範圍。「最大收入」改成「大概能收多少」,放在收入試算裡算出低、中、高三個結果(11/14 中午更新)。</div>
@@ -920,7 +1028,7 @@ details.dsec > section { border-top: 0; margin: 0; padding: 12px 16px 20px; }
   </ul>
 
   <h3>(f) 頁面對賬</h3>
-  <div id="reconcile-result">頁面對賬(2026-11-14,共三輪):由沒有參與製作的獨立分身拿這一頁和講稿跟來源檔對賬。明細表 190 列對總表逐列逐欄比對:184 列完全一致,其餘 6 列是 Chrome 補查的預期覆蓋(查核判定改了,加註前面多了「補查前:」);補查的 8 列判定 8/8 吻合。手寫數字掃描 1,296 個,字面出處都找得到(期限日期與 AT2 占比出自課程待辦 TODO.md,不在行情來源檔)。『本頁所有計算』第一輪的 21 條算式重算全部正確;之後新增的第 22 列(浴室、廚房跨來源的最低到最高)不是加總,四個端點在第二輪逐一對過。第一輪找到高 2、中 8、低 8 個缺陷,都是說法與口徑問題,不是數字抄錯。第二輪複查這 18 個:15 個修好、2 個部分修好、1 個沒修(瀏覽器停用 JavaScript 時統計格會空白,開會用不到,列入備查);第二輪另外找到 4 個小問題(中 1、低 3)。部分修好的 2 個和這 4 個小問題已在第二輪之後修正;這一批修正只有報告人這邊自己檢查,沒有再送獨立對賬。之後頁面改成現在這個樣子(最上面的白話重點版,加上 3 分鐘講稿),同一位對賬員做了第三輪:沒有數字抄錯,找到高 0、中 2、低 10 個說法上的問題(例如沒寫清楚只算了哪些費用、沒標哪個數字只大致對);中的 2 個和大部分低的已修正,這一批同樣只有報告人這邊自己檢查。三輪對賬都沒有看版面;前兩輪沒有核對筆記 20 的原文行號。第三輪之後又加了兩樣:「已經有房的每月粗估」加上水、瓦斯、網路、保險(算式第 23 列),和「題目怎麼講」那張卡的新寫法(裝修讓使用者自己填、「最大收入」改成「大概能收多少」);這兩樣由同一位對賬員做了第四輪驗算:三個合計(641、797、1,101)和 14 個加數都對;另外找到高 0、中 2、低 4 個說法上的問題(例如網路的 86 不是 NBN 50 的價、前提沒寫齊),已修正,這一批同樣只有報告人這邊自己檢查。</div>
+  <div id="reconcile-result">頁面對賬(2026-11-14,共五輪):由沒有參與製作的獨立分身拿這一頁和講稿跟來源檔對賬。明細表 190 列對總表逐列逐欄比對:184 列完全一致,其餘 6 列是 Chrome 補查的預期覆蓋(查核判定改了,加註前面多了「補查前:」);補查的 8 列判定 8/8 吻合。手寫數字掃描 1,296 個,字面出處都找得到(期限日期與 AT2 占比出自課程待辦 TODO.md,不在行情來源檔)。『本頁所有計算』第一輪的 21 條算式重算全部正確;之後新增的第 22 列(浴室、廚房跨來源的最低到最高)不是加總,四個端點在第二輪逐一對過。第一輪找到高 2、中 8、低 8 個缺陷,都是說法與口徑問題,不是數字抄錯。第二輪複查這 18 個:15 個修好、2 個部分修好、1 個沒修(瀏覽器停用 JavaScript 時統計格會空白,開會用不到,列入備查);第二輪另外找到 4 個小問題(中 1、低 3)。部分修好的 2 個和這 4 個小問題已在第二輪之後修正;這一批修正只有報告人這邊自己檢查,沒有再送獨立對賬。之後頁面改成現在這個樣子(最上面的白話重點版,加上 3 分鐘講稿),同一位對賬員做了第三輪:沒有數字抄錯,找到高 0、中 2、低 10 個說法上的問題(例如沒寫清楚只算了哪些費用、沒標哪個數字只大致對);中的 2 個和大部分低的已修正,這一批同樣只有報告人這邊自己檢查。三輪對賬都沒有看版面;前兩輪沒有核對筆記 20 的原文行號。第三輪之後又加了兩樣:「已經有房的每月粗估」加上水、瓦斯、網路、保險(算式第 23 列),和「題目怎麼講」那張卡的新寫法(裝修讓使用者自己填、「最大收入」改成「大概能收多少」);這兩樣由同一位對賬員做了第四輪驗算:三個合計(641、797、1,101)和 14 個加數都對;另外找到高 0、中 2、低 4 個說法上的問題(例如網路的 86 不是 NBN 50 的價、前提沒寫齊),已修正,這一批同樣只有報告人這邊自己檢查。最後頁面上半改成七個問題的順序(題目、怎麼做、資料、接下來、查了什麼、我的分析、我的建議),講稿也照七段重寫;同一位對賬員做了第五輪:沒有數字抄錯,日期和期限逐一對過,找到高 0、中 3、低 7 個說法上的問題(例如把白話的方向寫得像定案的題目、漏了一列還沒找人檢查的紀錄),已修正,這一批也只有報告人這邊自己檢查。</div>
 </section>
 </details>
 
