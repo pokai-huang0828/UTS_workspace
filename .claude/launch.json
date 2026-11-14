@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8765", "--bind", "127.0.0.1", "--directory", "Innovation Studio/reports"],
       "port": 8765
+    },
+    {
+      "name": "is-meeting-1114",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8766", "--bind", "127.0.0.1", "--directory", "Innovation Studio/meeting_1114"],
+      "port": 8766
     }
   ]
 }
