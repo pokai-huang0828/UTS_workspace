@@ -1,0 +1,1678 @@
+{
+ "scope_id": "IS-1114-inventory-01",
+ "date": "2026-11-14",
+ "periods": [
+  "2025-12-12",
+  "2026-03-21",
+  "2026-06-16",
+  "2026-09-16"
+ ],
+ "main_period": "2026-09-16",
+ "files": [
+  {
+   "period": "2025-12-12",
+   "folder": "data",
+   "file": "listings.csv.gz",
+   "bytes": 11627165,
+   "rows": 20436,
+   "cols": 85,
+   "rc_note": null,
+   "what": "每間房一列的完整資料(房型、價格、房東、評分、設施…)",
+   "used": "用了:syd_a(日曆房號)、syd_c(新手與跨期)",
+   "manifest_bytes": 11627165,
+   "size_ok": true,
+   "sha256": "bde52b1fc6679cdf2ef42e230a1009abeae9995754acd2a3ccae53308835790d",
+   "manifest_sha256": "bde52b1fc6679cdf2ef42e230a1009abeae9995754acd2a3ccae53308835790d",
+   "sha_ok": true
+  },
+  {
+   "period": "2025-12-12",
+   "folder": "data",
+   "file": "calendar.csv.gz",
+   "bytes": 18647040,
+   "rows": 7459152,
+   "cols": 5,
+   "rc_note": null,
+   "what": "每間房未來約一年、每天一列:這天能不能訂、當天價格",
+   "used": "用了:syd_a 算抓取日後 30/60/90 天不能訂的比例(四期都算)",
+   "manifest_bytes": 18647040,
+   "size_ok": true,
+   "sha256": "a2b4802d471ae0dad90318884beaeafe79c6cac6443b258655e1616a9441db1b",
+   "manifest_sha256": "a2b4802d471ae0dad90318884beaeafe79c6cac6443b258655e1616a9441db1b",
+   "sha_ok": true
+  },
+  {
+   "period": "2025-12-12",
+   "folder": "data",
+   "file": "reviews.csv.gz",
+   "bytes": 77449899,
+   "rows": 737733,
+   "cols": 6,
+   "rc_note": null,
+   "what": "每則評論一列(含評論全文)",
+   "used": "還沒用到",
+   "manifest_bytes": 77449899,
+   "size_ok": true,
+   "sha256": "5df5bc7e611e4160097ff26ec37130b2964fb1bc3286ba6899a2bf3acdb9dbb7",
+   "manifest_sha256": "5df5bc7e611e4160097ff26ec37130b2964fb1bc3286ba6899a2bf3acdb9dbb7",
+   "sha_ok": true
+  },
+  {
+   "period": "2025-12-12",
+   "folder": "visualisations",
+   "file": "listings.csv",
+   "bytes": 3762554,
+   "rows": 20436,
+   "cols": 19,
+   "rc_note": null,
+   "what": "精簡版房源表(欄位少很多)",
+   "used": "還沒用到",
+   "manifest_bytes": 3762554,
+   "size_ok": true,
+   "sha256": "26444d7d67974992b686fea168006097866772ecba8be21427579800d3fd0e3c",
+   "manifest_sha256": "26444d7d67974992b686fea168006097866772ecba8be21427579800d3fd0e3c",
+   "sha_ok": true
+  },
+  {
+   "period": "2025-12-12",
+   "folder": "visualisations",
+   "file": "reviews.csv",
+   "bytes": 17650938,
+   "rows": 737733,
+   "cols": 2,
+   "rc_note": null,
+   "what": "精簡版評論表(只有房號和日期)",
+   "used": "還沒用到",
+   "manifest_bytes": 17650938,
+   "size_ok": true,
+   "sha256": "425b90894bcc9866f08aa9b05f41ca94aa6b65e49074c1f974db69772c51b029",
+   "manifest_sha256": "425b90894bcc9866f08aa9b05f41ca94aa6b65e49074c1f974db69772c51b029",
+   "sha_ok": true
+  },
+  {
+   "period": "2025-12-12",
+   "folder": "visualisations",
+   "file": "neighbourhoods.csv",
+   "bytes": 461,
+   "rows": 38,
+   "cols": 2,
+   "rc_note": null,
+   "what": "區名清單",
+   "used": "還沒用到",
+   "manifest_bytes": 461,
+   "size_ok": true,
+   "sha256": "c822c3135f6f4a61e197ac6b390ce3c6892fdc8f2afaf1e4592f7216e5d5d768",
+   "manifest_sha256": "c822c3135f6f4a61e197ac6b390ce3c6892fdc8f2afaf1e4592f7216e5d5d768",
+   "sha_ok": true
+  },
+  {
+   "period": "2025-12-12",
+   "folder": "visualisations",
+   "file": "neighbourhoods.geojson",
+   "bytes": 4268915,
+   "rows": 38,
+   "cols": 2,
+   "rc_note": "geojson:列 = 區的個數(features),欄 = 每區屬性個數",
+   "what": "各區邊界的地圖檔",
+   "used": "還沒用到",
+   "manifest_bytes": 4268915,
+   "size_ok": true,
+   "sha256": "e5103823d7664472f8b6ad9255ad8b45c93e06be5173114bda62448480d4aeb8",
+   "manifest_sha256": "e5103823d7664472f8b6ad9255ad8b45c93e06be5173114bda62448480d4aeb8",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-03-21",
+   "folder": "data",
+   "file": "listings.csv.gz",
+   "bytes": 9036609,
+   "rows": 13563,
+   "cols": 90,
+   "rc_note": null,
+   "what": "每間房一列的完整資料(房型、價格、房東、評分、設施…)",
+   "used": "用了:syd_a(日曆房號)、syd_c(新手與跨期)",
+   "manifest_bytes": 9036609,
+   "size_ok": true,
+   "sha256": "5697404fb8d640a1532f184dab5152bec24b62f45721934b557a3a1c948c8004",
+   "manifest_sha256": "5697404fb8d640a1532f184dab5152bec24b62f45721934b557a3a1c948c8004",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-03-21",
+   "folder": "data",
+   "file": "calendar.csv.gz",
+   "bytes": 11930170,
+   "rows": 4950495,
+   "cols": 5,
+   "rc_note": null,
+   "what": "每間房未來約一年、每天一列:這天能不能訂、當天價格",
+   "used": "用了:syd_a 算抓取日後 30/60/90 天不能訂的比例(四期都算)",
+   "manifest_bytes": 11930170,
+   "size_ok": true,
+   "sha256": "52572af886e726913a46b5112cee31ff1d87d08daf831ab4948bbd8df61388d3",
+   "manifest_sha256": "52572af886e726913a46b5112cee31ff1d87d08daf831ab4948bbd8df61388d3",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-03-21",
+   "folder": "data",
+   "file": "reviews.csv.gz",
+   "bytes": 68790038,
+   "rows": 649874,
+   "cols": 6,
+   "rc_note": null,
+   "what": "每則評論一列(含評論全文)",
+   "used": "還沒用到",
+   "manifest_bytes": 68790038,
+   "size_ok": true,
+   "sha256": "cc4d1ea44ff3639679f6acb05bf0dc8c4f497d4633595eb1af757353f26cc95e",
+   "manifest_sha256": "cc4d1ea44ff3639679f6acb05bf0dc8c4f497d4633595eb1af757353f26cc95e",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-03-21",
+   "folder": "visualisations",
+   "file": "listings.csv",
+   "bytes": 2594372,
+   "rows": 13563,
+   "cols": 19,
+   "rc_note": null,
+   "what": "精簡版房源表(欄位少很多)",
+   "used": "還沒用到",
+   "manifest_bytes": 2594372,
+   "size_ok": true,
+   "sha256": "c80d967d1ef7a6715cd02a5b62b00b16720d87364f7a6ec08137e5e56885f4a4",
+   "manifest_sha256": "c80d967d1ef7a6715cd02a5b62b00b16720d87364f7a6ec08137e5e56885f4a4",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-03-21",
+   "folder": "visualisations",
+   "file": "reviews.csv",
+   "bytes": 15830119,
+   "rows": 649874,
+   "cols": 2,
+   "rc_note": null,
+   "what": "精簡版評論表(只有房號和日期)",
+   "used": "還沒用到",
+   "manifest_bytes": 15830119,
+   "size_ok": true,
+   "sha256": "005a6cd7977b1a8693640e16f89c0359ccfaa4c1559f095c00f9519dc06901cf",
+   "manifest_sha256": "005a6cd7977b1a8693640e16f89c0359ccfaa4c1559f095c00f9519dc06901cf",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-03-21",
+   "folder": "visualisations",
+   "file": "neighbourhoods.csv",
+   "bytes": 461,
+   "rows": 38,
+   "cols": 2,
+   "rc_note": null,
+   "what": "區名清單",
+   "used": "還沒用到",
+   "manifest_bytes": 461,
+   "size_ok": true,
+   "sha256": "c822c3135f6f4a61e197ac6b390ce3c6892fdc8f2afaf1e4592f7216e5d5d768",
+   "manifest_sha256": "c822c3135f6f4a61e197ac6b390ce3c6892fdc8f2afaf1e4592f7216e5d5d768",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-03-21",
+   "folder": "visualisations",
+   "file": "neighbourhoods.geojson",
+   "bytes": 4268915,
+   "rows": 38,
+   "cols": 2,
+   "rc_note": "geojson:列 = 區的個數(features),欄 = 每區屬性個數",
+   "what": "各區邊界的地圖檔",
+   "used": "還沒用到",
+   "manifest_bytes": 4268915,
+   "size_ok": true,
+   "sha256": "e5103823d7664472f8b6ad9255ad8b45c93e06be5173114bda62448480d4aeb8",
+   "manifest_sha256": "e5103823d7664472f8b6ad9255ad8b45c93e06be5173114bda62448480d4aeb8",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-06-16",
+   "folder": "data",
+   "file": "listings.csv.gz",
+   "bytes": 12633389,
+   "rows": 20573,
+   "cols": 90,
+   "rc_note": null,
+   "what": "每間房一列的完整資料(房型、價格、房東、評分、設施…)",
+   "used": "用了:syd_a、syd_b(6 月訓練、測 9 月新房源)、syd_c",
+   "manifest_bytes": 12633389,
+   "size_ok": true,
+   "sha256": "56c7b83723a195d6e4d0bf6d6ecd6da9b43b00cda9c9f6c08ffe11b7ee79597d",
+   "manifest_sha256": "56c7b83723a195d6e4d0bf6d6ecd6da9b43b00cda9c9f6c08ffe11b7ee79597d",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-06-16",
+   "folder": "data",
+   "file": "calendar.csv.gz",
+   "bytes": 17897549,
+   "rows": 7509145,
+   "cols": 5,
+   "rc_note": null,
+   "what": "每間房未來約一年、每天一列:這天能不能訂、當天價格",
+   "used": "用了:syd_a 算抓取日後 30/60/90 天不能訂的比例(四期都算)",
+   "manifest_bytes": 17897549,
+   "size_ok": true,
+   "sha256": "7ce1b83795e82000f872886f187cac6a2b7f4b50a7bc829640689e8df0800b98",
+   "manifest_sha256": "7ce1b83795e82000f872886f187cac6a2b7f4b50a7bc829640689e8df0800b98",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-06-16",
+   "folder": "data",
+   "file": "reviews.csv.gz",
+   "bytes": 84860225,
+   "rows": 801398,
+   "cols": 6,
+   "rc_note": null,
+   "what": "每則評論一列(含評論全文)",
+   "used": "還沒用到",
+   "manifest_bytes": 84860225,
+   "size_ok": true,
+   "sha256": "cfd7ee701498d12186ba8425cf2be2dd34e92b9ae05cecfb32c0d340654d7798",
+   "manifest_sha256": "cfd7ee701498d12186ba8425cf2be2dd34e92b9ae05cecfb32c0d340654d7798",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-06-16",
+   "folder": "visualisations",
+   "file": "listings.csv",
+   "bytes": 3874496,
+   "rows": 20573,
+   "cols": 19,
+   "rc_note": null,
+   "what": "精簡版房源表(欄位少很多)",
+   "used": "還沒用到",
+   "manifest_bytes": 3874496,
+   "size_ok": true,
+   "sha256": "695ae7fec7fef9e24a0a9569071fa06d77fcb8517213b747f1e2700456f23372",
+   "manifest_sha256": "695ae7fec7fef9e24a0a9569071fa06d77fcb8517213b747f1e2700456f23372",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-06-16",
+   "folder": "visualisations",
+   "file": "reviews.csv",
+   "bytes": 19543841,
+   "rows": 801398,
+   "cols": 2,
+   "rc_note": null,
+   "what": "精簡版評論表(只有房號和日期)",
+   "used": "還沒用到",
+   "manifest_bytes": 19543841,
+   "size_ok": true,
+   "sha256": "430e6d4a82b74cd1f6ae6745b07b0222c4495eb3d5c9af3f6a61bca5407a6ff5",
+   "manifest_sha256": "430e6d4a82b74cd1f6ae6745b07b0222c4495eb3d5c9af3f6a61bca5407a6ff5",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-06-16",
+   "folder": "visualisations",
+   "file": "neighbourhoods.csv",
+   "bytes": 461,
+   "rows": 38,
+   "cols": 2,
+   "rc_note": null,
+   "what": "區名清單",
+   "used": "還沒用到",
+   "manifest_bytes": 461,
+   "size_ok": true,
+   "sha256": "c822c3135f6f4a61e197ac6b390ce3c6892fdc8f2afaf1e4592f7216e5d5d768",
+   "manifest_sha256": "c822c3135f6f4a61e197ac6b390ce3c6892fdc8f2afaf1e4592f7216e5d5d768",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-06-16",
+   "folder": "visualisations",
+   "file": "neighbourhoods.geojson",
+   "bytes": 4268915,
+   "rows": 38,
+   "cols": 2,
+   "rc_note": "geojson:列 = 區的個數(features),欄 = 每區屬性個數",
+   "what": "各區邊界的地圖檔",
+   "used": "還沒用到",
+   "manifest_bytes": 4268915,
+   "size_ok": true,
+   "sha256": "e5103823d7664472f8b6ad9255ad8b45c93e06be5173114bda62448480d4aeb8",
+   "manifest_sha256": "e5103823d7664472f8b6ad9255ad8b45c93e06be5173114bda62448480d4aeb8",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-09-16",
+   "folder": "data",
+   "file": "listings.csv.gz",
+   "bytes": 12747164,
+   "rows": 20833,
+   "cols": 90,
+   "rc_note": null,
+   "what": "每間房一列的完整資料(房型、價格、房東、評分、設施…)",
+   "used": "用了:主力。syd_a 市場概況、syd_b 定價模型、syd_c 新手、syd_y 評論時間",
+   "manifest_bytes": 12747164,
+   "size_ok": true,
+   "sha256": "06bbd629fbe93d9da1f2163e82d584a58738a53d7897d5c081f665aadc4e3c55",
+   "manifest_sha256": "06bbd629fbe93d9da1f2163e82d584a58738a53d7897d5c081f665aadc4e3c55",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-09-16",
+   "folder": "data",
+   "file": "calendar.csv.gz",
+   "bytes": 18355900,
+   "rows": 7604045,
+   "cols": 5,
+   "rc_note": null,
+   "what": "每間房未來約一年、每天一列:這天能不能訂、當天價格",
+   "used": "用了:syd_a 算抓取日後 30/60/90 天不能訂的比例(四期都算)",
+   "manifest_bytes": 18355900,
+   "size_ok": true,
+   "sha256": "011092143767102b5792407db7795d2c8ab5884694a9fa4ca64a47c513e0c477",
+   "manifest_sha256": "011092143767102b5792407db7795d2c8ab5884694a9fa4ca64a47c513e0c477",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-09-16",
+   "folder": "data",
+   "file": "reviews.csv.gz",
+   "bytes": 87294835,
+   "rows": 829163,
+   "cols": 6,
+   "rc_note": null,
+   "what": "每則評論一列(含評論全文)",
+   "used": "用了:syd_y 只讀房號和日期兩欄,算每月評論數、新上架",
+   "manifest_bytes": 87294835,
+   "size_ok": true,
+   "sha256": "5cb26a8a226f8d0dbcb3d6a3707e51e8f298be5fe67527658e1db03a0e5b8667",
+   "manifest_sha256": "5cb26a8a226f8d0dbcb3d6a3707e51e8f298be5fe67527658e1db03a0e5b8667",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-09-16",
+   "folder": "visualisations",
+   "file": "listings.csv",
+   "bytes": 3874042,
+   "rows": 20833,
+   "cols": 19,
+   "rc_note": null,
+   "what": "精簡版房源表(欄位少很多)",
+   "used": "還沒用到",
+   "manifest_bytes": 3874042,
+   "size_ok": true,
+   "sha256": "1665fdc3fbb6676a9ea1de5bbe6f38474fb94d515499a8c5f24e3106cdf9e2d9",
+   "manifest_sha256": "1665fdc3fbb6676a9ea1de5bbe6f38474fb94d515499a8c5f24e3106cdf9e2d9",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-09-16",
+   "folder": "visualisations",
+   "file": "reviews.csv",
+   "bytes": 20407613,
+   "rows": 829163,
+   "cols": 2,
+   "rc_note": null,
+   "what": "精簡版評論表(只有房號和日期)",
+   "used": "還沒用到",
+   "manifest_bytes": 20407613,
+   "size_ok": true,
+   "sha256": "bb688f9ca411ff88ca4a2d80e8bb48e06a84d1ca805c019999e51c76ca90a956",
+   "manifest_sha256": "bb688f9ca411ff88ca4a2d80e8bb48e06a84d1ca805c019999e51c76ca90a956",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-09-16",
+   "folder": "visualisations",
+   "file": "neighbourhoods.csv",
+   "bytes": 461,
+   "rows": 38,
+   "cols": 2,
+   "rc_note": null,
+   "what": "區名清單",
+   "used": "還沒用到",
+   "manifest_bytes": 461,
+   "size_ok": true,
+   "sha256": "c822c3135f6f4a61e197ac6b390ce3c6892fdc8f2afaf1e4592f7216e5d5d768",
+   "manifest_sha256": "c822c3135f6f4a61e197ac6b390ce3c6892fdc8f2afaf1e4592f7216e5d5d768",
+   "sha_ok": true
+  },
+  {
+   "period": "2026-09-16",
+   "folder": "visualisations",
+   "file": "neighbourhoods.geojson",
+   "bytes": 4268915,
+   "rows": 38,
+   "cols": 2,
+   "rc_note": "geojson:列 = 區的個數(features),欄 = 每區屬性個數",
+   "what": "各區邊界的地圖檔",
+   "used": "用了:syd_a 畫地圖、核對區名",
+   "manifest_bytes": 4268915,
+   "size_ok": true,
+   "sha256": "e5103823d7664472f8b6ad9255ad8b45c93e06be5173114bda62448480d4aeb8",
+   "manifest_sha256": "e5103823d7664472f8b6ad9255ad8b45c93e06be5173114bda62448480d4aeb8",
+   "sha_ok": true
+  }
+ ],
+ "extra_files_in_manifest": [
+  {
+   "file": "2025-12-12/data/calendar.csv",
+   "manifest_bytes": 269186986,
+   "on_disk_bytes": 269186986,
+   "size_ok": true
+  },
+  {
+   "file": "2025-12-12/data/listings.csv",
+   "manifest_bytes": 46505326,
+   "on_disk_bytes": 46505326,
+   "size_ok": true
+  },
+  {
+   "file": "2025-12-12/data/reviews.csv",
+   "manifest_bytes": 203424557,
+   "on_disk_bytes": 203424557,
+   "size_ok": true
+  },
+  {
+   "file": "2026-03-21/data/calendar.csv",
+   "manifest_bytes": 180106471,
+   "on_disk_bytes": 180106471,
+   "size_ok": true
+  },
+  {
+   "file": "2026-03-21/data/listings.csv",
+   "manifest_bytes": 41179447,
+   "on_disk_bytes": 41179447,
+   "size_ok": true
+  },
+  {
+   "file": "2026-03-21/data/reviews.csv",
+   "manifest_bytes": 179951583,
+   "on_disk_bytes": 179951583,
+   "size_ok": true
+  },
+  {
+   "file": "2026-06-16/data/calendar.csv",
+   "manifest_bytes": 272396807,
+   "on_disk_bytes": 272396807,
+   "size_ok": true
+  },
+  {
+   "file": "2026-06-16/data/listings.csv",
+   "manifest_bytes": 59150377,
+   "on_disk_bytes": 59150377,
+   "size_ok": true
+  },
+  {
+   "file": "2026-06-16/data/reviews.csv",
+   "manifest_bytes": 222513650,
+   "on_disk_bytes": 222513650,
+   "size_ok": true
+  },
+  {
+   "file": "2026-09-16/data/calendar.csv",
+   "manifest_bytes": 276539146,
+   "on_disk_bytes": 276539146,
+   "size_ok": true
+  },
+  {
+   "file": "2026-09-16/data/listings.csv",
+   "manifest_bytes": 60807105,
+   "on_disk_bytes": 60807105,
+   "size_ok": true
+  },
+  {
+   "file": "2026-09-16/data/reviews.csv",
+   "manifest_bytes": 230219039,
+   "on_disk_bytes": 230219039,
+   "size_ok": true
+  }
+ ],
+ "files_on_disk_not_in_manifest": [],
+ "manifest_lines": 40,
+ "rules": [
+  {
+   "rule": "價格字串去掉「,」「$」空白後轉成數字;轉不出來的當缺值",
+   "why": "原始 price 是像 $1,200.00 的字串,不轉不能算",
+   "source": "syd_a_market.py L68-L69(num);airbnb_ab_field_inventory.py L40-L45;syd_b_positioning.py L100;syd_c_hosts_time.py L63"
+  },
+  {
+   "rule": "讀檔一律當字串、空白不當缺值(再自己轉數字)",
+   "why": "避免 pandas 把「1」「01」或空字串亂轉",
+   "source": "syd_a_market.py L61;syd_b_positioning.py L65"
+  },
+  {
+   "rule": "「有開價」= price 欄不是空白",
+   "why": "價格空白的房子沒有可比的價錢;2025-12 整欄空白所以那期沒有有開價的",
+   "source": "syd_a_market.py L359;syd_b_positioning.py L99"
+  },
+  {
+   "rule": "只留整套出租(room_type = Entire home/apt)",
+   "why": "整套和只租一間房間的價錢不能直接比",
+   "source": "syd_a_market.py L75;airbnb_ab_field_inventory.py L49"
+  },
+  {
+   "rule": "只留 1 到 2 房(bedrooms 是 1 或 2)",
+   "why": "新房東多半是小房子;房間數空白或 0 的不留",
+   "source": "syd_a_market.py L75;airbnb_ab_field_inventory.py L49"
+  },
+  {
+   "rule": "只留住 2 到 4 人(accommodates 2 到 4)",
+   "why": "同樣大小的房子才比得起來",
+   "source": "syd_a_market.py L73、L76;airbnb_ab_field_inventory.py L50"
+  },
+  {
+   "rule": "只留最少住 1 到 7 晚(minimum_nights 1 到 7)",
+   "why": "最少住很久的是長租,不是一般短租",
+   "source": "syd_a_market.py L74、L76;airbnb_ab_field_inventory.py L51"
+  },
+  {
+   "rule": "模型樣本再拿掉一晚超過 2,000 澳幣的(剛好 2,000 保留)",
+   "why": "極端高價會把模型拉歪;中間價、分位數類統計不受影響所以其他地方仍用全部",
+   "source": "syd_b_positioning.py L45(EXTREME_CAP)、L479(dm = d[d.price_num <= EXTREME_CAP])"
+  },
+  {
+   "rule": "新手 = 當房東年資(hosts_time_as_host_years × 12 + hosts_time_as_host_months)不超過 12 個月(含剛好 12)",
+   "why": "用平台給的年資欄推算;每期用自己那期的欄位值",
+   "source": "syd_c_hosts_time.py L101(t_host)、L167(n12);notes/20 L158"
+  },
+  {
+   "rule": "30 天不能訂的比例 = 抓取日(日曆最早那天)起 30 天內,available = f 的房源日 ÷ 全部房源日",
+   "why": "不能訂可能是被訂走,也可能是房東自己關掉,分不出來,只能當作需求的參考",
+   "source": "syd_a_market.py L109-L135(calendar_blocked)、L117(blk)"
+  },
+  {
+   "rule": "評分中間值:review_scores_rating 轉數字、空白的不算",
+   "why": "沒有評論的房子沒有分數",
+   "source": "syd_a_market.py L415、L483"
+  }
+ ],
+ "funnel": {
+  "2025-12-12": [
+   {
+    "step": "全部",
+    "remaining": 20436,
+    "removed": null
+   },
+   {
+    "step": "只留整套出租",
+    "remaining": 16403,
+    "removed": 4033
+   },
+   {
+    "step": "只留 1 到 2 房",
+    "remaining": 10901,
+    "removed": 5502
+   },
+   {
+    "step": "只留住 2 到 4 人",
+    "remaining": 9132,
+    "removed": 1769
+   },
+   {
+    "step": "只留最少住 1 到 7 晚",
+    "remaining": 7412,
+    "removed": 1720
+   },
+   {
+    "step": "只留有開價的",
+    "remaining": 0,
+    "removed": 7412
+   },
+   {
+    "step": "再拿掉一晚 2,000 澳幣以上的",
+    "remaining": 0,
+    "removed": 0
+   }
+  ],
+  "2026-03-21": [
+   {
+    "step": "全部",
+    "remaining": 13563,
+    "removed": null
+   },
+   {
+    "step": "只留整套出租",
+    "remaining": 10994,
+    "removed": 2569
+   },
+   {
+    "step": "只留 1 到 2 房",
+    "remaining": 7322,
+    "removed": 3672
+   },
+   {
+    "step": "只留住 2 到 4 人",
+    "remaining": 5954,
+    "removed": 1368
+   },
+   {
+    "step": "只留最少住 1 到 7 晚",
+    "remaining": 5945,
+    "removed": 9
+   },
+   {
+    "step": "只留有開價的",
+    "remaining": 5911,
+    "removed": 34
+   },
+   {
+    "step": "再拿掉一晚 2,000 澳幣以上的",
+    "remaining": 5898,
+    "removed": 13
+   }
+  ],
+  "2026-06-16": [
+   {
+    "step": "全部",
+    "remaining": 20573,
+    "removed": null
+   },
+   {
+    "step": "只留整套出租",
+    "remaining": 16192,
+    "removed": 4381
+   },
+   {
+    "step": "只留 1 到 2 房",
+    "remaining": 10728,
+    "removed": 5464
+   },
+   {
+    "step": "只留住 2 到 4 人",
+    "remaining": 8943,
+    "removed": 1785
+   },
+   {
+    "step": "只留最少住 1 到 7 晚",
+    "remaining": 7617,
+    "removed": 1326
+   },
+   {
+    "step": "只留有開價的",
+    "remaining": 6763,
+    "removed": 854
+   },
+   {
+    "step": "再拿掉一晚 2,000 澳幣以上的",
+    "remaining": 6747,
+    "removed": 16
+   }
+  ],
+  "2026-09-16": [
+   {
+    "step": "全部",
+    "remaining": 20833,
+    "removed": null
+   },
+   {
+    "step": "只留整套出租",
+    "remaining": 16445,
+    "removed": 4388
+   },
+   {
+    "step": "只留 1 到 2 房",
+    "remaining": 10823,
+    "removed": 5622
+   },
+   {
+    "step": "只留住 2 到 4 人",
+    "remaining": 8904,
+    "removed": 1919
+   },
+   {
+    "step": "只留最少住 1 到 7 晚",
+    "remaining": 7565,
+    "removed": 1339
+   },
+   {
+    "step": "只留有開價的",
+    "remaining": 6639,
+    "removed": 926
+   },
+   {
+    "step": "再拿掉一晚 2,000 澳幣以上的",
+    "remaining": 6615,
+    "removed": 24
+   }
+  ]
+ },
+ "compare": {
+  "2025-12-12": {
+   "n_all": 20436,
+   "n_has_price": 0,
+   "has_price_pct": 0.0,
+   "n_scope": 7412,
+   "n_scope_priced": 0,
+   "n_clean": 0,
+   "n_removed_by_cap": 0,
+   "median_all_priced": null,
+   "bed1_before_cap": {
+    "n": 0,
+    "median": null
+   },
+   "bed2_before_cap": {
+    "n": 0,
+    "median": null
+   },
+   "bed1_clean": {
+    "n": 0,
+    "median": null
+   },
+   "bed2_clean": {
+    "n": 0,
+    "median": null
+   },
+   "entire_share_pct": 80.3,
+   "n_entire": 16403,
+   "n_neighbourhoods": 38,
+   "top5_all": [
+    {
+     "name": "Sydney",
+     "n": 5165
+    },
+    {
+     "name": "Waverley",
+     "n": 1826
+    },
+    {
+     "name": "Randwick",
+     "n": 1105
+    },
+    {
+     "name": "Pittwater",
+     "n": 948
+    },
+    {
+     "name": "Manly",
+     "n": 924
+    }
+   ],
+   "top5_clean": [],
+   "newbie_all": 2983,
+   "newbie_scope_priced_before_cap": 0,
+   "newbie_clean": 0,
+   "rating_all": {
+    "n_rated": 16267,
+    "median": 4.84
+   },
+   "rating_clean": {
+    "n_rated": 0,
+    "median": null
+   },
+   "cal30_all_pct": 62.6,
+   "cal30_clean_pct": null,
+   "cal_base_date": "2025-12-12",
+   "cal_n_listings": 20436,
+   "reviews_rows": 737733
+  },
+  "2026-03-21": {
+   "n_all": 13563,
+   "n_has_price": 13484,
+   "has_price_pct": 99.4,
+   "n_scope": 5945,
+   "n_scope_priced": 5911,
+   "n_clean": 5898,
+   "n_removed_by_cap": 13,
+   "median_all_priced": 350.0,
+   "bed1_before_cap": {
+    "n": 3543,
+    "median": 296.71
+   },
+   "bed2_before_cap": {
+    "n": 2368,
+    "median": 419.5
+   },
+   "bed1_clean": {
+    "n": 3538,
+    "median": 296.71
+   },
+   "bed2_clean": {
+    "n": 2360,
+    "median": 418.72
+   },
+   "entire_share_pct": 81.1,
+   "n_entire": 10994,
+   "n_neighbourhoods": 38,
+   "top5_all": [
+    {
+     "name": "Sydney",
+     "n": 3416
+    },
+    {
+     "name": "Waverley",
+     "n": 1124
+    },
+    {
+     "name": "Randwick",
+     "n": 658
+    },
+    {
+     "name": "Pittwater",
+     "n": 651
+    },
+    {
+     "name": "Manly",
+     "n": 617
+    }
+   ],
+   "top5_clean": [
+    {
+     "name": "Sydney",
+     "n": 1690
+    },
+    {
+     "name": "Waverley",
+     "n": 619
+    },
+    {
+     "name": "Manly",
+     "n": 354
+    },
+    {
+     "name": "North Sydney",
+     "n": 319
+    },
+    {
+     "name": "Randwick",
+     "n": 283
+    }
+   ],
+   "newbie_all": 2078,
+   "newbie_scope_priced_before_cap": 881,
+   "newbie_clean": 879,
+   "rating_all": {
+    "n_rated": 12312,
+    "median": 4.83
+   },
+   "rating_clean": {
+    "n_rated": 5466,
+    "median": 4.84
+   },
+   "cal30_all_pct": 55.0,
+   "cal30_clean_pct": 59.1,
+   "cal_base_date": "2026-03-21",
+   "cal_n_listings": 13563,
+   "reviews_rows": 649874
+  },
+  "2026-06-16": {
+   "n_all": 20573,
+   "n_has_price": 17786,
+   "has_price_pct": 86.5,
+   "n_scope": 7617,
+   "n_scope_priced": 6763,
+   "n_clean": 6747,
+   "n_removed_by_cap": 16,
+   "median_all_priced": 291.0,
+   "bed1_before_cap": {
+    "n": 4078,
+    "median": 268.5
+   },
+   "bed2_before_cap": {
+    "n": 2685,
+    "median": 372.0
+   },
+   "bed1_clean": {
+    "n": 4072,
+    "median": 268.5
+   },
+   "bed2_clean": {
+    "n": 2675,
+    "median": 371.0
+   },
+   "entire_share_pct": 78.7,
+   "n_entire": 16192,
+   "n_neighbourhoods": 38,
+   "top5_all": [
+    {
+     "name": "Sydney",
+     "n": 5014
+    },
+    {
+     "name": "Waverley",
+     "n": 1796
+    },
+    {
+     "name": "Randwick",
+     "n": 1107
+    },
+    {
+     "name": "Manly",
+     "n": 921
+    },
+    {
+     "name": "Pittwater",
+     "n": 918
+    }
+   ],
+   "top5_clean": [
+    {
+     "name": "Sydney",
+     "n": 1981
+    },
+    {
+     "name": "Waverley",
+     "n": 685
+    },
+    {
+     "name": "North Sydney",
+     "n": 375
+    },
+    {
+     "name": "Manly",
+     "n": 363
+    },
+    {
+     "name": "Randwick",
+     "n": 323
+    }
+   ],
+   "newbie_all": 2846,
+   "newbie_scope_priced_before_cap": 1056,
+   "newbie_clean": 1056,
+   "rating_all": {
+    "n_rated": 17247,
+    "median": 4.83
+   },
+   "rating_clean": {
+    "n_rated": 6036,
+    "median": 4.85
+   },
+   "cal30_all_pct": 48.7,
+   "cal30_clean_pct": 50.5,
+   "cal_base_date": "2026-06-17",
+   "cal_n_listings": 20573,
+   "reviews_rows": 801398
+  },
+  "2026-09-16": {
+   "n_all": 20833,
+   "n_has_price": 17721,
+   "has_price_pct": 85.1,
+   "n_scope": 7565,
+   "n_scope_priced": 6639,
+   "n_clean": 6615,
+   "n_removed_by_cap": 24,
+   "median_all_priced": 337.8,
+   "bed1_before_cap": {
+    "n": 4029,
+    "median": 299.0
+   },
+   "bed2_before_cap": {
+    "n": 2610,
+    "median": 414.14
+   },
+   "bed1_clean": {
+    "n": 4019,
+    "median": 298.0
+   },
+   "bed2_clean": {
+    "n": 2596,
+    "median": 413.55
+   },
+   "entire_share_pct": 78.9,
+   "n_entire": 16445,
+   "n_neighbourhoods": 38,
+   "top5_all": [
+    {
+     "name": "Sydney",
+     "n": 5024
+    },
+    {
+     "name": "Waverley",
+     "n": 1796
+    },
+    {
+     "name": "Randwick",
+     "n": 1115
+    },
+    {
+     "name": "Manly",
+     "n": 935
+    },
+    {
+     "name": "Pittwater",
+     "n": 931
+    }
+   ],
+   "top5_clean": [
+    {
+     "name": "Sydney",
+     "n": 1842
+    },
+    {
+     "name": "Waverley",
+     "n": 690
+    },
+    {
+     "name": "North Sydney",
+     "n": 378
+    },
+    {
+     "name": "Manly",
+     "n": 371
+    },
+    {
+     "name": "Randwick",
+     "n": 318
+    }
+   ],
+   "newbie_all": 2610,
+   "newbie_scope_priced_before_cap": 960,
+   "newbie_clean": 960,
+   "rating_all": {
+    "n_rated": 17623,
+    "median": 4.84
+   },
+   "rating_clean": {
+    "n_rated": 6031,
+    "median": 4.86
+   },
+   "cal30_all_pct": 58.5,
+   "cal30_clean_pct": 62.6,
+   "cal_base_date": "2026-09-17",
+   "cal_n_listings": 20833,
+   "reviews_rows": 829163
+  }
+ },
+ "health": {
+  "2025-12-12": {
+   "missing": {
+    "price": {
+     "missing_n": 20436,
+     "missing_pct": 100.0,
+     "column_exists": true
+    },
+    "bedrooms": {
+     "missing_n": 468,
+     "missing_pct": 2.3,
+     "column_exists": true
+    },
+    "beds": {
+     "missing_n": 2635,
+     "missing_pct": 12.9,
+     "column_exists": true
+    },
+    "bathrooms_text": {
+     "missing_n": 18,
+     "missing_pct": 0.1,
+     "column_exists": true
+    },
+    "amenities": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "review_scores_rating": {
+     "missing_n": 4169,
+     "missing_pct": 20.4,
+     "column_exists": true
+    },
+    "host_since": {
+     "missing_n": 6,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "hosts_time_as_host_years": {
+     "missing_n": 6,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "hosts_time_as_host_months": {
+     "missing_n": 6,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "latitude": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "longitude": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "neighbourhood_cleansed": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "neighbourhood": {
+     "missing_n": 20436,
+     "missing_pct": 100.0,
+     "column_exists": true
+    }
+   },
+   "id_duplicates": 0,
+   "weird": {
+    "price_gt_2000": 0,
+    "price_eq_2000": 0,
+    "min_nights_gt_365": 1,
+    "bedrooms_zero": 869,
+    "bedrooms_blank": 468
+   },
+   "n_columns": 85
+  },
+  "2026-03-21": {
+   "missing": {
+    "price": {
+     "missing_n": 79,
+     "missing_pct": 0.6,
+     "column_exists": true
+    },
+    "bedrooms": {
+     "missing_n": 10,
+     "missing_pct": 0.1,
+     "column_exists": true
+    },
+    "beds": {
+     "missing_n": 13,
+     "missing_pct": 0.1,
+     "column_exists": true
+    },
+    "bathrooms_text": {
+     "missing_n": 10,
+     "missing_pct": 0.1,
+     "column_exists": true
+    },
+    "amenities": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "review_scores_rating": {
+     "missing_n": 1251,
+     "missing_pct": 9.2,
+     "column_exists": true
+    },
+    "host_since": {
+     "missing_n": 13563,
+     "missing_pct": 100.0,
+     "column_exists": true
+    },
+    "hosts_time_as_host_years": {
+     "missing_n": 3,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "hosts_time_as_host_months": {
+     "missing_n": 3,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "latitude": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "longitude": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "neighbourhood_cleansed": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "neighbourhood": {
+     "missing_n": 13563,
+     "missing_pct": 100.0,
+     "column_exists": true
+    }
+   },
+   "id_duplicates": 0,
+   "weird": {
+    "price_gt_2000": 308,
+    "price_eq_2000": 0,
+    "min_nights_gt_365": 0,
+    "bedrooms_zero": 675,
+    "bedrooms_blank": 10
+   },
+   "n_columns": 90
+  },
+  "2026-06-16": {
+   "missing": {
+    "price": {
+     "missing_n": 2787,
+     "missing_pct": 13.5,
+     "column_exists": true
+    },
+    "bedrooms": {
+     "missing_n": 3107,
+     "missing_pct": 15.1,
+     "column_exists": true
+    },
+    "beds": {
+     "missing_n": 5044,
+     "missing_pct": 24.5,
+     "column_exists": true
+    },
+    "bathrooms_text": {
+     "missing_n": 25,
+     "missing_pct": 0.1,
+     "column_exists": true
+    },
+    "amenities": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "review_scores_rating": {
+     "missing_n": 3326,
+     "missing_pct": 16.2,
+     "column_exists": true
+    },
+    "host_since": {
+     "missing_n": 20573,
+     "missing_pct": 100.0,
+     "column_exists": true
+    },
+    "hosts_time_as_host_years": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "hosts_time_as_host_months": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "latitude": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "longitude": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "neighbourhood_cleansed": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "neighbourhood": {
+     "missing_n": 20573,
+     "missing_pct": 100.0,
+     "column_exists": true
+    }
+   },
+   "id_duplicates": 0,
+   "weird": {
+    "price_gt_2000": 331,
+    "price_eq_2000": 0,
+    "min_nights_gt_365": 1,
+    "bedrooms_zero": 1,
+    "bedrooms_blank": 3107
+   },
+   "n_columns": 90
+  },
+  "2026-09-16": {
+   "missing": {
+    "price": {
+     "missing_n": 3112,
+     "missing_pct": 14.9,
+     "column_exists": true
+    },
+    "bedrooms": {
+     "missing_n": 22,
+     "missing_pct": 0.1,
+     "column_exists": true
+    },
+    "beds": {
+     "missing_n": 308,
+     "missing_pct": 1.5,
+     "column_exists": true
+    },
+    "bathrooms_text": {
+     "missing_n": 24,
+     "missing_pct": 0.1,
+     "column_exists": true
+    },
+    "amenities": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "review_scores_rating": {
+     "missing_n": 3210,
+     "missing_pct": 15.4,
+     "column_exists": true
+    },
+    "host_since": {
+     "missing_n": 20833,
+     "missing_pct": 100.0,
+     "column_exists": true
+    },
+    "hosts_time_as_host_years": {
+     "missing_n": 1,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "hosts_time_as_host_months": {
+     "missing_n": 1,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "latitude": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "longitude": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "neighbourhood_cleansed": {
+     "missing_n": 0,
+     "missing_pct": 0.0,
+     "column_exists": true
+    },
+    "neighbourhood": {
+     "missing_n": 20833,
+     "missing_pct": 100.0,
+     "column_exists": true
+    }
+   },
+   "id_duplicates": 0,
+   "weird": {
+    "price_gt_2000": 447,
+    "price_eq_2000": 1,
+    "min_nights_gt_365": 1,
+    "bedrooms_zero": 939,
+    "bedrooms_blank": 22
+   },
+   "n_columns": 90
+  }
+ },
+ "same_id": {
+  "all_four": 9879,
+  "in_clean_2026_09": 4081,
+  "pairs_with_2026_09": {
+   "2025-12-12": 15094,
+   "2026-03-21": 11414,
+   "2026-06-16": 18484
+  }
+ },
+ "calendar_detail": {
+  "2025-12-12": {
+   "rows": 7459152,
+   "cols": 5,
+   "min_date": "2025-12-12",
+   "max_date": "2026-12-12",
+   "n_listings_in_calendar": 20436,
+   "window_days": 30,
+   "all": {
+    "listing_days": 608706,
+    "blocked_days": 381242,
+    "blocked_pct": 62.6
+   },
+   "clean": {
+    "listing_days": 0,
+    "blocked_days": 0,
+    "blocked_pct": null
+   },
+   "seconds": 2.1
+  },
+  "2026-03-21": {
+   "rows": 4950495,
+   "cols": 5,
+   "min_date": "2026-03-21",
+   "max_date": "2027-03-20",
+   "n_listings_in_calendar": 13563,
+   "window_days": 30,
+   "all": {
+    "listing_days": 406890,
+    "blocked_days": 223773,
+    "blocked_pct": 55.0
+   },
+   "clean": {
+    "listing_days": 176940,
+    "blocked_days": 104650,
+    "blocked_pct": 59.1
+   },
+   "seconds": 1.5
+  },
+  "2026-06-16": {
+   "rows": 7509145,
+   "cols": 5,
+   "min_date": "2026-06-17",
+   "max_date": "2027-06-28",
+   "n_listings_in_calendar": 20573,
+   "window_days": 30,
+   "all": {
+    "listing_days": 559642,
+    "blocked_days": 272591,
+    "blocked_pct": 48.7
+   },
+   "clean": {
+    "listing_days": 200575,
+    "blocked_days": 101263,
+    "blocked_pct": 50.5
+   },
+   "seconds": 2.2
+  },
+  "2026-09-16": {
+   "rows": 7604045,
+   "cols": 5,
+   "min_date": "2026-09-17",
+   "max_date": "2027-09-16",
+   "n_listings_in_calendar": 20833,
+   "window_days": 30,
+   "all": {
+    "listing_days": 624990,
+    "blocked_days": 365614,
+    "blocked_pct": 58.5
+   },
+   "clean": {
+    "listing_days": 198450,
+    "blocked_days": 124279,
+    "blocked_pct": 62.6
+   },
+   "seconds": 2.3
+  }
+ },
+ "reconciliation": [
+  {
+   "item": "2025-12-12 全部間數",
+   "expected": 20436,
+   "got": 20436,
+   "ok": true
+  },
+  {
+   "item": "2026-03-21 全部間數",
+   "expected": 13563,
+   "got": 13563,
+   "ok": true
+  },
+  {
+   "item": "2026-06-16 全部間數",
+   "expected": 20573,
+   "got": 20573,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 全部間數",
+   "expected": 20833,
+   "got": 20833,
+   "ok": true
+  },
+  {
+   "item": "2025-12-12 有開價 0 間",
+   "expected": 0,
+   "got": 0,
+   "ok": true
+  },
+  {
+   "item": "2026-03-21 有開價比例",
+   "expected": 99.4,
+   "got": 99.4,
+   "ok": true
+  },
+  {
+   "item": "2026-03-21 有開價間數",
+   "expected": 13484,
+   "got": 13484,
+   "ok": true
+  },
+  {
+   "item": "2026-06-16 有開價比例",
+   "expected": 86.5,
+   "got": 86.5,
+   "ok": true
+  },
+  {
+   "item": "2026-06-16 有開價間數",
+   "expected": 17786,
+   "got": 17786,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 有開價比例",
+   "expected": 85.1,
+   "got": 85.1,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 有開價間數",
+   "expected": 17721,
+   "got": 17721,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 清洗後(整套、1–2 房、2–4 人、最少住 1–7 晚)",
+   "expected": 7565,
+   "got": 7565,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 其中有開價",
+   "expected": 6639,
+   "got": 6639,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 拿掉一晚 2,000 以上",
+   "expected": 24,
+   "got": 24,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 拿掉後",
+   "expected": 6615,
+   "got": 6615,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 1 房間數(有開價、拿掉高價前)",
+   "expected": 4029,
+   "got": 4029,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 1 房中間價(同上)",
+   "expected": 299,
+   "got": 299,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 2 房間數(同上)",
+   "expected": 2610,
+   "got": 2610,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 2 房中間價(同上)",
+   "expected": 414,
+   "got": 414,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 全部有開價房源中間價",
+   "expected": 338,
+   "got": 338,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 整套出租占全部(%)",
+   "expected": 78.9,
+   "got": 78.9,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 新手(有開價、拿掉高價前)",
+   "expected": 960,
+   "got": 960,
+   "ok": true
+  },
+  {
+   "item": "2025-12-12 抓取日後 30 天不能訂(%,全部房源)",
+   "expected": 62.6,
+   "got": 62.6,
+   "ok": true
+  },
+  {
+   "item": "2026-03-21 抓取日後 30 天不能訂(%,全部房源)",
+   "expected": 55.0,
+   "got": 55.0,
+   "ok": true
+  },
+  {
+   "item": "2026-06-16 抓取日後 30 天不能訂(%,全部房源)",
+   "expected": 48.7,
+   "got": 48.7,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 抓取日後 30 天不能訂(%,全部房源)",
+   "expected": 58.5,
+   "got": 58.5,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 reviews 檔列數",
+   "expected": 829163,
+   "got": 829163,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 區的個數(listings 的 neighbourhood_cleansed)",
+   "expected": 38,
+   "got": 38,
+   "ok": true
+  },
+  {
+   "item": "2026-09-16 neighbourhoods.csv 列數",
+   "expected": 38,
+   "got": 38,
+   "ok": true
+  },
+  {
+   "item": "2026-06-16 模型訓練樣本(清洗後有開價、拿掉高價)",
+   "expected": 6747,
+   "got": 6747,
+   "ok": true
+  }
+ ],
+ "suggested_not_done": [
+  "價格是 0、負數、或低到不合理(例如一晚個位數)的檢查。現有規則只看有沒有開價。",
+  "accommodates 和 bedrooms 對不上的檢查(例如 1 房卻寫住 10 人)。",
+  "amenities 寫成空清單「[]」要不要當缺值。現在只有空白才算缺值。",
+  "座標超出雪梨範圍、或座標落的區和 neighbourhood_cleansed 對不上的檢查。",
+  "price 含不含清潔費、稅:資料說明沒寫清楚,沒查。",
+  "同一房東開了一模一樣的多間(疑似重複上架)的檢查。",
+  "calendar 裡每天的價格和 listings 的 price 對一下,看是不是同一個價。",
+  "抓取日(last_scraped)同一期內是否都是同一天;現在只靠日曆最早日期當抓取日。",
+  "最少住超過 7 晚被排除的房子,有多少其實是 8 到 30 晚的短長租,可以另算。",
+  "reviews 檔含已下架房源的評論;「四期都出現的同一間房」不含中途下架又上架的情況,沒細查。",
+  "價格上限 2,000 對 1 房與 2 房用同一個數字;有沒有該分開,沒檢查。"
+ ],
+ "seconds_total": 17.8
+}
