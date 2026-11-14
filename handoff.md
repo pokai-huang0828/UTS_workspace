@@ -3078,3 +3078,10 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 
 ### 成本(§8.3,照通知原值)
 - sonnet 1 個:做 HTML 與 PDF 105,867/28。
+
+## 2026-11-14(晚,收尾)· repo:Kenny 問「一堆沒 commit 是怎麼回事」
+
+- 實查:`git rev-list --left-right --count origin/main...main` = 0 0,今天的成果都已 commit 並 push。清單上的「沒 commit」是 107 個未追蹤檔:`scratchpad/` 106 個(3.4 GB,Inside Airbnb 四期原始檔、ABS 邊界、舊的飯店資料等;最大的 calendar.csv 約 276 MB)加 `Innovation Studio/materials/canvas_embeds/canvas_AT2_AT3_assignments_2026-11-11.md` 1 個(3,871 位元組)。
+- `scratchpad/` 是先前就決定不進版控的(本檔 2026-11-07 那筆:「原始房源／評論個資及下載資料只留未追蹤 scratchpad,不進版控」),只是沒寫進 `.gitignore`,所以一直掛在清單上。這次在 `.gitignore` 檔尾加 `/scratchpad/`。
+- 那 1 個 Canvas 作業筆記是 11/11 20:52 產生、當時漏 commit 的;有兩份筆記引用它(`notes/raw/canvas_assignments_check_2026-11-11.md`、`notes/raw/roadmap_to_AT3_2026-11-14.md`)。這次補 commit,路徑不動(同類的檔其實都在 `Innovation Studio/notes/materials/canvas_embeds/`,它放錯資料夾,但搬動會弄斷那兩份筆記的引用)。
+- ⚠️ 沒解決的:原始資料只在這台 Windows 機。別台機器 pull 之後沒有 `scratchpad/`,`analysis/sydney/*.py`、`meeting_1114/map_data.py` 都跑不動,要重新下載(來源記在 `notes/raw/airbnb_history_sources_2026-11-11.md` 與各資料夾的 SOURCE.txt;SOURCE.txt 本身也在 scratchpad 裡,沒進版控)。
