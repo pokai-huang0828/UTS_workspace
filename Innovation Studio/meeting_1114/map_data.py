@@ -323,7 +323,10 @@ def main():
                            '整欄空的時候,所有方格的 place_index 都是 null(2026-09-16 期實測整欄空)。'),
         },
         'totals': {'n': len(L), 'priced': int(L['has_price'].sum()), 'scope': int(L['scope'].sum()),
-                   'scope_priced': len(sp), 'median_all': med(L['pv'], 1), 'cells': ncell, 'cells_with_place': nplace},
+                   'scope_priced': len(sp), 'median_all': med(L['pv'], 1), 'cells': ncell, 'cells_with_place': nplace,
+                   # 全雪梨「可以互相比的房子」(篩選且有價)裡 1 個臥室、2 個臥室的間數與開價中間價(筆記 20 第 103 行)
+                   'b1_n': int((sp['bedrooms'] == '1').sum()), 'b1_median': med(sp.loc[sp['bedrooms'] == '1', 'price_v'], 1),
+                   'b2_n': int((sp['bedrooms'] == '2').sum()), 'b2_median': med(sp.loc[sp['bedrooms'] == '2', 'price_v'], 1)},
         'places': places,
         'suburb_names': snames,
         'districts': districts,
@@ -385,6 +388,10 @@ def main():
         d = D[nm]
         got = (d[f'b{bd}_n'], round(d[f'b{bd}_median']) if d[f'b{bd}_median'] is not None else None)
         chk(f'{nm} {bd} 房(篩選且有價)間數、中間價(到元;原值 {d[f"b{bd}_median"]})', got, EXPECT[key])
+    T = out['totals']
+    chk('json 裡的全雪梨開價中間價(到元)', round(T['median_all']), EXPECT['all_priced_median'])
+    chk('全雪梨可以互相比的房子 1 個臥室:間數、中間價(到元)', (T['b1_n'], round(T['b1_median'])), (4029, 299))
+    chk('全雪梨可以互相比的房子 2 個臥室:間數、中間價(到元)', (T['b2_n'], round(T['b2_median'])), (2610, 414))
     chk('各區全部間數加總 = 全體', sum(d['n'] for d in districts), len(L))
     chk('各區有價加總 = 全體有價', sum(d['priced'] for d in districts), int(L['has_price'].sum()))
     chk('各區篩選且有價加總', sum(d['scope_priced'] for d in districts), len(sp))
