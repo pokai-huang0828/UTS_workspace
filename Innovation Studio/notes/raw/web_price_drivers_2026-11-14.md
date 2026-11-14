@@ -139,3 +139,8 @@ scope ID:IS-1114-web-07-pricedrivers
 ## 對「延伸功能要不要做假期和活動提醒」的一句話參考
 
 外部有旅館資料顯示大型活動(Taylor Swift、WorldPride)會把雪梨旅館房價推高約 16–26%,也有短租廠商標價高 30% 的單一說法;但針對雪梨 Airbnb 的實測數字很少,且多半是廠商或單一年份,所以只能當「方向」,不能當預測值。
+
+## 補記(2026-11-14 晚)
+
+- 第 125 行 Airbnb 新聞室那句:出自 2024-06-06 那篇(https://news.airbnb.com/en-au/airbnb-data-reveals-surge-in-visitors-flocking-to-vivid-sydney )。「約兩倍」是搜尋的晚數比前一年多近 100%,不是訂房量;「平均住 4 天」講的是前一年(2023)。出處:web_verify_chrome_recheck_2026-11-14.md 的 V2。
+- 第 11 行說打不開的 CoStar 原頁,這次用 Chrome 開到了,兩篇的數字跟 Hospitality Net 轉載逐項相同:https://www.costar.com/products/str-benchmark/resources/press-releases/record-high-room-rates-melbourne-sydney-driven-eras 、https://www.costar.com/article/789563613/str-sydney-worldpride-2023-pushed-hotel-performance-to-pre-pandemic-levels 。出處:web_chrome_recheck_B_2026-11-14.md 的 B3a、B3b。

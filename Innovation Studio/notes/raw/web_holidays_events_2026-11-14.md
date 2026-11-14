@@ -84,3 +84,8 @@ scope ID:IS-1114-web-06-holidays
 - 各活動的官方人數:除 Sydney Marathon(40,000+ runners,2026)、City2Surf(2026 額滿)、State of Origin(預期約 8 萬人)外,抓到的頁面都沒寫。
 - 學校假期:我沒在頁面上親見「雪梨屬東部分區」的文字,屬常識判斷。
 - 2027-28 跨年夜、2027 起源之戰場次、2027 雪梨到荷巴特:尚未公布。
+
+## 補記(2026-11-14 晚)
+
+- SXSW Sydney(上面第 80 行):不是只打不開,2026 那屆已取消(2026-01-14 公告);NSW 政府(Destination NSW)說 2026、2027 都不辦。官網這次仍是憑證錯誤。出處:web_chrome_recheck_B_2026-11-14.md 的 B2、web_verify_chrome_recheck_2026-11-14.md 的 V1。
+- NRL 總決賽(上面第 79 行):2026 年是 10-04(週日),在 Accor Stadium;2027 年官方頁還寫 TBD,日期未公布。網址 https://www.nrl.com/hospitality/grand-final/ 、https://travel.nrl.com/2027-grand-final 。出處:B1、V8。
