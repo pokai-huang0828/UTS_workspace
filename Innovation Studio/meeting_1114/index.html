@@ -594,7 +594,7 @@ table.mtab td { font-size: 13.5px; }
       <div class="fn-row"><div class="fn-lab">只留有開價的 ✓</div><div class="fn-track"><div class="fn-bar last" style="width:calc(100% * 6639 / 20833)">6,639</div></div></div>
       <div class="fn-row"><div class="fn-lab">給模型用時,再拿掉一晚超過 2,000 澳幣的</div><div class="fn-track"><div class="fn-bar sub" style="width:calc(100% * 6615 / 20833)">6,615</div></div></div>
     </div>
-    <figcaption>每一條是「這一步之後剩幾間」。綠色的 6,639 間就是拿來比的房子;虛線那條只給模型用。</figcaption>
+    <figcaption>每一條是「這一步之後剩幾間」。綠色的 6,639 間就是拿來比的房子;虛線那條只給模型用。為什麼要拿掉:6,639 間裡有 24 間超級貴,一晚開價超過 2,000 澳幣。幾間超貴的房子會把模型的「平均差」拉得很高(放回去,平均差會從 93.4 變成 113.5)。所以教模型時先不放它們。算中間價時不用拿掉,因為中間價不會被幾間超貴的影響。</figcaption>
   </figure>
 <figure class="chart">
     <div class="ctitle">圖 C:猜一間房一晚開多少錢:三種猜法,平均各差多少?</div>
