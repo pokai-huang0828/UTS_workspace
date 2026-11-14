@@ -205,6 +205,21 @@ def main():
     if i < 0 or j < 0:
         sys.exit("index.html 找不到 ext-data 區塊")
     html = html[: i + len(start_tag)] + blob + html[j:]
+
+    # 地圖資料(map_data.py 產出的 map_data.json)嵌進 <script id="map-data" type="application/json">
+    map_json = HERE / "map_data.json"
+    map_tag = '<script id="map-data" type="application/json">'
+    mi = html.find(map_tag)
+    if not map_json.exists():
+        print("[警告] 找不到 map_data.json,先跑 map_data.py;地圖資料這次沒更新")
+    elif mi < 0:
+        print("[警告] index.html 找不到 map-data 區塊;地圖資料這次沒嵌入")
+    else:
+        mobj = json.loads(map_json.read_text(encoding="utf-8"))
+        mblob = json.dumps(mobj, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+        mj = html.find("</script>", mi)
+        html = html[: mi + len(map_tag)] + mblob + html[mj:]
+        print(f"地圖資料:{len(mobj['districts'])} 區、{mobj['totals']['cells']} 個方格,{len(mblob.encode('utf-8')) / 1024:.1f} KB")
     HTML.write_text(html, encoding="utf-8", newline="\n")
     print(f"已寫入 {HTML}({HTML.stat().st_size / 1024:.1f} KB)")
 
