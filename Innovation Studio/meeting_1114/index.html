@@ -429,7 +429,7 @@ table.mtab td { font-size: 13.5px; }
   <p class="bigline">新房東上架定位助手:幫雪梨的新房東看懂,你的房子跟同類比,開價排在哪、缺什麼設施。</p>
   <figure class="chart">
     <div class="ctitle">圖 A:這個工具長什麼樣(示意畫面)</div>
-    <div class="mock" role="img" aria-label="示意畫面:左邊輸入 Sydney 這一區、整套出租、1 個臥室、住 2 人;右邊是結果:同類 1,291 間;同類開價 265.9、中間價 323.4、388.8 澳幣一晚;缺煙霧警報器、熱水、餐具">
+    <div class="mock" role="img" aria-label="示意畫面:左邊輸入 Sydney 這一區、整套出租、1 個臥室、住 2 人、1 張床、1 間浴室、已經有廚房、洗衣機、Wifi,開價還沒填;右邊是結果:同類 1,291 間;同類開價 265.9、中間價 323.4、388.8 澳幣一晚;缺煙霧警報器、熱水、餐具">
       <div class="mock-bar"><i></i><i></i><i></i><span>新房東上架定位助手</span></div>
       <div class="mock-body">
         <div class="mock-in">
@@ -438,6 +438,9 @@ table.mtab td { font-size: 13.5px; }
           <div class="mock-field"><small>怎麼租</small>整套出租</div>
           <div class="mock-field"><small>臥室</small>1 個臥室</div>
           <div class="mock-field"><small>住幾人</small>2 人</div>
+          <div class="mock-field"><small>床和浴室</small>1 張床、1 間浴室</div>
+          <div class="mock-field"><small>你已經有的設施(勾選)</small>✓ 廚房 ✓ 洗衣機 ✓ Wifi</div>
+          <div class="mock-field"><small>你打算開多少(可以先不填)</small>還沒填</div>
           <div class="mock-btn">看結果 →</div>
         </div>
         <div class="mock-out">
@@ -459,11 +462,12 @@ table.mtab td { font-size: 13.5px; }
             </svg>
             <div class="t">中間價 = 排在正中間那一間的價格</div>
           </div>
-          <div class="mock-card warnc"><div class="t">你缺的設施(同類多數都有)</div><div><span class="tagx">✗ 煙霧警報器 · 同類 97.1% 有</span><span class="tagx">✗ 熱水 · 93.1%</span><span class="tagx">✗ 餐具 · 91.2%</span></div></div>
+          <div class="mock-card warnc"><div class="t">你缺的設施:拿你勾的,跟同類比(同類多數都有、你沒勾的)</div><div><span class="tagx">✗ 煙霧警報器 · 同類 97.1% 有</span><span class="tagx">✗ 熱水 · 93.1%</span><span class="tagx">✗ 餐具 · 91.2%</span></div></div>
+          <div class="mock-card"><div class="t">你的開價排第幾</div><div class="t">填了「你打算開多少」,就會告訴你排在同類的第幾名。這個示範沒有填。</div></div>
         </div>
       </div>
     </div>
-    <figcaption>這是示範畫面,數字出自筆記 20 的示範案例,不是定價建議。</figcaption>
+    <figcaption>這是示範畫面,數字出自筆記 20 的示範案例,不是定價建議。工具要先知道你已經有哪些設施,才比得出你缺什麼;要先知道你打算開多少,才排得出第幾名。</figcaption>
   </figure>
 
   <figure class="chart">
@@ -576,7 +580,7 @@ table.mtab td { font-size: 13.5px; }
   <figure class="chart">
     <div class="ctitle">圖 A:四步</div>
     <ol class="flow4" aria-label="做法四步:輸入一間房,找出同類,告訴他排第幾和缺什麼設施,延伸功能算大概能收多少">
-      <li><span class="fno">①</span><b>使用者輸入一間房</b><span class="note">哪一區、幾個臥室、能住幾人</span></li>
+      <li><span class="fno">①</span><b>使用者輸入一間房</b><span class="note">哪一區、幾個臥室、能住幾人、已經有的設施、打算開多少</span></li>
       <li><span class="fno">②</span><b>找出同類的房子</b><span class="note">同一區、同樣臥室數、能住的人數差不多</span></li>
       <li><span class="fno">③</span><b>告訴他</b><span class="note">開價在同類裡排第幾;同類常有、他還沒有的設施</span></li>
       <li class="f-ext"><span class="fno">④</span><b>延伸功能</b><span class="note">他自己填價格、住幾晚、成本,算出低、中、高三個「大概能收多少」</span></li>
