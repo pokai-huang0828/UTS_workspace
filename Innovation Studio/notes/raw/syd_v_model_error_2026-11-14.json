@@ -1,0 +1,561 @@
+{
+ "scope_id": "IS-1114-modelerror-01",
+ "batch": "2026-09-16",
+ "seed": 42,
+ "versions": {
+  "python": "3.11.9",
+  "sklearn": "1.4.2",
+  "pandas": "2.1.4",
+  "numpy": "1.26.4"
+ },
+ "sample": {
+  "n_model": 6615,
+  "n_extremes_excluded": 24,
+  "n_scope_price": 6639,
+  "target": "房東開的價(每晚掛牌價,澳幣),不是成交價"
+ },
+ "1_reproduction": {
+  "B0": {
+   "rerun": {
+    "n": 6615,
+    "MAE_aud": 122.5,
+    "MdAPE_pct": 26.0,
+    "within20_pct": 40.1
+   },
+   "published": {
+    "MAE_aud": 122.5,
+    "MdAPE_pct": 26.0,
+    "within20_pct": 40.1
+   },
+   "diff": {
+    "MAE_aud": 0.0,
+    "MdAPE_pct": 0.0,
+    "within20_pct": 0.0
+   }
+  },
+  "B1": {
+   "rerun": {
+    "n": 6615,
+    "MAE_aud": 101.7,
+    "MdAPE_pct": 21.2,
+    "within20_pct": 47.8
+   },
+   "published": {
+    "MAE_aud": 101.7,
+    "MdAPE_pct": 21.2,
+    "within20_pct": 47.8
+   },
+   "diff": {
+    "MAE_aud": 0.0,
+    "MdAPE_pct": 0.0,
+    "within20_pct": 0.0
+   }
+  },
+  "M1": {
+   "rerun": {
+    "n": 6615,
+    "MAE_aud": 95.7,
+    "MdAPE_pct": 19.7,
+    "within20_pct": 50.5
+   },
+   "published": {
+    "MAE_aud": 95.7,
+    "MdAPE_pct": 19.7,
+    "within20_pct": 50.5
+   },
+   "diff": {
+    "MAE_aud": 0.0,
+    "MdAPE_pct": 0.0,
+    "within20_pct": 0.0
+   }
+  },
+  "M2": {
+   "rerun": {
+    "n": 6615,
+    "MAE_aud": 93.4,
+    "MdAPE_pct": 18.9,
+    "within20_pct": 51.9
+   },
+   "published": {
+    "MAE_aud": 93.4,
+    "MdAPE_pct": 18.9,
+    "within20_pct": 51.9
+   },
+   "diff": {
+    "MAE_aud": 0.0,
+    "MdAPE_pct": 0.0,
+    "within20_pct": 0.0
+   }
+  },
+  "M2_with_24_extremes": {
+   "rerun": {
+    "n": 6639,
+    "MAE_aud": 113.5,
+    "MdAPE_pct": 19.1,
+    "within20_pct": 51.7
+   },
+   "published_MAE_aud": 113.5,
+   "diff_MAE": 0.0
+  }
+ },
+ "1b_extremes_24": {
+  "n": 24,
+  "M2_MAE_on_24": 5652.2,
+  "M2_mean_signed_on_24": -5652.2,
+  "price_min": 2147.7,
+  "price_max": 18848.0,
+  "share_of_abs_err_6639_pct": 18.0
+ },
+ "2_by_actual_price": {
+  "quintiles": [
+   {
+    "label": "第 1 等份(最便宜兩成)",
+    "n": 1323,
+    "price_min": 79.0,
+    "price_max": 244.0,
+    "price_median": 205.0,
+    "mean_actual": 198.9,
+    "mean_pred_M2": 264.1,
+    "M2_MAE": 70.8,
+    "M2_MdAPE_pct": 31.9,
+    "M2_within20_pct": 33.4,
+    "M2_mean_signed": 65.2,
+    "B1_MAE": 88.0,
+    "B1_minus_M2_sum_abs_err": 22812.6,
+    "sum_abs_err": 93642.15,
+    "share_of_total_abs_err_pct": 15.2
+   },
+   {
+    "label": "第 2 等份(偏便宜兩成)",
+    "n": 1323,
+    "price_min": 244.0,
+    "price_max": 305.6,
+    "price_median": 276.8,
+    "mean_actual": 275.7,
+    "mean_pred_M2": 316.9,
+    "M2_MAE": 60.0,
+    "M2_MdAPE_pct": 16.9,
+    "M2_within20_pct": 57.7,
+    "M2_mean_signed": 41.2,
+    "B1_MAE": 58.7,
+    "B1_minus_M2_sum_abs_err": -1637.8,
+    "sum_abs_err": 79356.7,
+    "share_of_total_abs_err_pct": 12.8
+   },
+   {
+    "label": "第 3 等份(中間兩成)",
+    "n": 1323,
+    "price_min": 305.7,
+    "price_max": 371.5,
+    "price_median": 338.0,
+    "mean_actual": 338.1,
+    "mean_pred_M2": 351.5,
+    "M2_MAE": 56.5,
+    "M2_MdAPE_pct": 12.7,
+    "M2_within20_pct": 68.0,
+    "M2_mean_signed": 13.4,
+    "B1_MAE": 48.4,
+    "B1_minus_M2_sum_abs_err": -10704.5,
+    "sum_abs_err": 74756.83,
+    "share_of_total_abs_err_pct": 12.1
+   },
+   {
+    "label": "第 4 等份(偏貴兩成)",
+    "n": 1323,
+    "price_min": 371.5,
+    "price_max": 471.5,
+    "price_median": 413.3,
+    "mean_actual": 416.9,
+    "mean_pred_M2": 394.6,
+    "M2_MAE": 74.1,
+    "M2_MdAPE_pct": 15.6,
+    "M2_within20_pct": 63.9,
+    "M2_mean_signed": -22.3,
+    "B1_MAE": 78.0,
+    "B1_minus_M2_sum_abs_err": 5224.0,
+    "sum_abs_err": 97969.25,
+    "share_of_total_abs_err_pct": 15.9
+   },
+   {
+    "label": "第 5 等份(最貴兩成)",
+    "n": 1323,
+    "price_min": 471.8,
+    "price_max": 1992.0,
+    "price_median": 579.3,
+    "mean_actual": 653.5,
+    "mean_pred_M2": 468.1,
+    "M2_MAE": 205.7,
+    "M2_MdAPE_pct": 26.6,
+    "M2_within20_pct": 36.4,
+    "M2_mean_signed": -185.4,
+    "B1_MAE": 235.3,
+    "B1_minus_M2_sum_abs_err": 39145.9,
+    "sum_abs_err": 272155.82,
+    "share_of_total_abs_err_pct": 44.0
+   }
+  ],
+  "top10pct": {
+   "label": "最貴的一成",
+   "n": 662,
+   "price_min": 579.3,
+   "price_max": 1992.0,
+   "price_median": 705.7,
+   "mean_actual": 789.7,
+   "mean_pred_M2": 498.2,
+   "M2_MAE": 300.2,
+   "M2_MdAPE_pct": 34.1,
+   "M2_within20_pct": 23.3,
+   "M2_mean_signed": -291.6,
+   "B1_MAE": 351.6,
+   "B1_minus_M2_sum_abs_err": 33988.5,
+   "sum_abs_err": 198749.46,
+   "share_of_total_abs_err_pct": 32.2
+  },
+  "share_top10_pct": 32.2,
+  "share_top20_pct": 44.0,
+  "MAE_bottom80": 65.3,
+  "n_bottom80": 5292,
+  "MAE_bottom90": 70.4,
+  "n_bottom90": 5953,
+  "pred_range_M2": {
+   "p1": 166.4,
+   "p50": 340.7,
+   "p99": 701.1,
+   "max": 987.0
+  },
+  "actual_range": {
+   "p1": 133.1,
+   "p50": 338.0,
+   "p99": 1084.1,
+   "max": 1992.0
+  },
+  "checks": {
+   "n_sum": 6615,
+   "sum_abs_err_quintiles": 617880.75,
+   "total_abs_err": 617880.75,
+   "MAE_x_n": 617880.75,
+   "boundary_ties_between_quintiles": 2,
+   "boundary_tie_prices": [
+    244.0,
+    371.5
+   ]
+  },
+  "split_rule": "照實際開價由低到高排序(同價照原順序),np.array_split 切 5 份;最貴一成 = 排最後 round(0.1×n) 間"
+ },
+ "3_within_same_kind_spread": {
+  "cell_def": "同一區 × 同樣臥室數 × 同樣能住的人數(6,615 間模型樣本),至少 20 間的組",
+  "n_cells_total": 192,
+  "n_cells_ge20": 68,
+  "n_listings_in_cells_ge20": 5841,
+  "iqr_aud_across_cells": {
+   "median": 126.2,
+   "p25": 102.0,
+   "p75": 160.4
+  },
+  "iqr_over_median_pct_across_cells": {
+   "median": 40.3,
+   "p25": 33.8,
+   "p75": 46.7
+  },
+  "cell_median_price_across_cells": {
+   "median": 325.2
+  },
+  "peek_reference": {
+   "what": "用「自己那一組的中間價」去猜組內每一間(組內含自己,等於偷看答案),只當對照",
+   "MAE_aud": 101.5,
+   "M2_MAE_same_listings": 95.8,
+   "B1_MAE_same_listings": 104.0
+  }
+ },
+ "4_other_slices": {
+  "bedrooms": [
+   {
+    "label": "1 個臥室",
+    "n": 4019,
+    "price_min": 98.0,
+    "price_max": 1992.0,
+    "price_median": 298.0,
+    "mean_actual": 322.3,
+    "mean_pred_M2": 308.7,
+    "M2_MAE": 77.7,
+    "M2_MdAPE_pct": 18.3,
+    "M2_within20_pct": 53.0,
+    "M2_mean_signed": -13.6,
+    "B1_MAE": 85.0,
+    "B1_minus_M2_sum_abs_err": 29583.9,
+    "sum_abs_err": 312160.13,
+    "share_of_total_abs_err_pct": 50.5
+   },
+   {
+    "label": "2 個臥室",
+    "n": 2596,
+    "price_min": 79.0,
+    "price_max": 1940.8,
+    "price_median": 413.6,
+    "mean_actual": 460.7,
+    "mean_pred_M2": 437.0,
+    "M2_MAE": 117.8,
+    "M2_MdAPE_pct": 20.0,
+    "M2_within20_pct": 50.1,
+    "M2_mean_signed": -23.7,
+    "B1_MAE": 127.5,
+    "B1_minus_M2_sum_abs_err": 25256.2,
+    "sum_abs_err": 305720.62,
+    "share_of_total_abs_err_pct": 49.5
+   }
+  ],
+  "district": [
+   {
+    "label": "房子最多的前 5 區",
+    "n": 3599,
+    "price_min": 119.0,
+    "price_max": 1992.0,
+    "price_median": 371.0,
+    "mean_actual": 414.9,
+    "mean_pred_M2": 394.8,
+    "M2_MAE": 104.7,
+    "M2_MdAPE_pct": 19.1,
+    "M2_within20_pct": 51.5,
+    "M2_mean_signed": -20.2,
+    "B1_MAE": 112.0,
+    "B1_minus_M2_sum_abs_err": 26246.5,
+    "sum_abs_err": 376769.81,
+    "share_of_total_abs_err_pct": 61.0
+   },
+   {
+    "label": "其他區",
+    "n": 3016,
+    "price_min": 79.0,
+    "price_max": 1940.8,
+    "price_median": 299.0,
+    "mean_actual": 330.9,
+    "mean_pred_M2": 316.4,
+    "M2_MAE": 79.9,
+    "M2_MdAPE_pct": 18.8,
+    "M2_within20_pct": 52.3,
+    "M2_mean_signed": -14.5,
+    "B1_MAE": 89.4,
+    "B1_minus_M2_sum_abs_err": 28593.7,
+    "sum_abs_err": 241110.94,
+    "share_of_total_abs_err_pct": 39.0
+   }
+  ],
+  "group_size": [
+   {
+    "label": "同區同臥室數那組 30 間以上",
+    "n": 6157,
+    "price_min": 99.0,
+    "price_max": 1992.0,
+    "price_median": 345.0,
+    "mean_actual": 384.4,
+    "mean_pred_M2": 366.4,
+    "M2_MAE": 95.6,
+    "M2_MdAPE_pct": 19.1,
+    "M2_within20_pct": 51.7,
+    "M2_mean_signed": -18.0,
+    "B1_MAE": 104.1,
+    "B1_minus_M2_sum_abs_err": 52391.1,
+    "sum_abs_err": 588597.03,
+    "share_of_total_abs_err_pct": 95.3
+   },
+   {
+    "label": "同區同臥室數那組不到 30 間",
+    "n": 458,
+    "price_min": 79.0,
+    "price_max": 1564.0,
+    "price_median": 258.0,
+    "mean_actual": 272.5,
+    "mean_pred_M2": 260.0,
+    "M2_MAE": 63.9,
+    "M2_MdAPE_pct": 17.6,
+    "M2_within20_pct": 54.1,
+    "M2_mean_signed": -12.5,
+    "B1_MAE": 69.3,
+    "B1_minus_M2_sum_abs_err": 2449.1,
+    "sum_abs_err": 29283.72,
+    "share_of_total_abs_err_pct": 4.7
+   }
+  ],
+  "host_tenure": [
+   {
+    "label": "新手(當房東 12 個月內)",
+    "n": 960,
+    "price_min": 79.0,
+    "price_max": 1836.0,
+    "price_median": 321.2,
+    "mean_actual": 355.1,
+    "mean_pred_M2": 352.3,
+    "M2_MAE": 90.4,
+    "M2_MdAPE_pct": 20.4,
+    "M2_within20_pct": 49.4,
+    "M2_mean_signed": -2.8,
+    "B1_MAE": 94.9,
+    "B1_minus_M2_sum_abs_err": 4303.9,
+    "sum_abs_err": 86753.18,
+    "share_of_total_abs_err_pct": 14.0
+   },
+   {
+    "label": "老手(超過 12 個月)",
+    "n": 5655,
+    "price_min": 99.0,
+    "price_max": 1992.0,
+    "price_median": 341.0,
+    "mean_actual": 380.3,
+    "mean_pred_M2": 360.2,
+    "M2_MAE": 93.9,
+    "M2_MdAPE_pct": 18.7,
+    "M2_within20_pct": 52.3,
+    "M2_mean_signed": -20.1,
+    "B1_MAE": 102.9,
+    "B1_minus_M2_sum_abs_err": 50536.2,
+    "sum_abs_err": 531127.57,
+    "share_of_total_abs_err_pct": 86.0
+   }
+  ],
+  "host_listings": [
+   {
+    "label": "房東名下只有 1 間",
+    "n": 2546,
+    "price_min": 99.0,
+    "price_max": 1836.0,
+    "price_median": 321.0,
+    "mean_actual": 359.6,
+    "mean_pred_M2": 350.9,
+    "M2_MAE": 92.0,
+    "M2_MdAPE_pct": 20.0,
+    "M2_within20_pct": 49.8,
+    "M2_mean_signed": -8.7,
+    "B1_MAE": 100.1,
+    "B1_minus_M2_sum_abs_err": 20783.7,
+    "sum_abs_err": 234112.58,
+    "share_of_total_abs_err_pct": 37.9
+   },
+   {
+    "label": "名下 2 到 9 間",
+    "n": 1736,
+    "price_min": 79.0,
+    "price_max": 1840.0,
+    "price_median": 329.0,
+    "mean_actual": 366.2,
+    "mean_pred_M2": 356.0,
+    "M2_MAE": 90.4,
+    "M2_MdAPE_pct": 19.5,
+    "M2_within20_pct": 50.9,
+    "M2_mean_signed": -10.2,
+    "B1_MAE": 98.6,
+    "B1_minus_M2_sum_abs_err": 14245.3,
+    "sum_abs_err": 156850.1,
+    "share_of_total_abs_err_pct": 25.4
+   },
+   {
+    "label": "名下 10 間以上",
+    "n": 2333,
+    "price_min": 106.2,
+    "price_max": 1992.0,
+    "price_median": 360.5,
+    "mean_actual": 403.0,
+    "mean_pred_M2": 370.3,
+    "M2_MAE": 97.3,
+    "M2_MdAPE_pct": 17.6,
+    "M2_within20_pct": 54.8,
+    "M2_mean_signed": -32.8,
+    "B1_MAE": 105.8,
+    "B1_minus_M2_sum_abs_err": 19811.2,
+    "sum_abs_err": 226918.06,
+    "share_of_total_abs_err_pct": 36.7
+   }
+  ]
+ },
+ "4_meta": {
+  "top5_districts": [
+   "Sydney",
+   "Waverley",
+   "North Sydney",
+   "Manly",
+   "Randwick"
+  ],
+  "tenure_missing_n": 0,
+  "hostcnt_missing_filled_as_1_n": 0,
+  "group_size_basis": "組大小用全部 6,639 間算(同 syd_b a_grouping),含房子自己",
+  "tenure_def": "syd_c_hosts_time.py 第 101 行:hosts_time_as_host_years*12 + hosts_time_as_host_months,<=12 為新手"
+ },
+ "5_what_model_cannot_see": {
+  "features_used_M2": [
+   "區",
+   "房型細類",
+   "緯度",
+   "經度",
+   "房間數",
+   "可住人數",
+   "床數",
+   "浴室數",
+   "最少入住晚數",
+   "設施數",
+   "前 40 項設施旗標(各一欄)"
+  ],
+  "n_features_M2": 50,
+  "features_allowed_doc": [
+   "neighbourhood_cleansed(區)",
+   "latitude/longitude",
+   "property_type(房型細類)",
+   "bedrooms",
+   "accommodates",
+   "beds",
+   "bathrooms_text(解析成浴室數)",
+   "amenities(設施數 + 前 40 項旗標)",
+   "minimum_nights"
+  ],
+  "in_data_but_deliberately_not_used": {
+   "number_of_reviews*, review_scores_*, first_review, last_review, reviews_per_month": "新房東上架前沒有評論",
+   "estimated_occupancy_l365d, estimated_revenue_l365d": "revenue = price × occupancy,直接洩漏答案;occupancy 由評論推算",
+   "availability_*": "是上架後的行事曆結果,新房東沒有",
+   "price_quote_*": "跟價格直接相關(報價本身)",
+   "host_is_superhost, host_listings_count 等房東經營資料": "新房東沒有;房東名下房源數只放在對照版本"
+  },
+  "note_host_variant": "加房東名下房源數的對照版 M2 = 92.6(20_雪梨深度分析.md 第 140 行),只比 93.4 少 0.8",
+  "not_in_data_per_notes": [
+   {
+    "file": "Innovation Studio/notes/20_雪梨深度分析.md",
+    "line": 303,
+    "keyword_checked": "清潔費",
+    "says": "房東開的價中位數不是房東賺到的;成交價、清潔費、折扣看不到"
+   },
+   {
+    "file": "Innovation Studio/notes/21_1111組會錄音整理.md",
+    "line": 120,
+    "keyword_checked": "裝修欄",
+    "says": "掛牌價不是成交價;calendar 沒有價格欄;入住與收入是評論推算;沒有清潔費、買房價、租金、裝修欄"
+   },
+   {
+    "file": "Innovation Studio/notes/raw/ab_branch_redteam_2026-11-11.md",
+    "line": 17,
+    "keyword_checked": "折扣",
+    "says": "calendar 欄位沒有價格;清潔費、服務費、押金、週月折扣、買價或租金的關鍵字掃描全是「沒有」"
+   },
+   {
+    "file": "Innovation Studio/notes/17_定題與三層目標_v1.md",
+    "line": 44,
+    "keyword_checked": "逐日價格",
+    "says": "calendar 沒有逐日價格,量不出假期漲多少"
+   },
+   {
+    "file": "Innovation Studio/notes/17_定題與三層目標_v1.md",
+    "line": 47,
+    "keyword_checked": "裝修",
+    "says": "listings 裡沒有裝修欄"
+   },
+   {
+    "file": "Innovation Studio/notes/11_Airbnb與酒店取消_可行性與資料來源.md",
+    "line": 43,
+    "keyword_checked": "成交價",
+    "says": "公開標價不是成交價,也沒有需求對價格變化的反應"
+   },
+   {
+    "file": "Innovation Studio/notes/19_墨爾本深度分析.md",
+    "line": 222,
+    "keyword_checked": "隨機偏移",
+    "says": "(墨爾本筆記,同一個 Inside Airbnb 來源)沒有成交價與真實入住;經緯度有隨機偏移"
+   }
+  ]
+ }
+}
