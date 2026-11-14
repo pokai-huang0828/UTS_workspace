@@ -3085,3 +3085,15 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - `scratchpad/` 是先前就決定不進版控的(本檔 2026-11-07 那筆:「原始房源／評論個資及下載資料只留未追蹤 scratchpad,不進版控」),只是沒寫進 `.gitignore`,所以一直掛在清單上。這次在 `.gitignore` 檔尾加 `/scratchpad/`。
 - 那 1 個 Canvas 作業筆記是 11/11 20:52 產生、當時漏 commit 的;有兩份筆記引用它(`notes/raw/canvas_assignments_check_2026-11-11.md`、`notes/raw/roadmap_to_AT3_2026-11-14.md`)。這次補 commit,路徑不動(同類的檔其實都在 `Innovation Studio/notes/materials/canvas_embeds/`,它放錯資料夾,但搬動會弄斷那兩份筆記的引用)。
 - ⚠️ 沒解決的:原始資料只在這台 Windows 機。別台機器 pull 之後沒有 `scratchpad/`,`analysis/sydney/*.py`、`meeting_1114/map_data.py` 都跑不動,要重新下載(來源記在 `notes/raw/airbnb_history_sources_2026-11-11.md` 與各資料夾的 SOURCE.txt;SOURCE.txt 本身也在 scratchpad 裡,沒進版控)。
+
+## 2026-11-14(晚,組會前)· Innovation Studio:隊友兩份業務分析文件對照 + 會前 3 個資料問題
+
+- Kenny 貼了兩份微信收到的 PDF(《业务分析内容建议(简洁版)》《业务问题讨论》),說明是「大家的分析」,並下 `/uts-dispatch`。沒有其他指示;主腦照「組會前要彙總」的脈絡自行決定做對照。
+- 產物:`Innovation Studio/notes/23_1114隊友分析彙總.md`(一頁版)、`Innovation Studio/notes/raw/teammate_doc_datacheck_2026-11-14.md`、`Innovation Studio/notes/raw/teammate_doc_compare_2026-11-14.md`。
+- 會前 3 個資料問題(分身用純標準庫 csv 直接算雪梨四期原始檔):calendar 四期表頭都只有 `listing_id,date,available,minimum_nights,maximum_nights`,沒有價格;`estimated_occupancy_l365d` 四期 100% 非空,`estimated_revenue_l365d` 2025-12 為 0%、2026-03/06/09 為 99.42%/86.45%/85.06%;price 空白 2025-12 100%(20,436/20,436)、2026-03 0.58%(79/13,563)、2026-06 13.55%(2,787/20,573)、2026-09 14.94%(3,112/20,833)。快照日期 2025-12-12 到 2026-09-17。與筆記 11、13、16、20、21 一致。
+- 對照結果:第一份文件 10 條、第二份 7 條要小心的地方(資料期間寫 2025-09、calendar 當成有報價、裝修、評論推入住、180 晚、三種模型比較、新房東沒定義、布里斯班、聚類、B 偏買房);分給 Kenny 的模組 1、3、5、8 大半已有結果,從零的是儀表板、隨機森林/XGBoost、各區各檔次入住率表。
+- 查核:資料題的證據是原始檔算出來的數字;對照表只有一個 sonnet 分身做,沒有第二個分身或 Codex 核對,主腦抽查 3 處(20 的模型表、20 §5 新手對老手、external_facts 2.01)相符。
+- 沒做:群組回覆草稿沒送出(在 23 裡);布里斯班的搜尋有一次失敗;分身回報 `scratchpad/insideairbnb_sydney/` 裡沒看到 SOURCE.txt(和上一筆寫的不一樣,沒追查)。
+
+### 成本(§8.3,照通知原值)
+- sonnet high 2 個:資料查證 98,981/15(上限 20);對照 158,555/30(上限 25 + 追加 12)。
