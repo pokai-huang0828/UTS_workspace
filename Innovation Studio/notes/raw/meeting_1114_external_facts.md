@@ -30,9 +30,9 @@
 | 項目 | 低 | 中或單一值 | 高 | 單位 | 資料期間 | 地理範圍 | 來源名稱 | 網址 | 來源類型 | 查核判定 | 簡報加註 | 出處 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1.01 AirDNA 活躍房源數 | — | 16,392 | — | 間(去重,含 Airbnb/Vrbo/Booking.com) | 截至 2026-10 | Sydney | AirDNA | https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/sydney/overview | 商業網站 | ✅ | 吻合;頁面更新日 2026-11-11。 | web_str_market:16;web_verify_str_market:13 |
-| 1.02 AirDNA ADR(實際成交每晚均價) | — | $193 | — | 晚(頁面未標幣別) | 2025-10 至 2026-10 | Sydney | AirDNA | https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/sydney/overview | 商業網站 | ✅ | 頁面只有「$」沒標幣別,不要跟 AUD 數字直接比;定義為已訂晚實際成交均價(近 12 個月)。 | web_str_market:17;web_verify_str_market:14;109 |
+| 1.02 AirDNA ADR(實際成交每晚均價) | — | $193 | — | 晚(頁面未標幣別) | 2025-10 至 2026-10 | Sydney | AirDNA | https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/sydney/overview | 商業網站 | ✅ | 頁面只有「$」沒標幣別,不要跟 AUD 數字直接比;定義為已訂晚實際成交均價(近 12 個月)。【晚上補查 2026-11-14】使用者自己登入 AirDNA app(免費帳號)後:畫面右上角標 $USD;app 裡每晚價被鎖住,所以 $193 是不是美金沒有直接確認,但同一市場的年收入在 app 標的是美金。 | web_str_market:17;web_verify_str_market:14;109 |
 | 1.03 AirDNA 入住率(平均) | — | 67% | — | %(可訂晚數中被訂走的比例) | 2025-10 至 2026-10 | Sydney | AirDNA | https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/sydney/overview | 商業網站 | ✅ | 吻合。 | web_str_market:18;web_verify_str_market:15 |
-| 1.04 AirDNA 每間年收入(平均,典型活躍房源) | — | $40.8K | — | 年(頁面未標幣別) | 2025-10 至 2026-10 | Sydney | AirDNA | https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/sydney/overview | 商業網站 | ✅ | 幣別未標、不要跟 AUD 直接比;頁面定義含房價加清潔費與其他房客費用、未扣房東成本(研究檔沒提含清潔費)。 | web_str_market:19;web_verify_str_market:16;109 |
+| 1.04 AirDNA 每間年收入(平均,典型活躍房源) | — | $40.8K | — | 年(頁面未標幣別) | 2025-10 至 2026-10 | Sydney | AirDNA | https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/sydney/overview | 商業網站 | ✅ | 幣別未標、不要跟 AUD 直接比;頁面定義含房價加清潔費與其他房客費用、未扣房東成本(研究檔沒提含清潔費)。【晚上補查 2026-11-14】使用者自己登入 AirDNA app(免費帳號)後:畫面右上角標 $USD,年收入寫 $40,819(一年 +5.5%)、房源 16,392(一年 +9.3%);所以 $40.8K 是美金,不能直接跟澳幣比。分身讀一次、主腦重開看一次。 | web_str_market:19;web_verify_str_market:16;109 |
 | 1.05 AirDNA RevPAR | — | $129 | — | 晚可供出租 | 2025-10 至 2026-10 | Sydney | AirDNA | https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/sydney/overview | 商業網站 | ✅ | 吻合(幣別同樣只有「$」)。 | web_str_market:20;web_verify_str_market:17 |
 | 1.06 AirDNA 年變化(10/2025→10/2026) | — | ADR -11.5%、入住率 +7.9%、RevPAR +3.3%、活躍房源 -36.8%、營收 +99.1% | — | % | 2025-10 至 2026-10 | Sydney | AirDNA | https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/sydney/overview | 商業網站 | ✅ | 數字與頁面完全相同;營收 +99.1% 確實寫在頁面,但研究檔判斷與 RevPAR +3.3% 難並存而不採用(見 7.03)。 | web_str_market:21;web_verify_str_market:18 |
 | 1.07 AirROI 活躍房源數 | — | 10,096(年減 22%) | — | 間 | 2025-11 至 2026-10(近 12 個月) | Sydney | AirROI | https://www.airroi.com/airbnb-data/australia/new-south-wales/sydney | 商業網站 | ✅ | 吻合;頁面標題「12 個月至 2026-10」。 | web_str_market:22;web_verify_str_market:19 |
@@ -390,7 +390,7 @@
 | 項目 | 狀態 | 出處 |
 |---|---|---|
 | 8.01 按「房型」(整套房/單間)的價格與收入 | 查不到,只有 AirROI 的臥房數分組(1.12–1.15) | web_str_market:120 |
-| 8.02 AirDNA 季節性各月數字、供給子頁 | 研究檔:內頁讀取失敗(403),只有 overview;查核員改用 Chrome 讀到 overview(季節性分數 91),各月數字仍沒有 | web_str_market:10,121;web_verify_str_market:5 |
+| 8.02 AirDNA 季節性各月數字、供給子頁 | 研究檔:內頁讀取失敗(403),只有 overview;查核員改用 Chrome 讀到 overview(季節性分數 91),各月數字仍沒有。【晚上補查 2026-11-14】使用者自己登入 app(免費帳號)後,每月入住率、每晚價、季節性、週末對平日、分房型、未來價格全部被鎖住,要付費方案才看得到(筆記 web_airdna_app_2026-11-14.md) | web_str_market:10,121;web_verify_str_market:5 |
 | 8.03 NSW 2025–2026 修法結果 | 官方頁沒有列;官方頁最後更新 2025-02-10;二手文章猜上限可能降到 90 天是猜測、不是決定,使用前要在 planning.nsw.gov.au 再確認 | web_str_market:75,122;web_verify_str_market:115 |
 | 8.04 Tourism Research Australia 與 Inside Airbnb 摘要頁 | 這次沒查(工具呼叫上限)【晚上補查 2026-11-14】Inside Airbnb 雪梨頁開到(資料 2026-09-16、20,833 筆,一樣);TRA 猜的網址 404,沒找到每月旅客頁(TRA Online 要登入)。 | web_str_market:123 |
 | 8.05 1 房/2 房整戶公寓油漆的來源價 | 補查檔也沒有,只有各區加總的算術(見 7.33、6(i)-B) | web_reno_setup:102;web_reno_setup_gapfill:91;web_verify_reno_gapfill:29 |
