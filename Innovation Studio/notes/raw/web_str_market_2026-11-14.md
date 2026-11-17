@@ -121,3 +121,5 @@ scope ID:IS-1114-web-01-strmarket
 - AirDNA 的季節性各月數字、供給子頁:頁面讀取失敗,只拿到 overview。
 - NSW 2025–2026 修法結果:官方頁沒有列,查不到官方公布的改動。
 - Tourism Research Australia 與 Inside Airbnb 摘要頁:這次沒查(工具呼叫上限)。
+
+> ⚠️ 2026-11-17:本檔有幾處後來更正或補了年度(主題:Airbnb「2025-12-01 全部改制」整句不要用、City of Sydney 5,454 / 2,468 是 2023 年)。更正內容見 `Innovation Studio/notes/raw/corrections_2026-11-17.md`。本檔內文保留當天原樣。

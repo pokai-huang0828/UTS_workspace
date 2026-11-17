@@ -3197,3 +3197,18 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - 沒確認的(結果檔已標):Vivin p.4 臥室數與價格的對應、Cotality p.28 雪梨租金年增(都要人眼看);DMO 表上的用電量含不含可控負載;瓦斯表的「Metro」= Jemena 雪梨網路是推論;AER 最終版 152 頁只讀了 4 頁。分身沒有回頭逐項對隊友 HTML 原文(用的是工單裡抄的講法)。
 - 沒做:舊筆記還沒改(對照檔表 3 的 8 處 + 電費草案數字);沒回覆群組;沒有 Codex。
 - 成本(§8.3,照通知原值):sonnet high 1 個 176,512/45(**上限 40,超過 5 次**)。本 session 累計分身:opus 1 個 120,890;sonnet 3 個 118,862 + 152,751 + 176,512 = 448,125 —— 共 4 個分身、569,015 token。Codex 0 趟。
+
+## 2026-11-17(晚,再續)· Innovation Studio:舊筆記加上更正(8 個主題)
+
+- Kenny 回「好,改掉」。主腦定做法(寫進工單):還在用的檔 → 在該列後面加「〔2026-11-17 更正…〕」、舊字不刪;當天的紀錄檔 → 內文不動、只加一行提醒;11/14 組會的簡報頁、講稿、已分享的 PDF → 不改,只記錄。派 1 個 sonnet high 分身(scope IS-1117-FIX-A)。
+- 改動(13 個檔修改、1 個新增):
+  - `Innovation Studio/notes/raw/data_inventory_2026-11-15.md`:第 75、167、169、180、183、190、207、216、222、227、229 行各加一段更正;第 196 行後半加「2026-11-17 更新:哪些缺口已補、淡旺季還缺」(接在同一行,沒有插行 → 行號不變,28 引用的行號照舊)。
+  - `Innovation Studio/notes/28_項目介紹簡報大綱_草稿.md`:第 5 頁「US$500 或 US$800」那句改成「不是固定報價,要向站方問」;加一個子項(隊友補了 14 個檔、成本類缺口大多補上、淡旺季還缺)。
+  - 11 個當天紀錄檔(`notes/raw/` 的 meeting_1114_external_facts、meeting_1114_internal_facts、web_str_market、web_verify_str_market、web_holidays_events、page_reconcile_v4、web_chrome_recheck_A、web_opcost_housing_gapfill、web_verify_opcost_housing、airbnb_history_sources_2026-11-11,與 `notes/21_1111組會錄音整理.md`):**檔尾**各加一行提醒,指到更正紀錄。
+  - 新增 `Innovation Studio/notes/raw/corrections_2026-11-17.md`(8 個主題:舊講法、現在的講法、依據、改了哪些位置、沒改的位置與原因;另有「重用 11/14 簡報頁之前要先改哪幾行」)。
+- 主腦驗收時改的一件事:分身把提醒行加在 11 個紀錄檔的**檔頭**,內文行號會往後移 2–3 行,別的筆記引用的「檔:行」會對不上 → 主腦用腳本還原這 11 個檔再把同一行加到**檔尾**(`git diff --stat` 每檔 +2 行、0 刪除),並把更正紀錄裡講「行號位移」的兩句改掉。
+- 「已核對」只有三個:電費草案改最終版(AER 最終決定 PDF p.16)、ABS 雪梨建材指數 3.7%(Table 18,Data1 Q251)、North Sydney 市政費 970.72(IPART 最終報告 p.8)。其餘五個主題(Airbnb 2025-12-01 全部改制、Inside Airbnb US$500/800、Domain 網址、Blacktown 1,140 的年度、City of Sydney 5,454 / 2,468 的年度)是「隊友查的,未核對」,更正字句裡都有寫。
+- Domain 新網址:主腦用 Kenny 的 Chrome 導過去(沒被轉走),要讀內容時 Chrome 的允許視窗逾時沒人按 → 內容沒讀到,公寓 780 仍標「未核對」。分頁已關。
+- 查核:主腦看了 `git diff --stat`、資料清單 12 處「2026-11-17」的開頭文字(11 列 + 第 196 行)、28 的兩處 diff、紀錄檔檔尾樣本 1 個。沒有獨立核對;11 個檔尾的主題文字只看了分身加的那一行,沒有逐檔對表 3。
+- 沒改的(記在更正紀錄):`meeting_1114/index.html`(第 824、1155、1294、1514、1533、1712 行)與 `meeting_1114/share/` 的 HTML、`meeting_1114/talk_script.md:106`、11/15 的資料清單 PDF。
+- 成本(§8.3,照通知原值):sonnet high 1 個 122,930/14(上限 45)。本 session 累計 5 個分身:opus 120,890;sonnet 4 個 571,055;合計 691,945 token。Codex 0 趟。

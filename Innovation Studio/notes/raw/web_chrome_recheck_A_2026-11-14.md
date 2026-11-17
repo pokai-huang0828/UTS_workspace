@@ -40,3 +40,5 @@
 ## 工具呼叫次數
 
 - Chrome 工具約 49 次(含幾次因網域變動被擋的重試),加上 Skill、ToolSearch、Grep 共約 54 次,超過上限 50 一點,所以 A10 沒做。Google 搜尋 3 次(Domain 2 次、hipages 1 次)。
+
+> ⚠️ 2026-11-17:本檔有幾處後來更正或補了年度(主題:Domain 2026 年 9 月季報告網址)。更正內容見 `Innovation Studio/notes/raw/corrections_2026-11-17.md`。本檔內文保留當天原樣。

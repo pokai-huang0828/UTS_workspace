@@ -89,3 +89,5 @@ scope ID:IS-1114-web-06-holidays
 
 - SXSW Sydney(上面第 80 行):不是只打不開,2026 那屆已取消(2026-01-14 公告);NSW 政府(Destination NSW)說 2026、2027 都不辦。官網這次仍是憑證錯誤。出處:web_chrome_recheck_B_2026-11-14.md 的 B2、web_verify_chrome_recheck_2026-11-14.md 的 V1。
 - NRL 總決賽(上面第 79 行):2026 年是 10-04(週日),在 Accor Stadium;2027 年官方頁還寫 TBD,日期未公布。網址 https://www.nrl.com/hospitality/grand-final/ 、https://travel.nrl.com/2027-grand-final 。出處:B1、V8。
+
+> ⚠️ 2026-11-17:本檔有幾處後來更正或補了年度(主題:SXSW Sydney 官網「憑證壞掉」的舊狀態,2026 已確定取消)。更正內容見 `Innovation Studio/notes/raw/corrections_2026-11-17.md`。本檔內文保留當天原樣。

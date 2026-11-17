@@ -72,7 +72,7 @@
 
 | 名稱 | 網址 | 查它的目的 | 為什麼要查 | 查到什麼 | 狀態 |
 |---|---|---|---|---|---|
-| canstar.com.au | https://www.canstar.com.au/news/regulator-to-shift-electricity-prices-in-reverse-march-2026/ | 看電、水、瓦斯、網路、管理費、保險的每月參考數字 | 我們的資料沒有成本 | Ausgrid 供電區單一費率住宅年電費 AUD 1,965(2025-26)、2026-27 草案 1,875;Endeavour 2,411、草案 2,347。另有 2 個數字沒有人開過原頁(見第二段 B) | 有查到,數字只能當大概 |
+| canstar.com.au | https://www.canstar.com.au/news/regulator-to-shift-electricity-prices-in-reverse-march-2026/ | 看電、水、瓦斯、網路、管理費、保險的每月參考數字 | 我們的資料沒有成本 | Ausgrid 供電區單一費率住宅年電費 AUD 1,965(2025-26)、2026-27 草案 1,875;Endeavour 2,411、草案 2,347。另有 2 個數字沒有人開過原頁(見第二段 B)〔2026-11-17 更正:最終版已出(AER 最終決定 PDF p.16,含 GST):Ausgrid 平價 1,899(年用電 3,900 kWh)、Endeavour 平價 2,328(4,900 kWh)。草案的 1,875 / 2,347 不要再用〕 | 有查到,數字只能當大概 |
 | hospitable.com | https://hospitable.com/airbnb-cleaning-fee-australia | 看電、水、瓦斯、網路、管理費、保險的每月參考數字 | 我們的資料沒有成本 | 每次退房向房客收的清潔費 AUD 50–105(65 是房東自己打掃) | 有查到,數字只能當大概 |
 | houst.com | https://www.houst.com/blog/airbnb-hosting-fees-australia | 看電、水、瓦斯、網路、管理費、保險的每月參考數字 | 我們的資料沒有成本 | 短租代管公司抽成 15–25%,多數落在 20–22% | 有查到 |
 | rakidzich.com | https://www.rakidzich.com/articles/airbnb-co-hosting-australia | 看電、水、瓦斯、網路、管理費、保險的每月參考數字 | 我們的資料沒有成本 | 共同房東抽成 10–25%(最常見 20%);短租保險 AUD 500–700/年(只有單一業者的行銷文)。另有 1 個數字沒有人開過原頁(見第二段 B) | 有查到,數字只能當大概 |
@@ -164,9 +164,9 @@
 
 | 名稱 | 網址 | 卡在哪 | 本來想拿它做什麼 |
 |---|---|---|---|
-| AER 電費原始 PDF(2026-27 草案資訊頁) | https://www.aer.gov.au/system/files/2026-03/Draft%20Default%20Market%20Offer%202026-27%20-%20Information%20sheet.pdf | 要登入(被轉到 AER 的登入頁) | 核對 Ausgrid、Endeavour、Essential 三區 2026-27 年電費(1,875、2,347、2,515 AUD)。最終版新聞稿開到了,但沒有 Ausgrid 年電費和用電量 |
+| AER 電費原始 PDF(2026-27 草案資訊頁) | https://www.aer.gov.au/system/files/2026-03/Draft%20Default%20Market%20Offer%202026-27%20-%20Information%20sheet.pdf | 要登入(被轉到 AER 的登入頁) | 核對 Ausgrid、Endeavour、Essential 三區 2026-27 年電費(1,875、2,347、2,515 AUD)。最終版新聞稿開到了,但沒有 Ausgrid 年電費和用電量〔2026-11-17 更正:最終版 PDF 已下載並開檔核對,裡面有年電費與用電量(p.16)。Essential 平價 2,604、分時 2,530(4,600 kWh);這裡的 2,515 對不上最終版任何一種,不要再用〕 |
 | SXSW Sydney 官網 | https://sxswsydney.com | 憑證壞掉 | 查活動日期和人數。後來從 Variety 報導知道 2026 那屆取消、NSW 政府說 2026、2027 都不辦 |
-| Domain 2026 年 9 月季租金報告 | (筆記只記到 …/rental-report/september-2026-rental/,前段沒記全,不放) | 找不到頁面(猜的網址和報告列表都 404) | 核對雪梨公寓、獨棟每週租金和空置率(公寓 780 目前只有 Elite Agent 轉述) |
+| Domain 2026 年 9 月季租金報告 | (筆記只記到 …/rental-report/september-2026-rental/,前段沒記全,不放)〔2026-11-17:隊友給的網址是 https://www.domain.com.au/research/rental-report/september-2026/ (沒有 -rental 後綴);他寫原頁有獨棟 835、公寓 780、空置率 1.2%。我們用 Chrome 導得過去、沒被轉走,但頁面內容沒讀到,所以 780 仍算「未核對」〕 | 找不到頁面(猜的網址和報告列表都 404) | 核對雪梨公寓、獨棟每週租金和空置率(公寓 780 目前只有 Elite Agent 轉述) |
 | Tourism Research Australia 每月旅客頁 | https://www.tra.gov.au/en/regional/states-and-territories/new-south-wales | 找不到頁面(猜的網址 404;TRA Online 要登入) | 看雪梨或 NSW 各月旅客多寡,對照淡旺季 |
 | HIA 與 Archicentre 裝修費用指南 | (筆記沒記網址) | 沒去查 | 拿協會的費用指南校「裝修、開辦費」的範圍 |
 | AirDNA app 的每月數字 | https://app.airdna.co/data/au/30830/overview | 要付費方案(每月住滿幾成、每晚價、淡旺季、週末對平日、分房型、未來價格都被鎖,圖上是標 SAMPLE 的示範資料) | 看雪梨每個月的住滿率和每晚價,做淡旺季 |
@@ -177,23 +177,23 @@
 
 | 想查的數字 | 目前手上只有(摘要寫的數字) | 網址(有才放) |
 |---|---|---|
-| City of Sydney 市區登記的短租有幾間 | 5,454 間活躍短租,有 2,468 間依 NSW 制度登記(搜尋摘要引述市議會資料) | (筆記沒記網址) |
+| City of Sydney 市區登記的短租有幾間 | 5,454 間活躍短租,有 2,468 間依 NSW 制度登記(搜尋摘要引述市議會資料)〔2026-11-17:隊友查議會原文 —— 這組數字指 2023 年,決議日期 2025-02-17,範圍只有 City of Sydney;不能寫成 2026 年的現況。這是隊友查的,我們沒核對〕 | (筆記沒記網址) |
 | City of Sydney 市議會對短租的動議 | 2026-04-28 動議要求研究限制部分內城區「非主要居所」短租;是市議會行動,不是州法修改(來源是 wboc.com 新聞稿頁,品質低) | (筆記沒記網址) |
 | Airbnb 舊制服務費(分攤費) | 房東約 3%、房客另付約 14.1%–16.5%(舊版頁面的搜尋摘要) | https://www.airbnb.com.au/resources/hosting-homes/a/simplifying-airbnb-service-fees-746 |
-| 澳洲 Airbnb 改單一服務費的改制日(說法三) | 有網站寫 2025-12-01 全部轉換(搜尋摘要,只供參考) | (筆記沒記網址) |
+| 澳洲 Airbnb 改單一服務費的改制日(說法三) | 有網站寫 2025-12-01 全部轉換(搜尋摘要,只供參考)〔2026-11-17:隊友另外查,也找不到官方依據支持「2025-12-01 全部改制」這個統一日期。這句整句不要用;以 Airbnb 官方服務費說明頁和房東自己收到的通知為準〕 | (筆記沒記網址) |
 | NSW 土地稅超過一般門檻的稅率 | AUD 100 加超額部分的 1.6%(搜尋摘要引用 Revenue NSW 資料) | https://www.revenue.nsw.gov.au/news-media-releases/preparing-for-the-2026-land-tax-year |
 | 2 個臥室 Airbnb 開辦合計 | AUD 7,539(Airbtics 的數字,資料期間 2023-10 至 2024-09;上一份筆記就有,這次沒再開頁) | https://airbtics.com/starting-an-airbnb-australia |
 | NSW 家戶瓦斯年均 | AUD 730–1,320/年:Mozo 引 Finder 730;Finder 州別表每季 241(換算約 964);Energy Plans 1,320 | https://www.mozo.com.au/best/energy/gas.html 、https://www.finder.com.au/energy/gas-nsw 、https://www.energyplans.com.au/average-gas-bill-australia |
 | NBN 50 方案月費 | AUD 50(Mozo 最便宜無限量)、約 86(Canstar 2026 全速率平均月帳單)、100(Canstar 區間上限) | https://www.canstar.com.au/internet/average-internet-bill/ 、https://www.mozo.com.au/broadband.html 、https://www.finder.com.au/news/optus-telstra-nbn-price-hikes-locked-in-for-july-2026 |
 | NBN 100 方案月費 | AUD 70(Mozo 最便宜無限量)、110(Canstar 區間上限) | https://www.canstar.com.au/internet/average-internet-bill/ 、https://www.mozo.com.au/broadband.html 、https://www.finder.com.au/news/optus-telstra-nbn-price-hikes-locked-in-for-july-2026 |
 | North Sydney 住宅市政費最低費率 | AUD 970.72/年(2026-27;2027-28 核准 1,116.32) | https://www.ipart.nsw.gov.au/sites/default/files/cm9_documents/Minimum-Rates-Instrument-2026-27-North-Sydney-Council.PDF |
-| Blacktown 住宅最低費率與平均住宅費 | 最低費率 AUD 1,140、平均住宅費 1,233(每年;年度摘要沒寫清) | https://www.ipart.nsw.gov.au/sites/default/files/cm9_documents/Blacktown-City-Council-Attachment-Other-Attachment-2.5-Special-Rate-Variation-FAQs-and-Factsheets.PDF |
+| Blacktown 住宅最低費率與平均住宅費 | 最低費率 AUD 1,140、平均住宅費 1,233(每年;年度摘要沒寫清)〔2026-11-17:隊友查原始申請 PDF,A$1,140 屬 2025–26,不是 2026–27 的最終費用;1,233 是哪一年仍不清楚。這是隊友查的,我們沒核對〕 | https://www.ipart.nsw.gov.au/sites/default/files/cm9_documents/Blacktown-City-Council-Attachment-Other-Attachment-2.5-Special-Rate-Variation-FAQs-and-Factsheets.PDF |
 | 房東 / 短租專用保險 | AUD 500–700/年(單一業者 Rakidzich 的文章) | https://www.rakidzich.com/articles/airbnb-insurance-australia |
 | 新承作自住房貸平均利率 | 約 6.75%(升息前後的估計,不是投資客利率;沒標出處頁) | (筆記沒記網址) |
 
 # 第三段:還缺哪些數據
 
-前 8 列是我們自己資料的缺口;後面是外部行情還沒查到的。
+前 8 列是我們自己資料的缺口;後面是外部行情還沒查到的。 **2026-11-17 更新**:隊友鹤舞給的清單裡 14 個檔已下載並開檔核對。下面這些缺口現在有檔案可以補(數字、頁碼、適用範圍在 `external_downloads_verify_2026-11-17.md` 表 2):電費最終版(229)、瓦斯(225)、短租保險(223)、網路月費(204)、市政費(222,只有 North Sydney)、裝修(215、217)、建材價格指數(216)、家具套裝(219)、長租掛牌租金(226)。短租天數(210):現行規定有官方 FAQ(2024 年 5 月版:180 天、連續 21 天以上不計),但 2025–2026 修法結果仍未查到。**還是缺的**:淡旺季(211)—— TRA 儀表板沒有雪梨層級數字。
 
 | 缺什麼 | 為什麼需要 | 現在怎麼處理 |
 |---|---|---|
@@ -204,7 +204,7 @@
 | 成本(電、水、瓦斯、網路、管理費、保險) | 算每月淨收入要用 | 由使用者自己填;外部行情(第 4 組)只當參考範圍 |
 | 看不出房東是自住還是投資 | 想分自住、二房東、買房三種人 | 不做(兩種人不在題目範圍);資料只看得出當房東多久 |
 | 2025-12 那期沒有價格(整欄是空的) | 想多一期有價格的資料 | 價格只用 2026-03、06、09 三期 |
-| 沒有 2025-09 那一期 | 想要滿一年的對照 | 免費最早從 2025-12-12 開始;更早的要向官方申請,參考價 US$500 或 US$800,還沒申請 |
+| 沒有 2025-09 那一期 | 想要滿一年的對照 | 免費最早從 2025-12-12 開始;更早的要向官方申請,參考價 US$500 或 US$800,還沒申請〔2026-11-17:隊友查官方收費說明 —— 價格按城市數和用途分類,US$500、US$800 不是固定報價,要向站方問;另有到 2026-11-30 的舊價過渡安排。這是隊友查的,我們沒核對〕 |
 | 按房型(整套出租 / 只租一個房間)的價格與收入 | 同類比較和收入範圍要分整套出租、只租一個房間 | 外部只有 AirROI 按臥室數分組;整套/單間的開價用我們自己的房型欄算 |
 | AirDNA 每月數字、供給子頁 | 做淡旺季每月住滿幾成 | 晚上補查:app 裡全部被鎖,要付費方案才看得到;不買,延伸 2 只做提醒 |
 | NSW 2025–2026 修法結果 | 一年最多能租幾天會不會改 | 目前用官方頁寫的 180 天,並註明官方頁最後更新 2025-02-10;有沒有改要另外查 |
@@ -213,20 +213,20 @@
 | 木地板翻新(磨砂上漆)價 | 裝修費的範圍 | 已補到層板、乙烯、工程木、實木的供應加安裝價,翻新沒有;由使用者自己填 |
 | 浴室「整間每平方公尺」單價 | 裝修費的範圍 | 沒有可驗證的值;只用整間浴室價的範圍 |
 | HIA、Archicentre、Cordell、Rawlinsons 的費用指南 | 官方或協會的裝修費用對照 | 晚上補查拿到 hipages(全澳平均)和 Master Builders NSW 第 1 頁;HIA、Archicentre 沒去查;由使用者自己填 |
-| 雪梨層級的營造成本年增(ABS) | 判斷裝修費會不會變貴 | 晚上補到 Master Builders NSW:雪梨房屋營造材料 +2.0%(到 2025-09 止一年,只有材料);ABS 雪梨層級沒有 |
+| 雪梨層級的營造成本年增(ABS) | 判斷裝修費會不會變貴 | 晚上補到 Master Builders NSW:雪梨房屋營造材料 +2.0%(到 2025-09 止一年,只有材料);ABS 雪梨層級沒有〔2026-11-17 更正:ABS 有雪梨層級。Producer Price Indexes Table 18「Input to the House construction industry」,雪梨 2026 年 9 月季年增 3.7%(工作表 Data1 儲存格 Q251,已開檔核對)。這是房屋建築業的材料投入價格,不含人工,不能直接叫「裝修成本漲幅」〕 |
 | 雪梨專屬的浴室、廚房費用指南(hipages 以外) | 裝修費的範圍 | 晚上補到 hipages 全澳平均:浴室 AUD 8,000–35,000、廚房 30,000–50,000;雪梨專屬的沒有 |
 | 雪梨家具租賃(月租)實價 | 不買家具時的開辦費 | 查不到;由使用者自己填 |
 | 澳洲業者 1 個臥室 / 2 個臥室家具套裝標價 | 開辦費裡的家具 | 只有 Airbtics 合計(1 個臥室 AUD 5,358、2 個臥室 7,539);由使用者自己填 |
 | 澳洲裝修或設施升級對價格、住滿率影響的研究 | 告訴房東「缺哪些設施」值不值得補 | 沒找到(21% 是 Airbnb 自己的數字,因果不明);設施只列出同類有、自己沒有的,不寫補了能多賺多少 |
 | 床單洗滌費 | 每月成本 | 查不到;由使用者自己填 |
-| 雪梨一般公寓的年度市政費 | 每月成本 | 只有 North Sydney 最低費率、Blacktown 平均費,都沒有人開過原頁;由使用者自己填 |
+| 雪梨一般公寓的年度市政費 | 每月成本 | 只有 North Sydney 最低費率、Blacktown 平均費,都沒有人開過原頁〔2026-11-17 已補到一部分:North Sydney 2026–27 最低住宅費率 970.72(IPART 最終報告 p.8,已開檔核對;只適用 North Sydney Council)。Blacktown 的 1,140 屬 2025–26(隊友查的,未核對)〕;由使用者自己填 |
 | 保險公司公布的房東 / 短租保險費率 | 每月成本的保險 | 只有單一業者的行銷文(AUD 500–700/年),沒有人開過原頁;由使用者自己填 |
 | 投資客房貸利率 | 當時評估買房投資 | 查不到;買房投資不在題目範圍,不做 |
 | 雪梨瓦斯年均帳單(AER 或政府來源) | 每月成本 | 只有比價站數字(AUD 730–1,320/年),沒有人開過原頁;由使用者自己填 |
 | NSW 政府租金報告、SQM 的雪梨週租中位數、Cotality 的租金水準 | 當時評估二房東 | 沒查到;二房東不在題目範圍,只留紀錄 |
-| Domain 租金報告、Cotality 或 Domain 房價頁的官方原頁 | 當時評估二房東、買房投資 | 晚上補查:Domain 2026 年 9 月季打不開(404),公寓 780 只剩 Elite Agent 轉述;不在題目範圍,只留紀錄 |
+| Domain 租金報告、Cotality 或 Domain 房價頁的官方原頁 | 當時評估二房東、買房投資 | 晚上補查:Domain 2026 年 9 月季打不開(404),公寓 780 只剩 Elite Agent 轉述〔2026-11-17:新網址見第 169 行,等人眼確認〕;不在題目範圍,只留紀錄 |
 | 有統計來源的雪梨公寓管理費 | 每月成本的管理費 | 晚上補到 Flat Chat 原帖(850/季,是 2024 年論壇估算);另有 Microburbs 854/季、Stratachecks 範圍,都沒有人開過原頁;由使用者自己填 |
-| 2026-27 電費最終版與 AER 官方原件 | 每月成本的電費 | 晚上補查:PDF 被轉到登入頁;最終版新聞稿沒有 Ausgrid 年電費與用電量(可能在 information kit 或 final determination PDF,沒再開);目前用 Canstar 轉述,標「網路公開報價」,由使用者自己填 |
+| 2026-27 電費最終版與 AER 官方原件 | 每月成本的電費 | 晚上補查:PDF 被轉到登入頁;最終版新聞稿沒有 Ausgrid 年電費與用電量(可能在 information kit 或 final determination PDF,沒再開);目前用 Canstar 轉述,標「網路公開報價」,由使用者自己填〔2026-11-17 已補到:AER 最終決定 PDF 與資訊包已下載,數字見 `external_downloads_verify_2026-11-17.md` 表 2〕 |
 | ATO 短租報稅重點的獨立查核 | 收入試算提醒要報稅 | 頁面開到(要申報短租收入),獨立查核打不開;只做提醒,不算稅 |
 | 搜尋摘要來源那幾列的原頁 | 正式引用前要核對 | 沒開原頁;第二段 (B) 列了 13 列只看到搜尋摘要的項目 |
 
