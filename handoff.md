@@ -3212,3 +3212,21 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - 查核:主腦看了 `git diff --stat`、資料清單 12 處「2026-11-17」的開頭文字(11 列 + 第 196 行)、28 的兩處 diff、紀錄檔檔尾樣本 1 個。沒有獨立核對;11 個檔尾的主題文字只看了分身加的那一行,沒有逐檔對表 3。
 - 沒改的(記在更正紀錄):`meeting_1114/index.html`(第 824、1155、1294、1514、1533、1712 行)與 `meeting_1114/share/` 的 HTML、`meeting_1114/talk_script.md:106`、11/15 的資料清單 PDF。
 - 成本(§8.3,照通知原值):sonnet high 1 個 122,930/14(上限 45)。本 session 累計 5 個分身:opus 120,890;sonnet 4 個 571,055;合計 691,945 token。Codex 0 趟。
+
+## 2026-11-17(深夜)· Innovation Studio:把還沒查的查完、該更新的更新完(Kenny:「把該更新該查得先完成」)
+
+- 查(三路):
+  - 本機(sonnet high,scope IS-1117-CHK-L)→ `Innovation Studio/notes/raw/followup_checks_local_2026-11-17.md`:Vivin p.4 看畫面確認(Standard 5,999 / 7,999 / 9,999、Designer 8,499 / 10,999 / 12,999 = 一/二/三房;FROM、+GST;頁面沒年份);ABS Q251 = 3.7 與 IPART 兩格複核通過;**更正:瓦斯表的「Metro」不能寫成 Jemena 雪梨網路**(同一天 Metro 1,249.96、Jemena Coastal 1,304.05,檔案沒定義 Metro);Cotality p.28 雪梨 4.0% 只用文字座標配對、沒看到圖;AER 3,900 kWh 含不含可控負載仍不確定(間接證據傾向不含)。
+  - 上網(sonnet high,scope IS-1117-CHK-W;WebFetch 14 次、沒用搜尋)→ `followup_checks_web_2026-11-17.md`:Airbnb 服務費頁對(3% / 14.1–16.5% / 15.5%),**沒有任何統一改制日期**;Inside Airbnb 申請頁對(舊價表 2 城使命相符 500、2 城商業 800、1 城商業 500;新價 2026-11-01 起,2026-11-30 前送出照舊價;工具摘要,把握中);NSW 短租政策頁(更新日 2025-02-10)仍寫 180 天,沒提 2025–2026 新規定;三個入口頁(NSW 租金、TRA、Destination NSW)都沒有雪梨按月資料;Blacktown 申請 PDF 超過 10 MB 開不了、新聞頁沒有 1,140 / 1,233。
+  - 主腦用 Kenny 的 Chrome:Domain 9 月季報告(獨棟 $835、公寓 $780、空置率 1.2%;前兩次允許視窗逾時,第三次 Kenny 按了允許)、City of Sydney 議會原文(2,468 是 NSW 政府 2023 年資料、5,454 是獨立資料、會議 17/02/2025)、SXSW 公告(abea.org.au,2026-01-14,「will not proceed in 2026」)。分頁都已關。
+- 更新(sonnet high,scope IS-1117-UPD-A,加主腦補改):
+  - `corrections_2026-11-17.md`:8 個主題裡 7 個改成已核對,只剩 Blacktown;「重用簡報頁」那節加註已改完與不要重建的警告。
+  - `data_inventory_2026-11-15.md`:第 168、169、180、183、190、196、207、222、227 行今天加的更正段改寫成核對後的講法(行數 244 沒變)。
+  - `external_downloads_verify_2026-11-17.md`:瓦斯兩列改成「IPART 的 Metro 分組」、Vivin 改成已看畫面、檔尾加「晚上補查」一節。28 第 5 頁那句淡旺季改寫。
+  - `meeting_1114/index.html`(**手改,沒有重建**):分身改 10 行(SXSW、US$500/800、電費最終版、第 1533 行那段的 Airbnb / City of Sydney / Blacktown;用草案 1,875 算的數字旁加「沒重算」);主腦再改 10 處(統計行下加「11/17 更新」、Domain / AER / Archicentre / 旅遊局四個狀態、租金 850 那張卡、新增 Domain、Archicentre、ABS 三張「11/17 查到」的卡)。分享版 HTML = index.html 的位元組複本(`cmp` 相同)。`talk_script.md` 第 106 行句尾加更正。
+  - 資料清單 PDF:用 `make_inventory_pdf.py` 重做(15 頁、917,527 位元組、列數 84/19/32 對、連結 404 個),另存 `share/雪梨Airbnb房東定位助手_查過的資料清單_2026-11-17更新.pdf`;11/15 版先備份再還原(sha256 前 16 碼 3054a5bd99453958 前後相同)。
+- 證據:無頭 Chrome `--dump-dom` 載入簡報頁,12 種「11/17…」字串都在、標籤配對 0 錯;預覽伺服器 `is-meeting-1114` 開頁、console 無錯誤、截圖看到「圖 C:晚上再補查一次」統計行下的「11/17 更新」與新卡片排版正常。
+- ⚠️ 陷阱:`build_page.py` 會從 `notes/raw/meeting_1114_external_facts.md`(當天紀錄,沒改)重產 ext-data 那一段 → **重建會把今天的手改蓋掉**。要重建,先把字改進來源。分身指出工單「改來源再重建」和「不准碰當天紀錄檔」互相衝突,所以改用手改。
+- 還剩(都寫進 TODO):Blacktown 年度;雪梨按月淡旺季還是缺;Cotality p.28 沒看到圖(本機沒有 PDF 轉圖工具:Read 缺 poppler、PDF Tools 沒有 renderer、沒有 PyMuPDF);AER 可控負載;簡報頁的每月粗估沒重算;11/14 的 PDF 沒重做;更新版 PDF 與 HTML 沒傳給隊友;claude.ai 上的頁面沒有重新發布。
+- 沒有獨立核對這一輪的更新(主腦看 diff、DOM、截圖);沒有 Codex。
+- 成本(§8.3,照通知原值):sonnet high 3 個 —— 本機補查 129,277/26(上限 28)、上網核對 99,189/17(上限 28)、更新 152,727/23(上限 58)。本 session 累計 8 個分身:opus 120,890;sonnet 7 個 952,248;合計 1,073,138 token。Codex 0 趟。下一個分身是第 9 個,照 §8.2 要先問 Kenny。
