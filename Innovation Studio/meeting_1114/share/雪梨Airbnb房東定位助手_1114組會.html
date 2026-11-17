@@ -472,11 +472,51 @@ table.mtab td { font-size: 13.5px; }
 <main>
 <header class="top">
   <h1>11/14 組會:今晚把題目方向定下來</h1>
-  <p>九段,每段一個問題、一句結論、一張圖。要解釋的都收在「點開」裡;最下面的附錄開會不用看。</p>
+  <p>九段,每段一個問題、一句結論、一張圖。要解釋的都收在「點開」裡;最下面的附錄開會不用看。<a href="#pitch">(2026-11-17:題目已定,見第 1 段)</a></p>
 </header>
 
 <section id="pitch" class="key slide">
   <div class="kno">1</div>
+  <!-- 2026-11-17 題目已定區(手動改,不是 build_page.py 產生) -->
+  <p class="note"><b>2026-11-17 更新:題目已定。</b></p>
+  <h2>題目:雪梨 Airbnb 民宿營運助手 <span class="pill main">小組已定</span></h2>
+  <p class="subline">(小組原文:悉尼Airbnb民宿运营助手)</p>
+  <p class="bigline sm">一句話目標(草稿):幫雪梨已經有房源的房東看清市場定位:輸入自己的房子,助手給出先改哪裡和要注意的風險。<span class="sugg">Kenny 這邊擬的,小組還沒看</span></p>
+  <div class="blocks3">
+    <div class="blk main"><span class="pill main">小組已定</span><b>給誰用</b><ul class="tight"><li>雪梨已經有房源、想比較市場定位、排出先改哪裡的房東。</li><li>聚焦房東本人,不處理二房東的算錢。</li></ul></div>
+    <div class="blk main"><span class="pill main">小組已定</span><b>助手做什麼(輸入什麼 → 給出什麼)</b><ul class="tight"><li>輸入:房東自己房子的條件。</li><li>給出:優化建議(先改哪裡)和風險點。</li></ul></div>
+    <div class="blk main"><span class="pill main">小組已定</span><b>範圍:做什麼、不做什麼</b><ul class="tight"><li>只做雪梨 Airbnb 短租;買房投資不做。</li><li>「營運」在這裡指開價定在哪、先改哪裡、要注意哪些風險;不含訂房管理、每天自動調價。<span class="sugg">Kenny 這邊擬的,小組還沒看</span></li></ul></div>
+  </div>
+  <p class="note">三張卡的內容是小組定的;卡上的白話寫法是 Kenny 這邊擬的。<span class="sugg">Kenny 這邊擬的,小組還沒看</span></p>
+  <details class="how"><summary>三層目標(草稿):先回答「開價排在哪」和「先改哪裡、要注意什麼」,收入試算放最後 <span class="sugg">Kenny 這邊擬的,小組還沒看</span></summary>
+    <p>照筆記 17 §2 的格式(業務 → 分析 → 任務)改寫:對象改成雪梨已經有房源的房東,城市只留雪梨。數字都標出處;沒有依據的目標值寫「待小組定」。</p>
+    <p class="bigline2">業務目標(要幫誰解決什麼)</p>
+    <ul class="tight">
+      <li><b>BO1 雪梨已經有房源的房東:「跟同類比,我的開價排在哪?」</b>(主線)</li>
+      <li><b>BO2 同一位房東:「我該先改哪裡?要注意哪些風險?」</b></li>
+      <li><b>BO3 有時間才做:「照我填的假設,大概能收多少?」</b>(收入試算,放最後)</li>
+    </ul>
+    <p class="bigline2">分析目標(要回答的可量化問題)</p>
+    <ul class="tight">
+      <li>AG1.1 輸入一間房,找得到多少間同類?開價排第幾分位?模型估的同類行情比「區 × 房間數中位數」準多少?(唯一的實驗主線)</li>
+      <li>AG2.1 同類多數有、這間沒有的設施是哪些?每間房能不能都給出建議和風險提醒(法規、新手常差在哪)?</li>
+      <li>AG3.1 在房東填的假設下,低/中/高年收入是多少?只做功能驗收,不評準確度。</li>
+    </ul>
+    <p class="bigline2">任務(要做的事)</p>
+    <div class="tbl-wrap"><table class="mid">
+      <thead><tr><th>任務</th><th>用哪些欄位</th><th>方法</th><th>怎麼評估(指標)</th><th>資料性質</th><th>主要職責</th></tr></thead>
+      <tbody>
+        <tr><td>T1.1.1 同類組、開價分位、基準對模型</td><td>room_type、bedrooms、accommodates、price、neighbourhood_cleansed、bathrooms_text、number_of_reviews_ltm</td><td>建「區 × 臥室 × 容量」同類組,算同類組內分位;「區 × 房間數中位數」基準對梯度提升樹,依房東分組切</td><td>① 同類組 ≥ 30 間的覆蓋率(17:98);現況:列入定位表的區 33 個(20:103);目標值待小組定<br>② MAE(平均猜偏幾澳幣);現況:基準 101.7、模型 93.4(20:137、20:139);目標值待小組定</td><td>真實</td><td>待小組定</td></tr>
+        <tr><td>T2.1.1 設施缺口、建議卡與風險提醒</td><td>amenities、review_scores_rating、hosts_time_as_host_years、hosts_time_as_host_months</td><td>同類常見而這間沒有的設施;大語言模型只用已核實的數字寫可做的調整;風險:房東不同住一年 180 天(11/17 看過官方 FAQ 與現行政策頁,都寫 180 天;2025–2026 有沒有修法還沒查到)、新手對老手差在哪(17:28)</td><td>① 卡片數字和資料逐筆比對的不一致筆數,目標 0(17:101)<br>② 提醒顯示率(17:104);目標值待小組定</td><td>真實</td><td>待小組定</td></tr>
+        <tr><td>T3.1.1 收入試算(有時間才做)</td><td>同類 price 分位、estimated_occupancy_l365d 分位、成本</td><td>低/中/高 = 價格 × 入住晚數(17:102);成本自己填還是系統估,還沒對齊(17:35)</td><td>功能驗收:公式手算一致、輸入邊界、畫面標「估計值」(17:102);不評準確度(17:91)</td><td>推算 + 房東假設</td><td>待小組定</td></tr>
+      </tbody>
+    </table></div>
+    <p class="tiny">括號裡是出處(筆記檔號:行號),例如 17:98 = notes/17_定題與三層目標_v1.md 第 98 行、20:137 = notes/20_雪梨深度分析.md 第 137 行。主要職責寫「待小組定」:分工下週再談。</p>
+  </details>
+  <p class="tiny"><span class="pill ext">還沒定</span> 還沒定:英文題目;三層目標的目標值;「新房東避坑」要不要放進目標句</p>
+  <p class="tiny">出處:題目原文見筆記 17 第 50 行;目標用戶、工具原文見筆記 17 第 26、25 行(「不處理二房東」見筆記 28 第 39 行);只做 Airbnb 短租、買房投資不做見筆記 28 第 52–59 行;「營運」範圍的寫法見筆記 17 第 51 行;還沒定的事見筆記 28 第四節第 2、3、11 條。</p>
+
+  <details class="how"><summary>11/14 當時的提案(紀錄)</summary>
   <h2>我建議做什麼題目?</h2>
   <p class="bigline">雪梨 Airbnb 房東定位助手:幫雪梨的 Airbnb 房東看懂,你的房子跟同類比,開價排在哪、缺什麼設施。</p>
   <p class="subline">剛要開始的新手最需要;已經在出租的房東也能用。</p>
@@ -585,6 +625,7 @@ table.mtab td { font-size: 13.5px; }
     <p><b>裝修:</b>讓使用者自己填預估值,我們在旁邊給參考範圍,標來源和年份。</p>
   </details>
   <p class="tiny">出處:題目名稱的提案見筆記 17 第 21、32 行;主體和延伸 1 就是提案 1(筆記 16);延伸 2 的做法見筆記 17 第 44、45、83 行(淡旺季用評論月份來看;活動只列日期,不量效果)。推薦理由:筆記 16 第 23、32–39、45、55、336 行;筆記 17 第 50 行;筆記 22 第四節;180 天見外部行情總表 2.01。</p>
+  </details>
 </section>
 
 <section id="meeting" class="key slide">
