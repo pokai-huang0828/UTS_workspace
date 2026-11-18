@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>核心目標對應數據</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f3f5f5;
+  --surface: #fdfdfc;
+  --ink: #12181a;
+  --ink-2: #485256;
+  --muted: #737d82;
+  --line: #dbe1e1;
+  --accent: #1d6db3;
+  --accent-soft: #e2edf7;
+  --ok: #0a8a0a;
+  --ok-soft: #e3f3e3;
+  --warn: #9a6a00;
+  --warn-fill: #fab219;
+  --warn-soft: #fdf1d3;
+  --bad: #c93434;
+  --bad-soft: #fbe5e5;
+  --pause: #7f878b;
+  --font-body: system-ui, -apple-system, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0e1112; --surface: #171c1e; --ink: #eef1f1; --ink-2: #bfc7ca; --muted: #8e979b; --line: #2c3336;
+    --accent: #5a9fe0; --accent-soft: #19293a; --ok: #3fc23f; --ok-soft: #15301a; --warn: #f0b429; --warn-fill: #f0b429;
+    --warn-soft: #3a2e10; --bad: #ea6b6b; --bad-soft: #3a1a1a; --pause: #9aa2a6;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0e1112; --surface: #171c1e; --ink: #eef1f1; --ink-2: #bfc7ca; --muted: #8e979b; --line: #2c3336;
+  --accent: #5a9fe0; --accent-soft: #19293a; --ok: #3fc23f; --ok-soft: #15301a; --warn: #f0b429; --warn-fill: #f0b429;
+  --warn-soft: #3a2e10; --bad: #ea6b6b; --bad-soft: #3a1a1a; --pause: #9aa2a6;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; overflow-wrap: break-word; }
+a { color: var(--accent); }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code { font-family: ui-monospace, Consolas, monospace; font-size: .92em; overflow-wrap: anywhere; }
+nav.toc { position: sticky; top: 0; z-index: 10; background: var(--surface); border-bottom: 1px solid var(--line); }
+nav.toc ol { list-style: none; margin: 0 auto; padding: 8px 16px; display: flex; gap: 6px; overflow-x: auto; max-width: 1160px; white-space: nowrap; }
+nav.toc a { display: inline-block; padding: 4px 10px; border-radius: 999px; text-decoration: none; color: var(--ink-2); font-size: 14px; border: 1px solid transparent; }
+nav.toc a:hover { border-color: var(--line); color: var(--ink); }
+nav.toc a span { color: var(--muted); margin-right: 4px; font-variant-numeric: tabular-nums; }
+main { max-width: 1160px; margin: 0 auto; padding: 0 16px 64px; }
+header.top { padding: 28px 0 8px; }
+header.top h1 { font-size: clamp(24px, 3.4vw, 34px); line-height: 1.25; margin: 0 0 6px; text-wrap: balance; }
+header.top .kicker { margin: 0 0 12px; }
+section { scroll-margin-top: 64px; padding-top: 28px; margin-top: 20px; border-top: 1px solid var(--line); }
+h2 { font-size: clamp(20px, 2.6vw, 26px); margin: 0 0 6px; text-wrap: balance; }
+h2 .no { color: var(--accent); margin-right: 8px; font-variant-numeric: tabular-nums; }
+h3 { font-size: 17px; margin: 18px 0 8px; text-wrap: balance; }
+p.lead { color: var(--ink-2); max-width: 75ch; margin: 0 0 12px; }
+.grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.card h3 { margin: 0; }
+.card ul { margin: 0; padding-left: 20px; }
+.kicker { font-size: 13px; color: var(--muted); letter-spacing: .02em; }
+.src { font-size: 12.5px; color: var(--muted); margin: 2px 0 0; overflow-wrap: anywhere; }
+.note { font-size: 14px; color: var(--ink-2); }
+.bigline { font-size: clamp(19px, 2.6vw, 26px); font-weight: 700; line-height: 1.45; margin: 4px 0 14px; max-width: 34em; text-wrap: balance; }
+.howto { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px; padding: 8px 14px; font-size: 15px; max-width: 75ch; }
+.howto b { color: var(--accent); }
+.howto ol { margin: 4px 0; padding-left: 22px; }
+.big { font-size: 30px; font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums; color: var(--accent); }
+.big small { font-size: 15px; font-weight: 600; color: var(--ink-2); margin-left: 4px; }
+.nums { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.nums b { color: var(--ink); font-size: 18px; }
+ol.steps5 { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); counter-reset: st; }
+ol.steps5 > li { background: var(--surface); border: 1.5px solid var(--accent); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; min-width: 0; counter-increment: st; }
+ol.steps5 > li::before { content: "步驟 " counter(st); font-size: 12px; font-weight: 700; color: var(--accent); }
+ol.steps5 .what { font-weight: 600; }
+.vb { display: inline-block; font-size: 12px; line-height: 1.5; padding: 0 7px; border-radius: 4px; border: 1.5px solid; white-space: nowrap; font-weight: 600; vertical-align: 1px; }
+.v-ok { color: var(--ok); border-color: var(--ok); background: var(--ok-soft); }
+.v-warn { color: var(--warn); border-color: var(--warn-fill); background: var(--warn-soft); }
+.v-no { color: var(--bad); border-color: var(--bad); border-style: dotted; background: var(--bad-soft); }
+.v-miss { color: var(--pause); border-color: var(--pause); border-style: dashed; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: 13px; color: var(--ink-2); margin: 6px 0 0; }
+ul.items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+ul.items > li { border-top: 1px solid var(--line); padding-top: 8px; min-width: 0; }
+ul.items > li:first-child { border-top: 0; padding-top: 0; }
+.it { font-weight: 600; }
+.val { font-variant-numeric: tabular-nums; }
+.say { display: block; font-size: 14px; color: var(--ink-2); margin-top: 2px; }
+.say::before { content: "用的時候加一句:"; font-weight: 600; color: var(--ink); }
+.alt { display: block; font-size: 14px; margin-top: 2px; color: var(--ink); }
+.alt::before { content: "改這樣講:"; font-weight: 700; color: var(--ok); }
+.alt.use::before { content: "改用:"; }
+.now { display: block; font-size: 14px; margin-top: 2px; }
+.now::before { content: "現在的替代做法:"; font-weight: 700; color: var(--accent); }
+.col-ok { border-top: 4px solid var(--ok); }
+.col-warn { border-top: 4px solid var(--warn-fill); }
+.col-no { border-top: 4px dotted var(--bad); }
+.col-miss { border-top: 4px dashed var(--pause); }
+.colhead { font-weight: 700; margin: 0 0 4px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { text-align: left; vertical-align: top; padding: 7px 9px; border-bottom: 1px solid var(--line); }
+th { background: var(--accent-soft); font-weight: 600; white-space: nowrap; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.mid { min-width: 680px; }
+details.block { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; margin: 10px 0; }
+details.block > summary { cursor: pointer; padding: 9px 14px; font-weight: 600; font-size: 15px; }
+details.block[open] > summary { border-bottom: 1px solid var(--line); }
+details.block > .in { padding: 10px 14px 12px; font-size: 14px; color: var(--ink-2); }
+details.block > .in p { margin: 6px 0; }
+details.block > .tbl-wrap { border: 0; border-radius: 0 0 8px 8px; }
+ul.tight { margin: 4px 0; padding-left: 20px; }
+ul.tight li { margin: 3px 0; }
+.key { border-top: 3px solid var(--accent); }
+.kno { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; flex: none; }
+ol.sum4 { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+ol.sum4 > li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+ol.sum4 .h { font-weight: 700; font-size: 16px; }
+ol.sum4 .to { font-size: 14.5px; color: var(--ink-2); }
+ol.sum4 .to::before { content: "→ "; color: var(--accent); font-weight: 700; }
+.decide { background: var(--warn-soft); border: 1px solid var(--warn-fill); border-radius: 10px; padding: 10px 16px; margin-top: 16px; }
+.decide h3 { margin: 0 0 6px; }
+.decide ol { margin: 0; padding-left: 22px; }
+.decide li { margin: 4px 0; }
+.more { margin-top: 40px; border-top: 3px double var(--line); }
+.more > h2 { color: var(--muted); }
+</style>
+<style>
+table.wide { min-width: 1080px; }
+table.mid3 { min-width: 640px; }
+td code, p code, li code, .src code { font-size: .88em; color: var(--ink-2); }
+ol.sum4 .to { margin: 0; }
+ol.sum4 .to::before { content: ""; }
+.sub { font-size: 12.5px; color: var(--muted); margin: 6px 0; overflow-wrap: anywhere; }
+ul.legend2 { margin: 4px 0; padding-left: 20px; font-size: 13px; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<main>
+<header class="top">
+<h1>核心目標 → 要用哪些數據</h1>
+<p class="kicker">雪梨 Airbnb 民宿營運助手 · 給報告初稿用 · 2026-11-18</p>
+</header>
+<section id="s0">
+<h2>先講結論</h2>
+<ol class="sum4">
+<li><span class="h">主資料只有一份:Inside Airbnb 雪梨 2026 年 3、6、9 月三期。</span><span class="to">出處:<code>17:243</code>、<code>20:2</code>、<code>20:325</code>、<code>TS:54</code></span></li>
+<li><span class="h">外部資料只當參考值和背景,不拿來訓練模型。</span><span class="to">這是 Kenny 這邊的做法,小組還沒討論;目前模型的特徵都來自 Inside Airbnb 的欄位(<code>20:130</code>)</span></li>
+<li><span class="h">真實成交價、入住晚數、收入沒有,一律寫「估計」。</span><span class="to">出處:<code>TS:12</code>、<code>TS:53</code>、<code>20:323</code></span></li>
+</ol>
+<p class="note">核心目標的講法以小組 11/14 定的為準:目標用戶「悉尼已有房源、需要比較市場定位和確定改進優先級的房东」(<code>17:26</code>);工具「输入自己的资源后,助手会自行分析,提出优化建议和风险点」(<code>17:25</code>)。下表第 1–3 列對應這兩句;第 4 列是延伸。三層目標(BO1–BO3)和「收入試算排最後」是 Kenny 這邊擬的,小組還沒看(<code>1114:491</code>、<code>17:34</code>)。</p>
+<details class="block"><summary>出處寫法(檔號:行號)</summary><div class="in"><ul class="legend2">
+<li><code>17</code> = <code>notes/17_定題與三層目標_v1.md</code></li>
+<li><code>20</code> = <code>notes/20_雪梨深度分析.md</code></li>
+<li><code>25</code> = <code>notes/25_AT2報告骨架_草稿.md</code>(第 35–45 行是範本節名)</li>
+<li><code>92</code> = <code>notes/92_組會紀錄.md</code></li>
+<li><code>1114</code> = <code>meeting_1114/index.html</code></li>
+<li><code>TS</code> = <code>meeting_1118/team_summary.md</code></li>
+<li><code>V17</code> = <code>notes/raw/external_downloads_verify_2026-11-17.md</code></li>
+<li><code>D18</code> = <code>notes/raw/external_downloads_2026-11-18.md</code></li>
+<li><code>INV</code> = <code>notes/raw/data_inventory_2026-11-15.md</code>(只用在 AirDNA 那一列)</li>
+<li><code>STK</code> = <code>notes/raw/teammate_stanly_sources_check_2026-11-18.md</code>(只用在 Kaggle、爬網站那一列)</li>
+</ul></div></details>
+</section>
+<section id="s1">
+<h2>一眼看懂(四個目標各用什麼)</h2>
+<div class="tbl-wrap" tabindex="0" role="region" aria-label="一眼看懂:四個目標各用什麼數據,可左右捲動">
+<table class="mid">
+<thead><tr><th>核心目標</th><th>用哪份數據</th><th>最重要的一句提醒</th></tr></thead>
+<tbody>
+<tr><td><b>1 定位</b></td><td>Inside Airbnb 2026 年三期的房源表:房型、臥室數、可住人數、哪一區、掛牌價</td><td>是掛牌價,不是成交價</td></tr>
+<tr><td><b>2 先改哪裡</b></td><td>同一份房源表的設施清單和評分;再加裝修、家具的參考價</td><td>有這項設施的房子比較貴,不代表裝了就會漲</td></tr>
+<tr><td><b>3 風險點</b></td><td>短租 180 天規定;評論月份和 NSW 每月入境人數(看淡旺季);房東年資(新手對老手)</td><td>評論月份只是需求的方向,不等於入住的淡旺季</td></tr>
+<tr><td><b>4 收入試算(延伸)</b></td><td>推算的入住晚數和掛牌價;電費、網路、保險等成本參考值</td><td>全部是估計,不是真實帳務</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">細節、筆數、欄位名、出處都在下面的表 1。</p>
+<h2>表 1　核心目標 → 數據</h2>
+<div class="tbl-wrap" tabindex="0" role="region" aria-label="表 1 核心目標對應數據,可左右捲動">
+<table class="mid wide">
+<thead><tr><th>核心目標</th><th>要回答的問題</th><th>要用的數據(哪一份、哪些欄位)</th><th>期別</th><th>能不能用、要加哪一句</th><th>寫進報告哪一節</th></tr></thead>
+<tbody>
+<tr><td><b>1 定位</b><br>對應小組 11/14 的「比較市場定位」(<code>17:26</code>)</td><td>我的開價在同類裡排哪裡?</td><td><b>主資料</b>:Inside Airbnb 雪梨 listings(<code>20:2</code>)<br><b>欄位</b>(照 <code>1114:509</code> 的 T1.1.1):<code>room_type</code>、<code>bedrooms</code>、<code>accommodates</code>、<code>price</code>、<code>neighbourhood_cleansed</code>、<code>bathrooms_text</code>、<code>number_of_reviews_ltm</code><br><b>筆數</b>:全體 20,833 間(<code>20:6</code>);篩選(整套、1–2 房、2–4 人、最低 1–7 晚)7,565 間;篩選且有價 6,639 間(<code>20:326</code>);列入定位表的區(≥30 間)33 個(<code>20:103</code>)<br><b>有價比例</b>:2026-03 為 99.4%、06 為 86.5%、09 為 85.1%(<code>20:322</code>)<br><b>現況</b>:基準(區 × 房間數中位數)MAE 101.7、模型 93.4(<code>20:137</code>、<code>20:139</code>)<br><b>外部參考值</b>:這一列不用,只靠 Inside Airbnb</td><td>主要用 2026-09-16 期;03-21、06-16 兩期看價格變化(<code>20:2</code>、<code>20:243</code>)</td><td><b>能用。</b><br>加一句:「價格是抓取當下的掛牌價,不是成交價;三期報價的入住日季節不同,不能當成房東調價。」(<code>20:2</code>、<code>20:289</code>)<br>獨立房間價位差很多,要和整套房分開比;獨立房間 4,282 間還沒分析。這是 Kenny 2026-11-14 的決定,小組有沒有同意沒問(<code>17:33</code>)</td><td>業務目標、分析目標和任務、數據與資源、方法、實驗與評估(<code>25:35</code>、<code>25:36</code>、<code>25:38</code>、<code>25:40</code>)</td></tr>
+<tr><td><b>2 先改哪裡</b><br>對應「確定改進優先級」「提出優化建議」(<code>17:25</code>、<code>17:26</code>、<code>17:28</code>)</td><td>同類多數有、我沒有的是什麼?客人在意什麼?</td><td><b>主資料</b>:同一份 listings<br><b>欄位</b>(<code>1114:510</code> 的 T2.1.1):<code>amenities</code>、<code>review_scores_rating</code>(另外兩個 <code>hosts_time_as_host_*</code> 放第 3 列)<br><b>設施</b>:篩選且有價 6,639 間,每間設施中位數 41 項,共 2,445 種;最常見 Smoke alarm 96.8%、Kitchen 93.6%、Wifi 91.9%(<code>20:108</code>、<code>20:122</code>)<br><b>評分</b>:全體有評分 17,623 間(84.6%),中位數 4.84(<code>20:70</code>);篩選且有價且有評分 6,051 間,中位數 4.86(<code>20:74</code>)<br><b>外部參考值</b>(改進大概花多少;Kenny 擬的用法,小組還沒討論):<br>・基礎廚房 28,000–45,000、基礎浴室 25,000–30,000 澳幣(Martina Hayes;<code>V17:21</code>、<code>V17:50</code>)→ 加一句:設計公司的參考價,不是實際報價(<code>TS:33</code>)<br>・家具套裝一房起價 5,999(Vivin;<code>V17:23</code>、<code>V17:53</code>)→ 加一句:是起價,另加 GST(<code>TS:34</code>)</td><td>2026-09-16 期為主(<code>20:2</code>)</td><td><b>能用,有條件。</b><br>加一句:「有這項設施的房源掛牌價較高,不代表裝了就會漲;可能只是房子本身等級不同。」(<code>20:111</code>、<code>20:304</code>)<br>評分擠在接近滿分,很難分好壞(<code>20:73</code>)。「客人在意什麼」目前資料只有評分欄;這次讀的來源沒有評論內容的分析,報告別寫「客人說」</td><td>分析目標和任務、數據與資源、方法、實驗與評估(<code>25:36</code>、<code>25:38</code>、<code>25:40</code>)</td></tr>
+<tr><td><b>3 風險點</b><br>對應「提出風險點」(<code>17:25</code>、<code>17:28</code>)</td><td>開之前要注意什麼:法規、淡旺季、新手常差在哪?</td><td><b>主資料</b>:同一份 listings 和評論檔<br><b>欄位</b>(<code>1114:510</code>):<code>hosts_time_as_host_years</code>、<code>hosts_time_as_host_months</code>;依年資欄推算的新手,篩選且有價 960 間(<code>20:10</code>、<code>20:158</code>)<br><b>新手對老手</b>:近一年評論數中位數 5 對 11;有評分比例 76.4% 對 93.6%;超讚房東 27.8% 對 45.2%(<code>20:181</code>、<code>20:182</code>、<code>20:183</code>)<br><b>淡旺季</b>:評論檔的評論月份,2024 年 134,978 則、2025 年 182,045 則、2026 年(到 09-17)157,210 則(<code>20:192</code>);年底偏高、年中偏低(<code>20:201</code>)<br><b>外部參考值</b>:<br>・法規:NSW 短租 FAQ,房東不同住,大雪梨(不含 Central Coast)一年最多 180 天,連續訂 21 天以上不算(<code>V17:30</code>、<code>V17:59</code>)→ 加一句:官方 FAQ 是 2024 年 5 月更新版;2025–2026 有沒有修法還沒查到(<code>V17:30</code>、<code>1114:510</code>)<br>・淡旺季:NSW 每月入境人數(ABS Table 11),2025 年 12 月最多 389,290、6 月最少 217,640(<code>D18:30</code>、<code>TS:37</code>)→ 加一句:進 NSW 的國際短期旅客,不是雪梨、不是住宿晚數、不含國內旅客,只看走勢(<code>D18:31</code>)<br>・公眾假期:NSW 65 列,日期 2021–2025,沒有 2026(<code>D18:21</code>、<code>D18:22</code>)→ 加一句:只能對過去的評論月份,不能提醒未來假期(<code>D18:22</code>)</td><td>新手:2026-09 期。評論月份:2024–2026 年,見最後一節要問小組的一句。入境人數:近 15 個月是 2025-07 到 2026-09(<code>D18:29</code>),整個序列是 1991-01 到 2026-09(<code>D18:28</code>)</td><td><b>能用,有條件。</b><br>加一句(新手):「依年資欄推算的新手;這一欄的意思是用資料推出來的,官方說明還沒查。」(<code>20:164</code>、<code>20:324</code>)<br>加一句(淡旺季):「評論月份只是需求的方向,不等於入住的淡旺季。」(<code>20:202</code>)</td><td>分析目標和任務、數據與資源、風險管理(<code>25:36</code>、<code>25:38</code>、<code>25:45</code>)</td></tr>
+<tr><td><b>4 收入試算(延伸)</b><br>延伸;排在最後是 Kenny 這邊的排法,小組有沒有同意沒有紀錄(<code>17:34</code>、<code>1114:491</code>)</td><td>照我填的假設,低/中/高大概能收多少?</td><td><b>主資料</b>:同一份 listings<br><b>欄位</b>(<code>1114:511</code> 的 T3.1.1):同類 <code>price</code> 分位、<code>estimated_occupancy_l365d</code> 分位、成本<br><b>筆數</b>:推算近一年入住晚數(2026-09 期,篩選且有價 6,639 間)中位數 60、平均 85.0;0 晚占 12.4%,達上限 255 晚占 6.4%(<code>20:214</code>)<br><b>外部參考值</b>(成本預設值,房東自己可改;成本是自填還是系統估,還沒對齊,<code>17:35</code>):<br>・電費(2026-27,含 GST,政府規定的基準用電量):Ausgrid 1,899、Endeavour 2,328、Essential 2,604 澳幣/年(<code>V17:40</code>、<code>V17:42</code>、<code>V17:44</code>)→ 加一句:政府算的參考價,不是實際帳單(<code>TS:27</code>)<br>・網路:NBN 50 月費 85(amaysim,2026-02-25 起;<code>V17:55</code>)→ 加一句:單一業者的價格(<code>TS:28</code>)<br>・短租保險:NSW 525/年(Terri Scheer;<code>V17:54</code>)→ 加一句:單一公司的新保單價(<code>TS:29</code>)<br>・市政費:North Sydney 2026-27 最低費率 970.72/年(<code>V17:56</code>)→ 加一句:只適用 North Sydney(<code>TS:30</code>)<br>・瓦斯:Metro 分組市場方案中位數 1,249.96/年(2025-09-15 快照;<code>V17:47</code>)→ 加一句:只能寫「IPART 表裡的 Metro 分組」,不能寫成雪梨(<code>TS:40</code>、<code>V17:93</code>)<br>・Airbnb 服務費:分攤制房東 3%;單一服務費房東 15.5%(<code>TS:32</code>)→ 加一句:官方正在改成單一服務費,以房東收到的通知為準(<code>TS:45</code>)<br>・長租對照:Domain 9 月季,雪梨獨棟週租 835、公寓 780(<code>TS:36</code>)→ 加一句:Domain 的季度數字,只當對照</td><td>推算入住:2026-09 期。外部數字的年度各不相同:電費、市政費 2026-27(<code>V17:40</code>、<code>V17:56</code>);網路 2026-02-25 起(<code>V17:55</code>);瓦斯 2025-09-15 快照(<code>V17:47</code>)</td><td><b>延伸;有時間才做。</b><br>只做功能驗收,不評準確度(<code>1114:511</code>)<br>加一句:「入住晚數和收入是用評論推算的估計,不是真實帳務。」(<code>20:309</code>、<code>TS:12</code>)</td><td>業務目標、分析目標和任務、數據與資源(都標「延伸」;<code>25:35</code>、<code>25:36</code>、<code>25:38</code>)</td></tr>
+</tbody>
+</table>
+</div>
+<p class="sub">欄位名的核對:<code>bedrooms</code>、<code>accommodates</code>、<code>neighbourhood_cleansed</code>、<code>bathrooms_text</code>、<code>number_of_reviews_ltm</code>、<code>review_scores_rating</code>、<code>estimated_occupancy_l365d</code>、<code>room_type</code>、<code>price</code>、<code>license</code> 這些英文欄位名,在 <code>20</code> 裡 Grep 不到(<code>20</code> 用中文講:整套房、設施、評分、掛牌價、推算入住晚數);<code>amenities</code> 只出現在分析分支名 <code>c_amenities</code>(<code>20:124</code>)。所以欄位名以 <code>1114:509</code>–<code>1114:511</code> 為準,<code>20</code> 只用來對筆數和比例。<code>hosts_time_as_host_*</code> 在 <code>20:158</code>、<code>20:164</code> 有寫。</p>
+<p class="sub">找不到出處、所以沒寫數字的:<code>hosts_time_as_host_*</code> 的填寫率(<code>20</code> 沒有;<code>17:128</code> 有 20,832 / 20,833,但那一行不在這次指定的來源範圍);<code>license</code> 的填寫率(<code>20</code> 完全沒提)。</p>
+<p class="sub">範本的「風險管理」(4.3)是專案風險;給房東看的風險點是工具的輸出。第 3 列放「風險管理」是照這張單的指定,實際放哪一節請 Stanly 決定。</p>
+</section>
+<section id="s2">
+<h2>表 2　這次不用的數據,和為什麼</h2>
+<div class="tbl-wrap" tabindex="0" role="region" aria-label="表 2 這次不用的數據,可左右捲動">
+<table class="mid">
+<thead><tr><th>數據</th><th>為什麼這次不用</th><th>如果有人問,改這樣講</th></tr></thead>
+<tbody>
+<tr><td>2025 年 12 月那一期(Inside Airbnb 雪梨 2025-12-12)</td><td>價格欄整欄空,有價比例 0.0%(<code>20:321</code>、<code>20:322</code>);11/18 組會定「只用 2026 年的數據」(<code>92:70</code>、<code>17:243</code>)</td><td>「價格只用 2026 年 3、6、9 月三期;2025-12 那期沒有價格,所以不用。」(<code>TS:54</code>)<br>注意:年資欄的意思只能用這一期核對(<code>host_since</code> 只有它有值,<code>20:166</code>、<code>20:324</code>)。被問到可以說:「只拿它核對欄位意思,不用它的價格和房源。」這句是 Kenny 擬的,見最後一節</td></tr>
+<tr><td>墨爾本</td><td>題目只做雪梨 Airbnb 短租(<code>1114:482</code>、<code>1114:488</code>,小組已定)</td><td>「題目是雪梨 Airbnb 民宿營運助手,只做雪梨,墨爾本不在範圍。」</td></tr>
+<tr><td>日曆檔的每日價格</td><td>日曆檔裡沒有每天的價格(<code>TS:54</code>)</td><td>「價格只用 2026 年 3、6、9 月三期掛牌價;日曆檔只用來看未來還能不能訂。」(<code>TS:54</code>、<code>20:214</code>、<code>20:228</code>)</td></tr>
+<tr><td>買房相關:房貸利率、土地稅、房產成交價、房價報告(例如 Cotality)</td><td>買房投資 11/14 決定不做(<code>1114:488</code>、<code>TS:50</code>、<code>TS:61</code>)</td><td>「我們只做雪梨 Airbnb 短租、服務已經有房子的房東,不做買房投資,所以不用房貸、土地稅、成交價。」(<code>1114:488</code>、<code>17:26</code>)<br>租金對照改用 Domain,不用 Cotality 的雪梨年增 4.0%(沒看到圖;<code>TS:47</code>)</td></tr>
+<tr><td>短租登記冊 API、用房源照片判斷裝修、車站與海邊距離</td><td>這次先不做,留作之後的延伸(<code>TS:60</code>、<code>TS:67</code>);登記冊 API 要申請帳號或權限,沒有申請(<code>D18:36</code>);City of Sydney 登記冊是 2023 年的,也只有 City of Sydney(<code>TS:42</code>)。<br><b>Kenny 2026-11-18 的想法,小組還沒討論</b></td><td>「這三個是之後可以延伸的方向;這次先把定位、先改哪裡、風險點做好。」(<code>TS:67</code>)</td></tr>
+<tr><td>旅遊局儀表板(Tourism Research Australia)</td><td>沒有雪梨、也沒有按月(<code>TS:48</code>、<code>V17:29</code>)</td><td>「淡旺季改看 NSW 每月入境人數;它是進 NSW 的國際旅客,不是雪梨。」(<code>TS:48</code>、<code>D18:31</code>)</td></tr>
+<tr><td>AirDNA 要付費的每月數字</td><td>每月住滿率、每晚價、淡旺季、分房型、未來價格都要付費,我們不買(<code>INV:155</code>、<code>INV:209</code>);圖上標 SAMPLE 的只是示意(<code>STK:40</code>)</td><td>「雪梨每個月的住滿率,免費資料沒有;報告用評論月份看需求的方向,不寫成住滿率。」(<code>TS:55</code>、<code>20:202</code>)</td></tr>
+<tr><td>Kaggle 舊資料、爬 Airbnb 網站</td><td>Kaggle 的「Sydney Airbnb Open Data」多半是 2019 年左右的鏡像,來源和授權不清楚;爬 Airbnb 網站違反服務條款(<code>STK:38</code>、<code>STK:39</code>)</td><td>「雪梨資料只用 Inside Airbnb 官方的免費快照,沒有用舊資料,也沒有爬網站。」(<code>20:325</code>)</td></tr>
+<tr><td>Inside Airbnb 的歷史資料(要付費的那種)</td><td>站方歷史資料要詢價;「US$500 或 800」是舊價表,不是固定報價(<code>TS:49</code>)</td><td>「歷史資料要向站方詢價,這次沒有用。」(<code>TS:49</code>)</td></tr>
+</tbody>
+</table>
+</div>
+<p class="sub">前 8 列是這張單指定的;最後一列是我順手加的(<code>TS:49</code>)。「Kenny 2026-11-18 的想法,小組還沒討論」只標在短租登記冊那一列。</p>
+</section>
+<section id="s3">
+<h2>表 3　寫「數據與資源」那一節時一定要講的限制</h2>
+<div class="tbl-wrap" tabindex="0" role="region" aria-label="表 3 要講的限制,可左右捲動">
+<table class="mid">
+<thead><tr><th>限制</th><th>寫「數據與資源」時可以這樣寫</th><th>出處</th></tr></thead>
+<tbody>
+<tr><td>價格是掛牌價,不是成交價</td><td>「價格是抓取當下的掛牌價,不是實際成交價。」</td><td><code>20:2</code>、<code>20:323</code>、<code>TS:12</code></td></tr>
+<tr><td>入住晚數、收入是估計</td><td>「入住晚數是用評論推算的代理,0 晚也可能只是沒人留評論;收入是估計值,沒有真實帳務可驗。」</td><td><code>20:309</code>、<code>20:323</code>、<code>TS:12</code></td></tr>
+<tr><td>只有三期快照,不是連續每天</td><td>「價格只有 2026 年 3、6、9 月三期;三期的有價比例是 99.4%、86.5%、85.1%,不能當同一批比;三期的入住日季節不同,不能當成房東調價。」</td><td><code>20:289</code>、<code>20:322</code></td></tr>
+<tr><td>評論檔只含 2026-09 還在架上的房源</td><td>「評論檔只含 2026-09 還在架上的房源,早年評論數偏低;評論月份只能當需求的方向,不等於入住的淡旺季。」</td><td><code>20:320</code>、<code>20:202</code></td></tr>
+<tr><td>外部數字是單一來源的參考值,入境人數不是雪梨</td><td>「電費是政府算的參考價;網路、保險是單一業者的價格;市政費只適用 North Sydney;入境人數是進 NSW 的國際短期旅客,不是雪梨。」</td><td><code>TS:27</code>–<code>TS:30</code>、<code>D18:31</code></td></tr>
+<tr><td>欄位意思和法規有沒有修法還沒查完</td><td>「年資欄(<code>hosts_time_as_host_*</code>)的意思是用資料推出來的,官方說明還沒查;房東不同住一年 180 天的規定,2025–2026 有沒有修法還沒查到。」</td><td><code>20:164</code>、<code>20:324</code>、<code>1114:510</code></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s4">
+<h2>還要問小組的一句</h2>
+<div class="decide">
+<h3>「只用 2026 年的數據」包不包括下面兩類?(來源:<code>92:77</code>)</h3>
+<ol>
+<li><b>看淡旺季用的評論月份。</b> 現在用 2024、2025 兩個完整年度算指數(<code>20:198</code>);如果評論也只能用 2026 年,只剩 1 月到 09-17(<code>20:192</code>),看不到 10–12 月。</li>
+<li><b>外部參考資料。</b> 公眾假期檔是 2021–2025(<code>D18:12</code>、<code>D18:21</code>);NSW 入境人數是 1991-01 到 2026-09 的每月長期序列(<code>D18:28</code>);瓦斯數字是 2025-09-15 的快照(<code>V17:47</code>)。</li>
+</ol>
+<p class="note">順帶:年資欄的意思用 2025-12 那期核對過(<code>20:166</code>),這算不算「用了 2025 年的數據」,也一起問。小組回答前,報告先把這些標成「2026 年以外的參考資料」(Kenny 擬的暫時寫法)。</p>
+</div>
+<p class="sub">兩個檔內容相同:<code>notes/29_核心目標對應數據_草稿.md</code>(給 Stanly 複製進報告)、<code>meeting_1118/data_by_goal.html</code>(看版)。沒有跑新的資料分析;數字都來自上面「出處寫法」列的檔。</p>
+</section>
+</main>
+</body>
+</html>
