@@ -407,8 +407,8 @@ ol.sum4 .to::before { content: "→ "; color: var(--accent); font-weight: 700; }
 <p class="lead">照小組 11/14 定的範圍分。最有用的是兩個「按月」的:雪梨機場客流、出入境人數。</p>
 <div class="grid">
 <div class="card"><span class="kicker">分類</span><div class="nums"><span>優先 <b>4</b></span><span>次要 <b>8</b></span><span>這次用不到 <b>1</b></span></div><p class="note">用不到的是房產成交(買房投資,11/14 決定不做)。</p></div>
-<div class="card"><span class="kicker">優先 4 個的進度</span><ul class="tight"><li>出入境人數:已下載</li><li>公眾假期:已下載(只到 2025)</li><li>雪梨機場客流:還沒下載、還沒整理</li><li>短租登記冊:要申請</li></ul></div>
-<div class="card"><span class="kicker">要先處理的</span><div class="nums"><span>要申請帳號或權限 <b>3</b> 個</span><span>連結 404 <b>1</b> 條</span></div><p class="note">要申請:短租登記冊、NSW 交通時刻表、Ticketmaster。404 的是犯罪統計,要請 Stanly 給新網址。</p></div>
+<div class="card"><span class="kicker">優先 4 個的進度</span><ul class="tight"><li>出入境人數:已下載</li><li>公眾假期:已下載(只到 2025)</li><li>雪梨機場客流:還沒下載、還沒整理</li><li>短租登記冊:要申請權限,這次先不申請</li></ul></div>
+<div class="card"><span class="kicker">要注意的</span><div class="nums"><span>要申請帳號或權限 <b>3</b> 個</span><span>連結 404 <b>1</b> 條</span></div><p class="note">要申請帳號的 3 個(短租登記冊、NSW 交通時刻表、Ticketmaster)這次先不申請。404 的是犯罪統計。</p></div>
 </div>
 <p class="src">出處:<code>teammate_stanly_sources_check_2026-11-18.md</code> 第 9–12 行;11/18 下載的 2 個檔見附錄</p>
 <details class="block">
@@ -418,7 +418,7 @@ ol.sum4 .to::before { content: "→ "; color: var(--accent); font-weight: 700; }
 <thead><tr><th>#</th><th>來源</th><th>分類</th><th>要帳號嗎</th><th>現況與提醒</th></tr></thead>
 <tbody>
 <tr><td class="num">1</td><td>NSW 短租登記冊 API</td><td>優先</td><td>要(審核)</td><td>可對房源登記號、查合規;欄位還沒看</td></tr>
-<tr><td class="num">2</td><td>Inside Airbnb 房源封面照片</td><td>次要,要小組先決定</td><td>不用</td><td>用 AI 看照片判斷裝修;抓圖合不合規要先確認;照片好看 ≠ 裝修好</td></tr>
+<tr><td class="num">2</td><td>Inside Airbnb 房源封面照片</td><td>次要,這次先不做</td><td>不用</td><td>用 AI 看照片判斷裝修;抓圖合不合規要先確認;照片好看 ≠ 裝修好</td></tr>
 <tr><td class="num">3</td><td>澳洲公眾假期資料集</td><td>優先</td><td>不用</td><td>已下載;只到 2025,沒有 2026、2027</td></tr>
 <tr><td class="num">4</td><td>Transport for NSW 時刻表</td><td>次要</td><td>要(註冊)</td><td>可算到最近車站的距離</td></tr>
 <tr><td class="num">5</td><td>OpenStreetMap</td><td>次要</td><td>不用</td><td>可算到海邊、景點的距離</td></tr>
@@ -443,18 +443,9 @@ ol.sum4 .to::before { content: "→ "; color: var(--accent); font-weight: 700; }
 <li><span class="kno">1</span><span class="h">成本類的缺口大多補上了</span><span class="note">電費、網路、保險、裝修、家具有公開數字;瓦斯和市政費只有部分。</span><span class="to">收入試算可以放「公開參考值」當預設,讓房東自己改。</span></li>
 <li><span class="kno">2</span><span class="h">真實的成交價、入住晚數、收入,免費資料裡沒有</span><span class="to">報告裡這三樣一律寫「估計」,不寫成事實。</span></li>
 <li><span class="kno">3</span><span class="h">淡旺季沒有「雪梨按月住宿」的官方數字</span><span class="to">用三個替代互相對照:我們資料裡的評論月份、NSW 每月入境人數(已下載)、雪梨機場每月客流(還沒整理)。</span></li>
-<li><span class="kno">4</span><span class="h">新方向要小組決定</span><span class="to">短租登記冊(誰申請)、用房源照片判斷裝修(做不做)、車站與海邊距離(要不要加進找同類)。</span></li>
+<li><span class="kno">4</span><span class="h">Stanly 提的新方向,這次先不做</span><span class="to">短租登記冊、用房源照片判斷裝修、車站與海邊距離,這次都先不做,留作之後的延伸。買房投資照 11/14 的決定不做。</span></li>
 </ol>
-<div class="decide">
-<h3>今晚請大家決定</h3>
-<ol>
-<li>短租登記冊 API 要不要申請?誰去申請?</li>
-<li>用房源照片判斷裝修,做不做?(要先確認抓圖合不合規)</li>
-<li>到車站、到海邊的距離,要不要加進「找同類」?</li>
-<li>Stanly 文件裡的「延伸 1 房價」,和 11/14 決定的「買房投資不做」是什麼關係?</li>
-</ol>
-</div>
-<p class="src">出處:<code>teammate_stanly_sources_check_2026-11-18.md</code> 第 11、13、14 行</p>
+<p class="src">第 4 點是 Kenny 2026-11-18 的想法,小組還沒討論。新來源的整理見 <code>teammate_stanly_sources_check_2026-11-18.md</code>。</p>
 </section>
 
 <section id="more" class="more">
