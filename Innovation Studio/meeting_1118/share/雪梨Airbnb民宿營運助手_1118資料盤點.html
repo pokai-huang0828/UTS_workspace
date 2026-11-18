@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>資料盤點 11/18</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f3f5f5;
+  --surface: #fdfdfc;
+  --ink: #12181a;
+  --ink-2: #485256;
+  --muted: #737d82;
+  --line: #dbe1e1;
+  --accent: #1d6db3;
+  --accent-soft: #e2edf7;
+  --ok: #0a8a0a;
+  --ok-soft: #e3f3e3;
+  --warn: #9a6a00;
+  --warn-fill: #fab219;
+  --warn-soft: #fdf1d3;
+  --bad: #c93434;
+  --bad-soft: #fbe5e5;
+  --pause: #7f878b;
+  --font-body: system-ui, -apple-system, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0e1112; --surface: #171c1e; --ink: #eef1f1; --ink-2: #bfc7ca; --muted: #8e979b; --line: #2c3336;
+    --accent: #5a9fe0; --accent-soft: #19293a; --ok: #3fc23f; --ok-soft: #15301a; --warn: #f0b429; --warn-fill: #f0b429;
+    --warn-soft: #3a2e10; --bad: #ea6b6b; --bad-soft: #3a1a1a; --pause: #9aa2a6;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0e1112; --surface: #171c1e; --ink: #eef1f1; --ink-2: #bfc7ca; --muted: #8e979b; --line: #2c3336;
+  --accent: #5a9fe0; --accent-soft: #19293a; --ok: #3fc23f; --ok-soft: #15301a; --warn: #f0b429; --warn-fill: #f0b429;
+  --warn-soft: #3a2e10; --bad: #ea6b6b; --bad-soft: #3a1a1a; --pause: #9aa2a6;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; overflow-wrap: break-word; }
+a { color: var(--accent); }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code { font-family: ui-monospace, Consolas, monospace; font-size: .92em; overflow-wrap: anywhere; }
+nav.toc { position: sticky; top: 0; z-index: 10; background: var(--surface); border-bottom: 1px solid var(--line); }
+nav.toc ol { list-style: none; margin: 0 auto; padding: 8px 16px; display: flex; gap: 6px; overflow-x: auto; max-width: 1160px; white-space: nowrap; }
+nav.toc a { display: inline-block; padding: 4px 10px; border-radius: 999px; text-decoration: none; color: var(--ink-2); font-size: 14px; border: 1px solid transparent; }
+nav.toc a:hover { border-color: var(--line); color: var(--ink); }
+nav.toc a span { color: var(--muted); margin-right: 4px; font-variant-numeric: tabular-nums; }
+main { max-width: 1160px; margin: 0 auto; padding: 0 16px 64px; }
+header.top { padding: 28px 0 8px; }
+header.top h1 { font-size: clamp(24px, 3.4vw, 34px); line-height: 1.25; margin: 0 0 6px; text-wrap: balance; }
+header.top .kicker { margin: 0 0 12px; }
+section { scroll-margin-top: 64px; padding-top: 28px; margin-top: 20px; border-top: 1px solid var(--line); }
+h2 { font-size: clamp(20px, 2.6vw, 26px); margin: 0 0 6px; text-wrap: balance; }
+h2 .no { color: var(--accent); margin-right: 8px; font-variant-numeric: tabular-nums; }
+h3 { font-size: 17px; margin: 18px 0 8px; text-wrap: balance; }
+p.lead { color: var(--ink-2); max-width: 75ch; margin: 0 0 12px; }
+.grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.card h3 { margin: 0; }
+.card ul { margin: 0; padding-left: 20px; }
+.kicker { font-size: 13px; color: var(--muted); letter-spacing: .02em; }
+.src { font-size: 12.5px; color: var(--muted); margin: 2px 0 0; overflow-wrap: anywhere; }
+.note { font-size: 14px; color: var(--ink-2); }
+.bigline { font-size: clamp(19px, 2.6vw, 26px); font-weight: 700; line-height: 1.45; margin: 4px 0 14px; max-width: 34em; text-wrap: balance; }
+.howto { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px; padding: 8px 14px; font-size: 15px; max-width: 75ch; }
+.howto b { color: var(--accent); }
+.howto ol { margin: 4px 0; padding-left: 22px; }
+.big { font-size: 30px; font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums; color: var(--accent); }
+.big small { font-size: 15px; font-weight: 600; color: var(--ink-2); margin-left: 4px; }
+.nums { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.nums b { color: var(--ink); font-size: 18px; }
+ol.steps5 { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); counter-reset: st; }
+ol.steps5 > li { background: var(--surface); border: 1.5px solid var(--accent); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; min-width: 0; counter-increment: st; }
+ol.steps5 > li::before { content: "步驟 " counter(st); font-size: 12px; font-weight: 700; color: var(--accent); }
+ol.steps5 .what { font-weight: 600; }
+.vb { display: inline-block; font-size: 12px; line-height: 1.5; padding: 0 7px; border-radius: 4px; border: 1.5px solid; white-space: nowrap; font-weight: 600; vertical-align: 1px; }
+.v-ok { color: var(--ok); border-color: var(--ok); background: var(--ok-soft); }
+.v-warn { color: var(--warn); border-color: var(--warn-fill); background: var(--warn-soft); }
+.v-no { color: var(--bad); border-color: var(--bad); border-style: dotted; background: var(--bad-soft); }
+.v-miss { color: var(--pause); border-color: var(--pause); border-style: dashed; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: 13px; color: var(--ink-2); margin: 6px 0 0; }
+ul.items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+ul.items > li { border-top: 1px solid var(--line); padding-top: 8px; min-width: 0; }
+ul.items > li:first-child { border-top: 0; padding-top: 0; }
+.it { font-weight: 600; }
+.val { font-variant-numeric: tabular-nums; }
+.say { display: block; font-size: 14px; color: var(--ink-2); margin-top: 2px; }
+.say::before { content: "用的時候加一句:"; font-weight: 600; color: var(--ink); }
+.alt { display: block; font-size: 14px; margin-top: 2px; color: var(--ink); }
+.alt::before { content: "改這樣講:"; font-weight: 700; color: var(--ok); }
+.alt.use::before { content: "改用:"; }
+.now { display: block; font-size: 14px; margin-top: 2px; }
+.now::before { content: "現在的替代做法:"; font-weight: 700; color: var(--accent); }
+.col-ok { border-top: 4px solid var(--ok); }
+.col-warn { border-top: 4px solid var(--warn-fill); }
+.col-no { border-top: 4px dotted var(--bad); }
+.col-miss { border-top: 4px dashed var(--pause); }
+.colhead { font-weight: 700; margin: 0 0 4px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { text-align: left; vertical-align: top; padding: 7px 9px; border-bottom: 1px solid var(--line); }
+th { background: var(--accent-soft); font-weight: 600; white-space: nowrap; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.mid { min-width: 680px; }
+details.block { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; margin: 10px 0; }
+details.block > summary { cursor: pointer; padding: 9px 14px; font-weight: 600; font-size: 15px; }
+details.block[open] > summary { border-bottom: 1px solid var(--line); }
+details.block > .in { padding: 10px 14px 12px; font-size: 14px; color: var(--ink-2); }
+details.block > .in p { margin: 6px 0; }
+details.block > .tbl-wrap { border: 0; border-radius: 0 0 8px 8px; }
+ul.tight { margin: 4px 0; padding-left: 20px; }
+ul.tight li { margin: 3px 0; }
+.key { border-top: 3px solid var(--accent); }
+.kno { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; flex: none; }
+ol.sum4 { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+ol.sum4 > li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+ol.sum4 .h { font-weight: 700; font-size: 16px; }
+ol.sum4 .to { font-size: 14.5px; color: var(--ink-2); }
+ol.sum4 .to::before { content: "→ "; color: var(--accent); font-weight: 700; }
+.decide { background: var(--warn-soft); border: 1px solid var(--warn-fill); border-radius: 10px; padding: 10px 16px; margin-top: 16px; }
+.decide h3 { margin: 0 0 6px; }
+.decide ol { margin: 0; padding-left: 22px; }
+.decide li { margin: 4px 0; }
+.more { margin-top: 40px; border-top: 3px double var(--line); }
+.more > h2 { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav class="toc" aria-label="段落">
+<ol>
+<li><a href="#s1"><span>1</span>收到什麼</a></li>
+<li><a href="#s2"><span>2</span>做了哪些整理</a></li>
+<li><a href="#s3"><span>3</span>可以用</a></li>
+<li><a href="#s4"><span>4</span>小心用、不要用</a></li>
+<li><a href="#s5"><span>5</span>還是缺</a></li>
+<li><a href="#s6"><span>6</span>Stanly 的來源</a></li>
+<li><a href="#s7"><span>7</span>總結</a></li>
+<li><a href="#more"><span>附</span>附錄</a></li>
+</ol>
+</nav>
+<main>
+
+<header class="top">
+<h1>資料盤點:收到什麼、整理了什麼、哪些能用</h1>
+<p class="kicker">雪梨 Airbnb 民宿營運助手 · 2026-11-18 組會</p>
+<p class="bigline">成本類的缺口大多補上了;真實的成交價、入住晚數、收入,免費資料裡沒有,報告一律寫「估計」。</p>
+<div class="howto">
+<b>怎麼看這一頁</b>
+<ol>
+<li>趕時間就直接跳到第 7 段「統整後的總結」。</li>
+<li>每條資料只有四種狀態:<span class="vb v-ok">可以用</span> <span class="vb v-warn">要加一句才能用</span> <span class="vb v-no">不要用</span> <span class="vb v-miss">還是缺</span></li>
+<li>灰色小字是出處;「細節」點開才看得到,開會時可以先不看。</li>
+</ol>
+</div>
+</header>
+
+<section id="s1">
+<h2><span class="no">1</span>這幾天收到了什麼?</h2>
+<p class="lead">三份清單:一份是我們自己的,兩份是隊友給的。</p>
+<div class="grid">
+<div class="card">
+<span class="kicker">我們自己 · 11/15</span>
+<h3>查過的資料清單</h3>
+<div class="nums"><span>已查到 <b>84</b> 列</span><span>沒查到 <b>19</b> 列</span><span>還缺的數據 <b>32</b> 列</span></div>
+<p class="note">「還缺的數據」那 32 列,就是這次拿來對照的缺口表。</p>
+<p class="src">出處:<code>data_inventory_2026-11-15.md</code> 第 3 行</p>
+</div>
+<div class="card">
+<span class="kicker">鹤舞 · 11/17</span>
+<h3>数据缺口补充与下载清单</h3>
+<div class="big">39<small>項</small></div>
+<div class="nums"><span>可下載檔 <b>15</b></span><span>網頁與報價 <b>12</b></span><span>還沒補齊 <b>12</b></span><span>連結 <b>49</b> 條</span></div>
+<p class="src">出處:<code>teammate_download_list_check_2026-11-17.md</code> 第 87 行(15+12+12)、第 162 行(49 條)</p>
+</div>
+<div class="card">
+<span class="kicker">Stanly · 11/18</span>
+<h3>额外数据源推荐</h3>
+<div class="big">13<small>個來源</small></div>
+<div class="nums"><span>另列不建議用 <b>3</b> 個</span><span>連結 <b>13</b> 條</span></div>
+<p class="note">補鹤舞那份裡還沒有的來源。</p>
+<p class="src">出處:<code>teammate_stanly_sources_check_2026-11-18.md</code> 第 3–4 行、第 12 行</p>
+</div>
+</div>
+</section>
+
+<section id="s2">
+<h2><span class="no">2</span>我做了哪些整理?</h2>
+<p class="lead">五個步驟。重點是:下載回來的檔都自己開過,才放進「可以用」。</p>
+<ol class="steps5">
+<li><span class="big">52<small>項</small></span><span class="what">逐項對照我們的缺口</span><span class="note">鹤舞 39 項 + Stanly 13 個,一項一項對到我們的缺口表。</span><span class="src"><code>teammate_download_list_check_2026-11-17.md</code> 表 2;<code>teammate_stanly_sources_check_2026-11-18.md</code> 逐項表</span></li>
+<li><span class="big">62<small>條</small></span><span class="what">檢查連結,只有 1 條壞掉</span><span class="note">鹤舞 49 條 + Stanly 13 條。壞掉的是 Stanly 的犯罪統計(404)。</span><span class="src"><code>teammate_download_list_check_2026-11-17.md</code> 第 14 行;<code>teammate_stanly_sources_check_2026-11-18.md</code> 第 12 行</span></li>
+<li><span class="big">16<small>個檔</small></span><span class="what">下載回來,只放本機</span><span class="note">11/17 的 14 個 + 11/18 的 2 個。清單在附錄。</span><span class="src"><code>external_downloads_verify_2026-11-17.md</code> 第 3 行(14 個);11/18 的 2 個見附錄</span></li>
+<li><span class="big">13<small>項</small></span><span class="what">開檔核對隊友引用的講法</span><span class="note">12 對、1 部分對、0 不對。另外上官網核對了 7 個主題。</span><span class="src"><code>external_downloads_verify_2026-11-17.md</code> 第 8 行;<code>followup_checks_web_2026-11-17.md</code> 第 9–15、85–87 行</span></li>
+<li><span class="big">8<small>個主題</small></span><span class="what">更正我們的舊筆記</span><span class="note">舊講法不刪,旁邊加「11/17 更正」。8 個主題的新講法在第 4 段。</span><span class="src"><code>corrections_2026-11-17.md</code> 第 13–20 行</span></li>
+</ol>
+<details class="block">
+<summary>細節:部分對的那 1 項、上官網的 7 個主題、連結怎麼算</summary>
+<div class="in">
+<p><b>部分對的 1 項:</b>Vivin 家具小冊。房型與價格都對,但「2025 年版」只在網址和檔名,小冊內文沒寫年份。(<code>external_downloads_verify_2026-11-17.md</code> 第 9 行)</p>
+<p><b>上官網核對的 7 個主題:</b>Airbnb 服務費、Inside Airbnb 歷史資料價格、City of Sydney 議會原文、SXSW Sydney 公告、Domain 9 月季租金報告、NSW 短租政策頁、三個旅遊與租金入口頁(看有沒有雪梨按月資料)。其中 City of Sydney、SXSW、Domain 是用 Chrome 開原頁,其餘用工具讀。Blacktown 市政費的檔太大開不了,沒算在內。(<code>followup_checks_web_2026-11-17.md</code> 第 9–15、85–87 行)</p>
+<p><b>連結:</b>鹤舞的 49 條裡,程式開得了 37 條;另外 12 條是程式被擋或連不上,不是連結壞掉(其中 AER、IPART 的檔後來都下載到了)。Stanly 的 13 條裡 12 條開得了、1 條 404。(<code>teammate_download_list_check_2026-11-17.md</code> 第 14 行;<code>external_downloads_verify_2026-11-17.md</code> 表 1;<code>teammate_stanly_sources_check_2026-11-18.md</code> 第 12 行)</p>
+</div>
+</details>
+</section>
+
+<section id="s3">
+<h2><span class="no">3</span>哪些可以用?</h2>
+<p class="lead">這裡只放我們自己開檔或開原頁看過的(Airbnb 服務費那條是用工具讀官方頁的摘要,已標)。數字可以放進報告,但每條後面那一句要跟著寫。</p>
+<div class="grid two">
+
+<div class="card col-ok">
+<p class="colhead"><span class="vb v-ok">可以用</span>每月固定成本</p>
+<ul class="items">
+<li><span class="it">電費</span>:<span class="val">Ausgrid 1,899/年(3,900 kWh)、Endeavour 2,328、Essential 2,604</span>(2026-27,含 GST)
+<span class="say">「這是政府按規定用電量算的上限參考價,不是家戶實際平均電費。」三區假設的用電量不同(3,900 / 4,900 / 4,600 kWh),不能直接互比;含不含可控負載還沒確認。</span>
+<span class="src">AER 最終決定 PDF p.16、資訊包 p.4;<code>external_downloads_verify_2026-11-17.md</code> 第 40、42、44 行</span></li>
+<li><span class="it">網路</span>:<span class="val">NBN 50 每月 85、NBN 100 每月 90</span>(amaysim,2026-02-25 起)
+<span class="say">「單一業者的最低月費,不含促銷,不是市場平均。」含不含 GST 檔案沒寫。</span>
+<span class="src">amaysim PDF p.1;同上 第 55 行</span></li>
+<li><span class="it">短租保險</span>:<span class="val">NSW 新業務保費 525/年</span>(Terri Scheer)
+<span class="say">「單一保險公司的公告價(2025-11-14 後出單、2026-01-19 後生效的新保單),會調整,實際以報價為準。」含不含 GST 檔案沒寫。</span>
+<span class="src">Terri Scheer PDF p.2;同上 第 54 行</span></li>
+<li><span class="it">市政費</span>:<span class="val">North Sydney 2026-27 最低住宅費率 970.72/年</span>
+<span class="say">「只適用 North Sydney 市議會;這是核准的最低費率,不等於一整年的市政帳單。」</span>
+<span class="src">IPART North Sydney 報告 p.8;同上 第 56 行</span></li>
+</ul>
+</div>
+
+<div class="card col-ok">
+<p class="colhead"><span class="vb v-ok">可以用</span>法規與平台費</p>
+<ul class="items">
+<li><span class="it">短租天數</span>:<span class="val">房東不同住,每年最多 180 天;連續 21 天以上的訂單不算</span>(大雪梨,不含 Central Coast)
+<span class="say">「一年是從登記日起算的 365 天,不是日曆年。官方 FAQ 是 2024 年 5 月版,政策頁最後更新 2025-02-10,之後有沒有改還要再查。」</span>
+<span class="src">NSW STRA FAQ p.4–5;<code>external_downloads_verify_2026-11-17.md</code> 第 59 行;<code>followup_checks_web_2026-11-17.md</code> 第 61–67 行</span></li>
+<li><span class="it">Airbnb 服務費</span>:<span class="val">分攤制多數房東 3%、房客 14.1%–16.5%;單一服務費多數房東 15.5%</span>
+<span class="say">「官方頁說正在改成單一服務費,沒寫哪天全部改;以房東自己收到的通知為準。」這條是工具讀官方頁的摘要,引用前請自己再開一次官方頁。</span>
+<span class="src">Airbnb 官方服務費頁(工具摘要);<code>followup_checks_web_2026-11-17.md</code> 第 21 行</span></li>
+</ul>
+</div>
+
+<div class="card col-ok">
+<p class="colhead"><span class="vb v-ok">可以用</span>裝修與家具</p>
+<ul class="items">
+<li><span class="it">雪梨廚房、浴室</span>:<span class="val">基礎廚房 28,000–45,000;基礎浴室 25,000–30,000</span>(含 GST)
+<span class="say">「設計公司的參考預算;廚房不含家電,建議另加 20% 預備金。」</span>
+<span class="src">Martina Hayes PDF p.1、p.3–4;<code>external_downloads_verify_2026-11-17.md</code> 第 50 行</span></li>
+<li><span class="it">全國裝修指引</span>:<span class="val">浴室 17,500–35,000;廚房 23,000–49,000;室內粉刷每平方公尺 20–40</span>(含 GST)
+<span class="say">「Archicentre 的全國通用指引,不是雪梨專屬價;白色家電另加。」</span>
+<span class="src">Archicentre PDF p.3–4;同上 第 51 行</span></li>
+<li><span class="it">家具套裝</span>:<span class="val">Standard 一房 5,999、兩房 7,999、三房 9,999 起</span>(Vivin,另加 GST)
+<span class="say">「是『起價』而且另加 GST;不含白色家電與戶外家具;小冊沒寫年份。」</span>
+<span class="src">Vivin PDF p.4;同上 第 53 行</span></li>
+<li><span class="it">建材價格</span>:<span class="val">雪梨房屋建築業材料投入價格,2026 年 9 月季年增 3.7%</span>(ABS)
+<span class="say">「這是材料投入價格,不含人工,不能叫『裝修成本漲幅』。」</span>
+<span class="src">ABS Table 18 工作表 Data1 儲存格 Q251;同上 第 52 行</span></li>
+</ul>
+</div>
+
+<div class="card col-ok">
+<p class="colhead"><span class="vb v-ok">可以用</span>長租對照</p>
+<ul class="items">
+<li><span class="it">SQM 雪梨掛牌週租</span>:<span class="val">合計 918.95、獨棟 1,175.11、公寓 743.95</span>(截至 2026-11-12);空置率 1.8%(同一份報告第 1 頁的表)
+<span class="say">「是網路掛牌價,不是實際成交租金。」</span>
+<span class="src">SQM PDF p.1、p.3;<code>external_downloads_verify_2026-11-17.md</code> 第 57 行</span></li>
+<li><span class="it">Domain 9 月季</span>:<span class="val">雪梨中位週租 獨棟 835、公寓 780;空置率 1.2%</span>
+<span class="say">「長租只當對照,不是我們題目的主角。」</span>
+<span class="src">Domain 原頁(主腦用 Chrome 開);<code>followup_checks_web_2026-11-17.md</code> 第 85 行</span></li>
+</ul>
+</div>
+
+<div class="card col-ok">
+<p class="colhead"><span class="vb v-ok">可以用</span>淡旺季</p>
+<ul class="items">
+<li><span class="it">NSW 每月短期入境旅客</span>:<span class="val">2025 年最高 12 月 389,290、最低 6 月 217,640</span>(ABS,資料到 2026-09)
+<span class="say">「這是進 NSW 的國際短期旅客人數,不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢。」</span>
+<span class="src"><code>9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx</code> Table 11,NSW 欄(A85247916X);11/18 主腦開檔看過</span></li>
+<li><span class="it">公眾假期</span>:<span class="val">NSW 2021–2025 共 65 筆(2025 年 12 筆)</span>(data.gov.au)
+<span class="say">「只到 2025 年,只能對過去的評論月份;未來的假期用 11/14 手查的官方日期。」</span>
+<span class="src"><code>3_australian_public_holidays_combined_2021-2025.csv</code>(532 列,頁面標 INACTIVE);11/18 主腦開檔看過</span></li>
+</ul>
+</div>
+
+</div>
+<details class="block">
+<summary>細節:NSW 近 12 個月短期入境旅客人數</summary>
+<div class="tbl-wrap">
+<table class="mid">
+<thead><tr><th>月份</th><th>人數</th><th>月份</th><th>人數</th><th>月份</th><th>人數</th></tr></thead>
+<tbody>
+<tr><td>2025-10</td><td class="num">284,370</td><td>2026-02</td><td class="num">367,220</td><td>2026-06</td><td class="num">200,580</td></tr>
+<tr><td>2025-11</td><td class="num">325,340</td><td>2026-03</td><td class="num">314,260</td><td>2026-07</td><td class="num">247,410</td></tr>
+<tr><td>2025-12</td><td class="num">389,290</td><td>2026-04</td><td class="num">242,650</td><td>2026-08</td><td class="num">289,970</td></tr>
+<tr><td>2026-01</td><td class="num">272,980</td><td>2026-05</td><td class="num">225,350</td><td>2026-09</td><td class="num">255,130</td></tr>
+</tbody>
+</table>
+</div>
+<div class="in"><p>原始值,每月;NSW 那一欄從 1991-01 到 2026-09。只能看走勢,不是雪梨的住宿需求。出處:<code>9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx</code>(ABS Overseas Arrivals and Departures, September 2026,Table 11)。</p></div>
+</details>
+</section>
+
+<section id="s4">
+<h2><span class="no">4</span>哪些要小心用、哪些不要用?為什麼?</h2>
+<p class="lead">左邊:不加那一句就會講錯,或是隊友查的、我們還沒核對。右邊:舊講法不要再用,每條都附「改用什麼」或「改這樣講」。</p>
+<div class="grid two">
+
+<div class="card col-warn">
+<p class="colhead"><span class="vb v-warn">要加一句才能用</span></p>
+<ul class="items">
+<li><span class="it">瓦斯</span>:<span class="val">住宅市場方案中位數 1,249.96/年</span>(IPART,2025-09-15)
+<span class="say">「這是 IPART 表裡的 Metro 分組,範圍檔案沒定義。」不能寫成雪梨。</span>
+<span class="src">IPART 瓦斯 Excel「Historic Data - Gas Prices」第 10679 列 I 欄;<code>external_downloads_verify_2026-11-17.md</code> 第 47、93 行</span></li>
+<li><span class="it">鹤舞查的網頁報價(4 項)</span>
+<ul class="tight">
+<li>一房公寓油漆約 1,800–2,800(商家報價)</li>
+<li>木地板打磨上漆每平方公尺 40–70(網站自己說部分依據沒留)</li>
+<li>床單洗滌每公斤 6.50、一房每次 45(Northern Beaches 的店,未含 GST)</li>
+<li>公寓管理費每季中位數 1,368(NSW 樣本,不是雪梨)</li>
+</ul>
+<span class="say">「鹤舞查的,我們還沒核對;是單一商家或網站的數字。」</span>
+<span class="src"><code>teammate_download_list_check_2026-11-17.md</code> 第 62–65 行(編號 2.01–2.04)</span></li>
+<li><span class="it">City of Sydney 短租</span>:<span class="val">2,468 間登記且活躍、5,454 間活躍</span>
+<span class="say">「這是 2023 年的資料,只有 City of Sydney,不是整個大雪梨,也不是現在。」</span>
+<span class="src">議會原文(主腦用 Chrome 開);<code>corrections_2026-11-17.md</code> 第 18 行</span></li>
+<li><span class="it">Blacktown 市政費</span>:<span class="val">最低費率 1,140</span>
+<span class="say">「屬 2025–26,鹤舞查的,我們還沒核對。」另一個數字 1,233 是哪一年還不清楚,先不放。</span>
+<span class="src"><code>corrections_2026-11-17.md</code> 第 17 行</span></li>
+</ul>
+<details class="block">
+<summary>還有 1 條</summary>
+<div class="in">
+<p><b>TRA 全國旅遊數字</b>(到 2026-06 的 12 個月,總旅客消費 200.6bn):要加一句「全國數字,沒有雪梨層級,只當大環境背景」。出處:TRA 儀表板 p.3;<code>external_downloads_verify_2026-11-17.md</code> 第 60 行。</p>
+</div>
+</details>
+</div>
+
+<div class="card col-no">
+<p class="colhead"><span class="vb v-no">不要用</span></p>
+<ul class="items">
+<li><span class="it">「Airbnb 2025-12-01 全部改制」</span>:官方頁沒有寫任何統一日期,整句拿掉。
+<span class="alt">「官方說正在改成單一服務費,以房東自己收到的通知為準。」</span>
+<span class="src"><code>corrections_2026-11-17.md</code> 第 13 行</span></li>
+<li><span class="it">電費草案 1,875 / 2,347(Ausgrid、Endeavour)和舊筆記的 Essential 2,515</span>:已經有最終版;2,515 對不上最終版任何一種,當初是哪種費率也沒記。
+<span class="alt use">最終版 Ausgrid 1,899、Endeavour 2,328、Essential 2,604(見第 3 段)。</span>
+<span class="src"><code>corrections_2026-11-17.md</code> 第 20 行</span></li>
+<li><span class="it">Cotality「雪梨租金年增 4.0%」</span>:是從文字順序推出來的,沒看到圖。
+<span class="alt use">Domain 原頁的雪梨獨棟週租年增 5.7%;或只引用 Cotality 的全國年增 5.3%。</span>
+<span class="src"><code>external_downloads_verify_2026-11-17.md</code> 第 58、90 行;<code>followup_checks_web_2026-11-17.md</code> 第 85 行</span></li>
+<li><span class="it">「Inside Airbnb 歷史資料 US$500 或 US$800」(像二選一的報價)</span>
+<span class="alt">「不是固定報價:按城市數和用途分類,要向站方問;舊價只到 2026-11-30 前送出的申請。」</span>
+<span class="src"><code>corrections_2026-11-17.md</code> 第 15 行;<code>followup_checks_web_2026-11-17.md</code> 第 22、42 行</span></li>
+</ul>
+<details class="block">
+<summary>還有 7 條(每條都附改法)</summary>
+<div class="in">
+<ul class="tight">
+<li><b>「SXSW Sydney 官網憑證壞掉」</b> → 改這樣講:「SXSW Sydney 2026 取消(2026-01-14 公告),NSW 政府說 2026、2027 都不辦。」(<code>corrections_2026-11-17.md</code> 第 14 行)</li>
+<li><b>「ABS 沒有雪梨層級的營造成本」</b> → 改用:ABS Table 18 雪梨 2026 年 9 月季年增 3.7%(材料投入,不含人工)。(同上 第 19 行)</li>
+<li><b>Domain 舊網址(結尾 <code>-rental/</code>,404)</b> → 改用:<code>domain.com.au/research/rental-report/september-2026/</code>。(同上 第 16 行)</li>
+<li><b>把 TRA 數字當成雪梨淡旺季</b> → 改用:第 5 段的三個替代(評論月份、NSW 每月入境人數、雪梨機場客流)。(<code>external_downloads_verify_2026-11-17.md</code> 第 29 行)</li>
+<li><b>Kaggle 舊「Sydney Airbnb Open Data」</b>(約 2019 年的鏡像,來源和授權不清楚) → 改用:Inside Airbnb 官方下載的資料(我們現在用的)。(<code>teammate_stanly_sources_check_2026-11-18.md</code> 第 38 行)</li>
+<li><b>自己爬 Airbnb 網站</b>(違反服務條款) → 改用:Inside Airbnb 的公開資料。(同上 第 39 行)</li>
+<li><b>AirDNA 標 SAMPLE 的圖表</b>(是示意,不是真的數字) → 改這樣講:「入住率由房東自己填,外部數字只給參考範圍。」(同上 第 40 行;<code>data_inventory_2026-11-15.md</code> 第 201 行)</li>
+</ul>
+</div>
+</details>
+</div>
+
+</div>
+</section>
+
+<section id="s5">
+<h2><span class="no">5</span>還是缺什麼?</h2>
+<p class="lead">這幾樣找不到免費資料。除了「房東自住還是投資」決定不做以外,每一樣都有替代做法,不會卡住進度。</p>
+<div class="grid two">
+<div class="card col-miss">
+<p class="colhead"><span class="vb v-miss">還是缺</span>實際成交價、實際入住晚數、按房型的實際收入</p>
+<span class="now">外部行情只給參考範圍(例如 AirDNA 公開總覽頁 67%、AirROI 49.5%、Airbtics 75%;三家估法不同,差很多,所以只當範圍),每晚價和入住率讓房東自己填;報告一律寫「估計」。</span>
+<span class="src"><code>data_inventory_2026-11-15.md</code> 第 200、201、208 行;<code>teammate_download_list_check_2026-11-17.md</code> 第 74 行</span>
+</div>
+<div class="card col-miss">
+<p class="colhead"><span class="vb v-miss">還是缺</span>日曆每日價格、2025-12 那期的價格</p>
+<span class="now">價格只用 2026-03、06、09 三期;淡旺季只做提醒(假期、活動日期),不說會漲多少。</span>
+<span class="src"><code>data_inventory_2026-11-15.md</code> 第 202、206 行</span>
+</div>
+<div class="card col-miss">
+<p class="colhead"><span class="vb v-miss">還是缺</span>房東是自住還是投資</p>
+<span class="now">不做(不在題目範圍);資料只看得出當房東多久。Stanly 提的短租登記冊也許能補「房東是否同住」,但要申請,欄位還沒看。</span>
+<span class="src"><code>data_inventory_2026-11-15.md</code> 第 205 行;<code>teammate_stanly_sources_check_2026-11-18.md</code> 第 20 行</span>
+</div>
+<div class="card col-miss">
+<p class="colhead"><span class="vb v-miss">還是缺</span>雪梨按月的住宿淡旺季</p>
+<span class="now">三個替代互相對照:我們資料裡的評論月份、NSW 每月入境人數(已下載)、雪梨機場每月客流(還沒整理)。</span>
+<span class="src"><code>data_inventory_2026-11-15.md</code> 第 196、211 行;<code>followup_checks_web_2026-11-17.md</code> 第 14、57 行</span>
+</div>
+</div>
+</section>
+
+<section id="s6">
+<h2><span class="no">6</span>Stanly 的 13 個新來源怎麼分?</h2>
+<p class="lead">照小組 11/14 定的範圍分。最有用的是兩個「按月」的:雪梨機場客流、出入境人數。</p>
+<div class="grid">
+<div class="card"><span class="kicker">分類</span><div class="nums"><span>優先 <b>4</b></span><span>次要 <b>8</b></span><span>這次用不到 <b>1</b></span></div><p class="note">用不到的是房產成交(買房投資,11/14 決定不做)。</p></div>
+<div class="card"><span class="kicker">優先 4 個的進度</span><ul class="tight"><li>出入境人數:已下載</li><li>公眾假期:已下載(只到 2025)</li><li>雪梨機場客流:還沒下載、還沒整理</li><li>短租登記冊:要申請</li></ul></div>
+<div class="card"><span class="kicker">要先處理的</span><div class="nums"><span>要申請帳號或權限 <b>3</b> 個</span><span>連結 404 <b>1</b> 條</span></div><p class="note">要申請:短租登記冊、NSW 交通時刻表、Ticketmaster。404 的是犯罪統計,要請 Stanly 給新網址。</p></div>
+</div>
+<p class="src">出處:<code>teammate_stanly_sources_check_2026-11-18.md</code> 第 9–12 行;11/18 下載的 2 個檔見附錄</p>
+<details class="block">
+<summary>細節:13 個來源一覽</summary>
+<div class="tbl-wrap">
+<table class="mid">
+<thead><tr><th>#</th><th>來源</th><th>分類</th><th>要帳號嗎</th><th>現況與提醒</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td>NSW 短租登記冊 API</td><td>優先</td><td>要(審核)</td><td>可對房源登記號、查合規;欄位還沒看</td></tr>
+<tr><td class="num">2</td><td>Inside Airbnb 房源封面照片</td><td>次要,要小組先決定</td><td>不用</td><td>用 AI 看照片判斷裝修;抓圖合不合規要先確認;照片好看 ≠ 裝修好</td></tr>
+<tr><td class="num">3</td><td>澳洲公眾假期資料集</td><td>優先</td><td>不用</td><td>已下載;只到 2025,沒有 2026、2027</td></tr>
+<tr><td class="num">4</td><td>Transport for NSW 時刻表</td><td>次要</td><td>要(註冊)</td><td>可算到最近車站的距離</td></tr>
+<tr><td class="num">5</td><td>OpenStreetMap</td><td>次要</td><td>不用</td><td>可算到海邊、景點的距離</td></tr>
+<tr><td class="num">6</td><td>NSW 犯罪統計</td><td>次要</td><td>不用</td><td>連結 404;講某區不安全要小心</td></tr>
+<tr><td class="num">7</td><td>ABS 2021 人口普查</td><td>次要</td><td>不用</td><td>2021 年資料;檔案很大</td></tr>
+<tr><td class="num">8</td><td>雪梨機場每月客流</td><td>優先</td><td>不用</td><td>還沒下載、還沒整理;要從新聞稿一則一則抄;是機場人數不是住宿晚數</td></tr>
+<tr><td class="num">9</td><td>ABS 出入境統計</td><td>優先</td><td>不用</td><td>已下載;是 NSW 不是雪梨</td></tr>
+<tr><td class="num">10</td><td>Google Trends</td><td>次要</td><td>不用</td><td>相對指數,不是人數</td></tr>
+<tr><td class="num">11</td><td>Ticketmaster API</td><td>次要</td><td>要(API key)</td><td>只有現在和未來的活動,不能對過去的價格</td></tr>
+<tr><td class="num">12</td><td>Open-Meteo 歷史天氣</td><td>次要</td><td>不用</td><td>—</td></tr>
+<tr><td class="num">13</td><td>NSW 房產成交</td><td>這次用不到</td><td>不用</td><td>Stanly 標「延伸 1 需要時使用」</td></tr>
+</tbody>
+</table>
+</div>
+<div class="in"><p>出處:<code>teammate_stanly_sources_check_2026-11-18.md</code> 第 20–32 行。每個來源裡面有哪些欄位,除了 3、9,都還沒有人打開看過。</p></div>
+</details>
+</section>
+
+<section id="s7" class="key">
+<h2><span class="no">7</span>統整後的總結</h2>
+<ol class="sum4">
+<li><span class="kno">1</span><span class="h">成本類的缺口大多補上了</span><span class="note">電費、網路、保險、裝修、家具有公開數字;瓦斯和市政費只有部分。</span><span class="to">收入試算可以放「公開參考值」當預設,讓房東自己改。</span></li>
+<li><span class="kno">2</span><span class="h">真實的成交價、入住晚數、收入,免費資料裡沒有</span><span class="to">報告裡這三樣一律寫「估計」,不寫成事實。</span></li>
+<li><span class="kno">3</span><span class="h">淡旺季沒有「雪梨按月住宿」的官方數字</span><span class="to">用三個替代互相對照:我們資料裡的評論月份、NSW 每月入境人數(已下載)、雪梨機場每月客流(還沒整理)。</span></li>
+<li><span class="kno">4</span><span class="h">新方向要小組決定</span><span class="to">短租登記冊(誰申請)、用房源照片判斷裝修(做不做)、車站與海邊距離(要不要加進找同類)。</span></li>
+</ol>
+<div class="decide">
+<h3>今晚請大家決定</h3>
+<ol>
+<li>短租登記冊 API 要不要申請?誰去申請?</li>
+<li>用房源照片判斷裝修,做不做?(要先確認抓圖合不合規)</li>
+<li>到車站、到海邊的距離,要不要加進「找同類」?</li>
+<li>Stanly 文件裡的「延伸 1 房價」,和 11/14 決定的「買房投資不做」是什麼關係?</li>
+</ol>
+</div>
+<p class="src">出處:<code>teammate_stanly_sources_check_2026-11-18.md</code> 第 11、13、14 行</p>
+</section>
+
+<section id="more" class="more">
+<h2>附錄</h2>
+<p class="lead">開會時不用看。要查細節或出處再點開。</p>
+
+<details class="block">
+<summary>檔案放在哪</summary>
+<div class="in">
+<ul class="tight">
+<li>整理筆記:<code>Innovation Studio/notes/raw/</code>
+<ul class="tight">
+<li><code>external_downloads_verify_2026-11-17.md</code>:14 個下載檔的開檔核對(表 2 = 可以拿來用的數字)</li>
+<li><code>corrections_2026-11-17.md</code>:8 個更正主題</li>
+<li><code>teammate_download_list_check_2026-11-17.md</code>:鹤舞 39 項逐項對照與連結檢查</li>
+<li><code>teammate_stanly_sources_check_2026-11-18.md</code>:Stanly 13 個來源整理</li>
+<li><code>followup_checks_web_2026-11-17.md</code>:上官網核對的 7 個主題</li>
+<li><code>data_inventory_2026-11-15.md</code>:11/15 查過的資料清單(第三段 = 缺口表)</li>
+</ul></li>
+<li>下載的檔(只放本機):<code>Innovation Studio/refs/external_2026-11-17/</code>(14 個)、<code>Innovation Studio/refs/external_2026-11-18/</code>(2 個)</li>
+</ul>
+</div>
+</details>
+
+<details class="block">
+<summary>16 個下載檔清單</summary>
+<div class="tbl-wrap">
+<table class="mid">
+<thead><tr><th>#</th><th>檔名</th><th>是什麼</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td><code>1.01_AER_final_determination_DMO_2026-27.pdf</code></td><td>AER 電費 2026–27 最終決定</td></tr>
+<tr><td class="num">2</td><td><code>1.01_AER_information_kit_DMO_2026-27.pdf</code></td><td>AER 電費資訊包</td></tr>
+<tr><td class="num">3</td><td><code>1.02_IPART_gas_data_appendix_2024-25.xlsx</code></td><td>IPART NSW 瓦斯數據附件</td></tr>
+<tr><td class="num">4</td><td><code>1.03_Archicentre_CostGuide_2026.pdf</code></td><td>Archicentre 2026 裝修費用指南(全國)</td></tr>
+<tr><td class="num">5</td><td><code>1.04_MartinaHayes_Sydney_Renovation_Cost_2026.pdf</code></td><td>雪梨廚房浴室裝修費用</td></tr>
+<tr><td class="num">6</td><td><code>1.05_ABS_PPI_Table18_sep_2026.xlsx</code></td><td>ABS 建材投入價格指數 Table 18</td></tr>
+<tr><td class="num">7</td><td><code>1.06_Vivin_furniture_packages_2025.pdf</code></td><td>Vivin 家具套裝小冊</td></tr>
+<tr><td class="num">8</td><td><code>1.07_TerriScheer_holiday_rental_insurance.pdf</code></td><td>Terri Scheer 短租保險</td></tr>
+<tr><td class="num">9</td><td><code>1.08_amaysim_home_internet_CIS.pdf</code></td><td>amaysim NBN 月費說明</td></tr>
+<tr><td class="num">10</td><td><code>1.09_IPART_North_Sydney_final_report_2026-27.pdf</code></td><td>IPART North Sydney 市政費最終報告</td></tr>
+<tr><td class="num">11</td><td><code>1.11_SQM_vacancy_rates_october_2026.pdf</code></td><td>SQM 空置率與掛牌租金</td></tr>
+<tr><td class="num">12</td><td><code>1.12_Cotality_housing_chart_pack_2026-11.pdf</code></td><td>Cotality 2026-11 房市圖表</td></tr>
+<tr><td class="num">13</td><td><code>1.14_TRA_ATDD_october_2026.pdf</code></td><td>TRA 2026-10 旅遊儀表板(全國)</td></tr>
+<tr><td class="num">14</td><td><code>1.15_NSW_STRA_FAQ.pdf</code></td><td>NSW 短租規定 FAQ(2024 年 5 月版)</td></tr>
+<tr><td class="num">15</td><td><code>9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx</code></td><td>ABS 出入境 Table 11(11/18 下載)</td></tr>
+<tr><td class="num">16</td><td><code>3_australian_public_holidays_combined_2021-2025.csv</code></td><td>澳洲公眾假期 2021–2025(11/18 下載)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="in"><p>1–14 在 <code>refs/external_2026-11-17/</code>,15–16 在 <code>refs/external_2026-11-18/</code>。檔名前面的編號 = 隊友清單的編號。</p></div>
+</details>
+
+<details class="block">
+<summary>怎麼核對的</summary>
+<div class="in">
+<ul class="tight">
+<li>PDF 用程式逐頁抽字、Excel 讀儲存格,再找關鍵字、只讀有命中的頁。頁碼是 PDF 檔的第幾頁,不是文件印的頁碼。</li>
+<li>連結:程式只看有沒有回應,不讀內容。</li>
+<li>網頁:Airbnb 服務費、Inside Airbnb 價格頁是工具摘要;Domain、City of Sydney、SXSW 是主腦用瀏覽器親眼看原頁。</li>
+<li>11/18 的 2 個檔:主腦開檔看過。</li>
+<li>放進「可以用」的條件:我們自己開檔或開原頁看過。隊友查的、我們還沒看過的,只放「要加一句才能用」。</li>
+</ul>
+</div>
+</details>
+
+<details class="block">
+<summary>沒做的事</summary>
+<div class="in">
+<ul class="tight">
+<li>沒申請任何帳號或 API 權限。</li>
+<li>雪梨機場每月客流還沒下載、還沒整理。</li>
+<li>Stanly 的 13 個來源,除了 3、9,內容都還沒打開看。</li>
+<li>鹤舞清單裡的網頁報價(油漆、地板、洗滌、管理費)我們沒有自己開原頁核對。</li>
+<li>Blacktown 的 1,140、1,233 沒核對到(檔太大開不了)。</li>
+<li>Cotality 第 28 頁的圖沒人眼看過。</li>
+<li>AER 電費的 3,900 kWh 含不含可控負載,檔案沒寫,還沒確認。</li>
+<li>Destination NSW 的雪梨時間序列 PDF 沒開,不知道有沒有按月資料。</li>
+</ul>
+<p class="src">出處:<code>external_downloads_verify_2026-11-17.md</code> 第 76–94 行;<code>followup_checks_web_2026-11-17.md</code> 第 69–77、90 行;<code>teammate_stanly_sources_check_2026-11-18.md</code> 第 42–47 行</p>
+</div>
+</details>
+</section>
+
+</main>
+</body>
+</html>
