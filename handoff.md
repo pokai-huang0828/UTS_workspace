@@ -3364,3 +3364,15 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - 注意(已寫在檔頭與依據表):截止 11/22(日)20:59;如果週六組會後才貼,「下次會議」要改;「表給寫初稿的隊友用」那句的前提是表已傳給 Stanly(目前沒有紀錄);「補充資料來源和分析方法的部分」是主腦照分工寫的,會上沒有分配章節。
 - 沒有獨立核對;沒有貼出去(Kenny 自己貼)。
 - 成本:0 個分身。
+
+## 2026-11-20 · Innovation Studio:Stanly 的 AT2 報告初稿核對 + 回饋草稿(32)
+
+- Kenny 貼群組訊息(Stanly 11/18 21:40「12月11日之前要讲PPT,后交PDF报告」;11/19 23:14 傳初稿 docx;晗嘉、鹤舞回覆),再給檔案 `C:\Users\kenny\Downloads\AT2_5_悉尼Airbnb民宿运营助手_计划与设计报告_初稿.docx`,沒有另外下指示。主腦照之前的做法:存檔、記錄、核對。
+- 存檔:`Innovation Studio/notes/raw/teammate_stanly_AT2_draft_2026-11-19.docx`(942,776 bytes,sha256 caf82b36bda634fa7aac10ae7b1915c6e45c476424b1a67f74d4f6f695e20d73);文字版(含 8 張表、帶行號,171 行)`…_2026-11-19.txt`(腳本在 scratchpad,`python -I`,走段落與 table cell)。初稿:UTS 範本、Word 記 15 頁、圖 1 架構圖、表 1–7、附錄 A/B、文獻 15 筆。
+- 記錄:`notes/92_組會紀錄.md` 檔尾加「2026-11-18 21:40 與 11-19 群組訊息」一節。
+- 查核(sonnet high 分身,只對 repo 筆記、沒上網、沒重算):`notes/raw/teammate_stanly_AT2_draft_check_2026-11-19.md` —— 40 項:對 30、部分對 6、對不上 1(L29「2017–2022 年經營短租」,26 記的是 2016 年起)、找不到 3(右偏、Jaccard 與 10–20 套、80% 門檻,是新設計值)。和 11/18 決議不一致:2025-12 那期還在(決議 5,把握中)、淡旺季升成正式任務 T7(決議 7,把握中)、月度指數是 2024–2025 年評論沒標年份。缺:學號、相關係數矩陣與熱力圖(L63 待補)、分布圖、回應簡報回饋一節、前沿 AI 寫得不明確。字數:只算段落 2,589;連表格 3,777(Canvas 上限 3,750;表格算不算沒問過)。
+- 主腦抽查 5 項都相符;另補查兩件(記在查核檔第 6 節):① 行距 —— 正文 76 段全是 1.15 倍,1.1 倍的 185 段都在表格裡 → 合格 ② calendar 表頭 —— 四期雪梨檔都是 `listing_id,date,available,minimum_nights,maximum_nights`,沒有價格 → 初稿對,錯的是我們的 `raw/syd_w_inventory_clean_2026-11-14.md`(4 列寫「當天價格」),已同列更正、行數不變(208)。主腦也看了架構圖(四層,和正文一致)。
+- 產物:`notes/32_AT2初稿回饋_草稿.md` —— 可貼群組的短訊息、給 Stanly 的 18 條修改(每條附「改這樣講」)、Kenny 要補的 4 件、週六要全組決定的 5 件、沒查的 3 件。`notes/31_第4週週報_草稿.md` 改了三句(初稿已出、我核對了初稿、下週補相關性分析;拿掉「給寫初稿的隊友用」),正文約 284 字、備用版約 162 字。TODO 加一條。
+- 沒做:沒傳回饋給任何人;**沒跑相關係數與熱力圖**(新分析,等 Kenny 說);沒改初稿 docx;15 筆參考文獻沒上網核對;PDF 頁數沒量。
+- 成本(§8.3,照通知原值):sonnet high 1 個 190,536/39(上限 60)。本 session 累計 15 個分身:opus 4 個 558,235;sonnet 11 個 1,622,142;合計 2,180,377 token。Codex 0 趟。
+- (同日補)Kenny 中途說「直接把它先做成 Google Doc,看完再轉 DOCX 給他們」。主腦讀成「它 = 初稿回饋」(不是把 Stanly 的初稿本身上傳;這是主腦的判斷,Kenny 沒明講)。做法:寫給隊友看的 HTML 版 `Innovation Studio/notes/32_AT2初稿回饋_GoogleDoc版.html`(繁體;拿掉檔名與行號、改用章節名稱)→ Drive `create_file`(text/html 轉 Google Doc)→ https://docs.google.com/document/d/1chKpJ_ggNZuaOJvDUKUPdO9Gg_fBdafebuLlE6alyiQ/edit (Kenny 的 Drive 根目錄,私人、沒分享)。讀回檢查:標題、5 個小節、兩張表(17 列、4 列)都在,文字沒亂。沒做:沒轉 DOCX、沒傳給隊友。另:第一次寫 TODO/handoff 的腳本因為路徑裡的反斜線出錯沒寫進去,commit 0bec6a2 不含這兩檔,這次補上。
