@@ -1,0 +1,172 @@
+[a3] 421048 评估任务二 数据分析项目计划与设计UTS CRICOS 00099F421048 评估任务二 数据分析项目计划与设计UTS CRICOS 00099F
+项目组编号：5作者：Chunzhao YuHanjia WangPo-Kai HuangYong Su提交日期：2026 年 12 月 11 日University of Technology Sydney项目组编号：5作者：Chunzhao YuHanjia WangPo-Kai HuangYong Su提交日期：2026 年 12 月 11 日University of Technology Sydney 
+
+[af0] 目录
+[11] Table of Contents	2
+[25] 管理层摘要 Executive Summary	3
+[25] 引言 Introduction	4
+[33] 业务背景 Business context	4
+[33] 业务目标 Business objectives	4
+[33] 分析目标和任务 Analytical goals and tasks	4
+[25] 项目方案 Project Proposal	5
+[33] 数据与资源 Data and resources	5
+[33] 分析系统架构 Analytical system architecture	5
+[33] 方法、实验与评估 Methodology, experiments, and evaluation	5
+[33] 预期成果 Expected outcomes	5
+[25] 项目实施与管理 Project Implementation and Management	6
+[33] 实施设计 Implementation design	6
+[33] 时间线与里程碑 Timeline and milestones	6
+[33] 风险管理 Risk management	6
+[25] 结论 Conclusions	7
+[25] 参考文献 List of References	8
+[25] 附录 Appendices	9
+[21] 管理层摘要 Executive Summary
+[a3] 悉尼约有两万套 Airbnb 房源（Inside Airbnb, 2026）。新旧房东普遍面临“定价靠抄同行、设施不知道投哪、评论决定生死、年节缺少规划”等问题。本项目拟开发“悉尼 Airbnb 民宿运营助手”：房东输入房源的区域、房型、卧室数、可住人数、已有设施和拟定价格，系统找出可比竞品，说明价格位置、设施差距、评论反映的改进重点和避坑提醒，并延伸提供收入估算与淡旺季提醒。
+[a3] 项目使用 Inside Airbnb 悉尼 2025 年 12 月至 2026 年 9 月的四期公开快照（主分析期 20,833 套房源、829,163 条评论），结合大语言模型与梯度提升模型。前期试算中，用同类中间价估计挂牌价的平均误差比全市中间价低 17%，说明方法可行。项目以“可解释的市场参考”为承诺，预计 2027 年 2 月交付网页系统、分析报告和部署建议。
+[21] 引言 Introduction
+[31] 业务背景 Business context 
+[a3] 短租平台让个人房东可以低门槛进入旅游住宿市场（Guttentag, 2015）。2026 年 9 月，大悉尼 38 个区域共有 20,833 套 Airbnb 房源，约 79% 为整套出租（Inside Airbnb, 2026），竞争激烈。
+[a3] 团队成员曾于 2017–2022 年实际经营短租业务。经验显示，多数新房东先有闲置房源再学经营，缺少专业团队和行业标准：定价参考同行，初期以“别空置”为目标，定价偏低，对年节缺少规划；经营成熟后则希望以合理售价保障利润。同时，平台交易高度依赖评论，住客关注地段、交通、卫生、周边配套、价格、房东态度和入住体验；由于平台评分普遍偏高，细微的评分差距也会影响房源吸引力（Zervas et al., 2021）。
+[a3] 核心问题是：房东难以从上万套房源中找出真正可比的竞争对手，也不清楚自己的价格、设施和服务体验处于什么位置。现有商业工具多为付费的市场汇总，较少针对单套房源给出可解释的建议，因此有必要开发面向个体房东的运营辅助工具。
+[31] 业务目标 Business objectives 
+[a3] 本项目的目标用户是悉尼已有房源、需要比较市场定位并确定改进优先级的房东（包括准备上架的新房东），房型限整套房和独立房间。业务目标如下：
+[a] BO1 找准市场定位：了解房源在同类中的价格位置和设施差距，减少凭感觉定价。
+[a] BO2 提升住客体验与评分：从评论中找出影响评分的关键问题，确定改进优先级，并为新房东提供避坑指南。
+[a] BO3 支持经营决策：在合规前提下估算收入区间，提示淡旺季和重要假期。
+[a3] 三项目标层层递进：
+[a3] BO1 回答“我在哪里”;
+[a3] BO2 回答“该改进什么”;
+[a3] BO3 把定位和改进转化为可规划的经营结果。
+[31] 分析目标和任务 Analytical Goals and tasks
+[a3] 按照 CRISP-DM 流程（Chapman et al., 2000），本项目把三项业务目标转化为四项分析目标和七项分析任务（表 1）。
+[a3] 表 1 业务目标、分析目标与分析任务
+<<TABLE>>
+| 业务目标 | 分析目标 | 分析任务 |
+| BO1 | AG1 可比竞品识别与价格定位 | T1 匹配同类房源； / T2 计算同类价格分位数与目标房源百分位，建立参考价模型 |
+| BO1 | AG2 设施差距识别 | T3 计算同类设施普及率，列出缺少的高普及设施 |
+| BO2 | AG3 评论驱动的体验诊断 | T4 评论方面级情感分析（清洁、噪音、交通、入住、沟通、性价比等）； / T5 结合分项评分生成改进优先级与避坑清单 |
+| BO3 | AG4 收入情景与季节提醒 | T6 计算低、中、高三种收入情景（含 180 天上限）； / T7 识别淡旺季和高需求日期 |
+<<END TABLE>>
+[21] 项目方案 Project Proposal
+[31] 数据与资源 Data and resources
+[a3] 主要数据来自 Inside Airbnb 公开的悉尼快照，采用 CC BY 4.0 授权。官方免费提供最近约 12 个月的季度快照，团队已下载四期共 28 个文件并完成核验（表 2）。
+[a3] 表 2 Inside Airbnb 悉尼快照
+<<TABLE>>
+| 快照日期 | 房源数 | 有无价格 | 用途 |
+| 2025-12-12 | 20,436 | 无（整栏为空） | 评论与可订状态分析 |
+| 2026-03-21 | 13,563 | 有 | 辅助对照（房源数偏少） |
+| 2026-06-16 | 20,573 | 有 | 时间外验证的训练期 |
+| 2026-09-16 | 20,833 | 有 | 主分析期 |
+<<END TABLE>>
+[a3] 数据属性：每期有三个核心文件。listings 每套房源一行，85–90 个字段，含区域、经纬度、房型、卧室、可住人数、设施、挂牌价、分项评分、房东年资和估算收入；calendar 约 760 万行，记录未来一年每天的可订状态，不含价格；reviews 含评论全文和日期，主分析期 829,163 条；另有 38 个区域的边界文件。
+[a3] 分布特征：以主分析期为例，按“整套出租、1–2 个卧室、可住 2–4 人、最短入住 1–7 晚、有挂牌价”筛选后，保留 6,639 套可比房源（筛选过程见附录 A）。挂牌价明显右偏：1 卧室中位数 299 澳元/晚，2 卧室 414 澳元/晚，全市有 447 套超过 2,000 澳元/晚。每套房源的设施数中位数为 41 项，设施字段没有缺失。新手房东（不超过 12 个月）有 960 套，同类内价格百分位与老手只差 1.4。按评论数计算的月度指数 11 月最高（135.5）、5 月最低（75.3）。
+[a3] 【待补：价格与卧室数、可住人数、设施数、各分项评分的相关系数矩阵和热力图，计划第 4 周完成后插入此处。】
+[a3] 外部资源：TfNSW GTFS 站点和 OpenStreetMap 兴趣点（交通与配套距离）、公共假期数据、NSW 短租登记册 API、NSW 租金报告，以及装修、清洁、保险公开报价（收入模块参考）。
+[a3] 数据限制：数据没有成交价、实际入住晚数、每日价格和装修信息，日历的“不可订”也无法区分已预订和房东关闭（Inside Airbnb, 2026）。因此价格结论标注为“挂牌价”，收入标注为“估算”，装修由用户填写并以设施清单替代。
+[31] 分析系统架构 Analytical system architecture 
+[a3] 系统采用数据层、处理层、分析层和应用层四层架构（图 1）。
+[a3] 图 1 悉尼 Airbnb 民宿运营助手分析系统架构
+[a3] 数据层整合 Inside Airbnb 快照和外部数据；处理层完成清洗、筛选、特征工程和评论预处理，结果以 Parquet 格式存储；分析层包含同类匹配、价格定位与参考价、设施差距、评论方面级分析、收入情景与季节提醒五个模块；应用层接收房东输入并以地图、分位图和清单呈现结果，再由大语言模型整理成通俗建议；建议只引用系统计算结果和评论原文，避免编造。
+[31] 方法、实验与评估 Methodology, experiments, and evaluation
+[a3] （1）同类匹配（T1）：同一区域、相同房型和卧室数的房源先分为一组；若一组不足 30 套，则改取全市相同卧室数中距离最近的 30 套。组内按可住人数和设施的 Jaccard 相似度排序，返回 10–20 套竞品及匹配理由。匹配不以价格为条件，避免循环论证。选择理由：规则透明、易理解，试算中同类规模中位数为 166 套。
+[a3] （2）价格定位与参考价（T2）：输出同类第 25、50、75 百分位价格和目标房源百分位。参考价模型只用上架前已知的特征，不用评论、评分和估算收入，以防数据泄漏。候选方法为线性回归、随机森林、XGBoost（Chen & Guestrin, 2016）和 LightGBM（Ke et al., 2017），以 SHAP 解释特征影响（Lundberg & Lee, 2017），按误差、可解释性和训练成本选择。位置、规模和设施是 Airbnb 价格的主要决定因素（Gibbs et al., 2018; Wang & Nicolau, 2017）。
+[a3] （3）设施差距（T3）：计算同类中每项设施的普及率，把普及率不低于 80%、而目标房源没有的设施列为“需要评估的改进机会”。
+[a3] （4）评论方面级情感分析（T4–T5）：用大语言模型抽取评论中的方面及正负情感（Pontiki et al., 2014; Zhang et al., 2024），基准为 VADER 词典法（Hutto & Gilbert, 2014）和 Sentence-BERT 嵌入分类器（Reimers & Gurevych, 2019）。结果按房源汇总并结合分项评分，评论少于 5 条时提示“证据不足”。一条评论可能同时称赞位置、批评噪音，方面级分析更能指导改进。
+[a3] （5）收入情景与季节提醒（T6–T7）：年收入 = 每晚价格 × 估算入住晚数 ×（1 − 平台服务费率）− 用户填写的成本。非房东同住整套房的入住上限为每年 180 天（NSW Department of Planning, Housing and Infrastructure, n.d.），房东服务费按 3% 和 15.5% 两种结构计算（Airbnb, n.d.）。季节提醒列出假期、活动和数据显示的高需求时段，不预测涨价幅度。
+[a3] 实验设计：共设计四项实验（表 3）。
+[a3] 表 3 实验设计与评估指标
+<<TABLE>>
+| 实验 | 基准方法 | 评估指标 | 验证方式 |
+| E1 参考价模型 | 全市中间价；同区同卧室中间价；线性回归 | MAE、MdAPE、误差在 20% 以内的比例 | 按房东分组 5 折交叉验证；6 月训练、预测 9 月新房源；新快照发布后再验证 |
+| E2 评论方面识别 | VADER；Sentence-BERT 分类器 | 宏平均 F1、精确率、召回率 | 两人独立标注 300 条评论 |
+| E3 同类匹配 | 只按区域分组 | 人工判断的可比率、覆盖率 | 随机抽 50 套，两人判断是否可比 |
+| E4 系统实用性 | — | 任务完成率、5 分制实用性评分 | 3–5 名房东或短租从业者试用 |
+<<END TABLE>>
+[a3] 前期试算已完成 E1 的初步验证（表 4）。
+[a3] 表 4 E1 前期试算结果（平均绝对误差，澳元/晚）
+<<TABLE>>
+| 方法 | 5 折交叉验证（6,615 套） | 时间外验证（821 套） |
+| 全市中间价 | 122.5 | 122.0 |
+| 同区同卧室中间价 | 101.7 | 103.2 |
+| 梯度提升模型 | 93.4 | 94.1 |
+<<END TABLE>>
+[a3] 同类比较使误差降低约 17%，模型再降约 8%；误差主要来自最贵的两成房源（占 44%），说明挂牌价本身分散。因此系统以“同类比较＋价格区间”为主，模型为辅。
+[31] 预期成果 Expected outcomes
+[a] 网页系统“悉尼 Airbnb 民宿运营助手”：含同类竞品、价格定位、设施差距、改进与避坑四项主体功能，以及收入估算、淡旺季提醒两项延伸功能。
+[a] 经过验证的分析模型：参考价模型的 MAE 优于同类中间价基准；评论方面识别的宏平均 F1 不低于 0.75。
+[a] 悉尼 Airbnb 市场分析：区域供给、价格分布、设施普及率、评论主题和季节规律。
+[a] 业务建议与部署方案：房东改进建议清单，以及可推广到墨尔本、布里斯班的数据流程。
+[a3] 以上成果以“可解释的市场参考”为承诺，不保证收入最大化。
+[21] 项目实施与管理 Project Implementation and Management
+[31] 实施设计 Implementation design
+[a3] 项目按 CRISP-DM 的六个阶段迭代推进，开发环境和工具见表 5。
+[a3] 表 5 开发环境与工具
+<<TABLE>>
+| 环节 | 工具与框架 |
+| 数据处理 | Python、pandas、DuckDB、Parquet、GeoPandas |
+| 建模与解释 | scikit-learn、XGBoost、LightGBM、SHAP |
+| 评论分析 | 大语言模型 API、VADER、sentence-transformers |
+| 可视化与界面 | Streamlit、Plotly、Folium |
+| 协作与部署 | GitHub 版本管理、Streamlit Community Cloud |
+<<END TABLE>>
+[a3] 团队分工：Chunzhao Yu 负责统筹协调和报告撰写；Hanjia Wang 负责业务需求拆解、定位策略、收入影响和法规；Po-Kai Huang 负责数据清洗分析和系统搭建；Yong Su 负责互动与分析规划、报告审阅。
+[a3] 部署与维护：系统部署为公开网页；新快照发布后重新运行脚本更新统计和模型；评论分析预先批量计算并缓存，控制成本和响应时间。
+[31] 时间线与里程碑 Timeline and milestones
+[a3] 项目周期为 2026 年 10 月 26 日至 2027 年 2 月 19 日，共七个阶段（表 6）。
+[a3] 表 6 时间线与里程碑
+<<TABLE>>
+| 阶段 | 时间 | 主要任务 | 里程碑 |
+| 1 定题 | 第 1–3 周 / （10/26–11/15） | 组队、数据核验、定题 | M1 题目确定（11/15，已完成） |
+| 2 数据理解 | 第 4 周 / （11/16–11/22） | 分布与相关性分析、外部数据 | M2 数据报告初稿 |
+| 3 方案设计 | 第 5–6 周 / （11/23–12/6） | 方法与实验设计、计划报告 | M3 报告初稿（12/4）、彩排（12/6） |
+| 4 计划交付 | 第 7 周 / （12/7–12/11） | 计划演讲、按反馈修改 | M4 提交 AT2（12/11） |
+| 5 原型开发 | 假期 / （12/14–1/17） | 数据管道、主体功能原型 | M5 最小可运行版本（1/17） |
+| 6 完善与评估 | 第 8–11 周 / （1/18–2/14） | 评论分析、调优、E1–E4 实验 | M6 功能冻结（2/4） |
+| 7 成果交付 | 第 12 周 / （2/15–2/19） | 项目展示、报告定稿 | M7 提交 AT3、AT4（2/19） |
+<<END TABLE>>
+[31] 风险管理 Risk management
+[a3] 主要风险及应对策略见表 7。
+[a3] 表 7 风险与应对策略
+<<TABLE>>
+| 风险 | 影响 | 应对策略 |
+| 缺少成交价和实际入住晚数 | 无法验证收入结论 | 限定为挂牌价参考；收入用三种情景并标注估算 |
+| 2025-12 快照无价格，各期房源不一致 | 时间序列分析受限 | 以 2026-09 为主；6 月→9 月时间外验证；不做跨期涨跌结论 |
+| 新一季快照延迟或无价格 | 无法按计划做新数据验证 | 沿用 6 月→9 月的验证结果 |
+| 大语言模型幻觉与成本 | 建议不可靠、费用超支 | 只引用计算结果；批量缓存；人工抽检 |
+| 隐私与合规 | 违反数据授权或泄露个人信息 | 遵守 CC BY 4.0；不重新发布数据、不显示评论者姓名、不爬取网站 |
+| 结论被误读为因果关系 | 房东盲目投资设施或调价 | 注明“相关不等于因果”，设施差距只列为待评估机会 |
+| 团队时间不足（含假期） | 进度落后 | 每周例会；假期设两次检查点；必要时先砍延伸功能 |
+<<END TABLE>>
+[21] 结论 Conclusions
+[a3] 本项目以真实的房东痛点为出发点，把“找同类、比价格、看设施、读评论”整合为一个可解释的运营助手。其特点有三：以同类竞品为基准，结论直观；用大语言模型把评论转化为改进优先级；清楚界定数据边界，以“市场参考”代替“最优定价”。前期试算已证明方法可行，成果可帮助新房东降低入行风险、现有房东提升竞争力，并可推广到其他城市。
+[21] 参考文献 References
+[a3] Airbnb. (n.d.). Airbnb service fees. Retrieved November 19, 2026, from https://www.airbnb.com.au/help/article/1857
+[a3] Chapman, P., Clinton, J., Kerber, R., Khabaza, T., Reinartz, T., Shearer, C., & Wirth, R. (2000). CRISP-DM 1.0: Step-by-step data mining guide. SPSS.
+[a3] Chen, T., & Guestrin, C. (2016). XGBoost: A scalable tree boosting system. In Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (pp. 785–794). https://doi.org/10.1145/2939672.2939785
+[a3] Gibbs, C., Guttentag, D., Gretzel, U., Morton, J., & Goodwill, A. (2018). Pricing in the sharing economy: A hedonic pricing model applied to Airbnb listings. Journal of Travel & Tourism Marketing, 35(1), 46–56. https://doi.org/10.1080/10548408.2017.1308292
+[a3] Guttentag, D. (2015). Airbnb: Disruptive innovation and the rise of an informal tourism accommodation sector. Current Issues in Tourism, 18(12), 1192–1217. https://doi.org/10.1080/13683500.2013.827159
+[a3] Hutto, C., & Gilbert, E. (2014). VADER: A parsimonious rule-based model for sentiment analysis of social media text. Proceedings of the International AAAI Conference on Web and Social Media, 8(1), 216–225.
+[a3] Inside Airbnb. (2026). Sydney, New South Wales, Australia [Data set]. Retrieved November 14, 2026, from https://insideairbnb.com/get-the-data/
+[a3] Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., & Liu, T.-Y. (2017). LightGBM: A highly efficient gradient boosting decision tree. Advances in Neural Information Processing Systems, 30.
+[a3] Lundberg, S. M., & Lee, S.-I. (2017). A unified approach to interpreting model predictions. Advances in Neural Information Processing Systems, 30.
+[a3] NSW Department of Planning, Housing and Infrastructure. (n.d.). Short-term rental accommodation. Retrieved November 19, 2026, from https://www.planning.nsw.gov.au/the-planning-system/housing/short-term-rental-accommodation
+[a3] Pontiki, M., Galanis, D., Pavlopoulos, J., Papageorgiou, H., Androutsopoulos, I., & Manandhar, S. (2014). SemEval-2014 Task 4: Aspect based sentiment analysis. In Proceedings of the 8th International Workshop on Semantic Evaluation (pp. 27–35).
+[a3] Reimers, N., & Gurevych, I. (2019). Sentence-BERT: Sentence embeddings using Siamese BERT-networks. In Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing (pp. 3982–3992).
+[a3] Wang, D., & Nicolau, J. L. (2017). Price determinants of sharing economy based accommodation rental: A study of listings from 33 cities on Airbnb.com. International Journal of Hospitality Management, 62, 120–131. https://doi.org/10.1016/j.ijhm.2016.12.007
+[a3] Zervas, G., Proserpio, D., & Byers, J. W. (2021). A first look at online reputation on Airbnb, where every stay is above average. Marketing Letters, 32(1), 1–16. https://doi.org/10.1007/s11002-020-09546-4
+[a3] Zhang, W., Deng, Y., Liu, B., Pan, S. J., & Bing, L. (2024). Sentiment analysis in the era of large language models: A reality check. In Findings of the Association for Computational Linguistics: NAACL 2024.
+[21] 附录 Appendices
+[a3] 附录 A 四期快照的筛选过程（每一步之后剩余的房源数）
+<<TABLE>>
+| 筛选步骤 | 2025-12 | 2026-03 | 2026-06 | 2026-09 |
+| 全部房源 | 20,436 | 13,563 | 20,573 | 20,833 |
+| 只留整套出租 | 16,403 | 10,994 | 16,192 | 16,445 |
+| 只留 1–2 个卧室 | 10,901 | 7,322 | 10,728 | 10,823 |
+| 只留可住 2–4 人 | 9,132 | 5,954 | 8,943 | 8,904 |
+| 只留最短入住 1–7 晚 | 7,412 | 5,945 | 7,617 | 7,565 |
+| 只留有挂牌价 | 0 | 5,911 | 6,763 | 6,639 |
+| 去掉超过 2,000 澳元/晚（仅建模） | 0 | 5,898 | 6,747 | 6,615 |
+<<END TABLE>>
+[a3] 注：独立房间将按同一流程单独建组，不与整套房混合比较。
+[a3] 附录 B 示范案例（不是定价建议）
+[a3] 输入：Sydney 区、整套出租、1 个卧室、可住 2 人、1 张床、1 间浴室，已有设施为厨房、洗衣机、Wi-Fi。系统找到同类 1,291 套，第 25、50、75 百分位挂牌价分别为 265.9、323.4、388.8 澳元/晚。同类中 97.1% 有烟雾警报器、93.1% 有热水、91.2% 有餐具，而该房源的设施清单中没有这三项，因此列为需要评估的改进机会。
