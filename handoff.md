@@ -3490,3 +3490,14 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - 白話報告 `runs/run_2026-11-21_pilot50/REPORT.md`(不含評論原文)。同步:35 加第 8 節、TODO 加一條。
 - 沒做:沒把試跑結果寫進報告修改版;沒做人工標註表;沒試短評論、非英文、Haiku。
 - 成本(§8.3,照通知原值):sonnet high 1 個 94,245/4(上限 10);sonnet medium 1 個 73,409/2(上限 8)。本 session 累計 23 個分身:opus 5 個 724,803;sonnet 18 個 2,470,856;合計 3,195,659 token。**Codex 1 趟**(39,647 tokens,197 秒)。
+
+## 2026-11-21(下午續)· 更正:評論試跑拿掉 GPT(Codex);流程不用 ChatGPT
+
+- Kenny(原話):「不是啊,我什麼時候讓你讓 ChatGPT 繼續做了?我們的流程裡面已經早就把 ChatGPT 移除了,不是嗎?」
+- 事實:上一筆的 B = GPT(Codex)是主腦自己設計進去的,Kenny 只同意「開始試跑」。主腦當時依據 `CLAUDE.md` 的「Agent×Codex 兩腦驗證架構」和 `uts-dispatch/SKILL.md` 的 Codex 段落,沒有先問,也沒有把「叫另一家 AI 讀資料」當成對外送出。這是主腦的錯。
+- 查紀錄:memory、handoff、TODO、SKILL.md 都沒有寫「已移除 Codex / ChatGPT」;`CLAUDE.md` 第 5 行與 SKILL.md 仍把 Codex 列為驗證管道(和 Kenny 說的不一致,文件沒跟上)。主腦沒有改這兩份文件,已問 Kenny 要不要改。
+- 已送出、收不回的:規則檔 `prompt_aspect_v1.md`、50 條評論原文(公開資料,沒有評論者姓名欄)、Codex 自己讀的 `handoff.md` 末 65 行(這個 repo 是公開的,該檔本來就在 GitHub 上)。
+- 處理:① memory 新增 `no-chatgpt-codex-no-outside-ai`(不呼叫 codex、不用非 Claude 的 AI;資料送到外部服務先問)② 刪除本機 `labels_B_gpt.json`、`labels_B_gpt_raw_local.txt`、`disagreements_local.json`,從版控移除 `VERIFY_numbers.json`(內容是 A 對 B 的數字)③ `src/03_compare.py` 改成只比 A(Claude Sonnet)和 K(關鍵字法)並重跑 ④ REPORT.md 全文改寫(加第 9 節紀錄被拿掉的東西)、README、35、TODO 同步。上一筆 handoff 保留不改(append-only);以這一筆為準。git 舊 commit `a257496` 裡仍看得到含 GPT 的彙總數字(沒有原文)。
+- 重算後的數字(只有主腦的程式算過):K 對 A —— TP 136 / FP 6 / FN 25,precision 0.958、recall 0.845、micro F1 0.898、macro F1 0.834;兩邊都提到的 136 格好壞相同 108(79.4%);350 格標籤相同 291。A 的引用 161/161 找得到;overall pos 41 / neg 3 / mixed 6;random 35 條有負面 8、low_rated 15 條有負面 9。(其中 A 的分布、161/161、8 與 9,與拿掉前 IS-1121-REVIEW-V 獨立重算的結果相同;K 對 A 的數字沒有第二人重算。)
+- 現況:評論試跑 = 一個 AI(Claude Sonnet)+ 關鍵字法對照 + 主腦抽看 12 條;沒有第二個獨立讀者、沒有人工答案。
+- 成本:這一筆 0 個分身。累計不變(23 個分身 3,195,659 token;Codex 1 趟,之後不再使用)。
