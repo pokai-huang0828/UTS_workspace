@@ -272,3 +272,9 @@ Innovation Studio/model_training/data/raw/
 Innovation Studio/model_training/data/processed/
 Innovation Studio/model_training/runs/**/*.joblib
 Innovation Studio/model_training/runs/**/predictions_*.csv
+
+# Innovation Studio 評論分析資料夾(2026-11-21):repo 是公開的,評論原文、逐條標註、含原文的範例只留本機。
+Innovation Studio/review_analysis/data/sample_*.csv
+Innovation Studio/review_analysis/data/raw/
+Innovation Studio/review_analysis/runs/**/labels_*.json
+Innovation Studio/review_analysis/runs/**/*_local.*

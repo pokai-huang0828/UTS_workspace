@@ -3474,3 +3474,19 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - 沒核對到的(VERIFY.md 自列):5 張圖的內容(主腦只看了 2 張)、DATA_MANIFEST 逐項、排列重要性與學習曲線沒有獨立重算。沒做:SHAP(沒裝)、評論分析、把新數字放進報告表 4(要小組決定)。
 - 同步:35 加第 7 節並把「沒有訓練表/模型」兩列改成已有;TODO 加一條。
 - 成本(§8.3,照通知原值):opus high 1 個 166,568/32(上限 45);sonnet high 1 個 142,848/11(上限 30)。本 session 累計 21 個分身:opus 5 個 724,803;sonnet 16 個 2,303,202;合計 3,028,005 token。Codex 0 趟。
+
+## 2026-11-21(下午)· Innovation Studio:評論分析試跑 50 條(Claude × GPT × 關鍵字法)
+
+- Kenny:「好,開始試跑」(承接主腦提的:拿 50 條評論試跑評論分析,補報告最大的缺口 —— 評分表準則 3 最高級要詳細說明大語言模型並說明選擇標準)。
+- 主腦設計並建 `Innovation Studio/review_analysis/`(README、data/DATA_MANIFEST.md、src、runs/run_2026-11-21_pilot50/;結構同 model_training)。`.gitignore` 檔尾再加 4 條:樣本原文 `data/sample_*.csv`、`data/raw/`、逐條標註 `runs/**/labels_*.json`、`runs/**/*_local.*` 只留本機(repo 公開)。
+- 抽樣(`src/01_sample.py`,seed 42,主腦寫):全部 829,163 → 可比房源 363,829 → 2025-01-01 以後 150,832 → 英文且 ≥15 字 104,775 → 150–1,200 字元 76,479;抽 35 條隨機 + 15 條來自評分最低一成房源(≤4.5);讀檔不讀評論者欄位。2025 以後評論 48.3% 短於 150 字元。
+- 規則 `src/prompt_aspect_v1.md`(7 個方面 × pos/neg/mixed/none + 引用原文 ≤12 字 + overall)。兩個標註者拿同一份規則與只有 rid、text 的輸入檔。
+  - A = Claude Sonnet(分身 IS-1121-REVIEW-A,sonnet high;禁止寫程式產生標籤)。
+  - B = GPT(Codex CLI 0.162.1、gpt-6.1-sol;PowerShell、prompt 純 ASCII 走 stdin、`--sandbox read-only`、`-o` 落檔;EXIT=0、197 秒、log 顯示 tokens used 39,647)。**50 條公開評論原文因此送到 Codex(外部服務)。** Codex 照它的慣例先讀了 `handoff.md` 末 65 行。
+  - K = 關鍵字法(`src/02_keyword_baseline.py`,主腦寫;VADER、Sentence-BERT 沒裝,不安裝)。
+- 汙染檢查(因為 A、B 太一致):Codex log 的 exec 指令只讀了 handoff、規則檔、輸入檔,沒有讀 runs/ 或 labels_A;兩邊都有引用的 161 格裡,引句字串相同的只有 53(32.9%)→ 判定各自獨立。
+- 結果(`src/03_compare.py` → `agreement.json`):A vs B 350 格相同 346(98.9%,四類 kappa 0.98);不同的 4 格都是 B 有標、A 沒標(R04 位置、R13 性價比、R26 設施、R49 入住);都提到的 161 格好壞 100% 一致;overall 50/50 一致(pos 41 / neg 3 / mixed 6)。引用:A 161/161、B 165/165 在原文找得到。K 對 A∩B 共識(346 格):TP 136 / FP 4 / FN 25,micro F1 0.904、macro F1 0.849,好壞判對 108/136 = 79.4%。A 的方面分布:設施 40、位置 39、溝通 36、清潔 20、入住 13、噪音 11、性價比 2。成本粗估(字元÷4;價目取自守則 §0.1 的 2026-11-03 快取,今天沒重查):Sonnet 讀 150,832 條約 US$181–373、全部約 995–2,048;Haiku 約 9–19 / 50–102。
+- 驗證:① 主腦讀 12 條原文對 A 的 84 格 —— 明確不同意 1 格(R26 設施),另 2–3 格見仁見智;② IS-1121-REVIEW-V(sonnet medium,不看比對程式與結果)獨立重算 9 組數字,全部一致(`VERIFY_numbers.json`)。**沒有人工標註;沒有人眼看完 50 條;成本估計沒有第二人重算。**
+- 白話報告 `runs/run_2026-11-21_pilot50/REPORT.md`(不含評論原文)。同步:35 加第 8 節、TODO 加一條。
+- 沒做:沒把試跑結果寫進報告修改版;沒做人工標註表;沒試短評論、非英文、Haiku。
+- 成本(§8.3,照通知原值):sonnet high 1 個 94,245/4(上限 10);sonnet medium 1 個 73,409/2(上限 8)。本 session 累計 23 個分身:opus 5 個 724,803;sonnet 18 個 2,470,856;合計 3,195,659 token。**Codex 1 趟**(39,647 tokens,197 秒)。

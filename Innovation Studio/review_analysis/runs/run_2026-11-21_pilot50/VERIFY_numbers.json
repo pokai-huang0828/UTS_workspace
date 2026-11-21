@@ -1,0 +1,127 @@
+{
+ "1_AB_exact_same": {
+  "cells": 346,
+  "total": 350,
+  "ratio": 0.9885714285714285
+ },
+ "2_AB_mention": {
+  "TP": 161,
+  "FP": 0,
+  "FN": 4,
+  "precision": 1.0,
+  "recall": 0.9757575757575757,
+  "F1_micro": 0.9877300613496933,
+  "F1_macro": 0.9625655794432165,
+  "per_aspect_F1": {
+   "cleanliness": 1.0,
+   "noise": 1.0,
+   "location_transport": 0.9873417721518987,
+   "checkin": 0.962962962962963,
+   "communication": 1.0,
+   "value": 0.8,
+   "amenities_comfort": 0.9876543209876543
+  }
+ },
+ "3_both_mentioned": {
+  "cells": 161,
+  "same_polarity": 161,
+  "ratio": 1.0
+ },
+ "4_overall_same": 50,
+ "5_K_vs_consensus": {
+  "TP": 136,
+  "FP": 4,
+  "FN": 25,
+  "precision": 0.9714285714285714,
+  "recall": 0.84472049689441,
+  "F1_micro": 0.903654485049834,
+  "F1_macro": 0.8489635378769504,
+  "per_aspect_F1": {
+   "cleanliness": 0.9473684210526316,
+   "noise": 1.0,
+   "location_transport": 0.9600000000000001,
+   "checkin": 0.9166666666666666,
+   "communication": 0.8387096774193548,
+   "value": 0.4,
+   "amenities_comfort": 0.88
+  },
+  "consensus_cells": 346,
+  "consensus_mention_and_K_mention": 136,
+  "K_label_same": 108,
+  "K_label_same_ratio": 0.7941176470588235
+ },
+ "6_evidence": {
+  "A": {
+   "quotes": 161,
+   "found": 161,
+   "over12words": 0
+  },
+  "B": {
+   "quotes": 165,
+   "found": 165,
+   "over12words": 0
+  }
+ },
+ "7_stratum": {
+  "low_rated": {
+   "n": 15,
+   "A_neg_or_mixed": 9,
+   "B_neg_or_mixed": 9
+  },
+  "random": {
+   "n": 35,
+   "A_neg_or_mixed": 8,
+   "B_neg_or_mixed": 9
+  }
+ },
+ "8_avg_aspects_per_review": {
+  "A": 3.22,
+  "B": 3.3,
+  "K": 2.84
+ },
+ "9_A_per_aspect": {
+  "cleanliness": {
+   "pos": 13,
+   "neg": 4,
+   "mixed": 3,
+   "none": 30
+  },
+  "noise": {
+   "pos": 8,
+   "neg": 3,
+   "mixed": 0,
+   "none": 39
+  },
+  "location_transport": {
+   "pos": 39,
+   "neg": 0,
+   "mixed": 0,
+   "none": 11
+  },
+  "checkin": {
+   "pos": 10,
+   "neg": 3,
+   "mixed": 0,
+   "none": 37
+  },
+  "communication": {
+   "pos": 32,
+   "neg": 3,
+   "mixed": 1,
+   "none": 14
+  },
+  "value": {
+   "pos": 2,
+   "neg": 0,
+   "mixed": 0,
+   "none": 48
+  },
+  "amenities_comfort": {
+   "pos": 27,
+   "neg": 6,
+   "mixed": 7,
+   "none": 10
+  }
+ },
+ "note": "F1/precision/recall with zero denominator treated as 0"
+}
