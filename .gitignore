@@ -278,3 +278,8 @@ Innovation Studio/review_analysis/data/sample_*.csv
 Innovation Studio/review_analysis/data/raw/
 Innovation Studio/review_analysis/runs/**/labels_*.json
 Innovation Studio/review_analysis/runs/**/*_local.*
+
+# Innovation Studio app_prototype(2026-11-21):repo 是公開的。衍生資料表、含房源 id/名稱/網址的輸出只留本機。
+Innovation Studio/app_prototype/data/
+Innovation Studio/app_prototype/**/*_local.*
+Innovation Studio/review_analysis/data/*_local.*

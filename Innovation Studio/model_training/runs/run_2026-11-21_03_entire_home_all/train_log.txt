@@ -1,0 +1,64 @@
+開始 2026-11-21 14:10:46;run = run_2026-11-21_03_entire_home_all;種子 42
+[樣本] 全部整套房:有價 13,899 列;去掉每晚 > 3,000 的 214 列 → 13,685 列(價格中位數 390.0)
+[切分] 訓練 10,903 間 / 5,389 位房東;測試 2,782 間 / 1,348 位房東;房東交集 0(assert 通過)
+[特徵] 53 欄:['區', '房型細類', '緯度', '經度', '臥室數', '可住人數', '床數', '浴室數', '最少入住晚數', '設施數'] + 40 個設施旗標;設施名單(訓練集出現比例前 40):['Smoke alarm', 'Kitchen', 'Wifi', 'Hot water', 'Dishes and silverware', 'Hair dryer', 'Hangers', 'Bed linens', 'Iron', 'Microwave', 'Cooking basics', 'Refrigerator', 'Hot water kettle', 'TV', 'Shampoo', 'Toaster', 'Essentials', 'Wine glasses', 'Washer', 'Self check-in', 'Dining table', 'Shower gel', 'Dishwasher', 'Long term stays allowed', 'Oven', 'Air conditioning', 'Cleaning products', 'Freezer', 'Body soap', 'Fire extinguisher', 'Conditioner', 'Lockbox', 'Heating', 'Stove', 'Dedicated workspace', 'Drying rack for clothing', 'Extra pillows and blankets', 'Coffee', 'First aid kit', 'Room-darkening shades']
+[調參] 555 次擬合,74.4 秒
+  Ridge                  CV MAE  151.92 ± 19.16  參數 {'alpha': 0.01}
+  RandomForest           CV MAE  143.56 ± 19.36  參數 {'max_depth': 30, 'max_features': 0.5, 'min_samples_leaf': 1, 'n_estimators': 500}
+  HistGradientBoosting   CV MAE  141.66 ± 17.88  參數 {'l2_regularization': 0.0, 'learning_rate': 0.02, 'max_iter': 700, 'max_leaf_nodes': 31, 'min_samples_leaf': 40}
+  XGBoost                CV MAE  140.41 ± 18.29  參數 {'colsample_bytree': 0.5, 'learning_rate': 0.02, 'max_depth': 6, 'min_child_weight': 1, 'n_estimators': 1000, 'reg_lambda': 10.0, 'subsample': 0.8}
+  LightGBM               CV MAE  140.17 ± 17.08  參數 {'colsample_bytree': 0.9, 'learning_rate': 0.03, 'min_child_samples': 40, 'n_estimators': 600, 'num_leaves': 15, 'reg_lambda': 1.0, 'subsample': 0.6, 'subsample_freq': 1}
+[選模型] 交叉驗證 MAE 最低:LightGBM
+[測試集] (每個只評一次)
+  B0                     {'n': 2782, 'MAE_aud': 231.1, 'MdAPE_pct': 32.7, 'within20_pct': 33.1, 'RMSE_aud': 426.1, 'R2_log': -0.017, 'selected': False, 'cv_MAE_train5fold': None}
+  B1                     {'n': 2782, 'MAE_aud': 165.2, 'MdAPE_pct': 22.8, 'within20_pct': 44.4, 'RMSE_aud': 298.4, 'R2_log': 0.514, 'selected': False, 'cv_MAE_train5fold': None}
+  Ridge                  {'n': 2782, 'MAE_aud': 155.3, 'MdAPE_pct': 21.2, 'within20_pct': 47.4, 'RMSE_aud': 293.0, 'R2_log': 0.585, 'selected': False, 'cv_MAE_train5fold': 151.92}
+  RandomForest           {'n': 2782, 'MAE_aud': 144.2, 'MdAPE_pct': 19.4, 'within20_pct': 50.8, 'RMSE_aud': 272.7, 'R2_log': 0.617, 'selected': False, 'cv_MAE_train5fold': 143.56}
+  HistGradientBoosting   {'n': 2782, 'MAE_aud': 144.3, 'MdAPE_pct': 20.0, 'within20_pct': 50.1, 'RMSE_aud': 270.8, 'R2_log': 0.623, 'selected': False, 'cv_MAE_train5fold': 141.66}
+  XGBoost                {'n': 2782, 'MAE_aud': 142.5, 'MdAPE_pct': 19.0, 'within20_pct': 52.1, 'RMSE_aud': 270.8, 'R2_log': 0.628, 'selected': False, 'cv_MAE_train5fold': 140.41}
+  LightGBM               {'n': 2782, 'MAE_aud': 143.7, 'MdAPE_pct': 19.4, 'within20_pct': 51.2, 'RMSE_aud': 270.5, 'R2_log': 0.622, 'selected': True, 'cv_MAE_train5fold': 140.17}
+[測試集 6,615 以內 / 以外] {"inside_run01_6615": {"B0": {"n": 1365, "MAE_aud": 129.5, "MdAPE_pct": 27.8, "within20_pct": 38.8, "RMSE_aud": 202.4, "R2_log": -0.076}, "B1": {"n": 1365, "MAE_aud": 106.5, "MdAPE_pct": 20.7, "within20_pct": 49.1, "RMSE_aud": 187.4, "R2_log": 0.238}, "Ridge": {"n": 1365, "MAE_aud": 101.1, "MdAPE_pct": 19.3, "within20_pct": 51.8, "RMSE_aud": 180.6, "R2_log": 0.311}, "RandomForest": {"n": 1365, "MAE_aud": 97.3, "MdAPE_pct": 17.1, "within20_pct": 55.4, "RMSE_aud": 180.1, "R2_log": 0.344}, "HistGradientBoosting": {"n": 1365, "MAE_aud": 96.7, "MdAPE_pct": 17.5, "within20_pct": 54.5, "RMSE_aud": 178.9, "R2_log": 0.361}, "XGBoost": {"n": 1365, "MAE_aud": 95.6, "MdAPE_pct": 16.8, "within20_pct": 57.1, "RMSE_aud": 178.5, "R2_log": 0.366}, "LightGBM": {"n": 1365, "MAE_aud": 96.6, "MdAPE_pct": 17.5, "within20_pct": 56.4, "RMSE_aud": 179.9, "R2_log": 0.352}}, "outside_run01": {"B0": {"n": 1417, "MAE_aud": 329.0, "MdAPE_pct": 38.6, "within20_pct": 27.6, "RMSE_aud": 563.0, "R2_log": -0.151}, "B1": {"n": 1417, "MAE_aud": 221.8, "MdAPE_pct": 26.2, "within20_pct": 39.9, "RMSE_aud": 375.5, "R2_log": 0.542}, "Ridge": {"n": 1417, "MAE_aud": 207.6, "MdAPE_pct": 23.3, "within20_pct": 43.3, "RMSE_aud": 370.2, "R2_log": 0.624}, "RandomForest": {"n": 1417, "MAE_aud": 189.3, "MdAPE_pct": 21.9, "within20_pct": 46.4, "RMSE_aud": 338.8, "R2_log": 0.66}, "HistGradientBoosting": {"n": 1417, "MAE_aud": 190.1, "MdAPE_pct": 22.2, "within20_pct": 45.8, "RMSE_aud": 336.4, "R2_log": 0.662}, "XGBoost": {"n": 1417, "MAE_aud": 187.7, "MdAPE_pct": 21.7, "within20_pct": 47.2, "RMSE_aud": 336.6, "R2_log": 0.669}, "LightGBM": {"n": 1417, "MAE_aud": 189.1, "MdAPE_pct": 22.4, "within20_pct": 46.2, "RMSE_aud": 335.4, "R2_log": 0.666}}}
+[5 折出袋預測(額外)] {"protocol": "全部 13,685 間、GroupKFold(5) 依房東(不洗牌)、設施名單用全部 13,685 間決定;額外看法,沒用來選模型", "B0": {"n": 13685, "MAE_aud": 233.2, "MdAPE_pct": 34.3, "within20_pct": 31.2, "RMSE_aud": 415.5, "R2_log": -0.014}, "B1": {"n": 13685, "MAE_aud": 162.3, "MdAPE_pct": 23.4, "within20_pct": 43.8, "RMSE_aud": 286.1, "R2_log": 0.545}, "selected_LightGBM": {"n": 13685, "MAE_aud": 140.2, "MdAPE_pct": 20.2, "within20_pct": 49.5, "RMSE_aud": 254.2, "R2_log": 0.646}, "inside_run01_6615": {"B0": {"n": 6615, "MAE_aud": 130.4, "MdAPE_pct": 29.6, "within20_pct": 36.1, "RMSE_aud": 186.1, "R2_log": -0.095}, "B1": {"n": 6615, "MAE_aud": 101.8, "MdAPE_pct": 21.0, "within20_pct": 48.2, "RMSE_aud": 163.7, "R2_log": 0.315}, "selected_LightGBM": {"n": 6615, "MAE_aud": 91.9, "MdAPE_pct": 18.7, "within20_pct": 52.5, "RMSE_aud": 150.6, "R2_log": 0.449}}, "outside_run01": {"B0": {"n": 7070, "MAE_aud": 329.4, "MdAPE_pct": 39.4, "within20_pct": 26.5, "RMSE_aud": 549.4, "R2_log": -0.142}, "B1": {"n": 7070, "MAE_aud": 218.9, "MdAPE_pct": 26.0, "within20_pct": 39.7, "RMSE_aud": 365.2, "R2_log": 0.559}, "selected_LightGBM": {"n": 7070, "MAE_aud": 185.3, "MdAPE_pct": 21.6, "within20_pct": 46.8, "RMSE_aud": 322.2, "R2_log": 0.664}}}
+[學習曲線]
+           間數    MAE     最低     最高     B1
+訓練比例                                     
+0.1    1091.0  155.8  152.6  158.6  173.8
+0.2    2181.3  147.8  147.0  148.2  170.1
+0.4    4372.0  145.8  145.3  146.1  168.3
+0.6    6558.3  144.8  143.4  146.6  167.3
+0.8    8729.7  144.4  143.7  145.1  166.6
+1.0   10903.0  143.7  143.7  143.7  165.2
+[重要性] 測試集基準 MAE 143.72;分組:
+類型             特徵  欄數  MAE增加_平均  MAE增加_標準差  排名
+分組 大小(臥室、人數、床、浴室)   6    116.08       3.64   1
+分組      位置(區+經緯度)   3     51.73       2.59   2
+分組 設施(設施數+40 個旗標)  41      9.12       0.84   3
+分組         最少入住晚數   2      5.43       0.37   4
+分組           房型細類   1      0.69       0.17   5
+單欄前 10:
+類型                         特徵  欄數  MAE增加_平均  MAE增加_標準差  排名
+單欄                         經度   1     43.22       2.70   1
+單欄                        臥室數   1     41.16       2.24   2
+單欄                        浴室數   1     18.80       0.97   3
+單欄                         緯度   1     11.24       0.78   4
+單欄                       可住人數   1      8.44       1.00   5
+單欄                        設施數   1      6.37       0.68   6
+單欄                     最少入住晚數   1      5.43       0.37   7
+單欄               設施:Microwave   1      2.10       0.40   8
+單欄              設施:Dishwasher   1      1.99       0.29   9
+單欄 設施:Long term stays allowed   1      1.17       0.91  10
+[分段誤差] 前 5 大區 ['Sydney', 'Waverley', 'Pittwater', 'Manly', 'North Sydney'];最貴兩成占總絕對誤差 56.0%
+   分組方式                                         區段   間數  實際價中位數  選中模型_MAE  選中模型_MdAPE_pct  選中模型_20pct內_pct  平均偏差_預測減實際  占總絕對誤差_pct  B1_MAE
+    臥室數                                     0–1 臥室 1064   296.9      90.3            18.4             54.1       -42.3        24.0   104.5
+    臥室數                                       2 臥室  938   391.5     121.4            18.3             53.7       -36.9        28.5   134.4
+    臥室數                                     3 臥室以上  780   644.3     243.4            23.5             44.1       -47.7        47.5   285.1
+     範圍 第一次訓練的範圍以內(整套 1–2 臥、2–4 人、最少 1–7 晚、≤2,000) 1365   338.0      96.6            17.5             56.4       -31.7        33.0   106.5
+     範圍               範圍以外(大房、多人、長住,或 2,000–3,000) 1417   486.7     189.1            22.4             46.2       -51.9        67.0   221.8
+實際價格五等分                             第 1 等份(56–270)  563   219.0      63.4            24.3             42.1        54.2         8.9    92.9
+實際價格五等分                            第 2 等份(271–349)  551   311.0      59.3            13.7             66.8        25.8         8.2    60.3
+實際價格五等分                            第 3 等份(350–442)  555   391.0      75.7            15.4             61.6         7.3        10.5    88.6
+實際價格五等分                            第 4 等份(442–645)  556   513.2     117.6            18.4             53.2       -18.7        16.3   135.3
+實際價格五等分                           第 5 等份(645–2980)  557   895.0     402.3            30.0             32.5      -278.5        56.0   448.4
+      區                           房源數前 5 多的區(依訓練集) 1364   425.4     161.7            19.9             50.4       -50.8        55.1   183.4
+      區                                        其他區 1418   360.9     126.5            19.1             52.0       -33.5        44.9   147.7
+[完成] 各段秒數 {'tuning_sec': 74.4, 'test_eval_sec': 20.0, 'oof_sec': 2.3, 'learning_curve_sec': 5.0, 'importance_sec': 1.9, 'final_fit_sec': 0.4, 'total_sec': 105.0}

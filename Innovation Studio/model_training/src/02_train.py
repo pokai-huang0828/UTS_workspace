@@ -1,5 +1,5 @@
 """processed → runs/<本次>/ 的全部產出(切分、調參、測試集評估、對帳、時間外驗證、學習曲線、重要性、分段誤差、最終模型、圖)。
-執行:python "Innovation Studio/model_training/src/02_train.py" [run 名稱,預設 run_2026-11-21_01]
+執行:python "Innovation Studio/model_training/src/02_train.py" [run 名稱,預設 run_2026-11-21_01] [房源群,預設 entire_1_2;另有 private_room、entire_home_all]
 測試集(依房東切出的兩成)只在最後評一次;調參、選模型、選設施名單都只用訓練集。
 """
 import datetime
@@ -33,6 +33,11 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler  # noqa: E402
 from xgboost import XGBRegressor  # noqa: E402
 
 RUN_NAME = sys.argv[1] if len(sys.argv) > 1 else 'run_2026-11-21_01'
+GROUP = sys.argv[2] if len(sys.argv) > 2 else 'entire_1_2'     # 房源群;預設 = 第一次訓練(行為不變)
+G = C.GROUPS[GROUP]
+FLAGS = G['flags']                                              # 缺值旗標欄(預設群沒有)
+DEFAULT_GROUP = GROUP == 'entire_1_2'
+GT = '' if DEFAULT_GROUP else f'【{G["title"]}】'
 RUN = C.RUNS / RUN_NAME
 FIG = RUN / 'figures'
 N_JOBS = 24
@@ -116,7 +121,7 @@ def host_subset(tr, frac, seed):
 
 def lc_job(name, params, tr, te, frac, rep):
     sub = host_subset(tr, frac, SEED + rep)
-    spec = C.Spec(sub)
+    spec = C.Spec(sub, FLAGS)
     Xa, _ = C.make_X(sub, spec)
     Xb, _ = C.make_X(te, spec)
     p = np.exp(fit_pred(make_model(name, params, Xa.shape[1]), Xa, sub.y.values, Xb))
@@ -149,11 +154,13 @@ def main():
     print(f'開始 {datetime.datetime.now():%Y-%m-%d %H:%M:%S};run = {RUN_NAME};種子 {SEED}')
 
     # ---------- 1. 樣本 ----------
-    d = C.load_processed('train_table_2026-09.csv')
-    ext = C.load_processed('extremes_dropped_24.csv')
-    assert len(d) + len(ext) == 6639, len(d) + len(ext)
-    assert len(d) == 6615, len(d)
-    print(f'[樣本] 篩選且有價 {len(d) + len(ext):,} 列;去掉每晚 > 2,000 的 {len(ext)} 列 → {len(d):,} 列(assert 通過)')
+    d = C.load_processed(G['table'])
+    ext = C.load_processed(G['ext'])
+    if DEFAULT_GROUP:
+        assert len(d) + len(ext) == 6639, len(d) + len(ext)
+        assert len(d) == 6615, len(d)
+    print(f'[樣本] {G["title"]}:有價 {len(d) + len(ext):,} 列;去掉每晚 > {G["cap"]:,} 的 {len(ext)} 列 → {len(d):,} 列'
+          f'(價格中位數 {np.median(d.price_num):.1f})')
 
     # ---------- 4. 切分 ----------
     tr_i, te_i = next(GroupShuffleSplit(n_splits=1, test_size=0.2, random_state=SEED).split(d, groups=d.host_id))
@@ -170,7 +177,7 @@ def main():
     print(f'[切分] 訓練 {len(tr):,} 間 / {split["train"]["hosts"]:,} 位房東;測試 {len(te):,} 間 / '
           f'{split["test"]["hosts"]:,} 位房東;房東交集 {len(inter)}(assert 通過)')
 
-    spec = C.Spec(tr)   # 設施名單、區、房型細類清單只看訓練集
+    spec = C.Spec(tr, FLAGS)   # 設施名單、區、房型細類清單只看訓練集
     Xtr, names = C.make_X(tr, spec)
     Xte, _ = C.make_X(te, spec)
     ytr = tr.y.values
@@ -223,39 +230,64 @@ def main():
     for k, v in test_metrics.items():
         print(f'  {k:22s} {v}')
 
-    # ---------- 8. 對帳:syd_b 原設定 5 折 + 選中模型同協定 ----------
-    t = time.time()
-    spec_all = C.Spec(d)
-    Xall, _ = C.make_X(d, spec_all)
-    oof_hgb, b0o, b1o = group_cv_oof(d, Xall, 'syd_b_HGB', SYD_B_HGB)
-    oof_sel, _, _ = group_cv_oof(d, Xall, sel, best_params[sel])
-    recon = {'protocol': 'syd_b 原協定:6,615 間、GroupKFold(5) 依房東(不洗牌)、設施名單用全部 6,615 間決定',
-             'B0': C.metrics(d.price_num, b0o), 'B1': C.metrics(d.price_num, b1o),
-             'syd_b_HGB_fixed_params': C.metrics(d.price_num, oof_hgb), 'old_report_value_MAE': 93.4,
-             f'selected_{sel}': C.metrics(d.price_num, oof_sel)}
-    recon['syd_b_HGB_matches_93.4'] = recon['syd_b_HGB_fixed_params']['MAE_aud'] == 93.4
-    pd.DataFrame({'id': d.id, 'actual_aud': d.price_num, 'oof_B0': b0o, 'oof_B1': np.round(b1o, 2),
-                  'oof_syd_b_HGB': np.round(oof_hgb, 2), f'oof_{sel}': np.round(oof_sel, 2)}) \
-        .to_csv(RUN / 'predictions_oof.csv', index=False, encoding='utf-8-sig')
-    T['reconcile_sec'] = round(time.time() - t, 1)
-    print('[對帳]', json.dumps(recon, ensure_ascii=False))
+    spec_all = C.Spec(d, FLAGS)
+    Xall, names_all = C.make_X(d, spec_all)   # 2026-11-21 更正:最終模型的欄位名稱要跟著 spec_all
+    test_scope = None
+    if GROUP == 'entire_home_all':   # 第一次訓練那 6,615 間(整套 1–2 臥、2–4 人、1–7 晚、<=2,000)以內 / 以外,各自的測試誤差
+        inm = te.in_run01.values == 1
+        test_scope = {nm: {k: C.metrics(yte[mk], v[mk]) for k, v in preds.items()}
+                      for nm, mk in (('inside_run01_6615', inm), ('outside_run01', ~inm))}
+        print('[測試集 6,615 以內 / 以外]', json.dumps(test_scope, ensure_ascii=False))
+    oof_info = None
+    if DEFAULT_GROUP:
+        # ---------- 8. 對帳:syd_b 原設定 5 折 + 選中模型同協定 ----------
+        t = time.time()
+        oof_hgb, b0o, b1o = group_cv_oof(d, Xall, 'syd_b_HGB', SYD_B_HGB)
+        oof_sel, _, _ = group_cv_oof(d, Xall, sel, best_params[sel])
+        recon = {'protocol': 'syd_b 原協定:6,615 間、GroupKFold(5) 依房東(不洗牌)、設施名單用全部 6,615 間決定',
+                 'B0': C.metrics(d.price_num, b0o), 'B1': C.metrics(d.price_num, b1o),
+                 'syd_b_HGB_fixed_params': C.metrics(d.price_num, oof_hgb), 'old_report_value_MAE': 93.4,
+                 f'selected_{sel}': C.metrics(d.price_num, oof_sel)}
+        recon['syd_b_HGB_matches_93.4'] = recon['syd_b_HGB_fixed_params']['MAE_aud'] == 93.4
+        pd.DataFrame({'id': d.id, 'actual_aud': d.price_num, 'oof_B0': b0o, 'oof_B1': np.round(b1o, 2),
+                      'oof_syd_b_HGB': np.round(oof_hgb, 2), f'oof_{sel}': np.round(oof_sel, 2)}) \
+            .to_csv(RUN / 'predictions_oof.csv', index=False, encoding='utf-8-sig')
+        T['reconcile_sec'] = round(time.time() - t, 1)
+        print('[對帳]', json.dumps(recon, ensure_ascii=False))
 
-    # ---------- 9. 時間外驗證 ----------
-    t = time.time()
-    d6 = C.load_processed('timeout_train_2026-06.csv')
-    tt = C.load_processed('timeout_test_2026-09_new.csv')
-    assert len(d6) == 6747 and len(tt) == 821, (len(d6), len(tt))
-    spec6 = C.Spec(d6)
-    X6, _ = C.make_X(d6, spec6)
-    Xt, _ = C.make_X(tt, spec6)
-    tout = {'train': f'{C.PREV} 期篩選、有價、去極端後 {len(d6):,} 間', 'test': f'{C.MAIN} 期 6,615 間中 id 不在 6 月整期的 {len(tt)} 間',
-            'B0': C.metrics(tt.price_num, np.full(len(tt), np.median(d6.price_num))),
-            'B1': C.metrics(tt.price_num, C.b1_predict(d6, tt)[0]),
-            f'selected_{sel}': C.metrics(tt.price_num, np.exp(make_model(sel, best_params[sel], nfeat).fit(X6, d6.y.values).predict(Xt))),
-            'syd_b_HGB_fixed_params(對照)': C.metrics(tt.price_num, np.exp(make_model('syd_b_HGB', SYD_B_HGB, nfeat).fit(X6, d6.y.values).predict(Xt))),
-            'old_report_values_MAE': {'B0': 122.0, 'B1': 103.2, 'M2': 94.1}}
-    T['timeout_sec'] = round(time.time() - t, 1)
-    print('[時間外]', json.dumps(tout, ensure_ascii=False))
+        # ---------- 9. 時間外驗證 ----------
+        t = time.time()
+        d6 = C.load_processed('timeout_train_2026-06.csv')
+        tt = C.load_processed('timeout_test_2026-09_new.csv')
+        assert len(d6) == 6747 and len(tt) == 821, (len(d6), len(tt))
+        spec6 = C.Spec(d6)
+        X6, _ = C.make_X(d6, spec6)
+        Xt, _ = C.make_X(tt, spec6)
+        tout = {'train': f'{C.PREV} 期篩選、有價、去極端後 {len(d6):,} 間', 'test': f'{C.MAIN} 期 6,615 間中 id 不在 6 月整期的 {len(tt)} 間',
+                'B0': C.metrics(tt.price_num, np.full(len(tt), np.median(d6.price_num))),
+                'B1': C.metrics(tt.price_num, C.b1_predict(d6, tt)[0]),
+                f'selected_{sel}': C.metrics(tt.price_num, np.exp(make_model(sel, best_params[sel], nfeat).fit(X6, d6.y.values).predict(Xt))),
+                'syd_b_HGB_fixed_params(對照)': C.metrics(tt.price_num, np.exp(make_model('syd_b_HGB', SYD_B_HGB, nfeat).fit(X6, d6.y.values).predict(Xt))),
+                'old_report_values_MAE': {'B0': 122.0, 'B1': 103.2, 'M2': 94.1}}
+        T['timeout_sec'] = round(time.time() - t, 1)
+        print('[時間外]', json.dumps(tout, ensure_ascii=False))
+
+    else:
+        # 新增兩群:不做對帳與時間外驗證;額外給「全部資料、依房東 5 折」的出袋預測(只是另一個看法,沒用來選任何東西)
+        t = time.time()
+        oof_sel, b0o, b1o = group_cv_oof(d, Xall, sel, best_params[sel])
+        oof_info = {'protocol': f'全部 {len(d):,} 間、GroupKFold(5) 依房東(不洗牌)、設施名單用全部 {len(d):,} 間決定;額外看法,沒用來選模型',
+                    'B0': C.metrics(d.price_num, b0o), 'B1': C.metrics(d.price_num, b1o),
+                    f'selected_{sel}': C.metrics(d.price_num, oof_sel)}
+        if GROUP == 'entire_home_all':
+            ins = d.in_run01.values == 1
+            for nm, mk in (('inside_run01_6615', ins), ('outside_run01', ~ins)):
+                oof_info[nm] = {'B0': C.metrics(d.price_num.values[mk], b0o[mk]), 'B1': C.metrics(d.price_num.values[mk], b1o[mk]),
+                                f'selected_{sel}': C.metrics(d.price_num.values[mk], oof_sel[mk])}
+        pd.DataFrame({'id': d.id, 'actual_aud': d.price_num, 'oof_B0': b0o, 'oof_B1': np.round(b1o, 2),
+                      f'oof_{sel}': np.round(oof_sel, 2)}).to_csv(RUN / 'predictions_oof.csv', index=False, encoding='utf-8-sig')
+        T['oof_sec'] = round(time.time() - t, 1)
+        print('[5 折出袋預測(額外)]', json.dumps(oof_info, ensure_ascii=False))
 
     # ---------- 10. 學習曲線 ----------
     t = time.time()
@@ -298,7 +330,16 @@ def main():
     tot = np.abs(p - yte).sum()
     top5 = list(tr.nb.value_counts().index[:5])
     qn = pd.qcut(te.price_num, 5, labels=False).values
-    segs = [('臥室數', f'{b} 臥室', te.bed_n.values == b) for b in (1, 2)] + \
+    if DEFAULT_GROUP:
+        seg_bed = [('臥室數', f'{b} 臥室', te.bed_n.values == b) for b in (1, 2)]
+    else:
+        bn = te.bed_n.values
+        seg_bed = [('臥室數', lab, mk) for lab, mk in (('0–1 臥室', bn <= 1), ('2 臥室', bn == 2), ('3 臥室以上', bn >= 3)) if mk.any()]
+    seg_scope = []
+    if GROUP == 'entire_home_all':
+        seg_scope = [('範圍', '第一次訓練的範圍以內(整套 1–2 臥、2–4 人、最少 1–7 晚、≤2,000)', te.in_run01.values == 1),
+                     ('範圍', '範圍以外(大房、多人、長住,或 2,000–3,000)', te.in_run01.values == 0)]
+    segs = seg_bed + seg_scope + \
            [('實際價格五等分', f'第 {k + 1} 等份({yte[qn == k].min():.0f}–{yte[qn == k].max():.0f})', qn == k) for k in range(5)] + \
            [('區', '房源數前 5 多的區(依訓練集)', te.nb.isin(top5).values), ('區', '其他區', ~te.nb.isin(top5).values)]
     seg = pd.DataFrame([{'分組方式': g, '區段': lab, '間數': int(mk.sum()),
@@ -317,25 +358,29 @@ def main():
     t = time.time()
     final = make_model(sel, best_params[sel], nfeat).fit(Xall, d.y.values)
     joblib.dump({'model': final, 'model_name': sel, 'params': best_params[sel], 'spec': spec_all.to_dict(),
-                 'feature_names': names}, RUN / 'model_final.joblib')
+                 'feature_names': names_all}, RUN / 'model_final.joblib')
     ptc = d.property_type.value_counts()
     vers = {'python': platform.python_version(), 'scikit-learn': sklearn.__version__, 'xgboost': xgboost.__version__,
             'lightgbm': lightgbm.__version__, 'pandas': pd.__version__, 'numpy': np.__version__,
             'joblib': joblib.__version__, 'matplotlib': matplotlib.__version__}
     card = {'model_name': sel, 'params': best_params[sel], 'target': 'ln(每晚掛牌價,澳元);預測後取 exp 換回澳元',
-            'trained_on': f'{C.MAIN} 期篩選、有價、每晚 ≤ 2,000 澳元的全部 {len(d):,} 間({d.host_id.nunique():,} 位房東)',
-            'train_date': datetime.date.today().isoformat(), 'feature_order': names,
+            'trained_on': f'{C.MAIN} 期{G["desc"]}、有價、每晚 ≤ {G["cap"]:,} 澳元的全部 {len(d):,} 間({d.host_id.nunique():,} 位房東)',
+            'train_date': datetime.date.today().isoformat(), 'feature_order': names_all,
             'categorical_codes': {'區': spec_all.nb_levels, '房型細類': spec_all.pt_levels,
                                   'unknown': '區沒見過 → -1;房型細類沒見過或不足 30 間 → Other'},
             'top_amenities': spec_all.top_amen,
             'defaults_for_predict_one': {'nb_centroid_median_latlon': {k: [round(float(g.lat.median()), 5), round(float(g.lon.median()), 5)]
                                                                        for k, g in d.groupby('nb')},
                                          'property_type_most_common': ptc.index[0], 'min_nights_median': int(d.min_n.median())},
-            'scope': '整套出租、臥室 1–2、可住 2–4 人、最少 1–7 晚;範圍外的房子不要用這個模型',
+            'scope': G['scope_text'],
             'banned_features': C.FEATURES_BANNED,
             'test_metrics_note': '下面的測試集成績來自「只用 80% 訓練集」訓練的同一組參數;本檔模型用 100% 資料重訓,沒有另外可評的測試集',
             'test_metrics_80pct_version': test_metrics[sel], 'cv_MAE_train5fold': float(best[sel].mean_MAE),
             'package_versions': vers}
+    if not DEFAULT_GROUP:
+        card['group'] = GROUP
+        card['missing_value_rules'] = G['impute']
+        card['flag_columns'] = FLAGS
     json.dump(card, open(RUN / 'model_card.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
     T['final_fit_sec'] = round(time.time() - t, 1)
 
@@ -349,7 +394,7 @@ def main():
                 va='center', fontsize=9)
     ax.set_xlabel('平均猜差(澳元/晚,越小越好)')
     ax.set_xlim(0, max(test_metrics[k]['MAE_aud'] for k in order) * 1.22)
-    ax.set_title(f'測試集 {len(te):,} 間:各方法平均猜差\n(灰=不用模型的基準;橘=用交叉驗證選中的模型)', fontsize=11)
+    ax.set_title(f'{GT}測試集 {len(te):,} 間:各方法平均猜差\n(灰=不用模型的基準;橘=用交叉驗證選中的模型)', fontsize=11)
     fig.tight_layout()
     fig.savefig(FIG / 'fig1_test_mae_by_model.png', dpi=200)
     plt.close(fig)
@@ -383,7 +428,7 @@ def main():
 
     fig, ax = plt.subplots(figsize=(6.4, 6.0))
     ax.scatter(yte, p, s=6, alpha=0.35, color='#1f5fa8', edgecolors='none')
-    lo, hi = 60, 2100
+    lo, hi = (60, 2100) if DEFAULT_GROUP else (min(yte.min(), p.min()) * 0.85, max(yte.max(), p.max()) * 1.15)
     xx = np.array([lo, hi])
     ax.plot(xx, xx, color='#222222', lw=1, label='猜得剛好')
     ax.fill_between(xx, xx * 0.8, xx * 1.2, color='#e07b1a', alpha=0.15, label='差 20% 以內')
@@ -391,7 +436,7 @@ def main():
     ax.set_yscale('log')
     ax.set_xlim(lo, hi)
     ax.set_ylim(lo, hi)
-    tk = [100, 200, 300, 500, 1000, 2000]
+    tk = [100, 200, 300, 500, 1000, 2000] if DEFAULT_GROUP else [t for t in (10, 20, 50, 100, 200, 300, 500, 1000, 2000, 3000) if lo <= t <= hi]
     ax.set_xticks(tk)
     ax.set_xticklabels(tk)
     ax.set_yticks(tk)
@@ -425,12 +470,26 @@ def main():
     # ---------- 寫 metrics / config ----------
     T['total_sec'] = round(time.time() - t_all, 1)
     metrics = {'selected_model': sel, 'selection_rule': '訓練集內 5 折 GroupKFold(依房東)的平均澳元 MAE 最低',
-               'test_set': {'n': len(te), 'note': '每個方法只在測試集評一次', 'results': test_metrics},
-               'reconcile_5fold_6615': recon, 'timeout_check': tout,
-               'learning_curve_summary': lcs.reset_index().to_dict(orient='records'),
-               'top20pct_price_share_of_abs_error_pct': top20_share}
+               'test_set': {'n': len(te), 'note': '每個方法只在測試集評一次', 'results': test_metrics}}
+    if DEFAULT_GROUP:
+        metrics['reconcile_5fold_6615'] = recon
+        metrics['timeout_check'] = tout
+    else:
+        metrics['oof_5fold_all'] = oof_info
+    metrics['learning_curve_summary'] = lcs.reset_index().to_dict(orient='records')
+    metrics['top20pct_price_share_of_abs_error_pct'] = top20_share
+    if not DEFAULT_GROUP:
+        gm = float(np.median(d.price_num))
+        sm = test_metrics[sel]['MAE_aud']
+        metrics['group'] = {'name': GROUP, 'title': G['title'], 'rows': len(d), 'price_median_aud_all_rows': gm,
+                            'price_median_aud_test': float(np.median(yte)),
+                            'selected_test_MAE_over_group_median_pct': round(100 * sm / gm, 1),
+                            'B0_test_MAE_over_group_median_pct': round(100 * test_metrics['B0']['MAE_aud'] / gm, 1),
+                            'B1_test_MAE_over_group_median_pct': round(100 * test_metrics['B1']['MAE_aud'] / gm, 1)}
+        if test_scope is not None:
+            metrics['test_by_run01_scope'] = test_scope
     json.dump(metrics, open(RUN / 'metrics.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
-    config = {'run': RUN_NAME, 'seed': SEED, 'data': 'data/processed/train_table_2026-09.csv(6,615 列)',
+    config = {'run': RUN_NAME, 'seed': SEED, 'data': f'data/processed/{G["table"]}({len(d):,} 列)',
               'target': 'ln(price)', 'split': split['method'], 'cv_for_tuning': 'GroupKFold(5),依 host_id,只在訓練集內',
               'n_iter_random_search': N_ITER, 'search_space': SPACE, 'n_configs_tried': {m: len(cands[m]) for m in MODELS},
               'best_params': best_params, 'best_cv_MAE': {m: float(best[m].mean_MAE) for m in MODELS},
@@ -438,6 +497,9 @@ def main():
               'categorical_handling': {'Ridge': 'one-hot', 'HistGradientBoosting': '原生類別', 'RandomForest/XGBoost/LightGBM': '整數代碼(當順序數值)'},
               'feature_names': names, 'package_versions': vers, 'n_jobs': N_JOBS, 'timing_sec': T,
               'finished_at': datetime.datetime.now().isoformat(timespec='seconds')}
+    if not DEFAULT_GROUP:
+        config['group'] = {'name': GROUP, 'title': G['title'], 'price_cap_aud': G['cap'], 'missing_value_rules': G['impute'],
+                           'flag_columns': FLAGS, 'extremes_dropped_table': G['ext']}
     json.dump(config, open(RUN / 'config.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
     print(f'[完成] 各段秒數 {T}')
 

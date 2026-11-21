@@ -1,0 +1,112 @@
+﻿類別,項目,數值或日期,單位,期間,來源檔名,位置,備註
+公眾假期,New Year's Day,2021-01-01,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=16, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Australia Day,2021-01-26,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=17, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Good Friday,2021-04-02,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=18, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Saturday,2021-04-03,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=19, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Sunday,2021-04-04,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=20, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Monday,2021-04-05,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=21, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Anzac Day,2021-04-25,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=22, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Queen's Birthday,2021-06-14,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=23, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Bank Holiday,2021-08-02,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=24, Jurisdiction=nsw","Bank Holiday 只適用銀行與部分金融機構,不是全面公眾假期(檔案 Information 欄寫法)"
+公眾假期,Labour Day,2021-10-04,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=25, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Christmas Day,2021-12-25,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=26, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Boxing Day,2021-12-26,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=27, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Christmas (additional day),2021-12-27,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=28, Jurisdiction=nsw",補假(假日落在週末時順延的日子)
+公眾假期,Boxing Day (additional day),2021-12-28,日期,2021,3_australian_public_holidays_combined_2021-2025.csv,"ID=29, Jurisdiction=nsw",補假(假日落在週末時順延的日子)
+公眾假期,New Year's Day,2022-01-01,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=129, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,New Year's Day (additional day),2022-01-03,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=130, Jurisdiction=nsw",補假(假日落在週末時順延的日子)
+公眾假期,Australia Day,2022-01-26,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=131, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Good Friday,2022-04-15,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=132, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Saturday - the Saturday following Good Friday,2022-04-16,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=133, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Sunday,2022-04-17,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=134, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Monday,2022-04-18,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=135, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Anzac Day,2022-04-25,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=136, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Queen's Birthday,2022-06-13,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=137, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Bank Holiday,2022-08-01,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=138, Jurisdiction=nsw","Bank Holiday 只適用銀行與部分金融機構,不是全面公眾假期(檔案 Information 欄寫法)"
+公眾假期,Labour Day,2022-10-03,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=139, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Christmas Day,2022-12-25,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=140, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Boxing Day,2022-12-26,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=141, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Christmas (additional day),2022-12-27,日期,2022,3_australian_public_holidays_combined_2021-2025.csv,"ID=142, Jurisdiction=nsw",補假(假日落在週末時順延的日子)
+公眾假期,New Year's Day,2023-01-01,日期,2023,3_australian_public_holidays_combined_2021-2025.csv,"ID=237, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,New Year's Day (observed),2023-01-02,日期,2023,3_australian_public_holidays_combined_2021-2025.csv,"ID=238, Jurisdiction=nsw",補假(假日落在週末時順延的日子)
+公眾假期,Australia Day,2023-01-26,日期,2023,3_australian_public_holidays_combined_2021-2025.csv,"ID=239, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Good Friday,2023-04-07,日期,2023,3_australian_public_holidays_combined_2021-2025.csv,"ID=240, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Saturday,2023-04-08,日期,2023,3_australian_public_holidays_combined_2021-2025.csv,"ID=241, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Sunday,2023-04-09,日期,2023,3_australian_public_holidays_combined_2021-2025.csv,"ID=242, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Monday,2023-04-10,日期,2023,3_australian_public_holidays_combined_2021-2025.csv,"ID=243, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Anzac Day,2023-04-25,日期,2023,3_australian_public_holidays_combined_2021-2025.csv,"ID=244, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,King's Birthday,2023-06-12,日期,2023,3_australian_public_holidays_combined_2021-2025.csv,"ID=245, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Bank Holiday,2023-08-07,日期,2023,3_australian_public_holidays_combined_2021-2025.csv,"ID=246, Jurisdiction=nsw","Bank Holiday 只適用銀行與部分金融機構,不是全面公眾假期(檔案 Information 欄寫法)"
+公眾假期,Labour Day,2023-10-02,日期,2023,3_australian_public_holidays_combined_2021-2025.csv,"ID=247, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Christmas Day,2023-12-25,日期,2023,3_australian_public_holidays_combined_2021-2025.csv,"ID=248, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Boxing Day,2023-12-26,日期,2023,3_australian_public_holidays_combined_2021-2025.csv,"ID=249, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,New Year's Day,2024-01-01,日期,2024,3_australian_public_holidays_combined_2021-2025.csv,"ID=346, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Australia Day,2024-01-26,日期,2024,3_australian_public_holidays_combined_2021-2025.csv,"ID=347, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Good Friday,2024-03-29,日期,2024,3_australian_public_holidays_combined_2021-2025.csv,"ID=348, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Saturday,2024-03-30,日期,2024,3_australian_public_holidays_combined_2021-2025.csv,"ID=349, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Sunday,2024-03-31,日期,2024,3_australian_public_holidays_combined_2021-2025.csv,"ID=350, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Monday,2024-04-01,日期,2024,3_australian_public_holidays_combined_2021-2025.csv,"ID=351, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Anzac Day,2024-04-25,日期,2024,3_australian_public_holidays_combined_2021-2025.csv,"ID=352, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,King's Birthday,2024-06-10,日期,2024,3_australian_public_holidays_combined_2021-2025.csv,"ID=353, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Bank Holiday,2024-08-05,日期,2024,3_australian_public_holidays_combined_2021-2025.csv,"ID=354, Jurisdiction=nsw","Bank Holiday 只適用銀行與部分金融機構,不是全面公眾假期(檔案 Information 欄寫法)"
+公眾假期,Labour Day,2024-10-07,日期,2024,3_australian_public_holidays_combined_2021-2025.csv,"ID=355, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Christmas Day,2024-12-25,日期,2024,3_australian_public_holidays_combined_2021-2025.csv,"ID=356, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Boxing Day,2024-12-26,日期,2024,3_australian_public_holidays_combined_2021-2025.csv,"ID=357, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,New Year's Day,2025-01-01,日期,2025,3_australian_public_holidays_combined_2021-2025.csv,"ID=448, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Australia Day,2025-01-27,日期,2025,3_australian_public_holidays_combined_2021-2025.csv,"ID=449, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Good Friday,2025-04-18,日期,2025,3_australian_public_holidays_combined_2021-2025.csv,"ID=450, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Saturday,2025-04-19,日期,2025,3_australian_public_holidays_combined_2021-2025.csv,"ID=451, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Sunday,2025-04-20,日期,2025,3_australian_public_holidays_combined_2021-2025.csv,"ID=452, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Easter Monday,2025-04-21,日期,2025,3_australian_public_holidays_combined_2021-2025.csv,"ID=453, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Anzac Day,2025-04-25,日期,2025,3_australian_public_holidays_combined_2021-2025.csv,"ID=454, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,King's Birthday,2025-06-09,日期,2025,3_australian_public_holidays_combined_2021-2025.csv,"ID=455, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Bank Holiday,2025-08-04,日期,2025,3_australian_public_holidays_combined_2021-2025.csv,"ID=456, Jurisdiction=nsw","Bank Holiday 只適用銀行與部分金融機構,不是全面公眾假期(檔案 Information 欄寫法)"
+公眾假期,Labour Day,2025-10-06,日期,2025,3_australian_public_holidays_combined_2021-2025.csv,"ID=457, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Christmas Day,2025-12-25,日期,2025,3_australian_public_holidays_combined_2021-2025.csv,"ID=458, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,Boxing Day,2025-12-26,日期,2025,3_australian_public_holidays_combined_2021-2025.csv,"ID=459, Jurisdiction=nsw",全國性與 NSW 假期都在 nsw 列(檔案沒有 national 分類)
+公眾假期,2026 年以後,沒有,,2026-,3_australian_public_holidays_combined_2021-2025.csv,整個檔案,"檔案日期只到 2025-12-31(資料集標 INACTIVE);未來假期不能用本檔,要用另外查的官方日期"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),159130,人/月(原始值 Original),2023-01,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B395(日期 A395),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),247020,人/月(原始值 Original),2023-02,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B396(日期 A396),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),234000,人/月(原始值 Original),2023-03,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B397(日期 A397),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),200230,人/月(原始值 Original),2023-04,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B398(日期 A398),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),189420,人/月(原始值 Original),2023-05,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B399(日期 A399),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),203410,人/月(原始值 Original),2023-06,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B400(日期 A400),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),233530,人/月(原始值 Original),2023-07,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B401(日期 A401),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),230460,人/月(原始值 Original),2023-08,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B402(日期 A402),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),220760,人/月(原始值 Original),2023-09,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B403(日期 A403),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),235230,人/月(原始值 Original),2023-10,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B404(日期 A404),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),255670,人/月(原始值 Original),2023-11,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B405(日期 A405),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),351760,人/月(原始值 Original),2023-12,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B406(日期 A406),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),240650,人/月(原始值 Original),2024-01,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B407(日期 A407),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),352320,人/月(原始值 Original),2024-02,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B408(日期 A408),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),282310,人/月(原始值 Original),2024-03,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B409(日期 A409),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),223790,人/月(原始值 Original),2024-04,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B410(日期 A410),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),224370,人/月(原始值 Original),2024-05,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B411(日期 A411),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),209940,人/月(原始值 Original),2024-06,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B412(日期 A412),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),234450,人/月(原始值 Original),2024-07,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B413(日期 A413),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),240840,人/月(原始值 Original),2024-08,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B414(日期 A414),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),233670,人/月(原始值 Original),2024-09,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B415(日期 A415),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),255470,人/月(原始值 Original),2024-10,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B416(日期 A416),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),260180,人/月(原始值 Original),2024-11,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B417(日期 A417),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),358290,人/月(原始值 Original),2024-12,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B418(日期 A418),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),272580,人/月(原始值 Original),2025-01,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B419(日期 A419),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),319280,人/月(原始值 Original),2025-02,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B420(日期 A420),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),286400,人/月(原始值 Original),2025-03,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B421(日期 A421),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),235560,人/月(原始值 Original),2025-04,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B422(日期 A422),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),227360,人/月(原始值 Original),2025-05,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B423(日期 A423),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),217640,人/月(原始值 Original),2025-06,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B424(日期 A424),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),257410,人/月(原始值 Original),2025-07,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B425(日期 A425),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),293030,人/月(原始值 Original),2025-08,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B426(日期 A426),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),256380,人/月(原始值 Original),2025-09,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B427(日期 A427),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),284370,人/月(原始值 Original),2025-10,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B428(日期 A428),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),325340,人/月(原始值 Original),2025-11,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B429(日期 A429),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),389290,人/月(原始值 Original),2025-12,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B430(日期 A430),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),272980,人/月(原始值 Original),2026-01,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B431(日期 A431),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),367220,人/月(原始值 Original),2026-02,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B432(日期 A432),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),314260,人/月(原始值 Original),2026-03,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B433(日期 A433),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),242650,人/月(原始值 Original),2026-04,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B434(日期 A434),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),225350,人/月(原始值 Original),2026-05,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B435(日期 A435),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),200580,人/月(原始值 Original),2026-06,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B436(日期 A436),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),247410,人/月(原始值 Original),2026-07,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B437(日期 A437),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),289970,人/月(原始值 Original),2026-08,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B438(日期 A438),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"
+NSW 國際短期入境旅客,每月入境人數(打算停留 NSW),255130,人/月(原始值 Original),2026-09,9_ABS_OAD_table11_visitors_by_state_sep_2026.xlsx,Data1!B439(日期 A439),"NSW 序列 A85247916X;不是雪梨、不是住宿晚數、不含國內旅客,只能看淡旺季走勢,不能當 Airbnb 入住率"

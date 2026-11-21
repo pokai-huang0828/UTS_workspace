@@ -24,3 +24,25 @@ python "Innovation Studio/model_training/src/predict_one.py" --nb Sydney --bedro
 ## 不進版控的東西
 
 `data/raw/`、`data/processed/`、`runs/**/*.joblib`、`runs/**/predictions_*.csv`(逐房資料)。其餘彙總檔只有統計數字,沒有逐房資料、房東姓名或網址。
+
+## 另外兩群房源(2026-11-21 追加,工單 IS-1121-TRAIN-B)
+
+組長要求房源資料全部都要訓練。第一次訓練(run_01)只涵蓋「整套、1–2 臥、可住 2–4 人、最少 1–7 晚」,另外兩群各用同一套流程再訓練一次:
+
+| 群 | 定義 | 表 | 訓練紀錄 |
+|---|---|---|---|
+| 整套 1–2 臥(預設,第一次訓練) | 整套、臥室 1–2、可住 2–4 人、最少 1–7 晚、每晚 ≤ 2,000 | `train_table_2026-09.csv`(6,615) | `runs/run_2026-11-21_01/` |
+| 獨立房間(`private_room`) | Private room、可住 1–4 人、最少 1–7 晚、每晚 ≤ 2,000;臥室空的補 1 並加旗標 | `train_table_2026-09_private_room.csv`(2,915) | `runs/run_2026-11-21_02_private_room/` |
+| 全部整套房(`entire_home_all`) | Entire home/apt 全部、每晚 ≤ 3,000;臥室/人數/最少晚數缺值補中位數並加旗標 | `train_table_2026-09_entire_home_all.csv`(13,685) | `runs/run_2026-11-21_03_entire_home_all/` |
+
+```
+python "Innovation Studio/model_training/src/01_build_dataset.py" --group private_room        # 每一步剩幾列會印出來
+python "Innovation Studio/model_training/src/01_build_dataset.py" --group entire_home_all
+python "Innovation Studio/model_training/src/02_train.py" run_2026-11-21_02_private_room private_room
+python "Innovation Studio/model_training/src/02_train.py" run_2026-11-21_03_entire_home_all entire_home_all
+python "Innovation Studio/model_training/src/predict_one.py" --group private_room --nb Sydney --bedrooms 1 --acc 2 --beds 1 --baths 1 --amen "Kitchen,Wifi"
+```
+
+- 不加 `--group`、不加第二個參數 = 第一次訓練那一群,行為和以前完全一樣(重跑後 metrics、cv_results、learning_curve、feature_importance、error_by_segment、split_summary 與 run_01 逐位元相同)。
+- 新增兩群**不做**「時間外驗證(6 月 → 9 月)」和「和舊數字對帳」;另外給一份「全部資料、依房東 5 折」的出袋預測(`predictions_oof.csv`),只是額外的看法,沒用來選模型。
+- 各群的白話報告:該 run 資料夾裡的 `REPORT.md`(有一節「和第一次訓練(整套 1–2 臥)比」)。

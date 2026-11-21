@@ -1,0 +1,338 @@
+{
+  "selected_model": "LightGBM",
+  "selection_rule": "訓練集內 5 折 GroupKFold(依房東)的平均澳元 MAE 最低",
+  "test_set": {
+    "n": 2782,
+    "note": "每個方法只在測試集評一次",
+    "results": {
+      "B0": {
+        "n": 2782,
+        "MAE_aud": 231.1,
+        "MdAPE_pct": 32.7,
+        "within20_pct": 33.1,
+        "RMSE_aud": 426.1,
+        "R2_log": -0.017,
+        "selected": false,
+        "cv_MAE_train5fold": null
+      },
+      "B1": {
+        "n": 2782,
+        "MAE_aud": 165.2,
+        "MdAPE_pct": 22.8,
+        "within20_pct": 44.4,
+        "RMSE_aud": 298.4,
+        "R2_log": 0.514,
+        "selected": false,
+        "cv_MAE_train5fold": null
+      },
+      "Ridge": {
+        "n": 2782,
+        "MAE_aud": 155.3,
+        "MdAPE_pct": 21.2,
+        "within20_pct": 47.4,
+        "RMSE_aud": 293.0,
+        "R2_log": 0.585,
+        "selected": false,
+        "cv_MAE_train5fold": 151.92
+      },
+      "RandomForest": {
+        "n": 2782,
+        "MAE_aud": 144.2,
+        "MdAPE_pct": 19.4,
+        "within20_pct": 50.8,
+        "RMSE_aud": 272.7,
+        "R2_log": 0.617,
+        "selected": false,
+        "cv_MAE_train5fold": 143.56
+      },
+      "HistGradientBoosting": {
+        "n": 2782,
+        "MAE_aud": 144.3,
+        "MdAPE_pct": 20.0,
+        "within20_pct": 50.1,
+        "RMSE_aud": 270.8,
+        "R2_log": 0.623,
+        "selected": false,
+        "cv_MAE_train5fold": 141.66
+      },
+      "XGBoost": {
+        "n": 2782,
+        "MAE_aud": 142.5,
+        "MdAPE_pct": 19.0,
+        "within20_pct": 52.1,
+        "RMSE_aud": 270.8,
+        "R2_log": 0.628,
+        "selected": false,
+        "cv_MAE_train5fold": 140.41
+      },
+      "LightGBM": {
+        "n": 2782,
+        "MAE_aud": 143.7,
+        "MdAPE_pct": 19.4,
+        "within20_pct": 51.2,
+        "RMSE_aud": 270.5,
+        "R2_log": 0.622,
+        "selected": true,
+        "cv_MAE_train5fold": 140.17
+      }
+    }
+  },
+  "oof_5fold_all": {
+    "protocol": "全部 13,685 間、GroupKFold(5) 依房東(不洗牌)、設施名單用全部 13,685 間決定;額外看法,沒用來選模型",
+    "B0": {
+      "n": 13685,
+      "MAE_aud": 233.2,
+      "MdAPE_pct": 34.3,
+      "within20_pct": 31.2,
+      "RMSE_aud": 415.5,
+      "R2_log": -0.014
+    },
+    "B1": {
+      "n": 13685,
+      "MAE_aud": 162.3,
+      "MdAPE_pct": 23.4,
+      "within20_pct": 43.8,
+      "RMSE_aud": 286.1,
+      "R2_log": 0.545
+    },
+    "selected_LightGBM": {
+      "n": 13685,
+      "MAE_aud": 140.2,
+      "MdAPE_pct": 20.2,
+      "within20_pct": 49.5,
+      "RMSE_aud": 254.2,
+      "R2_log": 0.646
+    },
+    "inside_run01_6615": {
+      "B0": {
+        "n": 6615,
+        "MAE_aud": 130.4,
+        "MdAPE_pct": 29.6,
+        "within20_pct": 36.1,
+        "RMSE_aud": 186.1,
+        "R2_log": -0.095
+      },
+      "B1": {
+        "n": 6615,
+        "MAE_aud": 101.8,
+        "MdAPE_pct": 21.0,
+        "within20_pct": 48.2,
+        "RMSE_aud": 163.7,
+        "R2_log": 0.315
+      },
+      "selected_LightGBM": {
+        "n": 6615,
+        "MAE_aud": 91.9,
+        "MdAPE_pct": 18.7,
+        "within20_pct": 52.5,
+        "RMSE_aud": 150.6,
+        "R2_log": 0.449
+      }
+    },
+    "outside_run01": {
+      "B0": {
+        "n": 7070,
+        "MAE_aud": 329.4,
+        "MdAPE_pct": 39.4,
+        "within20_pct": 26.5,
+        "RMSE_aud": 549.4,
+        "R2_log": -0.142
+      },
+      "B1": {
+        "n": 7070,
+        "MAE_aud": 218.9,
+        "MdAPE_pct": 26.0,
+        "within20_pct": 39.7,
+        "RMSE_aud": 365.2,
+        "R2_log": 0.559
+      },
+      "selected_LightGBM": {
+        "n": 7070,
+        "MAE_aud": 185.3,
+        "MdAPE_pct": 21.6,
+        "within20_pct": 46.8,
+        "RMSE_aud": 322.2,
+        "R2_log": 0.664
+      }
+    }
+  },
+  "learning_curve_summary": [
+    {
+      "訓練比例": 0.1,
+      "間數": 1091.0,
+      "MAE": 155.8,
+      "最低": 152.6,
+      "最高": 158.6,
+      "B1": 173.8
+    },
+    {
+      "訓練比例": 0.2,
+      "間數": 2181.3,
+      "MAE": 147.8,
+      "最低": 147.0,
+      "最高": 148.2,
+      "B1": 170.1
+    },
+    {
+      "訓練比例": 0.4,
+      "間數": 4372.0,
+      "MAE": 145.8,
+      "最低": 145.3,
+      "最高": 146.1,
+      "B1": 168.3
+    },
+    {
+      "訓練比例": 0.6,
+      "間數": 6558.3,
+      "MAE": 144.8,
+      "最低": 143.4,
+      "最高": 146.6,
+      "B1": 167.3
+    },
+    {
+      "訓練比例": 0.8,
+      "間數": 8729.7,
+      "MAE": 144.4,
+      "最低": 143.7,
+      "最高": 145.1,
+      "B1": 166.6
+    },
+    {
+      "訓練比例": 1.0,
+      "間數": 10903.0,
+      "MAE": 143.7,
+      "最低": 143.7,
+      "最高": 143.7,
+      "B1": 165.2
+    }
+  ],
+  "top20pct_price_share_of_abs_error_pct": 56.0,
+  "group": {
+    "name": "entire_home_all",
+    "title": "全部整套房",
+    "rows": 13685,
+    "price_median_aud_all_rows": 390.0,
+    "price_median_aud_test": 391.0,
+    "selected_test_MAE_over_group_median_pct": 36.8,
+    "B0_test_MAE_over_group_median_pct": 59.3,
+    "B1_test_MAE_over_group_median_pct": 42.4
+  },
+  "test_by_run01_scope": {
+    "inside_run01_6615": {
+      "B0": {
+        "n": 1365,
+        "MAE_aud": 129.5,
+        "MdAPE_pct": 27.8,
+        "within20_pct": 38.8,
+        "RMSE_aud": 202.4,
+        "R2_log": -0.076
+      },
+      "B1": {
+        "n": 1365,
+        "MAE_aud": 106.5,
+        "MdAPE_pct": 20.7,
+        "within20_pct": 49.1,
+        "RMSE_aud": 187.4,
+        "R2_log": 0.238
+      },
+      "Ridge": {
+        "n": 1365,
+        "MAE_aud": 101.1,
+        "MdAPE_pct": 19.3,
+        "within20_pct": 51.8,
+        "RMSE_aud": 180.6,
+        "R2_log": 0.311
+      },
+      "RandomForest": {
+        "n": 1365,
+        "MAE_aud": 97.3,
+        "MdAPE_pct": 17.1,
+        "within20_pct": 55.4,
+        "RMSE_aud": 180.1,
+        "R2_log": 0.344
+      },
+      "HistGradientBoosting": {
+        "n": 1365,
+        "MAE_aud": 96.7,
+        "MdAPE_pct": 17.5,
+        "within20_pct": 54.5,
+        "RMSE_aud": 178.9,
+        "R2_log": 0.361
+      },
+      "XGBoost": {
+        "n": 1365,
+        "MAE_aud": 95.6,
+        "MdAPE_pct": 16.8,
+        "within20_pct": 57.1,
+        "RMSE_aud": 178.5,
+        "R2_log": 0.366
+      },
+      "LightGBM": {
+        "n": 1365,
+        "MAE_aud": 96.6,
+        "MdAPE_pct": 17.5,
+        "within20_pct": 56.4,
+        "RMSE_aud": 179.9,
+        "R2_log": 0.352
+      }
+    },
+    "outside_run01": {
+      "B0": {
+        "n": 1417,
+        "MAE_aud": 329.0,
+        "MdAPE_pct": 38.6,
+        "within20_pct": 27.6,
+        "RMSE_aud": 563.0,
+        "R2_log": -0.151
+      },
+      "B1": {
+        "n": 1417,
+        "MAE_aud": 221.8,
+        "MdAPE_pct": 26.2,
+        "within20_pct": 39.9,
+        "RMSE_aud": 375.5,
+        "R2_log": 0.542
+      },
+      "Ridge": {
+        "n": 1417,
+        "MAE_aud": 207.6,
+        "MdAPE_pct": 23.3,
+        "within20_pct": 43.3,
+        "RMSE_aud": 370.2,
+        "R2_log": 0.624
+      },
+      "RandomForest": {
+        "n": 1417,
+        "MAE_aud": 189.3,
+        "MdAPE_pct": 21.9,
+        "within20_pct": 46.4,
+        "RMSE_aud": 338.8,
+        "R2_log": 0.66
+      },
+      "HistGradientBoosting": {
+        "n": 1417,
+        "MAE_aud": 190.1,
+        "MdAPE_pct": 22.2,
+        "within20_pct": 45.8,
+        "RMSE_aud": 336.4,
+        "R2_log": 0.662
+      },
+      "XGBoost": {
+        "n": 1417,
+        "MAE_aud": 187.7,
+        "MdAPE_pct": 21.7,
+        "within20_pct": 47.2,
+        "RMSE_aud": 336.6,
+        "R2_log": 0.669
+      },
+      "LightGBM": {
+        "n": 1417,
+        "MAE_aud": 189.1,
+        "MdAPE_pct": 22.4,
+        "within20_pct": 46.2,
+        "RMSE_aud": 335.4,
+        "R2_log": 0.666
+      }
+    }
+  }
+}

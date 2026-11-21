@@ -1,0 +1,15 @@
+{
+  "method": "GroupShuffleSplit(n_splits=1, test_size=0.2, random_state=42),依 host_id 分組",
+  "train": {
+    "listings": 10903,
+    "hosts": 5389,
+    "price_median_aud": 389.76
+  },
+  "test": {
+    "listings": 2782,
+    "hosts": 1348,
+    "price_median_aud": 391.0
+  },
+  "host_overlap": 0,
+  "test_share_of_listings_pct": 20.3
+}

@@ -1,0 +1,367 @@
+{
+ "model_name": "LightGBM",
+ "params": {
+  "colsample_bytree": 0.9,
+  "learning_rate": 0.03,
+  "min_child_samples": 40,
+  "n_estimators": 600,
+  "num_leaves": 15,
+  "reg_lambda": 1.0,
+  "subsample": 0.6,
+  "subsample_freq": 1
+ },
+ "target": "ln(每晚掛牌價,澳元);預測後取 exp 換回澳元",
+ "trained_on": "2026-09-16 期整套出租(Entire home/apt,臥室、人數、最少晚數都不設範圍)、有價、每晚 ≤ 3,000 澳元的全部 13,685 間(6,737 位房東)",
+ "train_date": "2026-11-21",
+ "feature_order": [
+  "區",
+  "房型細類",
+  "緯度",
+  "經度",
+  "臥室數",
+  "可住人數",
+  "床數",
+  "浴室數",
+  "最少入住晚數",
+  "設施數",
+  "臥室數缺值旗標",
+  "可住人數缺值旗標",
+  "最少入住晚數缺值旗標",
+  "設施:Smoke alarm",
+  "設施:Kitchen",
+  "設施:Wifi",
+  "設施:Hot water",
+  "設施:Dishes and silverware",
+  "設施:Hair dryer",
+  "設施:Hangers",
+  "設施:Bed linens",
+  "設施:Iron",
+  "設施:Microwave",
+  "設施:Cooking basics",
+  "設施:Refrigerator",
+  "設施:Hot water kettle",
+  "設施:TV",
+  "設施:Shampoo",
+  "設施:Toaster",
+  "設施:Essentials",
+  "設施:Wine glasses",
+  "設施:Self check-in",
+  "設施:Washer",
+  "設施:Shower gel",
+  "設施:Dining table",
+  "設施:Dishwasher",
+  "設施:Long term stays allowed",
+  "設施:Air conditioning",
+  "設施:Oven",
+  "設施:Cleaning products",
+  "設施:Freezer",
+  "設施:Body soap",
+  "設施:Lockbox",
+  "設施:Conditioner",
+  "設施:Fire extinguisher",
+  "設施:Heating",
+  "設施:Stove",
+  "設施:Dedicated workspace",
+  "設施:Drying rack for clothing",
+  "設施:Coffee",
+  "設施:Extra pillows and blankets",
+  "設施:Room-darkening shades",
+  "設施:First aid kit"
+ ],
+ "categorical_codes": {
+  "區": [
+   "Ashfield",
+   "Auburn",
+   "Bankstown",
+   "Blacktown",
+   "Botany Bay",
+   "Burwood",
+   "Camden",
+   "Campbelltown",
+   "Canada Bay",
+   "Canterbury",
+   "City Of Kogarah",
+   "Fairfield",
+   "Holroyd",
+   "Hornsby",
+   "Hunters Hill",
+   "Hurstville",
+   "Ku-Ring-Gai",
+   "Lane Cove",
+   "Leichhardt",
+   "Liverpool",
+   "Manly",
+   "Marrickville",
+   "Mosman",
+   "North Sydney",
+   "Parramatta",
+   "Penrith",
+   "Pittwater",
+   "Randwick",
+   "Rockdale",
+   "Ryde",
+   "Strathfield",
+   "Sutherland Shire",
+   "Sydney",
+   "The Hills Shire",
+   "Warringah",
+   "Waverley",
+   "Willoughby",
+   "Woollahra"
+  ],
+  "房型細類": [
+   "Entire cabin",
+   "Entire condo",
+   "Entire cottage",
+   "Entire guest suite",
+   "Entire guesthouse",
+   "Entire home",
+   "Entire loft",
+   "Entire rental unit",
+   "Entire serviced apartment",
+   "Entire townhouse",
+   "Entire villa",
+   "Tiny home",
+   "Other"
+  ],
+  "unknown": "區沒見過 → -1;房型細類沒見過或不足 30 間 → Other"
+ },
+ "top_amenities": [
+  "Smoke alarm",
+  "Kitchen",
+  "Wifi",
+  "Hot water",
+  "Dishes and silverware",
+  "Hair dryer",
+  "Hangers",
+  "Bed linens",
+  "Iron",
+  "Microwave",
+  "Cooking basics",
+  "Refrigerator",
+  "Hot water kettle",
+  "TV",
+  "Shampoo",
+  "Toaster",
+  "Essentials",
+  "Wine glasses",
+  "Self check-in",
+  "Washer",
+  "Shower gel",
+  "Dining table",
+  "Dishwasher",
+  "Long term stays allowed",
+  "Air conditioning",
+  "Oven",
+  "Cleaning products",
+  "Freezer",
+  "Body soap",
+  "Lockbox",
+  "Conditioner",
+  "Fire extinguisher",
+  "Heating",
+  "Stove",
+  "Dedicated workspace",
+  "Drying rack for clothing",
+  "Coffee",
+  "Extra pillows and blankets",
+  "Room-darkening shades",
+  "First aid kit"
+ ],
+ "defaults_for_predict_one": {
+  "nb_centroid_median_latlon": {
+   "Ashfield": [
+    -33.88964,
+    151.12946
+   ],
+   "Auburn": [
+    -33.84837,
+    151.07325
+   ],
+   "Bankstown": [
+    -33.91539,
+    151.02939
+   ],
+   "Blacktown": [
+    -33.70922,
+    150.88793
+   ],
+   "Botany Bay": [
+    -33.92451,
+    151.19087
+   ],
+   "Burwood": [
+    -33.87719,
+    151.10163
+   ],
+   "Camden": [
+    -34.01062,
+    150.74808
+   ],
+   "Campbelltown": [
+    -34.02267,
+    150.82751
+   ],
+   "Canada Bay": [
+    -33.8479,
+    151.09322
+   ],
+   "Canterbury": [
+    -33.92011,
+    151.1124
+   ],
+   "City Of Kogarah": [
+    -33.97119,
+    151.11042
+   ],
+   "Fairfield": [
+    -33.88638,
+    150.93315
+   ],
+   "Holroyd": [
+    -33.82176,
+    150.98838
+   ],
+   "Hornsby": [
+    -33.70995,
+    151.08763
+   ],
+   "Hunters Hill": [
+    -33.8346,
+    151.13911
+   ],
+   "Hurstville": [
+    -33.96432,
+    151.09335
+   ],
+   "Ku-Ring-Gai": [
+    -33.75497,
+    151.16076
+   ],
+   "Lane Cove": [
+    -33.81815,
+    151.17492
+   ],
+   "Leichhardt": [
+    -33.86703,
+    151.17248
+   ],
+   "Liverpool": [
+    -33.92879,
+    150.90955
+   ],
+   "Manly": [
+    -33.79683,
+    151.28501
+   ],
+   "Marrickville": [
+    -33.90189,
+    151.16348
+   ],
+   "Mosman": [
+    -33.82749,
+    151.24248
+   ],
+   "North Sydney": [
+    -33.83772,
+    151.21281
+   ],
+   "Parramatta": [
+    -33.81568,
+    151.00651
+   ],
+   "Penrith": [
+    -33.76287,
+    150.71169
+   ],
+   "Pittwater": [
+    -33.63367,
+    151.31957
+   ],
+   "Randwick": [
+    -33.92095,
+    151.25003
+   ],
+   "Rockdale": [
+    -33.94819,
+    151.14549
+   ],
+   "Ryde": [
+    -33.78898,
+    151.11349
+   ],
+   "Strathfield": [
+    -33.86568,
+    151.08357
+   ],
+   "Sutherland Shire": [
+    -34.05176,
+    151.14636
+   ],
+   "Sydney": [
+    -33.87808,
+    151.20629
+   ],
+   "The Hills Shire": [
+    -33.69219,
+    150.97702
+   ],
+   "Warringah": [
+    -33.76195,
+    151.28602
+   ],
+   "Waverley": [
+    -33.89077,
+    151.27171
+   ],
+   "Willoughby": [
+    -33.79628,
+    151.18461
+   ],
+   "Woollahra": [
+    -33.8802,
+    151.23995
+   ]
+  },
+  "property_type_most_common": "Entire rental unit",
+  "min_nights_median": 2
+ },
+ "scope": "整套出租(不限臥室數、人數、最少晚數)、每晚 3,000 以下;獨立房間、飯店房等其他房型不要用這個模型",
+ "banned_features": {
+  "number_of_reviews*, review_scores_*, first_review, last_review, reviews_per_month": "新房東上架前沒有評論",
+  "estimated_occupancy_l365d, estimated_revenue_l365d": "revenue = price × occupancy,直接洩漏答案;occupancy 由評論推算",
+  "availability_*": "是上架後的行事曆結果,新房東沒有",
+  "price_quote_*": "跟價格直接相關(報價本身)",
+  "host_is_superhost, host_listings_count 等房東經營資料": "新房東沒有"
+ },
+ "test_metrics_note": "下面的測試集成績來自「只用 80% 訓練集」訓練的同一組參數;本檔模型用 100% 資料重訓,沒有另外可評的測試集",
+ "test_metrics_80pct_version": {
+  "n": 2782,
+  "MAE_aud": 143.7,
+  "MdAPE_pct": 19.4,
+  "within20_pct": 51.2,
+  "RMSE_aud": 270.5,
+  "R2_log": 0.622,
+  "selected": true,
+  "cv_MAE_train5fold": 140.17
+ },
+ "cv_MAE_train5fold": 140.17,
+ "package_versions": {
+  "python": "3.11.9",
+  "scikit-learn": "1.4.2",
+  "xgboost": "3.2.0",
+  "lightgbm": "4.6.0",
+  "pandas": "2.1.4",
+  "numpy": "1.26.4",
+  "joblib": "1.3.2",
+  "matplotlib": "3.7.5"
+ },
+ "group": "entire_home_all",
+ "missing_value_rules": "臥室數、可住人數、最少入住晚數缺值補中位數(用該群有價的全部列算)並各加缺值旗標",
+ "flag_columns": [
+  "bed_missing",
+  "acc_missing",
+  "min_missing"
+ ],
+ "feature_order_note": "2026-11-21 更正:原本這個清單取自八成訓練集的設施名單,和最終模型(用全部資料的設施名單)在設施欄的順序對不上(12 個位置;兩份名單的項目相同,只是順序不同)。只是名稱標示,模型與預測不受影響(predict_one 一直是照 top_amenities 組資料)。"
+}

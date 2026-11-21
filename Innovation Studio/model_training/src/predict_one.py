@@ -19,9 +19,10 @@ import pandas as pd  # noqa: E402
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--run', default='run_2026-11-21_01')
+    ap.add_argument('--group', default='entire_1_2', choices=list(C.GROUPS), help='房源群(預設 entire_1_2 = 第一次訓練)')
+    ap.add_argument('--run', default=None, help='預設:該房源群對應的 run')
     ap.add_argument('--nb', required=True, help='區(neighbourhood_cleansed),例如 Sydney')
-    ap.add_argument('--bedrooms', type=int, required=True, choices=[1, 2])
+    ap.add_argument('--bedrooms', type=int, required=True, help='臥室數(整套 1–2 臥那一群只能 1 或 2)')
     ap.add_argument('--acc', type=int, required=True, help='可住人數 2–4')
     ap.add_argument('--beds', type=float, required=True)
     ap.add_argument('--baths', type=float, required=True)
@@ -32,7 +33,10 @@ def main():
     ap.add_argument('--lon', type=float, default=None)
     a = ap.parse_args()
 
-    run = C.RUNS / a.run
+    G = C.GROUPS[a.group]
+    if a.group == 'entire_1_2' and a.bedrooms not in (1, 2):
+        ap.error('entire_1_2 群的臥室數只能是 1 或 2')
+    run = C.RUNS / (a.run or G['run_default'])
     bundle = joblib.load(run / 'model_final.joblib')
     card = json.load(open(run / 'model_card.json', encoding='utf-8'))
     dfl = card['defaults_for_predict_one']
@@ -48,6 +52,8 @@ def main():
                          'lat': lat, 'lon': lon, 'bed_n': a.bedrooms, 'acc': a.acc, 'beds_n': a.beds, 'baths': a.baths,
                          'min_n': a.min_nights if a.min_nights is not None else dfl['min_nights_median'],
                          'amen_n': len(amen), 'amen': amen}])
+    for fl in spec.flags:   # 新增兩群的缺值旗標:使用者有給值 → 0
+        row[fl] = 0
     X, _ = C.make_X(row, spec)
     price = float(np.exp(bundle['model'].predict(X)[0]))
 
@@ -56,8 +62,12 @@ def main():
     if unknown:
         print(f'  注意:這些設施不在模型的 40 項名單裡,只算進設施數:{unknown}')
     print(f'模型參考價:{price:,.1f} 澳元/晚')
-    for label, name in [('6,615 間(去掉每晚 > 2,000)', ['train_table_2026-09.csv']),
-                        ('6,639 間(含極端值,同報告附錄 B 的口徑)', ['train_table_2026-09.csv', 'extremes_dropped_24.csv'])]:
+    if a.group == 'entire_1_2':
+        pool_sets = [('6,615 間(去掉每晚 > 2,000)', ['train_table_2026-09.csv']),
+                     ('6,639 間(含極端值,同報告附錄 B 的口徑)', ['train_table_2026-09.csv', 'extremes_dropped_24.csv'])]
+    else:
+        pool_sets = [(f'模型用表(去掉每晚 > {G["cap"]:,})', [G['table']]), ('含極端值', [G['table'], G['ext']])]
+    for label, name in pool_sets:
         pool = pd.concat([pd.read_csv(C.PROC / n, dtype={'id': str, 'host_id': str, 'bedrooms': str},
                                       keep_default_na=False) for n in name])
         pr, how = C.peers(pool, a.nb, a.bedrooms, lat, lon)

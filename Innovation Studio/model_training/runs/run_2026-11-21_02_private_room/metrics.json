@@ -1,0 +1,168 @@
+{
+  "selected_model": "LightGBM",
+  "selection_rule": "訓練集內 5 折 GroupKFold(依房東)的平均澳元 MAE 最低",
+  "test_set": {
+    "n": 630,
+    "note": "每個方法只在測試集評一次",
+    "results": {
+      "B0": {
+        "n": 630,
+        "MAE_aud": 57.7,
+        "MdAPE_pct": 28.6,
+        "within20_pct": 38.6,
+        "RMSE_aud": 100.6,
+        "R2_log": -0.015,
+        "selected": false,
+        "cv_MAE_train5fold": null
+      },
+      "B1": {
+        "n": 630,
+        "MAE_aud": 49.8,
+        "MdAPE_pct": 23.3,
+        "within20_pct": 44.3,
+        "RMSE_aud": 89.5,
+        "R2_log": 0.285,
+        "selected": false,
+        "cv_MAE_train5fold": null
+      },
+      "Ridge": {
+        "n": 630,
+        "MAE_aud": 45.7,
+        "MdAPE_pct": 21.7,
+        "within20_pct": 47.5,
+        "RMSE_aud": 83.1,
+        "R2_log": 0.412,
+        "selected": false,
+        "cv_MAE_train5fold": 45.04
+      },
+      "RandomForest": {
+        "n": 630,
+        "MAE_aud": 42.6,
+        "MdAPE_pct": 18.2,
+        "within20_pct": 54.1,
+        "RMSE_aud": 81.0,
+        "R2_log": 0.479,
+        "selected": false,
+        "cv_MAE_train5fold": 44.09
+      },
+      "HistGradientBoosting": {
+        "n": 630,
+        "MAE_aud": 42.3,
+        "MdAPE_pct": 19.5,
+        "within20_pct": 51.0,
+        "RMSE_aud": 78.7,
+        "R2_log": 0.507,
+        "selected": false,
+        "cv_MAE_train5fold": 45.51
+      },
+      "XGBoost": {
+        "n": 630,
+        "MAE_aud": 42.1,
+        "MdAPE_pct": 18.0,
+        "within20_pct": 53.7,
+        "RMSE_aud": 79.5,
+        "R2_log": 0.485,
+        "selected": false,
+        "cv_MAE_train5fold": 44.47
+      },
+      "LightGBM": {
+        "n": 630,
+        "MAE_aud": 42.6,
+        "MdAPE_pct": 18.4,
+        "within20_pct": 53.2,
+        "RMSE_aud": 80.6,
+        "R2_log": 0.482,
+        "selected": true,
+        "cv_MAE_train5fold": 43.92
+      }
+    }
+  },
+  "oof_5fold_all": {
+    "protocol": "全部 2,915 間、GroupKFold(5) 依房東(不洗牌)、設施名單用全部 2,915 間決定;額外看法,沒用來選模型",
+    "B0": {
+      "n": 2915,
+      "MAE_aud": 58.6,
+      "MdAPE_pct": 30.0,
+      "within20_pct": 34.3,
+      "RMSE_aud": 101.8,
+      "R2_log": -0.008
+    },
+    "B1": {
+      "n": 2915,
+      "MAE_aud": 51.6,
+      "MdAPE_pct": 25.6,
+      "within20_pct": 40.3,
+      "RMSE_aud": 91.8,
+      "R2_log": 0.24
+    },
+    "selected_LightGBM": {
+      "n": 2915,
+      "MAE_aud": 43.5,
+      "MdAPE_pct": 19.9,
+      "within20_pct": 50.1,
+      "RMSE_aud": 83.6,
+      "R2_log": 0.465
+    }
+  },
+  "learning_curve_summary": [
+    {
+      "訓練比例": 0.1,
+      "間數": 353.7,
+      "MAE": 46.2,
+      "最低": 43.7,
+      "最高": 48.4,
+      "B1": 53.9
+    },
+    {
+      "訓練比例": 0.2,
+      "間數": 459.3,
+      "MAE": 45.6,
+      "最低": 43.0,
+      "最高": 47.2,
+      "B1": 53.3
+    },
+    {
+      "訓練比例": 0.4,
+      "間數": 936.0,
+      "MAE": 44.6,
+      "最低": 43.8,
+      "最高": 45.3,
+      "B1": 51.5
+    },
+    {
+      "訓練比例": 0.6,
+      "間數": 1373.3,
+      "MAE": 43.0,
+      "最低": 42.5,
+      "最高": 43.3,
+      "B1": 51.1
+    },
+    {
+      "訓練比例": 0.8,
+      "間數": 1828.3,
+      "MAE": 42.3,
+      "最低": 41.7,
+      "最高": 42.8,
+      "B1": 50.4
+    },
+    {
+      "訓練比例": 1.0,
+      "間數": 2285.0,
+      "MAE": 42.6,
+      "最低": 42.6,
+      "最高": 42.6,
+      "B1": 49.8
+    }
+  ],
+  "top20pct_price_share_of_abs_error_pct": 50.5,
+  "group": {
+    "name": "private_room",
+    "title": "獨立房間",
+    "rows": 2915,
+    "price_median_aud_all_rows": 130.0,
+    "price_median_aud_test": 134.0,
+    "selected_test_MAE_over_group_median_pct": 32.8,
+    "B0_test_MAE_over_group_median_pct": 44.4,
+    "B1_test_MAE_over_group_median_pct": 38.3
+  }
+}
