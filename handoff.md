@@ -3501,3 +3501,13 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - 重算後的數字(只有主腦的程式算過):K 對 A —— TP 136 / FP 6 / FN 25,precision 0.958、recall 0.845、micro F1 0.898、macro F1 0.834;兩邊都提到的 136 格好壞相同 108(79.4%);350 格標籤相同 291。A 的引用 161/161 找得到;overall pos 41 / neg 3 / mixed 6;random 35 條有負面 8、low_rated 15 條有負面 9。(其中 A 的分布、161/161、8 與 9,與拿掉前 IS-1121-REVIEW-V 獨立重算的結果相同;K 對 A 的數字沒有第二人重算。)
 - 現況:評論試跑 = 一個 AI(Claude Sonnet)+ 關鍵字法對照 + 主腦抽看 12 條;沒有第二個獨立讀者、沒有人工答案。
 - 成本:這一筆 0 個分身。累計不變(23 個分身 3,195,659 token;Codex 1 趟,之後不再使用)。
+
+## 2026-11-21(下午續 2)· CLAUDE.md 與派工守則拿掉 Codex
+
+- Kenny:「好,改掉」(主腦問:要不要把 CLAUDE.md 和派工守則裡寫到 Codex 的地方也改掉)。
+- `CLAUDE.md`:第 5 行「Agent×Codex 兩腦驗證架構」改成「生產與獨立核對分開(§5)」;新增一條:不用 ChatGPT / Codex 與任何 Claude 以外的 AI 服務,資料要送到 Anthropic 以外的服務一律先問。
+- `.claude/skills/uts-dispatch/SKILL.md`(第三次改版,251 → 252 行):frontmatter description;檔頭第 12 行;§0 表的三列(Codex CLI 標停用、「三條老教訓」改成「獨立核對怎麼做」、驅動方式標已刪)與「Codex 能力邊界」改成「影音驗收」;§1 第 2 條拿掉 `/codex-verify`、第 7 條;§2.2 驗證軌 ② 改成 fresh Agent(非產出者、不看產出者的程式與結論);§3 兩條;§5 整節改名改寫(軌 ② = fresh Claude;加「同家族的限制」);§8.3;核對紀錄加一條;references 清單兩列標停用。
+- `references/codex-collab.md`、`codex-driving-vmx-machine.md`、`README.md`:檔案最上面各加一段停用說明,原文沒動。
+- **沒有動、留給 Kenny 決定**:`.claude/commands/codex-verify.md`(`/codex-verify` 指令還在)、`.claude/settings.json` 第 29–30 行(允許 `PowerShell(codex exec *)`、`codex --version`;這是權限設定,主腦不自己改)。handoff.md 檔頭表格裡的「Codex 陷阱」一列也沒動(append-only)。
+- 核對:改完 grep SKILL.md,剩下提到 Codex 的 15 行都是「已停用 / 原本是 / 歷史紀錄」;frontmatter 仍是合法的三行。只有主腦自檢,沒有獨立核對。
+- memory `no-chatgpt-codex-no-outside-ai` 同步更新。成本:0 個分身。

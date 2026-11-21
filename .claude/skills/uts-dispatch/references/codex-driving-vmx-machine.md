@@ -1,3 +1,5 @@
+> ⛔ **2026-11-21 起停用。** Kenny 確認這個 workspace 的流程已移除 ChatGPT / Codex:不要呼叫 `codex`,不要照這份文件做。內容原樣保留,只當歷史紀錄。現行做法看 `../SKILL.md` §5(獨立核對改用 fresh Claude 分身)。
+
 # Driving Codex non-interactively (Kenny's machine)
 
 Codex (`codex.ps1`, gpt-5.5, already `codex login`) on this company machine has three independent traps that each

@@ -1,3 +1,5 @@
+> ⛔ **2026-11-21 補**:這個資料夾是舊文件的逐字存檔。裡面所有寫到 Codex / GPT 的做法都已停用(Kenny 確認流程已移除 ChatGPT),只當歷史紀錄,不要照做。現行規則以 `../SKILL.md` 為準。
+
 # references — 移植來源與適用性
 
 - **來源**:`D:\KennyCode\MiTAC-VMX\.claude\governance\`(00–05 六檔,Fable 撰寫 v2 2026-07-09)+ `weekly-ingest/references/codex-driving.md`。2026-07-16 逐字複製,**未改動內文**;更新以 VMX repo 為母本。

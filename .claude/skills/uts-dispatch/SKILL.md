@@ -1,6 +1,6 @@
 ---
 name: uts-dispatch
-description: 指揮官派工守則(UTS_workspace)— 主腦只想、拆、寫工單、驗收;照工單做的派 sonnet high、核心派 opus high;Codex(異家族)對抗驗證。多步驟任務、批次讀檔、事實類交付、需要第二意見、開分身之前使用。派工 分工 開分身 省額度 model effort opus sonnet fable subagent.
+description: 指揮官派工守則(UTS_workspace)— 主腦只想、拆、寫工單、驗收;照工單做的派 sonnet high、核心派 opus high;獨立核對用 fresh Claude 分身(不用 Codex / ChatGPT)。多步驟任務、批次讀檔、事實類交付、需要第二意見、開分身之前使用。派工 分工 開分身 省額度 model effort opus sonnet fable subagent.
 ---
 
 # 指揮官手冊(UTS_workspace 版)
@@ -9,7 +9,7 @@ description: 指揮官派工守則(UTS_workspace)— 主腦只想、拆、寫工
 > **2026-11-11 第二次改版**(Kenny 確認):整本跟上 `zm-dispatch`(Kenny 2026-11-08、11-11)的派工邏輯 ——
 > 主腦只想不做、層級改成「模型 × effort」、不用 haiku、工單六欄、每張工單自己帶上限;同日重查 §0 全部事實。
 > 這一版的獨立核對狀態寫在最下面「本版核對紀錄」。
-> 原始 6 檔 + VMX Codex 配方逐字保存在 [references/](references/)。
+> **2026-11-21 第三次改版**(Kenny 確認):**流程已移除 ChatGPT / Codex**,不呼叫任何 Claude 以外的 AI 服務;原本交給 Codex 的事實面核對,改由 fresh Claude 分身(非產出者)做。原始 6 檔逐字保存在 [references/](references/);其中兩份 Codex 配方已停用,只留作歷史,不要照做。
 > 讀者 = 任何等級的主模型;規則可執行、有判準,不確定時照字面做。
 
 ## 0. 本環境實查表(2026-11-11 Win 機重查)
@@ -23,11 +23,11 @@ description: 指揮官派工守則(UTS_workspace)— 主腦只想、拆、寫工
 | Agent tool `subagent_type` | `Explore`(只讀)/ `Plan` / `general-purpose`(全工具)/ `fork` | 未指定 = general-purpose。**`fork` 一定跟主腦同模型,寫 model 也沒用** → 主腦是 Fable 時不用 fork |
 | Agent 執行模式 | **一律背景**,做完才通知 | **2026-11-11 schema 實查:`run_in_background` 參數已不存在**,沒有「同步」開關。派出去就等通知:不輪詢、不自己重做同一件事、不預測結果 |
 | Workflow 腳本 | `agent()` 支援 model + effort | ⚠️ 需明確授權:Kenny 說「ultracode」或明確要求「用 workflow」才可呼叫;曖昧說法 → 改同一則訊息平行發多個 Agent。每個 agent 都寫 model 與 effort,**opus 最多 1 個** |
-| Codex CLI | `~/.codex/config.toml`:`model = "gpt-6.1-sol"`、`model_reasoning_effort = "high"`、`service_tier = "priority"` | **2026-11-11 實查**:PATH 上的 npm 版 `codex` = **0.162.1**,用預設設定 smoke **EXIT=0**(9/15 那次「npm 版太舊打不動」已解除)。備援 = Codex 桌面 App 內建 CLI(當日 0.167.0-alpha.3.2),路徑讀 config 的 `CODEX_CLI_PATH`,`<hash>` 會變,**每次先讀、不要寫死**。旗標 `--sandbox danger-full-access`(Kenny 2026-07-22 指示)。要更深就自己加 `-c model_reasoning_effort="xhigh"`[⚠️假設:xhigh 在 gpt-6.1-sol 上未重測]。配方與歷次踩坑見 [codex-collab.md](references/codex-collab.md) |
-| Codex 三條老教訓 | (照做就好) | ① **打不動先對版本**:config 的 model 換了、CLI 沒跟上會回 400 → 改叫桌面版 CLI,不要瞎重試。② **有用量上限**:大件多輪審查別一次平行開多趟,失敗重跑的趟數也算;撞到就改派 fresh Claude agent(非產出者),交付時標明哪部分是誰驗的。③ **Win 機 prompt 用純 ASCII**;來源檔名含中文 → 先複製成 ASCII 檔名到 scratchpad(附 sha256 對賬) |
-| Codex 驅動方式(依平台) | **Win = PowerShell**;Mac = Bash heredoc | Win:prompt 走 stdin、答案 `-o` 落檔。Mac(2026-07-26 實查):`cat prompt.txt \| codex exec --sandbox danger-full-access -o out.md`,中文 prompt 沒亂碼。跑完一律 `git status` 對賬。「叫不到 codex」多半是**開著的舊行程拿到舊 PATH**,不是 PATH 沒設 —— 解法見 codex-collab.md §8 |
+| ~~Codex CLI~~(**已停用**) | **不使用** | **2026-11-21 Kenny 確認:流程已移除 ChatGPT / Codex。不要呼叫 `codex`,也不要用任何 Claude 以外的 AI 服務 —— 電腦上裝著、`settings.json` 裡有允許規則,都不代表可以用。** 需要第二意見 → fresh Claude 分身(非產出者,可以換模型)或請人看。**把資料送到 Anthropic 以外的服務算對外送出,一律先問 Kenny**(公開資料也一樣)。起因記在本檔最下面的核對紀錄 |
+| 獨立核對怎麼做(取代 Codex) | fresh Claude 分身,**非產出者** | ① 不給它看產出者的程式、結果和結論,只給規則和原始資料,讓它自己重算或重讀。② 數字類:兩份結果存成同樣格式,用腳本逐項比對,報最大差距。③ 兩個 Claude 可能錯在同一個地方 → 交付時寫明「只有 Claude 驗過」,高風險的請 Kenny 或隊友人工抽看 |
+| (已刪)Codex 驅動方式 | — | 2026-11-21 停用。舊配方只留在 references/ 當歷史紀錄,不要照做 |
 | Canvas 抓取 | `/canvas-sync`(claude-in-chrome + Canvas API) | 頁面:同源 `fetch('/api/v1/courses/<c>/pages/<slug>')`;檔案:`/api/v1/files/<id>/public_url` → `curl -o`。⚠️ `javascript_tool` 單次回傳約 1000 字元,長內容分批(2026-07-26 Mac 實測) |
-| Codex 能力邊界 | **播不了影片/音訊** | 影音驗收走 `/watch`,最後人耳留 Kenny(見 [a3-pitch-gates.md](references/a3-pitch-gates.md)) |
+| 影音驗收 | 分身看不了影片、聽不了音訊時 | 走 `/watch`,最後人耳留 Kenny(見 [a3-pitch-gates.md](references/a3-pitch-gates.md)) |
 | 主腦(主迴圈) | Kenny 開對話時選的模型,中途不換 | **2026-11-11 = Fable 5.2**(試用,見 §2.3)。平常 = Opus |
 
 ### 0.1 費率表(排相對貴度用,不用來算錢)
@@ -48,12 +48,12 @@ description: 指揮官派工守則(UTS_workspace)— 主腦只想、拆、寫工
 ## 1. 七條鐵則
 
 1. **主腦只做四件事:想清楚、拆工作、寫工單、驗收。** 不做長執行。主對話「**5 個工具呼叫內,而且輸出很小**」才自己做(主腦是 Fable 時改 **3 個**)。讀長檔、掃 repo、查網頁、批次改檔一律派分身 —— 網頁全文和長檔留在主對話裡,之後每一回合都要再算一次錢。
-2. **現成的腳本和 skill 做得到,就不派模型。** `/canvas-sync`、`/handoff`、`/codex-verify`、`/watch`、repo 裡的 `build_*.py`、`analysis/*.py` 先用。
+2. **現成的腳本和 skill 做得到,就不派模型。** `/canvas-sync`、`/handoff`、`/watch`、repo 裡的 `build_*.py`、`analysis/*.py` 先用。(`/codex-verify` 已停用,不要用。)
 3. **預設 sonnet high;核心用 opus high;最低 sonnet low。** 不用 haiku,不用 opus low(只少想一點,價錢沒少多少)。**拿不準就升一級** —— 便宜的做錯重來更貴,而且抄漏的內容下游會當成「不存在」。
 4. **工單六欄缺一不派**(§2.4):單/範圍/先讀/禁止/上限/回報。**model 和 effort 一定要寫。**
 5. **回報合約**:分身第一行 = 一句話 TL;DR;之後只有「結論 + 檔案:行號」;長產物(>50 行)落檔回傳路徑,不回貼全文。
 6. **先試跑再放量**:新型任務先派 1 個最小樣本,驗收格式與耗時 OK 才批次。
-7. **驗證不自驗**:產出者不當驗收者。**自檢可以提供客觀完成證據(命令輸出、檔案 read-back、對賬數字),但永遠不滿足「需要獨立驗證」的要求 —— 這是兩件事**(§6 R-獨立)。事實類文件 → fresh agent 或 **Codex 異家族**核對;高風險判斷 → 第二意見。
+7. **驗證不自驗**:產出者不當驗收者。**自檢可以提供客觀完成證據(命令輸出、檔案 read-back、對賬數字),但永遠不滿足「需要獨立驗證」的要求 —— 這是兩件事**(§6 R-獨立)。事實類文件 → **fresh Claude 分身(非產出者)**核對,不用 Codex / ChatGPT;高風險判斷 → 第二意見。
 
 ## 2. 層級與派工表
 
@@ -86,7 +86,7 @@ description: 指揮官派工守則(UTS_workspace)— 主腦只想、拆、寫工
 | 開放式研究、多來源、查網路 | Agent,**工單一定寫搜尋次數上限**(這類最燒錢,見 §8.4) | sonnet high | general-purpose | 25／12 萬,搜尋 ≤ 8 次 | 10 |
 | 批次改字(同一個字多處) | 先 grep 列位置;同一個字用一支腳本取代。只有要看上下文的幾處才派 | sonnet low | general-purpose | 10／8 萬 | 5 |
 | 語意/rubric 覆蓋審查(驗證軌 ①) | fresh Agent,**非產出者** | sonnet high | general-purpose | 20／10 萬 | 10 |
-| 數字再推導、跨文件矛盾、引用實在性、方法論(驗證軌 ②) | **Codex(read-only)**,`/codex-verify`;與軌 ① 同一則訊息發 | Codex | — | 單趟 < 8 分鐘 | 逐條 verdict |
+| 數字再推導、跨文件矛盾、引用實在性、方法論(驗證軌 ②) | fresh Agent,**非產出者**:只給規則和原始資料,不給產出者的程式與結論,讓它自己重算;與軌 ① 同一則訊息發 | sonnet high(核心數字 opus high) | general-purpose | 20／10 萬 | 逐條 verdict |
 | 口試、答辯對抗演練 | fresh Agent 扮評分者,嚴格計時,追問決策/替代方案/風險 | sonnet high | general-purpose | 20／10 萬 | 10 |
 | workflow、大型分析 | **先問 Kenny**;每個 agent 寫 model 與 effort;opus 最多 1 個 | — | — | — | 30 |
 | 對外定稿、不可逆動作、裁決 | 主腦 + Kenny(唯一該下場的事) | — | — | — | — |
@@ -126,11 +126,11 @@ Fable 寫字比 Opus 貴一倍、比 Sonnet 貴四倍,所以:
 - **sonnet low 錯 1 次** → sonnet high。
 - **sonnet high 同一張單被打回 2 次** → opus high **新單**,只帶失敗摘要(不把整段對話丟過去)。
 - **opus high 還是沒好** → 主腦是 Fable:照 §2.3 開 fable high 短單。主腦是 Opus:收回主對話;仍無解 → 照 R-問人 交 Kenny。
-- **水平換家族(盲點型錯)**:沿用舊 context、跨文件矛盾、數字抄自己算過的、自驗盲點 → **不是升級,是開 Codex**。升級解決不了盲點。
+- **盲點型錯**(沿用舊 context、跨文件矛盾、數字抄自己算過的、自驗盲點)→ **不是升級,是換一個沒看過舊內容的 fresh Claude 分身**,只給原始資料,讓它從頭重算。升級解決不了盲點。(這裡原本寫「開 Codex」,2026-11-21 停用。)
 - **到上限**:分身停下回報進度;主腦問 Kenny「**A 繼續(推薦)/ B 停**」。
 - **降級**:高階解出模式 → 整理成可照抄的步驟 → 批次改派 sonnet high 或 sonnet low。
 - 同一件事最多重試 2 輪;第 3 輪 = 換方法或升級(R-換路)。不第三次原樣重派。
-- Codex timeout = 拆小任務,不是換模型。
+- 分身逾時或到上限 = 拆小任務,不是換模型。
 - 「錯」的定義:驗收未過、缺必答欄位、引用不存在的路徑/ID、或驗收者打回。格式醜但內容對 ≠ 錯。
 
 ## 4. 並行紀律
@@ -141,25 +141,25 @@ Fable 寫字比 Opus 貴一倍、比 Sonnet 貴四倍,所以:
 - 兩個分身不碰同一批檔案;會碰 → 串行,或 `isolation: "worktree"`。
 - 分身一律背景跑(§0):派完就做不依賴它的事,或等通知;**不輪詢、不猜結果**。
 
-## 5. Agent × Codex 兩腦協作架構
+## 5. 生產 × 獨立核對 兩線架構(原「Agent × Codex 兩腦」,2026-11-21 改)
 
-核心:**Claude 生產、Codex(異家族)驗證** —— Codex 抓到的錯多是「Claude 沿用自己舊筆記」型,自驗有共同盲點。完整配方見 [references/codex-collab.md](references/codex-collab.md)。
+核心:**生產的人和核對的人分開** —— 最常見的錯是「沿用自己舊筆記」型,自驗有共同盲點,所以核對的分身不能看產出者的程式和結論。**不用 Codex / ChatGPT**(Kenny 2026-11-21);舊配方 [references/codex-collab.md](references/codex-collab.md) 只留作歷史。
 
 ```text
 主腦(Opus medium;試用期 Fable medium)— 想、拆、寫工單、驗收
  ├─ 生產線:sonnet high 照工單做 → opus high 做核心(論證、數字、方法)
  ├─ 驗證線【並行,同一則訊息發出,不排隊】
  │   ├─ 軌①語意面:fresh Claude(sonnet high,非產出者)— 有沒有漏講、rubric 有沒有蓋到、論證缺口
- │   └─ 軌②事實面:Codex(read-only)— 數字、跨文件矛盾、引用實在性、方法論
+ │   └─ 軌②事實面:fresh Claude(非產出者,不看產出者的程式)— 數字獨立重算、跨文件矛盾、引用實在性、方法論
  └─ 裁決:主腦整合 → 對外/不可逆 → Kenny
 ```
 
 **兩軌查的維度不重疊,所以並行不犧牲覆蓋 —— 省的是等待時間。**
 
-**什麼時候一定要開 Codex(看「風險 × 獨立性」,不是看有幾條 claim):**
-- 這個錯若存在,是**能力型**(方法錯、論證漏)還是**慣性型**(抄自己舊數字、跨檔矛盾、引用不存在)?慣性型 → 必 Codex。
-- 交付**直接面對評分者或不可逆**?是 → Codex 終審閘門不可省。中間產物 → 抽查即可。
-- **Codex 不可用**(額度滿、打不動)→ 改派 fresh Claude agent(非產出者),交付時**寫明哪部分只有 Claude 驗過**。
+**什麼時候一定要開軌 ②(看「風險 × 獨立性」,不是看有幾條 claim):**
+- 這個錯若存在,是**能力型**(方法錯、論證漏)還是**慣性型**(抄自己舊數字、跨檔矛盾、引用不存在)?慣性型 → 必開軌 ②。
+- 交付**直接面對評分者或不可逆**?是 → 軌 ② 終審閘門不可省。中間產物 → 抽查即可。
+- **同家族的限制**:軌 ① 和軌 ② 都是 Claude,可能錯在同一個地方。交付時**寫明只有 Claude 驗過**;直接面對評分者的交付,請 Kenny 或隊友人工抽看一部分。
 
 **多輪稽核的範圍:**
 - R1 全件
@@ -217,7 +217,7 @@ Fable 寫字比 Opus 貴一倍、比 Sonnet 貴四倍,所以:
 - 派工時記:scope ID、model、effort、上限。
 - 回來後記:實耗 token、工具呼叫次數、有沒有超上限。
 - **沒回報用量的分身,寫「未回報」,不得當成 0。**
-- 每個 session 的 handoff entry 記**按模型分列的 subagent 總 token**;Codex 另記趟數。
+- 每個 session 的 handoff entry 記**按模型分列的 subagent 總 token**;(Codex 已停用,不再記趟數。)
 
 ### 8.4 錢最容易燒在哪(本 repo 實測)
 
@@ -234,6 +234,7 @@ Fable 寫字比 Opus 貴一倍、比 Sonnet 貴四倍,所以:
 - §0 的事實來自當日命令輸出與工具 schema(R-完成 證據);標 [⚠️假設] 的沒有實測。
 - 派工邏輯移植自 `~/.claude/skills/zm-dispatch/SKILL.md`(2026-11-08、11-11 版),「改多大」與「最低層模型」兩項由 Kenny 當日選定。
 - **沒有獨立核對。** 原本開了一趟 Codex 唯讀審查,Kenny 當場說「不用了,都由你來負責」,已中途停掉、沒有產出。所以這一版只有產出者(主腦)自檢:舊字眼掃描、節號與 CLAUDE.md 的引用對得上、references 連結 10 個全部存在、A3 三段原文搬進存檔檔。**照 R-獨立,這不算獨立驗證** —— 之後用起來發現規則互相打架,照 R-漂移 當場修並記日期。
+- **2026-11-21 補(第三次改版)**:Kenny 說「我們的流程裡面已經早就把 ChatGPT 移除了」。起因:主腦在評論分析試跑時,依本檔舊的 §5 自己叫了一趟 Codex 當第二個讀者,沒有先問,把 50 條公開評論送了出去。當天把本檔所有 Codex 段落改寫或標停用(§0 三列、§1 第 2、7 條、§2.2 軌 ②、§3 兩條、§5 全節、§8.3、references 清單),`CLAUDE.md` 加一條。**這次改寫只有主腦自檢,沒有獨立核對。** 沒有動的:`.claude/commands/codex-verify.md`、`.claude/settings.json` 裡允許 `codex exec` 的兩行(權限設定,留給 Kenny 決定)。
 
 ## references/ 清單
 
@@ -246,6 +247,6 @@ Fable 寫字比 Opus 貴一倍、比 Sonnet 貴四倍,所以:
 | [03-prompt-templates.md](references/03-prompt-templates.md) | VMX 原檔:六型派工模板(欄位以本檔 §2.4 為準) |
 | [04-maintenance-protocol.md](references/04-maintenance-protocol.md) | VMX 原檔:治理檔維護權限與教訓登記簿 |
 | [05-letter-to-future-sessions.md](references/05-letter-to-future-sessions.md) | VMX 原檔:給未來 session 的信 |
-| [codex-collab.md](references/codex-collab.md) | **本機版** Agent×Codex 協作架構 + 駕駛配方 + 輸出合約 + 環境漂移紀錄(§8) |
-| [codex-driving-vmx-machine.md](references/codex-driving-vmx-machine.md) | VMX 公司機原版配方(本機不適用,留作對照) |
+| [codex-collab.md](references/codex-collab.md) | ⛔ **2026-11-21 起停用,只留歷史,不要照做。** 原本是本機版 Agent×Codex 協作架構 + 駕駛配方 |
+| [codex-driving-vmx-machine.md](references/codex-driving-vmx-machine.md) | ⛔ **停用,只留歷史。** VMX 公司機原版 Codex 配方(本機本來就不適用) |
 | [a3-pitch-gates.md](references/a3-pitch-gates.md) | 存檔:影片 pitch / 投影片 / 口試型作業的交付閘門與 preflight(原 §2、§6 R-A3、§7.1) |

@@ -1,3 +1,5 @@
+> ⛔ **2026-11-21 起停用。** Kenny 確認這個 workspace 的流程已移除 ChatGPT / Codex:不要呼叫 `codex`,不要照這份文件做。內容原樣保留,只當歷史紀錄。現行做法看 `../SKILL.md` §5(獨立核對改用 fresh Claude 分身)。
+
 # Agent × Codex 兩腦協作架構(UTS_workspace・Kenny 個人 Win 機)
 
 > 2026-07-16 本機實測撰寫;母本 = VMX `codex-driving.md`(公司機版,見 [codex-driving-vmx-machine.md](codex-driving-vmx-machine.md))。
