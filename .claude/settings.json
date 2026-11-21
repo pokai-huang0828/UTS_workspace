@@ -26,9 +26,6 @@
       "Bash(git rev-parse *)",
       "Bash(git rev-list *)",
 
-      "PowerShell(codex exec *)",
-      "PowerShell(codex --version)",
-
       "PowerShell(Get-ChildItem *)",
       "PowerShell(Get-Content *)",
       "PowerShell(Get-Item *)",

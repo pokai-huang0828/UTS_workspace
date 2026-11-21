@@ -3511,3 +3511,12 @@ Kenny 在測驗開放當天晚上就作答完畢(9/16 開放、9/20 截止)。�
 - **沒有動、留給 Kenny 決定**:`.claude/commands/codex-verify.md`(`/codex-verify` 指令還在)、`.claude/settings.json` 第 29–30 行(允許 `PowerShell(codex exec *)`、`codex --version`;這是權限設定,主腦不自己改)。handoff.md 檔頭表格裡的「Codex 陷阱」一列也沒動(append-only)。
 - 核對:改完 grep SKILL.md,剩下提到 Codex 的 15 行都是「已停用 / 原本是 / 歷史紀錄」;frontmatter 仍是合法的三行。只有主腦自檢,沒有獨立核對。
 - memory `no-chatgpt-codex-no-outside-ai` 同步更新。成本:0 個分身。
+
+## 2026-11-21(下午續 3)· 刪除 /codex-verify 指令、拿掉 settings.json 的 codex 允許規則
+
+- Kenny:「好,都拿掉」。
+- `git rm .claude/commands/codex-verify.md`(51 行;git 歷史裡找得回來)。
+- `.claude/settings.json`:刪掉 `"PowerShell(codex exec *)"`、`"PowerShell(codex --version)"` 兩條允許規則與其後一行空白;刪完用 json 載入確認仍合法,前後比對只少這兩項、沒有多出任何項目。專案的 `settings.local.json` 與使用者層級 `~/.claude/settings*.json` 本來就沒有 codex 規則(grep 無命中)。
+- 同步:根目錄 `README.md` 第 54 行拿掉 `/codex-verify`;SKILL.md 兩處改成「已刪除」;memory 更新。
+- 沒動:電腦上安裝的 codex 程式、`~/.codex/config.toml`、references/ 的舊配方(已有停用說明)、handoff 檔頭表格的舊列。
+- 之後若有人要執行 codex,不在允許清單內;會不會跳出來問,取決於當時的權限模式(主腦沒有測)。成本:0 個分身。

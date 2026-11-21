@@ -51,7 +51,7 @@ Kenny ── 拍板 / 花錢 / 對外送出 / 憑證
 
 核心原則:**產出者不當驗收者**。交件前一定過 Codex。細節見 SKILL.md。
 
-指令:`/uts-dispatch`(載入守則)、`/handoff`(對賬交接)、`/codex-verify`(開對抗審查)。
+指令:`/uts-dispatch`(載入守則)、`/handoff`(對賬交接)。(`/codex-verify` 已在 2026-11-21 刪除:流程不用 ChatGPT / Codex。)
 
 ---
 
