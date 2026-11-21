@@ -265,3 +265,10 @@ Innovation Studio/refs/external_2026-11-17/
 
 # Innovation Studio:Stanly 清單裡的外部參考檔(ABS、data.gov.au),只留本機;下載紀錄在 notes/raw/external_downloads_2026-11-18.md
 Innovation Studio/refs/external_2026-11-18/
+
+# Innovation Studio 模型訓練資料夾(2026-11-21):repo 是公開的,Inside Airbnb 的資料不重新發布。
+# 原始檔複本、清好的訓練表、逐房預測、模型檔只留本機;訓練紀錄(彙總數字、圖、報告、程式)照常進版控。
+Innovation Studio/model_training/data/raw/
+Innovation Studio/model_training/data/processed/
+Innovation Studio/model_training/runs/**/*.joblib
+Innovation Studio/model_training/runs/**/predictions_*.csv

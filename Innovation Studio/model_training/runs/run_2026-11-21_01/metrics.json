@@ -1,0 +1,209 @@
+{
+  "selected_model": "XGBoost",
+  "selection_rule": "訓練集內 5 折 GroupKFold(依房東)的平均澳元 MAE 最低",
+  "test_set": {
+    "n": 1309,
+    "note": "每個方法只在測試集評一次",
+    "results": {
+      "B0": {
+        "n": 1309,
+        "MAE_aud": 129.0,
+        "MdAPE_pct": 24.5,
+        "within20_pct": 41.6,
+        "RMSE_aud": 215.6,
+        "R2_log": -0.002,
+        "selected": false,
+        "cv_MAE_train5fold": null
+      },
+      "B1": {
+        "n": 1309,
+        "MAE_aud": 107.6,
+        "MdAPE_pct": 20.2,
+        "within20_pct": 49.7,
+        "RMSE_aud": 189.2,
+        "R2_log": 0.303,
+        "selected": false,
+        "cv_MAE_train5fold": null
+      },
+      "Ridge": {
+        "n": 1309,
+        "MAE_aud": 100.0,
+        "MdAPE_pct": 18.8,
+        "within20_pct": 53.2,
+        "RMSE_aud": 180.9,
+        "R2_log": 0.397,
+        "selected": false,
+        "cv_MAE_train5fold": 93.29
+      },
+      "RandomForest": {
+        "n": 1309,
+        "MAE_aud": 100.7,
+        "MdAPE_pct": 19.0,
+        "within20_pct": 51.9,
+        "RMSE_aud": 182.1,
+        "R2_log": 0.392,
+        "selected": false,
+        "cv_MAE_train5fold": 92.26
+      },
+      "HistGradientBoosting": {
+        "n": 1309,
+        "MAE_aud": 98.4,
+        "MdAPE_pct": 18.7,
+        "within20_pct": 52.7,
+        "RMSE_aud": 179.3,
+        "R2_log": 0.407,
+        "selected": false,
+        "cv_MAE_train5fold": 91.6
+      },
+      "XGBoost": {
+        "n": 1309,
+        "MAE_aud": 98.0,
+        "MdAPE_pct": 18.4,
+        "within20_pct": 53.0,
+        "RMSE_aud": 180.5,
+        "R2_log": 0.406,
+        "selected": true,
+        "cv_MAE_train5fold": 90.48
+      },
+      "LightGBM": {
+        "n": 1309,
+        "MAE_aud": 98.4,
+        "MdAPE_pct": 18.3,
+        "within20_pct": 53.4,
+        "RMSE_aud": 180.7,
+        "R2_log": 0.412,
+        "selected": false,
+        "cv_MAE_train5fold": 90.61
+      }
+    }
+  },
+  "reconcile_5fold_6615": {
+    "protocol": "syd_b 原協定:6,615 間、GroupKFold(5) 依房東(不洗牌)、設施名單用全部 6,615 間決定",
+    "B0": {
+      "n": 6615,
+      "MAE_aud": 122.5,
+      "MdAPE_pct": 26.0,
+      "within20_pct": 40.1,
+      "RMSE_aud": 189.5,
+      "R2_log": -0.001
+    },
+    "B1": {
+      "n": 6615,
+      "MAE_aud": 101.7,
+      "MdAPE_pct": 21.2,
+      "within20_pct": 47.8,
+      "RMSE_aud": 162.5,
+      "R2_log": 0.321
+    },
+    "syd_b_HGB_fixed_params": {
+      "n": 6615,
+      "MAE_aud": 93.4,
+      "MdAPE_pct": 18.9,
+      "within20_pct": 51.9,
+      "RMSE_aud": 151.3,
+      "R2_log": 0.428
+    },
+    "old_report_value_MAE": 93.4,
+    "selected_XGBoost": {
+      "n": 6615,
+      "MAE_aud": 91.9,
+      "MdAPE_pct": 18.6,
+      "within20_pct": 53.0,
+      "RMSE_aud": 150.3,
+      "R2_log": 0.449
+    },
+    "syd_b_HGB_matches_93.4": true
+  },
+  "timeout_check": {
+    "train": "2026-06-16 期篩選、有價、去極端後 6,747 間",
+    "test": "2026-09-16 期 6,615 間中 id 不在 6 月整期的 821 間",
+    "B0": {
+      "n": 821,
+      "MAE_aud": 122.0,
+      "MdAPE_pct": 25.1,
+      "within20_pct": 41.2,
+      "RMSE_aud": 194.9,
+      "R2_log": -0.05
+    },
+    "B1": {
+      "n": 821,
+      "MAE_aud": 103.2,
+      "MdAPE_pct": 21.6,
+      "within20_pct": 46.4,
+      "RMSE_aud": 167.9,
+      "R2_log": 0.277
+    },
+    "selected_XGBoost": {
+      "n": 821,
+      "MAE_aud": 93.7,
+      "MdAPE_pct": 18.8,
+      "within20_pct": 53.0,
+      "RMSE_aud": 154.8,
+      "R2_log": 0.393
+    },
+    "syd_b_HGB_fixed_params(對照)": {
+      "n": 821,
+      "MAE_aud": 94.1,
+      "MdAPE_pct": 18.5,
+      "within20_pct": 53.5,
+      "RMSE_aud": 155.9,
+      "R2_log": 0.381
+    },
+    "old_report_values_MAE": {
+      "B0": 122.0,
+      "B1": 103.2,
+      "M2": 94.1
+    }
+  },
+  "learning_curve_summary": [
+    {
+      "訓練比例": 0.1,
+      "間數": 535.3,
+      "MAE": 106.5,
+      "最低": 105.7,
+      "最高": 107.1,
+      "B1": 112.0
+    },
+    {
+      "訓練比例": 0.2,
+      "間數": 1069.0,
+      "MAE": 104.7,
+      "最低": 103.1,
+      "最高": 106.6,
+      "B1": 108.9
+    },
+    {
+      "訓練比例": 0.4,
+      "間數": 2134.3,
+      "MAE": 101.3,
+      "最低": 100.9,
+      "最高": 101.6,
+      "B1": 108.1
+    },
+    {
+      "訓練比例": 0.6,
+      "間數": 3184.0,
+      "MAE": 100.6,
+      "最低": 100.4,
+      "最高": 100.7,
+      "B1": 107.5
+    },
+    {
+      "訓練比例": 0.8,
+      "間數": 4270.7,
+      "MAE": 99.0,
+      "最低": 98.7,
+      "最高": 99.2,
+      "B1": 107.9
+    },
+    {
+      "訓練比例": 1.0,
+      "間數": 5306.0,
+      "MAE": 98.0,
+      "最低": 98.0,
+      "最高": 98.0,
+      "B1": 107.6
+    }
+  ],
+  "top20pct_price_share_of_abs_error_pct": 50.3
+}
